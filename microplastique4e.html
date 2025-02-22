@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Escape Game : Mission Microplastiques</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://images.unsplash.com/photo-1670327366994-72bc6aab04fa?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center/cover;
+            color: #f0f0f0;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        .block {
+            display: none;
+            background: rgba(128, 128, 128, 0.85);
+            border: 3px solid #A9A9A9;
+            padding: 20px;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #A9A9A9;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .block.active {
+            display: block;
+            opacity: 1;
+        }
+        .course-window {
+            display: none;
+            background: rgba(128, 128, 128, 0.7);
+            border: 2px solid #A9A9A9;
+            padding: 15px;
+            max-width: 400px;
+            border-radius: 8px;
+            position: absolute;
+            color: #f0f0f0;
+            font-size: 14px;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .course-window.active {
+            display: block;
+            opacity: 1;
+        }
+        h1, h2 {
+            color: #A9A9A9;
+            text-shadow: 0 0 5px #808080;
+        }
+        button {
+            background-color: #A9A9A9;
+            border: none;
+            padding: 10px 20px;
+            color: #f0f0f0;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #808080;
+        }
+        input, select {
+            padding: 8px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #A9A9A9;
+            background: #fff;
+            color: #333;
+            font-size: 14px;
+        }
+        .resultat {
+            color: #000000; /* Changé en noir pour plus de visibilité */
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .victory {
+            animation: pulse 1s infinite;
+            font-size: 28px;
+        }
+        #timer {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            font-size: 14px;
+            color: #A9A9A9;
+        }
+        #musicControl {
+            position: fixed;
+            top: 40px;
+            right: 10px;
+            z-index: 2;
+        }
+        .match-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .match-item {
+            width: 45%;
+            margin: 5px;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Musique de fond -->
+    <audio id="backgroundMusic" loop>
+        <source src="https://nuage03.apps.education.fr/index.php/s/rfAms6FDNH2ojXM/download/Dancing%20with%20Demons.m4a" type="audio/mp4">
+        Votre navigateur ne supporte pas l'audio.
+    </audio>
+    <button id="musicControl" onclick="toggleMusic()">Activer le son</button>
+    <div id="timer">Temps : 00:00</div>
+
+    <!-- Introduction -->
+    <div id="intro" class="block active">
+        <h1>Mission Microplastiques</h1>
+        <p>"Agent Techno, prêt à plonger dans la lutte contre les microplastiques ? Résous 20 missions pour déverrouiller une phrase mystère et protéger notre planète ! Chaque défi te donne une lettre. En route pour un monde plus propre !"</p>
+        <input type="text" id="agentIdLeia" placeholder="Ton identifiant Léia">
+        <button onclick="startGame()">Démarrer</button>
+    </div>
+
+    <!-- Mission 1: QCM -->
+    <div id="mission1" class="block">
+        <h2>Mission 1 : Introduction</h2>
+        <p id="m1text">"Agent Techno, que sont les microplastiques ?"</p>
+        <select id="choix1">
+            <option value="">Choisis...</option>
+            <option value="petits">Petits morceaux de plastique</option>
+            <option value="gros">Gros déchets flottants</option>
+            <option value="liquides">Liquides polluants</option>
+        </select>
+        <button onclick="verifierMission1()">Valider</button>
+        <button onclick="passer(2)">Passer</button>
+        <p id="resultat1" class="resultat"></p>
+    </div>
+    <div id="course1" class="course-window">
+        <p>Ils sont invisibles mais partout.</p>
+    </div>
+
+    <!-- Mission 2: Qui suis-je? -->
+    <div id="mission2" class="block">
+        <h2>Mission 2 : Introduction</h2>
+        <p id="m2text">"Agent Techno, je viens des vêtements lors du lavage, qui suis-je ? (2 mots)"</p>
+        <input type="text" id="reponse2" placeholder="Entre ta réponse">
+        <button onclick="verifierMission2()">Valider</button>
+        <button onclick="passer(3)">Passer</button>
+        <p id="resultat2" class="resultat"></p>
+    </div>
+    <div id="course2" class="course-window">
+        <p>Un type de microplastique textile.</p>
+    </div>
+
+    <!-- Mission 3: Pendu -->
+    <div id="mission3" class="block">
+        <h2>Mission 3 : Introduction</h2>
+        <p id="m3text">"Agent Techno, devine le mot : danger pour les poissons (10 lettres)."</p>
+        <p id="penduDisplay3"></p>
+        <input type="text" id="lettre3" maxlength="1" placeholder="Entre une lettre">
+        <button onclick="jouerPendu3()">Essayer</button>
+        <button onclick="passer(4)">Passer</button>
+        <p id="resultat3" class="resultat">Essais restants : 6</p>
+    </div>
+    <div id="course3" class="course-window">
+        <p>Ils peuvent les intoxiquer.</p>
+    </div>
+
+    <!-- Mission 4: Appariement -->
+    <div id="mission4" class="block">
+        <h2>Mission 4 : Introduction</h2>
+        <p id="m4text">"Agent Techno, associe la source aux microplastiques."</p>
+        <div class="match-container">
+            <div class="match-item">
+                <p>Sacs plastiques</p>
+                <select id="match4_1">
+                    <option value="">Choisis...</option>
+                    <option value="degradation">Dégradation</option>
+                    <option value="microbilles">Microbilles</option>
+                    <option value="fibres">Fibres</option>
+                </select>
+            </div>
+            <div class="match-item">
+                <p>Cosmétiques</p>
+                <select id="match4_2">
+                    <option value="">Choisis...</option>
+                    <option value="degradation">Dégradation</option>
+                    <option value="microbilles">Microbilles</option>
+                    <option value="fibres">Fibres</option>
+                </select>
+            </div>
+            <div class="match-item">
+                <p>Vêtements</p>
+                <select id="match4_3">
+                    <option value="">Choisis...</option>
+                    <option value="degradation">Dégradation</option>
+                    <option value="microbilles">Microbilles</option>
+                    <option value="fibres">Fibres</option>
+                </select>
+            </div>
+        </div>
+        <button onclick="verifierMission4()">Valider</button>
+        <button onclick="passer(5)">Passer</button>
+        <p id="resultat4" class="resultat"></p>
+    </div>
+    <div id="course4" class="course-window">
+        <p>Ils viennent de diverses origines.</p>
+    </div>
+
+    <!-- Mission 5: QCM -->
+    <div id="mission5" class="block">
+        <h2>Mission 5 : Introduction</h2>
+        <p id="m5text">"Agent Techno, où se retrouvent les microplastiques ?"</p>
+        <select id="choix5">
+            <option value="">Choisis...</option>
+            <option value="partout">Eau, sols, air</option>
+            <option value="eau">Eau seulement</option>
+            <option value="air">Air seulement</option>
+        </select>
+        <button onclick="verifierMission5()">Valider</button>
+        <button onclick="passer(6)">Passer</button>
+        <p id="resultat5" class="resultat"></p>
+    </div>
+    <div id="course5" class="course-window">
+        <p>Ils envahissent tous les milieux.</p>
+    </div>
+
+    <!-- Mission 6: Qui suis-je? -->
+    <div id="mission6" class="block">
+        <h2>Mission 6 : Fonctionnement</h2>
+        <p id="m6text">"Agent Techno, je bloque les particules par leur taille, qui suis-je ? (1 mot)"</p>
+        <input type="text" id="reponse6" placeholder="Entre ta réponse">
+        <button onclick="verifierMission6()">Valider</button>
+        <button onclick="passer(7)">Passer</button>
+        <p id="resultat6" class="resultat"></p>
+    </div>
+    <div id="course6" class="course-window">
+        <p>Une méthode simple de filtration.</p>
+    </div>
+
+    <!-- Mission 7: Pendu -->
+    <div id="mission7" class="block">
+        <h2>Mission 7 : Fonctionnement</h2>
+        <p id="m7text">"Agent Techno, devine le mot : attire les particules (10 lettres)."</p>
+        <p id="penduDisplay7"></p>
+        <input type="text" id="lettre7" maxlength="1" placeholder="Entre une lettre">
+        <button onclick="jouerPendu7()">Essayer</button>
+        <button onclick="passer(8)">Passer</button>
+        <p id="resultat7" class="resultat">Essais restants : 6</p>
+    </div>
+    <div id="course7" class="course-window">
+        <p>Comme un aimant pour polluants.</p>
+    </div>
+
+    <!-- Mission 8: Appariement -->
+    <div id="mission8" class="block">
+        <h2>Mission 8 : Fonctionnement</h2>
+        <p id="m8text">"Agent Techno, associe le système à son usage."</p>
+        <div class="match-container">
+            <div class="match-item">
+                <p>Station d’épuration</p>
+                <select id="match8_1">
+                    <option value="">Choisis...</option>
+                    <option value="eaux">Eaux usées</option>
+                    <option value="machine">Machine à laver</option>
+                    <option value="ocean">Océan</option>
+                </select>
+            </div>
+            <div class="match-item">
+                <p>Filtre domestique</p>
+                <select id="match8_2">
+                    <option value="">Choisis...</option>
+                    <option value="eaux">Eaux usées</option>
+                    <option value="machine">Machine à laver</option>
+                    <option value="ocean">Océan</option>
+                </select>
+            </div>
+            <div class="match-item">
+                <p>Système embarqué</p>
+                <select id="match8_3">
+                    <option value="">Choisis...</option>
+                    <option value="eaux">Eaux usées</option>
+                    <option value="machine">Machine à laver</option>
+                    <option value="ocean">Océan</option>
+                </select>
+            </div>
+        </div>
+        <button onclick="verifierMission8()">Valider</button>
+        <button onclick="passer(9)">Passer</button>
+        <p id="resultat8" class="resultat"></p>
+    </div>
+    <div id="course8" class="course-window">
+        <p>Chaque lieu a son filtre.</p>
+    </div>
+
+    <!-- Mission 9: QCM -->
+    <div id="mission9" class="block">
+        <h2>Mission 9 : Fonctionnement</h2>
+        <p id="m9text">"Agent Techno, quel composant retient les particules fines ?"</p>
+        <select id="choix9">
+            <option value="">Choisis...</option>
+            <option value="sable">Filtre à sable</option>
+            <option value="grille">Grille de dégrillage</option>
+            <option value="bassin">Bassin de décantation</option>
+        </select>
+        <button onclick="verifierMission9()">Valider</button>
+        <button onclick="passer(10)">Passer</button>
+        <p id="resultat9" class="resultat"></p>
+    </div>
+    <div id="course9" class="course-window">
+        <p>Un matériau poreux aide.</p>
+    </div>
+
+    <!-- Mission 10: Qui suis-je? -->
+    <div id="mission10" class="block">
+        <h2>Mission 10 : Fonctionnement</h2>
+        <p id="m10text">"Agent Techno, je sépare le sable et l’huile, qui suis-je ? (1 mot)"</p>
+        <input type="text" id="reponse10" placeholder="Entre ta réponse">
+        <button onclick="verifierMission10()">Valider</button>
+        <button onclick="passer(11)">Passer</button>
+        <p id="resultat10" class="resultat"></p>
+    </div>
+    <div id="course10" class="course-window">
+        <p>Une étape précoce de filtration.</p>
+    </div>
+
+    <!-- Mission 11: Pendu -->
+    <div id="mission11" class="block">
+        <h2>Mission 11 : Design</h2>
+        <p id="m11text">"Agent Techno, devine le mot : étape clé du filtre (11 lettres)."</p>
+        <p id="penduDisplay11"></p>
+        <input type="text" id="lettre11" maxlength="1" placeholder="Entre une lettre">
+        <button onclick="jouerPendu11()">Essayer</button>
+        <button onclick="passer(12)">Passer</button>
+        <p id="resultat11" class="resultat">Essais restants : 6</p>
+    </div>
+    <div id="course11" class="course-window">
+        <p>Dessiner avant de fabriquer.</p>
+    </div>
+
+    <!-- Mission 12: QCM -->
+    <div id="mission12" class="block">
+        <h2>Mission 12 : Design</h2>
+        <p id="m12text">"Agent Techno, quelle contrainte est essentielle ?"</p>
+        <select id="choix12">
+            <option value="">Choisis...</option>
+            <option value="efficacite">Efficacité</option>
+            <option value="poids">Poids</option>
+            <option value="taille">Taille</option>
+        </select>
+        <button onclick="verifierMission12()">Valider</button>
+        <button onclick="passer(13)">Passer</button>
+        <p id="resultat12" class="resultat"></p>
+    </div>
+    <div id="course12" class="course-window">
+        <p>Retenir un maximum est crucial.</p>
+    </div>
+
+    <!-- Mission 13: Appariement -->
+    <div id="mission13" class="block">
+        <h2>Mission 13 : Design</h2>
+        <p id="m13text">"Agent Techno, associe l’innovation à son rôle."</p>
+        <div class="match-container">
+            <div class="match-item">
+                <p>Bio-matériaux</p>
+                <select id="match13_1">
+                    <option value="">Choisis...</option>
+                    <option value="ecologique">Écologique</option>
+                    <option value="efficace">Plus efficace</option>
+                    <option value="modulaire">Modulaire</option>
+                </select>
+            </div>
+            <div class="match-item">
+                <p>Nano-matériaux</p>
+                <select id="match13_2">
+                    <option value="">Choisis...</option>
+                    <option value="ecologique">Écologique</option>
+                    <option value="efficace">Plus efficace</option>
+                    <option value="modulaire">Modulaire</option>
+                </select>
+            </div>
+            <div class="match-item">
+                <p>Systèmes modulaires</p>
+                <select id="match13_3">
+                    <option value="">Choisis...</option>
+                    <option value="ecologique">Écologique</option>
+                    <option value="efficace">Plus efficace</option>
+                    <option value="modulaire">Modulaire</option>
+                </select>
+            </div>
+        </div>
+        <button onclick="verifierMission13()">Valider</button>
+        <button onclick="passer(14)">Passer</button>
+        <p id="resultat13" class="resultat"></p>
+    </div>
+    <div id="course13" class="course-window">
+        <p>Des avancées pour demain.</p>
+    </div>
+
+    <!-- Mission 14: Qui suis-je? -->
+    <div id="mission14" class="block">
+        <h2>Mission 14 : Société</h2>
+        <p id="m14text">"Agent Techno, je protège la faune, qui suis-je ? (1 mot)"</p>
+        <input type="text" id="reponse14" placeholder="Entre ta réponse">
+        <button onclick="verifierMission14()">Valider</button>
+        <button onclick="passer(15)">Passer</button>
+        <p id="resultat14" class="resultat"></p>
+    </div>
+    <div id="course14" class="course-window">
+        <p>Un avantage pour la nature.</p>
+    </div>
+
+    <!-- Mission 15: Pendu -->
+    <div id="mission15" class="block">
+        <h2>Mission 15 : Société</h2>
+        <p id="m15text">"Agent Techno, devine le mot : coût élevé (8 lettres)."</p>
+        <p id="penduDisplay15"></p>
+        <input type="text" id="lettre15" maxlength="1" placeholder="Entre une lettre">
+        <button onclick="jouerPendu15()">Essayer</button>
+        <button onclick="passer(16)">Passer</button>
+        <p id="resultat15" class="resultat">Essais restants : 6</p>
+    </div>
+    <div id="course15" class="course-window">
+        <p>Un inconvénient économique.</p>
+    </div>
+
+    <!-- Mission 16: QCM -->
+    <div id="mission16" class="block">
+        <h2>Mission 16 : Société</h2>
+        <p id="m16text">"Agent Techno, qui doit payer la filtration ?"</p>
+        <select id="choix16">
+            <option value="">Choisis...</option>
+            <option value="tous">Industries, états, nous</option>
+            <option value="industries">Industries seules</option>
+            <option value="etats">États seuls</option>
+        </select>
+        <button onclick="verifierMission16()">Valider</button>
+        <button onclick="passer(17)">Passer</button>
+        <p id="resultat16" class="resultat"></p>
+    </div>
+    <div id="course16" class="course-window">
+        <p>Une question de responsabilité.</p>
+    </div>
+
+    <!-- Mission 17: Appariement -->
+    <div id="mission17" class="block">
+        <h2>Mission 17 : Modélisation</h2>
+        <p id="m17text">"Agent Techno, associe l’outil CAO à sa fonction."</p>
+        <div class="match-container">
+            <div class="match-item">
+                <p>Modélisation 3D</p>
+                <select id="match17_1">
+                    <option value="">Choisis...</option>
+                    <option value="dessin">Dessiner</option>
+                    <option value="analyse">Analyser</option>
+                    <option value="optimisation">Optimiser</option>
+                </select>
+            </div>
+            <div class="match-item">
+                <p>Analyse</p>
+                <select id="match17_2">
+                    <option value="">Choisis...</option>
+                    <option value="dessin">Dessiner</option>
+                    <option value="analyse">Analyser</option>
+                    <option value="optimisation">Optimiser</option>
+                </select>
+            </div>
+            <div class="match-item">
+                <p>Optimisation</p>
+                <select id="match17_3">
+                    <option value="">Choisis...</option>
+                    <option value="dessin">Dessiner</option>
+                    <option value="analyse">Analyser</option>
+                    <option value="optimisation">Optimiser</option>
+                </select>
+            </div>
+        </div>
+        <button onclick="verifierMission17()">Valider</button>
+        <button onclick="passer(18)">Passer</button>
+        <p id="resultat17" class="resultat"></p>
+    </div>
+    <div id="course17" class="course-window">
+        <p>Un logiciel aide à tout.</p>
+    </div>
+
+    <!-- Mission 18: Qui suis-je? -->
+    <div id="mission18" class="block">
+        <h2>Mission 18 : Programmation</h2>
+        <p id="m18text">"Agent Techno, je gère les capteurs, qui suis-je ? (1 mot)"</p>
+        <input type="text" id="reponse18" placeholder="Entre ta réponse">
+        <button onclick="verifierMission18()">Valider</button>
+        <button onclick="passer(19)">Passer</button>
+        <p id="resultat18" class="resultat"></p>
+    </div>
+    <div id="course18" class="course-window">
+        <p>Un outil informatique clé.</p>
+    </div>
+
+    <!-- Mission 19: Pendu -->
+    <div id="mission19" class="block">
+        <h2>Mission 19 : Énergies</h2>
+        <p id="m19text">"Agent Techno, devine le mot : énergie verte (7 lettres)."</p>
+        <p id="penduDisplay19"></p>
+        <input type="text" id="lettre19" maxlength="1" placeholder="Entre une lettre">
+        <button onclick="jouerPendu19()">Essayer</button>
+        <button onclick="passer(20)">Passer</button>
+        <p id="resultat19" class="resultat">Essais restants : 6</p>
+    </div>
+    <div id="course19" class="course-window">
+        <p>Une source durable.</p>
+    </div>
+
+    <!-- Mission 20: QCM -->
+    <div id="mission20" class="block">
+        <h2>Mission 20 : Robotique</h2>
+        <p id="m20text">"Agent Techno, quel rôle joue la robotique ?"</p>
+        <select id="choix20">
+            <option value="">Choisis...</option>
+            <option value="automatisation">Automatiser la filtration</option>
+            <option value="design">Designer les filtres</option>
+            <option value="energie">Produire de l’énergie</option>
+        </select>
+        <button onclick="verifierMission20()">Valider</button>
+        <button onclick="passer(21)">Passer</button>
+        <p id="resultat20" class="resultat"></p>
+    </div>
+    <div id="course20" class="course-window">
+        <p>Un gain d’efficacité.</p>
+    </div>
+
+    <!-- Victoire -->
+    <div id="victoire" class="block">
+        <h1 class="victory">Mission Accomplie !</h1>
+        <p id="agentResult"></p>
+        <p id="timeResult"></p>
+        <p id="scoreResult"></p>
+        <p id="messageResult"></p>
+        <p id="parcoursResult"></p>
+        <p id="magicWord" style="display: none;"></p>
+        <p>Phrase avec tes lettres :</p>
+        <p id="partial-phrase"></p>
+        <p>Complète la phrase (3 mots) :</p>
+        <input type="text" id="phraseInput" placeholder="20 lettres max">
+        <button onclick="verifierPhrase()">Valider la phrase</button>
+        <p id="phraseResult"></p>
+    </div>
+
+    <script>
+        let agent = "Agent Techno";
+        let startTime = 0;
+        let timerInterval = null;
+        let reussites = 0;
+        let passees = [];
+        let collectedLetters = new Array(20);
+        const finalPhrase = "FILTRES DU FUTUR";
+        const missionLetters = finalPhrase.split("");
+        let angle = 0;
+
+        function startGame() {
+            const idLeia = document.getElementById("agentIdLeia").value.trim();
+            if (!idLeia) {
+                alert("Entre ton identifiant Léia !");
+                return;
+            }
+            agent = `Agent Techno - ${idLeia}`;
+            document.querySelectorAll("p[id^='m']").forEach(p => {
+                p.innerHTML = p.innerHTML.replace("Agent Techno", agent);
+            });
+            startTime = Date.now();
+            timerInterval = setInterval(updateTimer, 1000);
+            randomizeCoursePositions();
+            showBlock("mission1");
+            requestAnimationFrame(animateCourseWindows);
+        }
+
+        function updateTimer() {
+            const now = Date.now();
+            const elapsed = Math.floor((now - startTime) / 1000);
+            const minutes = String(Math.floor(elapsed / 60)).padStart(2, "0");
+            const seconds = String(elapsed % 60).padStart(2, "0");
+            document.getElementById("timer").textContent = `Temps : ${minutes}:${seconds}`;
+        }
+
+        function randomizeCoursePositions() {
+            const courseWindows = document.querySelectorAll(".course-window");
+            courseWindows.forEach((course, index) => {
+                const initialAngle = (index * 2 * Math.PI) / courseWindows.length;
+                const radius = 450; // Rayon encore plus large
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
+                const x = centerX + radius * Math.cos(initialAngle) - 200;
+                const y = centerY + radius * Math.sin(initialAngle) - 50;
+                course.style.left = `${x}px`;
+                course.style.top = `${y}px`;
+                course.dataset.angle = initialAngle;
+            });
+        }
+
+        function animateCourseWindows() {
+            const courseWindows = document.querySelectorAll(".course-window.active");
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const radius = 450; // Rayon encore plus large
+            angle += 0.002; // Vitesse encore plus lente
+
+            courseWindows.forEach(course => {
+                let currentAngle = parseFloat(course.dataset.angle) + angle;
+                const x = centerX + radius * Math.cos(currentAngle) - 200;
+                const y = centerY + radius * Math.sin(currentAngle) - 50;
+                course.style.left = `${x}px`;
+                course.style.top = `${y}px`;
+            });
+            requestAnimationFrame(animateCourseWindows);
+        }
+
+        function showBlock(blockId) {
+            document.querySelectorAll(".block").forEach(block => block.classList.remove("active"));
+            document.querySelectorAll(".course-window").forEach(course => course.classList.remove("active"));
+            const newBlock = document.getElementById(blockId);
+            if (newBlock) {
+                newBlock.classList.add("active");
+                const courseId = blockId.replace("mission", "course");
+                const courseWindow = document.getElementById(courseId);
+                if (courseWindow) courseWindow.classList.add("active");
+            }
+        }
+
+        function passer(next) {
+            passees.push(next - 1);
+            if (next <= 20) {
+                showBlock(`mission${next}`);
+            } else {
+                showBlock("victoire");
+                stopGame();
+            }
+        }
+
+        function toggleMusic() {
+            const audio = document.getElementById("backgroundMusic");
+            const button = document.getElementById("musicControl");
+            if (audio.paused) {
+                audio.play().catch(error => {
+                    console.error("Erreur lors de la lecture audio :", error);
+                    alert("Impossible de jouer le son. Vérifie la connexion ou les autorisations.");
+                });
+                button.textContent = "Couper le son";
+            } else {
+                audio.pause();
+                button.textContent = "Activer le son";
+            }
+        }
+
+        function verifierMission1() {
+            if (document.getElementById("choix1").value === "petits") {
+                reussites++;
+                collectedLetters[0] = missionLetters[0];
+                document.getElementById("resultat1").innerHTML = "Correct !";
+                setTimeout(() => showBlock("mission2"), 2000);
+            } else {
+                document.getElementById("resultat1").innerHTML = "Faux.";
+            }
+        }
+
+        function verifierMission2() {
+            if (document.getElementById("reponse2").value.toLowerCase() === "fibres textiles") {
+                reussites++;
+                collectedLetters[1] = missionLetters[1];
+                document.getElementById("resultat2").innerHTML = "Correct !";
+                setTimeout(() => showBlock("mission3"), 2000);
+            } else {
+                document.getElementById("resultat2").innerHTML = "Faux.";
+            }
+        }
+
+        function jouerPendu3() {
+            const lettre = document.getElementById("lettre3").value.toLowerCase();
+            const display = document.getElementById("penduDisplay3");
+            const resultat = document.getElementById("resultat3");
+            const mot = "microplast";
+            let etat = display.textContent || "_".repeat(mot.length);
+            if (lettre && resultat.textContent.includes("restants")) {
+                if (mot.includes(lettre)) {
+                    let nouvelEtat = "";
+                    for (let i = 0; i < mot.length; i++) {
+                        nouvelEtat += (mot[i] === lettre || etat[i] !== "_") ? mot[i] : "_";
+                    }
+                    display.textContent = nouvelEtat;
+                    if (!nouvelEtat.includes("_")) {
+                        reussites++;
+                        collectedLetters[2] = missionLetters[2];
+                        resultat.innerHTML = "Gagné ! Le mot était 'microplast'.";
+                        setTimeout(() => showBlock("mission4"), 2000);
+                    }
+                } else {
+                    let essais = parseInt(resultat.textContent.split(": ")[1]) - 1;
+                    resultat.innerHTML = `Essais restants : ${essais}`;
+                    if (essais === 0) {
+                        resultat.innerHTML = "Perdu ! Le mot était 'microplast'.";
+                        setTimeout(() => showBlock("mission4"), 2000);
+                    }
+                }
+                document.getElementById("lettre3").value = "";
+            }
+        }
+
+        function verifierMission4() {
+            const match1 = document.getElementById("match4_1").value;
+            const match2 = document.getElementById("match4_2").value;
+            const match3 = document.getElementById("match4_3").value;
+            if (match1 === "degradation" && match2 === "microbilles" && match3 === "fibres") {
+                reussites++;
+                collectedLetters[3] = missionLetters[3];
+                document.getElementById("resultat4").innerHTML = "Correct !";
+                setTimeout(() => showBlock("mission5"), 2000);
+            } else {
+                document.getElementById("resultat4").innerHTML = "Faux.";
+            }
+        }
+
+        function verifierMission5() {
+            if (document.getElementById("choix5").value === "partout") {
+                reussites++;
+                collectedLetters[4] = missionLetters[4];
+                document.getElementById("resultat5").innerHTML = "Correct !";
+                setTimeout(() => showBlock("mission6"), 2000);
+            } else {
+                document.getElementById("resultat5").innerHTML = "Faux.";
+            }
+        }
+
+        function verifierMission6() {
+            if (document.getElementById("reponse6").value.toLowerCase() === "mecanique") {
+                reussites++;
+                collectedLetters[5] = missionLetters[5];
+                document.getElementById("resultat6").innerHTML = "Correct !";
+                setTimeout(() => showBlock("mission7"), 2000);
+            } else {
+                document.getElementById("resultat6").innerHTML = "Faux.";
+            }
+        }
+
+        function jouerPendu7() {
+            const lettre = document.getElementById("lettre7").value.toLowerCase();
+            const display = document.getElementById("penduDisplay7");
+            const resultat = document.getElementById("resultat7");
+            const mot = "adsorption";
+            let etat = display.textContent || "_".repeat(mot.length);
+            if (lettre && resultat.textContent.includes("restants")) {
+                if (mot.includes(lettre)) {
+                    let nouvelEtat = "";
+                    for (let i = 0; i < mot.length; i++) {
+                        nouvelEtat += (mot[i] === lettre || etat[i] !== "_") ? mot[i] : "_";
+                    }
+                    display.textContent = nouvelEtat;
+                    if (!nouvelEtat.includes("_")) {
+                        reussites++;
+                        collectedLetters[6] = missionLetters[6];
+                        resultat.innerHTML = "Gagné ! Le mot était 'adsorption'.";
+                        setTimeout(() => showBlock("mission8"), 2000);
+                    }
+                } else {
+                    let essais = parseInt(resultat.textContent.split(": ")[1]) - 1;
+                    resultat.innerHTML = `Essais restants : ${essais}`;
+                    if (essais === 0) {
+                        resultat.innerHTML = "Perdu ! Le mot était 'adsorption'.";
+                        setTimeout(() => showBlock("mission8"), 2000);
+                    }
+                }
+                document.getElementById("lettre7").value = "";
+            }
+        }
+
+        function verifierMission8() {
+            const match1 = document.getElementById("match8_1").value;
+            const match2 = document.getElementById("match8_2").value;
+            const match3 = document.getElementById("match8_3").value;
+            if (match1 === "eaux" && match2 === "machine" && match3 === "ocean") {
+                reussites++;
+                collectedLetters[7] = missionLetters[7];
+                document.getElementById("resultat8").innerHTML = "Correct !";
+                setTimeout(() => showBlock("mission9"), 2000);
+            } else {
+                document.getElementById("resultat8").innerHTML = "Faux.";
+            }
+        }
+
+        function verifierMission9() {
+            if (document.getElementById("choix9").value === "sable") {
+                reussites++;
+                collectedLetters[8] = missionLetters[8];
+                document.getElementById("resultat9").innerHTML = "Correct !";
+                setTimeout(() => showBlock("mission10"), 2000);
+            } else {
+                document.getElementById("resultat9").innerHTML = "Faux.";
+            }
+        }
+
+        function verifierMission10() {
+            if (document.getElementById("reponse10").value.toLowerCase() === "dessableur") {
+                reussites++;
+                collectedLetters[9] = missionLetters[9];
+                document.getElementById("resultat10").innerHTML = "Correct !";
+                setTimeout(() => showBlock("mission11"), 2000);
+            } else {
+                document.getElementById("resultat10").innerHTML = "Faux.";
+            }
+        }
+
+        function jouerPendu11() {
+            const lettre = document.getElementById("lettre11").value.toLowerCase();
+            const display = document.getElementById("penduDisplay11");
+            const resultat = document.getElementById("resultat11");
+            const mot = "conception";
+            let etat = display.textContent || "_".repeat(mot.length);
+            if (lettre && resultat.textContent.includes("restants")) {
+                if (mot.includes(lettre)) {
+                    let nouvelEtat = "";
+                    for (let i = 0; i < mot.length; i++) {
+                        nouvelEtat += (mot[i] === lettre || etat[i] !== "_") ? mot[i] : "_";
+                    }
+                    display.textContent = nouvelEtat;
+                    if (!nouvelEtat.includes("_")) {
+                        reussites++;
+                        collectedLetters[10] = missionLetters[10];
+                        resultat.innerHTML = "Gagné ! Le mot était 'conception'.";
+                        setTimeout(() => showBlock("mission12"), 2000);
+                    }
+                } else {
+                    let essais = parseInt(resultat.textContent.split(": ")[1]) - 1;
+                    resultat.innerHTML = `Essais restants : ${essais}`;
+                    if (essais === 0) {
+                        resultat.innerHTML = "Perdu ! Le mot était 'conception'.";
+                        setTimeout(() => showBlock("mission12"), 2000);
+                    }
+                }
+                document.getElementById("lettre11").value = "";
+            }
+        }
+
+        function verifierMission12() {
+            if (document.getElementById("choix12").value === "efficacite") {
+                reussites++;
+                collectedLetters[11] = missionLetters[11];
+                document.getElementById("resultat12").innerHTML = "Correct !";
+                setTimeout(() => showBlock("mission13"), 2000);
+            } else {
+                document.getElementById("resultat12").innerHTML = "Faux.";
+            }
+        }
+
+        function verifierMission13() {
+            const match1 = document.getElementById("match13_1").value;
+            const match2 = document.getElementById("match13_2").value;
+            const match3 = document.getElementById("match13_3").value;
+            if (match1 === "ecologique" && match2 === "efficace" && match3 === "modulaire") {
+                reussites++;
+                collectedLetters[12] = missionLetters[12];
+                document.getElementById("resultat13").innerHTML = "Correct !";
+                setTimeout(() => showBlock("mission14"), 2000);
+            } else {
+                document.getElementById("resultat13").innerHTML = "Faux.";
+            }
+        }
+
+        function verifierMission14() {
+            if (document.getElementById("reponse14").value.toLowerCase() === "filtration") {
+                reussites++;
+                collectedLetters[13] = missionLetters[13];
+                document.getElementById("resultat14").innerHTML = "Correct !";
+                setTimeout(() => showBlock("mission15"), 2000);
+            } else {
+                document.getElementById("resultat14").innerHTML = "Faux.";
+            }
+        }
+
+        function jouerPendu15() {
+            const lettre = document.getElementById("lettre15").value.toLowerCase();
+            const display = document.getElementById("penduDisplay15");
+            const resultat = document.getElementById("resultat15");
+            const mot = "inconveni";
+            let etat = display.textContent || "_".repeat(mot.length);
+            if (lettre && resultat.textContent.includes("restants")) {
+                if (mot.includes(lettre)) {
+                    let nouvelEtat = "";
+                    for (let i = 0; i < mot.length; i++) {
+                        nouvelEtat += (mot[i] === lettre || etat[i] !== "_") ? mot[i] : "_";
+                    }
+                    display.textContent = nouvelEtat;
+                    if (!nouvelEtat.includes("_")) {
+                        reussites++;
+                        collectedLetters[14] = missionLetters[14];
+                        resultat.innerHTML = "Gagné ! Le mot était 'inconveni'.";
+                        setTimeout(() => showBlock("mission16"), 2000);
+                    }
+                } else {
+                    let essais = parseInt(resultat.textContent.split(": ")[1]) - 1;
+                    resultat.innerHTML = `Essais restants : ${essais}`;
+                    if (essais === 0) {
+                        resultat.innerHTML = "Perdu ! Le mot était 'inconveni'.";
+                        setTimeout(() => showBlock("mission16"), 2000);
+                    }
+                }
+                document.getElementById("lettre15").value = "";
+            }
+        }
+
+        function verifierMission16() {
+            if (document.getElementById("choix16").value === "tous") {
+                reussites++;
+                collectedLetters[15] = missionLetters[15];
+                document.getElementById("resultat16").innerHTML = "Correct !";
+                setTimeout(() => showBlock("mission17"), 2000);
+            } else {
+                document.getElementById("resultat16").innerHTML = "Faux.";
+            }
+        }
+
+        function verifierMission17() {
+            const match1 = document.getElementById("match17_1").value;
+            const match2 = document.getElementById("match17_2").value;
+            const match3 = document.getElementById("match17_3").value;
+            if (match1 === "dessin" && match2 === "analyse" && match3 === "optimisation") {
+                reussites++;
+                collectedLetters[16] = missionLetters[16];
+                document.getElementById("resultat17").innerHTML = "Correct !";
+                setTimeout(() => showBlock("mission18"), 2000);
+            } else {
+                document.getElementById("resultat17").innerHTML = "Faux.";
+            }
+        }
+
+        function verifierMission18() {
+            if (document.getElementById("reponse18").value.toLowerCase() === "informatique") {
+                reussites++;
+                collectedLetters[17] = missionLetters[17];
+                document.getElementById("resultat18").innerHTML = "Correct !";
+                setTimeout(() => showBlock("mission19"), 2000);
+            } else {
+                document.getElementById("resultat18").innerHTML = "Faux.";
+            }
+        }
+
+        function jouerPendu19() {
+            const lettre = document.getElementById("lettre19").value.toLowerCase();
+            const display = document.getElementById("penduDisplay19");
+            const resultat = document.getElementById("resultat19");
+            const mot = "solaire";
+            let etat = display.textContent || "_".repeat(mot.length);
+            if (lettre && resultat.textContent.includes("restants")) {
+                if (mot.includes(lettre)) {
+                    let nouvelEtat = "";
+                    for (let i = 0; i < mot.length; i++) {
+                        nouvelEtat += (mot[i] === lettre || etat[i] !== "_") ? mot[i] : "_";
+                    }
+                    display.textContent = nouvelEtat;
+                    if (!nouvelEtat.includes("_")) {
+                        reussites++;
+                        collectedLetters[18] = missionLetters[18];
+                        resultat.innerHTML = "Gagné ! Le mot était 'solaire'.";
+                        setTimeout(() => showBlock("mission20"), 2000);
+                    }
+                } else {
+                    let essais = parseInt(resultat.textContent.split(": ")[1]) - 1;
+                    resultat.innerHTML = `Essais restants : ${essais}`;
+                    if (essais === 0) {
+                        resultat.innerHTML = "Perdu ! Le mot était 'solaire'.";
+                        setTimeout(() => showBlock("mission20"), 2000);
+                    }
+                }
+                document.getElementById("lettre19").value = "";
+            }
+        }
+
+        function verifierMission20() {
+            if (document.getElementById("choix20").value === "automatisation") {
+                reussites++;
+                collectedLetters[19] = missionLetters[19];
+                document.getElementById("resultat20").innerHTML = "Correct !";
+                setTimeout(() => showBlock("victoire"), 2000);
+            } else {
+                document.getElementById("resultat20").innerHTML = "Faux.";
+            }
+        }
+
+        function stopGame() {
+            clearInterval(timerInterval);
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = String(Math.floor(elapsed / 60)).padStart(2, "0");
+            const seconds = String(elapsed % 60).padStart(2, "0");
+            const score = Math.floor(reussites * 100 / 20);
+            document.getElementById("agentResult").innerHTML = `${agent}, voici ton bilan :`;
+            document.getElementById("timeResult").innerHTML = `Temps : ${minutes}:${seconds}`;
+            document.getElementById("scoreResult").innerHTML = `Réussite : ${score}% (${reussites}/20 missions)`;
+            document.getElementById("messageResult").innerHTML = score < 50 ? "Bon effort ! Continue à protéger la planète !" : score <= 80 ? "Beau travail ! Presque un expert en filtration !" : "Félicitations ! Un génie des microplastiques !";
+            document.getElementById("parcoursResult").innerHTML = `Missions passées : ${passees.length > 0 ? passees.join(", ") : "Aucune"}`;
+            let partialPhrase = "";
+            for (let i = 0; i < missionLetters.length; i++) {
+                partialPhrase += collectedLetters[i] || "_";
+            }
+            document.getElementById("partial-phrase").textContent = partialPhrase;
+        }
+
+        function verifierPhrase() {
+            const inputPhrase = document.getElementById("phraseInput").value.toUpperCase().replace(/\s+/g, " ").trim();
+            const result = document.getElementById("phraseResult");
+            const magicWord = document.getElementById("magicWord");
+            if (inputPhrase === finalPhrase) {
+                result.innerHTML = "Félicitations, Agent ! Tu as percé le mystère des microplastiques !";
+                result.style.color = "#A9A9A9";
+                magicWord.style.display = "block";
+                magicWord.innerHTML = `Mot magique à me donner : ABC-456`;
+            } else {
+                result.innerHTML = "Pas tout à fait ! Réessaie.";
+                result.style.color = "#808080";
+                magicWord.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
