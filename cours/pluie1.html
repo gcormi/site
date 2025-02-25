@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Récupération d'Eau de Pluie - Partie 1 : Collecte et Stockage</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #e3f2fd; /* Bleu très clair */
+            color: #333;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff; /* Blanc */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #d32f2f; /* Rouge foncé */
+            border-bottom: 2px solid #d32f2f;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .etape {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #bbdefb; /* Bleu ciel clair */
+            border-radius: 8px;
+        }
+
+        .qcm {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #90caf9; /* Bleu clair */
+            background-color: #ffffff;
+            border-radius: 6px;
+        }
+
+        .qcm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .feedback {
+            margin-top: 5px;
+            font-style: italic;
+            color: red;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #90caf9; /* Bleu clair */
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #b3e5fc; /* Bleu ciel très clair */
+        }
+
+        button {
+            background-color: #d32f2f; /* Rouge foncé */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #c62828; /* Rouge plus foncé */
+        }
+
+        #cours_complet {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #d32f2f; /* Rouge foncé */
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            display: none; /* Masqué initialement */
+        }
+
+        #cours_complet h2 {
+            color: #d32f2f; /* Rouge foncé */
+            border-bottom: 2px solid #d32f2f;
+            padding-bottom: 5px;
+        }
+
+        #cours_complet_content {
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <!-- 1. Introduction -->
+        <div id="introduction" class="etape">
+            <h2>1. Introduction : Un Guide pour Sauver l'Eau ! 💧</h2>
+            <p>Dans ce guide, nous allons explorer en profondeur le monde fascinant de la récupération d'eau de pluie. Préparez-vous à découvrir chaque étape, chaque détail, et l'impact positif de cette pratique sur notre planète.</p>
+            <h3>Partie 1 : Comment ça marche ?</h3>
+              <div class="qcm">
+                <h3>QCM : Introduction</h3>
+                <p>Question : Qu'allons nous explorer dans ce guide ?</p>
+                <label><input type="radio" name="introduction_q1" value="a"> La construction des barrages.</label><br>
+                <label><input type="radio" name="introduction_q1" value="b"> Le monde fascinant de la récupération d'eau de pluie.</label><br>
+                <label><input type="radio" name="introduction_q1" value="c"> Le forage de puit.</label><br>
+                <button onclick="validerIntroduction()">Valider</button>
+                <p id="introduction_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- 1.1 La Collecte de l'Eau Pluviale -->
+        <div id="collecte" class="etape" style="display: none;">
+            <h2>1.1 La Collecte de l'Eau Pluviale</h2>
+            <p>Imaginez votre maison ou votre école sous une forte pluie. L'eau qui tombe sur le toit est le point de départ de notre système. Cette eau est collectée grâce à des gouttières, qui sont comme des canaux installés le long des bords du toit. Ces gouttières sont conçues pour diriger l'eau vers un endroit spécifique, évitant ainsi qu'elle ne tombe n'importe où autour du bâtiment.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Étape</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pluie sur le toit</td>
+                        <td>La pluie tombe sur le toit, recouvrant la surface et prête à être collectée.</td>
+                    </tr>
+                    <tr>
+                        <td>Gouttières</td>
+                        <td>Les gouttières capturent l'eau de pluie grâce à leur forme spécifique et leur position le long du toit.</td>
+                    </tr>
+                    <tr>
+                        <td>Acheminement</td>
+                        <td>L'eau est acheminée par les gouttières vers un point de collecte, généralement un tuyau qui mène au système de filtration.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><em>Exemple concret :</em> Pensez à une rue en pente avec des caniveaux. Les gouttières sont comme les caniveaux d'un toit, canalisant l'eau de pluie.</p>
+            <div class="qcm">
+                <h3>QCM : Collecte de l'Eau</h3>
+                <p>Question : Quel est le rôle des gouttières dans un système de récupération d'eau de pluie ?</p>
+                <label><input type="radio" name="collecte_q1" value="c"> Décorer le toit des maisons.</label><br>
+                <label><input type="radio" name="collecte_q1" value="a"> Absorber l'eau de pluie pour éviter les inondations.</label><br>
+                <label><input type="radio" name="collecte_q1" value="b"> Diriger l'eau de pluie vers un point de collecte spécifique.</label><br>
+                <button onclick="validerCollecte()">Valider</button>
+                <p id="collecte_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- 1.2 Le Filtrage -->
+        <div id="filtrage" class="etape" style="display: none;">
+            <h2>1.2 Le Filtrage : Nettoyage de l'Eau (Pas à Pas)</h2>
+            <p>L'eau de pluie, bien qu'elle semble propre, peut contenir diverses impuretés : des feuilles 🍂, des insectes 🐞, de la poussière, ou encore des débris. Pour la rendre utilisable, nous devons la filtrer. On utilise des filtres. Il existe plusieurs types de filtres, chacun ayant un rôle spécifique :</p>
+            <ul>
+                <li><strong>Filtres à mailles :</strong> ils agissent comme une première barrière, retenant les grosses impuretés.</li>
+                <li><strong>Filtres à charbon actif :</strong> Après le filtre à mailles, l'eau passe souvent par un filtre à charbon actif, un matériau poreux qui élimine les petites particules et les polluants chimiques.</li>
+            </ul>
+            <p><em>Comment ça marche ?</em> L'eau traverse ces filtres, qui retiennent les impuretés à l'intérieur. Les filtres doivent être entretenus régulièrement pour qu'ils continuent à fonctionner efficacement. Seule l'eau propre, débarrassée de ces impuretés, poursuit son chemin.</p>
+            <div class="qcm">
+                <h3>QCM : Filtrage de l'Eau</h3>
+                <p>Question : Quel type de filtre retient les grosses impuretés ?</p>
+                 <label><input type="radio" name="filtrage_q1" value="c"> Filtres UV.</label><br>
+                <label><input type="radio" name="filtrage_q1" value="a"> Filtres à mailles.</label><br>
+                 <label><input type="radio" name="filtrage_q1" value="b"> Filtres à charbon actif.</label><br>
+
+                <button onclick="validerFiltrage()">Valider</button>
+                <p id="filtrage_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- 1.3 Le Stockage -->
+        <div id="stockage" class="etape" style="display: none;">
+            <h2>1.3 Le Stockage : L'Eau mise de côté</h2>
+            <p>Une fois filtrée, l'eau est stockée dans une cuve. Les cuves sont comme de grands réservoirs où l'on conserve l'eau pour une utilisation ultérieure. Elles peuvent être de différentes tailles et matériaux, en fonction des besoins et de l'espace disponible. </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type de Cuve</th>
+                        <th>Matériau</th>
+                        <th>Avantages</th>
+                        <th>Inconvénients</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cuve en Plastique</td>
+                        <td>Plastique</td>
+                        <td>Légère, facile à installer et à transporter, économique...</td>
+                        <td>Peut se dégrader avec le temps, moins résistante aux chocs...</td>
+                    </tr>
+                    <tr>
+                        <td>Cuve en Béton</td>
+                        <td>Béton</td>
+                        <td>Très durable et robuste, ne se dégrade pas facilement...</td>
+                        <td>Lourde, difficile à manipuler et à installer...</td>
+                    </tr>
+                    <tr>
+                        <td>Cuve Enterrée</td>
+                        <td>Plastique ou Béton</td>
+                        <td>Invisible, protège l'eau des variations de température et des algues...</td>
+                        <td>Installation plus complexe et plus coûteuse...</td>
+                    </tr>
+                    <tr>
+                        <td>Cuve Aérienne</td>
+                        <td>Plastique ou Métal</td>
+                        <td>Facile à installer et à entretenir, facilement accessible...</td>
+                        <td>Exposée aux intempéries, prend de la place visiblement...</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><em>Exemple concret :</em> Imaginez un grand réservoir d'eau comme dans un château d'eau, où l'on stocke l'eau de pluie comme une réserve pour plus tard.</p>
+            <div class="qcm">
+                <h3>QCM : Stockage de l'Eau</h3>
+                <p>Question : Quel est l'avantage d'une cuve aérienne?</p>
+              
+               <label><input type="radio" name="stockage_q1" value="a"> Installation plus facile.</label><br>
+               <label><input type="radio" name="stockage_q1" value="b"> Est invisible .</label><br>
+                <label><input type="radio" name="stockage_q1" value="c"> Est plus résistante au changements de températures.</label><br>
+
+                <button onclick="validerStockage()">Valider</button>
+                <p id="stockage_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- 1.4 Utilisation de l'Eau Récupérée -->
+        <div id="utilisation" class="etape" style="display: none;">
+            <h2>1.4 Utilisation de l'Eau Récupérée (Astucieuse)</h2>
+            <p>L'eau stockée après filtration peut être utilisée pour de nombreuses tâches non potables. Il est important de rappeler que cette eau n'est pas destinée à la consommation humaine sans traitement supplémentaire. Voici quelques utilisations courantes :</p>
+            <ul>
+                <li>Arrosage des plantes et du jardin 🌱</li>
+                <li>Lavage de la voiture 🚗</li>
+                <li>Nettoyage de la cour</li>
+                <li>Remplissage de la piscine (si compatible avec les exigences sanitaires locales)</li>
+            </ul>
+            <p><em>Exemple concret :</em> Au lieu d'utiliser l'eau du robinet pour arroser les fleurs dans le jardin, on utilise l'eau de pluie collectée dans la cuve. Cela permet de faire des économies sur sa facture d'eau et de préserver cette précieuse ressource.</p>
+            <div class="qcm">
+                <h3>QCM : Utilisation de l'Eau</h3>
+                <p>Question : Pour quelle utilisation l'eau de pluie ne doit-elle pas être utilisée sans traitement ?</p>
+                 <label><input type="radio" name="utilisation_q1" value="c"> Pour la consommation humaine.</label><br>
+                <label><input type="radio" name="utilisation_q1" value="a"> Pour le lavage de la voiture.</label><br>
+                 <label><input type="radio" name="utilisation_q1" value="b"> Pour l'arrosage des plantes.</label><br>
+
+                <button onclick="validerUtilisation()">Valider</button>
+                <p id="utilisation_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Bouton Afficher Cours Complet -->
+        <button id="afficher_cours" style="display: none;" onclick="afficherCoursComplet()">Afficher le cours complet</button>
+
+        <!-- Cours Complet (Affichage Final) -->
+        <div id="cours_complet" style="display: none;">
+            <div id="cours_complet_content"></div>
+        </div>
+
+    </div>
+
+    <script>
+        let etapeCourante = "introduction";
+        let introductionValidee = false;
+        let collecteValidee = false;
+        let filtrageValidee = false;
+        let stockageValidee = false;
+        let utilisationValidee = false;
+
+         // Afficher la premiere etape
+        document.getElementById("introduction").style.display = "block";
+
+        function validerIntroduction() {
+            const reponse = document.querySelector('input[name="introduction_q1"]:checked');
+            const feedback = document.getElementById("introduction_feedback");
+
+            if (reponse && reponse.value === "b") {
+                introductionValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "collecte";
+                document.getElementById("introduction").style.display = "none";
+                document.getElementById("collecte").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function validerCollecte() {
+            const reponse = document.querySelector('input[name="collecte_q1"]:checked');
+            const feedback = document.getElementById("collecte_feedback");
+
+            if (reponse && reponse.value === "b") {
+                collecteValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "filtrage";
+                document.getElementById("collecte").style.display = "none";
+                document.getElementById("filtrage").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function validerFiltrage() {
+            const reponse = document.querySelector('input[name="filtrage_q1"]:checked');
+            const feedback = document.getElementById("filtrage_feedback");
+
+            if (reponse && reponse.value === "a") {
+                filtrageValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "stockage";
+                document.getElementById("filtrage").style.display = "none";
+                document.getElementById("stockage").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function validerStockage() {
+            const reponse = document.querySelector('input[name="stockage_q1"]:checked');
+            const feedback = document.getElementById("stockage_feedback");
+
+            if (reponse && reponse.value === "a") {
+                stockageValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "utilisation";
+                document.getElementById("stockage").style.display = "none";
+                document.getElementById("utilisation").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+          function validerUtilisation() {
+            const reponse = document.querySelector('input[name="utilisation_q1"]:checked');
+            const feedback = document.getElementById("utilisation_feedback");
+
+            if (reponse && reponse.value === "c") {
+                utilisationValidee = true;
+                feedback.textContent = "Correct ! Vous avez terminé le cours.";
+                feedback.style.color = "green";
+                etapeCourante = "afficher_cours";
+                document.getElementById("utilisation").style.display = "none";
+                document.getElementById("afficher_cours").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function afficherCoursComplet() {
+            let coursCompletHTML = `
+             <h2>Cours Complet</h2>
+               <h3>1. Introduction : Un Guide pour Sauver l'Eau ! 💧</h3>
+            <p>Dans ce guide, nous allons explorer en profondeur le monde fascinant de la récupération d'eau de pluie. Préparez-vous à découvrir chaque étape, chaque détail, et l'impact positif de cette pratique sur notre planète.</p>
+            <h3>Partie 1 : Comment ça marche ?</h3>
+
+             <h3>1.1 La Collecte de l'Eau Pluviale</h3>
+            <p>Imaginez votre maison ou votre école sous une forte pluie. L'eau qui tombe sur le toit est le point de départ de notre système. Cette eau est collectée grâce à des gouttières, qui sont comme des canaux installés le long des bords du toit. Ces gouttières sont conçues pour diriger l'eau vers un endroit spécifique, évitant ainsi qu'elle ne tombe n'importe où autour du bâtiment.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Étape</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pluie sur le toit</td>
+                        <td>La pluie tombe sur le toit, recouvrant la surface et prête à être collectée.</td>
+                    </tr>
+                    <tr>
+                        <td>Gouttières</td>
+                        <td>Les gouttières capturent l'eau de pluie grâce à leur forme spécifique et leur position le long du toit.</td>
+                    </tr>
+                    <tr>
+                        <td>Acheminement</td>
+                        <td>L'eau est acheminée par les gouttières vers un point de collecte, généralement un tuyau qui mène au système de filtration.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><em>Exemple concret :</em> Pensez à une rue en pente avec des caniveaux. Les gouttières sont comme les caniveaux d'un toit, canalisant l'eau de pluie.</p>
+
+               <h3>1.2 Le Filtrage : Nettoyage de l'Eau (Pas à Pas)</h3>
+            <p>L'eau de pluie, bien qu'elle semble propre, peut contenir diverses impuretés : des feuilles 🍂, des insectes 🐞, de la poussière, ou encore des débris. Pour la rendre utilisable, nous devons la filtrer. On utilise des filtres. Il existe plusieurs types de filtres, chacun ayant un rôle spécifique :</p>
+            <ul>
+                <li><strong>Filtres à mailles :</strong> ils agissent comme une première barrière, retenant les grosses impuretés.</li>
+                <li><strong>Filtres à charbon actif :</strong> Après le filtre à mailles, l'eau passe souvent par un filtre à charbon actif, un matériau poreux qui élimine les petites particules et les polluants chimiques.</li>
+            </ul>
+            <p><em>Comment ça marche ?</em> L'eau traverse ces filtres, qui retiennent les impuretés à l'intérieur. Les filtres doivent être entretenus régulièrement pour qu'ils continuent à fonctionner efficacement. Seule l'eau propre, débarrassée de ces impuretés, poursuit son chemin.</p>
+
+              <h3>1.3 Le Stockage : L'Eau mise de côté</h3>
+            <p>Une fois filtrée, l'eau est stockée dans une cuve. Les cuves sont comme de grands réservoirs où l'on conserve l'eau pour une utilisation ultérieure. Elles peuvent être de différentes tailles et matériaux, en fonction des besoins et de l'espace disponible. </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type de Cuve</th>
+                        <th>Matériau</th>
+                        <th>Avantages</th>
+                        <th>Inconvénients</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cuve en Plastique</td>
+                        <td>Plastique</td>
+                        <td>Légère, facile à installer et à transporter, économique...</td>
+                        <td>Peut se dégrader avec le temps, moins résistante aux chocs...</td>
+                    </tr>
+                    <tr>
+                        <td>Cuve en Béton</td>
+                        <td>Béton</td>
+                        <td>Très durable et robuste, ne se dégrade pas facilement...</td>
+                        <td>Lourde, difficile à manipuler et à installer...</td>
+                    </tr>
+                    <tr>
+                        <td>Cuve Enterrée</td>
+                        <td>Plastique ou Béton</td>
+                        <td>Invisible, protège l'eau des variations de température et des algues...</td>
+                        <td>Installation plus complexe et plus coûteuse...</td>
+                    </tr>
+                    <tr>
+                        <td>Cuve Aérienne</td>
+                        <td>Plastique ou Métal</td>
+                        <td>Facile à installer et à entretenir, facilement accessible...</td>
+                        <td>Exposée aux intempéries, prend de la place visiblement...</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><em>Exemple concret :</em> Imaginez un grand réservoir d'eau comme dans un château d'eau, où l'on stocke l'eau de pluie comme une réserve pour plus tard.</p>
+
+              <h3>1.4 Utilisation de l'Eau Récupérée (Astucieuse)</h3>
+            <p>L'eau stockée après filtration peut être utilisée pour de nombreuses tâches non potables. Il est important de rappeler que cette eau n'est pas destinée à la consommation humaine sans traitement supplémentaire. Voici quelques utilisations courantes :</p>
+            <ul>
+                <li>Arrosage des plantes et du jardin 🌱</li>
+                <li>Lavage de la voiture 🚗</li>
+                <li>Nettoyage de la cour</li>
+                <li>Remplissage de la piscine (si compatible avec les exigences sanitaires locales)</li>
+            </ul>
+            <p><em>Exemple concret :</em> Au lieu d'utiliser l'eau du robinet pour arroser les fleurs dans le jardin, on utilise l'eau de pluie collectée dans la cuve. Cela permet de faire des économies sur sa facture d'eau et de préserver cette précieuse ressource.</p>
+              `;
+
+            document.getElementById("introduction").style.display = "none";
+            document.getElementById("collecte").style.display = "none";
+            document.getElementById("filtrage").style.display = "none";
+            document.getElementById("stockage").style.display = "none";
+            document.getElementById("utilisation").style.display = "none";
+            document.getElementById("afficher_cours").style.display = "none";
+            document.getElementById("cours_complet").style.display = "block";
+            document.getElementById("cours_complet_content").innerHTML = coursCompletHTML;
+
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Récupération d'Eau de Pluie - Partie 2 : Installation et Impacts</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #e3f2fd; /* Bleu très clair */
+            color: #333;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff; /* Blanc */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #d32f2f; /* Rouge foncé */
+            border-bottom: 2px solid #d32f2f;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .etape {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #bbdefb; /* Bleu ciel clair */
+            border-radius: 8px;
+        }
+
+        .qcm {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #90caf9; /* Bleu clair */
+            background-color: #ffffff;
+            border-radius: 6px;
+        }
+
+        .qcm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .feedback {
+            margin-top: 5px;
+            font-style: italic;
+            color: red;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #90caf9; /* Bleu clair */
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #b3e5fc; /* Bleu ciel très clair */
+        }
+
+        button {
+            background-color: #d32f2f; /* Rouge foncé */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #c62828; /* Rouge plus foncé */
+        }
+
+        #cours_complet {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #d32f2f; /* Rouge foncé */
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            display: none; /* Masqué initialement */
+        }
+
+        #cours_complet h2 {
+            color: #d32f2f; /* Rouge foncé */
+            border-bottom: 2px solid #d32f2f;
+            padding-bottom: 5px;
+        }
+
+        #cours_complet_content {
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <!-- 2.1 L'Installation : -->
+        <div id="installation" class="etape">
+            <h2>2.1 L'Installation : Mise en place du système (Étape par Étape)</h2>
+            <p>L'installation d'un système de récupération d'eau de pluie se fait en plusieurs étapes :</p>
+            <ul>
+                <li>Choix de l'emplacement : Choisir l'endroit idéal pour installer la cuve...</li>
+                <li>Connexion des gouttières : Relier les gouttières au système de filtration...</li>
+                <li>Installation de la cuve : Placer la cuve sur une base stable et la connecter au système de filtration...</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Installation</h3>
+                <p>Question : Que faut-il prendre en compte lors du choix de l'emplacement d'une cuve ?</p>
+                <label><input type="radio" name="installation_q1" value="a"> La proximité des voisins et leur avis.</label><br>
+                <label><input type="radio" name="installation_q1" value="b"> La beauté du paysage.</label><br>
+                <label><input type="radio" name="installation_q1" value="c"> La proximité des gouttières, la stabilité du sol et l'accessibilité.</label><br>
+                <button onclick="validerInstallation()">Valider</button>
+                <p id="installation_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- 2.2 L'Utilisation Quotidienne -->
+        <div id="utilisation" class="etape" style="display: none;">
+            <h2>2.2 L'Utilisation Quotidienne : Profiter de l'eau</h2>
+            <p>Une fois installé, le système est prêt à l'emploi. L'eau de pluie peut être utilisée quotidiennement pour des tâches non alimentaires.</p>
+            <p><em>Exemple concret :</em> Au lieu d'utiliser l'eau du robinet pour arroser les fleurs dans le jardin, on utilise l'eau de pluie collectée dans la cuve.</p>
+            <div class="qcm">
+                <h3>QCM : Utilisation Quotidienne</h3>
+                <p>Question : Quel est l'avantage d'utiliser l'eau de pluie au lieu de l'eau du robinet pour l'arrosage ?</p>
+                 <label><input type="radio" name="utilisation_q1" value="b"> Elle est plus agréable pour les plantes.</label><br>
+                <label><input type="radio" name="utilisation_q1" value="a"> Cela permet de faire des économies sur sa facture d'eau.</label><br>
+                <label><input type="radio" name="utilisation_q1" value="c"> Elle est plus facile à trouver.</label><br>
+               
+                <button onclick="validerUtilisation()">Valider</button>
+                <p id="utilisation_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+          <!-- 2.3 L'Entretien -->
+        <div id="entretien" class="etape" style="display: none;">
+            <h2>2.3 L'Entretien : Garder le système en forme (Important)</h2>
+            <p>Un entretien régulier est essentiel pour garantir le bon fonctionnement du système et prolonger sa durée de vie :</p>
+            <ul>
+                <li>Nettoyage des filtres : Les filtres doivent être nettoyés régulièrement...</li>
+                <li>Maintenance régulière : Il faut vérifier régulièrement les tuyaux et la cuve...</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Entretien</h3>
+                <p>Question : Pourquoi est-il important de nettoyer les filtres régulièrement ?</p>
+                <label><input type="radio" name="entretien_q1" value="a"> Pour décorer le jardin.</label><br>
+                 <label><input type="radio" name="entretien_q1" value="c"> Pour éviter qu'ils ne se bouchent.</label><br>
+                <label><input type="radio" name="entretien_q1" value="b"> Pour que les tuyaux soient plus légers.</label><br>
+                <button onclick="validerEntretien()">Valider</button>
+                <p id="entretien_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- 2.4 Le Remplacement -->
+        <div id="remplacement" class="etape" style="display: none;">
+            <h2>2.4 Le Remplacement : Quand il faut changer (La Solution)</h2>
+            <p>Si la cuve commence à fuir ou est endommagée, il faut la remplacer :</p>
+            <ul>
+                <li>Vidange de la cuve : Vider l'eau restante de la cuve.</li>
+                <li>Déconnexion : Déconnecter tous les tuyaux et les filtres de la cuve.</li>
+                <li>Installation de la nouvelle cuve : Mettre en place la nouvelle cuve et la reconnecter au système.</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Remplacement</h3>
+                <p>Question : Que faire avant de remplacer une cuve endommagée ?</p>
+                 <label><input type="radio" name="remplacement_q1" value="c"> Vider l'eau restante de la cuve.</label><br>
+                <label><input type="radio" name="remplacement_q1" value="a"> La peindre en bleu.</label><br>
+                <label><input type="radio" name="remplacement_q1" value="b"> Y ajouter plus de filtres.</label><br>
+
+                <button onclick="validerRemplacement()">Valider</button>
+                <p id="remplacement_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+           <!-- 3.1 L'Énergie Utilisée -->
+        <div id="energieUtilisee" class="etape" style="display: none;">
+            <h2>3.1 L'Énergie Utilisée</h2>
+             <p>L'eau coule naturellement des gouttières vers le système de filtration et la cuve grâce à la gravité, sans nécessiter d'énergie supplémentaire.</p>
+           <p>Parfois, une pompe électrique est utilisée pour distribuer l'eau stockée, en particulier si elle doit être acheminée vers un endroit situé plus haut ou plus loin. Cette pompe consomme de l'électricité.</p>
+            <p><em>Exemple concret :</em> L'eau descend des gouttières vers le filtre puis vers la cuve en utilisant uniquement la force de la gravité, ce qui ne consomme pas d'énergie.</p>
+            <div class="qcm">
+                <h3>QCM : Energie Utilisée</h3>
+                <p>Question : Quelle source d'énergie est nécessaire pour faire monter l'eau qui descend des gouttière ?</p>
+                <label><input type="radio" name="energieUtilisee_q1" value="a"> Le soleil.</label><br>
+               <label><input type="radio" name="energieUtilisee_q1" value="b"> Aucune.</label><br>
+                   <label><input type="radio" name="energieUtilisee_q1" value="c"> Une pompe.</label><br>
+
+                <button onclick="validerEnergieUtilisee()">Valider</button>
+                <p id="remplacement_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Bouton Afficher Cours Complet -->
+        <button id="afficher_cours" style="display: none;" onclick="afficherCoursComplet()">Afficher le cours complet</button>
+
+        <!-- Cours Complet (Affichage Final) -->
+        <div id="cours_complet" style="display: none;">
+            <div id="cours_complet_content"></div>
+        </div>
+
+    </div>
+
+    <script>
+        let etapeCourante = "installation";
+        let installationValidee = false;
+        let utilisationValidee = false;
+        let entretienValidee = false;
+        let remplacementValidee = false;
+          let energieUtiliseeValidee = false;
+        
+
+         // Afficher la premiere etape
+        document.getElementById("installation").style.display = "block";
+
+          function validerInstallation() {
+            const reponse = document.querySelector('input[name="installation_q1"]:checked');
+            const feedback = document.getElementById("installation_feedback");
+
+            if (reponse && reponse.value === "c") {
+                installationValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "utilisation";
+                document.getElementById("installation").style.display = "none";
+                document.getElementById("utilisation").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function validerUtilisation() {
+            const reponse = document.querySelector('input[name="utilisation_q1"]:checked');
+            const feedback = document.getElementById("utilisation_feedback");
+
+            if (reponse && reponse.value === "a") {
+                utilisationValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "entretien";
+                document.getElementById("utilisation").style.display = "none";
+                document.getElementById("entretien").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+        function validerEntretien() {
+            const reponse = document.querySelector('input[name="entretien_q1"]:checked');
+            const feedback = document.getElementById("entretien_feedback");
+
+            if (reponse && reponse.value === "c") {
+                entretienValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "remplacement";
+                document.getElementById("entretien").style.display = "none";
+                document.getElementById("remplacement").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function validerRemplacement() {
+            const reponse = document.querySelector('input[name="remplacement_q1"]:checked');
+            const feedback = document.getElementById("remplacement_feedback");
+
+            if (reponse && reponse.value === "c") {
+                remplacementValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "energieUtilisee";
+                document.getElementById("remplacement").style.display = "none";
+                document.getElementById("energieUtilisee").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+        function validerEnergieUtilisee() {
+            const reponse = document.querySelector('input[name="energieUtilisee_q1"]:checked');
+            const feedback = document.getElementById("remplacement_feedback");
+
+            if (reponse && reponse.value === "b") {
+                energieUtiliseeValidee = true;
+                feedback.textContent = "Correct ! Vous avez terminé le cours.";
+                feedback.style.color = "green";
+                etapeCourante = "afficher_cours";
+                document.getElementById("energieUtilisee").style.display = "none";
+                document.getElementById("afficher_cours").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function afficherCoursComplet() {
+            let coursCompletHTML = `
+             <h2>Cours Complet</h2>
+              <h3>2.1 L'Installation : Mise en place du système (Étape par Étape)</h3>
+            <p>L'installation d'un système de récupération d'eau de pluie se fait en plusieurs étapes :</p>
+            <ul>
+                <li>Choix de l'emplacement : Choisir l'endroit idéal pour installer la cuve...</li>
+                <li>Connexion des gouttières : Relier les gouttières au système de filtration...</li>
+                <li>Installation de la cuve : Placer la cuve sur une base stable et la connecter au système...</li>
+            </ul>
+
+                <h3>2.2 L'Utilisation Quotidienne : Profiter de l'eau</h3>
+            <p>Une fois installé, le système est prêt à l'emploi. L'eau de pluie peut être utilisée quotidiennement pour des tâches non alimentaires.</p>
+            <p><em>Exemple concret :</em> Au lieu d'utiliser l'eau du robinet pour arroser les fleurs dans le jardin, on utilise l'eau de pluie collectée dans la cuve.</p>
+
+               <h3>2.3 L'Entretien : Garder le système en forme (Important)</h3>
+            <p>Un entretien régulier est essentiel pour garantir le bon fonctionnement du système et prolonger sa durée de vie :</p>
+            <ul>
+                <li>Nettoyage des filtres : Les filtres doivent être nettoyés régulièrement...</li>
+                <li>Maintenance régulière : Il faut vérifier régulièrement les tuyaux et la cuve...</li>
+            </ul>
+
+              <h3>2.4 Le Remplacement : Quand il faut changer (La Solution)</h3>
+            <p>Si la cuve commence à fuir ou est endommagée, il faut la remplacer :</p>
+            <ul>
+                <li>Vidange de la cuve : Vider l'eau restante de la cuve.</li>
+                <li>Déconnexion : Déconnecter tous les tuyaux et les filtres de la cuve.</li>
+                <li>Installation de la nouvelle cuve : Mettre en place la nouvelle cuve et la reconnecter au système.</li>
+            </ul>
+
+            <h3>3.1 L'Énergie Utilisée</h3>
+            <p>L'eau coule naturellement des gouttières vers le système de filtration et la cuve grâce à la gravité, sans nécessiter d'énergie supplémentaire.</p>
+            <p>Parfois, une pompe électrique est utilisée pour distribuer l'eau stockée, en particulier si elle doit être acheminée vers un endroit situé plus haut ou plus loin. Cette pompe consomme de l'électricité.</p>
+            <p><em>Exemple concret :</em> L'eau descend des gouttières vers le filtre puis vers la cuve en utilisant uniquement la force de la gravité, ce qui ne consomme pas d'énergie.</p>
+
+              `;
+
+            document.getElementById("introduction").style.display = "none";
+            document.getElementById("collecte").style.display = "none";
+            document.getElementById("filtrage").style.display = "none";
+            document.getElementById("stockage").style.display = "none";
+            document.getElementById("utilisation").style.display = "none";
+                 document.getElementById("entretien").style.display = "none";
+            document.getElementById("remplacement").style.display = "none";
+                   document.getElementById("energieUtilisee").style.display = "none";
+            document.getElementById("afficher_cours").style.display = "none";
+            document.getElementById("cours_complet").style.display = "block";
+            document.getElementById("cours_complet_content").innerHTML = coursCompletHTML;
+
+        }
+    </script>
+</body>
+</html>
