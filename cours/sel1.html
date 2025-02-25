@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dessalement d'Eau de Mer Éco-Énergétique</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #e1f5fe; /* Bleu ciel très clair */
+            color: #333;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff; /* Blanc */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #0d47a1; /* Bleu marine */
+            border-bottom: 2px solid #0d47a1;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .etape {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #bbdefb; /* Bleu ciel clair */
+            border-radius: 8px;
+        }
+
+        .qcm {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #64b5f6; /* Bleu clair */
+            background-color: #ffffff;
+            border-radius: 6px;
+        }
+
+        .qcm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .feedback {
+            margin-top: 5px;
+            font-style: italic;
+            color: red;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #90caf9; /* Bleu clair */
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #b3e5fc; /* Bleu ciel très clair */
+        }
+
+        button {
+            background-color: #0d47a1; /* Bleu marine */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #083280; /* Bleu marine plus foncé */
+        }
+
+        #cours_complet {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #0d47a1; /* Bleu marine */
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            display: none; /* Masqué initialement */
+        }
+
+        #cours_complet h2 {
+            color: #0d47a1; /* Bleu marine */
+            border-bottom: 2px solid #0d47a1;
+            padding-bottom: 5px;
+        }
+
+        #cours_complet_content {
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <!-- 1. Introduction -->
+        <div id="introduction" class="etape">
+            <h2>1. Introduction</h2>
+            <p><strong>Contexte et importance</strong></p>
+            <p>L'eau est essentielle à la vie, mais malheureusement, 97 % de l'eau sur Terre est salée et donc non potable. Avec la croissance de la population mondiale et les changements climatiques, de nombreuses régions souffrent de pénurie d'eau douce. Les systèmes de dessalement d'eau de mer éco-énergétiques sont des technologies qui permettent de transformer l'eau salée en eau douce, utilisable pour boire, irriguer les cultures ou alimenter les industries.</p>
+            <p><em>Exemple concret :</em> En Arabie Saoudite, près de 50 % de l'eau potable provient du dessalement de l'eau de mer. Sans cette technologie, des millions de personnes n'auraient pas accès à l'eau potable.</p>
+            <p><strong>Enjeux et problématiques</strong></p>
+            <ul>
+                <li>Pénurie d'eau : Dans des régions comme l'Afrique du Nord ou le Moyen-Orient, l'eau douce est rare. Le dessalement offre une solution pour répondre à ce besoin.</li>
+                <li>Consommation d'énergie : Les systèmes de dessalement traditionnels consomment beaucoup d'énergie, ce qui peut être coûteux et mauvais pour l'environnement.</li>
+                <li>Coûts élevés : Construire et entretenir ces systèmes peut être très cher, ce qui pose des défis pour les pays en développement.</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Introduction</h3>
+                <p>Question : Pourquoi le dessalement est-il une solution importante pour l'avenir ?</p>
+                <label><input type="radio" name="q1" value="a"> Parce que l'eau salée est plus facile à trouver que l'eau douce.</label><br>
+                <label><input type="radio" name="q1" value="b"> Parce que l'eau douce est de plus en plus rare à cause de la croissance de la population et des changements climatiques.</label><br>
+                <label><input type="radio" name="q1" value="c"> Parce que c'est la seule façon de rendre l'eau agréable à boire.</label><br>
+                <button onclick="validerIntroduction()">Valider</button>
+                <p id="introduction_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- 2. Fonctionnement et Analyse Technique -->
+        <div id="fonctionnement" class="etape" style="display: none;">
+            <h2>2. Fonctionnement et Analyse Technique</h2>
+            <h3>Description du fonctionnement</h3>
+            <p>Les systèmes de dessalement utilisent principalement deux méthodes :</p>
+            <ul>
+                <li><strong>Osmose inverse :</strong> C'est la méthode la plus courante. L'eau de mer est poussée à travers une membrane très fine qui retient le sel et les impuretés, laissant passer uniquement l'eau douce.</li>
+                <li><strong>Distillation thermique :</strong> L'eau de mer est chauffée pour produire de la vapeur. Cette vapeur est ensuite refroidie et transformée en eau douce.</li>
+            </ul>
+            <p><em>Exemple :</em> Une usine d'osmose inverse en Israël produit 600 000 m³ d'eau douce par jour, ce qui suffit à alimenter une grande ville.</p>
+            <h3>Composants techniques</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Composant</th>
+                        <th>Fonction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pompes</td>
+                        <td>Poussent l'eau de mer à travers les membranes</td>
+                    </tr>
+                    <tr>
+                        <td>Membranes</td>
+                        <td>Filtrent le sel et les impuretés</td>
+                    </tr>
+                    <tr>
+                        <td>Échangeurs de chaleur</td>
+                        <td>Utilisés dans la distillation thermique pour chauffer et refroidir l'eau</td>
+                    </tr>
+                    <tr>
+                        <td>Systèmes de filtration</td>
+                        <td>Éliminent les particules avant le traitement</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><em>Schéma simplifié :</em> [Eau de mer] -> [Pré-filtration] -> [Pompes] -> [Membranes d'osmose inverse] -> [Eau douce]</p>
+            <p><em>Explication :</em> L'eau de mer est d'abord filtrée pour éliminer les particules, puis poussée à travers des membranes qui retiennent le sel. Le résultat est de l'eau douce prête à être utilisée.</p>
+            <div class="qcm">
+                <h3>QCM : Fonctionnement Technique</h3>
+                <p>Question : Quelle est la méthode la plus courante utilisée dans les systèmes de dessalement ?</p>
+               
+ <label><input type="radio" name="fonctionnement_q1" value="a"> Distillation thermique.</label><br>
+                 <label><input type="radio" name="fonctionnement_q1" value="c"> L'électrolyse.</label><br>
+   <label><input type="radio" name="fonctionnement_q1" value="b"> Osmose inverse.</label><br>
+                <button onclick="validerFonctionnement()">Valider</button>
+                <p id="fonctionnement_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- 3. Design, Innovation et Créativité -->
+        <div id="design" class="etape" style="display: none;">
+            <h2>3. Design, Innovation et Créativité</h2>
+            <h3>Cycle de vie</h3>
+            <ul>
+                <li>Conception : Les ingénieurs conçoivent les systèmes en utilisant des logiciels de CAO pour créer des modèles 3D.</li>
+                <li>Fabrication : Les matériaux utilisés doivent résister à la corrosion, comme les alliages d'aluminium ou de titane.</li>
+                <li>Utilisation : Les systèmes sont installés près des côtes pour dessaler l'eau de mer.</li>
+                <li>Fin de vie : Les membranes et autres composants sont recyclés pour réduire les déchets.</li>
+            </ul>
+            <h3>Contraintes techniques et économiques</h3>
+            <ul>
+                <li>Résistance à la corrosion : L'eau de mer est très corrosive, donc les matériaux doivent être solides.</li>
+                <li>Coût de fabrication : Les membranes d'osmose inverse sont coûteuses à produire, ce qui rend les systèmes de dessalement chers.</li>
+            </ul>
+            <h3>Aspects esthétiques et ergonomiques</h3>
+            <ul>
+                <li>Design compact : Pour une installation dans des zones urbaines.</li>
+                <li>Couleurs neutres : Pour une meilleure intégration dans l'environnement.</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Design et Innovation</h3>
+                <p>Question : Pourquoi les matériaux utilisés pour fabriquer les systèmes de dessalement doivent-ils résister à la corrosion ?</p>
+                <label><input type="radio" name="design_q1" value="c"> Parce que l'eau de mer est très corrosive.</label><br>
+                 <label><input type="radio" name="design_q1" value="a"> Pour qu'ils soient plus légers.</label><br>
+                <label><input type="radio" name="design_q1" value="b"> Pour qu'ils soient plus jolis.</label><br>
+
+                <button onclick="validerDesign()">Valider</button>
+                <p id="design_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- 4. Objets Techniques et Changements Sociétaux -->
+        <div id="societe" class="etape" style="display: none;">
+            <h2>4. Objets Techniques et Changements Sociétaux</h2>
+            <h3>Impact sur la société</h3>
+            <p><strong>Avantages :</strong></p>
+            <ul>
+                <li>Accès à l'eau potable dans les régions arides, réduction des conflits liés à l'eau.</li>
+            </ul>
+            <p><strong>Inconvénients :</strong></p>
+            <ul>
+                <li>Coût élevé, impact environnemental des rejets de saumure.</li>
+                <li>Risques : Dépendance technologique, gestion des déchets.</li>
+            </ul>
+            <h3>Enjeux éthiques</h3>
+            <ul>
+                <li>Accès équitable : Comment garantir que tous aient accès à cette technologie ?</li>
+                <li>Impact environnemental : Comment minimiser les rejets de saumure dans l'océan ?</li>
+            </ul>
+            <h3>Transformations sociétales</h3>
+            <ul>
+                <li>Développement économique : Les régions arides peuvent se développer grâce à l'accès à l'eau.</li>
+                <li>Sécurité alimentaire : L'eau douce permet l'irrigation des cultures.</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Société et Éthique</h3>
+                <p>Question : Quel est un enjeu éthique lié au dessalement ?</p>
+                 <label><input type="radio" name="societe_q1" value="a"> La réduction des conflits liés à l'eau.</label><br>
+               <label><input type="radio" name="societe_q1" value="c"> La résistance à la corrosion des matériaux.</label><br>
+              <label><input type="radio" name="societe_q1" value="b"> Comment minimiser les rejets de saumure dans l'océan.</label><br>
+                <button onclick="validerSociete()">Valider</button>
+                <p id="societe_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+           <!-- 5. Modélisation et Simulation -->
+        <div id="modelisation" class="etape" style="display: none;">
+            <h2>5. Modélisation et Simulation</h2>
+            <h3>Logiciels de CAO</h3>
+            <ul>
+                <li>Fusion 360 : Pour la conception 3D des systèmes de dessalement.</li>
+                <li>SolidWorks : Pour simuler les flux d'eau et la pression dans les membranes.</li>
+            </ul>
+            <h3>Simulation numérique</h3>
+            <ul>
+                <li>Analyse des flux : Pour optimiser le débit d'eau dans les membranes.</li>
+                <li>Test de résistance : Pour vérifier la durabilité des matériaux.</li>
+            </ul>
+          
+
+           
+        </div>
+
+        <!-- Bouton Afficher Cours Complet -->
+        <button id="afficher_cours" style="display: none;" onclick="afficherCoursComplet()">Afficher le cours complet</button>
+
+        <!-- Cours Complet (Affichage Final) -->
+        <div id="cours_complet" style="display: none;">
+            <div id="cours_complet_content"></div>
+        </div>
+
+    </div>
+
+    <script>
+        let etapeCourante = "introduction";
+        let introductionValidee = false;
+        let fonctionnementValidee = false;
+        let designValidee = false;
+        let societeValidee = false;
+         let modelisationValidee = false;
+
+         // Afficher la premiere etape
+        document.getElementById("introduction").style.display = "block";
+
+        function validerIntroduction() {
+            const reponse = document.querySelector('input[name="q1"]:checked');
+            const feedback = document.getElementById("introduction_feedback");
+
+            if (reponse && reponse.value === "b") {
+                introductionValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "fonctionnement";
+                document.getElementById("introduction").style.display = "none";
+                document.getElementById("fonctionnement").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+          function validerFonctionnement() {
+            const reponse = document.querySelector('input[name="fonctionnement_q1"]:checked');
+            const feedback = document.getElementById("fonctionnement_feedback");
+
+            if (reponse && reponse.value === "b") {
+                fonctionnementValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "design";
+                document.getElementById("fonctionnement").style.display = "none";
+                document.getElementById("design").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function validerDesign() {
+            const reponse = document.querySelector('input[name="design_q1"]:checked');
+            const feedback = document.getElementById("design_feedback");
+
+            if (reponse && reponse.value === "c") {
+                designValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "societe";
+                document.getElementById("design").style.display = "none";
+                document.getElementById("societe").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+ function validerSociete() {
+            const reponse = document.querySelector('input[name="societe_q1"]:checked');
+            const feedback = document.getElementById("societe_feedback");
+
+            if (reponse && reponse.value === "b") {
+                societeValidee = true;
+                feedback.textContent = "Correct ! Vous avez terminé le cours.";
+                feedback.style.color = "green";
+                etapeCourante = "modelisation";
+                     document.getElementById("societe").style.display = "none";
+                document.getElementById("modelisation").style.display = "block";
+                document.getElementById("afficher_cours").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+      
+         function afficherCoursComplet() {
+            let coursCompletHTML = `
+             <h2>Cours Complet</h2>
+              <h3>1. Introduction</h3>
+            <p><strong>Contexte et importance</strong></p>
+            <p>L'eau est essentielle à la vie, mais malheureusement, 97 % de l'eau sur Terre est salée et donc non potable. Avec la croissance de la population mondiale et les changements climatiques, de nombreuses régions souffrent de pénurie d'eau douce. Les systèmes de dessalement d'eau de mer éco-énergétiques sont des technologies qui permettent de transformer l'eau salée en eau douce, utilisable pour boire, irriguer les cultures ou alimenter les industries.</p>
+            <p><em>Exemple concret :</em> En Arabie Saoudite, près de 50 % de l'eau potable provient du dessalement de l'eau de mer. Sans cette technologie, des millions de personnes n'auraient pas accès à l'eau potable.</p>
+            <p><strong>Enjeux et problématiques</strong></p>
+            <ul>
+                <li>Pénurie d'eau : Dans des régions comme l'Afrique du Nord ou le Moyen-Orient, l'eau douce est rare. Le dessalement offre une solution pour répondre à ce besoin.</li>
+                <li>Consommation d'énergie : Les systèmes de dessalement traditionnels consomment beaucoup d'énergie, ce qui peut être coûteux et mauvais pour l'environnement.</li>
+                <li>Coûts élevés : Construire et entretenir ces systèmes peut être très cher, ce qui pose des défis pour les pays en développement.</li>
+            </ul>
+
+               <h3>2. Fonctionnement et Analyse Technique</h3>
+            <h4>Description du fonctionnement</h4>
+            <p>Les systèmes de dessalement utilisent principalement deux méthodes :</p>
+            <ul>
+                <li><strong>Osmose inverse :</strong> C'est la méthode la plus courante. L'eau de mer est poussée à travers une membrane très fine qui retient le sel et les impuretés, laissant passer uniquement l'eau douce.</li>
+                <li><strong>Distillation thermique :</strong> L'eau de mer est chauffée pour produire de la vapeur. Cette vapeur est ensuite refroidie et transformée en eau douce.</li>
+            </ul>
+            <p><em>Exemple :</em> Une usine d'osmose inverse en Israël produit 600 000 m³ d'eau douce par jour, ce qui suffit à alimenter une grande ville.</p>
+            <h4>Composants techniques</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Composant</th>
+                        <th>Fonction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pompes</td>
+                        <td>Poussent l'eau de mer à travers les membranes</td>
+                    </tr>
+                    <tr>
+                        <td>Membranes</td>
+                        <td>Filtrent le sel et les impuretés</td>
+                    </tr>
+                    <tr>
+                        <td>Échangeurs de chaleur</td>
+                        <td>Utilisés dans la distillation thermique pour chauffer et refroidir l'eau</td>
+                    </tr>
+                    <tr>
+                        <td>Systèmes de filtration</td>
+                        <td>Éliminent les particules avant le traitement</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><em>Schéma simplifié :</em> [Eau de mer] -> [Pré-filtration] -> [Pompes] -> [Membranes d'osmose inverse] -> [Eau douce]</p>
+            <p><em>Explication :</em> L'eau de mer est d'abord filtrée pour éliminer les particules, puis poussée à travers des membranes qui retiennent le sel. Le résultat est de l'eau douce prête à être utilisée.</p>
+
+             <h3>3. Design, Innovation et Créativité</h3>
+            <h4>Cycle de vie</h4>
+            <ul>
+                <li>Conception : Les ingénieurs conçoivent les systèmes en utilisant des logiciels de CAO (Conception Assistée par Ordinateur) pour créer des modèles 3D.</li>
+                <li>Fabrication : Les matériaux utilisés doivent résister à la corrosion, comme les alliages d'aluminium ou de titane.</li>
+                <li>Utilisation : Les systèmes sont installés près des côtes pour dessaler l'eau de mer.</li>
+                <li>Fin de vie : Les membranes et autres composants sont recyclés pour réduire les déchets.</li>
+            </ul>
+            <h4>Contraintes techniques et économiques</h4>
+            <ul>
+                <li>Résistance à la corrosion : L'eau de mer est très corrosive, donc les matériaux doivent être solides.</li>
+                <li>Coût de fabrication : Les membranes d'osmose inverse sont coûteuses à produire, ce qui rend les systèmes de dessalement chers.</li>
+            </ul>
+             <h4>Aspects esthétiques et ergonomiques</h4>
+            <ul>
+                <li>Design compact : Pour une installation dans des zones urbaines.</li>
+                <li>Couleurs neutres : Pour une meilleure intégration dans l'environnement.</li>
+        </ul>
+
+              <h3>4. Objets Techniques et Changements Sociétaux</h3>
+            <h4>Impact sur la société</h4>
+            <p><strong>Avantages :</strong></p>
+            <ul>
+                <li>Accès à l'eau potable dans les régions arides, réduction des conflits liés à l'eau.</li>
+            </ul>
+            <p><strong>Inconvénients :</strong></p>
+            <ul>
+                <li>Coût élevé, impact environnemental des rejets de saumure.</li>
+                <li>Risques : Dépendance technologique, gestion des déchets.</li>
+            </ul>
+            <h4>Enjeux éthiques</h4>
+            <ul>
+                <li>Accès équitable : Comment garantir que tous aient accès à cette technologie ?</li>
+                <li>Impact environnemental : Comment minimiser les rejets de saumure dans l'océan ?</li>
+            </ul>
+             <h4>Transformations sociétales</h4>
+            <ul>
+                <li>Développement économique : Les régions arides peuvent se développer grâce à l'accès à l'eau.</li>
+                <li>Sécurité alimentaire : L'eau douce permet l'irrigation des cultures.</li>
+        </ul>
+
+        <h3>5. Modélisation et Simulation</h3>
+            <h4>Logiciels de CAO</h4>
+            <ul>
+                <li>Fusion 360 : Pour la conception 3D des systèmes de dessalement.</li>
+                <li>SolidWorks : Pour simuler les flux d'eau et la pression dans les membranes.</li>
+            </ul>
+            <h4>Simulation numérique</h4>
+            <ul>
+                <li>Analyse des flux : Pour optimiser le débit d'eau dans les membranes.</li>
+                <li>Test de résistance : Pour vérifier la durabilité des matériaux.</li>
+            </ul>
+
+              `;
+
+            document.getElementById("introduction").style.display = "none";
+            document.getElementById("fonctionnement").style.display = "none";
+            document.getElementById("design").style.display = "none";
+            document.getElementById("societe").style.display = "none";
+             document.getElementById("modelisation").style.display = "none";
+            document.getElementById("afficher_cours").style.display = "none";
+            document.getElementById("cours_complet").style.display = "block";
+            document.getElementById("cours_complet_content").innerHTML = coursCompletHTML;
+
+        }
+    </script>
+</body>
+</html>
