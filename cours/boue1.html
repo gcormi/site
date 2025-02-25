@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À la Découverte des Bouées Intelligentes</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0; /* Fond gris clair */
+            color: #333;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff; /* Fond blanc */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2962ff; /* Bleu */
+            border-bottom: 2px solid #2962ff;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .etape {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #e3f2fd; /* Bleu très clair */
+            border-radius: 8px;
+        }
+
+        .qcm {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #90caf9; /* Bleu clair */
+            background-color: #ffffff;
+            border-radius: 6px;
+        }
+
+        .qcm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .feedback {
+            margin-top: 5px;
+            font-style: italic;
+            color: red;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #b0bec5;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #eceff1; /* Gris clair */
+        }
+
+        button {
+            background-color: #2962ff; /* Bleu */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #1a237e; /* Bleu plus foncé */
+        }
+
+        #cours_complet {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #2962ff; /* Bleu */
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            display: none; /* Masqué initialement */
+        }
+
+        #cours_complet h2 {
+            color: #2962ff; /* Bleu */
+            border-bottom: 2px solid #2962ff;
+            padding-bottom: 5px;
+        }
+
+        #cours_complet_content {
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <!-- Introduction -->
+        <div id="introduction" class="etape">
+            <h2>1. Introduction : Pourquoi s'intéresser aux microplastiques ? 🤔</h2>
+            <p><strong>Contexte et importance</strong></p>
+            <p>Les bouées intelligentes sont des dispositifs technologiques essentiels pour surveiller les océans. Elles collectent des données sur la température de l'eau, les courants marins, la pollution, et même la vie marine. Ces informations sont cruciales pour comprendre les changements climatiques, protéger les écosystèmes marins et assurer la sécurité maritime.</p>
+            <p><em>Exemple concret :</em> Les bouées déployées dans l'océan Pacifique permettent de prévoir les ouragans et de sauver des vies en alertant les populations côtières à temps.</p>
+            <p><strong>Enjeux et problématiques</strong></p>
+            <ul>
+                <li>Surveillance environnementale : Comment mesurer l'impact des activités humaines sur les océans ?</li>
+                <li>Sécurité maritime : Comment prévenir les accidents et les naufrages ?</li>
+                <li>Changement climatique : Comment suivre l'évolution des températures et des courants océaniques ?</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Introduction</h3>
+                <p>Question : Pourquoi les bouées intelligentes sont-elles importantes ?</p>
+                <label><input type="radio" name="q1" value="a"> Pour faire des photos sous-marines.</label><br>
+                <label><input type="radio" name="q1" value="b"> Pour comprendre les changements climatiques et assurer la sécurité maritime.</label><br>
+                <label><input type="radio" name="q1" value="c"> Pour attirer les poissons.</label><br>
+                <button onclick="validerIntroduction()">Valider</button>
+                <p id="introduction_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Fonctionnement -->
+        <div id="fonctionnement" class="etape" style="display: none;">
+            <h2>2. Fonctionnement et Analyse Technique</h2>
+            <h3>Description du fonctionnement</h3>
+            <p>Les bouées intelligentes sont équipées de capteurs qui mesurent divers paramètres environnementaux. Ces données sont ensuite transmises à des stations terrestres via des satellites ou des réseaux sans fil.</p>
+            <p><em>Exemple :</em> Une bouée peut mesurer la température de l'eau toutes les heures et envoyer ces données à un centre de recherche pour analyse.</p>
+            <h3>Composants techniques</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Composant</th>
+                        <th>Fonction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Capteurs</td>
+                        <td>Mesurent la température, la salinité, les courants, etc.</td>
+                    </tr>
+                    <tr>
+                        <td>Batterie</td>
+                        <td>Alimente la bouée en énergie</td>
+                    </tr>
+                    <tr>
+                        <td>Module de communication</td>
+                        <td>Transmet les données collectées</td>
+                    </tr>
+                    <tr>
+                        <td>Structure flottante</td>
+                        <td>Assure la flottabilité et la stabilité</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><em>Schéma simplifié :</em> [Capteurs] -> [Module de traitement] -> [Module de communication] -> [Station terrestre]</p>
+            <p><em>Exemple concret :</em> La bouée Smart Buoy utilisée dans l'océan Atlantique pour surveiller les tempêtes et les ouragans.</p>
+
+            <div class="qcm">
+                <h3>QCM : Fonctionnement Technique</h3>
+                <p>Question : Quel est le rôle du module de communication dans une bouée intelligente ?</p>
+                <label><input type="radio" name="fonctionnement_q1" value="a"> Mesurer la température de l'eau.</label><br>
+                <label><input type="radio" name="fonctionnement_q1" value="b"> Transmettre les données collectées.</label><br>
+                <label><input type="radio" name="fonctionnement_q1" value="c"> Assurer la flottabilité de la bouée.</label><br>
+                <button onclick="validerFonctionnement()">Valider</button>
+                <p id="fonctionnement_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Design, Innovation et Créativité -->
+        <div id="design" class="etape" style="display: none;">
+            <h2>3. Design, Innovation et Créativité</h2>
+            <h3>Cycle de vie</h3>
+            <ul>
+                <li><strong>Conception :</strong> Design des capteurs et de la structure.</li>
+                <li><strong>Fabrication :</strong> Utilisation de matériaux résistants à la corrosion.</li>
+                <li><strong>Utilisation :</strong> Déploiement en mer et collecte de données.</li>
+                <li><strong>Fin de vie :</strong> Recyclage des matériaux.</li>
+            </ul>
+            <h3>Contraintes techniques et économiques</h3>
+            <ul>
+                <li>Résistance aux conditions extrêmes (tempêtes, corrosion).</li>
+                <li>Coût de fabrication et de maintenance.</li>
+            </ul>
+             <h3>Processus d'innovation</h3>
+            <ul>
+                <li>Brevetage des nouvelles technologies de capteurs.</li>
+                <li>Amélioration continue des algorithmes de traitement des données.</li>
+        </ul>
+             <h3>Aspects esthétiques et ergonomiques</h3>
+            <ul>
+                <li>Design aérodynamique pour réduire la résistance à l'eau.</li>
+                <li>Couleurs vives pour une meilleure visibilité.</li>
+        </ul>
+            <div class="qcm">
+                <h3>QCM : Design et Innovation</h3>
+                <p>Question : Pourquoi le recyclage des matériaux est-il important dans le cycle de vie d'une bouée ?</p>
+                <label><input type="radio" name="design_q1" value="a"> Pour améliorer sa visibilité.</label><br>
+                <label><input type="radio" name="design_q1" value="c"> Pour réduire l'impact environnemental.</label><br>
+                <label><input type="radio" name="design_q1" value="b"> Pour réduire sa résistance à l'eau.</label><br>
+                <button onclick="validerDesign()">Valider</button>
+                <p id="design_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Objets Techniques et Changements Sociétaux -->
+        <div id="societe" class="etape" style="display: none;">
+            <h2>4. Objets Techniques et Changements Sociétaux</h2>
+            <h3>Impact sur la société</h3>
+            <p><strong>Avantages :</strong></p>
+            <ul>
+                <li>Meilleure prévision météorologique, protection des écosystèmes marins.</li>
+            </ul>
+            <p><strong>Inconvénients :</strong></p>
+            <ul>
+                <li>Coût élevé, dépendance technologique.</li>
+                 <li>Risques : Piratage des données, défaillance technique.</li>
+            </ul>
+              <h3>Enjeux éthiques</h3>
+            <ul>
+                <li>Utilisation des données collectées.</li>
+                <li>Impact sur la vie privée des communautés côtières.</li>
+        </ul>
+             <h3>Transformations sociétales</h3>
+            <ul>
+                <li>Meilleure gestion des ressources marines.</li>
+                <li>Augmentation de la sécurité maritime.</li>
+        </ul>
+            <div class="qcm">
+                <h3>QCM : Société et Éthique</h3>
+                <p>Question : Quel est un risque lié à l'utilisation des bouées intelligentes ?</p>
+                <label><input type="radio" name="societe_q1" value="a"> L'amélioration de la qualité de l'eau.</label><br>
+                <label><input type="radio" name="societe_q1" value="b"> Le piratage des données.</label><br>
+                <label><input type="radio" name="societe_q1" value="c"> La protection des écosystèmes marins.</label><br>
+                <button onclick="validerSociete()">Valider</button>
+                <p id="societe_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+         <!-- Modélisation et Simulation -->
+      
+
+        <!-- Bouton Afficher Cours Complet -->
+        <button id="afficher_cours" style="display: none;" onclick="afficherCoursComplet()">Afficher le cours complet</button>
+
+        <!-- Cours Complet (Affichage Final) -->
+        <div id="cours_complet" style="display: none;">
+            <div id="cours_complet_content"></div>
+        </div>
+
+    </div>
+
+    <script>
+        let etapeCourante = "introduction";
+        let introductionValidee = false;
+        let fonctionnementValidee = false;
+        let designValidee = false;
+        let societeValidee = false;
+
+         // Afficher la premiere etape
+        document.getElementById("introduction").style.display = "block";
+        function validerIntroduction() {
+            const reponse = document.querySelector('input[name="q1"]:checked');
+            const feedback = document.getElementById("introduction_feedback");
+
+            if (reponse && reponse.value === "b") {
+                introductionValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "fonctionnement";
+                document.getElementById("introduction").style.display = "none";
+                document.getElementById("fonctionnement").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+          function validerFonctionnement() {
+            const reponse = document.querySelector('input[name="fonctionnement_q1"]:checked');
+            const feedback = document.getElementById("fonctionnement_feedback");
+
+            if (reponse && reponse.value === "b") {
+                fonctionnementValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "design";
+                document.getElementById("fonctionnement").style.display = "none";
+                document.getElementById("design").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function validerDesign() {
+            const reponse = document.querySelector('input[name="design_q1"]:checked');
+            const feedback = document.getElementById("design_feedback");
+
+            if (reponse && reponse.value === "c") {
+                designValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "societe";
+                document.getElementById("design").style.display = "none";
+                document.getElementById("societe").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+ function validerSociete() {
+            const reponse = document.querySelector('input[name="societe_q1"]:checked');
+            const feedback = document.getElementById("societe_feedback");
+
+            if (reponse && reponse.value === "b") {
+                societeValidee = true;
+                feedback.textContent = "Correct ! Vous avez terminé le cours.";
+                feedback.style.color = "green";
+                etapeCourante = "afficher_cours";
+                   document.getElementById("societe").style.display = "none";
+                document.getElementById("afficher_cours").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function afficherCoursComplet() {
+            let coursCompletHTML = `
+               <h2>Cours Complet</h2>
+               <h3>1. Introduction : Pourquoi s'intéresser aux microplastiques ? 🤔</h3>
+            <p><strong>Contexte et importance</strong></p>
+            <p>Les bouées intelligentes sont des dispositifs technologiques essentiels pour surveiller les océans. Elles collectent des données sur la température de l'eau, les courants marins, la pollution, et même la vie marine. Ces informations sont cruciales pour comprendre les changements climatiques, protéger les écosystèmes marins et assurer la sécurité maritime.</p>
+            <p><em>Exemple concret :</em> Les bouées déployées dans l'océan Pacifique permettent de prévoir les ouragans et de sauver des vies en alertant les populations côtières à temps.</p>
+            <p><strong>Enjeux et problématiques</strong></p>
+            <ul>
+                <li>Surveillance environnementale : Comment mesurer l'impact des activités humaines sur les océans ?</li>
+                <li>Sécurité maritime : Comment prévenir les accidents et les naufrages ?</li>
+                <li>Changement climatique : Comment suivre l'évolution des températures et des courants océaniques ?</li>
+            </ul>
+
+               <h3>2. Fonctionnement et Analyse Technique</h3>
+            <h4>Description du fonctionnement</h4>
+            <p>Les bouées intelligentes sont équipées de capteurs qui mesurent divers paramètres environnementaux. Ces données sont ensuite transmises à des stations terrestres via des satellites ou des réseaux sans fil.</p>
+            <p><em>Exemple :</em> Une bouée peut mesurer la température de l'eau toutes les heures et envoyer ces données à un centre de recherche pour analyse.</p>
+            <h4>Composants techniques</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Composant</th>
+                        <th>Fonction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Capteurs</td>
+                        <td>Mesurent la température, la salinité, les courants, etc.</td>
+                    </tr>
+                    <tr>
+                        <td>Batterie</td>
+                        <td>Alimente la bouée en énergie</td>
+                    </tr>
+                    <tr>
+                        <td>Module de communication</td>
+                        <td>Transmet les données collectées</td>
+                    </tr>
+                    <tr>
+                        <td>Structure flottante</td>
+                        <td>Assure la flottabilité et la stabilité</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><em>Schéma simplifié :</em> [Capteurs] -> [Module de traitement] -> [Module de communication] -> [Station terrestre]</p>
+            <p><em>Exemple concret :</em> La bouée Smart Buoy utilisée dans l'océan Atlantique pour surveiller les tempêtes et les ouragans.</p>
+
+               <h3>3. Design, Innovation et Créativité</h3>
+            <h4>Cycle de vie</h4>
+            <ul>
+                <li><strong>Conception :</strong> Design des capteurs et de la structure.</li>
+                <li><strong>Fabrication :</strong> Utilisation de matériaux résistants à la corrosion.</li>
+                <li><strong>Utilisation :</strong> Déploiement en mer et collecte de données.</li>
+                <li><strong>Fin de vie :</strong> Recyclage des matériaux.</li>
+            </ul>
+            <h4>Contraintes techniques et économiques</h4>
+            <ul>
+                <li>Résistance aux conditions extrêmes (tempêtes, corrosion).</li>
+                <li>Coût de fabrication et de maintenance.</li>
+            </ul>
+             <h4>Processus d'innovation</h4>
+            <ul>
+                <li>Brevetage des nouvelles technologies de capteurs.</li>
+                <li>Amélioration continue des algorithmes de traitement des données.</li>
+        </ul>
+             <h4>Aspects esthétiques et ergonomiques</h4>
+            <ul>
+                <li>Design aérodynamique pour réduire la résistance à l'eau.</li>
+                <li>Couleurs vives pour une meilleure visibilité.</li>
+        </ul>
+            `;
+
+            document.getElementById("introduction").style.display = "none";
+            document.getElementById("fonctionnement").style.display = "none";
+            document.getElementById("design").style.display = "none";
+            document.getElementById("societe").style.display = "none";
+               document.getElementById("afficher_cours").style.display = "none";
+            document.getElementById("cours_complet").style.display = "block";
+            document.getElementById("cours_complet_content").innerHTML = coursCompletHTML;
+
+        }
+    </script>
+</body>
+</html>

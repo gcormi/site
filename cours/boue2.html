@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Bouées Intelligentes - Partie 2 : Programmation et Avenir</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0; /* Fond gris clair */
+            color: #333;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff; /* Fond blanc */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2962ff; /* Bleu */
+            border-bottom: 2px solid #2962ff;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .etape {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #e3f2fd; /* Bleu très clair */
+            border-radius: 8px;
+        }
+
+        .qcm {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #90caf9; /* Bleu clair */
+            background-color: #ffffff;
+            border-radius: 6px;
+        }
+
+        .qcm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .feedback {
+            margin-top: 5px;
+            font-style: italic;
+            color: red;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        button {
+            background-color: #2962ff; /* Bleu */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #1a237e; /* Bleu plus foncé */
+        }
+
+        #cours_complet {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #2962ff; /* Bleu */
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            display: none; /* Masqué initialement */
+        }
+
+        #cours_complet h2 {
+            color: #2962ff; /* Bleu */
+            border-bottom: 2px solid #2962ff;
+            padding-bottom: 5px;
+        }
+
+        #cours_complet_content {
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <!-- 6. Informatique et Programmation Avancée -->
+        <div id="programmation" class="etape">
+            <h2>1. Programmation et Drones : Vers l’Avenir ! 💻</h2>
+            <h3>Programmation orientée objet</h3>
+            <p>Création de classes pour les capteurs et les modules de communication. Par exemple, une classe "Capteur" peut avoir des méthodes pour lire la température et la salinité.</p>
+            <h3>Gestion des entrées/sorties</h3>
+            <ul>
+                <li>📡 Lecture des données des capteurs.</li>
+                <li>🛰️ Transmission des données via le module de communication.</li>
+            </ul>
+            <h3>Traitement et analyse des données</h3>
+            <ul>
+                <li>🐍 Utilisation de Python pour analyser les données collectées.</li>
+                <li>📊 Visualisation des données avec des graphiques.</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Programmation Avancée</h3>
+                <p>Question : À quoi sert la programmation orientée objet dans le contexte des bouées ?</p>
+               <label><input type="radio" name="programmation_q1" value="b"> À mieux structurer le code des capteurs et modules.</label><br>
+                <label><input type="radio" name="programmation_q1" value="a"> À créer des sites web pour les bouées.</label><br>
+                <label><input type="radio" name="programmation_q1" value="c"> À concevoir des bouées plus jolies.</label><br>
+
+                <button onclick="validerProgrammation()">Valider</button>
+                <p id="programmation_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- 7. Énergies, Environnement et Matériaux -->
+        <div id="energie" class="etape" style="display: none;">
+            <h2>2. Énergies, Environnement et Matériaux</h2>
+            <h3>Sources d'énergie</h3>
+            <ul>
+                <li>☀️ Panneaux solaires pour l'alimentation électrique.</li>
+                <li>🔋 Batteries lithium-ion pour le stockage.</li>
+            </ul>
+            <h3>Impacts environnementaux</h3>
+            <ul>
+                <li>♻️ Recyclage des matériaux en fin de vie.</li>
+                <li>🌱 Réduction des émissions de CO2 grâce à l'énergie solaire.</li>
+            </ul>
+            <h3>Matériaux innovants</h3>
+            <ul>
+                <li>🔩 Alliages résistants à la corrosion.</li>
+                <li>♻️ Plastiques recyclables.</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Énergie et Environnement</h3>
+                <p>Question : Quel est l'avantage d'utiliser des panneaux solaires sur les bouées ?</p>
+                 <label><input type="radio" name="energie_q1" value="b"> Ils réduisent les émissions de CO2.</label><br>
+                <label><input type="radio" name="energie_q1" value="a"> Ils sont plus légers que les batteries.</label><br>
+                <label><input type="radio" name="energie_q1" value="c"> Ils sont moins chers que les batteries.</label><br>
+
+                <button onclick="validerEnergie()">Valider</button>
+                <p id="energie_feedback" class="feedback"></p>
+            </div>
+        </div>
+         <!-- 8. Automatisation et Robotique -->
+        <div id="automatisation" class="etape" style="display: none;">
+            <h2>3. Automatisation et Robotique</h2>
+            <h3>Principes de l'automatisation</h3>
+            <ul>
+                <li>⏰ Contrôle automatique des capteurs.</li>
+                <li>📡 Transmission automatique des données.</li>
+            </ul>
+            <h3>Programmation de robots</h3>
+            <ul>
+                <li>🖥️ Utilisation de microcontrôleurs comme Arduino.</li>
+            </ul>
+                <h3>Applications</h3>
+            <ul>
+                <li>🌊 Surveillance automatisée des récifs coralliens.</li>
+                <li>⚠️ Détection automatique de la pollution.</li>
+            </ul>
+
+            <div class="qcm">
+                <h3>QCM : Energie et Environnement</h3>
+                <p>Question : Quel est un des usages de l'automatisation ?</p>
+                  <label><input type="radio" name="automatisaton_q1" value="b"> Contrôle automatique des capteurs.</label><br>
+                <label><input type="radio" name="automatisaton_q1" value="a"> Avoir une bouée plus jolie.</label><br>
+              
+                <label><input type="radio" name="automatisaton_q1" value="c"> Couter plus cher.</label><br>
+                <button onclick="validerAutomatisation()">Valider</button>
+                <p id="developpement_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- 10. Conclusion -->
+        <div id="conclusion" class="etape" style="display: none;">
+            <h2>4. Conclusion : Un Océan d'Avenir et des Perspectives d'Évolution 🚀</h2>
+            <p>Les bouées intelligentes ne sont pas de simples objets flottants ; ce sont de véritables fenêtres sur l'océan, des outils essentiels pour comprendre, protéger et gérer durablement cette ressource vitale. Elles représentent le mariage réussi entre technologie de pointe et conscience environnementale.</p>
+            <p>En résumé, nous avons exploré ensemble :</p>
+            <ul>
+                <li>Le rôle crucial des océans : Pourquoi ils sont si importants pour notre planète.</li>
+                <li>Le fonctionnement des bouées intelligentes : Comment elles collectent des données précieuses.</li>
+                <li>L'utilité de ces informations : Comment elles nous aident à mieux comprendre et protéger l'océan.</li>
+                <li>Les défis techniques et éthiques : Les enjeux liés à leur conception, utilisation, et leur impact sur notre monde.</li>
+                <li>Votre rôle en tant que futurs acteurs de la protection de l'océan : Comment vous pouvez contribuer à cet effort global.</li>
+            </ul>
+
+        </div>
+
+        <!-- Bouton Afficher Cours Complet -->
+        <button id="afficher_cours" style="display: none;" onclick="afficherCoursComplet()">Afficher le cours complet</button>
+
+        <!-- Cours Complet (Affichage Final) -->
+        <div id="cours_complet" style="display: none;">
+            <div id="cours_complet_content"></div>
+        </div>
+
+    </div>
+
+    <script>
+        let etapeCourante = "programmation";
+        let programmationValidee = false;
+        let energieValidee = false;
+         let automatisationValidee = false;
+
+         // Afficher la premiere etape
+        document.getElementById("programmation").style.display = "block";
+
+         function validerProgrammation() {
+            const reponse = document.querySelector('input[name="programmation_q1"]:checked');
+            const feedback = document.getElementById("programmation_feedback");
+
+            if (reponse && reponse.value === "b") {
+                programmationValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "energie";
+                document.getElementById("programmation").style.display = "none";
+                document.getElementById("energie").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function validerEnergie() {
+            const reponse = document.querySelector('input[name="energie_q1"]:checked');
+            const feedback = document.getElementById("energie_feedback");
+
+            if (reponse && reponse.value === "b") {
+                energieValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "automatisation";
+                document.getElementById("energie").style.display = "none";
+                document.getElementById("automatisation").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+          function validerAutomatisation() {
+            const reponse = document.querySelector('input[name="automatisaton_q1"]:checked');
+            const feedback = document.getElementById("developpement_feedback");
+
+            if (reponse && reponse.value === "b") {
+                automatisationValidee = true;
+                feedback.textContent = "Correct ! Vous avez terminé le cours.";
+                feedback.style.color = "green";
+                etapeCourante = "conclusion";
+                document.getElementById("automatisation").style.display = "none";
+                document.getElementById("conclusion").style.display = "block";
+                document.getElementById("afficher_cours").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function afficherCoursComplet() {
+            let coursCompletHTML = `
+               <h2>Cours Complet</h2>
+              <h3>6. Informatique et Programmation Avancée</h3>
+            <h4>Programmation orientée objet</h4>
+            <p>Création de classes pour les capteurs et les modules de communication. Par exemple, une classe "Capteur" peut avoir des méthodes pour lire la température et la salinité.</p>
+            <h4>Gestion des entrées/sorties</h4>
+            <ul>
+                <li>📡 Lecture des données des capteurs.</li>
+                <li>🛰️ Transmission des données via le module de communication.</li>
+            </ul>
+            <h4>Traitement et analyse des données</h4>
+            <ul>
+                <li>🐍 Utilisation de Python pour analyser les données collectées.</li>
+                <li>📊 Visualisation des données avec des graphiques.</li>
+            </ul>
+            
+
+              <h3>7. Énergies, Environnement et Matériaux</h3>
+            <h4>Sources d'énergie</h4>
+            <ul>
+                <li>☀️ Panneaux solaires pour l'alimentation électrique.</li>
+                <li>🔋 Batteries lithium-ion pour le stockage.</li>
+            </ul>
+            <h4>Impacts environnementaux</h4>
+            <ul>
+                <li>♻️ Recyclage des matériaux en fin de vie.</li>
+                <li>🌱 Réduction des émissions de CO2 grâce à l'énergie solaire.</li>
+            </ul>
+           <h4>Matériaux innovants</h4>
+            <ul>
+                <li>🔩 Alliages résistants à la corrosion.</li>
+                <li>♻️ Plastiques recyclables.</li>
+            </ul>
+
+              <h3>8. Automatisation et Robotique</h3>
+            <h4>Principes de l'automatisation</h4>
+            <ul>
+                <li>⏰ Contrôle automatique des capteurs.</li>
+                <li>📡 Transmission automatique des données.</li>
+            </ul>
+             <h4>Programmation de robots</h4>
+            <ul>
+                <li> 🖥️ Utilisation de microcontrôleurs comme Arduino.</li>
+            </ul>
+           <h4>Applications</h4>
+            <ul>
+                <li>🌊 Surveillance automatisée des récifs coralliens.</li>
+                <li>⚠️ Détection automatique de la pollution.</li>
+            </ul>
+
+                 <h3>9. Conclusion : Un Océan d'Avenir et des Perspectives d'Évolution 🚀</h3>
+            <h4>Récapitulatif 📝</h4>
+            <p>Au cours de ce cours, nous avons vu comment les systèmes de filtration des microplastiques fonctionnent, comment ils sont conçus, quel est leur impact sur la société et comment les technologies peuvent aider à lutter contre la pollution plastique.</p>
+            <h4>Perspectives d'avenir 🚀</h4>
+            <ul>
+                <li>Développement de technologies ✨ : Continuer à améliorer la filtration et la rendre accessible.</li>
+                <li>Gestion des déchets ♻️ : Réduire la production de plastique et recycler davantage
+                <li>Sensibilisation 📢 : Promouvoir une prise de conscience et des comportements responsables.</li>
+                <li>Mobilisation 🤝 : Agir ensemble, citoyens, entreprises et gouvernements, pour un avenir propre.</li>
+            </ul>
+              `;
+            document.getElementById("programmation").style.display = "none";
+            document.getElementById("energie").style.display = "none";
+             document.getElementById("automatisation").style.display = "none";
+            document.getElementById("conclusion").style.display = "none";
+            document.getElementById("afficher_cours").style.display = "none";
+            document.getElementById("cours_complet").style.display = "block";
+            document.getElementById("cours_complet_content").innerHTML = coursCompletHTML;
+         
+        }
+    </script>
+</body>
+</html>
