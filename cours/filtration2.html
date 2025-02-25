@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microplastiques - Partie 2 : Innovation et Solutions</title>
+    <style>
+        /* Couleurs : vert foncé, bleu et touches d'orange */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #e0f7fa; /* Vert très clair */
+            color: #333;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #00796b; /* Vert foncé */
+            border-bottom: 2px solid #00796b;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .etape {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #e1f5fe; /* Bleu très clair */
+            border-radius: 8px;
+        }
+
+        .qcm {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #81d4fa; /* Bleu clair */
+            background-color: #ffffff;
+            border-radius: 6px;
+        }
+
+        .qcm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .feedback {
+            margin-top: 5px;
+            font-style: italic;
+            color: red;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        button {
+            background-color: #ff9800; /* Orange */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #f57c00; /* Orange plus foncé */
+        }
+
+        #cours_complet {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #ffb300; /* Orange vif */
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            display: none; /* Masqué initialement */
+        }
+
+        #cours_complet h2 {
+            color: #ffb300;
+            border-bottom: 2px solid #ffb300;
+            padding-bottom: 5px;
+        }
+
+        #cours_complet_content {
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <!-- Innovation au service de la filtration -->
+        <div id="innovation" class="etape">
+            <h2>1. L'innovation au service de la filtration 🚀</h2>
+            <p>La recherche et l'innovation sont indispensables pour améliorer les systèmes de filtration :</p>
+            <ul>
+                <li>✨ Recherche de matériaux filtrants innovants : On explore de nouvelles matières comme les bio-matériaux (faits à partir de plantes ou d'algues), les nano-matériaux (avec des propriétés incroyables à l'échelle microscopique) qui sont plus efficaces et plus respectueux de l'environnement.</li>
+                <li>💪 Développement de filtres plus performants : On travaille pour créer des filtres qui retiennent davantage de microplastiques et consomment moins d'énergie. On cherche à optimiser le système de filtration.</li>
+                <li>🧩 Conception de systèmes modulaires : L'objectif est de créer des systèmes de filtration qui peuvent être assemblés facilement, personnalisables et adaptés à différentes situations (pour une maison 🏠, une usine 🏭, un navire 🚢...).</li>
+                <li>🤖 Automatisation des processus de filtration : On utilise l'informatique et la robotique pour automatiser certaines tâches (nettoyage du filtre 🧽, surveillance 👁️‍🗨️, etc.) et les rendre plus efficaces.</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Innovation</h3>
+                <p>Question : Qu'est-ce qu'on explore comme nouvelles matières filtrantes ?</p>
+                <label><input type="radio" name="innovation_q1" value="a"> Uniquement les plastiques recyclés.</label><br>
+                <label><input type="radio" name="innovation_q1" value="b"> Les bio-matériaux et les nano-matériaux.</label><br>
+                <label><input type="radio" name="innovation_q1" value="c"> Uniquement le charbon actif.</label><br>
+                <button onclick="validerInnovation()">Valider</button>
+                <p id="innovation_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Objets Techniques et Changements Sociétaux -->
+        <div id="societe" class="etape" style="display: none;">
+            <h2>2. Objets Techniques et Changements Sociétaux 🌍</h2>
+            <h3>Impact des systèmes de filtration sur la société 🏘️</h3>
+            <p>Les systèmes de filtration ont un impact important sur notre société, à la fois positif et négatif :</p>
+            <p><strong>Avantages 👍 :</strong></p>
+            <ul>
+                <li>💧 Amélioration de la qualité de l'eau : En éliminant les microplastiques, on améliore la qualité de l'eau que nous utilisons au quotidien pour boire, se laver ou arroser les jardins 🌷.</li>
+                <li>🌿 Protection de la faune et de la flore : En limitant la pollution, on préserve les écosystèmes et la biodiversité, évitant des effets néfastes sur les animaux et les plantes.</li>
+                <li>🧑‍⚕️ Limitation des risques sanitaires : En réduisant la présence de microplastiques dans notre alimentation, on limite les risques pour notre santé.</li>
+            </ul>
+            <p><strong>Inconvénients et risques 👎 :</strong></p>
+            <ul>
+                <li>Coût 💰 : L'installation et l'entretien de systèmes de filtration peuvent coûter cher.</li>
+                <li>Gestion des déchets 🗑️ : Les filtres peuvent retenir des quantités importantes de microplastiques.</li>
+                 <li>Risque de transfert de la pollution ⚠️ : Il faut faire attention à ce que les déchets de filtration ne polluent pas d'autres milieux.</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Impacts sur la Société</h3>
+                <p>Question : Quel est un inconvénient de l'utilisation des systèmes de filtration ?</p>
+                <label><input type="radio" name="societe_q1" value="a"> Ils améliorent la qualité de l'eau.</label><br>
+                <label><input type="radio" name="societe_q1" value="b"> Ils protègent la faune et la flore.</label><br>
+                <label><input type="radio" name="societe_q1" value="c"> Ils peuvent coûter cher.</label><br>
+                <button onclick="validerSociete()">Valider</button>
+                <p id="societe_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Modélisation et Simulation -->
+        <div id="modelisation" class="etape" style="display: none;">
+            <h2>3. Modélisation et Simulation 💻</h2>
+            <h3>La CAO pour la filtration 📐</h3>
+            <p>La Conception Assistée par Ordinateur (CAO) est un outil essentiel pour concevoir des systèmes de filtration. Avec un logiciel de CAO, on peut :</p>
+            <ul>
+                <li>Modéliser le filtre en 3D 🖨️: On peut dessiner le filtre sous toutes ses formes et voir son aspect en 3 dimensions.</li>
+                <li>Analyser son fonctionnement ⚙️ : On peut simuler le mouvement de l'eau à l'intérieur du filtre, voir comment les particules sont retenues.</li>
+                <li>Optimiser sa forme ⬆️⬇️: On peut tester différentes formes, dimensions pour trouver le filtre le plus efficace.</li>
+            </ul>
+            <p>Exemple : On utilise des logiciels comme SketchUp, Tinkercad ou Fusion 360 pour créer la représentation numérique d'un filtre.</p>
+
+            <div class="qcm">
+                <h3>QCM : Modélisation et Simulation</h3>
+                <p>Question : Que permet de faire un logiciel de CAO pour la filtration ?</p>
+                <label><input type="radio" name="modelisation_q1" value="a"> Fabriquer directement un filtre en plastique.</label><br>
+                <label><input type="radio" name="modelisation_q1" value="b"> Modéliser le filtre en 3D et analyser son fonctionnement.</label><br>
+                <label><input type="radio" name="modelisation_q1" value="c"> Nettoyer automatiquement le filtre.</label><br>
+                <button onclick="validerModelisation()">Valider</button>
+                <p id="modelisation_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Conclusion -->
+        <div id="conclusion" class="etape" style="display: none;">
+            <h2>4. Conclusion : Le défi de demain 🏆</h2>
+            <h3>Récapitulatif 📝</h3>
+            <p>Au cours de ce cours, nous avons vu comment les systèmes de filtration des microplastiques fonctionnent, comment ils sont conçus, quel est leur impact sur la société et comment les technologies peuvent aider à lutter contre la pollution plastique.</p>
+            <h3>Perspectives d'avenir 🚀</h3>
+            <ul>
+                <li>Développement de technologies ✨ : Continuer à améliorer la filtration et la rendre accessible.</li>
+                <li>Gestion des déchets ♻️ : Réduire la production de plastique et recycler davantage.</li>
+                <li>Sensibilisation 📢 : Promouvoir une prise de conscience et des comportements responsables.</li>
+                <li>Mobilisation 🤝 : Agir ensemble, citoyens, entreprises et gouvernements, pour un avenir propre.</li>
+            </ul>
+
+        </div>
+
+        <!-- Bouton Afficher Cours Complet -->
+        <button id="afficher_cours" style="display: none;" onclick="afficherCoursComplet()">Afficher le cours complet</button>
+
+        <!-- Cours Complet (Affichage Final) -->
+        <div id="cours_complet" style="display: none;">
+            <div id="cours_complet_content"></div>
+        </div>
+
+    </div>
+
+    <script>
+        let etapeCourante = "innovation";
+        let innovationValidee = false;
+        let societeValidee = false;
+        let modelisationValidee = false;
+
+         // Afficher la premiere etape
+        document.getElementById("innovation").style.display = "block";
+        function validerInnovation() {
+            const reponse = document.querySelector('input[name="innovation_q1"]:checked');
+            const feedback = document.getElementById("innovation_feedback");
+
+            if (reponse && reponse.value === "b") {
+                innovationValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "societe";
+                document.getElementById("innovation").style.display = "none";
+                document.getElementById("societe").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+          function validerSociete() {
+            const reponse = document.querySelector('input[name="societe_q1"]:checked');
+            const feedback = document.getElementById("societe_feedback");
+
+            if (reponse && reponse.value === "c") {
+                societeValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "modelisation";
+                document.getElementById("societe").style.display = "none";
+                document.getElementById("modelisation").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function validerModelisation() {
+            const reponse = document.querySelector('input[name="modelisation_q1"]:checked');
+            const feedback = document.getElementById("modelisation_feedback");
+
+            if (reponse && reponse.value === "b") {
+                modelisationValidee = true;
+                feedback.textContent = "Correct ! Vous avez terminé le cours.";
+                feedback.style.color = "green";
+                etapeCourante = "afficher_cours";
+                document.getElementById("modelisation").style.display = "none";
+                document.getElementById("conclusion").style.display = "block";
+                document.getElementById("afficher_cours").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function afficherCoursComplet() {
+            let coursCompletHTML = `
+             <h2>Cours Complet</h2>
+              <h3>1. L'innovation au service de la filtration 🚀</h3>
+            <p>La recherche et l'innovation sont indispensables pour améliorer les systèmes de filtration :</p>
+            <ul>
+                <li>✨ Recherche de matériaux filtrants innovants : On explore de nouvelles matières comme les bio-matériaux (faits à partir de plantes ou d'algues), les nano-matériaux (avec des propriétés incroyables à l'échelle microscopique) qui sont plus efficaces et plus respectueux de l'environnement.</li>
+                <li>💪 Développement de filtres plus performants : On travaille pour créer des filtres qui retiennent davantage de microplastiques et consomment moins d'énergie. On cherche à optimiser le système de filtration.</li>
+                <li>🧩 Conception de systèmes modulaires : L'objectif est de créer des systèmes de filtration qui peuvent être assemblés facilement, personnalisables et adaptés à différentes situations (pour une maison 🏠, une usine 🏭, un navire 🚢...).</li>
+                <li>🤖 Automatisation des processus de filtration : On utilise l'informatique et la robotique pour automatiser certaines tâches (nettoyage du filtre 🧽, surveillance 👁️‍🗨️, etc.) et les rendre plus efficaces.</li>
+            </ul>
+
+             <h3>2. Objets Techniques et Changements Sociétaux 🌍</h3>
+            <h4>Impact des systèmes de filtration sur la société 🏘️</h4>
+            <p>Les systèmes de filtration ont un impact important sur notre société, à la fois positif et négatif :</p>
+            <p><strong>Avantages 👍 :</strong></p>
+            <ul>
+                <li>💧 Amélioration de la qualité de l'eau : En éliminant les microplastiques, on améliore la qualité de l'eau que nous utilisons au quotidien pour boire, se laver ou arroser les jardins 🌷.</li>
+                <li>🌿 Protection de la faune et de la flore : En limitant la pollution, on préserve les écosystèmes et la biodiversité, évitant des effets néfastes sur les animaux et les plantes.</li>
+                <li>🧑‍⚕️ Limitation des risques sanitaires : En réduisant la présence de microplastiques dans notre alimentation, on limite les risques pour notre santé.</li>
+            </ul>
+            <p><strong>Inconvénients et risques 👎 :</strong></p>
+            <ul>
+                <li>Coût 💰 : L'installation et l'entretien de systèmes de filtration peuvent coûter cher.</li>
+                <li>Gestion des déchets 🗑️ : Les filtres peuvent retenir des quantités importantes de microplastiques.</li>
+                 <li>Risque de transfert de la pollution ⚠️ : Il faut faire attention à ce que les déchets de filtration ne polluent pas d'autres milieux.</li>
+            </ul>
+            
+              <h3>3. Modélisation et Simulation 💻</h3>
+            <h4>La CAO pour la filtration 📐</h4>
+            <p>La Conception Assistée par Ordinateur (CAO) est un outil essentiel pour concevoir des systèmes de filtration. Avec un logiciel de CAO, on peut :</p>
+            <ul>
+                <li>Modéliser le filtre en 3D 🖨️: On peut dessiner le filtre sous toutes ses formes et voir son aspect en 3 dimensions.</li>
+                <li>Analyser son fonctionnement ⚙️ : On peut simuler le mouvement de l'eau à l'intérieur du filtre, voir comment les particules sont retenues.</li>
+                <li>Optimiser sa forme ⬆️⬇️: On peut tester différentes formes, dimensions pour trouver le filtre le plus efficace.</li>
+            </ul>
+            <p>Exemple : On utilise des logiciels comme SketchUp, Tinkercad ou Fusion 360 pour créer la représentation numérique d'un filtre.</p>
+
+               <h3>4. Conclusion : Le défi de demain 🏆</h3>
+            <h4>Récapitulatif 📝</h4>
+            <p>Au cours de ce cours, nous avons vu comment les systèmes de filtration des microplastiques fonctionnent, comment ils sont conçus, quel est leur impact sur la société et comment les technologies peuvent aider à lutter contre la pollution plastique.</p>
+            <h4>Perspectives d'avenir 🚀</h4>
+            <ul>
+                <li>Développement de technologies ✨ : Continuer à améliorer la filtration et la rendre accessible.</li>
+                <li>Gestion des déchets ♻️ : Réduire la production de plastique et recycler davantage.</li>
+                <li>Sensibilisation 📢 : Promouvoir une prise de conscience et des comportements responsables.</li>
+                <li>Mobilisation 🤝 : Agir ensemble, citoyens, entreprises et gouvernements, pour un avenir propre.</li>
+            </ul>
+             `;
+
+            document.getElementById("innovation").style.display = "none";
+            document.getElementById("societe").style.display = "none";
+            document.getElementById("modelisation").style.display = "none";
+              document.getElementById("conclusion").style.display = "none";
+            document.getElementById("afficher_cours").style.display = "none";
+            document.getElementById("cours_complet").style.display = "block";
+            document.getElementById("cours_complet_content").innerHTML = coursCompletHTML;
+         
+        }
+    </script>
+</body>
+</html>

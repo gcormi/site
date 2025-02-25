@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microplastiques - Partie 1 : Pollution et Filtration</title>
+    <style>
+        /* Couleurs : vert foncé, bleu et touches d'orange */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #e0f7fa; /* Vert très clair */
+            color: #333;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #00796b; /* Vert foncé */
+            border-bottom: 2px solid #00796b;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .etape {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #e1f5fe; /* Bleu très clair */
+            border-radius: 8px;
+        }
+
+        .qcm {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #81d4fa; /* Bleu clair */
+            background-color: #ffffff;
+            border-radius: 6px;
+        }
+
+        .qcm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .feedback {
+            margin-top: 5px;
+            font-style: italic;
+            color: red;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #b0bec5;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #cfd8dc;
+        }
+
+        button {
+            background-color: #ff9800; /* Orange */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #f57c00; /* Orange plus foncé */
+        }
+
+        #cours_complet {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #ffb300; /* Orange vif */
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            display: none; /* Masqué initialement */
+        }
+
+        #cours_complet h2 {
+            color: #ffb300;
+            border-bottom: 2px solid #ffb300;
+            padding-bottom: 5px;
+        }
+
+        #cours_complet_content {
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <!-- Introduction -->
+        <div id="introduction" class="etape">
+            <h2>1. Introduction : Pourquoi s'intéresser aux microplastiques ? 🤔</h2>
+            <p>Le problème : une pollution invisible 🔎</p>
+            <p>Imaginez un océan (ou une rivière, un lac) où flottent, en plus des déchets visibles 🗑️, des millions de minuscules morceaux de plastique. On les appelle des microplastiques. Ces particules, souvent invisibles à l'œil nu (moins de 5 mm), sont partout dans notre environnement. Elles proviennent de plusieurs sources :</p>
+            <ul>
+                <li>La dégradation de déchets plastiques plus gros : sacs 🛍️, bouteilles 🍾, emballages 📦 qui se fragmentent sous l'action du soleil ☀️, du vent 💨 et des vagues 🌊.</li>
+                <li>Des produits de consommation : par exemple les microbilles utilisées dans certains produits cosmétiques 🧴 comme les gommages ou encore les fibres textiles synthétiques qui se détachent des vêtements 👕 lors du lavage.</li>
+            </ul>
+            <p>Ces microplastiques ne restent pas en surface. Ils se retrouvent dans l'eau 💧, dans les sols 🪨, dans l'air 💨 et même dans notre alimentation 🍔 via la chaîne alimentaire. Cette pollution invisible est un problème majeur.</p>
+            <div class="qcm">
+                <h3>QCM : Introduction</h3>
+                <p>Question : D'où proviennent principalement les microplastiques ?</p>
+                <label><input type="radio" name="q1" value="a"> Uniquement des déchets plastiques visibles.</label><br>
+                <label><input type="radio" name="q1" value="c"> De la dégradation de déchets plastiques et de produits de consommation.</label><br>
+                 <label><input type="radio" name="q1" value="b"> Uniquement des produits cosmétiques.</label><br>
+
+                <button onclick="validerIntroduction()">Valider</button>
+                <p id="introduction_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Fonctionnement -->
+        <div id="fonctionnement" class="etape" style="display: none;">
+            <h2>2. Fonctionnement et Analyse Technique des Systèmes de Filtration 🔬</h2>
+            <h3>Comment fonctionnent les filtres ? ⚙️</h3>
+            <p>Un système de filtration est un dispositif qui permet de séparer des particules solides indésirables d'un fluide (un liquide comme l'eau ou un gaz comme l'air). C'est comme un tamis, mais à une échelle plus petite et avec des méthodes plus sophistiquées. Il existe plusieurs techniques de filtration, dont voici les principales :</p>
+            <ul>
+                <li><strong>Filtration mécanique :</strong> C'est la méthode la plus simple. On utilise un matériau (une grille ⬚, un tamis 🧽, une membrane 🎛️) avec des trous très petits pour bloquer les particules qui sont plus grandes que ces trous.</li>
+                <li><strong>Filtration par adsorption :</strong> Certains matériaux ont la propriété d'attirer et de retenir les particules à leur surface.</li>
+                <li><strong>Filtration par décantation :</strong> Cette méthode utilise la gravité. Les particules les plus lourdes se déposent au fond d'un récipient ⚗️, tandis que le liquide reste au-dessus.</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Fonctionnement des Filtres</h3>
+                <p>Question : Quelle méthode de filtration utilise la gravité pour séparer les particules ?</p>
+                <label><input type="radio" name="fonctionnement_q1" value="c"> Filtration par décantation.</label><br>
+                 <label><input type="radio" name="fonctionnement_q1" value="a"> Filtration mécanique.</label><br>
+                <label><input type="radio" name="fonctionnement_q1" value="b"> Filtration par adsorption.</label><br>
+
+                <button onclick="validerFonctionnement()">Valider</button>
+                <p id="fonctionnement_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Usages et Interactions -->
+        <div id="usages" class="etape" style="display: none;">
+            <h2>3. Usages et Interactions : Exemples de systèmes pour microplastiques 💡</h2>
+            <p>Des systèmes de filtration des microplastiques sont utilisés à différentes échelles et dans différents contextes :</p>
+            <ul>
+                <li>🏭 Stations d'épuration : Ce sont des installations qui traitent les eaux usées de nos villes avant de les rejeter dans l'environnement.</li>
+                <li>🏠 Filtres domestiques : On peut installer des filtres sur les robinets 🚰, les douches 🚿 ou les machines à laver 🧺.</li>
+                <li>🎣 Filets de pêche adaptés : Les filets de pêche classiques ne retiennent pas les microplastiques.</li>
+                <li>🚢 Systèmes embarqués : Les navires peuvent être équipés de systèmes de filtration pour récupérer les microplastiques présents dans l'eau pendant leur navigation.</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Usages et Interactions</h3>
+                <p>Question : Où peut-on installer des filtres pour retenir les microplastiques à la maison ?</p>
+                <label><input type="radio" name="usages_q1" value="b"> Sur les robinets, les douches ou les machines à laver.</label><br>
+                 <label><input type="radio" name="usages_q1" value="a"> Uniquement sur les robinets.</label><br>
+                <label><input type="radio" name="usages_q1" value="c"> Uniquement sur les machines à laver.</label><br>
+               
+                <button onclick="validerUsages()">Valider</button>
+                <p id="usages_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Conception et Réalisation -->
+        <div id="conception" class="etape" style="display: none;">
+            <h2>4. Analyse technique : un exemple (station d’épuration) ⚙️</h2>
+            <p>Pour bien comprendre comment fonctionne un système de filtration, prenons l'exemple d'une station d'épuration, qui est un système complexe comportant plusieurs étapes :</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Composant</th>
+                        <th>Fonction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Grille de dégrillage</td>
+                        <td>Cette grille sert à retenir les gros déchets comme les bouteilles 🍾, les branches 🌿, les papiers 📰, etc.</td>
+                    </tr>
+                    <tr>
+                        <td>Dessableur / Déshuileur</td>
+                        <td>Cette étape permet de retirer le sable 🏖️, le gravier et les huiles 🛢️ qui se sont mélangés à l'eau usée.</td>
+                    </tr>
+                      <tr>
+                        <td>Bassin de décantation</td>
+                        <td>Dans ce bassin, l'eau est laissée au repos pendant un certain temps. Les particules solides les plus lourdes se déposent au fond par gravité. C'est une sorte de décantation. Il est moins efficace pour les microplastiques car ils sont très légers.</td>
+                    </tr>
+                    <tr>
+                        <td>Filtre à sable / Charbon</td>
+                        <td>Ces filtres contiennent du sable 🏖️ ou du charbon actif 숯 qui retiennent les particules plus fines, les microplastiques et certains polluants chimiques. Ils agissent un peu comme une éponge.</td>
+                    </tr>
+                    <tr>
+                        <td>Désinfection</td>
+                        <td>Avant de rejeter l'eau traitée dans l'environnement, on la désinfecte pour éliminer les bactéries 🦠 et les virus. Cette étape est importante pour éviter les maladies 🤒. On utilise souvent des UV ou des produits chimiques.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="qcm">
+                <h3>QCM : Station d'épuration</h3>
+                <p>Question : Quelle est la fonction de la grille de dégrillage dans une station d'épuration ?</p>
+                <label><input type="radio" name="conception_q1" value="b"> Retenir les gros déchets comme les bouteilles et les papiers.</label><br>
+                <label><input type="radio" name="conception_q1" value="a"> Retirer le sable et le gravier.</label><br>
+                <label><input type="radio" name="conception_q1" value="c"> Eliminer les bactéries et les virus.</label><br>
+
+                <button onclick="validerConception()">Valider</button>
+                <p id="conception_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Bouton Afficher Cours Complet -->
+        <button id="afficher_cours" style="display: none;" onclick="afficherCoursComplet()">Afficher le cours complet</button>
+
+        <!-- Cours Complet (Affichage Final) -->
+        <div id="cours_complet" style="display: none;">
+            <div id="cours_complet_content"></div>
+        </div>
+
+    </div>
+
+    <script>
+        let etapeCourante = "introduction";
+        let introductionValidee = false;
+        let fonctionnementValidee = false;
+        let usagesValidee = false;
+        let conceptionValidee = false;
+
+         // Afficher la premiere etape
+        document.getElementById("introduction").style.display = "block";
+
+        function validerIntroduction() {
+            const reponse = document.querySelector('input[name="q1"]:checked');
+            const feedback = document.getElementById("introduction_feedback");
+
+            if (reponse && reponse.value === "c") {
+                introductionValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "fonctionnement";
+                document.getElementById("introduction").style.display = "none";
+                document.getElementById("fonctionnement").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+          function validerFonctionnement() {
+            const reponse = document.querySelector('input[name="fonctionnement_q1"]:checked');
+            const feedback = document.getElementById("fonctionnement_feedback");
+
+            if (reponse && reponse.value === "c") {
+                fonctionnementValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "usages";
+                document.getElementById("fonctionnement").style.display = "none";
+                document.getElementById("usages").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function validerUsages() {
+            const reponse = document.querySelector('input[name="usages_q1"]:checked');
+            const feedback = document.getElementById("usages_feedback");
+
+            if (reponse && reponse.value === "b") {
+                usagesValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "conception";
+                document.getElementById("usages").style.display = "none";
+                document.getElementById("conception").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function validerConception() {
+            const reponse = document.querySelector('input[name="conception_q1"]:checked');
+            const feedback = document.getElementById("conception_feedback");
+
+            if (reponse && reponse.value === "b") {
+                conceptionValidee = true;
+                feedback.textContent = "Correct ! Vous avez terminé le cours.";
+                feedback.style.color = "green";
+                etapeCourante = "afficher_cours";
+                document.getElementById("conception").style.display = "none";
+                document.getElementById("afficher_cours").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function afficherCoursComplet() {
+            let coursCompletHTML = `
+             <h2>Cours Complet</h2>
+              <h3>1. Introduction : Pourquoi s'intéresser aux microplastiques ? 🤔</h3>
+            <p>Le problème : une pollution invisible 🔎</p>
+            <p>Imaginez un océan (ou une rivière, un lac) où flottent, en plus des déchets visibles 🗑️, des millions de minuscules morceaux de plastique. On les appelle des microplastiques. Ces particules, souvent invisibles à l'œil nu (moins de 5 mm), sont partout dans notre environnement. Ils proviennent de plusieurs sources :</p>
+            <ul>
+                <li>La dégradation de déchets plastiques plus gros : sacs 🛍️, bouteilles 🍾, emballages 📦 qui se fragmentent sous l'action du soleil ☀️, du vent 💨 et des vagues 🌊.</li>
+                <li>Des produits de consommation : par exemple les microbilles utilisées dans certains produits cosmétiques 🧴 comme les gommages ou encore les fibres textiles synthétiques qui se détachent des vêtements 👕 lors du lavage.</li>
+            </ul>
+            <p>Ces microplastiques ne restent pas en surface. Ils se retrouvent dans l'eau 💧, dans les sols 🪨, dans l'air 💨 et même dans notre alimentation 🍔 via la chaîne alimentaire. Cette pollution invisible est un problème majeur.</p>
+
+               <h3>2. Fonctionnement et Analyse Technique des Systèmes de Filtration 🔬</h3>
+            <h4>Comment fonctionnent les filtres ? ⚙️</h3>
+            <p>Un système de filtration est un dispositif qui permet de séparer des particules solides indésirables d'un fluide (un liquide comme l'eau ou un gaz comme l'air). C'est comme un tamis, mais à une échelle plus petite et avec des méthodes plus sophistiquées. Il existe plusieurs techniques de filtration, dont voici les principales :</p>
+            <ul>
+                <li><strong>Filtration mécanique :</strong> C'est la méthode la plus simple. On utilise un matériau (une grille ⬚, un tamis 🧽, une membrane 🎛️) avec des trous très petits pour bloquer les particules qui sont plus grandes que ces trous.</li>
+                <li><strong>Filtration par adsorption :</strong> Certains matériaux ont la propriété d'attirer et de retenir les particules à leur surface.</li>
+                <li><strong>Filtration par décantation :</strong> Cette méthode utilise la gravité. Les particules les plus lourdes se déposent au fond d'un récipient ⚗️, tandis que le liquide reste au-dessus.</li>
+            </ul>
+
+               <h3>3. Usages et Interactions : Exemples de systèmes pour microplastiques 💡</h3>
+            <p>Des systèmes de filtration des microplastiques sont utilisés à différentes échelles et dans différents contextes :</p>
+            <ul>
+                <li>🏭 Stations d'épuration : Ce sont des installations qui traitent les eaux usées de nos villes avant de les rejeter dans l'environnement.</li>
+                <li>🏠 Filtres domestiques : On peut installer des filtres sur les robinets 🚰, les douches 🚿 ou les machines à laver 🧺.</li>
+                <li>🎣 Filets de pêche adaptés : Les filets de pêche classiques ne retiennent pas les microplastiques.</li>
+                <li>🚢 Systèmes embarqués : Les navires peuvent être équipés de systèmes de filtration pour récupérer les microplastiques présents dans l'eau pendant leur navigation.</li>
+            </ul>
+            <h3>4. Analyse technique : un exemple (station d’épuration) ⚙️</h3>
+            <p>Pour bien comprendre comment fonctionne un système de filtration, prenons l'exemple d'une station d'épuration, qui est un système complexe comportant plusieurs étapes :</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Composant</th>
+                        <th>Fonction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Grille de dégrillage</td>
+                        <td>Cette grille sert à retenir les gros déchets comme les bouteilles 🍾, les branches 🌿, les papiers 📰, etc.</td>
+                    </tr>
+                    <tr>
+                        <td>Dessableur / Déshuileur</td>
+                        <td>Cette étape permet de retirer le sable 🏖️, le gravier et les huiles 🛢️ qui se sont mélangés à l'eau usée.</td>
+                    </tr>
+                      <tr>
+                        <td>Bassin de décantation</td>
+                        <td>Dans ce bassin, l'eau est laissée au repos pendant un certain temps. Les particules solides les plus lourdes se déposent au fond par gravité. C'est une sorte de décantation. Il est moins efficace pour les microplastiques car ils sont très légers.</td>
+                    </tr>
+                    <tr>
+                        <td>Filtre à sable / Charbon</td>
+                        <td>Ces filtres contiennent du sable 🏖️ ou du charbon actif 숯 qui retiennent les particules plus fines, les microplastiques et certains polluants chimiques. Ils agissent un peu comme une éponge.</td>
+                    </tr>
+                    <tr>
+                        <td>Désinfection</td>
+                        <td>Avant de rejeter l'eau traitée dans l'environnement, on la désinfecte pour éliminer les bactéries 🦠 et les virus. Cette étape est importante pour éviter les maladies 🤒. On utilise souvent des UV ou des produits chimiques.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+              `;
+
+            document.getElementById("introduction").style.display = "none";
+            document.getElementById("fonctionnement").style.display = "none";
+            document.getElementById("usages").style.display = "none";
+            document.getElementById("conception").style.display = "none";
+            document.getElementById("afficher_cours").style.display = "none";
+            document.getElementById("cours_complet").style.display = "block";
+            document.getElementById("cours_complet_content").innerHTML = coursCompletHTML;
+
+        }
+    </script>
+</body>
+</html>
