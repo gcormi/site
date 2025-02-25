@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartphones et Tablettes Interactifs - Partie 2</title>
+    <style>
+        /* Palette de couleurs : bleu, jaune et mauve */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #e6e6ff; /* Mauve très clair */
+            color: #333;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #663399; /* Mauve foncé */
+            border-bottom: 2px solid #663399;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .etape {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #ffffcc; /* Jaune très clair */
+            border-radius: 8px;
+        }
+
+        .qcm {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #b3d9ff; /* Bleu clair */
+            background-color: #ffffff;
+            border-radius: 6px;
+        }
+
+        .qcm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .feedback {
+            margin-top: 5px;
+            font-style: italic;
+            color: red;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        button {
+            background-color: #007bff; /* Bleu vif */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Bleu plus foncé */
+        }
+
+        #cours_complet {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #ffcc00; /* Jaune vif */
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            display: none; /* Masqué initialement */
+        }
+
+        #cours_complet h2 {
+            color: #ffcc00;
+            border-bottom: 2px solid #ffcc00;
+            padding-bottom: 5px;
+        }
+
+        #cours_complet_content {
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <!-- Conception et Réalisation -->
+        <div id="conception" class="etape">
+            <h2>1. Conception et Réalisation : Imaginer le futur smartphone 🛠️</h2>
+            <p>Même si on ne peut pas fabriquer un vrai smartphone ou tablette, on peut imaginer et dessiner notre appareil idéal ! On parle de conception :</p>
+            <ul>
+                <li><strong>Analyse des besoins :</strong> 🧐 Quelles sont les fonctions que notre appareil doit avoir ?</li>
+                <li><strong>Conception :</strong> ✏️ On dessine notre smartphone ou tablette, en choisissant sa forme, ses couleurs et les matériaux.</li>
+                <li><strong>Fonctionnalités :</strong> ✨ On imagine les applications et les outils qui pourraient être utiles dans le futur.</li>
+                <li><strong>Ergonomie :</strong> 👍 On réfléchit à la manière dont l'appareil doit être agréable à utiliser.</li>
+            </ul>
+            <p>Ce processus nous aide à comprendre comment un vrai appareil est conçu.</p>
+            <div class="qcm">
+                <h3>QCM : Conception et Réalisation</h3>
+                <p>Question : Quelle est l'étape de la conception où l'on dessine notre smartphone ou tablette ?</p>
+                <label><input type="radio" name="conception_q1" value="a"> L'analyse des besoins.</label><br>
+                <label><input type="radio" name="conception_q1" value="b"> La conception.</label><br>
+                <label><input type="radio" name="conception_q1" value="c"> L'ergonomie.</label><br>
+                <button onclick="validerConception()">Valider</button>
+                <p id="conception_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Programmation -->
+        <div id="programmation" class="etape" style="display: none;">
+            <h2>2. Programmation : Créer une application simple 💻</h2>
+            <p>Objectif : Introduire les bases de la programmation avec des exemples concrets liés aux smartphones et tablettes.</p>
+            <p>Donnez vie à vos idées avec la programmation ! ✨</p>
+            <p>Les smartphones et les tablettes ne seraient rien sans les programmes qui les font fonctionner : les applications. Même sans être des experts, vous pouvez apprendre à créer des mini-applications grâce à la programmation. C'est comme donner des ordres à un ordinateur pour qu'il fasse ce que vous voulez.</p>
+            <p><strong>Les concepts de base de la programmation :</strong></p>
+            <ul>
+                <li><strong>Les Algorithmes :</strong> 📃 C'est comme une recette de cuisine, une suite d'instructions à suivre pour faire quelque chose.</li>
+                <li><strong>Les Variables :</strong> 📦 Ce sont des "boîtes" où l'on peut ranger des informations.</li>
+                <li><strong>Les Boucles :</strong> 🔄 Ce sont des instructions qui se répètent plusieurs fois.</li>
+                <li><strong>Les Instructions Conditionnelles (Si...Alors...) :</strong> 🤔 Ces instructions permettent à l'application de réagir différemment selon la situation.</li>
+            </ul>
+            <p><strong>Exemple Concret de Programmation :</strong> Une Mini-Application de Dessin</p>
+            <ul>
+                <li>Départ : L'écran est vide, tout est blanc.</li>
+                <li>Instruction 1 : "Si on touche l'écran avec le doigt, alors dessine un petit point à cet endroit".</li>
+                <li>Instruction 2 : "Si on bouge le doigt en touchant l'écran, alors relie les points par un trait".</li>
+                <li>Instruction 3 : "Si on appuie sur le bouton 'couleur', alors ouvre une boîte pour choisir la couleur du trait".</li>
+                <li>Instruction 4 : "Si on choisit une couleur, alors tous les traits dessinés après seront de cette couleur".</li>
+            </ul>
+            <p>La programmation, c'est un peu comme apprendre à parler la langue des ordinateurs, et cela ouvre de nombreuses portes !</p>
+            <div class="qcm">
+                <h3>QCM : Programmation</h3>
+                <p>Question : En programmation, à quoi sert une variable ?</p>
+                <label><input type="radio" name="programmation_q1" value="a"> À répéter une instruction plusieurs fois.</label><br>
+                <label><input type="radio" name="programmation_q1" value="b"> À stocker des informations.</label><br>
+                <label><input type="radio" name="programmation_q1" value="c"> À créer des algorithmes.</label><br>
+                <button onclick="validerProgrammation()">Valider</button>
+                <p id="programmation_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Développement Durable -->
+        <div id="developpement" class="etape" style="display: none;">
+            <h2>3. Développement Durable : Des appareils plus responsables 🌿</h2>
+            <p>Comme tout objet technologique, les smartphones et tablettes ont un impact sur l'environnement. On doit réfléchir à :</p>
+            <ul>
+                <li><strong>Les matériaux utilisés :</strong> ♻️ Peut-on utiliser des matériaux recyclés ou plus écologiques ?</li>
+                <li><strong>La consommation d'énergie :</strong> ⚡ Comment faire des appareils qui consomment moins d'énergie et qui ont des batteries plus durables ?</li>
+                <li><strong>La durée de vie :</strong> ⏳ Comment faire des appareils qui durent plus longtemps pour éviter de les jeter trop souvent ?</li>
+                <li><strong>Le recyclage :</strong> ♻️ Comment recycler les appareils en fin de vie ?</li>
+            </ul>
+            <p>L'éco-conception est une façon de concevoir les appareils en pensant à leur impact sur l'environnement. C'est un défi important pour l'avenir !</p>
+            <div class="qcm">
+                <h3>QCM : Développement Durable</h3>
+                <p>Question : Quel est le but de l'éco-conception ?</p>
+                <label><input type="radio" name="developpement_q1" value="a"> Fabriquer des appareils plus rapidement.</label><br>
+                <label><input type="radio" name="developpement_q1" value="b"> Concevoir des appareils en pensant à leur impact sur l'environnement.</label><br>
+                <label><input type="radio" name="developpement_q1" value="c"> Utiliser des matériaux très chers.</label><br>
+                <button onclick="validerDeveloppement()">Valider</button>
+                <p id="developpement_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Avenir et Perspectives -->
+        <div id="avenir" class="etape" style="display: none;">
+            <h2>4. Avenir et Perspectives pour les Smartphones et Tablettes ✨</h2>
+            <p>Les smartphones et tablettes évoluent sans arrêt. Imaginez un peu les écrans du futur : ils seront plus incroyables que jamais !</p>
+            <ul>
+                <li>Écrans flexibles qu'on pourra plier comme une feuille de papier ou même rouler comme un journal.</li>
+                <li>Écrans qui projetteront des images en 3D, sans lunettes spéciales, comme si les objets sortaient de l'écran.</li>
+                <li>L'intelligence artificielle sera partout.</li>
+                <li>Interaction plus naturelle : on n'aura peut-être plus besoin de toucher l'écran. On utilisera notre voix, nos gestes ou même notre pensée pour donner des ordres.</li>
+                <li>Connectivité ultra-rapide : on téléchargera des films, jeux et applications en quelques secondes, et la communication sera instantanée.</li>
+                <li>Enfin, les appareils deviendront plus durables et écologiques, en utilisant des matériaux recyclés et en consommant moins d'énergie.</li>
+            </ul>
+            <p>L'avenir des smartphones et tablettes est plein de surprises. Imaginez tout ce que vous pourrez faire avec ces nouvelles technologies. Vous aussi, vous pouvez faire partie de cette aventure !</p>
+
+        </div>
+
+        <!-- Bouton Afficher Cours Complet -->
+        <button id="afficher_cours" style="display: none;" onclick="afficherCoursComplet()">Afficher le cours complet</button>
+
+        <!-- Cours Complet (Affichage Final) -->
+        <div id="cours_complet" style="display: none;">
+            <div id="cours_complet_content"></div>
+        </div>
+
+    </div>
+
+    <script>
+        let etapeCourante = "conception";
+        let conceptionValidee = false;
+        let programmationValidee = false;
+        let developpementValidee = false;
+
+        // Afficher la premiere etape
+        document.getElementById("conception").style.display = "block";
+
+         function validerConception() {
+            const reponse = document.querySelector('input[name="conception_q1"]:checked');
+            const feedback = document.getElementById("conception_feedback");
+
+            if (reponse && reponse.value === "b") {
+                conceptionValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "programmation";
+                document.getElementById("conception").style.display = "none";
+                document.getElementById("programmation").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function validerProgrammation() {
+            const reponse = document.querySelector('input[name="programmation_q1"]:checked');
+            const feedback = document.getElementById("programmation_feedback");
+
+            if (reponse && reponse.value === "b") {
+                programmationValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "developpement";
+                document.getElementById("programmation").style.display = "none";
+                document.getElementById("developpement").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+          function validerDeveloppement() {
+            const reponse = document.querySelector('input[name="developpement_q1"]:checked');
+            const feedback = document.getElementById("developpement_feedback");
+
+            if (reponse && reponse.value === "b") {
+                developpementValidee = true;
+                feedback.textContent = "Correct !";
+                feedback.style.color = "green";
+                etapeCourante = "avenir";
+                document.getElementById("developpement").style.display = "none";
+                document.getElementById("avenir").style.display = "block";
+                 document.getElementById("afficher_cours").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function afficherCoursComplet() {
+            let coursCompletHTML = `
+             <h2>Cours Complet</h2>
+              <h3>1. Conception et Réalisation : Imaginer le futur smartphone 🛠️</h3>
+            <p>Même si on ne peut pas fabriquer un vrai smartphone ou tablette, on peut imaginer et dessiner notre appareil idéal ! On parle de conception :</p>
+            <ul>
+                <li><strong>Analyse des besoins :</strong> 🧐 Quelles sont les fonctions que notre appareil doit avoir ?</li>
+                <li><strong>Conception :</strong> ✏️ On dessine notre smartphone ou tablette, en choisissant sa forme, ses couleurs et les matériaux.</li>
+                <li><strong>Fonctionnalités :</strong> ✨ On imagine les applications et les outils qui pourraient être utiles dans le futur.</li>
+                <li><strong>Ergonomie :</strong> 👍 On réfléchit à la manière dont l'appareil doit être agréable à utiliser.</li>
+            </ul>
+            <p>Ce processus nous aide à comprendre comment un vrai appareil est conçu.</p>
+
+             <h3>2. Programmation : Créer une application simple 💻</h3>
+            <p>Objectif : Introduire les bases de la programmation avec des exemples concrets liés aux smartphones et tablettes.</p>
+            <p>Donnez vie à vos idées avec la programmation ! ✨</p>
+            <p>Les smartphones et les tablettes ne seraient rien sans les programmes qui les font fonctionner : les applications. Même sans être des experts, vous pouvez apprendre à créer des mini-applications grâce à la programmation. C'est comme donner des ordres à un ordinateur pour qu'il fasse ce que vous voulez.</p>
+            <p><strong>Les concepts de base de la programmation :</strong></p>
+            <ul>
+                <li><strong>Les Algorithmes :</strong> 📃 C'est comme une recette de cuisine, une suite d'instructions à suivre pour faire quelque chose.</li>
+                <li><strong>Les Variables :</strong> 📦 Ce sont des "boîtes" où l'on peut ranger des informations.</li>
+                <li><strong>Les Boucles :</strong> 🔄 Ce sont des instructions qui se répètent plusieurs fois.</li>
+                <li><strong>Les Instructions Conditionnelles (Si...Alors...) :</strong> 🤔 Ces instructions permettent à l'application de réagir différemment selon la situation.</li>
+            </ul>
+            <p><strong>Exemple Concret de Programmation :</strong> Une Mini-Application de Dessin</p>
+            <ul>
+                <li>Départ : L'écran est vide, tout est blanc.</li>
+                <li>Instruction 1 : "Si on touche l'écran avec le doigt, alors dessine un petit point à cet endroit".</li>
+                <li>Instruction 2 : "Si on bouge le doigt en touchant l'écran, alors relie les points par un trait".</li>
+                <li>Instruction 3 : "Si on appuie sur le bouton 'couleur', alors ouvre une boîte pour choisir la couleur du trait".</li>
+                <li>Instruction 4 : "Si on choisit une couleur, alors tous les traits dessinés après seront de cette couleur".</li>
+            </ul>
+            <p>La programmation, c'est un peu comme apprendre à parler la langue des ordinateurs, et cela ouvre de nombreuses portes !</p>
+            
+               <h3>3. Développement Durable : Des appareils plus responsables 🌿</h3>
+            <p>Comme tout objet technologique, les smartphones et tablettes ont un impact sur l'environnement. On doit réfléchir à :</p>
+            <ul>
+                <li><strong>Les matériaux utilisés :</strong> ♻️ Peut-on utiliser des matériaux recyclés ou plus écologiques ?</li>
+                <li><strong>La consommation d'énergie :</strong> ⚡ Comment faire des appareils qui consomment moins d'énergie et qui ont des batteries plus durables ?</li>
+                <li><strong>La durée de vie :</strong> ⏳ Comment faire des appareils qui durent plus longtemps pour éviter de les jeter trop souvent ?</li>
+                <li><strong>Le recyclage :</strong> ♻️ Comment recycler les appareils en fin de vie ?</li>
+            </ul>
+            <p>L'éco-conception est une façon de concevoir les appareils en pensant à leur impact sur l'environnement. C'est un défi important pour l'avenir !</p>
+
+               <h3>4. Avenir et Perspectives pour les Smartphones et Tablettes ✨</h3>
+            <p>Les smartphones et tablettes évoluent sans arrêt. Imaginez un peu les écrans du futur : ils seront plus incroyables que jamais !</p>
+            <ul>
+                <li>Écrans flexibles qu'on pourra plier comme une feuille de papier ou même rouler comme un journal.</li>
+                <li>Écrans qui projetteront des images en 3D, sans lunettes spéciales, comme si les objets sortaient de l'écran.</li>
+                 <li>L'intelligence artificielle sera partout.</li>
+                <li>Interaction plus naturelle : on n'aura peut-être plus besoin de toucher l'écran. On utilisera notre voix, nos gestes ou même notre pensée pour donner des ordres.</li>
+                <li>Connectivité ultra-rapide : on téléchargera des films, jeux et applications en quelques secondes, et la communication sera instantanée.</li>
+                 <li>Enfin, les appareils deviendront plus durables et écologiques, en utilisant des matériaux recyclés et en consommant moins d'énergie.</li>
+            </ul>
+            <p>L'avenir des smartphones et tablettes est plein de surprises. Imaginez tout ce que vous pourrez faire avec ces nouvelles technologies. Vous aussi, vous pouvez faire partie de cette aventure !</p>
+        
+              `;
+
+            document.getElementById("conception").style.display = "none";
+            document.getElementById("programmation").style.display = "none";
+            document.getElementById("developpement").style.display = "none";
+             document.getElementById("avenir").style.display = "none";
+            document.getElementById("afficher_cours").style.display = "none";
+            document.getElementById("cours_complet").style.display = "block";
+            document.getElementById("cours_complet_content").innerHTML = coursCompletHTML;
+
+        }
+    </script>
+</body>
+</html>

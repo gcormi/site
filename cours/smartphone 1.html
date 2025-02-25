@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartphones et Tablettes Interactifs - Partie 1</title>
+    <style>
+        /* Palette de couleurs : bleu, jaune et mauve */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #e6e6ff; /* Mauve très clair */
+            color: #333;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #663399; /* Mauve foncé */
+            border-bottom: 2px solid #663399;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .etape {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #ffffcc; /* Jaune très clair */
+            border-radius: 8px;
+        }
+
+        .qcm {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #b3d9ff; /* Bleu clair */
+            background-color: #ffffff;
+            border-radius: 6px;
+        }
+
+        .qcm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .feedback {
+            margin-top: 5px;
+            font-style: italic;
+            color: red;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        button {
+            background-color: #007bff; /* Bleu vif */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Bleu plus foncé */
+        }
+
+        #cours_complet {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #ffcc00; /* Jaune vif */
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            display: none; /* Masqué initialement */
+        }
+
+        #cours_complet h2 {
+            color: #ffcc00;
+            border-bottom: 2px solid #ffcc00;
+            padding-bottom: 5px;
+        }
+
+        #cours_complet_content {
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <!-- Introduction -->
+        <div id="introduction" class="etape">
+            <h2>1. Smartphones et Tablettes : Bien plus que des écrans ! 🤔</h2>
+            <p>Salut les jeunes connectés ! 👋 Aujourd'hui, on explore un sujet que vous connaissez bien : les smartphones et les tablettes ! Mais ce sont bien plus que des écrans tactiles, ce sont de véritables outils qui nous connectent au monde.</p>
+            <p>Combien de temps passez-vous sur votre téléphone ou tablette chaque jour ? ⏰</p>
+            <p>Imaginez un monde sans ces appareils, comment ferait-on ? 🤔</p>
+            <p>Qu'est-ce qui vous fascine le plus dans ces objets numériques ? ✨</p>
+            <p>Ensemble, on va comprendre comment ils fonctionnent, comment ils ont changé nos vies, et même comment on pourrait les améliorer. Prêts à explorer le monde numérique ? 🤩</p>
+            <div class="qcm">
+                <h3>QCM : Introduction</h3>
+                <p>Question : Selon le texte, quelle est la particularité des smartphones et tablettes ?</p>
+                <label><input type="radio" name="q1" value="a"> Ils sont très chers.</label><br>
+                <label><input type="radio" name="q1" value="b"> Ils sont plus que des écrans, ils nous connectent au monde.</label><br>
+                <label><input type="radio" name="q1" value="c"> Ils sont incassables.</label><br>
+                <button onclick="validerIntroduction()">Valider</button>
+                <p id="introduction_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Fonctionnement -->
+        <div id="fonctionnement" class="etape" style="display: none;">
+            <h2>2. Fonctionnement : Comment nos smartphones et tablettes prennent vie ? ⚙️</h2>
+            <p>Nos smartphones et tablettes sont de véritables petits ordinateurs de poche, remplis de composants électroniques qui travaillent ensemble pour nous offrir toutes leurs fonctionnalités. Voici une explication simple de ce qui se passe à l'intérieur :</p>
+            <ul>
+                <li><strong>L'écran tactile :</strong> Notre fenêtre sur le monde numérique. 👆 C'est à la fois une surface qui affiche des images et une interface pour interagir avec l'appareil. Il détecte nos touchers et nos mouvements de doigts.</li>
+                <li><strong>Le processeur :</strong> Le cerveau de l'appareil. 🧠 C'est une petite puce qui effectue tous les calculs et fait fonctionner les applications, un peu comme le cerveau d'un ordinateur.</li>
+                <li><strong>La mémoire :</strong> L'entrepôt de nos souvenirs. 🗄️ C'est là que sont stockées nos photos, vidéos, applications et tous nos fichiers.</li>
+                <li><strong>La batterie :</strong> Notre source d'énergie portable. 🔋 Elle permet à l'appareil de fonctionner sans être branché.</li>
+                <li><strong>Les capteurs :</strong> Nos sens virtuels. 👀 Ils permettent à l'appareil de "sentir" le monde autour (photo, mouvement, localisation...).</li>
+                <li><strong>La connectivité :</strong> Notre lien avec le monde. 🌐 Ils nous permettent de nous connecter à internet et à d'autres appareils (Wifi, Bluetooth, 4G/5G).</li>
+            </ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Composant</th>
+                        <th>Rôle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Écran</td>
+                        <td>👆 Afficher et interagir avec l'appareil</td>
+                    </tr>
+                    <tr>
+                        <td>Processeur</td>
+                        <td>🧠 Effectuer les calculs et faire fonctionner les applications</td>
+                    </tr>
+                    <tr>
+                        <td>Mémoire</td>
+                        <td>🗄️ Stocker les données</td>
+                    </tr>
+                    <tr>
+                        <td>Batterie</td>
+                        <td>🔋 Fournir l'énergie</td>
+                    </tr>
+                    <tr>
+                        <td>Capteurs</td>
+                        <td>👀 Permettre de percevoir l'environnement</td>
+                    </tr>
+                    <tr>
+                        <td>Connectivité</td>
+                        <td>🌐 Permettre de se connecter aux réseaux</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Un smartphone ou une tablette, c’est un peu comme un mini-ordinateur que l'on peut emporter partout ! 📱💻</p>
+            <div class="qcm">
+                <h3>QCM : Fonctionnement</h3>
+                <p>Question : Quel composant est considéré comme le "cerveau" de l'appareil ?</p>
+                <label><input type="radio" name="fonctionnement_q1" value="a"> La batterie.</label><br>
+                <label><input type="radio" name="fonctionnement_q1" value="b"> Le processeur.</label><br>
+                <label><input type="radio" name="fonctionnement_q1" value="c"> L'écran tactile.</label><br>
+                <button onclick="validerFonctionnement()">Valider</button>
+                <p id="fonctionnement_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Usages et Interactions -->
+        <div id="usages" class="etape" style="display: none;">
+            <h2>3. Usages et Interactions : Smartphones et Tablettes au quotidien 🌍</h2>
+            <p>Les smartphones et tablettes sont devenus des outils indispensables dans notre vie quotidienne. Voici quelques exemples de leurs utilisations :</p>
+            <ul>
+                <li>Communication : 💬 Appels, messages, emails, réseaux sociaux.</li>
+                <li>Divertissement : 🎮 Jeux, vidéos, musique, livres.</li>
+                <li>Information : 📰 Recherche sur Internet, actualités, cartes.</li>
+                <li>Travail et études : 📚 Documents, présentations, applications éducatives.</li>
+                <li>Photographie et vidéo : 📸 Capturer des moments, faire des montages.</li>
+                <li>Organisation : 🗓️ Calendrier, rappels, alarmes.</li>
+            </ul>
+            <p><strong>Les avantages :</strong> 👍 Ils sont très pratiques, portables et multifonctionnels.</p>
+            <p><strong>Les inconvénients :</strong> 👎 Ils peuvent nous rendre dépendants, avoir un impact sur notre concentration, et peuvent poser des problèmes de confidentialité.</p>
+            <div class="qcm">
+                <h3>QCM : Usages et Interactions</h3>
+                <p>Question : Quel est l'un des inconvénients potentiels de l'utilisation excessive des smartphones et tablettes ?</p>
+                <label><input type="radio" name="usages_q1" value="a"> Ils sont difficiles à utiliser.</label><br>
+                <label><input type="radio" name="usages_q1" value="b"> Ils peuvent nous rendre dépendants.</label><br>
+                <label><input type="radio" name="usages_q1" value="c"> Ils sont très chers.</label><br>
+                <button onclick="validerUsages()">Valider</button>
+                <p id="usages_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Bouton Afficher Cours Complet -->
+        <button id="afficher_cours" style="display: none;" onclick="afficherCoursComplet()">Afficher le cours complet</button>
+
+        <!-- Cours Complet (Affichage Final) -->
+        <div id="cours_complet" style="display: none;">
+            <div id="cours_complet_content"></div>
+        </div>
+
+    </div>
+
+    <script>
+        let etapeCourante = "introduction";
+        let introductionValidee = false;
+        let fonctionnementValidee = false;
+        let usagesValidee = false;
+
+        // Afficher la premiere etape
+        document.getElementById("introduction").style.display = "block";
+
+        function validerIntroduction() {
+            const reponse = document.querySelector('input[name="q1"]:checked');
+            const feedback = document.getElementById("introduction_feedback");
+
+            if (reponse && reponse.value === "b") {
+                introductionValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "fonctionnement";
+                document.getElementById("introduction").style.display = "none";
+                document.getElementById("fonctionnement").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+          function validerFonctionnement() {
+            const reponse = document.querySelector('input[name="fonctionnement_q1"]:checked');
+            const feedback = document.getElementById("fonctionnement_feedback");
+
+            if (reponse && reponse.value === "b") {
+                fonctionnementValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "usages";
+                document.getElementById("fonctionnement").style.display = "none";
+                document.getElementById("usages").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function validerUsages() {
+            const reponse = document.querySelector('input[name="usages_q1"]:checked');
+            const feedback = document.getElementById("usages_feedback");
+
+            if (reponse && reponse.value === "b") {
+                usagesValidee = true;
+                feedback.textContent = "Correct ! Vous avez terminé le cours.";
+                feedback.style.color = "green";
+                etapeCourante = "afficher_cours";
+                document.getElementById("usages").style.display = "none";
+                document.getElementById("afficher_cours").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function afficherCoursComplet() {
+            let coursCompletHTML = `
+            <h2>Cours Complet</h2>
+            <h3>1. Smartphones et Tablettes : Bien plus que des écrans ! 🤔</h3>
+            <p>Salut les jeunes connectés ! 👋 Aujourd'hui, on explore un sujet que vous connaissez bien : les smartphones et les tablettes ! Mais ce sont bien plus que des écrans tactiles, ce sont de véritables outils qui nous connectent au monde.</p>
+            <p>Combien de temps passez-vous sur votre téléphone ou tablette chaque jour ? ⏰</p>
+            <p>Imaginez un monde sans ces appareils, comment ferait-on ? 🤔</p>
+            <p>Qu'est-ce qui vous fascine le plus dans ces objets numériques ? ✨</p>
+            <p>Ensemble, on va comprendre comment ils fonctionnent, comment ils ont changé nos vies, et même comment on pourrait les améliorer. Prêts à explorer le monde numérique ? 🤩</p>
+
+            <h3>2. Fonctionnement : Comment nos smartphones et tablettes prennent vie ? ⚙️</h3>
+            <p>Nos smartphones et tablettes sont de véritables petits ordinateurs de poche, remplis de composants électroniques qui travaillent ensemble pour nous offrir toutes leurs fonctionnalités. Voici une explication simple de ce qui se passe à l'intérieur :</p>
+            <ul>
+                <li><strong>L'écran tactile :</strong> Notre fenêtre sur le monde numérique. 👆 C'est à la fois une surface qui affiche des images et une interface pour interagir avec l'appareil. Il détecte nos touchers et nos mouvements de doigts.</li>
+                <li><strong>Le processeur :</strong> Le cerveau de l'appareil. 🧠 C'est une petite puce qui effectue tous les calculs et fait fonctionner les applications, un peu comme le cerveau d'un ordinateur.</li>
+                <li><strong>La mémoire :</strong> L'entrepôt de nos souvenirs. 🗄️ C'est là que sont stockées nos photos, vidéos, applications et tous nos fichiers.</li>
+                <li><strong>La batterie :</strong> Notre source d'énergie portable. 🔋 Elle permet à l'appareil de fonctionner sans être branché.</li>
+                <li><strong>Les capteurs :</strong> Nos sens virtuels. 👀 Ils permettent à l'appareil de "sentir" le monde autour (photo, mouvement, localisation...).</li>
+                <li><strong>La connectivité :</strong> Notre lien avec le monde. 🌐 Ils nous permettent de nous connecter à internet et à d'autres appareils (Wifi, Bluetooth, 4G/5G).</li>
+            </ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Composant</th>
+                        <th>Rôle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Écran</td>
+                        <td>👆 Afficher et interagir avec l'appareil</td>
+                    </tr>
+                    <tr>
+                        <td>Processeur</td>
+                        <td>🧠 Effectuer les calculs et faire fonctionner les applications</td>
+                    </tr>
+                    <tr>
+                        <td>Mémoire</td>
+                        <td>🗄️ Stocker les données</td>
+                    </tr>
+                    <tr>
+                        <td>Batterie</td>
+                        <td>🔋 Fournir l'énergie</td>
+                    </tr>
+                    <tr>
+                        <td>Capteurs</td>
+                        <td>👀 Permettre de percevoir l'environnement</td>
+                    </tr>
+                    <tr>
+                        <td>Connectivité</td>
+                        <td>🌐 Permettre de se connecter aux réseaux</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Un smartphone ou une tablette, c’est un peu comme un mini-ordinateur que l'on peut emporter partout ! 📱💻</p>
+
+            <h3>3. Usages et Interactions : Smartphones et Tablettes au quotidien 🌍</h3>
+            <p>Les smartphones et tablettes sont devenus des outils indispensables dans notre vie quotidienne. Voici quelques exemples de leurs utilisations :</p>
+            <ul>
+                <li>Communication : 💬 Appels, messages, emails, réseaux sociaux.</li>
+                <li>Divertissement : 🎮 Jeux, vidéos, musique, livres.</li>
+                <li>Information : 📰 Recherche sur Internet, actualités, cartes.</li>
+                <li>Travail et études : 📚 Documents, présentations, applications éducatives.</li>
+                <li>Photographie et vidéo : 📸 Capturer des moments, faire des montages.</li>
+                <li>Organisation : 🗓️ Calendrier, rappels, alarmes.</li>
+            </ul>
+            <p><strong>Les avantages :</strong> 👍 Ils sont très pratiques, portables et multifonctionnels.</p>
+            <p><strong>Les inconvénients :</strong> 👎 Ils peuvent nous rendre dépendants, avoir un impact sur notre concentration, et peuvent poser des problèmes de confidentialité.</p>
+               `;
+
+            document.getElementById("introduction").style.display = "none";
+            document.getElementById("fonctionnement").style.display = "none";
+            document.getElementById("usages").style.display = "none";
+            document.getElementById("afficher_cours").style.display = "none";
+            document.getElementById("cours_complet").style.display = "block";
+            document.getElementById("cours_complet_content").innerHTML = coursCompletHTML;
+
+        }
+    </script>
+</body>
+</html>

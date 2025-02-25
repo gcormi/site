@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Vélo Électrique Interactif</title>
+    <style>
+        /* Styles plus adaptés aux enfants */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f0f8ff; /* Bleu très clair */
+            color: #333;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #007bff; /* Bleu vif */
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .etape {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #e6f7ff; /* Bleu encore plus clair */
+            border-radius: 8px;
+        }
+
+        .qcm {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #aacbff; /* Bleu clair */
+            background-color: #ffffff;
+            border-radius: 6px;
+        }
+
+        .qcm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .feedback {
+            margin-top: 5px;
+            font-style: italic;
+            color: red;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #bddfff; /* Bleu encore plus clair */
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #d9eaff; /* Bleu très très clair */
+        }
+
+        button {
+            background-color: #28a745; /* Vert vif */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #cours_complet {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #4CAF50; /* Vert vif */
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            display: none; /* Masqué initialement */
+        }
+
+        #cours_complet h2 {
+            color: #4CAF50;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 5px;
+        }
+
+        /* Style pour le cours complet */
+        #cours_complet_content {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <!-- Introduction -->
+        <div id="introduction" class="etape">
+            <h2>1. Introduction : En Selle pour la Découverte !</h2>
+            <p>Salut les jeunes ingénieurs en herbe ! 🙋‍♀️🙋‍♂️
+                Aujourd'hui, on embarque pour une exploration fascinante : le vélo électrique ! Vous avez sûrement déjà croisé ces vélos un peu spéciaux dans la rue, n'est-ce pas ? Peut-être même que certains d'entre vous en ont un à la maison ? 🚲🏡
+                Mais au fond, qu'est-ce qui distingue un vélo électrique d'un vélo ordinaire ? 🤔 Est-ce simplement un vélo avec une batterie ? Pourquoi a-t-on inventé ce type de vélo ? Est-ce vraiment aussi formidable que ça en a l'air ? Autant de questions auxquelles nous allons répondre ensemble !
+                Imaginez un vélo qui, d'un coup de baguette magique (ou presque !), vous aide à gravir les côtes les plus abruptes sans que vos jambes ne crient grâce. Imaginez un engin qui vous permet de parcourir de plus longues distances, plus vite, sans transpirer à grosses gouttes 😅.
+                C'est là toute la promesse du vélo électrique : une sorte de super pouvoir 🦸‍♀️🦸‍♂️ qui facilite nos déplacements au quotidien. C'est un allié précieux pour les trajets domicile-travail, les balades du week-end ou même simplement pour aller faire une course.
+                Le vélo électrique est en train de devenir un acteur clé de la mobilité urbaine, une solution aux problèmes de pollution et de congestion. Il représente un véritable défi technologique, mais aussi une chance de repenser notre façon de nous déplacer.
+                Alors, êtes-vous prêts à pédaler dans l'univers passionnant de la technologie, à démonter les idées reçues et à explorer les secrets du vélo électrique ? Accrochez vos casques, et c'est parti ! 🚀</p>
+            <div class="qcm">
+                <h3>QCM : Introduction</h3>
+                <p>Question : Quel avantage principal le vélo électrique offre-t-il par rapport à un vélo ordinaire ?</p>
+                <label><input type="radio" name="q1" value="a"> Il est plus léger.</label><br>
+                <label><input type="radio" name="q1" value="b"> Il offre une assistance au pédalage, facilitant les montées et les longues distances.</label><br>
+                <label><input type="radio" name="q1" value="c"> Il a plus de vitesses.</label><br>
+                <button onclick="validerIntroduction()">Valider</button>
+                <p id="introduction_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Composants (Fonctionnement) -->
+        <div id="fonctionnement" class="etape" style="display: none;">
+            <h2>2. Fonctionnement : Le Moteur en Action !</h2>
+            <p>Comment ce vélo a-t-il cette capacité à nous propulser presque sans effort ? 🧐 Ce n'est pas juste un vélo normal auquel on a ajouté une batterie, loin de là ! Un vélo électrique est un véritable système complexe, où chaque pièce joue un rôle crucial.
+                Décortiquons ensemble les principaux éléments qui font avancer un vélo électrique :</p>
+            <div id="composants">
+                <div class="composant">
+                    <h3>Moteur Électrique</h3>
+                    <p>C'est le cœur battant du vélo électrique. Il transforme l'énergie électrique de la batterie en énergie mécanique pour propulser le vélo. Il peut être intégré de différentes manières : soit dans la roue avant ou arrière (moteur moyeu), soit au niveau du pédalier (moteur central). Chaque type a ses avantages : un moteur moyeu est simple et abordable, tandis qu'un moteur central offre un meilleur équilibre et une sensation de pédalage plus naturelle. Le moteur ne fonctionne pas seul : il a besoin de l'aide de vos jambes et de la commande du contrôleur.</p>
+                    <div class="qcm">
+                        <p>Question : Quel avantage offre un moteur central par rapport à un moteur moyeu ?</p>
+                        <label><input type="radio" name="moteur_q1" value="a"> Il est plus simple et abordable.</label><br>
+                        <label><input type="radio" name="moteur_q1" value="b"> Il offre un meilleur équilibre et une sensation de pédalage plus naturelle.</label><br>
+                        <label><input type="radio" name="moteur_q1" value="c"> Il est plus puissant.</label><br>
+                        <button onclick="validerComposant('moteur')">Valider</button>
+                        <p id="moteur_feedback" class="feedback"></p>
+                    </div>
+                </div>
+                <div class="composant">
+                    <h3>Batterie</h3>
+                    <p>C'est le réservoir d'énergie du vélo électrique. Elle stocke l'électricité nécessaire au fonctionnement du moteur. Les batteries sont généralement au lithium-ion, comme celles que l'on trouve dans nos téléphones. Elles sont rechargeables à l'aide d'un chargeur. La capacité de la batterie (exprimée en Wh - Watt-heure) détermine l'autonomie du vélo, c'est-à-dire la distance que vous pourrez parcourir avec une charge. Plus la capacité est élevée, plus vous pourrez rouler longtemps !</p>
+                    <div class="qcm">
+                        <p>Question : Qu'est-ce qui détermine l'autonomie d'un vélo électrique ?</p>
+                        <label><input type="radio" name="batterie_q1" value="a"> La puissance du moteur.</label><br>
+                        <label><input type="radio" name="batterie_q1" value="b"> La pression des pneus.</label><br>
+                        <label><input type="radio" name="batterie_q1" value="c"> La capacité de la batterie (en Wh).</label><br>
+                        <button onclick="validerComposant('batterie')">Valider</button>
+                        <p id="batterie_feedback" class="feedback"></p>
+                    </div>
+                </div>
+                <div class="composant">
+                    <h3>Contrôleur</h3>
+                    <p>C'est le cerveau du système électrique. Il gère l'alimentation du moteur, régule la puissance en fonction de votre effort de pédalage et de vos réglages d'assistance. Le contrôleur reçoit les informations des capteurs, les interprète et ajuste la puissance du moteur en conséquence. Il agit comme un chef d'orchestre, assurant une harmonie entre les différents composants.</p>
+                    <div class="qcm">
+                        <p>Question : Quel est le rôle du contrôleur dans le système électrique du vélo ?</p>
+                        <label><input type="radio" name="controleur_q1" value="a"> Fournir l'énergie au moteur.</label><br>
+                        <label><input type="radio" name="controleur_q1" value="b"> Gérer l'alimentation du moteur et réguler la puissance.</label><br>
+                        <label><input type="radio" name="controleur_q1" value="c"> Surveiller la température de la batterie.</label><br>
+                        <button onclick="validerComposant('controleur')">Valider</button>
+                        <p id="controleur_feedback" class="feedback"></p>
+                    </div>
+                </div>
+                <div class="composant">
+                    <h3>Capteur de Pédalage (ou Capteur de Couple)</h3>
+                    <p>C'est l'oreille attentive du système. Il détecte quand vous pédalez et avec quelle intensité. Il peut s'agir d'un capteur de mouvement simple (qui détecte que vous tournez les pédales) ou d'un capteur de couple plus sophistiqué (qui mesure l'effort que vous appliquez). Le capteur envoie cette information au contrôleur pour qu'il active ou ajuste la puissance du moteur.</p>
+                    <div class="qcm">
+                        <p>Question : Quelle information le capteur de pédalage envoie-t-il au contrôleur ?</p>
+                        <label><input type="radio" name="capteur_q1" value="a"> La vitesse du vélo.</label><br>
+                        <label><input type="radio" name="capteur_q1" value="b"> Le fait que vous pédalez et l'intensité de votre effort.</label><br>
+                        <label><input type="radio" name="capteur_q1" value="c"> La température des pédales.</label><br>
+                        <button onclick="validerComposant('capteur')">Valider</button>
+                        <p id="capteur_feedback" class="feedback"></p>
+                    </div>
+                </div>
+                <div class="composant">
+                    <h3>Affichage (ou Console)</h3>
+                    <p>C'est le tableau de bord du vélo. Il vous informe sur l'état de la batterie, le niveau d'assistance choisi, la vitesse, la distance parcourue, et d'autres données utiles. Il est souvent situé sur le guidon pour une consultation facile. Certains affichages peuvent même offrir des fonctions supplémentaires, comme la navigation ou la connexion à votre smartphone.</p>
+                    <div class="qcm">
+                        <p>Question : Quelle information *n'est pas* généralement affichée sur la console d'un vélo électrique ?</p>
+                        <label><input type="radio" name="affichage_q1" value="a"> L'état de la batterie.</label><br>
+                        <label><input type="radio" name="affichage_q1" value="b"> La pression des pneus.</label><br>
+                        <label><input type="radio" name="affichage_q1" value="c"> Le niveau d'assistance.</label><br>
+                        <button onclick="validerComposant('affichage')">Valider</button>
+                        <p id="affichage_feedback" class="feedback"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Récapitulatif -->
+        <div id="recapitulatif" class="etape" style="display: none;">
+            <h2>3. Récapitulatif et Exemple Concret</h2>
+            <p>Tableau récapitulatif</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Composant</th>
+                        <th>Fonction</th>
+                        <th>Rôle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Moteur électrique</td>
+                        <td>Transformer l'énergie électrique en énergie mécanique pour propulser le vélo</td>
+                        <td>Fournit l'assistance au pédalage, le "coup de pouce" électrique</td>
+                    </tr>
+                    <tr>
+                        <td>Batterie</td>
+                        <td>Stocker l'énergie électrique nécessaire au fonctionnement du moteur</td>
+                        <td>Alimente le moteur, détermine l'autonomie du vélo</td>
+                    </tr>
+                    <tr>
+                        <td>Contrôleur</td>
+                        <td>Gérer l'alimentation du moteur, réguler la puissance et interpréter les informations des capteurs</td>
+                        <td>Cerveau du système électrique, coordonne le fonctionnement de tous les composants</td>
+                    </tr>
+                    <tr>
+                        <td>Capteur de pédalage</td>
+                        <td>Détecter quand vous pédalez et, parfois, mesurer l'intensité de votre effort</td>
+                        <td>Déclenche l'assistance électrique, ajuste la puissance du moteur selon l'effort du cycliste</td>
+                    </tr>
+                    <tr>
+                        <td>Affichage (ou console)</td>
+                        <td>Afficher des informations essentielles comme le niveau de la batterie, la vitesse, le niveau d'assistance, etc.</td>
+                        <td>Fournit des informations en temps réel au cycliste</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Exemple concret : Lorsque vous commencez à pédaler, le capteur de pédalage détecte le mouvement. Il envoie l'information au contrôleur. Celui-ci ordonne au moteur électrique de vous donner un coup de pouce. Plus vous pédalez fort, plus le moteur vous aide. Le tout est alimenté par la batterie, dont vous surveillez le niveau sur l'affichage. C'est une véritable interaction intelligente entre vous et le vélo ! 🤝</p>
+            <div class="qcm">
+                <h3>QCM : Récapitulatif</h3>
+                <p>Question : Quel est le rôle du capteur de pédalage dans le système électrique ?</p>
+                <label><input type="radio" name="recap_q1" value="a"> Déclencher l'assistance électrique et ajuster la puissance du moteur selon l'effort du cycliste.</label><br>
+                <label><input type="radio" name="recap_q1" value="b"> Surveiller la température du moteur.</label><br>
+                <label><input type="radio" name="recap_q1" value="c"> Afficher la vitesse du vélo sur la console.</label><br>
+                <button onclick="validerRecapitulatif()">Valider</button>
+                <p id="recap_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Types de Vélos -->
+        <div id="types_velos" class="etape" style="display: none;">
+            <h2>4. Types de Vélos Électriques</h2>
+            <p>Après avoir répondu correctement au QCM de la section récapitulative, une nouvelle section s'affiche, décrivant les différents types de vélos électriques (vélos de ville, VTT, VTC, pliants).</p>
+        </div>
+
+        <!-- Bouton Afficher Cours Complet -->
+        <button id="afficher_cours" style="display: none;" onclick="afficherCoursComplet()">Afficher le cours complet</button>
+
+        <!-- Cours Complet (Affichage Final) -->
+        <div id="cours_complet" style="display: none;">
+            <div id="cours_complet_content"></div>
+        </div>
+
+    </div>
+
+    <script>
+        let etapeCourante = "introduction";
+        let introductionValidee = false;
+        let composantsValides = {
+            moteur: false,
+            batterie: false,
+            controleur: false,
+            capteur: false,
+            affichage: false
+        };
+
+        function validerIntroduction() {
+            const reponse = document.querySelector('input[name="q1"]:checked');
+            const feedback = document.getElementById("introduction_feedback");
+
+            if (reponse && reponse.value === "b") {
+                introductionValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "fonctionnement";
+                document.getElementById("introduction").style.display = "none";
+                document.getElementById("fonctionnement").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function validerComposant(composant) {
+            const reponse = document.querySelector(`input[name="${composant}_q1"]:checked`);
+            const feedback = document.getElementById(`${composant}_feedback`);
+            let bonneReponse;
+
+            switch (composant) {
+                case 'moteur': bonneReponse = "b"; break;
+                case 'batterie': bonneReponse = "c"; break;
+                case 'controleur': bonneReponse = "b"; break;
+                case 'capteur': bonneReponse = "b"; break;
+                case 'affichage': bonneReponse = "b"; break;
+                default: bonneReponse = null;
+            }
+
+            if (reponse && reponse.value === bonneReponse) {
+                composantsValides[composant] = true;
+                feedback.textContent = "Correct !";
+                feedback.style.color = "green";
+
+                // Vérifier si tous les composants sont validés
+                if (Object.values(composantsValides).every(val => val)) {
+                    etapeCourante = "recapitulatif";
+                    document.getElementById("fonctionnement").style.display = "none";
+                    document.getElementById("recapitulatif").style.display = "block";
+                }
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function validerRecapitulatif() {
+            const reponse = document.querySelector('input[name="recap_q1"]:checked');
+            const feedback = document.getElementById("recap_feedback");
+
+            if (reponse && reponse.value === "a") {
+                feedback.textContent = "Correct !";
+                feedback.style.color = "green";
+                etapeCourante = "types_velos";
+                document.getElementById("recapitulatif").style.display = "none";
+                document.getElementById("types_velos").style.display = "block";
+                document.getElementById("afficher_cours").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function afficherCoursComplet() {
+            let coursCompletHTML = `
+                <h2>Cours Complet</h2>
+                <h3>Introduction</h3>
+                <p>Salut les jeunes ingénieurs en herbe ! 🙋‍♀️🙋‍♂️
+                    Aujourd'hui, on embarque pour une exploration fascinante : le vélo électrique ! Vous avez sûrement déjà croisé ces vélos un peu spéciaux dans la rue, n'est-ce pas ? Peut-être même que certains d'entre vous en ont un à la maison ? 🚲🏡
+                    Mais au fond, qu'est-ce qui distingue un vélo électrique d'un vélo ordinaire ? 🤔 Est-ce simplement un vélo avec une batterie ? Pourquoi a-t-on inventé ce type de vélo ? Est-ce vraiment aussi formidable que ça en a l'air ? Autant de questions auxquelles nous allons répondre ensemble !
+                    Imaginez un vélo qui, d'un coup de baguette magique (ou presque !), vous aide à gravir les côtes les plus abruptes sans que vos jambes ne crient grâce. Imaginez un engin qui vous permet de parcourir de plus longues distances, plus vite, sans transpirer à grosses gouttes 😅.
+                    C'est là toute la promesse du vélo électrique : une sorte de super pouvoir 🦸‍♀️🦸‍♂️ qui facilite nos déplacements au quotidien. C'est un allié précieux pour les trajets domicile-travail, les balades du week-end ou même simplement pour aller faire une course.
+                    Le vélo électrique est en train de devenir un acteur clé de la mobilité urbaine, une solution aux problèmes de pollution et de congestion. Il représente un véritable défi technologique, mais aussi une chance de repenser notre façon de nous déplacer.
+                    Alors, êtes-vous prêts à pédaler dans l'univers passionnant de la technologie, à démonter les idées reçues et à explorer les secrets du vélo électrique ? Accrochez vos casques, et c'est parti ! 🚀</p>
+
+                <h3>Fonctionnement : Le Moteur en Action !</h3>
+                <p>Comment ce vélo a-t-il cette capacité à nous propulser presque sans effort ? 🧐 Ce n'est pas juste un vélo normal auquel on a ajouté une batterie, loin de là ! Un vélo électrique est un véritable système complexe, où chaque pièce joue un rôle crucial.
+                    Décortiquons ensemble les principaux éléments qui font avancer un vélo électrique :</p>
+                <h4>Moteur Électrique</h4>
+                <p>C'est le cœur battant du vélo électrique. Il transforme l'énergie électrique de la batterie en énergie mécanique pour propulser le vélo. Il peut être intégré de différentes manières : soit dans la roue avant ou arrière (moteur moyeu), soit au niveau du pédalier (moteur central). Chaque type a ses avantages : un moteur moyeu est simple et abordable, tandis qu'un moteur central offre un meilleur équilibre et une sensation de pédalage plus naturelle. Le moteur ne fonctionne pas seul : il a besoin de l'aide de vos jambes et de la commande du contrôleur.</p>
+                <h4>Batterie</h4>
+                <p>C'est le réservoir d'énergie du vélo électrique. Elle stocke l'électricité nécessaire au fonctionnement du moteur. Les batteries sont généralement au lithium-ion, comme celles que l'on trouve dans nos téléphones. Elles sont rechargeables à l'aide d'un chargeur. La capacité de la batterie (exprimée en Wh - Watt-heure) détermine l'autonomie du vélo, c'est-à-dire la distance que vous pourrez parcourir avec une charge. Plus la capacité est élevée, plus vous pourrez rouler longtemps !</p>
+                <h4>Contrôleur</h4>
+                <p>C'est le cerveau du système électrique. Il gère l'alimentation du moteur, régule la puissance en fonction de votre effort de pédalage et de vos réglages d'assistance. Le contrôleur reçoit les informations des capteurs, les interprète et ajuste la puissance du moteur en conséquence. Il agit comme un chef d'orchestre, assurant une harmonie entre les différents composants.</p>
+                <h4>Capteur de Pédalage (ou Capteur de Couple)</h4>
+                <p>C'est l'oreille attentive du système. Il détecte quand vous pédalez et avec quelle intensité. Il peut s'agir d'un capteur de mouvement simple (qui détecte que vous tournez les pédales) ou d'un capteur de couple plus sophistiqué (qui mesure l'effort que vous appliquez). Le capteur envoie cette information au contrôleur pour qu'il active ou ajuste la puissance du moteur.</p>
+                <h4>Affichage (ou Console)</h4>
+                <p>C'est le tableau de bord du vélo. Il vous informe sur l'état de la batterie, le niveau d'assistance choisi, la vitesse, la distance parcourue, et d'autres données utiles. Il est souvent situé sur le guidon pour une consultation facile. Certains affichages peuvent même offrir des fonctions supplémentaires, comme la navigation ou la connexion à votre smartphone.</p>
+
+                <h3>3. Récapitulatif et Exemple Concret</h3>
+                <p>Tableau récapitulatif</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Composant</th>
+                            <th>Fonction</th>
+                            <th>Rôle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Moteur électrique</td>
+                            <td>Transformer l'énergie électrique en énergie mécanique pour propulser le vélo</td>
+                            <td>Fournit l'assistance au pédalage, le "coup de pouce" électrique</td>
+                        </tr>
+                        <tr>
+                            <td>Batterie</td>
+                            <td>Stocker l'énergie électrique nécessaire au fonctionnement du moteur</td>
+                            <td>Alimente le moteur, détermine l'autonomie du vélo</td>
+                        </tr>
+                        <tr>
+                            <td>Contrôleur</td>
+                            <td>Gérer l'alimentation du moteur, réguler la puissance et interpréter les informations des capteurs</td>
+                            <td>Cerveau du système électrique, coordonne le fonctionnement de tous les composants</td>
+                        </tr>
+                        <tr>
+                            <td>Capteur de pédalage</td>
+                            <td>Détecter quand vous pédalez et, parfois, mesurer l'intensité de votre effort</td>
+                            <td>Déclenche l'assistance électrique, ajuste la puissance du moteur selon l'effort du cycliste</td>
+                        </tr>
+                        <tr>
+                            <td>Affichage (ou console)</td>
+                            <td>Afficher des informations essentielles comme le niveau de la batterie, la vitesse, le niveau d'assistance, etc.</td>
+                            <td>Fournit des informations en temps réel au cycliste</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Exemple concret : Lorsque vous commencez à pédaler, le capteur de pédalage détecte le mouvement. Il envoie l'information au contrôleur. Celui-ci ordonne au moteur électrique de vous donner un coup de pouce. Plus vous pédalez fort, plus le moteur vous aide. Le tout est alimenté par la batterie, dont vous surveillez le niveau sur l'affichage. C'est une véritable interaction intelligente entre vous et le vélo ! 🤝</p>
+
+                <h3>4. Types de Vélos Électriques</h3>
+                <p>Après avoir répondu correctement au QCM de la section récapitulative, une nouvelle section s'affiche, décrivant les différents types de vélos électriques (vélos de ville, VTT, VTC, pliants).</p>
+            `;
+
+            document.getElementById("types_velos").style.display = "none";
+            document.getElementById("afficher_cours").style.display = "none";
+            document.getElementById("cours_complet_content").innerHTML = coursCompletHTML;
+            document.getElementById("cours_complet").style.display = "block";
+        }
+
+    </script>
+</body>
+</html>

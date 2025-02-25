@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Vélo Électrique : Usages et Conception</title>
+    <style>
+        /* Styles plus adaptés aux enfants */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f0f8ff; /* Bleu très clair */
+            color: #333;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #007bff; /* Bleu vif */
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .etape {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #e6f7ff; /* Bleu encore plus clair */
+            border-radius: 8px;
+        }
+
+        .qcm {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #aacbff; /* Bleu clair */
+            background-color: #ffffff;
+            border-radius: 6px;
+        }
+
+        .qcm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .feedback {
+            margin-top: 5px;
+            font-style: italic;
+            color: red;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        button {
+            background-color: #28a745; /* Vert vif */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #cours_complet {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #4CAF50; /* Vert vif */
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            display: none; /* Masqué initialement */
+        }
+
+        #cours_complet h2 {
+            color: #4CAF50;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 5px;
+        }
+
+        #cours_complet_content {
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <!-- Usages et Interactions -->
+        <div id="usages" class="etape">
+            <h2>1. Usages et Interactions : Un Vélo pour Tous ?</h2>
+            <p>Les vélos électriques ne sont absolument pas réservés aux personnes qui ne veulent pas faire d'effort. Ils représentent un véritable outil de mobilité, avec une grande diversité d'usages. Ils peuvent s'adapter à de nombreux profils et styles de vie !</p>
+            <p><strong>Avantages :</strong></p>
+            <ul>
+                <li>Facilité dans les montées : C'est l'un des atouts majeurs du vélo électrique. Finies les difficultés à grimper les côtes, même les plus raides ! 💪</li>
+                <li>Capacité à parcourir de plus grandes distances : Grâce à l'assistance électrique, vous pouvez facilement parcourir des distances plus longues sans vous épuiser. 🏞️</li>
+                <li>Réduction de la transpiration : Le vélo électrique vous aide à modérer votre effort. Vous pouvez ainsi arriver à destination frais et dispos. 👔</li>
+                <li>Solution pour les personnes ayant des difficultés physiques : Le vélo électrique permet à des personnes qui ont des problèmes articulaires ou respiratoires de continuer à faire du vélo. 👵👴</li>
+                <li>Alternative écologique à la voiture : Le vélo électrique est un mode de transport respectueux de l'environnement. 🌍</li>
+                <li>Gain de temps : Dans certaines situations, le vélo électrique peut être plus rapide que la voiture, surtout en ville. ⏱️</li>
+            </ul>
+            <p><strong>Inconvénients :</strong></p>
+            <ul>
+                <li>Prix élevé : L'un des principaux freins à l'acquisition d'un vélo électrique est son coût. 💰</li>
+                <li>Poids plus important : Les vélos électriques sont généralement plus lourds que les vélos traditionnels.</li>
+                <li>Nécessité de recharge de la batterie.</li>
+                <li>Maintenance spécifique : Entretien plus complexe que pour un vélo classique.</li>
+                <li>Autonomie limitée : Variabilité selon l'usage et le terrain.</li>
+            </ul>
+            <p><strong>Interaction homme-machine :</strong></p>
+            <ul>
+                <li>Pédalage : Active naturellement l'assistance</li>
+                <li>Sélection du niveau d'assistance : Boutons ergonomiques sur le guidon</li>
+                <li>Surveillance de l'affichage : Contrôle en temps réel des paramètres</li>
+                <li>Freinage : Systèmes performants pour la sécurité</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Usages et Interactions</h3>
+                <p>Question : Quel est l'un des principaux avantages du vélo électrique pour les personnes ayant des difficultés physiques ?</p>
+                <label><input type="radio" name="usages_q1" value="a"> Il leur permet d'aller plus vite.</label><br>
+                <label><input type="radio" name="usages_q1" value="b"> Il leur permet de continuer à faire du vélo et de profiter des bienfaits de l'activité physique.</label><br>
+                <label><input type="radio" name="usages_q1" value="c"> Il est moins cher qu'un vélo classique.</label><br>
+                <button onclick="validerUsages()">Valider</button>
+                <p id="usages_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Conception et Réalisation -->
+        <div id="conception" class="etape" style="display: none;">
+            <h2>2. Conception et Réalisation : De l'Idée au Projet !</h2>
+            <p>Le prototypage : Création d'un modèle simplifié pour tester les concepts. Exemple : maquette en carton avec allumettes et moteur miniature 🔨</p>
+            <p><strong>Démarche de projet :</strong></p>
+            <ul>
+                <li>Analyse des besoins : Définir clairement l'usage et les contraintes</li>
+                <li>Conception : Croquis et choix des composants</li>
+                <li>Réalisation : Construction avec matériaux recyclés</li>
+                <li>Test et évaluation : Vérification pratique</li>
+                <li>Amélioration : Processus itératif pour optimiser le prototype</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Conception et Réalisation</h3>
+                <p>Question : Quelle est la première étape de la démarche de projet pour concevoir un vélo électrique ?</p>
+                <label><input type="radio" name="conception_q1" value="a"> La réalisation.</label><br>
+                <label><input type="radio" name="conception_q1" value="b"> L'analyse des besoins.</label><br>
+                <label><input type="radio" name="conception_q1" value="c"> La conception.</label><br>
+                <button onclick="validerConception()">Valider</button>
+                <p id="conception_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Programmation -->
+        <div id="programmation" class="etape" style="display: none;">
+            <h2>3. Programmation : Le Code, C'est Magique !</h2>
+            <p>Exemple de code simplifié pour le contrôleur :</p>
+            <pre>
+                Si (pédalage == VRAI) {
+                    activer_moteur(niveau_assistance)
+                } Sinon {
+                    désactiver_moteur()
+                }
+                Si (niveau_batterie < 20) {
+                    Afficher_alerte("Batterie faible !")
+                }
+            </pre>
+            <p><strong>Concepts clés :</strong></p>
+            <ul>
+                <li>Algorithmes : Suite logique d'instructions</li>
+                <li>Variables : Stockage des données</li>
+                <li>Boucles : Répétition d'actions</li>
+                <li>Opérations booléennes : Prise de décision</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Programmation</h3>
+                <p>Question : Qu'est-ce qu'un algorithme ?</p>
+                <label><input type="radio" name="programmation_q1" value="a"> Un type de vélo électrique.</label><br>
+                <label><input type="radio" name="programmation_q1" value="b"> Une suite logique d'instructions.</label><br>
+                <label><input type="radio" name="programmation_q1" value="c"> Un composant du moteur.</label><br>
+                <button onclick="validerProgrammation()">Valider</button>
+                <p id="programmation_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Développement Durable -->
+        <div id="developpement" class="etape" style="display: none;">
+            <h2>4. Développement Durable : Un Vélo Écolo ?</h2>
+            <p><strong>Enjeux environnementaux :</strong></p>
+            <ul>
+                <li>Éco-conception : Analyse du cycle de vie complet</li>
+                <li>Recyclage des batteries : Gestion des déchets lithium-ion</li>
+                <li>Matériaux durables : Bambou, composites recyclés</li>
+                <li>Recharge solaire ☀️ : Solutions énergétiques propres</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Développement Durable</h3>
+                <p>Question : Qu'est-ce que l'éco-conception ?</p>
+                <label><input type="radio" name="developpement_q1" value="a"> La fabrication de vélos très rapides.</label><br>
+                <label><input type="radio" name="developpement_q1" value="b"> L'analyse du cycle de vie complet d'un produit.</label><br>
+                <label><input type="radio" name="developpement_q1" value="c"> La conception de vélos en bambou.</label><br>
+                <button onclick="validerDeveloppement()">Valider</button>
+                <p id="developpement_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Conclusion -->
+        <div id="conclusion" class="etape" style="display: none;">
+            <h2>5. Conclusion : La Révolution du Vélo Électrique !</h2>
+            <p><strong>Synthèse des découvertes :</strong></p>
+            <ul>
+                <li>Technologie innovante ⚡</li>
+                <li>Solution de mobilité urbaine 🏙️</li>
+                <li>Défi écologique et technique 🌱</li>
+            </ul>
+            <p>Appel à l'action : "Prêts à enfourcher votre vélo électrique du futur ?" 😎</p>
+
+        </div>
+
+        <!-- Bouton Afficher Cours Complet -->
+        <button id="afficher_cours" style="display: none;" onclick="afficherCoursComplet()">Afficher le cours complet</button>
+
+        <!-- Cours Complet (Affichage Final) -->
+        <div id="cours_complet" style="display: none;">
+            <div id="cours_complet_content"></div>
+        </div>
+
+    </div>
+
+    <script>
+        let etapeCourante = "usages"; // On commence par la première étape de ce cours
+        let usagesValidee = false;
+        let conceptionValidee = false;
+        let programmationValidee = false;
+        let developpementValidee = false;
+
+        // Afficher la premiere etape
+        document.getElementById("usages").style.display = "block";
+
+        function validerUsages() {
+            const reponse = document.querySelector('input[name="usages_q1"]:checked');
+            const feedback = document.getElementById("usages_feedback");
+
+            if (reponse && reponse.value === "b") {
+                usagesValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "conception";
+                document.getElementById("usages").style.display = "none";
+                document.getElementById("conception").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function validerConception() {
+            const reponse = document.querySelector('input[name="conception_q1"]:checked');
+            const feedback = document.getElementById("conception_feedback");
+
+            if (reponse && reponse.value === "b") {
+                conceptionValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "programmation";
+                document.getElementById("conception").style.display = "none";
+                document.getElementById("programmation").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function validerProgrammation() {
+            const reponse = document.querySelector('input[name="programmation_q1"]:checked');
+            const feedback = document.getElementById("programmation_feedback");
+
+            if (reponse && reponse.value === "b") {
+                programmationValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "developpement";
+                document.getElementById("programmation").style.display = "none";
+                document.getElementById("developpement").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function validerDeveloppement() {
+            const reponse = document.querySelector('input[name="developpement_q1"]:checked');
+            const feedback = document.getElementById("developpement_feedback");
+
+            if (reponse && reponse.value === "b") {
+                developpementValidee = true;
+                feedback.textContent = "Correct ! Vous avez terminé le cours.";
+                feedback.style.color = "green";
+                etapeCourante = "conclusion";
+                document.getElementById("developpement").style.display = "none";
+                document.getElementById("conclusion").style.display = "block";
+                document.getElementById("afficher_cours").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function afficherCoursComplet() {
+            let coursCompletHTML = `
+                <h2>Cours Complet</h2>
+                <h3>1. Usages et Interactions : Un Vélo pour Tous ?</h3>
+                <p>Les vélos électriques ne sont absolument pas réservés aux personnes qui ne veulent pas faire d'effort. Ils représentent un véritable outil de mobilité, avec une grande diversité d'usages. Ils peuvent s'adapter à de nombreux profils et styles de vie !</p>
+                <p><strong>Avantages :</strong></p>
+                <ul>
+                    <li>Facilité dans les montées : C'est l'un des atouts majeurs du vélo électrique. Finies les difficultés à grimper les côtes, même les plus raides ! 💪</li>
+                    <li>Capacité à parcourir de plus grandes distances : Grâce à l'assistance électrique, vous pouvez facilement parcourir des distances plus longues sans vous épuiser. 🏞️</li>
+                    <li>Réduction de la transpiration : Le vélo électrique vous aide à modérer votre effort. Vous pouvez ainsi arriver à destination frais et dispos. 👔</li>
+                    <li>Solution pour les personnes ayant des difficultés physiques : Le vélo électrique permet à des personnes qui ont des problèmes articulaires ou respiratoires de continuer à faire du vélo. 👵👴</li>
+                    <li>Alternative écologique à la voiture : Le vélo électrique est un mode de transport respectueux de l'environnement. 🌍</li>
+                    <li>Gain de temps : Dans certaines situations, le vélo électrique peut être plus rapide que la voiture, surtout en ville. ⏱️</li>
+                </ul>
+                <p><strong>Inconvénients :</strong></p>
+                <ul>
+                    <li>Prix élevé : L'un des principaux freins à l'acquisition d'un vélo électrique est son coût. 💰</li>
+                    <li>Poids plus important : Les vélos électriques sont généralement plus lourds que les vélos traditionnels.</li>
+                    <li>Nécessité de recharge de la batterie.</li>
+                    <li>Maintenance spécifique : Entretien plus complexe que pour un vélo classique.</li>
+                    <li>Autonomie limitée : Variabilité selon l'usage et le terrain.</li>
+                </ul>
+                <p><strong>Interaction homme-machine :</strong></p>
+                <ul>
+                    <li>Pédalage : Active naturellement l'assistance</li>
+                    <li>Sélection du niveau d'assistance : Boutons ergonomiques sur le guidon</li>
+                    <li>Surveillance de l'affichage : Contrôle en temps réel des paramètres</li>
+                    <li>Freinage : Systèmes performants pour la sécurité</li>
+                </ul>
+
+                <h3>2. Conception et Réalisation : De l'Idée au Projet !</h3>
+                <p>Le prototypage : Création d'un modèle simplifié pour tester les concepts. Exemple : maquette en carton avec allumettes et moteur miniature 🔨</p>
+                <p><strong>Démarche de projet :</strong></p>
+                <ul>
+                    <li>Analyse des besoins : Définir clairement l'usage et les contraintes</li>
+                    <li>Conception : Croquis et choix des composants</li>
+                    <li>Réalisation : Construction avec matériaux recyclés</li>
+                    <li>Test et évaluation : Vérification pratique</li>
+                    <li>Amélioration : Processus itératif pour optimiser le prototype</li>
+                </ul>
+
+                <h3>3. Programmation : Le Code, C'est Magique !</h3>
+                <p>Exemple de code simplifié pour le contrôleur :</p>
+                <pre>
+                    Si (pédalage == VRAI) {
+                        activer_moteur(niveau_assistance)
+                    } Sinon {
+                        désactiver_moteur()
+                    }
+                    Si (niveau_batterie < 20) {
+                        Afficher_alerte("Batterie faible !")
+                    }
+                </pre>
+                <p><strong>Concepts clés :</strong></p>
+                <ul>
+                    <li>Algorithmes : Suite logique d'instructions</li>
+                    <li>Variables : Stockage des données</li>
+                    <li>Boucles : Répétition d'actions</li>
+                    <li>Opérations booléennes : Prise de décision</li>
+                </ul>
+
+                <h3>4. Développement Durable : Un Vélo Écolo ?</h3>
+                <p><strong>Enjeux environnementaux :</strong></p>
+                <ul>
+                    <li>Éco-conception : Analyse du cycle de vie complet</li>
+                    <li>Recyclage des batteries : Gestion des déchets lithium-ion</li>
+                    <li>Matériaux durables : Bambou, composites recyclés</li>
+                    <li>Recharge solaire ☀️ : Solutions énergétiques propres</li>
+                </ul>
+                <h3>5. Conclusion : La Révolution du Vélo Électrique !</h3>
+                <p><strong>Synthèse des découvertes :</strong></p>
+                <ul>
+                    <li>Technologie innovante ⚡</li>
+                    <li>Solution de mobilité urbaine 🏙️</li>
+                    <li>Défi écologique et technique 🌱</li>
+                </ul>
+                <p>Appel à l'action : "Prêts à enfourcher votre vélo électrique du futur ?" 😎</p>
+            `;
+
+            document.getElementById("usages").style.display = "none";
+            document.getElementById("conception").style.display = "none";
+            document.getElementById("programmation").style.display = "none";
+            document.getElementById("developpement").style.display = "none";
+            document.getElementById("conclusion").style.display = "none";
+            document.getElementById("afficher_cours").style.display = "none";
+            document.getElementById("cours_complet").style.display = "block";
+            document.getElementById("cours_complet_content").innerHTML = coursCompletHTML;
+        }
+    </script>
+</body>
+</html>
