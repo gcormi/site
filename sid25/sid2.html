@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de l'Identité Numérique</title>
+    <style>
+        /* Réinitialisation */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #4568dc, #b06ab3);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        header {
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin: 20px 0 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        .interactive-section {
+            margin: 20px 0;
+        }
+
+        button {
+            background: #74ebd5;
+            color: #2c3539;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #38ada9;
+        }
+
+        .details {
+            margin-top: 20px;
+            font-size: 1.1em;
+            display: none; /* Caché par défaut */
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Section Gestion -->
+        <section id="gestion">
+            <h2>Comment Gérer Ton Identité Numérique ?</h2>
+            <p>Voici quelques conseils pour bien gérer ton identité numérique :</p>
+            <div class="interactive-section">
+                <button onclick="toggleDetails('vigilant')">Sois Vigilant 🤔</button>
+                <button onclick="toggleDetails('protection')">Protège Tes Infos Perso 🔑</button>
+                <button onclick="toggleDetails('verif')">Vérifie les Sources ✅</button>
+                <button onclick="toggleDetails('parametres')">Maîtrise Tes Paramètres ⚙️</button>
+                <button onclick="toggleDetails('signale')">Signale les Abus 🚩</button>
+            </div>
+
+            <!-- Détails interactifs -->
+            <div id="vigilant" class="details">
+                <p><strong>Sois Vigilant 🤔</strong></p>
+                <p>Réfléchis avant de publier : Est-ce vraiment nécessaire ? Est-ce que ça pourrait être mal interprété ? Quelles sont les conséquences possibles ?</p>
+                <p>Exemple : Avant de poster une photo en soirée, demande-toi si tes parents ou tes professeurs accepteraient de la voir.</p>
+            </div>
+
+            <div id="protection" class="details">
+                <p><strong>Protège Tes Infos Perso 🔑</strong></p>
+                <p>Utilise des mots de passe complexes et différents pour chaque compte, et ne les partage jamais.</p>
+                <p>Exemple : Ne garde pas le même mot de passe pour ton compte de jeu et ton compte email.</p>
+            </div>
+
+            <div id="verif" class="details">
+                <p><strong>Vérifie les Sources ✅</strong></p>
+                <p>Ne crois pas tout ce que tu lis ou vois en ligne. Vérifie si les informations proviennent de sites sérieux.</p>
+                <p>Exemple : Si tu vois une info incroyable sur un réseau social, cherche-la sur plusieurs sites d'actualité pour voir si c'est vrai.</p>
+            </div>
+
+            <div id="parametres" class="details">
+                <p><strong>Maîtrise Tes Paramètres ⚙️</strong></p>
+                <p>Sur les réseaux sociaux, règle tes paramètres pour choisir qui peut voir tes publications et tes infos.</p>
+                <p>Exemple : Sur Instagram, tu peux choisir que seules tes "amis" voient tes photos et tes stories.</p>
+            </div>
+
+            <div id="signale" class="details">
+                <p><strong>Signale les Abus 🚩</strong></p>
+                <p>Si tu vois des contenus ou des comportements qui te choquent, signale-les aux modérateurs du site ou de l'appli.</p>
+                <p>Exemple : Si vous voyez des commentaires haineux sur une vidéo YouTube, cliquez sur "Signaler".</p>
+            </div>
+        </section>
+
+        <!-- Conclusion -->
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+            <p>Alors, on a fait le tour de l'identité numérique et de l'IA, c'était un peu intense, non ? 🤯 Mais c'est super important, car ton identité numérique, c'est un peu comme ton moi virtuel. C'est la façon dont tu te présentes au monde sur internet, et ce monde est de plus en plus grand et important.</p>
+
+            <div class="interactive-section">
+                <button onclick="toggleDetails('metaphor')">Imagine Ton Identité Numérique Comme Un Jardin 🪴</button>
+                <button onclick="toggleDetails('why-important')">Pourquoi Est-Ce Si Important ? 🚀</button>
+            </div>
+
+            <!-- Détails interactifs -->
+            <div id="metaphor" class="details">
+                <p><strong>Imagine Ton Identité Numérique Comme Un Jardin 🪴</strong></p>
+                <p>Au début, tu y plantes quelques petites graines (tes premiers posts, tes premières photos). Au fur et à mesure, tu rajoutes des fleurs (tes vidéos créatives), des arbustes (tes commentaires constructifs), et parfois, malheureusement, des mauvaises herbes (des commentaires haineux ou des photos embarrassantes).</p>
+                <p>L'IA, c'est comme un jardinier super doué, mais qui peut aussi bien embellir ton jardin que le saccager si on ne lui donne pas les bonnes instructions.</p>
+            </div>
+
+            <div id="why-important" class="details">
+                <p><strong>Pourquoi Est-Ce Si Important ? 🚀</strong></p>
+                <ul>
+                    <li>
+                        <strong>Pour te protéger :</strong> C'est un peu comme mettre un casque quand tu fais du vélo. Si tu sais comment fonctionne ton identité numérique, tu peux éviter les pièges, comme les faux profils, les arnaques en ligne ou les "deepfakes" qui pourraient te nuire.
+                        <p>Exemple : Si tu comprends que les algorithmes de l'IA peuvent te montrer des contenus biaisés, tu seras plus critique face aux informations que tu vois sur les réseaux sociaux.</p>
+                    </li>
+                    <li>
+                        <strong>Pour construire une bonne réputation :</strong> Comme on l'a vu, ton identité numérique peut t'aider ou te desservir. Si tu construis une réputation positive en ligne, ça peut t'ouvrir des portes, aussi bien pour tes études que pour tes passions ou même ta future carrière.
+                        <p>Exemple : Si tu partages tes passions en ligne (dessin, musique, jeux vidéo, etc.) de manière créative et respectueuse, ça peut t'aider à te faire connaître et à rencontrer des gens qui partagent tes centres d'intérêt.</p>
+                    </li>
+                    <li>
+                        <strong>Pour devenir un citoyen numérique responsable :</strong> Le monde d'internet est aussi un espace public. En tant que citoyen numérique, tu as des droits, mais aussi des responsabilités. Vous devez apprendre à respecter les autres en ligne, à vérifier les informations et à lutter contre la désinformation.
+                        <p>Exemple : Si tu vois quelqu'un harcelé en ligne, tu peux signaler l'abus et montrer ton soutien à la victime.</p>
+                    </li>
+                    <li>
+                        <strong>Pour profiter pleinement des avantages du numérique :</strong> Internet et l'IA sont des outils incroyables qui peuvent t'aider à apprendre, à t'amuser, à créer, et à t'exprimer. Mais pour en profiter pleinement, il faut savoir les utiliser intelligemment et avec un esprit critique.
+                        <p>Exemple : L'IA peut t'aider à faire des recherches plus efficaces pour tes exposés, à traduire des textes dans d'autres langues ou à créer des projets créatifs super cool.</p>
+                    </li>
+                </ul>
+            </div>
+
+            <p>En résumé, comprendre comment fonctionne ton identité à l'ère de l'IA, c'est un peu comme apprendre à lire et à écrire, mais pour le monde numérique. 🌐 C'est une compétence indispensable pour naviguer en toute sécurité et avec confiance dans ce monde de plus en plus digitalisé.</p>
+            <p>Ce que tu as appris aujourd'hui, c'est un atout précieux qui te servira tout au long de ta vie, que ce soit pour tes études, tes relations sociales, ou même ton futur métier. Alors, maintenant, à toi de jouer, prends soin de ton identité numérique, elle est le reflet de qui tu es, et de qui tu vas devenir ! 💪</p>
+        </section>
+
+        <footer>
+            <p>@ 2025 - GC - Apprendre de façon ludique !</p>
+        </footer>
+    </div>
+
+    <script>
+        // Fonction pour afficher/cacher les détails interactifs
+        function toggleDetails(id) {
+            // Masquer tous les détails avant d'afficher celui demandé
+            const allDetails = document.querySelectorAll('.details');
+            allDetails.forEach(detail => {
+                detail.style.display = 'none';
+            });
+
+            // Afficher le détail correspondant à l'ID
+            const details = document.getElementById(id);
+            if (details) {
+                details.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

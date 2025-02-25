@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobriété Numérique</title>
+    <style>
+        /* Réinitialisation */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        header {
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin: 20px 0 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        .interactive-section {
+            margin: 20px 0;
+        }
+
+        button {
+            background: #8ee4af;
+            color: #2c3e50;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #2c3e50;
+            color: #8ee4af;
+        }
+
+        .details {
+            margin-top: 20px;
+            font-size: 1.1em;
+            display: none; /* Caché par défaut */
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Section Introduction -->
+        <section id="introduction">
+            <h1>La Sobriété Numérique : Utiliser la Technologie avec Sagesse 💡🌱</h1>
+            <p>Aujourd'hui, on va parler de sobriété numérique. C'est un sujet important pour notre planète et pour notre bien-être. On va explorer ensemble ce que ça veut dire, pourquoi c'est important, et comment on peut agir.</p>
+        </section>
+
+        <!-- Section Qu'est-ce que la Sobriété Numérique ? -->
+        <section id="definition">
+            <h2>Qu'est-ce que la Sobriété Numérique ? 🤔</h2>
+            <p>La sobriété numérique, c'est l'idée d'utiliser la technologie (ordinateurs, smartphones, internet, etc.) de manière plus responsable et modérée. L'objectif est de réduire notre impact sur l'environnement et d'améliorer notre bien-être.</p>
+            <div class="interactive-section">
+                <button onclick="toggleDetails('usage')">Utiliser le Numérique de Manière Utile</button>
+                <button onclick="toggleDetails('energy')">Réduire la Consommation d'Énergie</button>
+                <button onclick="toggleDetails('practices')">Adopter des Pratiques Durables</button>
+                <button onclick="toggleDetails('awareness')">Être Conscient de l'Impact</button>
+            </div>
+
+            <div id="usage" class="details">
+                <p><strong>Utiliser le numérique de manière utile :</strong></p>
+                <p>Se demander si on a vraiment besoin de telle application ou tel appareil, au lieu d'accumuler sans réfléchir.</p>
+            </div>
+
+            <div id="energy" class="details">
+                <p><strong>Réduire la consommation d'énergie liée au numérique :</strong></p>
+                <p>Limiter le temps passé sur nos écrans, préférer le wifi à la 4G/5G, éteindre nos appareils quand on ne les utilise pas.</p>
+            </div>
+
+            <div id="practices" class="details">
+                <p><strong>Adopter des pratiques numériques durables :</strong></p>
+                <p>Faire durer nos appareils, réparer au lieu de jeter, acheter reconditionné, utiliser des moteurs de recherche éco-responsables.</p>
+            </div>
+
+            <div id="awareness" class="details">
+                <p><strong>Être conscient de l'impact du numérique sur notre vie :</strong></p>
+                <p>Passer moins de temps sur les écrans, faire des pauses régulières, préserver notre sommeil et notre concentration.</p>
+            </div>
+        </section>
+
+        <!-- Section Pourquoi est-elle importante ? -->
+        <section id="importance">
+            <h2>Pourquoi la Sobriété Numérique est-elle Importante ? 🌍💚</h2>
+            <div class="interactive-section">
+                <button onclick="toggleDetails('environment')">Impact Écologique</button>
+                <button onclick="toggleDetails('wellbeing')">Impact sur Notre Bien-Être</button>
+                <button onclick="toggleDetails('social')">Impact Social et Économique</button>
+            </div>
+
+            <div id="environment" class="details">
+                <p><strong>Impact Écologique :</strong></p>
+                <ul>
+                    <li>La fabrication de nos appareils nécessite beaucoup de matières premières (métaux rares, énergie...).</li>
+                    <li>Les centres de données qui stockent nos informations consomment énormément d'électricité.</li>
+                    <li>Les échanges de données sur internet polluent (même les e-mails !).</li>
+                    <li>Les déchets électroniques (e-déchets) sont très polluants s'ils ne sont pas recyclés.</li>
+                </ul>
+                <p>Exemple : Imaginez que pour fabriquer votre smartphone, il faut creuser des mines, utiliser des usines très polluantes et transporter les matières premières dans le monde entier !</p>
+            </div>
+
+            <div id="wellbeing" class="details">
+                <p><strong>Impact sur Notre Bien-Être :</strong></p>
+                <ul>
+                    <li>Trop de temps passé sur les écrans peut entraîner des problèmes de sommeil, de concentration, de vue.</li>
+                    <li>La dépendance aux écrans peut provoquer de l'anxiété, du stress, voire de l'isolement social.</li>
+                    <li>La "peur de manquer quelque chose" (FOMO) sur les réseaux sociaux peut être épuisante.</li>
+                </ul>
+                <p>Exemple : Tu te sens fatigué après une longue session de jeux vidéo ? C'est peut-être le signe qu'il faut faire une pause.</p>
+            </div>
+
+            <div id="social" class="details">
+                <p><strong>Impact Social et Économique :</strong></p>
+                <ul>
+                    <li>Les inégalités d'accès au numérique peuvent creuser les écarts entre les personnes.</li>
+                    <li>La "course à la nouveauté" peut nous pousser à surconsommer des appareils dont on n'a pas nécessairement besoin.</li>
+                </ul>
+                <p>Exemple : Tout le monde n'a pas les moyens d'acheter le dernier smartphone à la mode.</p>
+            </div>
+        </section>
+
+        <!-- Section Comment Adopter la Sobriété Numérique ? -->
+        <section id="actions">
+            <h2>Comment Adopter la Sobriété Numérique ? 💡🛠️</h2>
+            <div class="interactive-section">
+                <button onclick="toggleDetails('devices')">Utiliser Moins d'Appareils</button>
+                <button onclick="toggleDetails('responsible')">Pratiques Responsables</button>
+                <button onclick="toggleDetails('time-management')">Limiter le Temps d'Écran</button>
+                <button onclick="toggleDetails('reconditioned')">Acheter Reconditionné</button>
+                <button onclick="toggleDetails('tools')">Outils Responsables</button>
+            </div>
+
+            <div id="devices" class="details">
+                <p><strong>Utiliser moins d'appareils :</strong></p>
+                <p>Se demander si on a vraiment besoin d'un nouvel appareil avant de l'acheter. Utiliser un seul appareil pour plusieurs usages.</p>
+            </div>
+
+            <div id="responsible" class="details">
+                <p><strong>Adopter des pratiques responsables :</strong></p>
+                <p>Éteindre ses appareils quand on ne les utilise pas. Préférer la connexion wifi plutôt que la 4G/5G. Fermer les onglets inutiles sur notre navigateur.</p>
+            </div>
+
+            <div id="time-management" class="details">
+                <p><strong>Limiter le temps passé sur les écrans :</strong></p>
+                <p>Se fixer des limites de temps pour l'utilisation des écrans (surtout avant de dormir). Faire des pauses régulières pour reposer nos yeux.</p>
+            </div>
+
+            <div id="reconditioned" class="details">
+                <p><strong>Acheter reconditionné ou de seconde main :</strong></p>
+                <p>Privilégier les appareils d'occasion ou reconditionnés quand on a besoin de quelque chose.</p>
+            </div>
+
+            <div id="tools" class="details">
+                <p><strong>Utiliser des outils responsables :</strong></p>
+                <p>Utiliser des moteurs de recherche qui respectent l'environnement (Ecosia par exemple). Télécharger des applications qui conservent la sobriété numérique.</p>
+            </div>
+        </section>
+
+        <!-- Section Bénéfices -->
+        <section id="benefits">
+            <h2>Les Bénéfices de la Sobriété Numérique 🌱🧘</h2>
+            <ul>
+                <li><strong>Pour la planète :</strong> Réduction de notre consommation d'énergie et de ressources, contribution à la lutte contre le changement climatique.</li>
+                <li><strong>Pour notre santé :</strong> Amélioration du sommeil, de la concentration, de l'humeur et du bien-être général.</li>
+                <li><strong>Pour nos relations sociales :</strong> Plus de temps pour voir nos amis, notre famille et nos proches.</li>
+                <li><strong>Pour notre porte-monnaie :</strong> Faire des économies en faisant durer nos appareils et en choisissant des options moins chères et plus écologiques.</li>
+            </ul>
+        </section>
+
+        <!-- Conclusion -->
+        <section id="conclusion">
+            <h2>Conclusion 🚀✨</h2>
+            <p>La sobriété numérique n'est pas une contrainte, mais une opportunité. C'est l'occasion de repenser notre relation à la technologie et de faire des choix plus responsables. En adoptant des pratiques numériques plus sobres, tu deviens un acteur du changement, un citoyen connecté responsable, et tu contribues à construire un monde plus durable et plus humain.</p>
+        </section>
+
+        <footer>
+            <p>@ 2025 - GC - Apprendre de façon ludique !</p>
+        </footer>
+    </div>
+
+    <script>
+        // Fonction pour afficher/cacher les détails interactifs
+        function toggleDetails(id) {
+            // Masquer tous les détails avant d'afficher celui demandé
+            const allDetails = document.querySelectorAll('.details');
+            allDetails.forEach(detail => {
+                detail.style.display = 'none';
+            });
+
+            // Afficher le détail correspondant à l'ID
+            const details = document.getElementById(id);
+            if (details) {
+                details.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identité Numérique et IA</title>
+    <style>
+        /* Réinitialisation */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        header {
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin: 20px 0 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        .interactive-section {
+            margin: 20px 0;
+        }
+
+        button {
+            background: #ff914d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #ff5722;
+        }
+
+        .details {
+            margin-top: 20px;
+            font-size: 1.1em;
+            display: none; /* Caché par défaut */
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>L'Identité Numérique et l'IA</h1>
+            <p>Découvrons ensemble ce que c'est et comment ça fonctionne !</p>
+        </header>
+
+        <!-- Section Introduction -->
+        <section id="introduction">
+            <h2>Qu'est-ce que l'Identité Numérique ?</h2>
+            <p>Ton identité numérique, c'est ton empreinte sur internet. C'est tout ce qui te représente en ligne.</p>
+            <ul>
+                <li><strong>Infos Perso :</strong> Ton nom, ton âge, ton e-mail...</li>
+                <li><strong>Publications :</strong> Tes photos, vidéos, messages...</li>
+                <li><strong>Activités en Ligne :</strong> Les sites que tu visites, les jeux que tu joues...</li>
+                <li><strong>Données Collectées :</strong> Ce que les sites savent sur toi.</li>
+            </ul>
+        </section>
+
+        <!-- Section Construction -->
+        <section id="construction">
+            <h2>Comment se construit ton Identité Numérique ?</h2>
+            <p>C'est un processus influencé par tes actions volontaires, involontaires et celles des autres.</p>
+            <div class="interactive-section">
+                <button onclick="toggleDetails('voluntary')">Actions Volontaires</button>
+                <button onclick="toggleDetails('involuntary')">Actions Involontaires</button>
+                <button onclick="toggleDetails('others')">Actions des Autres</button>
+            </div>
+            <div id="voluntary" class="details">
+                <p><strong>Actions Volontaires :</strong></p>
+                <p>Tout ce que tu fais consciemment en ligne : tes publications, tes likes, tes abonnements.</p>
+                <p>Exemple : Quand tu choisis de poster un message rigide sur un groupe Discord ou de liker une vidéo de ton influenceur préféré sur YouTube, tu construis ton identité numérique.</p>
+            </div>
+            <div id="involuntary" class="details">
+                <p><strong>Actions Involontaires :</strong></p>
+                <p>Les traces que tu laisses sans le vouloir : les cookies, les recherches Google, les données collectées par les applications.</p>
+                <p>Exemple : Quand tu cherches "astuces Minecraft" sur Google, ça enregistre tes recherches. Quand tu utilises Instagram, l'application enregistre ce que tu regardes, ce que tu aimes, et même combien de temps tu restes sur chaque publication.</p>
+            </div>
+            <div id="others" class="details">
+                <p><strong>Actions des Autres :</strong></p>
+                <p>Tout ce que les autres font ou disent à ton sujet : les tags, les commentaires, les avis.</p>
+                <p>Exemple : Si un camarade de classe te tag sur une story Instagram un peu gênante, ça peut faire partie de ton identité numérique et avoir un impact sur ta réputation.</p>
+            </div>
+        </section>
+
+        <!-- Section IA -->
+        <section id="ia">
+            <h2>L'Impact de l'IA sur ton Identité Numérique</h2>
+            <p>L'intelligence artificielle change la donne en ligne.</p>
+            <div class="interactive-section">
+                <button onclick="toggleDetails('facial')">Reconnaissance Faciale</button>
+                <button onclick="toggleDetails('content')">Personnalisation des Contenus</button>
+                <button onclick="toggleDetails('deepfakes')">Deepfakes</button>
+                <button onclick="toggleDetails('data')">Analyse des Données</button>
+            </div>
+            <div id="facial" class="details">
+                <p><strong>Reconnaissance Faciale :</strong></p>
+                <p>L'IA peut identifier ton visage sur des photos ou vidéos en ligne.</p>
+                <p>Exemple : Si tu es filmé pendant un match de foot amateur et que cette vidéo est mise en ligne, l'IA pourrait identifier ton visage et le communiquer à tes autres informations en ligne.</p>
+            </div>
+            <div id="content" class="details">
+                <p><strong>Personnalisation des Contenus :</strong></p>
+                <p>Les algorithmes analysent tes préférences pour te proposer des contenus personnalisés.</p>
+                <p>Exemple : Si tu aimes beaucoup les vidéos de gaming, YouTube va te proposer de plus en plus de vidéos de gaming, parfois au détriment d'autres contenus qui pourraient t'intéresser.</p>
+            </div>
+            <div id="deepfakes" class="details">
+                <p><strong>Deepfakes :</strong></p>
+                <p>L'IA peut créer des vidéos ou images très réalistes où tu sembles dire ou faire des choses que tu n'as jamais faites.</p>
+                <p>Exemple : Une fausse vidéo pourrait être créée, te faisant dire des choses que tu ne penses pas, et ça pourrait causer des problèmes à ta réputation.</p>
+            </div>
+            <div id="data" class="details">
+                <p><strong>Analyse des Données :</strong></p>
+                <p>L'IA collecte et analyse tes activités en ligne pour mieux te comprendre et t'offrir des expériences personnalisées.</p>
+                <p>Exemple : Les sites marchands peuvent analyser tes achats et savoir si tu aimes plus les jeux vidéo, le sport, ou les mangas, pour ensuite te proposer des offres personnalisées.</p>
+            </div>
+        </section>
+
+        <!-- Section Enjeux -->
+        <section id="enjeux">
+            <h2>Les Enjeux de ton Identité Numérique</h2>
+            <p>Il est crucial de comprendre les risques liés à ta présence en ligne.</p>
+            <ul>
+                <li><strong>Protection de ta Vie Privée :</strong> Protège tes données personnelles.</li>
+                <li><strong>E-réputation :</strong> Gère bien ta réputation en ligne.</li>
+                <li><strong>Manipulation :</strong> Sois vigilant face aux fausses informations.</li>
+                <li><strong>Responsabilité :</strong> Assure-toi que tout ce que tu partages est approprié.</li>
+            </ul>
+            <div class="interactive-section">
+                <button onclick="toggleDetails('privacy')">En savoir plus sur la Protection de ta Vie Privée</button>
+                <button onclick="toggleDetails('ereputation')">En savoir plus sur l'E-réputation</button>
+                <button onclick="toggleDetails('manipulation')">En savoir plus sur la Manipulation</button>
+                <button onclick="toggleDetails('responsibility')">En savoir plus sur la Responsabilité</button>
+            </div>
+            <div id="privacy" class="details">
+                <p><strong>Protection de ta Vie Privée :</strong></p>
+                <p>Ne mets jamais ton adresse ou ton numéro de téléphone sur un forum public, et fais attention aux jeux ou applications qui demandent trop d'informations.</p>
+            </div>
+            <div id="ereputation" class="details">
+                <p><strong>E-réputation :</strong></p>
+                <p>Toute photo maladroite peut devenir virale et te poursuivre pendant longtemps.</p>
+            </div>
+            <div id="manipulation" class="details">
+                <p><strong>Manipulation :</strong></p>
+                <p>Une fausse news qui te dit que ton jeu préféré est gratuit pourrait te pousser à cliquer sur un lien dangereux.</p>
+            </div>
+            <div id="responsibility" class="details">
+                <p><strong>Responsabilité :</strong></p>
+                <p>Si tu laisses des commentaires haineux en ligne, tu peux avoir des problèmes avec ton établissement scolaire, voire avec la justice.</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>@ 2025 - GC - Apprendre de façon ludique !</p>
+        </footer>
+    </div>
+
+    <script>
+        // Fonction pour afficher/cacher les détails interactifs
+        function toggleDetails(id) {
+            const details = document.getElementById(id);
+            if (details.style.display === 'block') {
+                details.style.display = 'none';
+            } else {
+                details.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
