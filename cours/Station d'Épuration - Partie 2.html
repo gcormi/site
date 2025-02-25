@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stations d'Épuration - Partie 2 : Maintenance, Modernisation, Énergie et Matériaux</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #e3f2fd; /* Bleu très clair */
+            color: #333;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff; /* Blanc */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #d32f2f; /* Rouge foncé */
+            border-bottom: 2px solid #d32f2f;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .etape {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #bbdefb; /* Bleu ciel clair */
+            border-radius: 8px;
+        }
+
+        .qcm {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #90caf9; /* Bleu clair */
+            background-color: #ffffff;
+            border-radius: 6px;
+        }
+
+        .qcm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .feedback {
+            margin-top: 5px;
+            font-style: italic;
+            color: red;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #90caf9; /* Bleu clair */
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #b3e5fc; /* Bleu ciel très clair */
+        }
+
+        button {
+            background-color: #d32f2f; /* Rouge foncé */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #c62828; /* Rouge plus foncé */
+        }
+
+        #cours_complet {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #d32f2f; /* Rouge foncé */
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            display: none; /* Masqué initialement */
+        }
+
+        #cours_complet h2 {
+            color: #d32f2f; /* Rouge foncé */
+            border-bottom: 2px solid #d32f2f;
+            padding-bottom: 5px;
+        }
+
+        #cours_complet_content {
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <!-- 3. 🛠️ La Maintenance -->
+        <div id="maintenance" class="etape">
+            <h2>3. 🛠️ La Maintenance : Prendre Soin de la Station</h2>
+            <p>Pour que la station fonctionne correctement et dure longtemps, il est indispensable de réaliser une maintenance régulière. Cela comprend le nettoyage des installations, la réparation des équipements défectueux, et la vérification de l'ensemble du système. C'est un peu comme faire une révision de sa voiture, pour éviter les pannes et les problèmes.</p>
+            <p>Exemple : On doit régulièrement nettoyer les filtres, réparer les pompes, et changer les pièces usées.</p>
+            <p>Objectifs de la maintenance :</p>
+            <ul>
+                <li>Prévenir les pannes : Vérifier et remplacer les pièces usées avant qu'elles ne tombent en panne.</li>
+                <li>Assurer l'efficacité : Nettoyer les installations pour éviter l'encrassement et garantir un bon fonctionnement.</li>
+                <li>Prolonger la durée de vie : Entretenir les équipements pour les faire durer plus longtemps.</li>
+                <li>Garantir la sécurité : Veiller à la sécurité des personnels et des installations.</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Maintenance</h3>
+                <p>Question : Pourquoi est-il important de réaliser une maintenance régulière ?</p>
+                  <label><input type="radio" name="maintenance_q1" value="a"> Pour attirer plus de visiteurs.</label><br>
+                 <label><input type="radio" name="maintenance_q1" value="b"> Pour éviter les pannes et prolonger la durée de vie.</label><br>
+                <label><input type="radio" name="maintenance_q1" value="c"> Pour la repeindre en bleu.</label><br>
+                <button onclick="validerMaintenance()">Valider</button>
+                <p id="maintenance_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- 4. ♻️ La Modernisation -->
+        <div id="modernisation" class="etape" style="display: none;">
+            <h2>4. ♻️ La Modernisation : Adapter aux Besoins du Futur</h2>
+            <p>Avec le temps, les technologies évoluent, les normes environnementales deviennent plus strictes, et les besoins des populations augmentent. Il est alors nécessaire de moderniser les installations pour les adapter aux nouvelles exigences. C'est comme faire des travaux de rénovation dans sa maison pour la rendre plus confortable et plus moderne.</p>
+            <p><em>Exemple :</em> On peut ajouter de nouveaux systèmes de traitement de l'eau plus performants, ou améliorer l'automatisation de la station.</p>
+            <ul>
+                <li>Amélioration des procédés : Installation de nouvelles technologies de traitement plus performantes.</li>
+                <li>Extension des capacités : Augmentation de la taille des bassins et des équipements pour traiter plus d'eau.</li>
+                <li>Automatisation : Mise en place de systèmes de contrôle informatisés pour optimiser le fonctionnement de la station.</li>
+                <li>Intégration de nouvelles normes : Adaptation aux nouvelles exigences environnementales.</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Modernisation</h3>
+                <p>Question : Dans quel but fait-on de la modernisation ?</p>
+                  <label><input type="radio" name="modernisation_q1" value="a"> Pour faire venir plus de touristes.</label><br>
+                <label><input type="radio" name="modernisation_q1" value="c"> Pour avoir des employés plus heureux.</label><br>
+               
+                <label><input type="radio" name="modernisation_q1" value="b"> Pour s'adapter aux nouvelles technologies et aux exigences environnementales.</label><br>
+                <button onclick="validerModernisation()">Valider</button>
+                <p id="modernisation_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- ⚡️ Énergie et Matériaux -->
+        <div id="energie" class="etape" style="display: none;">
+            <h2>⚡️ Énergie et Matériaux : Les Composants Essentiels d'une Station d'Épuration ⚙️</h2>
+            <p>Nous avons vu comment fonctionne une station d'épuration et son cycle de vie. Mais, pour que tout ce système fonctionne correctement, il faut de l'énergie et des matériaux. Explorons ensemble ces deux aspects clés !</p>
+            <h3>🔋 L'Énergie : Le Moteur de la Station</h3>
+            <p>Une station d'épuration a besoin d'énergie pour faire fonctionner les nombreuses installations qui traitent l'eau. Cette énergie est principalement de l'énergie électrique, mais elle peut aussi provenir de sources alternatives.</p>
+            <p>Principales utilisations de l'énergie électrique : Pompes, Moteurs, Éclairage et instrumentation.</p>
+            <div class="qcm">
+                <h3>QCM : Énergie</h3>
+                <p>Question : Quelle est la principale source d'énergie utilisée dans une station d'épuration ?</p>
+                <label><input type="radio" name="energie_q1" value="a"> L'énergie électrique.</label><br>
+                 <label><input type="radio" name="energie_q1" value="c"> L'énergie musculaire des employés.</label><br>
+                <label><input type="radio" name="energie_q1" value="b"> L'énergie hydraulique.</label><br>
+              
+                <button onclick="validerEnergie()">Valider</button>
+                <p id="energie_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- 🧱 Les Matériaux -->
+        <div id="materiaux" class="etape" style="display: none;">
+            <h2>🧱 Les Matériaux : Les Briques de la Station</h2>
+            <p>Pour construire et faire fonctionner une station d'épuration, on utilise divers matériaux, chacun avec un rôle spécifique.</p>
+            <p>Principaux matériaux utilisés : Béton, Acier, Plastiques, Produits chimiques.</p>
+            <div class="qcm">
+                <h3>QCM : Matériaux</h3>
+                <p>Question : Quel matériau est utilisé pour construire les bassins et les fondations des stations d'épuration ?</p>
+                <label><input type="radio" name="materiaux_q1" value="a"> Le bois.</label><br>
+                <label><input type="radio" name="materiaux_q1" value="b"> Le béton.</label><br>
+                <label><input type="radio" name="materiaux_q1" value="c"> Le carton.</label><br>
+                <button onclick="validerMateriaux()">Valider</button>
+                <p id="materiaux_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Conclusion -->
+        <div id="conclusion" class="etape" style="display: none;">
+            <h2>Conclusion</h2>
+            <p>La chaîne d'énergie d'une PAC illustre le rôle essentiel de l'électricité pour alimenter le compresseur, qui est le moteur du cycle thermodynamique.</p>
+            <p>Le choix des matériaux est essentiel pour garantir la durabilité et l'efficacité des stations d'épuration</p>
+        </div>
+
+        <!-- Bouton Afficher Cours Complet -->
+        <button id="afficher_cours" style="display: none;" onclick="afficherCoursComplet()">Afficher le cours complet</button>
+
+        <!-- Cours Complet (Affichage Final) -->
+        <div id="cours_complet" style="display: none;">
+            <div id="cours_complet_content"></div>
+        </div>
+
+    </div>
+
+    <script>
+        let etapeCourante = "maintenance";
+        let maintenanceValidee = false;
+        let modernisationValidee = false;
+        let energieValidee = false;
+        let materiauxValidee = false;
+
+         // Afficher la premiere etape
+        document.getElementById("maintenance").style.display = "block";
+
+        function validerMaintenance() {
+            const reponse = document.querySelector('input[name="maintenance_q1"]:checked');
+            const feedback = document.getElementById("maintenance_feedback");
+
+            if (reponse && reponse.value === "b") {
+                maintenanceValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "modernisation";
+                document.getElementById("maintenance").style.display = "none";
+                document.getElementById("modernisation").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function validerModernisation() {
+            const reponse = document.querySelector('input[name="modernisation_q1"]:checked');
+            const feedback = document.getElementById("modernisation_feedback");
+
+            if (reponse && reponse.value === "b") {
+                modernisationValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "energie";
+                document.getElementById("modernisation").style.display = "none";
+                document.getElementById("energie").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function validerEnergie() {
+            const reponse = document.querySelector('input[name="energie_q1"]:checked');
+            const feedback = document.getElementById("energie_feedback");
+
+            if (reponse && reponse.value === "a") {
+                energieValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "materiaux";
+                document.getElementById("energie").style.display = "none";
+                document.getElementById("materiaux").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function validerMateriaux() {
+            const reponse = document.querySelector('input[name="materiaux_q1"]:checked');
+            const feedback = document.getElementById("materiaux_feedback");
+
+            if (reponse && reponse.value === "b") {
+                materiauxValidee = true;
+                feedback.textContent = "Correct ! Vous avez terminé le cours.";
+                feedback.style.color = "green";
+                etapeCourante = "afficher_cours";
+                document.getElementById("materiaux").style.display = "none";
+                document.getElementById("conclusion").style.display = "block";
+                document.getElementById("afficher_cours").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function afficherCoursComplet() {
+            let coursCompletHTML = `
+            <h2>Cours Complet</h2>
+              <h3>3. 🛠️ La Maintenance : Prendre Soin de la Station</h3>
+            <p>Pour que la station fonctionne correctement et dure longtemps, il est indispensable de réaliser une maintenance régulière. Cela comprend le nettoyage des installations, la réparation des équipements défectueux, et la vérification de l'ensemble du système. C'est un peu comme faire une révision de sa voiture, pour éviter les pannes et les problèmes.</p>
+            <p>Exemple : On doit régulièrement nettoyer les filtres, réparer les pompes, et changer les pièces usées.</p>
+
+            <h3>4. ♻️ La Modernisation : Adapter aux Besoins du Futur</h3>
+            <p>Avec le temps, les technologies évoluent, les normes environnementales deviennent plus strictes, et les besoins des populations augmentent. Il est alors nécessaire de moderniser les installations pour les adapter aux nouvelles exigences. C'est comme faire des travaux de rénovation dans sa maison pour la rendre plus confortable et plus moderne.</p>
+            <p>Exemple : On peut ajouter de nouveaux systèmes de traitement de l'eau plus performants, ou améliorer l'automatisation de la station.</p>
+
+              <h3>⚡️ Énergie et Matériaux : Les Composants Essentiels d'une Station d'Épuration ⚙️</h3>
+            <h4>🔋 L'Énergie : Le Moteur de la Station</h4>
+            <p>Une station d'épuration a besoin d'énergie pour faire fonctionner les nombreuses installations qui traitent l'eau. Cette énergie est principalement de l'énergie électrique, mais elle peut aussi provenir de sources alternatives.</p>
+            <p>Principales utilisations de l'énergie électrique : Pompes, Moteurs, Éclairage et instrumentation.</p>
+
+              <h4>🧱 Les Matériaux : Les Briques de la Station</h4>
+            <p>Pour construire et faire fonctionner une station d'épuration, on utilise divers matériaux, chacun avec un rôle spécifique.</p>
+            <p>Principaux matériaux utilisés : Béton, Acier, Plastiques, Produits chimiques.</p>
+
+                    `;
+
+            document.getElementById("maintenance").style.display = "none";
+            document.getElementById("modernisation").style.display = "none";
+            document.getElementById("energie").style.display = "none";
+            document.getElementById("materiaux").style.display = "none";
+            document.getElementById("afficher_cours").style.display = "none";
+            document.getElementById("conclusion").style.display = "block";
+            document.getElementById("cours_complet").style.display = "block";
+            document.getElementById("cours_complet_content").innerHTML = coursCompletHTML;
+
+        }
+    </script>
+</body>
+</html>
