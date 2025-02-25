@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À la Découverte des Drones - Partie 1</title>
+    <style>
+        /* Couleurs : bleu, vert, touches d'orange */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #e0f7fa; /* Vert très clair */
+            color: #333;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #00796b; /* Vert foncé */
+            border-bottom: 2px solid #00796b;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .etape {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #e1f5fe; /* Bleu très clair */
+            border-radius: 8px;
+        }
+
+        .qcm {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #81d4fa; /* Bleu clair */
+            background-color: #ffffff;
+            border-radius: 6px;
+        }
+
+        .qcm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .feedback {
+            margin-top: 5px;
+            font-style: italic;
+            color: red;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #b0bec5;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #cfd8dc;
+        }
+
+        button {
+            background-color: #ff9800; /* Orange */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #f57c00; /* Orange plus foncé */
+        }
+
+        #cours_complet {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #ffb300; /* Orange vif */
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            display: none; /* Masqué initialement */
+        }
+
+        #cours_complet h2 {
+            color: #ffb300;
+            border-bottom: 2px solid #ffb300;
+            padding-bottom: 5px;
+        }
+
+        #cours_complet_content {
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <!-- Introduction -->
+        <div id="introduction" class="etape">
+            <h2>1. À la Découverte des Drones : Ces Machines Volantes qui Changent le Monde ! 🚀</h2>
+            <p>Salut les jeunes ingénieurs ! 👋 Aujourd'hui, on part à l'aventure avec les drones ! Vous croyez que c'est juste des jouets télécommandés ? Eh bien, pas du tout ! Ce sont des machines volantes super utiles qui changent notre monde.</p>
+            <p>Avez-vous déjà vu un drone en vrai ? 🚁</p>
+            <p>Imaginez ce qu'il pourrait faire ! 💭</p>
+            <p>Qu'est-ce qui vous intrigue le plus sur ces objets volants ? 🧐</p>
+            <p>On va découvrir ensemble leur fonctionnement, leurs usages et même comment on pourrait en construire un ! Accrochez vos ceintures, c'est parti ! 🤩</p>
+            <div class="qcm">
+                <h3>QCM : Introduction</h3>
+                <p>Question : Selon le texte, quelle est la vision des drones que l'on va découvrir ensemble ?</p>
+                <label><input type="radio" name="q1" value="a"> Ce sont des jouets inutiles.</label><br>
+                <label><input type="radio" name="q1" value="b"> Ce sont des machines volantes super utiles qui changent notre monde.</label><br>
+                <label><input type="radio" name="q1" value="c"> Ce sont des machines très dangereuses.</label><br>
+                <button onclick="validerIntroduction()">Valider</button>
+                <p id="introduction_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Fonctionnement -->
+        <div id="fonctionnement" class="etape" style="display: none;">
+            <h2>2. Fonctionnement : Comment ça vole ?⚙️</h2>
+            <p>Pour voler, les drones utilisent la physique, comme les avions. Ils ont besoin :</p>
+            <ul>
+                <li>💨 Hélices (ou rotors) : Elles tournent très vite, poussant l'air vers le bas pour faire monter le drone.</li>
+                <li>⚡ Moteurs : Ils font tourner les hélices.</li>
+                <li>🔋 Batterie : Elle donne de l'énergie aux moteurs.</li>
+                <li>🧠 Électronique : C'est le "cerveau" du drone, qui le contrôle et reçoit les commandes.</li>
+                <li>👀👂 Capteurs : Ils aident le drone à "sentir" son environnement (altitude, direction, obstacles...).</li>
+            </ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Composant</th>
+                        <th>Rôle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hélices</td>
+                        <td>💨 Créer la force pour voler</td>
+                    </tr>
+                    <tr>
+                        <td>Moteurs</td>
+                        <td>⚡ Faire tourner les hélices</td>
+                    </tr>
+                    <tr>
+                        <td>Batterie</td>
+                        <td>🔋 Donner de l'énergie aux moteurs</td>
+                    </tr>
+                    <tr>
+                        <td>Électronique</td>
+                        <td>🧠 Contrôler le drone et ses mouvements</td>
+                    </tr>
+                    <tr>
+                        <td>Capteurs</td>
+                        <td>👀👂 Permettre au drone de "sentir" son environnement</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Un drone, c'est un peu comme un hélicoptère miniature piloté par un ordinateur. 🚁💻</p>
+            <div class="qcm">
+                <h3>QCM : Fonctionnement</h3>
+                <p>Question : Quel composant du drone crée la force pour le faire voler ?</p>
+                <label><input type="radio" name="fonctionnement_q1" value="a"> La batterie.</label><br>
+                <label><input type="radio" name="fonctionnement_q1" value="b"> Les moteurs.</label><br>
+                <label><input type="radio" name="fonctionnement_q1" value="c"> Les hélices.</label><br>
+                <button onclick="validerFonctionnement()">Valider</button>
+                <p id="fonctionnement_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Usages et Interactions -->
+        <div id="usages" class="etape" style="display: none;">
+            <h2>3. Usages et Interactions : Les drones au quotidien 🌍</h2>
+            <p>Les drones sont partout ! Voici quelques exemples :</p>
+            <ul>
+                <li>📦 Livraison : Recevoir des colis par les airs !</li>
+                <li>📸 Photographie et Vidéo : Faire de superbes photos et vidéos du ciel.</li>
+                <li>🔥 Surveillance : Surveiller les incendies.</li>
+                <li>🌾 Agriculture : Aider les agriculteurs à observer leurs champs.</li>
+                <li>🆘 Recherche et Sauvetage : Retrouver les personnes disparues.</li>
+            </ul>
+            <p>Les drones se contrôlent avec :</p>
+            <ul>
+                <li>🕹️ Une télécommande : Pour le piloter à distance.</li>
+                <li>📱 Un smartphone ou une tablette : Avec une application pour le contrôler et voir ce qu'il filme.</li>
+            </ul>
+
+            <p><strong>Avantages :</strong> 👍 Ils vont là où on ne peut pas, ils sont rapides et font des tâches répétitives.</p>
+            <p><strong>Inconvénients :</strong> 👎 Ils font du bruit, leur batterie dure peu de temps, et ils peuvent être utilisés à de mauvaises fins.</p>
+            <div class="qcm">
+                <h3>QCM : Usages et Interactions</h3>
+                <p>Question : Quel est un avantage de l'utilisation des drones ?</p>
+                <label><input type="radio" name="usages_q1" value="a"> Ils sont silencieux.</label><br>
+                <label><input type="radio" name="usages_q1" value="b"> Ils vont là où on ne peut pas.</label><br>
+                <label><input type="radio" name="usages_q1" value="c"> Leur batterie dure très longtemps.</label><br>
+                <button onclick="validerUsages()">Valider</button>
+                <p id="usages_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Conception et Réalisation -->
+        <div id="conception" class="etape" style="display: none;">
+            <h2>4. Conception et Réalisation : Créer son propre drone (ou presque !) 🛠️</h2>
+            <p>Bon on ne va pas fabriquer un vrai drone qui vole tout de suite mais on peut faire quelque chose de super : on va créer un prototype, c'est comme une maquette, un modèle réduit de notre drone ! On va imaginer tout ça ensemble.</p>
+            <ul>
+                <li>D'abord l'analyse des besoins : on se demande à quoi va servir notre drone. Est-ce pour transporter des objets, pour prendre des photos, pour faire des missions de sauvetage ? On imagine toutes les fonctions qu'il aura.</li>
+                <li>Après la conception : on dessine notre drone, on fait un plan, on choisit la forme, les matériaux, les couleurs, on laisse parler notre créativité !</li>
+                <li>Ensuite la réalisation : on prend nos ciseaux, du carton, des bâtonnets, tout ce qu'on a sous la main, et on fabrique notre maquette comme des vrais ingénieurs !</li>
+                <li>Enfin le test : on observe notre maquette, est-ce qu'elle tient debout ? Est-ce qu'elle ressemble à ce qu'on avait imaginé ? Est-ce qu'elle est stable ? On regarde et on corrige si besoin.</li>
+            </ul>
+            <p>C'est une façon super amusante de comprendre comment on construit un vrai drone, de voir les différentes étapes, à quoi ça sert, pourquoi c'est important. C'est vraiment génial !</p>
+            <div class="qcm">
+                <h3>QCM : Conception et Réalisation</h3>
+                <p>Question : Lors de la conception d'un prototype de drone, quelle est la première étape à suivre ?</p>
+                <label><input type="radio" name="conception_q1" value="a"> La réalisation de la maquette.</label><br>
+                <label><input type="radio" name="conception_q1" value="b"> L'analyse des besoins.</label><br>
+                <label><input type="radio" name="conception_q1" value="c"> Le test de la maquette.</label><br>
+                <button onclick="validerConception()">Valider</button>
+                <p id="conception_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Bouton Afficher Cours Complet -->
+        <button id="afficher_cours" style="display: none;" onclick="afficherCoursComplet()">Afficher le cours complet</button>
+
+        <!-- Cours Complet (Affichage Final) -->
+        <div id="cours_complet" style="display: none;">
+            <div id="cours_complet_content"></div>
+        </div>
+
+    </div>
+
+    <script>
+        let etapeCourante = "introduction";
+        let introductionValidee = false;
+        let fonctionnementValidee = false;
+        let usagesValidee = false;
+        let conceptionValidee = false;
+
+         // Afficher la premiere etape
+        document.getElementById("introduction").style.display = "block";
+
+        function validerIntroduction() {
+            const reponse = document.querySelector('input[name="q1"]:checked');
+            const feedback = document.getElementById("introduction_feedback");
+
+            if (reponse && reponse.value === "b") {
+                introductionValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "fonctionnement";
+                document.getElementById("introduction").style.display = "none";
+                document.getElementById("fonctionnement").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+          function validerFonctionnement() {
+            const reponse = document.querySelector('input[name="fonctionnement_q1"]:checked');
+            const feedback = document.getElementById("fonctionnement_feedback");
+
+            if (reponse && reponse.value === "c") {
+                fonctionnementValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "usages";
+                document.getElementById("fonctionnement").style.display = "none";
+                document.getElementById("usages").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function validerUsages() {
+            const reponse = document.querySelector('input[name="usages_q1"]:checked');
+            const feedback = document.getElementById("usages_feedback");
+
+            if (reponse && reponse.value === "b") {
+                usagesValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "conception";
+                document.getElementById("usages").style.display = "none";
+                document.getElementById("conception").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function validerConception() {
+            const reponse = document.querySelector('input[name="conception_q1"]:checked');
+            const feedback = document.getElementById("conception_feedback");
+
+            if (reponse && reponse.value === "b") {
+                conceptionValidee = true;
+                feedback.textContent = "Correct ! Vous avez terminé le cours.";
+                feedback.style.color = "green";
+                etapeCourante = "afficher_cours";
+                document.getElementById("conception").style.display = "none";
+                document.getElementById("afficher_cours").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function afficherCoursComplet() {
+            let coursCompletHTML = `
+             <h2>Cours Complet</h2>
+              <h3>1. À la Découverte des Drones : Ces Machines Volantes qui Changent le Monde ! 🚀</h3>
+            <p>Salut les jeunes ingénieurs ! 👋 Aujourd'hui, on part à l'aventure avec les drones ! Vous croyez que c'est juste des jouets télécommandés ? Eh bien, pas du tout ! Ce sont des machines volantes super utiles qui changent notre monde.</p>
+            <p>Avez-vous déjà vu un drone en vrai ? 🚁</p>
+            <p>Imaginez ce qu'il pourrait faire ! 💭</p>
+            <p>Qu'est-ce qui vous intrigue le plus sur ces objets volants ? 🧐</p>
+            <p>On va découvrir ensemble leur fonctionnement, leurs usages et même comment on pourrait en construire un ! Accrochez vos ceintures, c'est parti ! 🤩</p>
+
+                <h3>2. Fonctionnement : Comment ça vole ? ⚙️</h3>
+            <p>Pour voler, les drones utilisent la physique, comme les avions. Ils ont besoin :</p>
+            <ul>
+                <li>💨 Hélices (ou rotors) : Elles tournent très vite, poussant l'air vers le bas pour faire monter le drone.</li>
+                <li>⚡ Moteurs : Ils font tourner les hélices.</li>
+                <li>🔋 Batterie : Elle donne de l'énergie aux moteurs.</li>
+                <li>🧠 Électronique : C'est le "cerveau" du drone, qui le contrôle et reçoit les commandes.</li>
+                <li>👀👂 Capteurs : Ils aident le drone à "sentir" son environnement (altitude, direction, obstacles...).</li>
+            </ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Composant</th>
+                        <th>Rôle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hélices</td>
+                        <td>💨 Créer la force pour voler</td>
+                    </tr>
+                    <tr>
+                        <td>Moteurs</td>
+                        <td>⚡ Faire tourner les hélices</td>
+                    </tr>
+                    <tr>
+                        <td>Batterie</td>
+                        <td>🔋 Donner de l'énergie aux moteurs</td>
+                    </tr>
+                    <tr>
+                        <td>Électronique</td>
+                        <td>🧠 Contrôler le drone et ses mouvements</td>
+                    </tr>
+                    <tr>
+                        <td>Capteurs</td>
+                        <td>👀👂 Permettre au drone de "sentir" son environnement</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Un drone, c'est un peu comme un hélicoptère miniature piloté par un ordinateur. 🚁💻</p>
+
+            <h3>3. Usages et Interactions : Les drones au quotidien 🌍</h3>
+            <p>Les drones sont partout ! Voici quelques exemples :</p>
+            <ul>
+                <li>📦 Livraison : Recevoir des colis par les airs !</li>
+                <li>📸 Photographie et Vidéo : Faire de superbes photos et vidéos du ciel.</li>
+                <li>🔥 Surveillance : Surveiller les incendies.</li>
+                <li>🌾 Agriculture : Aider les agriculteurs à observer leurs champs.</li>
+                <li>🆘 Recherche et Sauvetage : Retrouver les personnes disparues.</li>
+            </ul>
+            <p>Les drones se contrôlent avec :</p>
+            <ul>
+                <li>🕹️ Une télécommande : Pour le piloter à distance.</li>
+                <li>📱 Un smartphone ou une tablette : Avec une application pour le contrôler et voir ce qu'il filme.</li>
+            </ul>
+
+            <p><strong>Avantages :</strong> 👍 Ils vont là où on ne peut pas, ils sont rapides et font des tâches répétitives.</p>
+            <p><strong>Inconvénients :</strong> 👎 Ils font du bruit, leur batterie dure peu de temps, et ils peuvent être utilisés à de mauvaises fins.</p>
+
+                 <h3>4. Conception et Réalisation : Créer son propre drone (ou presque !) 🛠️</h3>
+            <p>Bon on ne va pas fabriquer un vrai drone qui vole tout de suite mais on peut faire quelque chose de super : on va créer un prototype, c'est comme une maquette, un modèle réduit de notre drone ! On va imaginer tout ça ensemble.</p>
+            <ul>
+                <li>D'abord l'analyse des besoins : on se demande à quoi va servir notre drone. Est-ce pour transporter des objets, pour prendre des photos, pour faire des missions de sauvetage ? On imagine toutes les fonctions qu'il aura.</li>
+                <li>Après la conception : on dessine notre drone, on fait un plan, on choisit la forme, les matériaux, les couleurs, on laisse parler notre créativité !</li>
+                <li>Ensuite la réalisation : on prend nos ciseaux, du carton, des bâtonnets, tout ce qu'on a sous la main, et on fabrique notre maquette comme des vrais ingénieurs !</li>
+                <li>Enfin le test : on observe notre maquette, est-ce qu'elle tient debout ? Est-ce qu'elle ressemble à ce qu'on avait imaginé ? Est-ce qu'elle est stable ? On regarde et on corrige si besoin.</li>
+            </ul>
+            <p>C'est une façon super amusante de comprendre comment on construit un vrai drone, de voir les différentes étapes, à quoi ça sert, pourquoi c'est important. C'est vraiment génial !</p>
+              `;
+
+            document.getElementById("introduction").style.display = "none";
+            document.getElementById("fonctionnement").style.display = "none";
+            document.getElementById("usages").style.display = "none";
+            document.getElementById("conception").style.display = "none";
+            document.getElementById("afficher_cours").style.display = "none";
+            document.getElementById("cours_complet").style.display = "block";
+            document.getElementById("cours_complet_content").innerHTML = coursCompletHTML;
+
+        }
+    </script>
+</body>
+</html>
