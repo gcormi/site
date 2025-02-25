@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercices Interactifs - Sobriété Numérique</title>
+    <style>
+        /* Réinitialisation */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        header {
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin: 20px 0 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        button {
+            background: #8ee4af;
+            color: #2c3e50;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #2c3e50;
+            color: #8ee4af;
+        }
+
+        .exercise-section {
+            margin: 20px 0;
+        }
+
+        .correct {
+            color: green;
+            font-weight: bold;
+            animation: flash 1s ease-in-out;
+        }
+
+        .incorrect {
+            color: red;
+            font-weight: bold;
+            animation: flash 1s ease-in-out;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+        }
+
+        @keyframes flash {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Exercices Interactifs - Sobriété Numérique</h1>
+            <p>Teste tes connaissances avec des quiz, des appariements et des jeux de pendu ! 🌱💡</p>
+        </header>
+
+        <!-- Section Quiz -->
+        <section class="exercise-section">
+            <h2>Quiz (QCM)</h2>
+
+            <!-- Quiz 1 -->
+            <div>
+                <h3>Question 1 : Qu'est-ce que la sobriété numérique ?</h3>
+                <label><input type="radio" name="quiz1" value="a"> Utiliser plus de technologies.</label><br>
+                <label><input type="radio" name="quiz1" value="b"> Utiliser la technologie de manière responsable.</label><br>
+                <label><input type="radio" name="quiz1" value="c"> Ignorer les impacts écologiques.</label><br>
+                <button onclick="checkAnswer('quiz1', 'b')">Valider</button>
+                <p id="result1" class="hidden"></p>
+            </div>
+
+            <!-- Quiz 2 -->
+            <div>
+                <h3>Question 2 : Quel impact a le streaming sur l'environnement ?</h3>
+                <label><input type="radio" name="quiz2" value="a"> Aucun impact.</label><br>
+                <label><input type="radio" name="quiz2" value="b"> Consomme beaucoup d'énergie.</label><br>
+                <label><input type="radio" name="quiz2" value="c"> Réduit la pollution.</label><br>
+                <button onclick="checkAnswer('quiz2', 'b')">Valider</button>
+                <p id="result2" class="hidden"></p>
+            </div>
+
+            <!-- Quiz 3 -->
+            <div>
+                <h3>Question 3 : Quelle est une bonne pratique pour adopter la sobriété numérique ?</h3>
+                <label><input type="radio" name="quiz3" value="a"> Acheter toujours du matériel neuf.</label><br>
+                <label><input type="radio" name="quiz3" value="b"> Utiliser des appareils reconditionnés.</label><br>
+                <label><input type="radio" name="quiz3" value="c"> Laisser ses appareils allumés toute la journée.</label><br>
+                <button onclick="checkAnswer('quiz3', 'b')">Valider</button>
+                <p id="result3" class="hidden"></p>
+            </div>
+        </section>
+
+        <!-- Section Appariement -->
+        <section class="exercise-section">
+            <h2>Appariement</h2>
+
+            <!-- Appariement 1 -->
+            <div>
+                <h3>Associe chaque action à son impact :</h3>
+                <ul>
+                    <li><strong>Utiliser le Wi-Fi au lieu de la 4G/5G</strong></li>
+                    <li><strong>Acheter des appareils reconditionnés</strong></li>
+                    <li><strong>Limiter le temps passé sur les écrans</strong></li>
+                </ul>
+                <select id="match1">
+                    <option value="">Sélectionne...</option>
+                    <option value="correct">Réduit la consommation d'énergie.</option>
+                    <option value="incorrect">Augmente la consommation d'énergie.</option>
+                </select>
+                <select id="match2">
+                    <option value="">Sélectionne...</option>
+                    <option value="correct">Diminue les déchets électroniques.</option>
+                    <option value="incorrect">Augmente les déchets électroniques.</option>
+                </select>
+                <select id="match3">
+                    <option value="">Sélectionne...</option>
+                    <option value="correct">Améliore le bien-être personnel.</option>
+                    <option value="incorrect">Nuise au bien-être personnel.</option>
+                </select>
+                <button onclick="checkMatches()">Valider</button>
+                <p id="matchResult" class="hidden"></p>
+            </div>
+        </section>
+
+        <!-- Section Pendu -->
+        <section class="exercise-section">
+            <h2>Jeu de Pendu</h2>
+
+            <!-- Pendu 1 -->
+            <div id="pendu1Container">
+                <h3>Trouve le mot caché (5 essais) : <span id="word1">_ _ _ _ _ _</span></h3>
+                <p>Aide : C'est une action pour réduire la consommation d'énergie.</p>
+                <input type="text" id="letter1" maxlength="1" placeholder="Entrez une lettre">
+                <button onclick="playPendu('Eteindre', 'word1', 'letter1', 'pendu1Attempts', 'pendu1Message')">Proposer</button>
+                <p id="pendu1Message"></p>
+                <p>Essais restants : <span id="pendu1Attempts">5</span></p>
+            </div>
+
+            <!-- Pendu 2 -->
+            <div id="pendu2Container">
+                <h3>Trouve le mot caché (5 essais) : <span id="word2">_ _ _ _ _ _ _ _ _ _</span></h3>
+                <p>Aide : C'est une plateforme de recherche qui plante des arbres.</p>
+                <input type="text" id="letter2" maxlength="1" placeholder="Entrez une lettre">
+                <button onclick="playPendu('ECOSIA', 'word2', 'letter2', 'pendu2Attempts', 'pendu2Message')">Proposer</button>
+                <p id="pendu2Message"></p>
+                <p>Essais restants : <span id="pendu2Attempts">5</span></p>
+            </div>
+        </section>
+
+        <footer>
+            <p>@ 2025 - GC - Apprendre de façon ludique !</p>
+        </footer>
+    </div>
+
+    <script>
+        // Fonction pour vérifier les réponses aux quiz
+        function checkAnswer(quizId, correctAnswer) {
+            const selectedAnswer = document.querySelector(`input[name=${quizId}]:checked`);
+            const resultElement = document.getElementById(`result${quizId.slice(-1)}`);
+            if (!selectedAnswer) {
+                resultElement.textContent = "Veuillez sélectionner une réponse.";
+                resultElement.classList.add("incorrect");
+                return;
+            }
+            if (selectedAnswer.value === correctAnswer) {
+                resultElement.textContent = "Correct ! Bien joué ! 🎉";
+                resultElement.classList.add("correct");
+            } else {
+                resultElement.textContent = "Incorrect. Réessaie ! 😊";
+                resultElement.classList.add("incorrect");
+            }
+            resultElement.classList.remove("hidden");
+        }
+
+        // Fonction pour vérifier les appariements
+        function checkMatches() {
+            const match1 = document.getElementById("match1").value;
+            const match2 = document.getElementById("match2").value;
+            const match3 = document.getElementById("match3").value;
+            const resultElement = document.getElementById("matchResult");
+
+            if (match1 === "correct" && match2 === "correct" && match3 === "correct") {
+                resultElement.textContent = "Tous les appariements sont corrects ! Super travail ! 🎉";
+                resultElement.classList.add("correct");
+            } else {
+                resultElement.textContent = "Certains appariements sont incorrects. Réessaie ! 😊";
+                resultElement.classList.add("incorrect");
+            }
+            resultElement.classList.remove("hidden");
+        }
+
+        // Fonction pour jouer au pendu
+        function playPendu(word, wordDisplayId, letterInputId, attemptsId, messageId) {
+            const wordDisplay = document.getElementById(wordDisplayId);
+            const letterInput = document.getElementById(letterInputId);
+            const attemptsLeft = document.getElementById(attemptsId);
+            const message = document.getElementById(messageId);
+
+            let guessedWord = wordDisplay.textContent.split(' ');
+            const letter = letterInput.value.toUpperCase();
+            let attempts = parseInt(attemptsLeft.textContent);
+
+            if (!/^[A-Z]$/.test(letter)) {
+                message.textContent = "Veuillez entrer une seule lettre valide.";
+                message.classList.add("incorrect");
+                return;
+            }
+
+            let success = false;
+            for (let i = 0; i < word.length; i++) {
+                if (word[i] === letter) {
+                    guessedWord[i] = letter;
+                    success = true;
+                }
+            }
+
+            if (success) {
+                wordDisplay.textContent = guessedWord.join(' ');
+                message.textContent = "Bravo ! Cette lettre est correcte ! 🎉";
+                message.classList.add("correct");
+            } else {
+                attempts--;
+                attemptsLeft.textContent = attempts;
+                message.textContent = `Incorrect. Il te reste ${attempts} essais.`;
+                message.classList.add("incorrect");
+            }
+
+            if (guessedWord.join('') === word) {
+                message.textContent = `Félicitations ! Tu as trouvé le mot "${word}" ! 🎉`;
+                message.classList.add("correct");
+                letterInput.disabled = true;
+            }
+
+            if (attempts <= 0) {
+                message.textContent = `Dommage ! Le mot était "${word}". Réessaie la prochaine fois ! 😊`;
+                message.classList.add("incorrect");
+                letterInput.disabled = true;
+            }
+
+            letterInput.value = ''; // Réinitialise l'entrée
+        }
+    </script>
+</body>
+</html>
