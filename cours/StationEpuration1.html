@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stations d'Épuration : Fonctionnement et Cycle de Vie</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #e3f2fd; /* Bleu très clair */
+            color: #333;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff; /* Blanc */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #d32f2f; /* Rouge foncé */
+            border-bottom: 2px solid #d32f2f;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .etape {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #bbdefb; /* Bleu ciel clair */
+            border-radius: 8px;
+        }
+
+        .qcm {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #90caf9; /* Bleu clair */
+            background-color: #ffffff;
+            border-radius: 6px;
+        }
+
+        .qcm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .feedback {
+            margin-top: 5px;
+            font-style: italic;
+            color: red;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #90caf9; /* Bleu clair */
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #b3e5fc; /* Bleu ciel très clair */
+        }
+
+        button {
+            background-color: #d32f2f; /* Rouge foncé */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #c62828; /* Rouge plus foncé */
+        }
+
+        #cours_complet {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #d32f2f; /* Rouge foncé */
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            display: none; /* Masqué initialement */
+        }
+
+        #cours_complet h2 {
+            color: #d32f2f; /* Rouge foncé */
+            border-bottom: 2px solid #d32f2f;
+            padding-bottom: 5px;
+        }
+
+        #cours_complet_content {
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <!-- 1. Introduction -->
+        <div id="introduction" class="etape">
+            <h2>1. Introduction</h2>
+            <p>Bienvenue, jeunes ingénieurs en herbe ! Aujourd'hui, nous allons explorer un système essentiel pour notre environnement : la station d'épuration. Mais avant de Sous-marin dans les détails, imaginez un peu...</p>
+            <h3>💭 L'Eau : Un Voyage Complexe</h3>
+            <p>L'eau que nous utilisons quotidiennement (pour prendre une douche, faire la vaisselle, ou même tirer la chasse d'eau) ne disparaît pas par magie après son utilisation. Elle devient une eau utilisée, chargée de diverses impuretés. Il est crucial de comprendre que cette eau, si elle est rejetée directement dans la nature, peut causer de graves problèmes de pollution.</p>
+            <p>C'est là qu'intervient la station d'épuration, tel un super-héros de l'environnement. Son rôle : nettoyer cette eau sale avant de la renvoyer dans la nature.</p>
+            <div class="qcm">
+                <h3>QCM : Introduction</h3>
+                <p>Question : Quel est le rôle d'une station d'épuration ?</p>
+                  <label><input type="radio" name="q1" value="c"> De produire de l'électricité.</label><br>
+                <label><input type="radio" name="q1" value="a"> D'envoyer l'eau sale directement dans la nature.</label><br>
+                <label><input type="radio" name="q1" value="b"> De nettoyer l'eau sale avant de la renvoyer dans la nature.</label><br>
+               
+                <button onclick="validerIntroduction()">Valider</button>
+                <p id="introduction_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- ⚙️ Le Fonctionnement d'une Station d'Épuration -->
+        <div id="fonctionnement" class="etape" style="display: none;">
+            <h2>⚙️ Le Fonctionnement d'une Station d'Épuration : Étape par Étape</h2>
+            <p>Le chemin que parcourt l'eau dans une station d'épuration est fascinant. Découvrons ensemble les grandes étapes :</p>
+            <ul>
+                <li><strong>1. 🚀 Le Pompage des Eaux Usées :</strong> Tout commence par le pompage des eaux usées...</li>
+                <li><strong>2. 🧹 Les Traitements Mécaniques :</strong> La première étape de nettoyage est mécanique...</li>
+                <li><strong>3. 🌱 Les Traitements Biologiques :</strong> Ici, on utilise des micro-organismes (des bactéries) qui se nourrissent de la pollution...</li>
+                <li><strong>4. 🧪 Les Traitements Chimiques :</strong> On utilise alors des traitements chimiques, comme l'ajout de produits pour éliminer certains polluants...</li>
+                <li><strong>5. 🧐 Le Contrôle de la Qualité de l'Eau :</strong> Avant de rejeter l'eau nettoyée dans la nature, il est essentiel de contrôler sa qualité...</li>
+                <li><strong>6. 🏞️ La Restitution dans le Milieu Naturel :</strong> Enfin, l'eau nettoyée est restituée dans le milieu naturel...</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Fonctionnement</h3>
+                <p>Question : Quelle étape utilise des micro-organismes pour nettoyer l'eau ?</p>
+                 <label><input type="radio" name="fonctionnement_q1" value="b"> Les Traitements Biologiques.</label><br>
+                <label><input type="radio" name="fonctionnement_q1" value="a"> Le Pompage des Eaux Usées.</label><br>
+                 <label><input type="radio" name="fonctionnement_q1" value="c"> Les Traitements Chimiques.</label><br>
+              
+
+                <button onclick="validerFonctionnement()">Valider</button>
+                <p id="fonctionnement_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- 🔄 Le Cycle de Vie d'une Station d'Épuration -->
+        <div id="cycle_vie" class="etape" style="display: none;">
+            <h2>🔄 Le Cycle de Vie d'une Station d'Épuration : Bien plus qu'un Simple Bâtiment</h2>
+            <p>Maintenant que nous avons exploré le fonctionnement d'une station d'épuration, intéressons-nous à son cycle de vie. Imaginez qu'une station d'épuration, c'est comme un être vivant : elle naît, grandit, travaille, et parfois, a besoin d'être rénovée pour rester en pleine forme.</p>
+            <ul>
+                <li>1. 🏗️ La Construction : Faire Naître la Station</li>
+                <li>2. 🏭 L'Exploitation : Le Cœur du Fonctionnement</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Cycle de Vie</h3>
+                <p>Question : Que doit-on faire lorsque la station est en exploitation ?</p>
+                <label><input type="radio" name="cycle_vie_q1" value="a"> Surveiller et contrôler le fonctionnement de la station.</label><br>
+                <label><input type="radio" name="cycle_vie_q1" value="b"> Rien, tout fonctionne tout seul.</label><br>
+                <label><input type="radio" name="cycle_vie_q1" value="c"> Pêcher dans les bassins .</label><br>
+                 <button onclick="validerCycleVie()">Valider</button>
+                <p id="cycle_vie_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Bouton Afficher Cours Complet -->
+        <button id="afficher_cours" style="display: none;" onclick="afficherCoursComplet()">Afficher le cours complet</button>
+
+        <!-- Cours Complet (Affichage Final) -->
+        <div id="cours_complet" style="display: none;">
+            <div id="cours_complet_content"></div>
+        </div>
+
+    </div>
+
+    <script>
+        let etapeCourante = "introduction";
+        let introductionValidee = false;
+        let fonctionnementValidee = false;
+        let cycleVieValidee = false;
+
+         // Afficher la premiere etape
+        document.getElementById("introduction").style.display = "block";
+
+        function validerIntroduction() {
+            const reponse = document.querySelector('input[name="q1"]:checked');
+            const feedback = document.getElementById("introduction_feedback");
+
+            if (reponse && reponse.value === "b") {
+                introductionValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "fonctionnement";
+                document.getElementById("introduction").style.display = "none";
+                document.getElementById("fonctionnement").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+          function validerFonctionnement() {
+            const reponse = document.querySelector('input[name="fonctionnement_q1"]:checked');
+            const feedback = document.getElementById("fonctionnement_feedback");
+
+            if (reponse && reponse.value === "b") {
+                fonctionnementValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "cycle_vie";
+                document.getElementById("fonctionnement").style.display = "none";
+                document.getElementById("cycle_vie").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function validerCycleVie() {
+            const reponse = document.querySelector('input[name="cycle_vie_q1"]:checked');
+            const feedback = document.getElementById("cycle_vie_feedback");
+
+            if (reponse && reponse.value === "a") {
+                cycleVieValidee = true;
+                feedback.textContent = "Correct ! Vous avez terminé le cours.";
+                feedback.style.color = "green";
+                etapeCourante = "afficher_cours";
+                document.getElementById("cycle_vie").style.display = "none";
+                document.getElementById("afficher_cours").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function afficherCoursComplet() {
+            let coursCompletHTML = `
+             <h2>Cours Complet</h2>
+             <h3>Bienvenue, jeunes ingénieurs en herbe !</h3>
+            <p>Aujourd'hui, nous allons explorer un système essentiel pour notre environnement : la station d'épuration. Mais avant de Sous-marin dans les détails, imaginez un peu...</p>
+            <h3>💭 L'Eau : Un Voyage Complexe</h3>
+            <p>L'eau que nous utilisons quotidiennement (pour prendre une douche, faire la vaisselle, ou même tirer la chasse d'eau) ne disparaît pas par magie après son utilisation. Elle devient une eau utilisée, chargée de diverses impuretés. Il est crucial de comprendre que cette eau, si elle est rejetée directement dans la nature, peut causer de graves problèmes de pollution.</p>
+            <p>C'est là qu'intervient la station d'épuration, tel un super-héros de l'environnement. Son rôle : nettoyer cette eau sale avant de la renvoyer dans la nature.</p>
+
+            <h3>⚙️ Le Fonctionnement d'une Station d'Épuration : Étape par Étape</h3>
+            <p>Le chemin que parcourt l'eau dans une station d'épuration est fascinant. Découvrons ensemble les grandes étapes :</p>
+            <ul>
+                <li><strong>1. 🚀 Le Pompage des Eaux Usées :</strong> Tout commence par le pompage des eaux usées...</li>
+                <li><strong>2. 🧹 Les Traitements Mécaniques :</strong> La première étape de nettoyage est mécanique...</li>
+                <li><strong>3. 🌱 Les Traitements Biologiques :</strong> Ici, on utilise des micro-organismes (des bactéries) qui se nourrissent de la pollution...</li>
+                <li><strong>4. 🧪 Les Traitements Chimiques :</strong> On utilise alors des traitements chimiques, comme l'ajout de produits pour éliminer certains polluants...</li>
+                <li><strong>5. 🧐 Le Contrôle de la Qualité de l'Eau :</strong> Avant de rejeter l'eau nettoyée dans la nature, il est essentiel de contrôler sa qualité...</li>
+                <li><strong>6. 🏞️ La Restitution dans le Milieu Naturel :</strong> Enfin, l'eau nettoyée est restituée dans le milieu naturel...</li>
+            </ul>
+
+             <h3>🔄 Le Cycle de Vie d'une Station d'Épuration : Bien plus qu'un Simple Bâtiment</h3>
+            <p>Maintenant que nous avons exploré le fonctionnement d'une station d'épuration, intéressons-nous à son cycle de vie. Imaginez qu'une station d'épuration, c'est comme un être vivant : elle naît, grandit, travaille, et parfois, a besoin d'être rénovée pour rester en pleine forme.</p>
+            <h4>1. 🏗️ La Construction : Faire Naître la Station</h4>
+            <p>Tout commence par la construction de la station. C'est une étape complexe qui nécessite des études techniques, des plans détaillés, et beaucoup de travail ! On choisit l'emplacement, on prépare le terrain, et on érige les bâtiments et les installations nécessaires : bassins, canalisations, salles de contrôle...</p>
+            <ul>
+                <li>Études techniques : Analyse du terrain, évaluation des besoins, choix des technologies.</li>
+                <li>Travaux de terrassement : Préparation du sol, creusement des bassins.</li>
+                <li>Installation des canalisations : Mise en place des tuyaux pour acheminer l'eau.</li>
+                <li>Construction des bâtiments : Salles de contrôle, techniques locales.</li>
+                <li>Mise en place des équipements : Pompes, filtres, systèmes de traitement biologique et chimique.</li>
+            </ul>
+
+             <h4>2. 🏭 L'Exploitation : Le Cœur du Fonctionnement</h4>
+            <p>Une fois la construction terminée, la station d'épuration entre dans sa phase d'exploitation. C'est là qu'elle remplit sa mission de nettoyage de l'eau. Des équipes sont chargées de surveiller et de contrôler le fonctionnement de la station, de s'assurer que les différentes étapes se déroulent correctement, et d'ajuster les paramètres si nécessaire.</p>
+            <ul>
+                <li>Surveillance des paramètres : Suivi des débits d'eau, des niveaux de pollution, des quantités de réactifs chimiques.</li>
+                <li>Contrôle des équipements : Entretien régulier des pompes, des filtres, des systèmes de ventilation.</li>
+                <li>Analyse de l'eau : Prélèvement et analyses pour s'assurer de la qualité de l'eau à chaque étape du traitement.</li>
+                <li>Gestion des déchets : Évacuation des boues et des déchets solides résultant du traitement.</li>
+                <li>Respect des normes : S'assurer que la qualité de l'eau rejetée dans la nature est conforme aux réglementations environnementales.</li>
+            </ul>
+              `;
+
+            document.getElementById("introduction").style.display = "none";
+            document.getElementById("fonctionnement").style.display = "none";
+            document.getElementById("cycle_vie").style.display = "none";
+            document.getElementById("afficher_cours").style.display = "none";
+            document.getElementById("cours_complet").style.display = "block";
+            document.getElementById("cours_complet_content").innerHTML = coursCompletHTML;
+
+        }
+    </script>
+</body>
+</html>
