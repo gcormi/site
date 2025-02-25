@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pompes à Chaleur : Fonctionnement et Avenir</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #e1f5fe; /* Bleu ciel très clair */
+            color: #333;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff; /* Blanc */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #0d47a1; /* Bleu marine */
+            border-bottom: 2px solid #0d47a1;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .etape {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #bbdefb; /* Bleu ciel clair */
+            border-radius: 8px;
+        }
+
+        .qcm {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #64b5f6; /* Bleu clair */
+            background-color: #ffffff;
+            border-radius: 6px;
+        }
+
+        .qcm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .feedback {
+            margin-top: 5px;
+            font-style: italic;
+            color: red;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #90caf9; /* Bleu clair */
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #b3e5fc; /* Bleu ciel très clair */
+        }
+
+        button {
+            background-color: #0d47a1; /* Bleu marine */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #083280; /* Bleu marine plus foncé */
+        }
+
+        #cours_complet {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #0d47a1; /* Bleu marine */
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            display: none; /* Masqué initialement */
+        }
+
+        #cours_complet h2 {
+            color: #0d47a1; /* Bleu marine */
+            border-bottom: 2px solid #0d47a1;
+            padding-bottom: 5px;
+        }
+
+        #cours_complet_content {
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <!-- 1. Introduction -->
+        <div id="introduction" class="etape">
+            <h2>1. Introduction : Qu'est-ce qu'une pompe à chaleur ?</h2>
+            <h3>Définition simple</h3>
+            <p>Une pompe à chaleur (PAC) est un système qui transfère la chaleur d'un endroit à un autre. C'est un peu comme un réfrigérateur, mais au lieu de refroidir l'intérieur, il peut chauffer une maison !</p>
+            <h3>L'idée de base</h3>
+            <p>La chaleur existe partout, même dans l'air froid ou le sol. Une PAC "pompe" cette chaleur vers l'intérieur pour chauffer un bâtiment, ou inversement, l'extrait de l'intérieur pour le rafraîchir.</p>
+            <h3>Avantages</h3>
+            <p>Les PAC sont intéressantes car elles utilisent peu d'électricité pour transférer beaucoup de chaleur, ce qui les rend plus efficaces que les chauffages électriques classiques. Elles peuvent également servir à la climatisation.</p>
+            <h3>Exemples concrets</h3>
+            <ul>
+                <li>Une PAC air-air : capte la chaleur de l'air extérieur pour chauffer l'air intérieur (ou inversement).</li>
+                <li>Une PAC air-eau : capte la chaleur de l'air extérieur pour chauffer l'eau du circuit de chauffage (radiateurs, plancher chauffant).</li>
+                <li>Une PAC géothermique : capte la chaleur du sol pour chauffer l'eau ou l'air.</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Introduction</h3>
+                <p>Question : Quel est le principal avantage d'une pompe à chaleur ?</p>
+                <label><input type="radio" name="q1" value="a"> Elle consomme beaucoup d'électricité.</label><br>
+                <label><input type="radio" name="q1" value="b"> Elle est très compliquée à installer.</label><br>
+                <label><input type="radio" name="q1" value="c"> Elle utilise peu d'électricité pour transférer beaucoup de chaleur.</label><br>
+                <button onclick="validerIntroduction()">Valider</button>
+                <p id="introduction_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- 2. Le Cœur du Système -->
+        <div id="cycle" class="etape" style="display: none;">
+            <h2>2. Le Cœur du Système : Le Cycle Thermodynamique</h2>
+            <p>Pour transférer la chaleur, une PAC utilise un fluide frigorigène et un cycle en quatre étapes principales. Ce cycle est basé sur des principes de thermodynamique (science de la chaleur).</p>
+            <ul>
+                <li><strong>1. L'Évaporation :</strong> Le fluide frigorigène absorbe la chaleur de la source froide et se transforme en gaz.</li>
+                <li><strong>2. La compression :</strong> Le fluide frigorigène gazeux est comprimé, ce qui augmente sa température.</li>
+                <li><strong>3. La Condensation :</strong> Le fluide frigorigène cède sa chaleur à la source chaude et se transforme en liquide.</li>
+                <li><strong>4. La Détente :</strong> La pression du fluide frigorigène diminue, abaissant sa température. Il est prêt à recommencer le cycle.</li>
+            </ul>
+            <div class="qcm">
+                <h3>QCM : Cycle Thermodynamique</h3>
+                <p>Question : Quelle étape du cycle thermodynamique implique une augmentation de la température du fluide frigorigène ?</p>
+                 <label><input type="radio" name="cycle_q1" value="c"> La détente.</label><br>
+                <label><input type="radio" name="cycle_q1" value="a"> L'évaporation.</label><br>
+                <label><input type="radio" name="cycle_q1" value="b"> La compression.</label><br>
+                <button onclick="validerCycle()">Valider</button>
+                <p id="cycle_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- 3. Les Fluides Frigorigènes -->
+        <div id="fluides" class="etape" style="display: none;">
+            <h2>3. Les Fluides Frigorigènes</h2>
+            <p>Ils sont au cœur du cycle. Ils doivent pouvoir s'évaporer et se condenser à des températures adaptées.</p>
+            <p>Les fluides frigorigènes ont évolué au fil du temps. Des anciens fluides (CFC, HCFC) nocifs pour la couche d'ozone ont été remplacés par des fluides moins polluants (HFC, HFO).</p>
+            <p>Il est important de choisir des PAC avec des fluides frigorigènes ayant un faible potentiel de réchauffement global.</p>
+            <div class="qcm">
+                <h3>QCM : Fluides Frigorigènes</h3>
+                <p>Question : Pourquoi est-il important de choisir une PAC avec un fluide frigorigène ayant un faible potentiel de réchauffement global ?</p>
+                <label><input type="radio" name="fluides_q1" value="b"> Pour limiter l'impact environnemental.</label><br>
+                 <label><input type="radio" name="fluides_q1" value="a"> Pour augmenter son efficacité énergétique.</label><br>
+                <label><input type="radio" name="fluides_q1" value="c"> Pour faciliter l'installation.</label><br>
+
+                <button onclick="validerFluides()">Valider</button>
+                <p id="fluides_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- 4. Conclusion : Une technologie d'avenir -->
+        <div id="conclusion" class="etape" style="display: none;">
+            <h2>4. Conclusion : Les PAC, une technologie d'avenir</h2>
+            <p>Les pompes à chaleur sont des systèmes de chauffage et de climatisation très efficaces et respectueux de l'environnement.</p>
+            <p>Elles sont de plus en plus utilisées dans les bâtiments neufs et en rénovation.</p>
+            <p>Le choix de PAC performantes et utilisant des fluides frigorigènes écologiques est primordial pour la transition énergétique.</p>
+        </div>
+
+        <!-- Bouton Afficher Cours Complet -->
+        <button id="afficher_cours" style="display: none;" onclick="afficherCoursComplet()">Afficher le cours complet</button>
+
+        <!-- Cours Complet (Affichage Final) -->
+        <div id="cours_complet" style="display: none;">
+            <div id="cours_complet_content"></div>
+        </div>
+
+    </div>
+
+    <script>
+        let etapeCourante = "introduction";
+        let introductionValidee = false;
+        let cycleValidee = false;
+        let fluidesValidee = false;
+
+         // Afficher la premiere etape
+        document.getElementById("introduction").style.display = "block";
+
+        function validerIntroduction() {
+            const reponse = document.querySelector('input[name="q1"]:checked');
+            const feedback = document.getElementById("introduction_feedback");
+
+            if (reponse && reponse.value === "c") {
+                introductionValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "cycle";
+                document.getElementById("introduction").style.display = "none";
+                document.getElementById("cycle").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function validerCycle() {
+            const reponse = document.querySelector('input[name="cycle_q1"]:checked');
+            const feedback = document.getElementById("cycle_feedback");
+
+            if (reponse && reponse.value === "b") {
+                cycleValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "fluides";
+                document.getElementById("cycle").style.display = "none";
+                document.getElementById("fluides").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function validerFluides() {
+            const reponse = document.querySelector('input[name="fluides_q1"]:checked');
+            const feedback = document.getElementById("fluides_feedback");
+
+            if (reponse && reponse.value === "b") {
+                fluidesValidee = true;
+                feedback.textContent = "Correct ! Vous avez terminé le cours.";
+                feedback.style.color = "green";
+                etapeCourante = "conclusion";
+                document.getElementById("fluides").style.display = "none";
+                document.getElementById("conclusion").style.display = "block";
+                document.getElementById("afficher_cours").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function afficherCoursComplet() {
+            let coursCompletHTML = `
+                <h2>Cours Complet</h2>
+                <h3>1. Introduction : Qu'est-ce qu'une pompe à chaleur ?</h3>
+                <p><strong>Définition simple</strong></p>
+                <p>Une pompe à chaleur (PAC) est un système qui transfère la chaleur d'un endroit à un autre. C'est un peu comme un réfrigérateur, mais au lieu de refroidir l'intérieur, il peut chauffer une maison !</p>
+                <p><strong>L'idée de base</strong></p>
+                <p>La chaleur existe partout, même dans l'air froid ou le sol. Une PAC "pompe" cette chaleur vers l'intérieur pour chauffer un bâtiment, ou inversement, l'extrait de l'intérieur pour le rafraîchir.</p>
+                <p><strong>Avantages</strong></p>
+                <p>Les PAC sont intéressantes car elles utilisent peu d'électricité pour transférer beaucoup de chaleur, ce qui les rend plus efficaces que les chauffages électriques classiques. Elles peuvent également servir à la climatisation.</p>
+                <p><strong>Exemples concrets</strong></p>
+                <ul>
+                    <li>Une PAC air-air : capte la chaleur de l'air extérieur pour chauffer l'air intérieur (ou inversement).</li>
+                    <li>Une PAC air-eau : capte la chaleur de l'air extérieur pour chauffer l'eau du circuit de chauffage (radiateurs, plancher chauffant).</li>
+                    <li>Une PAC géothermique : capte la chaleur du sol pour chauffer l'eau ou l'air.</li>
+                </ul>
+
+                <h3>2. Le Cœur du Système : Le Cycle Thermodynamique</h3>
+                <p>Pour transférer la chaleur, une PAC utilise un fluide frigorigène et un cycle en quatre étapes principales. Ce cycle est basé sur des principes de thermodynamique (science de la chaleur).</p>
+                <ul>
+                    <li><strong>1. L'Évaporation :</strong> Le fluide frigorigène absorbe la chaleur de la source froide et se transforme en gaz.</li>
+                    <li><strong>2. La compression :</strong> Le fluide frigorigène gazeux est comprimé, ce qui augmente sa température.</li>
+                    <li><strong>3. La Condensation :</strong> Le fluide frigorigène cède sa chaleur à la source chaude et se transforme en liquide.</li>
+                    <li><strong>4. La Détente :</strong> La pression du fluide frigorigène diminue, abaissant sa température. Il est prêt à recommencer le cycle.</li>
+                </ul>
+
+                <h3>3. Les Fluides Frigorigènes</h3>
+                <p>Ils sont au cœur du cycle. Ils doivent pouvoir s'évaporer et se condenser à des températures adaptées.</p>
+                <p>Les fluides frigorigènes ont évolué au fil du temps. Des anciens fluides (CFC, HCFC) nocifs pour la couche d'ozone ont été remplacés par des fluides moins polluants (HFC, HFO).</p>
+                <p>Il est important de choisir des PAC avec des fluides frigorigènes ayant un faible potentiel de réchauffement global.</p>
+
+               <h3>4. Conclusion : Les PAC, une technologie d'avenir</h3>
+            <p>Les pompes à chaleur sont des systèmes de chauffage et de climatisation très efficaces et respectueux de l'environnement.</p>
+            <p>Elles sont de plus en plus utilisées dans les bâtiments neufs et en rénovation.</p>
+            <p>Le choix de PAC performantes et utilisant des fluides frigorigènes écologiques est primordial pour la transition énergétique.</p>
+              `;
+
+            document.getElementById("introduction").style.display = "none";
+            document.getElementById("cycle").style.display = "none";
+            document.getElementById("fluides").style.display = "none";
+            document.getElementById("conclusion").style.display = "none";
+            document.getElementById("afficher_cours").style.display = "none";
+            document.getElementById("cours_complet").style.display = "block";
+            document.getElementById("cours_complet_content").innerHTML = coursCompletHTML;
+
+        }
+    </script>
+</body>
+</html>

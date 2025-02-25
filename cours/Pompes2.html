@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pompes à Chaleur : Partie 2 - Info, Énergie et Avenir</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #e1f5fe; /* Bleu ciel très clair */
+            color: #333;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff; /* Blanc */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #0d47a1; /* Bleu marine */
+            border-bottom: 2px solid #0d47a1;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .etape {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #bbdefb; /* Bleu ciel clair */
+            border-radius: 8px;
+        }
+
+        .qcm {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #64b5f6; /* Bleu clair */
+            background-color: #ffffff;
+            border-radius: 6px;
+        }
+
+        .qcm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .feedback {
+            margin-top: 5px;
+            font-style: italic;
+            color: red;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        button {
+            background-color: #0d47a1; /* Bleu marine */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #083280; /* Bleu marine plus foncé */
+        }
+
+        #cours_complet {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #0d47a1; /* Bleu marine */
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            display: none; /* Masqué initialement */
+        }
+
+        #cours_complet h2 {
+            color: #0d47a1; /* Bleu marine */
+            border-bottom: 2px solid #0d47a1;
+            padding-bottom: 5px;
+        }
+
+        #cours_complet_content {
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <!-- 6. Informatique et Programmation Avancée -->
+        <div id="programmation" class="etape">
+            <h2>6. Informatique et Programmation Avancée</h2>
+            <p><strong>Le rôle du numérique</strong></p>
+            <p>Le contrôle électronique permet de maintenir une température précise et stable à l'intérieur du bâtiment. Les capteurs de température transmettent les données à l'unité de contrôle qui ajuste en conséquence la puissance de la PAC.</p>
+            <p>Des algorithmes spécifiques sont utilisés pour analyser les données des capteurs et anticiper les besoins en chaleur ou en froid.</p>
+            <p>L'utilisateur peut définir la température souhaitée grâce à une interface numérique (thermostat connecté, etc.).</p>
+            <div class="qcm">
+                <h3>QCM : Programmation Avancée</h3>
+                <p>Question : Que permet le contrôle électronique dans une PAC ?</p>
+               <label><input type="radio" name="programmation_q1" value="a"> D'utiliser moins de capteurs.</label><br>
+               <label><input type="radio" name="programmation_q1" value="c"> De supprimer les algorithmes.</label><br>
+                 <label><input type="radio" name="programmation_q1" value="b"> De maintenir une température précise et stable.</label><br>
+                <button onclick="validerProgrammation()">Valider</button>
+                <p id="programmation_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- 7. Énergies, Environnement et Matériaux -->
+        <div id="energie" class="etape" style="display: none;">
+            <h2>7. Énergies, Environnement et Matériaux</h2>
+            <p>Les systèmes de filtration ont besoin d'énergie pour fonctionner. Cette énergie peut provenir de l'électricité, ou d'énergies renouvelables.</p>
+            <p>Il est important de gérer l'impact environnementaux et de trouver des materiaux innovants.</p>
+            <div class="qcm">
+                <h3>QCM : Énergie et Environnement</h3>
+                <p>Question : Pourquoi est-il important d'utiliser des energies renouvelable ?</p>
+                <label><input type="radio" name="energie_q1" value="a"> Pour augmenter le prix du matéruel .</label><br>
+                 <label><input type="radio" name="energie_q1" value="b"> Pour réduire la pollution.</label><br>
+                <label><input type="radio" name="energie_q1" value="c"> Pour compliquer les instalation.</label><br>
+
+                <button onclick="validerEnergie()">Valider</button>
+                <p id="energie_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+         <!-- 8. Automatisation et Robotique -->
+        <div id="automatisation" class="etape" style="display: none;">
+            <h2>8. Automatisation et Robotique</h2>
+            <p>Elle permet d'améliorer l'efficacité et de faire des actions que nous ne pourrions pas faire.</p>
+
+            <div class="qcm">
+                <h3>QCM : Automatisation et Robotique</h3>
+                <p>Question : a quoi sert les robots?</p>
+                 <label><input type="radio" name="automatisaton_q1" value="a">  augmenter le prix des appareil .</label><br>
+                   <label><input type="radio" name="automatisaton_q1" value="c"> Effectuer des tâches répétitives ou dangereuses.</label><br>
+                <label><input type="radio" name="automatisaton_q1" value="b"> Avoir une meilleur qualité de matériel .</label><br>
+     
+                <button onclick="validerAutomatisation()">Valider</button>
+                <p id="developpement_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- 9. Conclusion -->
+        <div id="conclusion" class="etape" style="display: none;">
+            <h2>9. Conclusion : Les Pac, une solution d'Avenir 🚀</h2>
+            <p>Les systèmes de dessalement d'eau de mer éco-énergétiques représentent une solution technologique essentielle pour répondre à l'un des défis majeurs de notre époque : la pénurie d'eau douce. Grâce à ces systèmes, il est possible de transformer l'eau salée des océans en eau potable, utilisable pour boire, irriguer les cultures ou alimenter les industries. Ces technologies reposent sur des principes scientifiques et techniques avancés, comme l'osmose inverse et la distillation thermique, et intègrent des innovations en matière de matériaux, d'énergie et d'automatisation.</p>
+        
+
+        </div>
+
+        <!-- Bouton Afficher Cours Complet -->
+        <button id="afficher_cours" style="display: none;" onclick="afficherCoursComplet()">Afficher le cours complet</button>
+
+        <!-- Cours Complet (Affichage Final) -->
+        <div id="cours_complet" style="display: none;">
+            <div id="cours_complet_content"></div>
+        </div>
+
+    </div>
+
+    <script>
+        let etapeCourante = "programmation";
+        let programmationValidee = false;
+        let energieValidee = false;
+         let automatisationValidee = false;
+
+         // Afficher la premiere etape
+        document.getElementById("programmation").style.display = "block";
+
+         function validerProgrammation() {
+            const reponse = document.querySelector('input[name="programmation_q1"]:checked');
+            const feedback = document.getElementById("programmation_feedback");
+
+            if (reponse && reponse.value === "b") {
+                programmationValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "energie";
+                document.getElementById("programmation").style.display = "none";
+                document.getElementById("energie").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function validerEnergie() {
+            const reponse = document.querySelector('input[name="energie_q1"]:checked');
+            const feedback = document.getElementById("energie_feedback");
+
+            if (reponse && reponse.value === "b") {
+                energieValidee = true;
+                feedback.textContent = "Correct ! Passons à la suite.";
+                feedback.style.color = "green";
+                etapeCourante = "automatisation";
+                document.getElementById("energie").style.display = "none";
+                document.getElementById("automatisation").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+          function validerAutomatisation() {
+            const reponse = document.querySelector('input[name="automatisaton_q1"]:checked');
+            const feedback = document.getElementById("developpement_feedback");
+
+            if (reponse && reponse.value === "c") {
+                automatisationValidee = true;
+                feedback.textContent = "Correct ! Vous avez terminé le cours.";
+                feedback.style.color = "green";
+                etapeCourante = "conclusion";
+                document.getElementById("automatisation").style.display = "none";
+                document.getElementById("conclusion").style.display = "block";
+                document.getElementById("afficher_cours").style.display = "block";
+            } else {
+                feedback.textContent = "Incorrect. Réessayez !";
+                feedback.style.color = "red";
+            }
+        }
+
+         function afficherCoursComplet() {
+            let coursCompletHTML = `
+             <h2>Cours Complet</h2>
+            <h3>6. Informatique et Programmation Avancée</h3>
+            <h4>Programmation orientée objet</h4>
+            <p>Création de classes : Pour modéliser les pompes, les membranes et les filtres.</p>
+            <h4>Gestion des entrées/sorties</h4>
+            <ul>
+                <li>📡 Lecture des données des capteurs : Pour mesurer la pression et la salinité de l'eau.</li>
+                <li>🛰️ Transmission des données via le module de communication.</li>
+            </ul>
+            <h4>Traitement et analyse des données</h4>
+            <ul>
+                <li>🐍 Utilisation de Python : Pour analyser les données de performance du système.</li>
+                <li>📊 Visualisation des données avec des graphiques.</li>
+            </ul>
+
+              <h3>7. Énergies, Environnement et Matériaux</h3>
+            <h4>Sources d'énergie</h4>
+            <ul>
+                <li>☀️ Panneaux solaires pour l'alimentation électrique.</li>
+                <li>🔋 Batteries lithium-ion pour le stockage.</li>
+            </ul>
+            <h4>Impacts environnementaux</h4>
+            <ul>
+                <li>♻️ Rejets de saumure : Comment minimiser l'impact sur les écosystèmes marins ?</li>
+                <li>♻️ Recyclage des matériaux en fin de vie.</li>
+            </ul>
+           <h4>Matériaux innovants</h4>
+            <ul>
+                <li>🔩 Membranes en graphène : Plus efficaces et durables.</li>
+                <li>🔩 Alliages résistants à la corrosion : Pour prolonger la durée de vie des systèmes.</li>
+            </ul>
+
+              <h3>8. Automatisation et Robotique</h3>
+            <h4>Principes de l'automatisation</h4>
+            <ul>
+                <li>⏰ Contrôle automatique : Pour ajuster les paramètres en temps réel.</li>
+                <li>📡 Surveillance à distance : Pour détecter les anomalies.</li>
+            </ul>
+             <h4>Programmation de robots</h4>
+            <ul>
+                <li> 🖥️ Utilisation de microcontrôleurs comme Arduino.</li>
+            </ul>
+           <h4>Applications</h4>
+            <ul>
+                <li>🌊 Surveillance automatisée des récifs coralliens.</li>
+                <li>⚠️ Détection automatique de la pollution.</li>
+            </ul>
+
+               <h3>9. Conclusion : Un Océan d'Avenir et des Perspectives d'Évolution 🚀</h3>
+            <h4>Récapitulatif 📝</h4>
+            <p>Les systèmes de dessalement d'eau de mer éco-énergétiques représentent une solution technologique essentielle pour répondre à l'un des défis majeurs de notre époque : la pénurie d'eau douce. Grâce à ces systèmes, il est possible de transformer l'eau salée des océans en eau potable, utilisable pour boire, irriguer les cultures ou alimenter les industries. Ces technologies reposent sur des principes scientifiques et techniques avancés, comme l'osmose inverse et la distillation thermique, et intègrent des innovations en matière de matériaux, d'énergie et d'automatisation.</p>
+            <h4>Perspectives d'avenir 🚀</h4>
+            <ul>
+                <li>Amélioration des membranes</li>
+                <li>Utilisation d'énergies renouvelables</li>
+                <li>Réduction des rejets de saumure</li>
+                <li>Automatisation et intelligence artificielle</li>
+                 <li>Dessalement mobile et décentralisé</li>
+            </ul>
+
+              `;
+
+            document.getElementById("programmation").style.display = "none";
+            document.getElementById("energie").style.display = "none";
+             document.getElementById("automatisation").style.display = "none";
+            document.getElementById("conclusion").style.display = "none";
+            document.getElementById("afficher_cours").style.display = "none";
+            document.getElementById("cours_complet").style.display = "block";
+            document.getElementById("cours_complet_content").innerHTML = coursCompletHTML;
+
+        }
+    </script>
+</body>
+</html>
