@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ressources - Identité Numérique & Sobriété Numérique</title>
+  <style>
+    /* Styles communs */
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #8A2BE2, #FFC107);
+      color: #008080;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      border-bottom: 2px solid #ccc;
+      color: #333;
+    }
+
+    section {
+      background: rgba(255, 255, 255, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      color: #008080;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .modal {
+      display: none; /* Masquée par défaut */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      width: 80%; /* Largeur responsive */
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #4CAF50;
+    }
+
+    iframe {
+      width: 100%;
+      height: 315px;
+      margin-top: 10px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .mauve-fonce {
+      color: #4B0082;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1 class="fade-in">L'Identité Numérique à l'ère de l'IA</h1>
+    <h2 class="fade-in">Agir pour une sobriété numérique 🌱💡</h2>
+
+<img src="https://gcormi.github.io/site/images/ia.jpg" alt="Image d'intelligence artificielle" width="500">
+  </header>
+
+
+
+  <!-- Introduction -->
+  <section>
+    <p class="mauve-fonce fade-in">Bienvenue dans cette aventure numérique où tu découvriras comment gérer ton identité en ligne et adopter des pratiques responsables pour protéger notre planète et ton bien-être.</p>
+    <p class="fade-in">Ton identité numérique, c'est un peu comme un jardin virtuel 🪴. Chaque publication, chaque like, chaque interaction est une graine que tu plantes. Mais attention : certaines graines peuvent devenir des fleurs magnifiques, tandis que d'autres pourraient être des mauvaises herbes...</p>
+    <p class="fade-in">Imagine-toi comme un jardinier numérique. À toi de décider quelles graines cultiver et quelles plantes tailler pour créer un jardin harmonieux et épanoui !</p>
+  </section>
+
+  <!-- Vidéos Éducatives -->
+  <section>
+    <h2 class="fade-in">Vidéos Éducatives</h2>
+    <p>Regarde ces vidéos pour approfondir tes connaissances :</p>
+
+    <!-- Bouton pour ouvrir la première vidéo -->
+    <button onclick="openModal('videoModal1')">Voir Vidéo 1</button>
+    <div id="videoModal1" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('videoModal1')">&times;</span>
+        <h2>Vidéo 1 : Introduction à l'Identité Numérique</h2>
+        <iframe src="https://www.youtube.com/embed/Ls-M3TMc4Tg" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <!-- Bouton pour ouvrir la deuxième vidéo -->
+    <button onclick="openModal('videoModal2')">Voir Vidéo 2</button>
+    <div id="videoModal2" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('videoModal2')">&times;</span>
+        <h2>Vidéo 2 : Impact de l'IA sur ton Identité Numérique</h2>
+        <iframe src="https://www.youtube.com/embed/9dZs5JCPV7A" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <!-- Bouton pour ouvrir la troisième vidéo -->
+    <button onclick="openModal('videoModal3')">Voir Vidéo 3</button>
+    <div id="videoModal3" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('videoModal3')">&times;</span>
+        <h2>Vidéo 3 : Construire une Bonne Réputation en Ligne</h2>
+        <iframe src="https://www.youtube.com/embed/lBYuwPijz1c" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Identité Numérique -->
+  <section>
+    <h2 class="fade-in">Qu'est-ce que l'Identité Numérique ?</h2>
+    <p>Ton identité numérique, c'est tout ce qui te représente en ligne :</p>
+    <ul>
+      <li><strong>Infos Perso :</strong> Ton nom, ton âge, ton e-mail...</li>
+      <li><strong>Publications :</strong> Tes photos, vidéos, messages...</li>
+      <li><strong>Activités en Ligne :</strong> Les sites que tu visites, les jeux que tu joues...</li>
+      <li><strong>Données Collectées :</strong> Ce que les sites savent sur toi.</li>
+    </ul>
+
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image centrée horizontalement</title>
+  <style>
+    .centree {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="https://gcormi.github.io/site/images/sid.png" alt="Image d'intelligence artificielle" width="700" class="centree">
+
+</body>
+</html>
+<br>
+
+
+
+    <!-- Bouton pour révéler des détails -->
+    <button onclick="openModal('identityDetails')">En savoir plus</button>
+    <div id="identityDetails" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('identityDetails')">&times;</span>
+        <h2>En savoir plus sur l'Identité Numérique</h2>
+        <p>Ton identité numérique comprend toutes les informations personnelles identifiables (PII), telles que ton nom, ton adresse IP, tes préférences de navigation, etc. Ces données sont souvent collectées par les sites web pour améliorer leur service, mais elles peuvent aussi être utilisées à des fins malveillantes si elles ne sont pas bien protégées.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact de l'IA -->
+  <section>
+    <h2 class="fade-in">L'Impact de l'IA sur ton Identité Numérique</h2>
+    <p>L'intelligence artificielle change la donne en ligne. Voici quelques exemples :</p>
+    <ul>
+      <li><strong>Reconnaissance Faciale :</strong> L'IA peut identifier ton visage sur des photos ou vidéos en ligne.</li>
+      <li><strong>Personnalisation des Contenus :</strong> Les algorithmes analysent tes préférences pour t'offrir des contenus personnalisés.</li>
+      <li><strong>Deepfakes :</strong> L'IA peut créer des vidéos ou images très réalistes où tu sembles dire ou faire des choses que tu n'as jamais faites.</li>
+      <li><strong>Analyse des Données :</strong> L'IA collecte et analyse tes activités en ligne pour mieux te comprendre et t'offrir des expériences personnalisées.</li>
+    </ul>
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image centrée horizontalement</title>
+  <style>
+    .centree {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="https://gcormi.github.io/site/images/sid2.png" alt="Image d'intelligence artificielle" width="700" class="centree">
+
+</body>
+</html>
+<br>
+
+
+
+    <!-- Bouton pour révéler des détails -->
+    <button onclick="openModal('iaDetails')">En savoir plus</button>
+    <div id="iaDetails" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('iaDetails')">&times;</span>
+        <h2>En savoir plus sur l'Impact de l'IA</h2>
+        <p>L'IA peut influencer ton identité numérique de plusieurs façons :</p>
+        <ul>
+          <li>Identifier ton visage sur des photos ou vidéos.</li>
+          <li>Analyser tes préférences pour personnaliser tes contenus.</li>
+          <li>Créer des deepfakes qui peuvent nuire à ta réputation.</li>
+          <li>Collecter tes données pour offrir des expériences personnalisées.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enjeux -->
+  <section>
+    <h2 class="fade-in">Les Enjeux de ton Identité Numérique</h2>
+    <ul>
+      <li><strong>Protection de ta Vie Privée :</strong> Ne mets jamais ton adresse ou ton numéro de téléphone sur un forum public.</li>
+      <li><strong>E-réputation :</strong> Toute photo maladroite peut devenir virale et te poursuivre pendant longtemps.</li>
+      <li><strong>Manipulation :</strong> Sois vigilant face aux fausses informations.</li>
+      <li><strong>Responsabilité :</strong> Assure-toi que tout ce que tu partages est approprié.</li>
+    </ul>
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image centrée horizontalement</title>
+  <style>
+    .centree {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="https://gcormi.github.io/site/images/sid3.png" alt="Image d'intelligence artificielle" width="700" class="centree">
+
+</body>
+</html>
+<br>
+
+
+
+    <!-- Bouton pour révéler des détails -->
+    <button onclick="openModal('risksDetails')">Découvrir les risques</button>
+    <div id="risksDetails" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('risksDetails')">&times;</span>
+        <h2>Les Risques de ton Identité Numérique</h2>
+        <p>Voici quelques risques liés à ta présence en ligne :</p>
+        <ul>
+          <li>La divulgation involontaire de données sensibles.</li>
+          <li>Les deepfakes qui peuvent nuire à ta réputation.</li>
+          <li>Les arnaques en ligne ou le phishing.</li>
+          <li>Les comportements toxiques sur les réseaux sociaux.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobriété Numérique -->
+  <section>
+    <h2 class="fade-in">La Sobriété Numérique : Utiliser la Technologie avec Sagesse 💡🌱</h2>
+    <p>Voici quelques idées pour agir :</p>
+    <ul>
+      <li><strong>Utilise moins d'appareils :</strong> Réfléchis avant d'acheter un nouvel appareil.</li>
+      <li><strong>Réduis la consommation d'énergie :</strong> Éteins tes appareils quand tu ne les utilises pas.</li>
+      <li><strong>Achète reconditionné :</strong> Privilégie les produits d'occasion ou reconditionnés.</li>
+      <li><strong>Fais des pauses régulières :</strong> Limite le temps passé devant les écrans pour préserver ta santé mentale.</li>
+    </ul>
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image centrée horizontalement</title>
+  <style>
+    .centree {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="https://gcormi.github.io/site/images/sid4.png" alt="Image d'intelligence artificielle" width="700" class="centree">
+
+</body>
+</html>
+<br>
+
+
+
+    <!-- Bouton pour révéler des détails -->
+    <button onclick="openModal('sobrietyDetails')">Explorer les bénéfices</button>
+    <div id="sobrietyDetails" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('sobrietyDetails')">&times;</span>
+        <h2>Les Bénéfices de la Sobriété Numérique</h2>
+        <p>Adopter la sobriété numérique apporte plusieurs avantages :</p>
+        <ul>
+          <li>Protège l'environnement en réduisant la consommation d'énergie.</li>
+          <li>Améliore ton bien-être en limitant le temps passé devant les écrans.</li>
+          <li>Réduit les inégalités d'accès au numérique.</li>
+          <li>Fait des économies grâce à des choix durables.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conclusion -->
+  <section>
+    <h2 class="fade-in">Conclusion</h2>
+    <p>Gérer ton identité numérique et adopter la sobriété numérique, c'est un super pouvoir pour naviguer en toute sécurité dans le monde digital.</p>
+    <p>Rappelle-toi : chaque clic, chaque publication, chaque interaction est une opportunité de construire un monde numérique meilleur, plus respectueux et plus durable.</p>
+    <p>À toi de jouer ! 🚀✨</p>
+  </section>
+
+  <!-- Footer -->
+  <footer style="text-align: center; padding: 10px; background: rgba(0, 0, 0, 0.8); color: white;">
+    © 2025 - GC - Apprendre de façon ludique !
+  </footer>
+
+  <script>
+    // Fonction pour ouvrir une fenêtre modale
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.style.display = "flex";
+    }
+
+    // Fonction pour fermer une fenêtre modale
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.style.display = "none";
+    }
+  </script>
+</body>
+</html>
+
+
+<!-- Styles pour les Modales -->
+<style>
+  .modal {
+    display: none; /* Masquée par défaut */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .close:hover {
+    color: #4CAF50;
+  }
+</style>
+
+<!-- Scripts pour Gérer les Modales -->
+<script>
+  // Fonction pour ouvrir une modale
+  function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.style.display = "flex";
+  }
+
+  // Fonction pour fermer une modale
+  function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.style.display = "none";
+  }
+</script>
+
+<!-- Header -->
+<header style="text-align: center; margin-bottom: 20px;">
+  <h1 style="font-size: 36px; color: #4B0082;">Exercices Interactifs</h1>
+  <h2 style="font-size: 24px; color: #008080;">Teste tes connaissances ! 🚀✨</h2>
+</header>
+
+<!-- Quiz QCM -->
+<section style="background-color: rgba(255, 255, 255, 0.7); padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+  <h2 style="color: #4B0082; text-align: center;">Quiz (QCM)</h2>
+
+  <!-- Question 1 -->
+  <div>
+    <p><strong>Question 1 :</strong> Qu'est-ce que l'identité numérique ?</p>
+    <label><input type="radio" name="q1" value="wrong"> Seulement tes photos et vidéos.</label><br>
+    <label><input type="radio" name="q1" value="correct"> Toutes les informations sur toi en ligne.</label><br>
+    <label><input type="radio" name="q1" value="wrong"> Seulement tes mots de passe.</label><br>
+    <button onclick="checkAnswer('q1', 'correct')">Valider</button>
+    <p id="q1-result" class="result"></p>
+  </div>
+
+  <!-- Question 2 -->
+  <div>
+    <p><strong>Question 2 :</strong> Que fait l'IA avec tes données ?</p>
+    <label><input type="radio" name="q2" value="wrong"> Rien, elle ne collecte pas de données.</label><br>
+    <label><input type="radio" name="q2" value="correct"> Les analyse pour personnaliser ton expérience.</label><br>
+    <label><input type="radio" name="q2" value="wrong"> Les supprime automatiquement.</label><br>
+    <button onclick="checkAnswer('q2', 'correct')">Valider</button>
+    <p id="q2-result" class="result"></p>
+  </div>
+
+  <!-- Question 3 -->
+  <div>
+    <p><strong>Question 3 :</strong> Comment protéger ton identité numérique ?</p>
+    <label><input type="radio" name="q3" value="wrong"> Partager toutes tes informations personnelles.</label><br>
+    <label><input type="radio" name="q3" value="correct"> Utiliser des mots de passe complexes et différents.</label><br>
+    <label><input type="radio" name="q3" value="wrong"> Poster toutes tes photos en public.</label><br>
+    <button onclick="checkAnswer('q3', 'correct')">Valider</button>
+    <p id="q3-result" class="result"></p>
+  </div>
+</section>
+
+<!-- Appariement -->
+<section style="background-color: rgba(255, 255, 255, 0.7); padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+  <h2 style="color: #4B0082; text-align: center;">Appariement</h2>
+  <p>Associe chaque concept à sa définition :</p>
+
+  <div>
+    <p><strong>Concept 1 :</strong> Identité Numérique</p>
+    <select id="concept1">
+      <option value="">Sélectionne...</option>
+      <option value="wrong">Un jeu vidéo populaire.</option>
+      <option value="correct">Toutes les informations sur toi en ligne.</option>
+    </select>
+  </div>
+
+  <div>
+    <p><strong>Concept 2 :</strong> Reconnaissance Faciale</p>
+    <select id="concept2">
+      <option value="">Sélectionne...</option>
+      <option value="wrong">Un réseau social.</option>
+      <option value="correct">L'IA peut identifier ton visage sur des photos.</option>
+    </select>
+  </div>
+
+  <div>
+    <p><strong>Concept 3 :</strong> Deepfakes</p>
+    <select id="concept3">
+      <option value="">Sélectionne...</option>
+      <option value="correct">Des vidéos truquées où tu sembles dire des choses que tu n'as jamais dites.</option>
+      <option value="wrong">Un moteur de recherche.</option>
+    </select>
+  </div>
+
+  <button onclick="validateAppariement()">Valider</button>
+  <p id="appariement-result" class="result"></p>
+</section>
+
+<!-- Jeu de Pendu -->
+<section style="background-color: rgba(255, 255, 255, 0.7); padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+  <h2 style="color: #4B0082; text-align: center;">Jeu de Pendu</h2>
+
+  <!-- Mot 1 -->
+  <div>
+    <p>Trouve le mot caché (5 essais) : <span id="wordDisplay1">_ _ _ _ _</span></p>
+    <input type="text" id="guessInput1" placeholder="Propose une lettre">
+    <button onclick="makeGuess(1)">Proposer</button>
+    <p>Essais restants : <span id="attempts1">5</span></p>
+    <p id="gameMessage1" class="result"></p>
+  </div>
+
+  <!-- Mot 2 -->
+  <div>
+    <p>Trouve le mot caché (5 essais) : <span id="wordDisplay2">_ _ _ _ _ _ _ _ _</span></p>
+    <input type="text" id="guessInput2" placeholder="Propose une lettre">
+    <button onclick="makeGuess(2)">Proposer</button>
+    <p>Essais restants : <span id="attempts2">5</span></p>
+    <p id="gameMessage2" class="result"></p>
+  </div>
+</section>
+
+<!-- Synthèse du Cours -->
+<section style="background-color: rgba(255, 255, 255, 0.7); padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+  <h2 style="color: #4B0082; text-align: center;">Synthèse du Cours : Identité Numérique & Sobriété Numérique</h2>
+
+  <!-- Cartes Récapitulatives -->
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 20px;">
+    <!-- Identité Numérique -->
+    <div class="card" style="background-color: #FFC107; color: black; width: 45%; margin: 10px; padding: 15px; border-radius: 8px; text-align: center;">
+      <h3>Identité Numérique</h3>
+      <p>Ton empreinte en ligne comprend tes informations personnelles, tes publications et les données collectées.</p>
+      <button style="background-color: #FFA000; color: black;" onclick="alert('Protège tes données personnelles et sois vigilant en ligne.')">Conseils</button>
+    </div>
+
+    <!-- Impact de l'IA -->
+    <div class="card" style="background-color: #2196F3; color: white; width: 45%; margin: 10px; padding: 15px; border-radius: 8px; text-align: center;">
+      <h3>Impact de l'IA</h3>
+      <p>L'IA analyse tes données pour personnaliser ton expérience en ligne, mais attention aux deepfakes et à la manipulation.</p>
+      <button style="background-color: #1976D2; color: white;" onclick="alert('Sois critique face aux contenus générés par l\'IA.')">En savoir plus</button>
+    </div>
+
+    <!-- Sobriété Numérique -->
+    <div class="card" style="background-color: #4CAF50; color: white; width: 45%; margin: 10px; padding: 15px; border-radius: 8px; text-align: center;">
+      <h3>Sobriété Numérique</h3>
+      <p>Utilise la technologie de manière responsable pour protéger l'environnement et ton bien-être.</p>
+      <button style="background-color: #3e8e41; color: white;" onclick="alert('Réduis ta consommation d\'énergie et adopte des pratiques durables.')">Pratiques</button>
+    </div>
+
+    <!-- Enjeux -->
+    <div class="card" style="background-color: #f44336; color: white; width: 45%; margin: 10px; padding: 15px; border-radius: 8px; text-align: center;">
+      <h3>Enjeux</h3>
+      <p>Gère bien ta réputation en ligne, protège tes données et deviens un citoyen numérique responsable.</p>
+      <button style="background-color: #d32f2f; color: white;" onclick="alert('Ton identité numérique est précieuse. Prends-en soin !')">Pourquoi c'est important</button>
+    </div>
+  </div>
+
+  <!-- Message Final -->
+  <div style="margin-top: 20px; text-align: center;">
+    <h3>Rappel Final</h3>
+    <p>Ton identité numérique est précieuse. Protège-la, construis-la avec soin et agis pour une sobriété numérique responsable.</p>
+    <button style="background-color: #4CAF50; color: white;" onclick="alert('Bravo pour avoir suivi ce cours ! 🚀')">J'ai compris !</button>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer style="text-align: center; padding: 10px; background: rgba(0, 0, 0, 0.8); color: white;">
+  © 2025 - GC - Apprendre de façon ludique !
+</footer>
+
+<script>
+  // Vérification des QCM
+  function checkAnswer(qId, correctAnswer) {
+    const answer = document.querySelector(`input[name="${qId}"]:checked`);
+    const resultElement = document.getElementById(`${qId}-result`);
+
+    if (!answer) {
+      resultElement.textContent = "Veuillez sélectionner une réponse.";
+      resultElement.className = "result incorrect";
+      return;
+    }
+
+    if (answer.value === correctAnswer) {
+      resultElement.textContent = "Bravo ! Tu as raison ! 🎉";
+      resultElement.className = "result correct";
+    } else {
+      resultElement.textContent = "Dommage ! Réessaie ! 😔";
+      resultElement.className = "result incorrect";
+    }
+  }
+
+  // Vérification des Appariements
+  function validateAppariement() {
+    const answers = [
+      { id: "concept1", correct: "correct" },
+      { id: "concept2", correct: "correct" },
+      { id: "concept3", correct: "correct" }
+    ];
+    let allCorrect = true;
+    const resultElement = document.getElementById("appariement-result");
+
+    answers.forEach(answer => {
+      const selectedValue = document.getElementById(answer.id).value;
+      if (selectedValue !== answer.correct) {
+        allCorrect = false;
+      }
+    });
+
+    if (allCorrect) {
+      resultElement.textContent = "Toutes les paires sont correctes ! Super travail ! 🚀";
+      resultElement.className = "result correct";
+    } else {
+      resultElement.textContent = "Certaines paires sont incorrectes. Réessaie ! 😔";
+      resultElement.className = "result incorrect";
+    }
+  }
+
+  // Jeu de Pendu
+  let word1 = "CLOUD".split("");
+  let word2 = "ECOSIA".split("");
+  let guessedWord1 = word1.map(() => "_");
+  let guessedWord2 = word2.map(() => "_");
+  let attemptsLeft1 = 5;
+  let attemptsLeft2 = 5;
+
+  function makeGuess(wordIndex) {
+    const guessInput = document.getElementById(`guessInput${wordIndex}`);
+    const guess = guessInput.value.toUpperCase();
+    const word = wordIndex === 1 ? word1 : word2;
+    const guessedWord = wordIndex === 1 ? guessedWord1 : guessedWord2;
+    const attemptsLeft = wordIndex === 1 ? attemptsLeft1 : attemptsLeft2;
+    const wordDisplay = document.getElementById(`wordDisplay${wordIndex}`);
+    const attemptsElement = document.getElementById(`attempts${wordIndex}`);
+    const gameMessage = document.getElementById(`gameMessage${wordIndex}`);
+
+    if (!guess.match(/^[A-Z]$/)) {
+      gameMessage.textContent = "Veuillez entrer une seule lettre valide.";
+      return;
+    }
+
+    let found = false;
+    for (let i = 0; i < word.length; i++) {
+      if (word[i] === guess && guessedWord[i] === "_") {
+        guessedWord[i] = guess;
+        found = true;
+      }
+    }
+
+    if (!found) {
+      if (wordIndex === 1) attemptsLeft1--;
+      if (wordIndex === 2) attemptsLeft2--;
+      attemptsElement.textContent = wordIndex === 1 ? attemptsLeft1 : attemptsLeft2;
+
+      if ((wordIndex === 1 && attemptsLeft1 === 0) || (wordIndex === 2 && attemptsLeft2 === 0)) {
+        gameMessage.textContent = `Perdu ! Le mot était ${word.join("")}.`;
+        disableGame(wordIndex);
+        return;
+      }
+    }
+
+    wordDisplay.textContent = guessedWord.join(" ");
+
+    if (!guessedWord.includes("_")) {
+      gameMessage.textContent = "Félicitations ! Tu as trouvé le mot. 🎉";
+      disableGame(wordIndex);
+    }
+  }
+
+  function disableGame(wordIndex) {
+    const guessInput = document.getElementById(`guessInput${wordIndex}`);
+    const button = document.getElementById(`submitGuess${wordIndex}`);
+    guessInput.disabled = true;
+    button.disabled = true;
+  }
+</script>
+
+<style>
+  /* Styles pour les résultats */
+  .result {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  .correct {
+    color: green;
+  }
+
+  .incorrect {
+    color: red;
+  }
+
+  /* Style pour les cartes de synthèse */
+  .card {
+    border: 2px solid #ccc;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+</style>
