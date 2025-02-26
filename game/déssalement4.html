@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Escape Game : Dessalement d'Eau de Mer</title>
+    <style>
+        /* Styles Généraux */
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://plus.unsplash.com/premium_photo-1669863914833-85bbca9d730e?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center/cover;
+            color: #f0f8ff;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Blocs de Mission */
+        .block {
+            display: none;
+            background: rgba(128, 128, 128, 0.85); /* Gris */
+            border: 3px solid #FFFF00; /* Jaune vif */
+            padding: 20px;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #FFD700; /* Or */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            color: #f0f8ff;
+        }
+
+        .block.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Fenêtres d'Aide */
+        .course-window {
+            display: none;
+            background: rgba(255, 255, 0, 0.7); /* Jaune */
+            border: 2px solid #808080; /* Gris */
+            padding: 15px;
+            max-width: 300px;
+            border-radius: 8px;
+            position: absolute;
+            color: #333; /* Gris foncé */
+            font-size: 14px;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.1s linear;
+        }
+
+        .course-window.active {
+            display: block;
+            opacity: 1;
+        }
+
+        h1, h2 {
+            color: #FFD700; /* Or */
+            text-shadow: 0 0 5px #808080; /* Gris */
+        }
+
+        button {
+            background-color: #FFFF00; /* Jaune vif */
+            border: none;
+            padding: 10px 20px;
+            color: #333; /* Gris foncé */
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #FFD700; /* Or */
+        }
+
+        input, select {
+            padding: 8px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #FFFF00; /* Jaune vif */
+            background: #fff;
+            color: #333; /* Gris foncé */
+            font-size: 14px;
+        }
+
+        .resultat {
+            color: #FFD700; /* Or */
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .victory {
+            animation: pulse 1s infinite;
+            font-size: 28px;
+            color: #FFFF00;
+        }
+
+        #timer {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            font-size: 14px;
+            color: #FFFF00; /* Jaune vif */
+        }
+
+        #musicControl {
+            position: fixed;
+            top: 40px;
+            right: 10px;
+            z-index: 2;
+        }
+
+        .match-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .match-item {
+            width: 45%;
+            margin: 5px;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Style pour la lettre collectée */
+        .lettre-collectee {
+            color: #ffff00; /* jaune*/
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        /* Style pour le mot magique */
+        #magicWord {
+            font-size: 36px;
+            color: #ffff00; /* jaune*/
+            text-shadow: 2px 2px 4px #000000;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Augmentation de la largeur du bloc pour accommoder les select */
+        .block {
+            max-width: 700px; /* Augmente la largeur maximale */
+        }
+          /* Ajustement de la taille des select dans la mission d'appariement */
+        .match-item select {
+            width: 100%;
+             box-sizing: border-box; /* Inclut la bordure et le padding dans la largeur */
+        }
+    </style>
+</head>
+<body>
+    <!-- Musique de fond -->
+    <audio id="backgroundMusic" loop>
+        <source src="https://nuage03.apps.education.fr/index.php/s/rfAms6FDNH2ojXM/download/Dancing%20with%20Demons.m4a" type="audio/mp4">
+        Votre navigateur ne supporte pas l'audio.
+    </audio>
+    <button id="musicControl" onclick="toggleMusic()">Activer le son</button>
+    <div id="timer">Temps : 00:00</div>
+
+    <!-- Introduction -->
+    <div id="intro" class="block active">
+        <h1>Le Mystère du Dessalement Éco-énergétique</h1>
+        <p>"Jeune ingénieur, le monde a besoin de ton expertise ! Découvre les secrets du dessalement d'eau de mer, résous 20 énigmes et débloque une phrase mystère pour sauver des millions de vies ! Chaque défi réussi te donne une lettre. En avant !"</p>
+
+        <!-- Règles du jeu ajoutées ici -->
+        <h2>Règles du jeu :</h2>
+        <ul>
+            <li>Entre ton identifiant Léia pour commencer.</li>
+            <li>Réponds aux 20 missions pour collecter des lettres.</li>
+            <li>Tu as deux essais par mission.</li>
+            <li>Avec les lettres collectées, complète la phrase mystère.</li>
+            <li>Si tu réussis, le mot magique s'affichera !</li>
+        </ul>
+
+        <input type="text" id="agentIdLeia" placeholder="Ton identifiant ">
+        <button onclick="startGame()">Démarrer</button>
+    </div>
+
+    <!-- Mission 1: QCM -->
+    <div id="mission1" class="block">
+        <h2>Mission 1 : Introduction</h2>
+        <p id="m1text">"Quel pourcentage de l'eau sur Terre est salée et donc non potable ?"</p>
+        <select id="choix1">
+            <option value="">Choisis...</option>
+            <option value="3">3%</option>
+            <option value="50">50%</option>
+            <option value="97">97%</option>
+        </select>
+        <button onclick="verifierMission1()">Valider</button>
+        <button onclick="passer(2)">Passer</button>
+        <p id="resultat1" class="resultat"></p>
+    </div>
+    <div id="course1" class="course-window">
+        <p>La majeure partie de l'eau est inutilisable telle quelle...</p>
+    </div>
+
+    <!-- Mission 2: Question ouverte -->
+    <div id="mission2" class="block">
+        <h2>Mission 2 : Contexte</h2>
+        <p id="m2text">"Dans quel pays, une grande partie de l'eau potable provient du dessalement ? (2 mots)"</p>
+        <input type="text" id="reponse2" placeholder="Entre ta réponse">
+        <button onclick="verifierMission2()">Valider</button>
+        <button onclick="passer(3)">Passer</button>
+        <p id="resultat2" class="resultat"></p>
+    </div>
+    <div id="course2" class="course-window">
+        <p>Un pays désertique qui a trouvé une solution !</p>
+    </div>
+
+    <!-- Mission 3: Pendu -->
+    <div id="mission3" class="block">
+        <h2>Mission 3 : Enjeux</h2>
+        <p id="m3text">"Devine le mot : problème lié au dessalement traditionnel. (7 lettres)"</p>
+        <p id="penduDisplay3"></p>
+        <input type="text" id="lettre3" maxlength="1" placeholder="Entre une lettre">
+        <button onclick="jouerPendu3()">Essayer</button>
+        <button onclick="passer(4)">Passer</button>
+        <p id="resultat3" class="resultat">Essais restants : 6</p>
+    </div>
+    <div id="course3" class="course-window">
+        <p>Les usines ont besoin de beaucoup de...</p>
+    </div>
+
+    <!-- Mission 4: QCM -->
+    <div id="mission4" class="block">
+        <h2>Mission 4 : Enjeux</h2>
+        <p id="m4text">"En plus de la consommation d'énergie, quel est un autre défi lié au dessalement ?"</p>
+        <select id="choix4">
+            <option value="">Choisis...</option>
+            <option value="gout">Le goût de l'eau dessalée.</option>
+            <option value="cout">Le coût élevé des installations.</option>
+            <option value="poissons">La difficulté à trouver des poissons dans l'eau dessalée.</option>
+        </select>
+        <button onclick="verifierMission4()">Valider</button>
+        <button onclick="passer(5)">Passer</button>
+        <p id="resultat4" class="resultat"></p>
+    </div>
+    <div id="course4" class="course-window">
+        <p>Construire une usine, ça coûte...</p>
+    </div>
+
+    <!-- Mission 5: Appariement -->
+    <div id="mission5" class="block">
+        <h2>Mission 5 : Méthodes de dessalement</h2>
+        <p id="m5text">"Associe chaque méthode à sa description :"</p>
+        <div class="match-container">
+            <div class="match-item">
+                <p>Osmose inverse</p>
+                <select id="match5_1">
+                    <option value="">Choisis...</option>
+                    <option value="vapeur">L'eau est chauffée pour produire de la vapeur</option>
+                    <option value="membrane">L'eau est poussée à travers une membrane</option>
+                </select>
+            </div>
+            <div class="match-item">
+                <p>Distillation thermique</p>
+                <select id="match5_2">
+                    <option value="">Choisis...</option>
+                    <option value="vapeur">L'eau est chauffée pour produire de la vapeur</option>
+                    <option value="membrane">L'eau est poussée à travers une membrane</option>
+                </select>
+            </div>
+        </div>
+        <button onclick="verifierMission5()">Valider</button>
+        <button onclick="passer(6)">Passer</button>
+        <p id="resultat5" class="resultat"></p>
+    </div>
+    <div id="course5" class="course-window">
+        <p>Il y a deux façons principales de séparer l'eau du sel.</p>
+    </div>
+
+    <!-- Mission 6: Question ouverte -->
+    <div id="mission6" class="block">
+        <h2>Mission 6 : Osmose Inverse</h2>
+        <p id="m6text">"Dans l'osmose inverse, l'eau de mer est poussée à travers quoi ? (1 mot)"</p>
+        <input type="text" id="reponse6" placeholder="Entre ta réponse">
+        <button onclick="verifierMission6()">Valider</button>
+        <button onclick="passer(7)">Passer</button>
+        <p id="resultat6" class="resultat"></p>
+    </div>
+    <div id="course6" class="course-window">
+        <p>Un filtre très, très fin !</p>
+    </div>
+
+    <!-- Mission 7: QCM -->
+    <div id="mission7" class="block">
+        <h2>Mission 7 : Distillation Thermique</h2>
+        <p id="m7text">"Que produit-on en chauffant l'eau de mer dans la distillation thermique ?"</p>
+        <select id="choix7">
+            <option value="">Choisis...</option>
+            <option value="glacons">Des glaçons.</option>
+            <option value="vapeur">De la vapeur.</option>
+            <option value="bulles">Des bulles de savon.</option>
+        </select>
+        <button onclick="verifierMission7()">Valider</button>
+        <button onclick="passer(8)">Passer</button>
+        <p id="resultat7" class="resultat"></p>
+    </div>
+    <div id="course7" class="course-window">
+        <p>L'eau se transforme en...</p>
+    </div>
+
+    <!-- Mission 8: Pendu -->
+    <div id="mission8" class="block">
+        <h2>Mission 8 : Composants</h2>
+        <p id="m8text">"Devine le mot : Composant pour chauffer ou refroidir l'eau. (10 lettres)"</p>
+        <p id="penduDisplay8"></p>
+        <input type="text" id="lettre8" maxlength="1" placeholder="Entre une lettre">
+        <button onclick="jouerPendu8()">Essayer</button>
+        <button onclick="passer(9)">Passer</button>
+        <p id="resultat8" class="resultat">Essais restants : 6</p>
+    </div>
+    <div id="course8" class="course-window">
+        <p>Ils permettent de gagner ou de perdre de la chaleur.</p>
+    </div>
+
+    <!-- Mission 9: Question Ouverte -->
+    <div id="mission9" class="block">
+        <h2>Mission 9 : Composants</h2>
+        <p id="m9text">"Les pompes servent a quoi ? (3 mots)"</p>
+        <input type="text" id="reponse9" placeholder="Entre ta réponse">
+        <button onclick="verifierMission9()">Valider</button>
+        <button onclick="passer(10)">Passer</button>
+        <p id="resultat9" class="resultat"></p>
+    </div>
+    <div id="course9" class="course-window">
+        <p>Elles donnent la force à l'eau !</p>
+    </div>
+
+    <!-- Mission 10: QCM -->
+    <div id="mission10" class="block">
+        <h2>Mission 10 : Impact Société</h2>
+        <p id="m10text">"Quel est un avantage du dessalement pour la société ?"</p>
+        <select id="choix10">
+            <option value="">Choisis...</option>
+            <option value="poissons">Plus de poissons dans l'océan.</option>
+            <option value="potable">Accès à l'eau potable dans les régions arides.</option>
+            <option value="plages">Des plages plus propres.</option>
+        </select>
+        <button onclick="verifierMission10()">Valider</button>
+        <button onclick="passer(11)">Passer</button>
+        <p id="resultat10" class="resultat"></p>
+    </div>
+    <div id="course10" class="course-window">
+        <p>Cela aide ceux qui n'ont pas d'eau.</p>
+    </div>
+
+    <!-- Mission 11: Appariement -->
+    <div id="mission11" class="block">
+        <h2>Mission 11 : Impacts</h2>
+        <p id="m11text">"Associe chaque impact à sa description :"</p>
+        <div class="match-container">
+            <div class="match-item">
+                <p>Développement économique</p>
+                <select id="match11_1">
+                    <option value="">Choisis...</option>
+                    <option value="cultures">L'eau douce permet l'irrigation des cultures</option>
+                    <option value="arides">Les régions arides peuvent se développer grâce à l'accès à l'eau</option>
+                </select>
+            </div>
+            <div class="match-item">
+                <p>Sécurité alimentaire</p>
+                <select id="match11_2">
+                    <option value="">Choisis...</option>
+                    <option value="cultures">L'eau douce permet l'irrigation des cultures</option>
+                    <option value="arides">Les régions arides peuvent se développer grâce à l'accès à l'eau</option>
+                </select>
+            </div>
+        </div>
+        <button onclick="verifierMission11()">Valider</button>
+        <button onclick="passer(12)">Passer</button>
+        <p id="resultat11" class="resultat"></p>
+    </div>
+    <div id="course11" class="course-window">
+        <p>Plus d'eau, c'est plus de prospérité !</p>
+    </div>
+
+    <!-- Mission 12: Pendu -->
+    <div id="mission12" class="block">
+        <h2>Mission 12 : Inconvénients</h2>
+        <p id="m12text">"Devine le mot : Problème environnemental lié au rejet de l'eau salée. (8 lettres)"</p>
+        <p id="penduDisplay12"></p>
+        <input type="text" id="lettre12" maxlength="1" placeholder="Entre une lettre">
+        <button onclick="jouerPendu12()">Essayer</button>
+        <button onclick="passer(13)">Passer</button>
+        <p id="resultat12" class="resultat">Essais restants : 6</p>
+    </div>
+    <div id="course12" class="course-window">
+        <p>C'est ce qui reste après avoir enlevé l'eau douce.</p>
+    </div>
+
+    <!-- Mission 13: QCM -->
+    <div id="mission13" class="block">
+        <h2>Mission 13 : Logiciels</h2>
+        <p id="m13text">"Quel logiciel est utilisé pour concevoir en 3D les usines de dessalement ?"</p>
+        <select id="choix13">
+            <option value="">Choisis...</option>
+            <option value="minecraft">Minecraft.</option>
+            <option value="fusion">Fusion 360.</option>
+            <option value="whatsapp">WhatsApp.</option>
+        </select>
+        <button onclick="verifierMission13()">Valider</button>
+        <button onclick="passer(14)">Passer</button>
+        <p id="resultat13" class="resultat"></p>
+    </div>
+    <div id="course13" class="course-window">
+        <p>Un logiciel pour les ingénieurs et les architectes.</p>
+    </div>
+
+    <!-- Mission 14: Question Ouverte -->
+    <div id="mission14" class="block">
+        <h2>Mission 14 : Matériaux</h2>
+        <p id="m14text">"Les matériaux utilisés doivent resister à quoi ? (2 mots)"</p>
+        <input type="text" id="reponse14" placeholder="Entre ta réponse">
+        <button onclick="verifierMission14()">Valider</button>
+        <button onclick="passer(15)">Passer</button>
+        <p id="resultat14" class="resultat"></p>
+    </div>
+    <div id="course14" class="course-window">
+        <p>Ils ne doivent pas rouiller avec l'eau de mer !</p>
+    </div>
+
+    <!-- Mission 15: QCM -->
+    <div id="mission15" class="block">
+        <h2>Mission 15 : Énergies</h2>
+        <p id="m15text">"Quelle énergie renouvelable est utilisée pour réduire l'impact carbone du dessalement ?"</p>
+        <select id="choix15">
+            <option value="">Choisis...</option>
+            <option value="nucleaire">Énergie nucléaire.</option>
+            <option value="solaire">Énergie solaire.</option>
+            <option value="volcans">Énergie des volcans.</option>
+        </select>
+        <button onclick="verifierMission15()">Valider</button>
+        <button onclick="passer(16)">Passer</button>
+        <p id="resultat15" class="resultat"></p>
+    </div>
+    <div id="course15" class="course-window">
+        <p>Une énergie qui vient du soleil !</p>
+    </div>
+
+    <!-- Mission 16: Pendu -->
+    <div id="mission16" class="block">
+        <h2>Mission 16 : Perspectives</h2>
+        <p id="m16text">"Devine le mot : Matériau innovant pour des membranes plus efficaces (9 lettres)"</p>
+        <p id="penduDisplay16"></p>
+        <input type="text" id="lettre16" maxlength="1" placeholder="Entre une lettre">
+        <button onclick="jouerPendu16()">Essayer</button>
+        <button onclick="passer(17)">Passer</button>
+        <p id="resultat16" class="resultat">Essais restants : 6</p>
+    </div>
+    <div id="course16" class="course-window">
+        <p>Un matériau super résistant et très fin !</p>
+    </div>
+
+    <!-- Mission 17: Appariement -->
+    <div id="mission17" class="block">
+        <h2>Mission 17 : Cycle de Vie</h2>
+        <p id="m17text">"Associe chaque étape au cycle de vie :"</p>
+        <div class="match-container">
+            <div class="match-item">
+                <p>Design</p>
+                <select id="match17_1" style="width:100%">
+                    <option value="">Choisis...</option>
+                    <option value="conception">Design des capteurs et de la structure.</option>
+                    <option value="materiaux">Utilisation de matériaux résistants à la corrosion</option>
+                    <option value="recyclage">Recyclage des matériaux</option>
+                </select>
+            </div>
+            <div class="match-item">
+                <p>Fabrication</p>
+                <select id="match17_2" style="width:100%">
+                    <option value="">Choisis...</option>
+                   <option value="conception">Design des capteurs et de la structure.</option>
+                    <option value="materiaux">Utilisation de matériaux résistants à la corrosion</option>
+                    <option value="recyclage">Recyclage des matériaux</option>
+                </select>
+            </div>
+            <div class="match-item">
+                <p>Fin de vie</p>
+                <select id="match17_3" style="width:100%">
+                    <option value="">Choisis...</option>
+                    <option value="conception">Design des capteurs et de la structure.</option>
+                    <option value="materiaux">Utilisation de matériaux résistants à la corrosion</option>
+                    <option value="recyclage">Recyclage des matériaux</option>
+                </select>
+            </div>
+        </div>
+        <button onclick="verifierMission17()">Valider</button>
+        <button onclick="passer(18)">Passer</button>
+        <p id="resultat17" class="resultat"></p>
+    </div>
+    <div id="course17" class="course-window">
+        <p>La bouée a une vie, de sa naissance à sa fin !</p>
+    </div>
+
+    <!-- Mission 18: Question Ouverte -->
+    <div id="mission18" class="block">
+        <h2>Mission 18 : Impact Société</h2>
+        <p id="m18text">"Grâce aux bouées, on obtient une meilleure quoi ? (2 mots)"</p>
+        <input type="text" id="reponse18" placeholder="Entre ta réponse">
+        <button onclick="verifierMission18()">Valider</button>
+        <button onclick="passer(19)">Passer</button>
+        <p id="resultat18" class="resultat"></p>
+    </div>
+    <div id="course18" class="course-window">
+        <p>Avant la pluie, mieux vaut un parapluie !</p>
+    </div>
+
+    <!-- Mission 19: QCM -->
+    <div id="mission19" class="block">
+        <h2>Mission 19 : Enjeux éthiques</h2>
+        <p id="m19text">"Quel est un enjeu éthique lié aux bouées ?"</p>
+        <select id="choix19">
+            <option value="">Choisis...</option>
+            <option value="prix">Le prix des bouées en magasin.</option>
+            <option value="donnees">L'utilisation des données collectées.</option>
+            <option value="couleur">La couleur des bouées.</option>
+        </select>
+        <button onclick="verifierMission19()">Valider</button>
+        <button onclick="passer(20)">Passer</button>
+        <p id="resultat19" class="resultat"></p>
+    </div>
+    <div id="course19" class="course-window">
+        <p>Qui a le droit de savoir ce que la bouée sait ?</p>
+    </div>
+
+    <!-- Mission 20: Pendu -->
+    <div id="mission20" class="block">
+        <h2>Mission 20 : automatisation</h2>
+        <p id="m20text">"Devine le mot : technique pour ajuster les paramètres en temps réel (13 lettres)"</p>
+        <p id="penduDisplay20"></p>
+        <input type="text" id="lettre20" maxlength="1" placeholder="Entre une lettre">
+        <button onclick="jouerPendu20()">Essayer</button>
+        <button onclick="passer(21)">Passer</button>
+        <p id="resultat20" class="resultat">Essais restants : 6</p>
+    </div>
+    <div id="course20" class="course-window">
+        <p>Les machines font tout, toutes seules !</p>
+    </div>
+
+    <!-- Victoire -->
+    <div id="victoire" class="block">
+        <h1 class="victory">Mission Accomplie !</h1>
+        <p id="agentResult"></p>
+        <p id="timeResult"></p>
+        <p id="scoreResult"></p>
+        <p id="messageResult"></p>
+        <p id="parcoursResult"></p>
+        <p id="magicWord" style="display: none;"></p>
+        <p>Phrase avec tes lettres :</p>
+        <p id="partial-phrase"></p>
+        <p>Complète la phrase (4 mots) :</p>
+        <input type="text" id="phraseInput" placeholder="22 lettres max">
+        <button onclick="verifierPhrase()">Valider la phrase</button>
+        <p id="phraseResult"></p>
+    </div>
+
+    <script>
+        /* Initialisation des variables */
+        let agent = "Jeune ingénieur";
+        let startTime = 0;
+        let timerInterval = null;
+        let reussites = 0;
+        let passees = [];
+        let collectedLetters = new Array(20);
+        const finalPhrase = "L'EAU DESSALEE EST L'AVENIR";
+        const missionLetters = finalPhrase.split("");
+        let musicPlaying = false;
+		let music = document.getElementById("backgroundMusic");
+        let rotationSpeed = 0.002;
+        let angle = 0;
+
+        // Définition des règles du jeu
+        const gameRules = [
+            "Entre ton identifiant Léia pour commencer.",
+            "Réponds aux 20 missions pour collecter des lettres.",
+            "Tu as deux essais par mission.",
+            "Avec les lettres collectées, complète la phrase mystère.",
+            "Si tu réussis, le mot magique s'affichera !"
+        ];
+
+        // Création des variables de tentatives pour chaque mission
+        let attempts = {};
+        for (let i = 1; i <= 20; i++) {
+            attempts[`mission${i}`] = 0;
+        }
+
+        // Liste des mots pour le jeu du pendu
+        const motsPendu = ["energie", "echangeurs", "graphene", "capteurs", "logiciel"];
+		 const motSecret = "479-BLEU";
+
+        /* Fonction pour démarrer le jeu */
+        function startGame() {
+            const idLeia = document.getElementById("agentIdLeia").value.trim();
+            if (idLeia) {
+                agent = `Jeune ingénieur - ${idLeia}`;
+                document.querySelectorAll("p[id^='m']").forEach(p => {
+                    p.innerHTML = p.innerHTML.replace("Jeune ingénieur", agent);
+                });
+                
+                document.getElementById("intro").classList.remove("active");
+            
+                startTime = Date.now();
+                timerInterval = setInterval(updateTimer, 1000);
+                randomizeCoursePositions();
+                 showBlock("mission1");
+                  requestAnimationFrame(animateCourseWindows);
+            } else {
+                alert("Entre ton identifiant !");
+            }
+
+             // Ajout des règles du jeu à la page d'accueil
+            let rulesList = document.createElement('ul');
+                gameRules.forEach(function(rule) {
+                let li = document.createElement('li');
+                li.textContent = rule;
+                rulesList.appendChild(li);
+            });
+            document.getElementById("intro").appendChild(rulesList);
+        }
+
+        /* Fonction pour mettre à jour le timer */
+        function updateTimer() {
+            const now = Date.now();
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = String(Math.floor(elapsed / 60)).padStart(2, "0");
+            const seconds = String(elapsed % 60).padStart(2, "0");
+            document.getElementById("timer").textContent = `Temps : ${minutes}:${seconds}`;
+        }
+
+         function randomizeCoursePositions() {
+            const courseWindows = document.querySelectorAll(".course-window");
+            courseWindows.forEach((course, index) => {
+                const initialAngle = (index * 2 * Math.PI) / courseWindows.length;
+                const radius = 450;
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
+                const x = centerX + radius * Math.cos(initialAngle) - 200;
+                const y = centerY + radius * Math.sin(initialAngle) - 50;
+                course.style.left = `${x}px`;
+                course.style.top = `${y}px`;
+                course.dataset.angle = initialAngle;
+            });
+        }
+
+        function animateCourseWindows() {
+            const courseWindows = document.querySelectorAll(".course-window.active");
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const radius = 450;
+            angle += 0.002;
+
+            courseWindows.forEach(course => {
+                let currentAngle = parseFloat(course.dataset.angle) + angle;
+                const x = centerX + radius * Math.cos(currentAngle) - 200;
+                const y = centerY + radius * Math.sin(currentAngle) - 50;
+                course.style.left = `${x}px`;
+                course.style.top = `${y}px`;
+            });
+            requestAnimationFrame(animateCourseWindows);
+        }
+        /* Fonction pour afficher un bloc de mission et sa fenêtre d'aide */
+         function showBlock(blockId) {
+             document.querySelectorAll(".block").forEach(block => block.classList.remove("active"));
+             document.querySelectorAll(".course-window").forEach(course => course.classList.remove("active"));
+
+            let newBlock = document.getElementById(blockId);
+             if (newBlock) {
+                newBlock.classList.add("active");
+                 let courseId = blockId.replace("mission", "course");
+                 let courseWindow = document.getElementById(courseId);
+                 if (courseWindow) {
+                    courseWindow.classList.add("active");
+                 }
+            }
+         }
+
+        /* Fonction pour passer à la mission suivante */
+        function passer(next) {
+            passees.push(next - 1);
+           
+            if (next <= 20) {
+                 showBlock(`mission${next}`);
+            } else {
+                showBlock("victoire");
+                stopGame();
+            }
+        }
+
+        /* Fonction pour activer/désactiver la musique */
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                document.getElementById("musicControl").textContent = "Couper le son";
+            } else {
+                music.pause();
+                document.getElementById("musicControl").textContent = "Activer le son";
+            }
+        }
+
+         function afficherLettreGagnee(missionNumber) {
+            const resultatElement = document.getElementById(`resultat${missionNumber}`);
+            if (resultatElement && collectedLetters[missionNumber - 1]) {
+                resultatElement.innerHTML += ` <span class="lettre-collectee">Lettre collectée: ${missionLetters[missionNumber - 1]}</span>`;
+            }
+        }
+
+        /* Fonctions de vérification des missions */
+        function verifierMission1() {
+           let missionId = 1;
+           attempts[`mission${missionId}`]++;
+           if (document.getElementById("choix1").value === "97") {
+                reussites++;
+                collectedLetters[0] = missionLetters[0];
+                document.getElementById("resultat1").innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[0]}</span>`;
+                setTimeout(() => passer(2), 3000);
+            } else {
+                document.getElementById("resultat1").innerHTML = "Faux.";
+                 if (attempts[`mission${missionId}`] >= 2) {
+                   document.getElementById("resultat1").innerHTML = "Faux ! Mission validée sans la lettre";
+                  setTimeout(() => passer(2), 3000);
+                }
+             }
+        }
+
+        function verifierMission2() {
+            let missionId = 2;
+            attempts[`mission${missionId}`]++;
+            let reponse = document.getElementById("reponse2").value.toLowerCase().trim();
+            if (reponse === "arabie saoudite") {
+                reussites++;
+                collectedLetters[1] = missionLetters[1];
+                 document.getElementById("resultat2").innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[1]}</span>`;
+                setTimeout(() => passer(3), 3000);
+            } else {
+                document.getElementById("resultat2").innerHTML = "Faux.";
+                 if (attempts[`mission${missionId}`] >= 2) {
+                   document.getElementById("resultat2").innerHTML = "Faux ! Mission validée sans la lettre";
+                    setTimeout(() => passer(3), 3000);
+                }
+            }
+        }
+
+        function jouerPendu3() {
+            let missionId = 3;
+            jouerPendu(missionId, "energie");
+        }
+
+        function verifierMission4() {
+            let missionId = 4;
+             attempts[`mission${missionId}`]++;
+            if (document.getElementById("choix4").value === "cout") {
+                reussites++;
+                collectedLetters[3] = missionLetters[3];
+                 document.getElementById("resultat4").innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[3]}</span>`;
+                setTimeout(() => passer(5), 3000);
+            } else {
+                document.getElementById("resultat4").innerHTML = "Faux.";
+                 if (attempts[`mission${missionId}`] >= 2) {
+                   document.getElementById("resultat4").innerHTML = "Faux ! Mission validée sans la lettre";
+                    setTimeout(() => passer(5), 3000);
+                }
+            }
+        }
+
+        function verifierMission5() {
+            let missionId = 5;
+             attempts[`mission${missionId}`]++;
+            let match1 = document.getElementById("match5_1").value;
+            let match2 = document.getElementById("match5_2").value;
+            if (match1 === "membrane" && match2 === "vapeur") {
+                reussites++;
+                collectedLetters[4] = missionLetters[4];
+                 document.getElementById("resultat5").innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[4]}</span>`;
+                setTimeout(() => passer(6), 3000);
+            } else {
+                document.getElementById("resultat5").innerHTML = "Faux.";
+                 if (attempts[`mission${missionId}`] >= 2) {
+                    document.getElementById("resultat5").innerHTML = "Faux ! Mission validée sans la lettre";
+                    setTimeout(() => passer(6), 3000);
+                }
+            }
+        }
+
+        function verifierMission6() {
+            let missionId = 6;
+            attempts[`mission${missionId}`]++;
+            let reponse = document.getElementById("reponse6").value.toLowerCase().trim();
+            if (reponse === "membrane") {
+                reussites++;
+                collectedLetters[5] = missionLetters[5];
+                 document.getElementById("resultat6").innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[5]}</span>`;
+                setTimeout(() => passer(7), 3000);
+            } else {
+                document.getElementById("resultat6").innerHTML = "Faux.";
+                 if (attempts[`mission${missionId}`] >= 2) {
+                   document.getElementById("resultat6").innerHTML = "Faux ! Mission validée sans la lettre";
+                    setTimeout(() => passer(7), 3000);
+                }
+            }
+        }
+
+        function verifierMission7() {
+            let missionId = 7;
+            attempts[`mission${missionId}`]++;
+            if (document.getElementById("choix7").value === "vapeur") {
+                reussites++;
+                collectedLetters[6] = missionLetters[6];
+                document.getElementById("resultat7").innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[6]}</span>`;
+                setTimeout(() => passer(8), 3000);
+            } else {
+                document.getElementById("resultat7").innerHTML = "Faux.";
+                if (attempts[`mission${missionId}`] >= 2) {
+                   document.getElementById("resultat7").innerHTML = "Faux ! Mission validée sans la lettre";
+                    setTimeout(() => passer(8), 3000);
+                }
+            }
+        }
+
+        function jouerPendu8() {
+            let missionId = 8;
+            jouerPendu(missionId, "echangeurs");
+        }
+
+        function verifierMission9() {
+            let missionId = 9;
+             attempts[`mission${missionId}`]++;
+            let reponse = document.getElementById("reponse9").value.toLowerCase().trim();
+            if (reponse === "pousser l'eau") {
+                reussites++;
+                collectedLetters[8] = missionLetters[8];
+                document.getElementById("resultat9").innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[8]}</span>`;
+                setTimeout(() => passer(10), 3000);
+            } else {
+                document.getElementById("resultat9").innerHTML = "Faux.";
+                 if (attempts[`mission${missionId}`] >= 2) {
+                     document.getElementById("resultat9").innerHTML = "Faux ! Mission validée sans la lettre";
+                    setTimeout(() => passer(10), 3000);
+                }
+            }
+        }
+
+        function verifierMission10() {
+             let missionId = 10;
+             attempts[`mission${missionId}`]++;
+            if (document.getElementById("choix10").value === "potable") {
+                reussites++;
+                collectedLetters[9] = missionLetters[9];
+                document.getElementById("resultat10").innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[9]}</span>`;
+                setTimeout(() => passer(11), 3000);
+            } else {
+                document.getElementById("resultat10").innerHTML = "Faux.";
+                 if (attempts[`mission${missionId}`] >= 2) {
+                   document.getElementById("resultat10").innerHTML = "Faux ! Mission validée sans la lettre";
+                    setTimeout(() => passer(11), 3000);
+                }
+            }
+        }
+
+        function verifierMission11() {
+           let missionId = 11;
+           attempts[`mission${missionId}`]++;
+            let match1 = document.getElementById("match11_1").value;
+            let match2 = document.getElementById("match11_2").value;
+            if (match1 === "arides" && match2 === "cultures") {
+                reussites++;
+                collectedLetters[10] = missionLetters[10];
+                document.getElementById("resultat11").innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[10]}</span>`;
+                setTimeout(() => passer(12), 3000);
+            } else {
+                document.getElementById("resultat11").innerHTML = "Faux.";
+                if (attempts[`mission${missionId}`] >= 2) {
+                    document.getElementById("resultat11").innerHTML = "Faux ! Mission validée sans la lettre";
+                    setTimeout(() => passer(12), 3000);
+                }
+            }
+        }
+
+        function jouerPendu12() {
+			let missionId = 12;
+            jouerPendu(missionId, "graphene");
+        }
+
+        function verifierMission13() {
+            let missionId = 13;
+              attempts[`mission${missionId}`]++;
+            if (document.getElementById("choix13").value === "fusion") {
+                reussites++;
+                collectedLetters[11] = missionLetters[11];
+                document.getElementById("resultat13").innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[11]}</span>`;
+                setTimeout(() => passer(14), 3000);
+            } else {
+                document.getElementById("resultat13").innerHTML = "Faux.";
+                 if (attempts[`mission${missionId}`] >= 2) {
+                  document.getElementById("resultat13").innerHTML = "Faux ! Mission validée sans la lettre";
+                    setTimeout(() => passer(14), 3000);
+                }
+            }
+        }
+
+        function verifierMission14() {
+            let missionId = 14;
+             attempts[`mission${missionId}`]++;
+            let reponse = document.getElementById("reponse14").value.toLowerCase().trim();
+            if (reponse === "la corrosion") {
+                reussites++;
+                collectedLetters[12] = missionLetters[12];
+                document.getElementById("resultat14").innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[12]}</span>`;
+                setTimeout(() => passer(15), 3000);
+            } else {
+                document.getElementById("resultat14").innerHTML = "Faux.";
+                 if (attempts[`mission${missionId}`] >= 2) {
+                     document.getElementById("resultat14").innerHTML = "Faux ! Mission validée sans la lettre";
+                    setTimeout(() => passer(15), 3000);
+                }
+            }
+        }
+
+        function verifierMission15() {
+            let missionId = 15;
+              attempts[`mission${missionId}`]++;
+            if (document.getElementById("choix15").value === "solaire") {
+                reussites++;
+                collectedLetters[13] = missionLetters[13];
+                document.getElementById("resultat15").innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[13]}</span>`;
+                setTimeout(() => passer(16), 3000);
+            } else {
+                document.getElementById("resultat15").innerHTML = "Faux.";
+                 if (attempts[`mission${missionId}`] >= 2) {
+                   document.getElementById("resultat15").innerHTML = "Faux ! Mission validée sans la lettre";
+                    setTimeout(() => passer(16), 3000);
+                }
+            }
+        }
+
+        function jouerPendu16() {
+			let missionId = 16;
+            jouerPendu(missionId, "capteurs");
+        }
+
+        function verifierMission17() {
+            let missionId = 17;
+              attempts[`mission${missionId}`]++;
+            const match1 = document.getElementById("match17_1").value;
+            const match2 = document.getElementById("match17_2").value;
+            const match3 = document.getElementById("match17_3").value;
+            if (match1 === "conception" && match2 === "materiaux" && match3 === "recyclage") {
+                reussites++;
+                collectedLetters[15] = missionLetters[15];
+                document.getElementById("resultat17").innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[15]}</span>`;
+                setTimeout(() => passer(18), 3000);
+            } else {
+                document.getElementById("resultat17").innerHTML = "Faux.";
+                if (attempts[`mission${missionId}`] >= 2) {
+                   document.getElementById("resultat17").innerHTML = "Faux ! Mission validée sans la lettre";
+                    setTimeout(() => passer(18), 3000);
+                }
+            }
+        }
+
+        function verifierMission18() {
+             let missionId = 18;
+              attempts[`mission${missionId}`]++;
+            let reponse = document.getElementById("reponse18").value.toLowerCase().trim();
+            if (reponse === "prévision météorologique" || reponse === "prevision meteorologique") {
+                reussites++;
+                collectedLetters[16] = missionLetters[16];
+                document.getElementById("resultat18").innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[16]}</span>`;
+                setTimeout(() => passer(19), 3000);
+            } else {
+                document.getElementById("resultat18").innerHTML = "Faux.";
+                 if (attempts[`mission${missionId}`] >= 2) {
+                      document.getElementById("resultat18").innerHTML = "Faux ! Mission validée sans la lettre";
+                    setTimeout(() => passer(19), 3000);
+                }
+            }
+        }
+
+        function verifierMission19() {
+            let missionId = 19;
+             attempts[`mission${missionId}`]++;
+            if (document.getElementById("choix19").value === "donnees") {
+                reussites++;
+                collectedLetters[17] = missionLetters[17];
+                document.getElementById("resultat19").innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[17]}</span>`;
+                setTimeout(() => passer(20), 3000);
+            } else {
+                document.getElementById("resultat19").innerHTML = "Faux.";
+                  if (attempts[`mission${missionId}`] >= 2) {
+                   document.getElementById("resultat19").innerHTML = "Faux ! Mission validée sans la lettre";
+                    setTimeout(() => passer(20), 3000);
+                }
+            }
+        }
+
+        function jouerPendu20() {
+			let missionId = 20;
+            jouerPendu(missionId, "capteurs");
+        }
+        function afficherLettreGagnee(missionNumber) {
+           let resultatElement = document.getElementById("resultat" + missionNumber);
+           if (resultatElement) {
+                resultatElement.innerHTML += `<span class='lettre-collectee'> Lettre collectée: ${missionLetters[missionNumber - 1]}</span>`
+            }
+        }
+
+         function jouerPendu(missionNumber, mot) {
+              attempts[`missionNumber`]++;
+            let lettreInputId = "lettre" + missionNumber;
+            let displayId = "penduDisplay" + missionNumber;
+            let resultatId = "resultat" + missionNumber;
+            let lettre = document.getElementById(lettreInputId).value.toLowerCase();
+            let display = document.getElementById(displayId);
+            let resultat = document.getElementById(resultatId);
+
+            let etat = display.textContent || "_".repeat(mot.length);
+
+            if (lettre && resultat.textContent.includes("restants")) {
+                if (mot.includes(lettre)) {
+                    let nouvelEtat = "";
+                    for (let i = 0; i < mot.length; i++) {
+                        nouvelEtat += (mot[i] === lettre || etat[i] !== "_") ? mot[i] : "_";
+                    }
+                    display.textContent = nouvelEtat;
+                    if (!nouvelEtat.includes("_")) {
+                        reussites++;
+                        const index = missionNumber - 1;
+                         collectedLetters[missionNumber - 1] = missionLetters[missionNumber - 1];
+                        resultat.innerHTML = `Gagné ! Le mot était '${mot}'. <span class='lettre-collectee'>Lettre collectée : ${missionLetters[index]}</span>`;
+                       afficherLettreGagnee(missionNumber);
+                        setTimeout(() => passer(missionNumber + 1), 3000);
+                    }
+                } else {
+                    let essais = parseInt(resultat.textContent.split(": ")[1]) - 1;
+                    resultat.innerHTML = `Essais restants : ${essais}`;
+                    if (essais === 0) {
+                        resultat.innerHTML = `Perdu ! Le mot était '${mot}'.`;
+                      //  setTimeout(() => passer(missionNumber + 1), 3000);
+                    }
+                }
+                document.getElementById(lettreInputId).value = "";
+            }
+         if (attempts[`missionNumber`] >= 2){
+                    
+                        resultat.innerHTML = `Perdu ! Le mot était '${mot}'. La mission passe`;
+                      
+                        setTimeout(() => passer(missionNumber + 1), 3000);
+                    }
+        }
+        /* Fonction pour arrêter le jeu et afficher les résultats */
+        function stopGame() {
+            clearInterval(timerInterval);
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = String(Math.floor(elapsed / 60)).padStart(2, "0");
+            const seconds = String(elapsed % 60).padStart(2, "0");
+            const score = Math.floor(reussites * 100 / 20);
+            document.getElementById("agentResult").innerHTML = `${agent}, voici ton bilan :`;
+            document.getElementById("timeResult").innerHTML = `Temps : ${minutes}:${seconds}`;
+            document.getElementById("scoreResult").innerHTML = `Réussite : ${score}% (${reussites}/20 missions)`;
+            document.getElementById("messageResult").innerHTML = score < 50 ? "Bon effort ! Continue d'explorer !" : score <= 80 ? "Beau travail ! Presque pro !" : "Félicitations ! Un vrai champion !";
+            document.getElementById("parcoursResult").innerHTML = `Missions passées : ${passees.length > 0 ? passees.join(", ") : "Aucune"}`;
+            let partialPhrase = "";
+            for (let i = 0; i < missionLetters.length; i++) {
+                partialPhrase += collectedLetters[i] || "_";
+            }
+            document.getElementById("partial-phrase").textContent = partialPhrase;
+        }
+
+        /* Fonction pour vérifier la phrase secrète */
+        function verifierPhrase() {
+            const inputPhrase = document.getElementById("phraseInput").value.toUpperCase().replace(/\s+/g, " ").trim();
+            const result = document.getElementById("phraseResult");
+            const magicWord = document.getElementById("magicWord");
+            if (inputPhrase === finalPhrase) {
+                result.innerHTML = "Félicitations, Agent ! Tu as percé le mystère !";
+                result.style.color = "#FFD700"; /* Or */
+                magicWord.style.display = "block";
+                magicWord.innerHTML = `Mot magique à me donner : <br> <span style="font-size: 48px; color: #ffff00; text-shadow: 2px 2px 4px #000000; animation: pulse 1.5s infinite;">${motSecret}</span>`;
+            } else {
+                result.innerHTML = "Pas tout à fait ! Réessaie.";
+                result.style.color = "#808080"; /* Gris */
+                magicWord.style.display = "none";
+            }
+        }
+          function randomizeCoursePositions() {
+            const courseWindows = document.querySelectorAll(".course-window");
+            courseWindows.forEach((course, index) => {
+                const initialAngle = (index * 2 * Math.PI) / courseWindows.length;
+                const radius = 450;
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
+                const x = centerX + radius * Math.cos(initialAngle) - 200;
+                const y = centerY + radius * Math.sin(initialAngle) - 50;
+                course.style.left = `${x}px`;
+                course.style.top = `${y}px`;
+                course.dataset.angle = initialAngle;
+            });
+        }
+
+        function animateCourseWindows() {
+            const courseWindows = document.querySelectorAll(".course-window.active");
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const radius = 450;
+            angle += 0.002;
+
+            courseWindows.forEach(course => {
+                let currentAngle = parseFloat(course.dataset.angle) + angle;
+                const x = centerX + radius * Math.cos(currentAngle) - 200;
+                const y = centerY + radius * Math.sin(currentAngle) - 50;
+                course.style.left = `${x}px`;
+                course.style.top = `${y}px`;
+            });
+            requestAnimationFrame(animateCourseWindows);
+        }
+    </script>
+</body>
+</html>

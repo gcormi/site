@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Escape Game : Mission Drones</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://plus.unsplash.com/premium_photo-1664475382326-3dc5510e4ff9?q=80&w=2338&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center/cover;
+            color: #f0f8ff;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        .block {
+            display: none;
+            background: rgba(0, 102, 204, 0.85);
+            border: 3px solid #1e90ff;
+            padding: 20px;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #1e90ff;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .block.active {
+            display: block;
+            opacity: 1;
+        }
+        .course-window {
+            display: none;
+            background: rgba(0, 102, 204, 0.7);
+            border: 2px solid #1e90ff;
+            padding: 15px;
+            max-width: 400px;
+            border-radius: 8px;
+            position: absolute;
+            color: #f0f8ff;
+            font-size: 14px;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .course-window.active {
+            display: block;
+            opacity: 1;
+        }
+        h1, h2 {
+            color: #1e90ff;
+            text-shadow: 0 0 5px #4682b4;
+        }
+        button {
+            background-color: #1e90ff;
+            border: none;
+            padding: 10px 20px;
+            color: #f0f8ff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #4682b4;
+        }
+        input, select {
+            padding: 8px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #1e90ff;
+            background: #fff;
+            color: #333;
+            font-size: 14px;
+        }
+        .resultat {
+            color: #000000; /* Noir pour meilleure visibilité */
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .victory {
+            animation: pulse 1s infinite;
+            font-size: 28px;
+        }
+        #timer {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            font-size: 14px;
+            color: #1e90ff;
+        }
+        #musicControl {
+            position: fixed;
+            top: 40px;
+            right: 10px;
+            z-index: 2;
+        }
+        .match-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .match-item {
+            width: 45%;
+            margin: 5px;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        /* Style pour le mot magique */
+        #magicWord {
+            font-size: 36px;
+            color: #ff4081; /* Rose plus vif */
+            text-shadow: 2px 2px 4px #000000;
+            animation: pulse 1.5s infinite;
+        }
+        /* Style pour la lettre collectée */
+        .lettre-collectee {
+            color: #ff4081; /* Rose vif */
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Musique de fond -->
+    <audio id="backgroundMusic" loop>
+        <source src="https://nuage03.apps.education.fr/index.php/s/rfAms6FDNH2ojXM/download/Dancing%20with%20Demons.m4a" type="audio/mp4">
+        Votre navigateur ne supporte pas l'audio.
+    </audio>
+    <button id="musicControl" onclick="toggleMusic()">Activer le son</button>
+    <div id="timer">Temps : 00:00</div>
+
+    <!-- Introduction -->
+    <div id="intro" class="block active">
+        <h1>Mission Drones</h1>
+        <p>"Agent Techno, prêt à décoller dans le monde des drones ? Résous 20 missions pour déverrouiller une phrase mystère et devenir un maître des machines volantes ! Chaque défi te donne une lettre. Prends ton envol !"</p>
+        <!-- Règles du jeu ajoutées ici -->
+        <h2>Règles du jeu :</h2>
+        <ul>
+            <li>Entre ton identifiant Léia pour commencer.</li>
+            <li>Réponds aux 20 missions pour collecter des lettres.</li>
+            <li>Tu as deux essais par mission.</li>
+            <li>Avec les lettres collectées, complète la phrase mystère.</li>
+            <li>Si tu réussis, le mot magique s'affichera !</li>
+        </ul>
+        <input type="text" id="agentIdLeia" placeholder="Ton identifiant Léia">
+        <button onclick="startGame()">Démarrer</button>
+    </div>
+
+    <!-- Mission 1: QCM -->
+    <div id="mission1" class="block">
+        <h2>Mission 1 : Introduction</h2>
+        <p id="m1text">"Agent Techno, à quoi servent principalement les drones ?"</p>
+        <select id="choix1">
+            <option value="">Choisis...</option>
+            <option value="utilite">Des tâches utiles</option>
+            <option value="jouets">Jouer seulement</option>
+            <option value="decoration">Décorer le ciel</option>
+        </select>
+        <button onclick="verifierMission1()">Valider</button>
+        <button onclick="passer(2)">Passer</button>
+        <p id="resultat1" class="resultat"></p>
+    </div>
+    <div id="course1" class="course-window">
+        <p>Ils font bien plus que voler !</p>
+    </div>
+
+    <!-- Mission 2: Qui suis-je? -->
+    <div id="mission2" class="block">
+        <h2>Mission 2 : Fonctionnement</h2>
+        <p id="m2text">"Agent Techno, je fais voler le drone, qui suis-je ? (1 mot)"</p>
+        <input type="text" id="reponse2" placeholder="Entre ta réponse">
+        <button onclick="verifierMission2()">Valider</button>
+        <button onclick="passer(3)">Passer</button>
+        <p id="resultat2" class="resultat"></p>
+    </div>
+    <div id="course2" class="course-window">
+        <p>Je pousse l’air pour décoller.</p>
+    </div>
+
+    <!-- Mission 3: Pendu -->
+    <div id="mission3" class="block">
+        <h2>Mission 3 : Fonctionnement</h2>
+        <p id="m3text">"Agent Techno, devine le mot : donne l’énergie (8 lettres)."</p>
+        <p id="penduDisplay3"></p>
+        <input type="text" id="lettre3" maxlength="1" placeholder="Entre une lettre">
+        <button onclick="jouerPendu3()">Essayer</button>
+        <button onclick="passer(4)">Passer</button>
+        <p id="resultat3" class="resultat">Essais restants : 6</p>
+    </div>
+    <div id="course3" class="course-window">
+        <p>C’est une source de puissance.</p>
+    </div>
+
+    <!-- Mission 4: Appariement -->
+    <div id="mission4" class="block">
+        <h2>Mission 4 : Fonctionnement</h2>
+        <p id="m4text">"Agent Techno, associe chaque composant à son rôle."</p>
+        <div class="match-container">
+            <div class="match-item">
+                <p>Fait voler</p>
+                <select id="match4_1">
+                    <option value="">Choisis...</option>
+                    <option value="helices">Hélices</option>
+                    <option value="moteurs">Moteurs</option>
+                    <option value="capteurs">Capteurs</option>
+                </select>
+            </div>
+            <div class="match-item">
+                <p>Fait tourner</p>
+                <select id="match4_2">
+                    <option value="">Choisis...</option>
+                    <option value="helices">Hélices</option>
+                    <option value="moteurs">Moteurs</option>
+                    <option value="capteurs">Capteurs</option>
+                </select>
+            </div>
+            <div class="match-item">
+                <p>Perçoit autour</p>
+                <select id="match4_3">
+                    <option value="">Choisis...</option>
+                    <option value="helices">Hélices</option>
+                    <option value="moteurs">Moteurs</option>
+                    <option value="capteurs">Capteurs</option>
+                </select>
+            </div>
+        </div>
+        <button onclick="verifierMission4()">Valider</button>
+        <button onclick="passer(5)">Passer</button>
+        <p id="resultat4" class="resultat"></p>
+    </div>
+    <div id="course4" class="course-window">
+        <p>Ils travaillent tous ensemble.</p>
+    </div>
+
+    <!-- Mission 5: QCM -->
+    <div id="mission5" class="block">
+        <h2>Mission 5 : Fonctionnement</h2>
+        <p id="m5text">"Agent Techno, que contrôle l’électronique ?"</p>
+        <select id="choix5">
+            <option value="">Choisis...</option>
+            <option value="mouvements">Les mouvements du drone</option>
+            <option value="vitesse">La vitesse des hélices</option>
+            <option value="energie">L’énergie de la batterie</option>
+        </select>
+        <button onclick="verifierMission5()">Valider</button>
+        <button onclick="passer(6)">Passer</button>
+        <p id="resultat5" class="resultat"></p>
+    </div>
+    <div id="course5" class="course-window">
+        <p>C’est comme le cerveau.</p>
+    </div>
+
+    <!-- Mission 6: Qui suis-je? -->
+    <div id="mission6" class="block">
+        <h2>Mission 6 : Usages</h2>
+        <p id="m6text">"Agent Techno, je surveille les incendies, qui suis-je ? (1 mot)"</p>
+        <input type="text" id="reponse6" placeholder="Entre ta réponse">
+        <button onclick="verifierMission6()">Valider</button>
+        <button onclick="passer(7)">Passer</button>
+        <p id="resultat6" class="resultat"></p>
+    </div>
+    <div id="course6" class="course-window">
+        <p>Je suis un usage du ciel.</p>
+    </div>
+
+    <!-- Mission 7: Pendu -->
+    <div id="mission7" class="block">
+        <h2>Mission 7 : Usages</h2>
+        <p id="m7text">"Agent Techno, devine le mot : apporte des colis (9 lettres)."</p>
+        <p id="penduDisplay7"></p>
+        <input type="text" id="lettre7" maxlength="1" placeholder="Entre une lettre">
+        <button onclick="jouerPendu7()">Essayer</button>
+        <button onclick="passer(8)">Passer</button>
+        <p id="resultat7" class="resultat">Essais restants : 6</p>
+    </div>
+    <div id="course7" class="course-window">
+        <p>Un usage lié au transport.</p>
+    </div>
+
+    <!-- Mission 8: Appariement -->
+    <div id="mission8" class="block">
+        <h2>Mission 8 : Usages</h2>
+        <p id="m8text">"Agent Techno, associe l’usage à son exemple."</p>
+        <div class="match-container">
+            <div class="match-item">
+                <p>Livraison</p>
+                <select id="match8_1">
+                    <option value="">Choisis...</option>
+                    <option value="colis">Colis</option>
+                    <option value="photos">Photos</option>
+                    <option value="sauvetage">Sauvetage</option>
+                </select>
+            </div>
+            <div class="match-item">
+                <p>Photographie</p>
+                <select id="match8_2">
+                    <option value="">Choisis...</option>
+                    <option value="colis">Colis</option>
+                    <option value="photos">Photos</option>
+                    <option value="sauvetage">Sauvetage</option>
+                </select>
+            </div>
+            <div class="match-item">
+                <p>Sauvetage</p>
+                <select id="match8_3">
+                    <option value="">Choisis...</option>
+                    <option value="colis">Colis</option>
+                    <option value="photos">Photos</option>
+                    <option value="sauvetage">Sauvetage</option>
+                </select>
+            </div>
+        </div>
+        <button onclick="verifierMission8()">Valider</button>
+        <button onclick="passer(9)">Passer</button>
+        <p id="resultat8" class="resultat"></p>
+    </div>
+    <div id="course8" class="course-window">
+        <p>Pense à leurs tâches quotidiennes.</p>
+    </div>
+
+    <!-- Mission 9: QCM -->
+    <div id="mission9" class="block">
+        <h2>Mission 9 : Usages</h2>
+        <p id="m9text">"Agent Techno, quel est un inconvénient des drones ?"</p>
+        <select id="choix9">
+            <option value="">Choisis...</option>
+            <option value="bruit">Ils font du bruit</option>
+            <option value="lents">Ils sont lents</option>
+            <option value="lourds">Ils sont lourds</option>
+        </select>
+        <button onclick="verifierMission9()">Valider</button>
+        <button onclick="passer(10)">Passer</button>
+        <p id="resultat9" class="resultat"></p>
+    </div>
+    <div id="course9" class="course-window">
+        <p>Un défaut lié au vol.</p>
+    </div>
+
+    <!-- Mission 10: Qui suis-je? -->
+    <div id="mission10" class="block">
+        <h2>Mission 10 : Usages</h2>
+        <p id="m10text">"Agent Techno, je contrôle le drone à distance, qui suis-je ? (1 mot)"</p>
+        <input type="text" id="reponse10" placeholder="Entre ta réponse">
+        <button onclick="verifierMission10()">Valider</button>
+        <button onclick="passer(11)">Passer</button>
+        <p id="resultat10" class="resultat"></p>
+    </div>
+    <div id="course10" class="course-window">
+        <p>Un outil de pilotage.</p>
+    </div>
+
+    <!-- Mission 11: Pendu -->
+    <div id="mission11" class="block">
+        <h2>Mission 11 : Conception</h2>
+        <p id="m11text">"Agent Techno, devine le mot : modèle réduit (9 lettres)."</p>
+        <p id="penduDisplay11"></p>
+        <input type="text" id="lettre11" maxlength="1" placeholder="Entre une lettre">
+        <button onclick="jouerPendu11()">Essayer</button>
+        <button onclick="passer(12)">Passer</button>
+        <p id="resultat11" class="resultat">Essais restants : 6</p>
+    </div>
+    <div id="course11" class="course-window">
+        <p>Une maquette de test.</p>
+    </div>
+
+    <!-- Mission 12: QCM -->
+    <div id="mission12" class="block">
+        <h2>Mission 12 : Conception</h2>
+        <p id="m12text">"Agent Techno, quelle est la première étape de conception ?"</p>
+        <select id="choix12">
+            <option value="">Choisis...</option>
+            <option value="analyse">Analyser les besoins</option>
+            <option value="dessin">Dessiner le plan</option>
+            <option value="test">Tester la maquette</option>
+        </select>
+        <button onclick="verifierMission12()">Valider</button>
+        <button onclick="passer(13)">Passer</button>
+        <p id="resultat12" class="resultat"></p>
+    </div>
+    <div id="course12" class="course-window">
+        <p>Il faut définir l’objectif.</p>
+    </div>
+
+    <!-- Mission 13: Appariement -->
+    <div id="mission13" class="block">
+        <h2>Mission 13 : Programmation</h2>
+        <p id="m13text">"Agent Techno, associe le concept à sa définition."</p>
+        <div class="match-container">
+            <div class="match-item">
+                <p>Algorithme</p>
+                <select id="match13_1">
+                    <option value="">Choisis...</option>
+                    <option value="instructions">Suite d’instructions</option>
+                    <option value="boite">Boîte à données</option>
+                    <option value="repetition">Répétition d’actions</option>
+                </select>
+            </div>
+            <div class="match-item">
+                <p>Variable</p>
+                <select id="match13_2">
+                    <option value="">Choisis...</option>
+                    <option value="instructions">Suite d’instructions</option>
+                    <option value="boite">Boîte à données</option>
+                    <option value="repetition">Répétition d’actions</option>
+                </select>
+            </div>
+            <div class="match-item">
+                <p>Boucle</p>
+                <select id="match13_3">
+                    <option value="">Choisis...</option>
+                    <option value="instructions">Suite d’instructions</option>
+                    <option value="boite">Boîte à données</option>
+                    <option value="repetition">Répétition d’actions</option>
+                </select>
+            </div>
+        </div>
+        <button onclick="verifierMission13()">Valider</button>
+        <button onclick="passer(14)">Passer</button>
+        <p id="resultat13" class="resultat"></p>
+    </div>
+    <div id="course13" class="course-window">
+        <p>Les bases pour coder.</p>
+    </div>
+
+    <!-- Mission 14: Qui suis-je? -->
+    <div id="mission14" class="block">
+        <h2>Mission 14 : Programmation</h2>
+        <p id="m14text">"Agent Techno, je stocke des infos, qui suis-je ? (1 mot)"</p>
+        <input type="text" id="reponse14" placeholder="Entre ta réponse">
+        <button onclick="verifierMission14()">Valider</button>
+        <button onclick="passer(15)">Passer</button>
+        <p id="resultat14" class="resultat"></p>
+    </div>
+    <div id="course14" class="course-window">
+        <p>Une boîte pour données.</p>
+    </div>
+
+    <!-- Mission 15: Pendu -->
+    <div id="mission15" class="block">
+        <h2>Mission 15 : Programmation</h2>
+        <p id="m15text">"Agent Techno, devine le mot : répète des ordres (6 lettres)."</p>
+        <p id="penduDisplay15"></p>
+        <input type="text" id="lettre15" maxlength="1" placeholder="Entre une lettre">
+        <button onclick="jouerPendu15()">Essayer</button>
+        <button onclick="passer(16)">Passer</button>
+        <p id="resultat15" class="resultat">Essais restants : 6</p>
+    </div>
+    <div id="course15" class="course-window">
+        <p>Pour des actions automatiques.</p>
+    </div>
+
+    <!-- Mission 16: QCM -->
+    <div id="mission16" class="block">
+        <h2>Mission 16 : Développement Durable</h2>
+        <p id="m16text">"Agent Techno, que favorise l’éco-conception ?"</p>
+        <select id="choix16">
+            <option value="">Choisis...</option>
+            <option value="recyclage">Le recyclage</option>
+            <option value="poids">Le poids</option>
+            <option value="vitesse">La vitesse</option>
+        </select>
+        <button onclick="verifierMission16()">Valider</button>
+        <button onclick="passer(17)">Passer</button>
+        <p id="resultat16" class="resultat"></p>
+    </div>
+    <div id="course16" class="course-window">
+        <p>Un geste pour la planète.</p>
+    </div>
+
+    <!-- Mission 17: Appariement -->
+    <div id="mission17" class="block">
+        <h2>Mission 17 : Développement Durable</h2>
+        <p id="m17text">"Agent Techno, associe l’idée à son but."</p>
+        <div class="match-container">
+            <div class="match-item">
+                <p>Matériaux recyclés</p>
+                <select id="match17_1">
+                    <option value="">Choisis...</option>
+                    <option value="moins_dechets">Moins de déchets</option>
+                    <option value="moins_energie">Moins d’énergie</option>
+                    <option value="durabilite">Durabilité</option>
+                </select>
+            </div>
+            <div class="match-item">
+                <p>Batterie écologique</p>
+                <select id="match17_2">
+                    <option value="">Choisis...</option>
+                    <option value="moins_dechets">Moins de déchets</option>
+                    <option value="moins_energie">Moins d’énergie</option>
+                    <option value="durabilite">Durabilité</option>
+                </select>
+            </div>
+            <div class="match-item">
+                <p>Recyclage</p>
+                <select id="match17_3">
+                    <option value="">Choisis...</option>
+                    <option value="moins_dechets">Moins de déchets</option>
+                    <option value="moins_energie">Moins d’énergie</option>
+                    <option value="durabilite">Durabilité</option>
+                </select>
+            </div>
+        </div>
+        <button onclick="verifierMission17()">Valider</button>
+        <button onclick="passer(18)">Passer</button>
+        <p id="resultat17" class="resultat"></p>
+    </div>
+    <div id="course17" class="course-window">
+        <p>Pense à réduire l’impact.</p>
+    </div>
+
+    <!-- Mission 18: Qui suis-je? -->
+    <div id="mission18" class="block">
+        <h2>Mission 18 : Avenir</h2>
+        <p id="m18text">"Agent Techno, je vole tout seul, qui suis-je ? (1 mot)"</p>
+        <input type="text" id="reponse18" placeholder="Entre ta réponse">
+        <button onclick="verifierMission18()">Valider</button>
+        <button onclick="passer(19)">Passer</button>
+        <p id="resultat18" class="resultat"></p>
+    </div>
+    <div id="course18" class="course-window">
+        <p>Une future capacité.</p>
+    </div>
+
+    <!-- Mission 19: Pendu -->
+    <div id="mission19" class="block">
+        <h2>Mission 19 : Avenir</h2>
+        <p id="m19text">"Agent Techno, devine le mot : taxi volant (5 lettres)."</p>
+        <p id="penduDisplay19"></p>
+        <input type="text" id="lettre19" maxlength="1" placeholder="Entre une lettre">
+        <button onclick="jouerPendu19()">Essayer</button>
+        <button onclick="passer(20)">Passer</button>
+        <p id="resultat19" class="resultat">Essais restants : 6</p>
+    </div>
+    <div id="course19" class="course-window">
+        <p>Un transport du futur.</p>
+    </div>
+
+    <!-- Mission 20: QCM -->
+    <div id="mission20" class="block">
+        <h2>Mission 20 : Avenir</h2>
+        <p id="m20text">"Agent Techno, quel usage futur aidera l’environnement ?"</p>
+        <select id="choix20">
+            <option value="">Choisis...</option>
+            <option value="forets">Surveiller les forêts</option>
+            <option value="livraison">Livrer plus vite</option>
+            <option value="photos">Prendre des photos</option>
+        </select>
+        <button onclick="verifierMission20()">Valider</button>
+        <button onclick="passer(21)">Passer</button>
+        <p id="resultat20" class="resultat"></p>
+    </div>
+    <div id="course20" class="course-window">
+        <p>Un rôle écologique.</p>
+    </div>
+
+    <!-- Victoire -->
+    <div id="victoire" class="block">
+        <h1 class="victory">Mission Accomplie !</h1>
+        <p id="agentResult"></p>
+        <p id="timeResult"></p>
+        <p id="scoreResult"></p>
+        <p id="messageResult"></p>
+        <p id="parcoursResult"></p>
+        <p id="magicWord" style="display: none;"></p>
+        <p>Phrase avec tes lettres :</p>
+        <p id="partial-phrase"></p>
+        <p>Complète la phrase (3 mots) :</p>
+        <input type="text" id="phraseInput" placeholder="20 lettres max">
+        <button onclick="verifierPhrase()">Valider la phrase</button>
+        <p id="phraseResult"></p>
+    </div>
+
+    <script>
+        // Variables globales
+        let agent = "Agent Techno";
+        let startTime = 0;
+        let timerInterval = null;
+        let reussites = 0;
+        let passees = [];
+        let collectedLetters = new Array(20);
+        const finalPhrase = "DRONES DU FUTUR";
+        const missionLetters = finalPhrase.split("");
+        let angle = 0;
+
+        // Variables pour suivre les tentatives par mission
+        let attemptsMission1 = 0;
+        let attemptsMission2 = 0;
+        let attemptsMission3 = 0;
+        let attemptsMission4 = 0;
+        let attemptsMission5 = 0;
+        let attemptsMission6 = 0;
+        let attemptsMission7 = 0;
+        let attemptsMission8 = 0;
+        let attemptsMission9 = 0;
+        let attemptsMission10 = 0;
+        let attemptsMission11 = 0;
+        let attemptsMission12 = 0;
+        let attemptsMission13 = 0;
+        let attemptsMission14 = 0;
+        let attemptsMission15 = 0;
+        let attemptsMission16 = 0;
+        let attemptsMission17 = 0;
+        let attemptsMission18 = 0;
+        let attemptsMission19 = 0;
+        let attemptsMission20 = 0;
+
+        // Fonction pour démarrer le jeu
+        function startGame() {
+            const idLeia = document.getElementById("agentIdLeia").value.trim();
+            if (!idLeia) {
+                alert("Entre ton identifiant Léia !");
+                return;
+            }
+            agent = `Agent Techno - ${idLeia}`;
+            document.querySelectorAll("p[id^='m']").forEach(p => {
+                p.innerHTML = p.innerHTML.replace("Agent Techno", agent);
+            });
+            startTime = Date.now();
+            timerInterval = setInterval(updateTimer, 1000);
+            randomizeCoursePositions();
+            showBlock("mission1");
+            requestAnimationFrame(animateCourseWindows);
+
+            // Ajout d'un message de bienvenue
+            alert(`Bienvenue, ${agent} ! Prépare-toi à ta mission.`);
+        }
+
+        // Fonction pour mettre à jour le timer
+        function updateTimer() {
+            const now = Date.now();
+            const elapsed = Math.floor((now - startTime) / 1000);
+            const minutes = String(Math.floor(elapsed / 60)).padStart(2, "0");
+            const seconds = String(elapsed % 60).padStart(2, "0");
+            document.getElementById("timer").textContent = `Temps : ${minutes}:${seconds}`;
+        }
+
+        // Fonction pour positionner aléatoirement les fenêtres d'aide
+        function randomizeCoursePositions() {
+            const courseWindows = document.querySelectorAll(".course-window");
+            courseWindows.forEach((course, index) => {
+                const initialAngle = (index * 2 * Math.PI) / courseWindows.length;
+                const radius = 450;
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
+                const x = centerX + radius * Math.cos(initialAngle) - 200;
+                const y = centerY + radius * Math.sin(initialAngle) - 50;
+                course.style.left = `${x}px`;
+                course.style.top = `${y}px`;
+                course.dataset.angle = initialAngle;
+            });
+        }
+
+        // Fonction pour animer les fenêtres d'aide
+        function animateCourseWindows() {
+            const courseWindows = document.querySelectorAll(".course-window.active");
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const radius = 450;
+            angle += 0.002;
+
+            courseWindows.forEach(course => {
+                let currentAngle = parseFloat(course.dataset.angle) + angle;
+                const x = centerX + radius * Math.cos(currentAngle) - 200;
+                const y = centerY + radius * Math.sin(currentAngle) - 50;
+                course.style.left = `${x}px`;
+                course.style.top = `${y}px`;
+            });
+            requestAnimationFrame(animateCourseWindows);
+        }
+
+        // Fonction pour afficher un bloc et sa fenêtre d'aide associée
+        function showBlock(blockId) {
+            document.querySelectorAll(".block").forEach(block => block.classList.remove("active"));
+            document.querySelectorAll(".course-window").forEach(course => course.classList.remove("active"));
+            const newBlock = document.getElementById(blockId);
+            if (newBlock) {
+                newBlock.classList.add("active");
+                const courseId = blockId.replace("mission", "course");
+                const courseWindow = document.getElementById(courseId);
+                if (courseWindow) courseWindow.classList.add("active");
+            }
+        }
+
+        // Fonction pour passer à la mission suivante
+        function passer(next) {
+            passees.push(next - 1);
+            if (next <= 20) {
+                showBlock(`mission${next}`);
+            } else {
+                showBlock("victoire");
+                stopGame();
+            }
+        }
+
+        // Fonction pour activer/désactiver la musique
+        function toggleMusic() {
+            const audio = document.getElementById("backgroundMusic");
+            const button = document.getElementById("musicControl");
+            if (audio.paused) {
+                audio.play().catch(error => {
+                    console.error("Erreur lors de la lecture audio :", error);
+                    alert("Impossible de jouer le son. Vérifie la connexion ou les autorisations du navigateur.");
+                });
+                button.textContent = "Couper le son";
+            } else {
+                audio.pause();
+                button.textContent = "Activer le son";
+            }
+        }
+
+        // Fonctions de vérification des missions (avec gestion des tentatives)
+        function verifierMission1() {
+            attemptsMission1++;
+            const choix = document.getElementById("choix1").value;
+            const resultat = document.getElementById("resultat1");
+
+            if (choix === "utilite") {
+                reussites++;
+                collectedLetters[0] = missionLetters[0];
+                resultat.innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[0]}</span>`;
+                setTimeout(() => showBlock("mission2"), 2000);
+                attemptsMission1 = 0; // Réinitialiser les tentatives pour la mission suivante
+            } else {
+                if (attemptsMission1 < 2) {
+                    resultat.innerHTML = "Incorrect. Essaie encore.";
+                } else {
+                    resultat.innerHTML = "Incorrect. Mission validée sans la lettre.";
+                    setTimeout(() => showBlock("mission2"), 2000);
+                    attemptsMission1 = 0; // Réinitialiser les tentatives pour la mission suivante
+                }
+            }
+        }
+
+        function verifierMission2() {
+            attemptsMission2++;
+            const reponse = document.getElementById("reponse2").value.toLowerCase();
+            const resultat = document.getElementById("resultat2");
+
+            if (reponse === "helices") {
+                reussites++;
+                collectedLetters[1] = missionLetters[1];
+                resultat.innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[1]}</span>`;
+                setTimeout(() => showBlock("mission3"), 2000);
+                attemptsMission2 = 0;
+            } else {
+                if (attemptsMission2 < 2) {
+                    resultat.innerHTML = "Incorrect. Essaie encore.";
+                } else {
+                    resultat.innerHTML = "Incorrect. Mission validée sans la lettre.";
+                    setTimeout(() => showBlock("mission3"), 2000);
+                    attemptsMission2 = 0;
+                }
+            }
+        }
+
+        function jouerPendu3() {
+            attemptsMission3++;
+            const lettre = document.getElementById("lettre3").value.toLowerCase();
+            const display = document.getElementById("penduDisplay3");
+            const resultat = document.getElementById("resultat3");
+            const mot = "batterie";
+            let etat = display.textContent || "_".repeat(mot.length);
+
+            if (lettre && resultat.textContent.includes("restants")) {
+                if (mot.includes(lettre)) {
+                    let nouvelEtat = "";
+                    for (let i = 0; i < mot.length; i++) {
+                        nouvelEtat += (mot[i] === lettre || etat[i] !== "_") ? mot[i] : "_";
+                    }
+                    display.textContent = nouvelEtat;
+
+                    if (!nouvelEtat.includes("_")) {
+                        reussites++;
+                        collectedLetters[2] = missionLetters[2];
+                        resultat.innerHTML = `Gagné ! Le mot était 'batterie'. <span class="lettre-collectee">Lettre collectée : ${missionLetters[2]}</span>`;
+                        setTimeout(() => showBlock("mission4"), 2000);
+                        attemptsMission3 = 0;
+                    }
+                } else {
+                    let essais = parseInt(resultat.textContent.split(": ")[1]) - 1;
+                    resultat.innerHTML = `Essais restants : ${essais}`;
+
+                    if (essais === 0) {
+                        resultat.innerHTML = "Perdu ! Le mot était 'batterie'.";
+                        if (attemptsMission3 < 2) {
+                            resultat.innerHTML += " Mission validée sans la lettre.";
+                        }
+                        setTimeout(() => showBlock("mission4"), 2000);
+                        attemptsMission3 = 0;
+                    }
+                }
+                document.getElementById("lettre3").value = "";
+            } else if (attemptsMission3 >= 2) {
+                setTimeout(() => showBlock("mission4"), 2000);
+                attemptsMission3 = 0;
+            }
+        }
+
+        function verifierMission4() {
+            attemptsMission4++;
+            const match1 = document.getElementById("match4_1").value;
+            const match2 = document.getElementById("match4_2").value;
+            const match3 = document.getElementById("match4_3").value;
+            const resultat = document.getElementById("resultat4");
+
+            if (match1 === "helices" && match2 === "moteurs" && match3 === "capteurs") {
+                reussites++;
+                collectedLetters[3] = missionLetters[3];
+                resultat.innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[3]}</span>`;
+                setTimeout(() => showBlock("mission5"), 2000);
+                attemptsMission4 = 0;
+            } else {
+                if (attemptsMission4 < 2) {
+                    resultat.innerHTML = "Incorrect. Essaie encore.";
+                } else {
+                    resultat.innerHTML = "Incorrect. Mission validée sans la lettre.";
+                    setTimeout(() => showBlock("mission5"), 2000);
+                    attemptsMission4 = 0;
+                }
+            }
+        }
+
+        function verifierMission5() {
+            attemptsMission5++;
+            const choix = document.getElementById("choix5").value;
+            const resultat = document.getElementById("resultat5");
+
+            if (choix === "mouvements") {
+                reussites++;
+                collectedLetters[4] = missionLetters[4];
+                resultat.innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[4]}</span>`;
+                setTimeout(() => showBlock("mission6"), 2000);
+                attemptsMission5 = 0;
+            } else {
+                if (attemptsMission5 < 2) {
+                    resultat.innerHTML = "Incorrect. Essaie encore.";
+                } else {
+                    resultat.innerHTML = "Incorrect. Mission validée sans la lettre.";
+                    setTimeout(() => showBlock("mission6"), 2000);
+                    attemptsMission5 = 0;
+                }
+            }
+        }
+
+        function verifierMission6() {
+            attemptsMission6++;
+            const reponse = document.getElementById("reponse6").value.toLowerCase();
+            const resultat = document.getElementById("resultat6");
+
+            if (reponse === "surveillance") {
+                reussites++;
+                collectedLetters[5] = missionLetters[5];
+                resultat.innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[5]}</span>`;
+                setTimeout(() => showBlock("mission7"), 2000);
+                attemptsMission6 = 0;
+            } else {
+                if (attemptsMission6 < 2) {
+                    resultat.innerHTML = "Incorrect. Essaie encore.";
+                } else {
+                    resultat.innerHTML = "Incorrect. Mission validée sans la lettre.";
+                    setTimeout(() => showBlock("mission7"), 2000);
+                    attemptsMission6 = 0;
+                }
+            }
+        }
+
+        function jouerPendu7() {
+            attemptsMission7++;
+            const lettre = document.getElementById("lettre7").value.toLowerCase();
+            const display = document.getElementById("penduDisplay7");
+            const resultat = document.getElementById("resultat7");
+            const mot = "livraison";
+            let etat = display.textContent || "_".repeat(mot.length);
+
+            if (lettre && resultat.textContent.includes("restants")) {
+                if (mot.includes(lettre)) {
+                    let nouvelEtat = "";
+                    for (let i = 0; i < mot.length; i++) {
+                        nouvelEtat += (mot[i] === lettre || etat[i] !== "_") ? mot[i] : "_";
+                    }
+                    display.textContent = nouvelEtat;
+
+                    if (!nouvelEtat.includes("_")) {
+                        reussites++;
+                        collectedLetters[6] = missionLetters[6];
+                        resultat.innerHTML = `Gagné ! Le mot était 'livraison'. <span class="lettre-collectee">Lettre collectée : ${missionLetters[6]}</span>`;
+                        setTimeout(() => showBlock("mission8"), 2000);
+                        attemptsMission7 = 0;
+                    }
+                } else {
+                    let essais = parseInt(resultat.textContent.split(": ")[1]) - 1;
+                    resultat.innerHTML = `Essais restants : ${essais}`;
+
+                    if (essais === 0) {
+                        resultat.innerHTML = "Perdu ! Le mot était 'livraison'.";
+                        if (attemptsMission7 < 2) {
+                            resultat.innerHTML += " Mission validée sans la lettre.";
+                        }
+                        setTimeout(() => showBlock("mission8"), 2000);
+                        attemptsMission7 = 0;
+                    }
+                }
+                document.getElementById("lettre7").value = "";
+            } else if (attemptsMission7 >= 2) {
+                setTimeout(() => showBlock("mission8"), 2000);
+                attemptsMission7 = 0;
+            }
+        }
+
+        function verifierMission8() {
+            attemptsMission8++;
+            const match1 = document.getElementById("match8_1").value;
+            const match2 = document.getElementById("match8_2").value;
+            const match3 = document.getElementById("match8_3").value;
+            const resultat = document.getElementById("resultat8");
+
+            if (match1 === "colis" && match2 === "photos" && match3 === "sauvetage") {
+                reussites++;
+                collectedLetters[7] = missionLetters[7];
+                resultat.innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[7]}</span>`;
+                setTimeout(() => showBlock("mission9"), 2000);
+                attemptsMission8 = 0;
+            } else {
+                if (attemptsMission8 < 2) {
+                    resultat.innerHTML = "Incorrect. Essaie encore.";
+                } else {
+                    resultat.innerHTML = "Incorrect. Mission validée sans la lettre.";
+                    setTimeout(() => showBlock("mission9"), 2000);
+                    attemptsMission8 = 0;
+                }
+            }
+        }
+
+        function verifierMission9() {
+            attemptsMission9++;
+            const choix = document.getElementById("choix9").value;
+            const resultat = document.getElementById("resultat9");
+
+            if (choix === "bruit") {
+                reussites++;
+                collectedLetters[8] = missionLetters[8];
+                resultat.innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[8]}</span>`;
+                setTimeout(() => showBlock("mission10"), 2000);
+                attemptsMission9 = 0;
+            } else {
+                if (attemptsMission9 < 2) {
+                    resultat.innerHTML = "Incorrect. Essaie encore.";
+                } else {
+                    resultat.innerHTML = "Incorrect. Mission validée sans la lettre.";
+                    setTimeout(() => showBlock("mission10"), 2000);
+                    attemptsMission9 = 0;
+                }
+            }
+        }
+
+        function verifierMission10() {
+            attemptsMission10++;
+            const reponse = document.getElementById("reponse10").value.toLowerCase();
+            const resultat = document.getElementById("resultat10");
+
+            if (reponse === "telecommande") {
+                reussites++;
+                collectedLetters[9] = missionLetters[9];
+                resultat.innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[9]}</span>`;
+                setTimeout(() => showBlock("mission11"), 2000);
+                attemptsMission10 = 0;
+            } else {
+                if (attemptsMission10 < 2) {
+                    resultat.innerHTML = "Incorrect. Essaie encore.";
+                } else {
+                    resultat.innerHTML = "Incorrect. Mission validée sans la lettre.";
+                    setTimeout(() => showBlock("mission11"), 2000);
+                    attemptsMission10 = 0;
+                }
+            }
+        }
+
+        function jouerPendu11() {
+            attemptsMission11++;
+            const lettre = document.getElementById("lettre11").value.toLowerCase();
+            const display = document.getElementById("penduDisplay11");
+            const resultat = document.getElementById("resultat11");
+            const mot = "prototype";
+            let etat = display.textContent || "_".repeat(mot.length);
+
+            if (lettre && resultat.textContent.includes("restants")) {
+                if (mot.includes(lettre)) {
+                    let nouvelEtat = "";
+                    for (let i = 0; i < mot.length; i++) {
+                        nouvelEtat += (mot[i] === lettre || etat[i] !== "_") ? mot[i] : "_";
+                    }
+                    display.textContent = nouvelEtat;
+
+                    if (!nouvelEtat.includes("_")) {
+                        reussites++;
+                        collectedLetters[10] = missionLetters[10];
+                        resultat.innerHTML = `Gagné ! Le mot était 'prototype'. <span class="lettre-collectee">Lettre collectée : ${missionLetters[10]}</span>`;
+                        setTimeout(() => showBlock("mission12"), 2000);
+                        attemptsMission11 = 0;
+                    }
+                } else {
+                    let essais = parseInt(resultat.textContent.split(": ")[1]) - 1;
+                    resultat.innerHTML = `Essais restants : ${essais}`;
+
+                    if (essais === 0) {
+                        resultat.innerHTML = "Perdu ! Le mot était 'prototype'.";
+                        if (attemptsMission11 < 2) {
+                            resultat.innerHTML += " Mission validée sans la lettre.";
+                        }
+                        setTimeout(() => showBlock("mission12"), 2000);
+                        attemptsMission11 = 0;
+                    }
+                }
+                document.getElementById("lettre11").value = "";
+            } else if (attemptsMission11 >= 2) {
+                setTimeout(() => showBlock("mission12"), 2000);
+                attemptsMission11 = 0;
+            }
+        }
+
+        function verifierMission12() {
+            attemptsMission12++;
+            const choix = document.getElementById("choix12").value;
+            const resultat = document.getElementById("resultat12");
+
+            if (choix === "analyse") {
+                reussites++;
+                collectedLetters[11] = missionLetters[11];
+                resultat.innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[11]}</span>`;
+                setTimeout(() => showBlock("mission13"), 2000);
+                attemptsMission12 = 0;
+            } else {
+                if (attemptsMission12 < 2) {
+                    resultat.innerHTML = "Incorrect. Essaie encore.";
+                } else {
+                    resultat.innerHTML = "Incorrect. Mission validée sans la lettre.";
+                    setTimeout(() => showBlock("mission13"), 2000);
+                    attemptsMission12 = 0;
+                }
+            }
+        }
+
+        function verifierMission13() {
+            attemptsMission13++;
+            const match1 = document.getElementById("match13_1").value;
+            const match2 = document.getElementById("match13_2").value;
+            const match3 = document.getElementById("match13_3").value;
+            const resultat = document.getElementById("resultat13");
+
+            if (match1 === "instructions" && match2 === "boite" && match3 === "repetition") {
+                reussites++;
+                collectedLetters[12] = missionLetters[12];
+                resultat.innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[12]}</span>`;
+                setTimeout(() => showBlock("mission14"), 2000);
+                attemptsMission13 = 0;
+            } else {
+                if (attemptsMission13 < 2) {
+                    resultat.innerHTML = "Incorrect. Essaie encore.";
+                } else {
+                    resultat.innerHTML = "Incorrect. Mission validée sans la lettre.";
+                    setTimeout(() => showBlock("mission14"), 2000);
+                    attemptsMission13 = 0;
+                }
+            }
+        }
+
+        function verifierMission14() {
+            attemptsMission14++;
+            const reponse = document.getElementById("reponse14").value.toLowerCase();
+            const resultat = document.getElementById("resultat14");
+
+            if (reponse === "variable") {
+                reussites++;
+                collectedLetters[13] = missionLetters[13];
+                resultat.innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[13]}</span>`;
+                setTimeout(() => showBlock("mission15"), 2000);
+                attemptsMission14 = 0;
+            } else {
+                if (attemptsMission14 < 2) {
+                    resultat.innerHTML = "Incorrect. Essaie encore.";
+                } else {
+                    resultat.innerHTML = "Incorrect. Mission validée sans la lettre.";
+                    setTimeout(() => showBlock("mission15"), 2000);
+                    attemptsMission14 = 0;
+                }
+            }
+        }
+
+        function jouerPendu15() {
+            attemptsMission15++;
+            const lettre = document.getElementById("lettre15").value.toLowerCase();
+            const display = document.getElementById("penduDisplay15");
+            const resultat = document.getElementById("resultat15");
+            const mot = "boucle";
+            let etat = display.textContent || "_".repeat(mot.length);
+
+            if (lettre && resultat.textContent.includes("restants")) {
+                if (mot.includes(lettre)) {
+                    let nouvelEtat = "";
+                    for (let i = 0; i < mot.length; i++) {
+                        nouvelEtat += (mot[i] === lettre || etat[i] !== "_") ? mot[i] : "_";
+                    }
+                    display.textContent = nouvelEtat;
+
+                    if (!nouvelEtat.includes("_")) {
+                        reussites++;
+                        collectedLetters[14] = missionLetters[14];
+                        resultat.innerHTML = `Gagné ! Le mot était 'boucle'. <span class="lettre-collectee">Lettre collectée : ${missionLetters[14]}</span>`;
+                        setTimeout(() => showBlock("mission16"), 2000);
+                        attemptsMission15 = 0;
+                    }
+                } else {
+                    let essais = parseInt(resultat.textContent.split(": ")[1]) - 1;
+                    resultat.innerHTML = `Essais restants : ${essais}`;
+
+                    if (essais === 0) {
+                        resultat.innerHTML = "Perdu ! Le mot était 'boucle'.";
+                        if (attemptsMission15 < 2) {
+                            resultat.innerHTML += " Mission validée sans la lettre.";
+                        }
+                        setTimeout(() => showBlock("mission16"), 2000);
+                        attemptsMission15 = 0;
+                    }
+                }
+                document.getElementById("lettre15").value = "";
+            } else if (attemptsMission15 >= 2) {
+                setTimeout(() => showBlock("mission16"), 2000);
+                attemptsMission15 = 0;
+            }
+        }
+
+        function verifierMission16() {
+            attemptsMission16++;
+            const choix = document.getElementById("choix16").value;
+            const resultat = document.getElementById("resultat16");
+
+            if (choix === "recyclage") {
+                reussites++;
+                collectedLetters[15] = missionLetters[15];
+                resultat.innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[15]}</span>`;
+setTimeout(() => showBlock("mission17"), 2000);
+attemptsMission16 = 0;
+} else {
+if (attemptsMission16 < 2) {
+resultat.innerHTML = "Incorrect. Essaie encore.";
+} else {
+resultat.innerHTML = "Incorrect. Mission validée sans la lettre.";
+setTimeout(() => showBlock("mission17"), 2000);
+attemptsMission16 = 0;
+}
+}
+}
+
+function verifierMission17() {
+        attemptsMission17++;
+        const match1 = document.getElementById("match17_1").value;
+        const match2 = document.getElementById("match17_2").value;
+        const match3 = document.getElementById("match17_3").value;
+        const resultat = document.getElementById("resultat17");
+
+        if (match1 === "moins_dechets" && match2 === "moins_energie" && match3 === "durabilite") {
+            reussites++;
+            collectedLetters[16] = missionLetters[16];
+            resultat.innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[16]}</span>`;
+            setTimeout(() => showBlock("mission18"), 2000);
+            attemptsMission17 = 0;
+        } else {
+            if (attemptsMission17 < 2) {
+                resultat.innerHTML = "Incorrect. Essaie encore.";
+            } else {
+                resultat.innerHTML = "Incorrect. Mission validée sans la lettre.";
+                setTimeout(() => showBlock("mission18"), 2000);
+                attemptsMission17 = 0;
+            }
+        }
+    }
+
+    function verifierMission18() {
+        attemptsMission18++;
+        const reponse = document.getElementById("reponse18").value.toLowerCase();
+        const resultat = document.getElementById("resultat18");
+
+        if (reponse === "autonomie") {
+            reussites++;
+            collectedLetters[17] = missionLetters[17];
+            resultat.innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[17]}</span>`;
+            setTimeout(() => showBlock("mission19"), 2000);
+            attemptsMission18 = 0;
+        } else {
+            if (attemptsMission18 < 2) {
+                resultat.innerHTML = "Incorrect. Essaie encore.";
+            } else {
+                resultat.innerHTML = "Incorrect. Mission validée sans la lettre.";
+                setTimeout(() => showBlock("mission19"), 2000);
+                attemptsMission18 = 0;
+            }
+        }
+    }
+
+    function jouerPendu19() {
+        attemptsMission19++;
+        const lettre = document.getElementById("lettre19").value.toLowerCase();
+        const display = document.getElementById("penduDisplay19");
+        const resultat = document.getElementById("resultat19");
+        const mot = "taxi";
+        let etat = display.textContent || "_".repeat(mot.length);
+
+        if (lettre && resultat.textContent.includes("restants")) {
+            if (mot.includes(lettre)) {
+                let nouvelEtat = "";
+                for (let i = 0; i < mot.length; i++) {
+                    nouvelEtat += (mot[i] === lettre || etat[i] !== "_") ? mot[i] : "_";
+                }
+                display.textContent = nouvelEtat;
+
+                if (!nouvelEtat.includes("_")) {
+                    reussites++;
+                    collectedLetters[18] = missionLetters[18];
+                    resultat.innerHTML = `Gagné ! Le mot était 'taxi'. <span class="lettre-collectee">Lettre collectée : ${missionLetters[18]}</span>`;
+                    setTimeout(() => showBlock("mission20"), 2000);
+                    attemptsMission19 = 0;
+                }
+            } else {
+                let essais = parseInt(resultat.textContent.split(": ")[1]) - 1;
+                resultat.innerHTML = `Essais restants : ${essais}`;
+
+                if (essais === 0) {
+                    resultat.innerHTML = "Perdu ! Le mot était 'taxi'.";
+                    if (attemptsMission19 < 2) {
+                        resultat.innerHTML += " Mission validée sans la lettre.";
+                    }
+                    setTimeout(() => showBlock("mission20"), 2000);
+                    attemptsMission19 = 0;
+                }
+            }
+            document.getElementById("lettre19").value = "";
+        } else if (attemptsMission19 >= 2) {
+            setTimeout(() => showBlock("mission20"), 2000);
+            attemptsMission19 = 0;
+        }
+    }
+
+    function verifierMission20() {
+        attemptsMission20++;
+        const choix = document.getElementById("choix20").value;
+        const resultat = document.getElementById("resultat20");
+
+        if (choix === "forets") {
+            reussites++;
+            collectedLetters[19] = missionLetters[19];
+            resultat.innerHTML = `Correct ! <span class="lettre-collectee">Lettre collectée : ${missionLetters[19]}</span>`;
+            setTimeout(() => showBlock("victoire"), 2000);
+            attemptsMission20 = 0;
+        } else {
+            if (attemptsMission20 < 2) {
+                resultat.innerHTML = "Incorrect. Essaie encore.";
+            } else {
+                resultat.innerHTML = "Incorrect. Mission validée sans la lettre.";
+                setTimeout(() => showBlock("victoire"), 2000);
+                attemptsMission20 = 0;
+            }
+        }
+    }
+
+    // Fonction pour arrêter le jeu et afficher les résultats
+    function stopGame() {
+        clearInterval(timerInterval);
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        const minutes = String(Math.floor(elapsed / 60)).padStart(2, "0");
+        const seconds = String(elapsed % 60).padStart(2, "0");
+        const score = Math.floor(reussites * 100 / 20);
+        document.getElementById("agentResult").innerHTML = `${agent}, voici ton bilan :`;
+        document.getElementById("timeResult").innerHTML = `Temps : ${minutes}:${seconds}`;
+        document.getElementById("scoreResult").innerHTML = `Réussite : ${score}% (${reussites}/20 missions)`;
+        document.getElementById("messageResult").innerHTML = score < 50 ? "Bon effort ! Continue d’explorer les drones !" : score <= 80 ? "Beau travail ! Presque un pilote pro !" : "Félicitations ! Un génie des drones !";
+        document.getElementById("parcoursResult").innerHTML = `Missions passées : ${passees.length > 0 ? passees.join(", ") : "Aucune"}`;
+        let partialPhrase = "";
+        for (let i = 0; i < missionLetters.length; i++) {
+            partialPhrase += collectedLetters[i] || "_";
+        }
+        document.getElementById("partial-phrase").textContent = partialPhrase;
+    }
+
+    function verifierPhrase() {
+        const inputPhrase = document.getElementById("phraseInput").value.toUpperCase().replace(/\s+/g, " ").trim();
+        const result = document.getElementById("phraseResult");
+        const magicWord = document.getElementById("magicWord");
+        if (inputPhrase === finalPhrase) {
+            result.innerHTML = "Félicitations, Agent ! Tu as percé le mystère des drones !";
+            result.style.color = "#1e90ff";
+            magicWord.style.display = "block";
+            // Afficher le mot magique
+            magicWord.innerHTML = `Mot magique à me donner : <br> <span style="font-size: 48px; color: #ff4081; text-shadow: 2px 2px 4px #000000; animation: pulse 1.5s infinite;">XYZ-123</span>`;
+        } else {
+            result.innerHTML = "Pas tout à fait ! Réessaie.";
+            result.style.color = "#4682b4";
+            magicWord.style.display = "none";
+        }
+    }
+</script>
+Use code with caution.
+</body>
+</html>
