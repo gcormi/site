@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assistant Virtuel - Technologie</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+    }
+    
+    .chat-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    
+    .chat-message {
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    
+    .chat-message.user {
+      background-color: #e0e0e0;
+      text-align: right;
+    }
+    
+    .chat-message.assistant {
+      background-color: #f0f0f0;
+      text-align: left;
+    }
+    
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <h1>Bonjour ! Je m'appelle Monsieur Techno, votre assistant technologique.</h1>
+    <p>Je suis à votre disposition pour répondre à vos questions. Soyez conscient que nos échanges sont susceptibles d'être conservés.</p>
+    <div id="chat-messages"></div>
+    <input type="text" id="user-input" placeholder="Écrivez votre message ici..." onkeypress="handleKeyPress(event)">
+  </div>
+
+  <script>
+    const chatMessages = document.getElementById('chat-messages');
+    const userInput = document.getElementById('user-input');
+
+    function addMessage(sender, message) {
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('chat-message', sender);
+      messageElement.textContent = message;
+      chatMessages.appendChild(messageElement);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        const userMessage = userInput.value.trim();
+        if (userMessage) {
+          addMessage('user', userMessage);
+          userInput.value = '';
+          generateAssistantResponse(userMessage);
+        }
+      }
+    }
+
+    function generateAssistantResponse(userMessage) {
+      // Logique pour générer la réponse de l'assistant
+      const assistantResponse = "Désolé, je n'ai pas compris votre message. Pouvez-vous reformuler votre question ?";
+      addMessage('assistant', assistantResponse);
+    }
+  </script>
+</body>
+</html>
