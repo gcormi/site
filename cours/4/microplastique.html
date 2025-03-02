@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microplastiques dans l'Océan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      color: #333;
+      margin: 0; /* Supprimer les marges par défaut */
+      padding: 10px; /* Réduire le padding global */
+      font-size: 0.9em; /* Réduire la taille de la police pour prendre moins de place */
+      line-height: 1.4; /* Réduire l'espacement des lignes */
+    }
+    h1 {
+      font-size: 1.5em; /* Ajuster la taille du titre principal */
+      text-align: center; /* Centrer le titre */
+      margin-bottom: 10px; /* Réduire la marge en dessous du titre */
+    }
+    h2 {
+      font-size: 1.2em; /* Ajuster la taille des sous-titres */
+      margin-top: 15px; /* Réduire la marge au-dessus des sous-titres */
+      margin-bottom: 10px; /* Réduire la marge en dessous des sous-titres */
+    }
+    h3 {
+      font-size: 1em; /* Ajuster la taille des sous-sous-titres */
+      margin-top: 10px; /* Réduire la marge au-dessus des sous-sous-titres */
+      margin-bottom: 5px; /* Réduire la marge en dessous des sous-sous-titres */
+    }
+    .section {
+      background-color: #fff;
+      padding: 10px; /* Réduire le padding des sections */
+      margin-bottom: 10px; /* Réduire la marge en dessous des sections */
+      border-radius: 5px; /* Réduire l'arrondi des bordures */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Réduire l'ombre */
+    }
+    .interactive {
+      cursor: pointer;
+      color: #006994;
+      text-decoration: underline;
+    }
+    .hidden {
+      display: none;
+    }
+    .button {
+      background-color: #006994;
+      color: #fff;
+      padding: 8px 16px; /* Réduire le padding des boutons */
+      border: none;
+      border-radius: 4px; /* Réduire l'arrondi des bordures */
+      cursor: pointer;
+      font-size: 0.9em; /* Ajuster la taille de la police */
+      margin-top: 5px; /* Réduire la marge au-dessus du bouton */
+    }
+    .button:hover {
+      background-color: #005577;
+    }
+    .qcm {
+      margin-top: 10px; /* Réduire la marge au-dessus des QCM */
+      padding: 10px; /* Réduire le padding des QCM */
+      background-color: #e6f7ff;
+      border-radius: 5px; /* Réduire l'arrondi des bordures */
+    }
+    .qcm h4 {
+      margin-top: 0;
+      font-size: 1em; /* Ajuster la taille de la police */
+    }
+    .qcm label {
+      display: block; /* Assurer que les labels occupent toute la largeur */
+      margin-bottom: 3px; /* Réduire l'espacement entre les labels */
+    }
+    .feedback {
+      margin-top: 5px; /* Réduire la marge au-dessus du feedback */
+      font-weight: bold;
+      font-size: 0.9em; /* Ajuster la taille de la police */
+    }
+    .correct {
+      color: green;
+    }
+    .incorrect {
+      color: red;
+    }
+    ul, ol {
+      padding-left: 20px; /* Réduire l'indentation des listes */
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔎 Microplastiques dans l'Océan : Comment les Nettoyer ? 🌊</h1>
+
+  <!-- Section 1 : Introduction -->
+  <div class="section">
+    <h2>Introduction</h2>
+    <p>Les microplastiques sont de minuscules morceaux de plastique, souvent invisibles à l'œil nu, qui polluent les océans. Ils proviennent de la dégradation de déchets plastiques plus gros, comme les bouteilles ou les sacs, ou de produits cosmétiques et industriels. Ces particules représentent une menace pour la vie marine et les écosystèmes.</p>
+    <p>Dans ce cours, nous allons explorer les solutions pour nettoyer les océans et les technologies innovantes qui pourraient aider à résoudre ce problème.</p>
+
+    <!-- QCM pour l'introduction -->
+    <div class="qcm">
+      <h4>Question 1 : Quelle est la taille des microplastiques ?</h4>
+      <form id="qcm1">
+        <label><input type="radio" name="q1" value="a"> Moins de 5 mm</label><br>
+        <label><input type="radio" name="q1" value="b"> Plus de 10 cm</label><br>
+        <label><input type="radio" name="q1" value="c"> Entre 1 et 5 cm</label><br>
+        <button type="button" onclick="checkAnswer('qcm1', 'a')" class="button">Vérifier</button>
+      </form>
+      <div id="feedback1" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <!-- Section 2 : Les Microplastiques -->
+  <div class="section">
+    <h2>1. Les Microplastiques : Qu'est-ce que c'est ?</h2>
+    <p><strong>Définition :</strong> Les microplastiques sont des fragments de plastique de moins de 5 mm de diamètre.</p>
+    <p><strong>Origine :</strong></p>
+    <ul>
+      <li>Déchets plastiques qui se décomposent sous l'effet du soleil, de l'eau et des vagues.</li>
+      <li>Microbilles utilisées dans les produits cosmétiques (gommages, dentifrices).</li>
+      <li>Fibres synthétiques rejetées lors du lavage des vêtements.</li>
+    </ul>
+    <p><strong>Impact :</strong></p>
+    <ul>
+      <li>Ils sont ingérés par les animaux marins, ce qui perturbe leur santé et la chaîne alimentaire.</li>
+      <li>Ils accumulent des polluants chimiques, qui peuvent se propager dans l'environnement.</li>
+    </ul>
+
+    <!-- QCM pour les microplastiques -->
+    <div class="qcm">
+      <h4>Question 2 : Quelle est l'origine des microplastiques ?</h4>
+      <form id="qcm2">
+        <label><input type="radio" name="q2" value="a"> Roches volcaniques</label><br>
+        <label><input type="radio" name="q2" value="b"> Déchets plastiques décomposés</label><br>
+        <label><input type="radio" name="q2" value="c"> Plantes marines</label><br>
+        <button type="button" onclick="checkAnswer('qcm2', 'b')" class="button">Vérifier</button>
+      </form>
+      <div id="feedback2" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <!-- Section 3 : Comment Nettoyer les Microplastiques ? -->
+  <div class="section">
+    <h2>2. Comment Nettoyer les Microplastiques ?</h2>
+
+    <h3>2.1. La Filtration ⚙️</h3>
+    <p><strong>Principe :</strong> La filtration repose sur l'utilisation de barrières physiques pour capturer les microplastiques présents dans l'eau. Ces barrières peuvent être des filtres à mailles fines ou des membranes spéciales qui retiennent les particules tout en laissant passer l'eau. L'idée est similaire à l'utilisation d'une passoire, mais à une échelle beaucoup plus petite et plus précise. Les filtres peuvent être installés dans des systèmes de traitement des eaux usées, sur des bateaux de nettoyage, ou même intégrés dans les ports pour empêcher les microplastiques de pénétrer dans les océans.</p>
+    <p class="interactive" onclick="toggleContent('filtration')">👉 Cliquez pour en savoir plus sur les technologies de filtration.</p>
+    <div id="filtration" class="hidden">
+      <p>Les nano-matériaux, comme les membranes en graphène ou en nanotubes de carbone, sont particulièrement efficaces car ils peuvent capturer des particules extrêmement petites, de l'ordre du nanomètre (un milliardième de mètre). Ces technologies sont encore en développement, mais elles offrent un potentiel énorme pour traiter les microplastiques à grande échelle.</p>
+    </div>
+
+    <h3>2.2. L'Adsorption 🧲</h3>
+    <p><strong>Principe :</strong> L'adsorption est un processus chimique où certaines matières attirent et retiennent les microplastiques à leur surface, comme un aimant attire le fer. Ce phénomène repose sur les propriétés de surface des matériaux utilisés. Par exemple, des matériaux poreux comme le charbon actif ou des polymères spéciaux peuvent "coller" les microplastiques grâce à des forces électrostatiques ou des liaisons chimiques.</p>
+    <p class="interactive" onclick="toggleContent('adsorption')">👉 Cliquez pour en savoir plus sur les matériaux utilisés.</p>
+    <div id="adsorption" class="hidden">
+      <p>Une autre approche consiste à modifier les microplastiques pour les rendre magnétiques, ce qui permet ensuite de les capturer à l'aide d'aimants. Cette méthode est encore expérimentale, mais elle pourrait être utilisée dans des systèmes de traitement de l'eau ou dans des barrières flottantes pour nettoyer les zones polluées.</p>
+    </div>
+
+    <h3>2.3. La Décantation ⚗️</h3>
+    <p><strong>Principe :</strong> La décantation est une méthode physique qui exploite la différence de densité entre les microplastiques et l'eau. Les microplastiques, bien que petits, sont généralement plus denses que l'eau. En laissant reposer l'eau dans un bassin ou un réservoir, les particules de plastique finissent par se déposer au fond sous l'effet de la gravité. Une fois que les microplastiques sont au fond, l'eau propre peut être séparée en la pompant ou en la laissant s'écouler par le haut.</p>
+    <p class="interactive" onclick="toggleContent('decantation')">👉 Cliquez pour en savoir plus sur les applications de la décantation.</p>
+    <div id="decantation" class="hidden">
+      <p>Cette méthode est souvent combinée avec d'autres techniques, comme la centrifugation, où l'eau est mise en rotation rapide pour accélérer la séparation des particules. La décantation est particulièrement utile dans les stations d'épuration, où elle peut être intégrée dans les processus de traitement des eaux usées.</p>
+    </div>
+
+    <!-- QCM pour les méthodes de nettoyage -->
+    <div class="qcm">
+      <h4>Question 3 : Quelle méthode utilise des matériaux pour "coller" les microplastiques ?</h4>
+      <form id="qcm3">
+        <label><input type="radio" name="q3" value="a"> Filtration</label><br>
+        <label><input type="radio" name="q3" value="b"> Adsorption</label><br>
+        <label><input type="radio" name="q3" value="c"> Décantation</label><br>
+        <button type="button" onclick="checkAnswer('qcm3', 'b')" class="button">Vérifier</button>
+      </form>
+      <div id="feedback3" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <!-- Bouton pour passer à la partie 2 -->
+  <button class="button" onclick="showPart2()">Passer à la partie 2</button>
+
+  <!-- Partie 2 (cachée au départ) -->
+  <div id="part2" class="hidden">
+    <!-- Section 4 : Comment Inventer ces Solutions ? -->
+    <div class="section">
+      <h2>3. Comment Inventer ces Solutions ?</h2>
+
+      <h3>3.1. Conception Assistée par Ordinateur (CAO) 💻</h3>
+      <p><strong>Principe :</strong> La CAO permet de créer des modèles virtuels en 3D des appareils de nettoyage. Les ingénieurs utilisent des logiciels spécialisés pour dessiner chaque pièce, tester leur assemblage et simuler leur fonctionnement. Cela permet de visualiser les idées avant de les fabriquer, d'identifier les problèmes potentiels et d'optimiser les designs.</p>
+      <p class="interactive" onclick="toggleContent('cao')">👉 Cliquez pour en savoir plus sur la CAO.</p>
+      <div id="cao" class="hidden">
+        <p>Par exemple, un filtre à microplastiques peut être modélisé pour maximiser sa surface de filtration tout en minimisant sa taille et son coût. La CAO est également utilisée pour concevoir des robots de nettoyage ou des systèmes de filtration complexes.</p>
+      </div>
+
+      <h3>3.2. Simulation Numérique 🧪</h3>
+      <p><strong>Principe :</strong> La simulation numérique consiste à utiliser des ordinateurs pour tester virtuellement les performances d'un système. Par exemple, on peut simuler le flux d'eau à travers un filtre pour voir combien de microplastiques il capture, ou analyser la résistance d'un robot sous-marin aux courants marins.</p>
+      <p class="interactive" onclick="toggleContent('simulation')">👉 Cliquez pour en savoir plus sur la simulation numérique.</p>
+      <div id="simulation" class="hidden">
+        <p>Ces simulations permettent de prédire comment un appareil fonctionnera dans la réalité, sans avoir à construire de prototypes coûteux. Elles sont essentielles pour améliorer l'efficacité et la fiabilité des solutions de nettoyage.</p>
+      </div>
+
+      <h3>3.3. Capteurs 📡</h3>
+      <p><strong>Principe :</strong> Les capteurs sont des dispositifs qui mesurent la quantité de microplastiques dans l'eau. Ils peuvent utiliser des technologies optiques (comme des lasers pour détecter les particules) ou chimiques (pour identifier les types de plastiques).</p>
+      <p class="interactive" onclick="toggleContent('capteurs')">👉 Cliquez pour en savoir plus sur les capteurs.</p>
+      <div id="capteurs" class="hidden">
+        <p>Ces capteurs sont souvent intégrés dans des drones ou des robots pour cartographier les zones polluées en temps réel. Ils fournissent des données précieuses pour cibler les efforts de nettoyage et évaluer l'efficacité des solutions mises en place.</p>
+      </div>
+
+      <h3>3.4. Automatisation 🤖</h3>
+      <p><strong>Principe :</strong> L'automatisation consiste à utiliser des machines pour effectuer des tâches de nettoyage de manière autonome. Par exemple, des robots sous-marins peuvent être programmés pour parcourir les fonds marins et collecter les microplastiques, tandis que des drones de surface peuvent ramasser les déchets flottants.</p>
+      <p class="interactive" onclick="toggleContent('automatisation')">👉 Cliquez pour en savoir plus sur l'automatisation.</p>
+      <div id="automatisation" class="hidden">
+        <p>Ces systèmes sont équipés de capteurs et d'algorithmes d'intelligence artificielle pour naviguer et prendre des décisions sans intervention humaine. L'automatisation permet de nettoyer de vastes zones plus rapidement et avec moins de ressources.</p>
+      </div>
+
+      <!-- QCM pour les technologies -->
+      <div class="qcm">
+        <h4>Question 4 : Quelle technologie permet de créer des modèles 3D ?</h4>
+        <form id="qcm4">
+          <label><input type="radio" name="q4" value="a"> Simulation numérique</label><br>
+          <label><input type="radio" name="q4" value="b"> CAO</label><br>
+          <label><input type="radio" name="q4" value="c"> Capteurs</label><br>
+          <button type="button" onclick="checkAnswer('qcm4', 'b')" class="button">Vérifier</button>
+        </form>
+        <div id="feedback4" class="feedback hidden"></div>
+      </div>
+    </div>
+
+    <!-- Section 5 : Les Enjeux Environnementaux -->
+    <div class="section">
+      <h2>4. Les Enjeux Environnementaux 🌱♻️</h2>
+      <p><strong>Utilisation de Bio-matériaux :</strong> Remplacer les matériaux polluants par des matériaux biodégradables ou issus de sources renouvelables, comme les fibres végétales ou les polymères naturels. Par exemple, un filtre en fibres de coco ou en algues peut être aussi efficace qu'un filtre en plastique, mais il se décompose naturellement après usage.</p>
+      <p><strong>Économie Circulaire :</strong> Réutiliser les matériaux plutôt que de les jeter. Par exemple, les microplastiques collectés peuvent être recyclés pour fabriquer de nouveaux produits, comme des vêtements ou des matériaux de construction. Cela réduit la demande en plastique vierge et limite la pollution.</p>
+      <p><strong>Durabilité et Rendement Énergétique :</strong> Concevoir des solutions qui durent longtemps et consomment peu d'énergie. Par exemple, un robot nettoyeur alimenté par l'énergie solaire peut fonctionner en continu sans épuiser les ressources énergétiques.</p>
+
+      <!-- QCM pour les enjeux environnementaux -->
+      <div class="qcm">
+        <h4>Question 5 : Quel est l'objectif de l'économie circulaire ?</h4>
+        <form id="qcm5">
+          <label><input type="radio" name="q5" value="a"> Produire plus de déchets</label><br>
+          <label><input type="radio" name="q5" value="b"> Réutiliser les matériaux</label><br>
+          <label><input type="radio" name="q5" value="c"> Ignorer les déchets</label><br>
+          <button type="button" onclick="checkAnswer('qcm5', 'b')" class="button">Vérifier</button>
+        </form>
+        <div id="feedback5" class="feedback hidden"></div>
+      </div>
+    </div>
+
+    <!-- Section 6 : Conclusion -->
+    <div class="section">
+      <h2>5. Conclusion</h2>
+      <p>Les microplastiques constituent une menace sérieuse pour les océans et les écosystèmes marins. Cependant, des solutions innovantes sont en cours de développement pour les éliminer. Des méthodes comme la filtration, l'adsorption et la décantation montrent un potentiel prometteur, tandis que des technologies avancées comme la CAO, la simulation numérique, les capteurs et l'automatisation permettent de concevoir et de déployer ces solutions de manière efficace.</p>
+      <p>En parallèle, il est essentiel de prendre en compte les enjeux environnementaux en utilisant des bio-matériaux, en adoptant une approche d'économie circulaire et en optimisant la durabilité et le rendement énergétique des systèmes de nettoyage. La robotique, en particulier, offre des perspectives excitantes pour nettoyer les océans à grande échelle.</p>
+      <p>Cependant, la lutte contre les microplastiques ne se limite pas à la technologie. Elle nécessite également une prise de conscience collective et des actions concrètes pour réduire notre consommation de plastique et prévenir la pollution à la source. En combinant innovation, science et engagement, nous pouvons protéger les océans et préserver la biodiversité marine pour les générations futures.</p>
+    </div>
+  </div>
+
+  <script>
+    // Fonction pour afficher/masquer le contenu interactif
+    function toggleContent(id) {
+      const content = document.getElementById(id);
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+      } else {
+        content.classList.add('hidden');
+      }
+    }
+
+    // Fonction pour afficher la partie 2
+    function showPart2() {
+      const part2 = document.getElementById('part2');
+      part2.classList.remove('hidden');
+    }
+
+    // Fonction pour vérifier les réponses du QCM
+    function checkAnswer(qcmId, correctAnswer) {
+      const form = document.getElementById(qcmId);
+      const selected = form.querySelector('input[name="' + qcmId.replace('qcm', 'q') + '"]:checked');
+      const feedback = document.getElementById('feedback' + qcmId.replace('qcm', ''));
+
+      if (selected && selected.value === correctAnswer) {
+        feedback.textContent = "Correct ! 🎉";
+        feedback.className = "feedback correct";
+      } else {
+        feedback.textContent = "Incorrect. Essayez encore ! ❌";
+        feedback.className = "feedback incorrect";
+      }
+      feedback.classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
