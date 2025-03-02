@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dessaler l'Eau de Mer : Une Solution Écolo pour l'Eau Potable ?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5; /* Gris clair */
+      color: #4B0082; /* Mauve */
+      margin: 0;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      color: #4B0082; /* Mauve */
+    }
+    .section {
+      background-color: #ffffff; /* Blanc */
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .interactive {
+      cursor: pointer;
+      color: #FFA500; /* Orange */
+      text-decoration: underline;
+    }
+    .hidden {
+      display: none;
+    }
+    .button {
+      background-color: #4B0082; /* Mauve */
+      color: #FFA500; /* Orange */
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .button:hover {
+      background-color: #3A0069; /* Mauve plus foncé */
+    }
+    .qcm {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f0e6ff; /* Mauve clair */
+      border-radius: 10px;
+    }
+    .qcm h4 {
+      margin-top: 0;
+      color: #4B0082; /* Mauve */
+    }
+    .feedback {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .correct {
+      color: green;
+    }
+    .incorrect {
+      color: red;
+    }
+    .highlight {
+      color: #FFA500; /* Orange */
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌊 Dessaler l'Eau de Mer : Une Solution Écolo pour l'Eau Potable ? 💧</h1>
+
+  <!-- Partie 1 : Introduction et méthodes de dessalement -->
+  <div class="section">
+    <h2>Introduction</h2>
+    <p>Le dessalement est le processus qui transforme l'eau de mer en eau douce, utilisable pour la consommation humaine ou l'agriculture. Cependant, il est essentiel de le faire en consommant le moins d'énergie possible et en respectant l'environnement. ♻️</p>
+    <p>Dans ce cours, nous allons explorer les méthodes de dessalement, leurs avantages, leurs défis, et comment les rendre plus écologiques.</p>
+
+    <!-- QCM pour l'introduction -->
+    <div class="qcm">
+      <h4>Question 1 : Quel est l'objectif du dessalement ?</h4>
+      <form id="qcm1">
+        <label><input type="radio" name="q1" value="a"> Transformer l'eau de mer en eau douce</label><br>
+        <label><input type="radio" name="q1" value="b"> Produire de l'électricité</label><br>
+        <label><input type="radio" name="q1" value="c"> Nettoyer les océans</label><br>
+        <button type="button" onclick="checkAnswer('qcm1', 'a')">Vérifier</button>
+      </form>
+      <div id="feedback1" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>1. Comment ça marche ?</h2>
+
+    <h3>1.1. L'Osmose Inverse ➡️</h3>
+    <p><strong>Principe :</strong> L'osmose inverse consiste à pousser l'eau de mer à travers une membrane très fine qui bloque le sel et les impuretés. C'est comme un filtre ultra-performant qui ne laisse passer que l'eau pure.</p>
+    <p class="interactive" onclick="toggleContent('osmose')">👉 Cliquez pour en savoir plus sur l'osmose inverse.</p>
+    <div id="osmose" class="hidden">
+      <p>Cette méthode est largement utilisée car elle est efficace et nécessite moins d'énergie que d'autres techniques. Cependant, elle dépend de la qualité des membranes et de la pression appliquée.</p>
+    </div>
+
+    <h3>1.2. La Distillation Thermique 🔥</h3>
+    <p><strong>Principe :</strong> La distillation thermique consiste à chauffer l'eau de mer pour produire de la vapeur, puis à refroidir cette vapeur pour récupérer de l'eau douce. Un échangeur de chaleur est utilisé pour optimiser le processus.</p>
+    <p class="interactive" onclick="toggleContent('distillation')">👉 Cliquez pour en savoir plus sur la distillation thermique.</p>
+    <div id="distillation" class="hidden">
+      <p>Cette méthode est plus énergivore que l'osmose inverse, mais elle est utile dans les régions où l'énergie thermique est abondante, comme près des centrales électriques.</p>
+    </div>
+
+    <!-- QCM pour les méthodes de dessalement -->
+    <div class="qcm">
+      <h4>Question 2 : Quelle méthode utilise une membrane pour filtrer l'eau de mer ?</h4>
+      <form id="qcm2">
+        <label><input type="radio" name="q2" value="a"> Distillation thermique</label><br>
+        <label><input type="radio" name="q2" value="b"> Osmose inverse</label><br>
+        <label><input type="radio" name="q2" value="c"> Filtration par gravité</label><br>
+        <button type="button" onclick="checkAnswer('qcm2', 'b')">Vérifier</button>
+      </form>
+      <div id="feedback2" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <!-- Bouton pour passer à la partie 2 -->
+  <button class="button" onclick="showPart2()">Passer à la partie 2</button>
+
+  <!-- Partie 2 : Solutions écologiques, défis et conclusion -->
+  <div id="part2" class="hidden">
+    <div class="section">
+      <h2>2. Comment rendre le dessalement écologique ?</h2>
+
+      <h3>2.1. Utiliser des Énergies Renouvelables ☀️🌬️</h3>
+      <p><strong>Principe :</strong> Remplacer l'électricité classique par des énergies renouvelables comme l'énergie solaire ou éolienne réduit l'impact environnemental du dessalement.</p>
+
+      <h3>2.2. Améliorer le Rendement Énergétique ⚡️</h3>
+      <p><strong>Principe :</strong> Optimiser les systèmes pour qu'ils consomment moins d'énergie tout en produisant plus d'eau douce.</p>
+
+      <h3>2.3. Recycler les Matériaux ♻️</h3>
+      <p><strong>Principe :</strong> Réutiliser les matériaux en fin de vie pour réduire les déchets et préserver les ressources naturelles.</p>
+
+      <h3>2.4. Utiliser des Membranes Performantes 🔬</h3>
+      <p><strong>Principe :</strong> Des matériaux comme le graphène permettent de créer des membranes plus efficaces et durables.</p>
+
+      <!-- QCM pour les solutions écologiques -->
+      <div class="qcm">
+        <h4>Question 3 : Quelle énergie peut remplacer l'électricité classique dans le dessalement ?</h4>
+        <form id="qcm3">
+          <label><input type="radio" name="q3" value="a"> Énergie solaire</label><br>
+          <label><input type="radio" name="q3" value="b"> Énergie nucléaire</label><br>
+          <label><input type="radio" name="q3" value="c"> Énergie fossile</label><br>
+          <button type="button" onclick="checkAnswer('qcm3', 'a')">Vérifier</button>
+        </form>
+        <div id="feedback3" class="feedback hidden"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>3. Les Défis à Relever</h2>
+
+      <h3>3.1. Gestion de la Saumure ⚠️</h3>
+      <p><strong>Principe :</strong> La saumure, l'eau très salée rejetée après le dessalement, doit être traitée avec soin pour éviter de polluer les écosystèmes marins.</p>
+
+      <h3>3.2. Réduction de l'Impact Environnemental 🌳</h3>
+      <p><strong>Principe :</strong> Il est crucial de minimiser l'impact des usines de dessalement sur les écosystèmes locaux, notamment en réduisant les émissions de CO₂.</p>
+
+      <h3>3.3. Utilisation de Pompes Efficaces 💧</h3>
+      <p><strong>Principe :</strong> Des pompes plus efficaces permettent de réduire la consommation d'énergie et d'optimiser le processus de dessalement.</p>
+
+      <!-- QCM pour les défis -->
+      <div class="qcm">
+        <h4>Question 4 : Qu'est-ce que la saumure ?</h4>
+        <form id="qcm4">
+          <label><input type="radio" name="q4" value="a"> L'eau douce produite</label><br>
+          <label><input type="radio" name="q4" value="b"> L'eau très salée rejetée</label><br>
+          <label><input type="radio" name="q4" value="c"> Un type de membrane</label><br>
+          <button type="button" onclick="checkAnswer('qcm4', 'b')">Vérifier</button>
+        </form>
+        <div id="feedback4" class="feedback hidden"></div>
+      </div>
+    </div>
+
+    <!-- Conclusion -->
+    <div class="section">
+      <h2>4. Conclusion</h2>
+      <p>Le dessalement de l'eau de mer est une solution prometteuse pour répondre à la pénurie d'eau douce dans le monde. Grâce à des méthodes comme l'osmose inverse et la distillation thermique, nous pouvons transformer l'eau de mer en eau potable.</p>
+      <p>Cependant, pour que cette solution soit véritablement écologique, il est essentiel d'utiliser des énergies renouvelables, d'améliorer l'efficacité énergétique, de recycler les matériaux et de gérer correctement la saumure. Des technologies comme l'intelligence artificielle et les membranes en graphène ouvrent également de nouvelles perspectives pour optimiser ce processus.</p>
+      <p>En investissant dans des solutions durables et en sensibilisant le public à leur importance, nous pouvons contribuer à préserver cette ressource vitale pour les générations futures. 💧 <span class="highlight">Ensemble, protégeons notre planète bleue !</span></p>
+    </div>
+  </div>
+
+  <script>
+    // Fonction pour afficher/masquer le contenu interactif
+    function toggleContent(id) {
+      const content = document.getElementById(id);
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+      } else {
+        content.classList.add('hidden');
+      }
+    }
+
+    // Fonction pour afficher la partie 2
+    function showPart2() {
+      const part2 = document.getElementById('part2');
+      part2.classList.remove('hidden');
+    }
+
+    // Fonction pour vérifier les réponses du QCM
+    function checkAnswer(qcmId, correctAnswer) {
+      const form = document.getElementById(qcmId);
+      const selected = form.querySelector('input[name="' + qcmId.replace('qcm', 'q') + '"]:checked');
+      const feedback = document.getElementById('feedback' + qcmId.replace('qcm', ''));
+
+      if (selected && selected.value === correctAnswer) {
+        feedback.textContent = "Correct ! 🎉";
+        feedback.className = "feedback correct";
+      } else {
+        feedback.textContent = "Incorrect. Essayez encore ! ❌";
+        feedback.className = "feedback incorrect";
+      }
+      feedback.classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
