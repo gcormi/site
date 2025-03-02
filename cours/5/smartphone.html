@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📱 Smartphones & Tablettes : Le Monde à Portée de Main ! 🌐</title>
+    <style>
+       body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f0f8ff; /* Bleu très clair */
+            color: #333;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #3f51b5; /* Indigo */
+            border-bottom: 3px solid #3f51b5;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #9fa8da; /* Indigo clair */
+            background-color: #c5cae9; /* Indigo très clair */
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: scale(1.02);
+        }
+
+        .important {
+            font-weight: bold;
+            color: #303f9f; /* Indigo foncé */
+            cursor: pointer;
+        }
+
+        .important:hover {
+            text-decoration: underline;
+            color: #1a237e; /* Indigo encore plus foncé */
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        ul li {
+            transition: background-color 0.3s ease;
+        }
+
+        ul li:hover {
+            background-color: #d1c4e9; /* Indigo clair au survol */
+            cursor: pointer;
+        }
+
+        .qcm {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #9fa8da; /* Indigo clair */
+            background-color: #fff;
+            border-radius: 6px;
+        }
+
+        .qcm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .feedback {
+            margin-top: 5px;
+            font-style: italic;
+            color: red;
+        }
+
+        button {
+            background-color: #3f51b5; /* Indigo */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #303f9f; /* Indigo foncé */
+        }
+
+        .explication-zone {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #5c6bc0; /* Indigo moyen */
+            background-color: #e8eaf6; /* Indigo très très clair */
+            border-radius: 5px;
+            display: none;
+        }
+
+        .reveal-button {
+            background-color: #5c6bc0; /* Indigo moyen */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .reveal-button:hover {
+            background-color: #3949ab; /* Indigo foncé */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <h2>📱 Smartphones & Tablettes : Le Monde à Portée de Main ! 🌐</h2>
+        <p>Salut les jeunes connectés ! Accrochez-vous, car aujourd'hui, on va décortiquer les <span class="important" onclick="afficherExplication('smartphones_explication')">smartphones</span> et les <span class="important" onclick="afficherExplication('tablettes_explication')">tablettes</span>, ces objets incroyables qui sont devenus indispensables à notre vie. 🚀</p>
+
+        <div id="smartphones_explication" class="explication-zone">
+            <p>Un smartphone, c'est bien plus qu'un téléphone : c'est un ordinateur de poche qui te permet de communiquer, de t'amuser, de t'informer, de travailler et d'explorer le monde ! 🗺️</p>
+        </div>
+        <div id="tablettes_explication" class="explication-zone">
+            <p>Une tablette, c'est comme un grand smartphone, avec un écran plus grand et une meilleure autonomie. C'est parfait pour regarder des vidéos, lire des livres, jouer à des jeux, ou même travailler en déplacement. 📚</p>
+        </div>
+
+        <div id="introduction" class="section">
+            <h3>Introduction : Un Mini-Ordinateur dans ta Poche !</h3>
+            <p>Imaginez avoir un mini-ordinateur qui tient dans votre poche ! C'est ça, un smartphone. Il peut faire tellement de choses en plus d'appeler : surfer sur internet, jouer à des jeux, prendre des photos et des vidéos... C'est un outil incroyable ! 🚀</p>
+        </div>
+
+        <div id="fonctionnement" class="section">
+            <h3>I. Analyser le Fonctionnement d'un Smartphone (Objet Technique)</h3>
+
+            <h4>A. Les Pièces Essentielles du Smartphone :</h4>
+            <p>Un smartphone, c'est comme un corps humain. Il a des organes importants qui travaillent ensemble. Découvrons-les :</p>
+            <ul>
+                <li><span class="important" onclick="afficherExplication('processeur_explication')">Le Processeur (Cerveau) :</span> C'est lui qui fait tourner les applications et les jeux. Plus il est puissant, plus le smartphone est rapide.</li>
+                <div id="processeur_explication" class="explication-zone">
+                    <p>On mesure sa puissance en "coeurs" et en GHz (Gigahertz). Pensez-y comme la puissance du moteur d'une voiture.</p>
+                </div>
+
+                <li><span class="important" onclick="afficherExplication('ram_explication')">La Mémoire (RAM) :</span> Elle stocke temporairement les informations dont le processeur a besoin. C'est comme la mémoire vive d'un ordinateur.</li>
+                <div id="ram_explication" class="explication-zone">
+                    <p>Plus il y a de RAM, plus vous pouvez ouvrir d'applications en même temps sans que le smartphone ralentisse.</p>
+                </div>
+
+                <li><span class="important" onclick="afficherExplication('stockage_explication')">Le Stockage (Mémoire Interne) :</span> Elle stocke vos photos, vos vidéos, vos applications, vos documents...</li>
+                <div id="stockage_explication" class="explication-zone">
+                     <p>C'est comme le disque dur d'un ordinateur. On mesure sa capacité en Go (Gigaoctets).</p>
+                </div>
+
+                <li><span class="important" onclick="afficherExplication('batterie_explication')">La Batterie :</span> Elle donne l'énergie au smartphone pour qu'il fonctionne.</li>
+                <div id="batterie_explication" class="explication-zone">
+                    <p>On mesure sa capacité en mAh (milliampères-heure). Plus il y a de mAh, plus le smartphone a d'autonomie.</p>
+                </div>
+
+                <li><span class="important" onclick="afficherExplication('ecran_explication')">L'Écran Tactile :</span> Vous touchez l'écran pour utiliser le téléphone. Il affiche les images, les vidéos, les applications... Il réagit à vos doigts.</li>
+                <div id="ecran_explication" class="explication-zone">
+                    <p>On mesure sa taille en pouces.</p>
+                </div>
+
+                <li><span class="important" onclick="afficherExplication('capteurs_explication')">Les Capteurs :</span> Ils permettent au téléphone de "voir" (appareil photo), d'"entendre" (micro), de "sentir" le mouvement (accéléromètre, gyroscope), de se repérer dans l'espace (GPS)...</li>
+                <div id="capteurs_explication" class="explication-zone">
+                    <p>C'est comme les sens du corps humain.</p>
+                </div>
+
+                <li><span class="important" onclick="afficherExplication('connectivite_explication')">La Connectivité :</span> Wifi, Bluetooth, 4G/5G... pour se connecter à internet et aux autres appareils.</li>
+                <div id="connectivite_explication" class="explication-zone">
+                    <p>C'est comme les nerfs du corps humain.</p>
+                </div>
+            </ul>
+
+            <h4>B. Comment ça Marche ?</h4>
+            <ol>
+                <li>Vous touchez l'écran pour lancer une application.</li>
+                <li>Le processeur lit les instructions de l'application dans la mémoire.</li>
+                <li>Le processeur exécute les instructions et affiche les résultats sur l'écran.</li>
+                <li>Si l'application a besoin d'informations (par exemple, une photo), elle les récupère dans le stockage.</li>
+                <li>La batterie fournit l'énergie pour tout faire fonctionner.</li>
+                <li>Les capteurs permettent au smartphone de réagir à son environnement.</li>
+            </ol>
+        </div>
+
+         <div id="fonctions" class="section">
+            <h3>II. Identifier les Fonctions d'un Smartphone :</h3>
+            <p>Un smartphone peut faire plein de choses !</p>
+            <ul>
+                <li><span class="important" onclick="afficherExplication('communication_explication')">Communication :</span> Appeler, envoyer des SMS, chatter sur les réseaux sociaux, envoyer des emails...</li>
+                <div id="communication_explication" class="explication-zone">
+                    <p>Rester connecté avec ses amis et sa famille.</p>
+                </div>
+                <li><span class="important" onclick="afficherExplication('divertissement_explication')">Divertissement :</span> Jouer à des jeux, regarder des vidéos, écouter de la musique, lire des livres...</li>
+                 <div id="divertissement_explication" class="explication-zone">
+                    <p>Se détendre et s'amuser.</p>
+                </div>
+                <li><span class="important" onclick="afficherExplication('information_explication')">Information :</span> Chercher des informations sur internet, lire les actualités, consulter la météo...</li>
+                 <div id="information_explication" class="explication-zone">
+                    <p>Rester informé de ce qui se passe dans le monde.</p>
+                </div>
+                <li><span class="important" onclick="afficherExplication('travail_explication')">Travail :</span> Envoyer des emails professionnels, créer des documents, participer à des visioconférences...</li>
+                 <div id="travail_explication" class="explication-zone">
+                    <p>Être productif même en déplacement.</p>
+                </div>
+                <li><span class="important" onclick="afficherExplication('navigation_explication')">Navigation :</span> Se repérer avec le GPS, trouver son chemin avec Google Maps...</li>
+                 <div id="navigation_explication" class="explication-zone">
+                    <p>Ne jamais se perdre.</p>
+                </div>
+                <li><span class="important" onclick="afficherExplication('creation_explication')">Création :</span> Prendre des photos et des vidéos, créer des dessins, écrire des textes...</li>
+                 <div id="creation_explication" class="explication-zone">
+                    <p>Exprimer sa créativité.</p>
+                </div>
+                <li><span class="important" onclick="afficherExplication('organisation_explication')">Organisation :</span> Gérer son agenda, ses contacts, ses tâches...</li>
+                 <div id="organisation_explication" class="explication-zone">
+                    <p>Être bien organisé dans sa vie quotidienne.</p>
+                </div>
+            </ul>
+        </div>
+
+        <div id="comportement" class="section">
+            <h3>III. Décrire le Comportement d'un Smartphone :</h3>
+            <p>Quand vous utilisez un smartphone, il se passe plein de choses à l'intérieur :</p>
+             <ul>
+                 <li><span class="important" onclick="afficherExplication('lancement_explication')">Lancement d'une Application :</span> Le smartphone charge l'application dans la mémoire et l'affiche sur l'écran.</li>
+                 <div id="lancement_explication" class="explication-zone">
+                   <p>Un clic et hop, l'appli se lance !</p>
+                 </div>
+                <li><span class="important" onclick="afficherExplication('navigation2_explication')">Navigation sur Internet :</span> Le smartphone se connecte à internet, télécharge les pages web et les affiche sur l'écran.</li>
+                 <div id="navigation2_explication" class="explication-zone">
+                   <p>Le monde à portée de doigt.</p>
+                 </div>
+                <li><span class="important" onclick="afficherExplication('photo_explication')">Prise de Photo :</span> Le smartphone active l'appareil photo, capture l'image et la stocke dans le stockage.</li>
+                 <div id="photo_explication" class="explication-zone">
+                   <p>Immortalise l'instant.</p>
+                 </div>
+                <li><span class="important" onclick="afficherExplication('video_explication')">Lecture de Vidéo :</span> Le smartphone télécharge la vidéo, la décode et l'affiche sur l'écran.</li>
+                 <div id="video_explication" class="explication-zone">
+                   <p>Profitez du spectacle.</p>
+                 </div>
+                <li><span class="important" onclick="afficherExplication('gps_explication')">Utilisation du GPS :</span> Le smartphone se connecte aux satellites GPS, calcule votre position et l'affiche sur une carte.</li>
+                 <div id="gps_explication" class="explication-zone">
+                   <p>Ne vous perdez plus jamais.</p>
+                 </div>
+             </ul>
+        </div>
+
+        <div id="projet" class="section">
+            <h3>IV. Mettre en œuvre un Projet de Conception :</h3>
+            <p>Imaginez le smartphone du futur ! Quelles nouvelles fonctionnalités pourrait-il avoir ? Comment pourrait-il être plus écologique ? Plus facile à utiliser ? Plus amusant ?</p>
+            <ul>
+                <li>Un smartphone qui se recharge avec l'énergie solaire ?</li>
+                <li>Un smartphone qui se transforme en robot ?</li>
+                <li>Un smartphone qui traduit automatiquement toutes les langues ?</li>
+                <li>Un smartphone qui projette des images en 3D ?</li>
+            </ul>
+        </div>
+
+         <div id="programmation" class="section">
+            <h3>V. Utiliser un Logiciel de Programmation :</h3>
+            <p>Pour créer une application, il faut donner des instructions à l'ordinateur. On utilise un langage de programmation. On peut s'initier à la programmation avec des logiciels simples comme Scratch.</p>
+            <ul>
+                <li><span class="important" onclick="afficherExplication('algorithmes_explication')">Algorithmes :</span> Des suites d'instructions pour dire à l'ordinateur quoi faire.</li>
+                 <div id="algorithmes_explication" class="explication-zone">
+                   <p>Une recette de cuisine pour l'ordinateur.</p>
+                 </div>
+                <li><span class="important" onclick="afficherExplication('variables_explication')">Variables :</span> Des boîtes pour stocker des informations.</li>
+                 <div id="variables_explication" class="explication-zone">
+                   <p>Des tiroirs pour ranger les informations.</p>
+                 </div>
+                <li><span class="important" onclick="afficherExplication('boucles_explication')">Boucles :</span> Pour répéter des actions.</li>
+                 <div id="boucles_explication" class="explication-zone">
+                   <p>Faire la même chose encore et encore.</p>
+                 </div>
+            </ul>
+        </div>
+
+         <div id="contraintes" class="section">
+            <h3>VI. Identifier les Contraintes Techniques et Environnementales :</h3>
+            <p>Pour cr       
+
+         <div id="equipe" class="section">
+            <h3>VII. Travailler en Équipe et Communiquer :</h3>
+            <p>Pour créer un smartphone, il faut travailler en équipe. Chacun a son rôle et doit communiquer avec les autres.</p>
+            <ul>
+                <li>Partager ses idées.</li>
+                <li>Collaborer pour réaliser un projet.</li>
+                <li>Communiquer de manière claire et concise.</li>
+            </ul>
+        </div>
+
+         <div id="esprit" class="section">
+            <h3>VIII. Développer son Esprit Critique :</h3>
+            <p>Les smartphones ont des avantages et des inconvénients. Il faut réfléchir à leurs impacts sur notre société et sur l'environnement.</p>
+            <ul>
+                <li><span class="important" onclick="afficherExplication('dependance_explication')">Dépendance :</span> On peut devenir trop dépendant de son smartphone.</li>
+                 <div id="dependance_explication" class="explication-zone">
+                   <p>Apprendre à se déconnecter.</p>
+                 </div>
+                <li><span class="important" onclick="afficherExplication('confidentialite_explication')">Confidentialité :</span> Nos données personnelles peuvent être collectées et utilisées sans notre consentement.</li>
+                 <div id="confidentialite_explication" class="explication-zone">
+                   <p>Protéger sa vie privée.</p>
+                 </div>
+                <li><span class="important" onclick="afficherExplication('environnement2_explication')">Impact Environnemental :</span> La fabrication des smartphones pollue beaucoup.</li>
+                 <div id="environnement2_explication" class="explication-zone">
+                   <p>Choisir des smartphones éco-conçus.</p>
+                 </div>
+            </ul>
+        </div>
+
+         <div id="espace" class="section">
+            <h3>IX. Se Repérer dans le Temps et l'Espace :</h3>
+            <p>Grâce au GPS et aux applications de cartographie, les smartphones nous permettent de nous repérer dans le temps et l'espace.</p>
+            <ul>
+                <li><span class="important" onclick="afficherExplication('gps2_explication')">GPS :</span> Un système de satellites qui permet de déterminer notre position.</li>
+                 <div id="gps2_explication" class="explication-zone">
+                   <p>Ne jamais se perdre, même au milieu du désert !</p>
+                 </div>
+                <li><span class="important" onclick="afficherExplication('carte_explication')">Applications de Cartographie :</span> Google Maps, Plans... qui nous montrent des cartes, des itinéraires, des informations sur les lieux...</li>
+                 <div id="carte_explication" class="explication-zone">
+                   <p>Visiter le monde sans bouger de chez soi.</p>
+                 </div>
+            </ul>
+        </div>
+
+          <div id="qcm_introduction" class="qcm">
+            <h3>QCM : Energie</h3>
+            <p>Question : Lequel de ces composants ne sert pas à faire fonctionner le téléphone ?</p>
+            <label><input type="radio" name="batterie_q1" value="c"> Le chargeur sans fil.</label>
+            <label><input type="radio" name="batterie_q1" value="a"> La batterie.</label>
+            <label><input type="radio" name="batterie_q1" value="b"> Le micro.</label>
+            <button onclick="validerBatterie(document.querySelector('input[name=\'batterie_q1\']:checked'))">Valider</button>
+            <p id="batterie_feedback" class="feedback"></p>
+        </div>
+
+        <div id="conclusion" class="section">
+            <h3>Conclusion : Le Monde à Portée de Main, mais avec Responsabilité !</h3>
+            <p>Les smartphones sont des outils incroyables qui ont
+            <p>Il est important de les utiliser de manière responsable et de réfléchir à leurs impacts sur notre société et sur l'environnement.</p>
+        </div>
+    </div>
+
+    <script>
+        function afficherExplication(idExplication) {
+            let explicationZone = document.getElementById(idExplication);
+            if (explicationZone.style.display === "none") {
+                explicationZone.style.display = "block";
+            } else {
+                explicationZone.style.display = "none";
+            }
+        }
+
+              function validerBatterie(reponse) {
+            const feedback = document.getElementById("batterie_feedback");
+            if (reponse && reponse.value === "b") {
+                feedback.textContent = "C'est Exact ! 😉";
+                feedback.style.color = "green";
+            } else {
+                feedback.textContent = "Essaie encore ! 🤔";
+                feedback.style.color = "red";
+            }
+        }
+
+        function validerIntroduction(reponse) {
+            const feedback = document.getElementById("introduction_feedback");
+            if (reponse && reponse.value === "c") {
+                feedback.textContent = "Bravo ! Impossible de manger un smartphone, pour l'instant... 😉";
+                feedback.style.color = "green";
+            } else {
+                feedback.textContent = "Essaie encore ! Pense à tout ce qu'on peut faire avec un smartphone... 🤔";
+                feedback.style.color = "red";
+            }
+        }
+
+         function validerConception(reponse) {
+            const feedback = document.getElementById("conception_feedback");
+            if (reponse && reponse.value === "c") {
+                feedback.textContent = "Bravo ! Les besoins des utilisateur sont important. 😉";
+                feedback.style.color = "green";
+            } else {
+                feedback.textContent = "Essaie encore !🤔";
+                feedback.style.color = "red";
+            }
+        }
+
+
+        function afficherPartie2() {
+            document.getElementById("partie2").style.display = "block";
+            document.querySelector(".reveal-button").style.display = "none";
+        }
+    </script>
+</body>
+</html>

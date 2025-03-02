@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚁 Les Drones : Des Robots Volants ! 🤖</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff; /* Bleu très clair */
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            max-width: 960px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3 {
+            color: #2e8b57; /* Vert forêt */
+            text-align: center;
+        }
+
+        p, li {
+            line-height: 1.6;
+        }
+
+        .interactive-word {
+            color: #007bff; /* Bleu vif pour les mots interactifs */
+            text-decoration: none;
+            cursor: pointer;
+            border-bottom: 1px dashed #007bff;
+        }
+
+        .definition {
+            display: none;
+            background-color: #e0f2f7; /* Bleu très clair */
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            border: 1px solid #b0e0e6; /* Bleu clair */
+        }
+
+        .quiz {
+            margin-top: 20px;
+        }
+
+        .quiz-question {
+            margin-bottom: 10px;
+        }
+
+        .quiz-options label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .quiz-submit {
+            background-color: #2e8b57; /* Vert forêt */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .quiz-submit:hover {
+            background-color: #228b22; /* Vert plus foncé */
+        }
+
+        #part2 {
+            display: none;
+        }
+
+        .show-part2-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .show-part2-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            #container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <h1>🚁 Les Drones : Des Robots Volants ! 🤖</h1>
+
+    <div id="part1">
+        <section>
+            <h2>Introduction</h2>
+            <p>Imaginez un avion sans pilote, que vous pouvez contrôler à distance ! C'est un drone ! On l'utilise pour prendre des photos incroyables du ciel, filmer des vidéos, livrer des colis... C'est super cool et ça ouvre un monde de possibilités ! 🤩</p>
+        </section>
+
+        <section>
+            <h2>I. Analyser le Fonctionnement d'un Drone (Objet Technique)</h2>
+
+            <h3>A. Les Pièces Importantes du Drone :</h3>
+            <p>Un drone, c'est un assemblage de pièces qui fonctionnent ensemble pour voler. Découvrons-les :</p>
+            <ul>
+                <li><a href="#" class="interactive-word" data-definition="Elles tournent très vite pour créer la force qui fait voler le drone. Leur forme et leur nombre sont importants pour l'efficacité du vol.">Les Hélices</a> : Elles tournent très vite pour créer la force qui fait voler le drone. Leur forme et leur nombre sont importants pour l'efficacité du vol.</li>
+                <li><a href="#" class="interactive-word" data-definition="Il fait tourner les hélices. Ce sont des moteurs électriques qui doivent être légers et puissants.">Les Moteurs</a> : Ils font tourner les hélices. Ce sont des moteurs électriques qui doivent être légers et puissants.</li>
+                <li><a href="#" class="interactive-word" data-definition="Elle donne l'énergie au moteur. On mesure sa capacité en mAh (milliampères-heure). L'autonomie, c'est le temps pendant lequel le drone peut voler avec une seule charge de batterie.">La Batterie</a> : Elle donne l'énergie au moteur. On mesure sa capacité en mAh (milliampères-heure). L'autonomie, c'est le temps pendant lequel le drone peut voler avec une seule charge de batterie.</li>
+                <li><a href="#" class="interactive-word" data-definition="C'est le cerveau du drone ! Elle contrôle tout le fonctionnement du drone, comme la vitesse des moteurs, l'inclinaison, la stabilisation...">L'Électronique (Contrôleur de Vol)</a> : C'est le cerveau du drone ! Elle contrôle tout le fonctionnement du drone, comme la vitesse des moteurs, l'inclinaison, la stabilisation...</li>
+                <li><a href="#" class="interactive-word" data-definition="Ils permettent au drone de 'sentir' l'altitude (altimètre), la distance (sonar), l'inclinaison (gyroscope), l'accélération (accéléromètre)... Ils aident le drone à rester stable et à éviter les obstacles.">Les Capteurs</a> : Ils permettent au drone de "sentir" l'altitude (altimètre), la distance (sonar), l'inclinaison (gyroscope), l'accélération (accéléromètre)... Ils aident le drone à rester stable et à éviter les obstacles.</li>
+                <li><a href="#" class="interactive-word" data-definition="C'est un système de localisation qui lui permet de savoir où il se trouve sur Terre. C'est comme une carte qui permet au drone de se repérer.">Le GPS</a> : C'est un système de localisation qui lui permet de savoir où il se trouve sur Terre. C'est comme une carte qui permet au drone de se repérer.</li>
+                <li><a href="#" class="interactive-word" data-definition="Pour prendre des photos et des vidéos aériennes.">La Caméra</a> : Pour prendre des photos et des vidéos aériennes.</li>
+                <li><a href="#" class="interactive-word" data-definition="La structure qui maintient toutes les pièces ensemble. Il doit être léger et résistant.">Le Cadre</a> : La structure qui maintient toutes les pièces ensemble. Il doit être léger et résistant.</li>
+                <li><a href="#" class="interactive-word" data-definition="On l'utilise pour piloter le drone à distance.">La Télécommande (Émetteur)</a> : On l'utilise pour piloter le drone à distance.</li>
+                <li><a href="#" class="interactive-word" data-definition="Il reçoit les signaux de la télécommande et les transmet à l'électronique du drone.">Le Récepteur</a> : Il reçoit les signaux de la télécommande et les transmet à l'électronique du drone.</li>
+            </ul>
+
+            <h4>B. Comment ça Marche ?</h4>
+            <ol>
+                <li>Vous utilisez la télécommande pour donner des instructions au drone (avancer, reculer, monter, descendre, tourner...).</li>
+                <li>La télécommande envoie un signal radio au récepteur du drone.</li>
+                <li>L'électronique du drone analyse le signal et ajuste la vitesse des moteurs pour que le drone effectue le mouvement demandé.</li>
+                <li>Les capteurs aident le drone à rester stable et à éviter les obstacles.</li>
+                <li>Le GPS permet au drone de se repérer et de suivre une trajectoire prédéfinie.</li>
+                <li>La caméra enregistre des photos et des vidéos.</li>
+                <li>La batterie fournit l'énergie pour tout faire fonctionner.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>II. Identifier les Fonctions d'un Drone :</h2>
+            <p>Un drone peut faire plein de choses !</p>
+            <ul>
+                <li><a href="#" class="interactive-word" data-definition="Se déplacer dans les airs.">Voler</a> : Se déplacer dans les airs.</li>
+                <li><a href="#" class="interactive-word" data-definition="Avancer, reculer, monter, descendre, tourner...">Se Déplacer</a> : Avancer, reculer, monter, descendre, tourner...</li>
+                <li><a href="#" class="interactive-word" data-definition="Capturer des images aériennes.">Prendre des Photos et des Vidéos</a> : Capturer des images aériennes.</li>
+                <li><a href="#" class="interactive-word" data-definition="Transporter des colis, des médicaments...">Livrer des Objets</a> : Transporter des colis, des médicaments...</li>
+                <li><a href="#" class="interactive-word" data-definition="Surveiller des zones, des bâtiments, des événements...">Surveillance</a> : Surveiller des zones, des bâtiments, des événements...</li>
+                <li><a href="#" class="interactive-word" data-definition="Inspecter les cultures, épandre des produits...">Agriculture</a> : Inspecter les cultures, épandre des produits...</li>
+                <li><a href="#" class="interactive-word" data-definition="Rechercher des personnes disparues, évaluer les dégâts après une catastrophe...">Secours</a> : Rechercher des personnes disparues, évaluer les dégâts après une catastrophe...</li>
+                <li><a href="#" class="interactive-word" data-definition="Inspecter des infrastructures (ponts, éoliennes...), des lignes électriques...">Inspection</a> : Inspecter des infrastructures (ponts, éoliennes...), des lignes électriques...</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>III. Décrire le Comportement d'un Drone :</h2>
+            <p>Quand un drone vole, il se passe plein de choses :</p>
+            <ul>
+                <li><a href="#" class="interactive-word" data-definition="Les moteurs tournent de plus en plus vite jusqu'à ce que le drone décolle.">Décollage</a> : Les moteurs tournent de plus en plus vite jusqu'à ce que le drone décolle.</li>
+                <li><a href="#" class="interactive-word" data-definition="L'électronique ajuste la vitesse des moteurs pour que le drone reste immobile dans les airs.">Vol Stationnaire</a> : L'électronique ajuste la vitesse des moteurs pour que le drone reste immobile dans les airs.</li>
+                <li><a href="#" class="interactive-word" data-definition="L'électronique ajuste la vitesse des moteurs différemment pour que le drone se déplace dans la direction souhaitée.">Mouvement</a> : L'électronique ajuste la vitesse des moteurs différemment pour que le drone se déplace dans la direction souhaitée.</li>
+                <li><a href="#" class="interactive-word" data-definition="Les moteurs tournent de moins en moins vite jusqu'à ce que le drone se pose.">Atterrissage</a> : Les moteurs tournent de moins en moins vite jusqu'à ce que le drone se pose.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>IV. Mettre en œuvre un Projet de Conception :</h2>
+            <p>Imaginez le drone du futur ! Quelles nouvelles fonctionnalités pourrait-il avoir ? Comment pourrait-il être plus silencieux ? Plus autonome ? Plus résistant aux intempéries ?</p>
+            <ul>
+                <li>Un drone qui se transforme en voiture ?</li>
+                <li>Un drone qui nettoie la pollution de l'air ?</li>
+                <li>Un drone qui transporte des personnes ?</li>
+                <li>Un drone qui explore d'autres planètes ?</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>V. Utiliser un Logiciel de Programmation :</h2>
+            <p>Pour programmer un drone, il faut donner des instructions à l'ordinateur. On utilise un langage de programmation. On peut s'initier à la programmation avec des logiciels simples comme Scratch.</p>
+            <ul>
+                <li><a href="#" class="interactive-word" data-definition="Des suites d'instructions pour dire au drone quoi faire.">Algorithmes</a> : Des suites d'instructions pour dire au drone quoi faire.</li>
+                <li><a href="#" class="interactive-word" data-definition="Des boîtes pour stocker des informations (par exemple, la vitesse, l'altitude).">Variables</a> : Des boîtes pour stocker des informations (par exemple, la vitesse, l'altitude).</li>
+                <li><a href="#" class="interactive-word" data-definition="Pour répéter des actions (par exemple, vérifier la position du drone toutes les secondes).">Boucles</a> : Pour répéter une série d'instructions plusieurs fois (par exemple, vérifier la position du drone toutes les secondes).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>VI. Identifier les Contraintes Techniques et Environnementales :</h2>
+            <ul>
+                <li><a href="#" class="interactive-word" data-definition="La batterie doit durer assez longtemps.">Autonomie</a> : La batterie doit durer assez longtemps.</li>
+                <li><a href="#" class="interactive-word" data-definition="Le drone doit rester stable dans les airs, même avec du vent.">Stabilité</a> : Le drone doit rester stable dans les airs, même avec du vent.</li>
+                <li><a href="#" class="interactive-word" data-definition="Le drone doit pouvoir voler à une distance suffisante.">Portée</a> : Le drone doit pouvoir voler à une distance suffisante.</li>
+                <li><a href="#" class="interactive-word" data-definition="La fabrication et l'utilisation du drone doivent polluer le moins possible.">Impact Environnemental</a> : La fabrication et l'utilisation du drone doivent polluer le moins possible.</li>
+                <li><a href="#" class="interactive-word" data-definition="Le drone doit consommer le moins d'énergie possible.">Consommation d'Énergie</a> : Le drone doit consommer le moins d'énergie possible.</li>
+                <li><a href="#" class="interactive-word" data-definition="Il faut recycler les drones en fin de vie.">Gestion des Déchets</a> : Il faut recycler les drones en fin de vie.</li>
+                <li><a href="#" class="interactive-word" data-definition="Il faut éviter les accidents et les collisions.">Sécurité</a> : Il faut éviter les accidents et les collisions.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>VII. Travailler en Équipe et Communiquer :</h2>
+            <p>Pour construire un drone, il faut travailler en équipe. Chacun a son rôle et doit communiquer avec les autres.</p>
+            <ul>
+                <li>Partager ses idées.</li>
+                <li>Collaborer pour réaliser un projet.</li>
+                <li>Communiquer de manière claire et concise.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>VIII. Développer son Esprit Critique :</h2>
+            <p>Les drones ont des avantages et des inconvénients. Il faut réfléchir à leurs impacts sur notre société et sur l'environnement.</p>
+            <ul>
+                <li><a href="#" class="interactive-word" data-definition="Les drones peuvent être utilisés pour surveiller les personnes sans leur consentement.">Vie Privée</a> : Les drones peuvent être utilisés pour surveiller les personnes sans leur consentement.</li>
+                <li><a href="#" class="interactive-word" data-definition="Les drones peuvent être utilisés pour des activités illégales (par exemple, transporter de la drogue).">Sécurité</a> : Les drones peuvent être utilisés pour des activités illégales (par exemple, transporter de la drogue).</li>
+                <li><a href="#" class="interactive-word" data-definition="Les drones pourraient remplacer certains emplois (par exemple, les livreurs).">Emploi</a> : Les drones pourraient remplacer certains emplois (par exemple, les livreurs).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>IX. Se Repérer dans le Temps et l'Espace :</h2>
+            <p>Les drones utilisent des capteurs (GPS, accéléromètre, gyroscope) pour se repérer dans le temps et l'espace.</p>
+            <ul>
+                <li><a href="#" class="interactive-word" data-definition="Pour connaître sa position.">GPS</a> : Pour connaître sa position.</li>
+                <li><a href="#" class="interactive-word" data-definition="Pour mesurer l'accélération.">Accéléromètre</a> : Pour mesurer l'accélération.</li>
+                <li><a href="#" class="interactive-word" data-definition="Pour mesurer l'orientation.">Gyroscope</a> : Pour mesurer l'orientation.</li>
+            </ul>
+        </section>
+
+<section>
+            <h2>Quiz 1</h2>
+            <div class="quiz">
+                <div class="quiz-question">Quel est le nom donné à un appareil volant sans pilote ?</div>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q1" value="a"> Voiture.</label>
+                    <label><input type="radio" name="q1" value="b"> Robot.</label>
+                    <label><input type="radio" name="q1" value="c"> Drone.</label>
+                </div>
+            </div>
+        </section>
+
+         <section>
+            <h2>Quiz 2</h2>
+            <div class="quiz">
+                <div class="quiz-question">Dans un drone que permet le GPS ?</div>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q2" value="a"> De se localiser.</label>
+                    <label><input type="radio" name="q2" value="b"> D'aller plus vite.</label>
+                    <label><input type="radio" name="q2" value="c"> De faire le café.</label>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Conclusion : Les Drones et l'Avenir</h2>
+            <p>Les drones sont des robots volants incroyables qui ont de nombreuses applications. Mais il est important de les utiliser de manière responsable et de réfléchir à leurs impacts sur notre société et sur l'environnement.</p>
+        </section>
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const interactiveWords = document.querySelectorAll('.interactive-word');
+
+        interactiveWords.forEach(word => {
+            word.addEventListener('click', function(event) {
+                event.preventDefault();
+                const definition = document.createElement('div');
+                definition.classList.add('definition');
+                definition.textContent = this.dataset.definition;
+
+                if (this.nextElementSibling && this.nextElementSibling.classList.contains('definition')) {
+                    this.nextElementSibling.remove();
+                } else {
+                    this.parentNode.insertBefore(definition, this.nextSibling);
+                    definition.style.display = 'block'; // Assurer que la définition est visible
+                }
+            });
+        });
+    });
+
+    function showPart2() {
+        document.getElementById('part1').style.display = 'none';
+        document.querySelector('.show-part2-btn').style.display = 'none';
+        document.getElementById('part2').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
