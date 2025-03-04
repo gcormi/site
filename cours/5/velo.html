@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ Le Vélo Électrique : Roule Facile et Pollue Moins ! 🌿</title>
+    <style>
+         body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #fffde7; /* Jaune très clair */
+            color: #333;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #757575; /* Gris foncé */
+            border-bottom: 3px solid #757575;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #bdbdbd; /* Gris clair */
+            background-color: #eeeeee; /* Gris très clair */
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: scale(1.02);
+        }
+
+        .important {
+            font-weight: bold;
+            color: #424242; /* Gris encore plus foncé */
+            cursor: pointer; /* Ajout curseur */
+        }
+
+        .important:hover {
+            text-decoration: underline;
+            color: #212121; /* Noir */
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        ul li {
+            transition: background-color 0.3s ease;
+        }
+
+        ul li:hover {
+            background-color: #e0e0e0; /* Gris clair au survol */
+            cursor: pointer;
+        }
+
+        .qcm {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #bdbdbd; /* Gris clair */
+            background-color: #fff;
+            border-radius: 6px;
+        }
+
+        .qcm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .feedback {
+            margin-top: 5px;
+            font-style: italic;
+            color: red;
+        }
+
+        button {
+            background-color: #fbc02d; /* Jaune moyen */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #f9a825; /* Jaune plus foncé */
+        }
+
+        .explication-button {
+            background-color: #ffca28; /* Jaune clair */
+            border: none;
+            color: #212121; /* Noir */
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .explication-button:hover {
+            background-color: #ffb300; /* Jaune plus foncé */
+        }
+
+        .explication-zone {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #616161; /* Gris foncé */
+            background-color: #fafafa; /* Gris très clair */
+            border-radius: 5px;
+            display: none;
+        }
+
+        #partie2 {
+            display: none;
+        }
+
+        .reveal-button {
+            background-color: #616161; /* Gris foncé */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .reveal-button:hover {
+            background-color: #424242; /* Gris encore plus foncé */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <h2>⚡ Le Vélo Électrique : Roule Facile et Pollue Moins ! 🌿</h2>
+        <p>Salut les cyclistes du futur ! Aujourd'hui, on va explorer un moyen super cool de se déplacer : le vélo électrique ! C'est pratique, c'est fun, et c'est bien meilleur pour notre planète. 🌿 Alors, prêts à pédaler ?</p>
+        <div id="introduction" class="section">
+            <h3>Introduction</h3>
+            <p>Le vélo électrique, c'est un vélo normal avec un moteur électrique et une batterie pour t'aider à pédaler sans trop d'effort ! C'est super pratique et plus écologique que la voiture. 🌿 Avec un vélo électrique, tu peux monter des côtes sans transpirer, aller plus loin sans te fatiguer, et en plus, tu pollues moins qu'avec une voiture ou un scooter !</p>
+        </div>
+
+        <div id="fonctionnement" class="section">
+            <h3>I. Comprendre le Fonctionnement d'un Vélo Électrique (Objet Technique)</h3>
+
+            <h4>A. Les Composants et Leur Rôle :</h4>
+            <p>Un vélo électrique, c'est comme un puzzle avec plein de pièces différentes qui travaillent ensemble. Explorons-les !</p>
+            <ul>
+                <li><span class="important" onclick="afficherExplication('cadre_explication')">Le Cadre :</span> C'est le squelette du vélo, comme notre colonne vertébrale. Il est souvent en métal (aluminium, acier) pour être solide et léger. Il soutient toutes les autres pièces.</li>
+                <div id="cadre_explication" class="explication-zone">
+                    <p>Le cadre est la partie principale du vélo. Il doit être solide et léger pour supporter le poids du cycliste et des autres composants. Les cadres en aluminium sont populaires car ils offrent un bon compromis entre solidité et légèreté. Les cadres en fibre de carbone sont encore plus légers, mais aussi plus chers.</p>
+                </div>
+
+                <li><span class="important" onclick="afficherExplication('roues_explication')">Les Roues :</span> Elles permettent de rouler, évidemment ! Les pneus sont souvent en caoutchouc pour adhérer à la route.</li>
+                <div id="roues_explication" class="explication-zone">
+                    <p>Les roues sont composées de jantes, de rayons et de pneus. Les jantes sont généralement en aluminium. Les pneus doivent être adaptés au type de terrain sur lequel tu roules (route, chemin, etc.). Il existe des pneus spécifiques pour les vélos électriques, plus résistants à l'usure.</p>
+                </div>
+
+                <li><span class="important" onclick="afficherExplication('pedales_explication')">Les Pédales :</span> On appuie dessus pour avancer, comme sur un vélo normal.</li>
+                <div id="pedales_explication" class="explication-zone">
+                    <p>Les pédales sont reliées aux manivelles, qui transmettent le mouvement à la chaîne. Il existe différents types de pédales (plates, automatiques, etc.).</p>
+                </div>
+
+                 <li><span class="important" onclick="afficherExplication('chaine_explication')">La Chaîne :</span> Elle transmet la force des pédales à la roue arrière.</li>
+                <div id="chaine_explication" class="explication-zone">
+                    <p>Il est important de bien entretenir sa chaîne (nettoyage, lubrification) </p>
+                </div>
+
+                <li><span class="important" onclick="afficherExplication('derailleur_explication')">Le Dérailleur et les Vitesses :</span> Ils permettent de changer la difficulté du pédalage, comme sur un vélo normal.</li>
+                <div id="derailleur_explication" class="explication-zone">
+                    <p>Le dérailleur permet de changer de vitesse et d'adapter la difficulté du pédalage au terrain. Il existe des dérailleurs avant et arrière. Plus tu as de vitesses, plus tu peux adapter ton effort.</p>
+                </div>
+                 <li><span class="important" onclick="afficherExplication('moteur_explication2')">Le Moteur :</span> C'est lui qui donne le coup de pouce ! Il est souvent situé dans la roue avant, la roue arrière ou au niveau des pédales. Il transforme l'énergie électrique en mouvement.</li>
+                <div id="moteur_explication2" class="explication-zone">
+                    <p>Il existe plusieurs types de moteurs : moteurs moyeu (situés dans la roue), moteurs pédalier (situés au niveau des pédales). Les moteurs pédalier offrent généralement une meilleure répartition du poids et une assistance plus naturelle.</p>
+                </div>
+                <li><span class="important" onclick="afficherExplication('batterie_explication2')">La Batterie :</span> Elle stocke l'énergie pour faire fonctionner le moteur. Plus il y a de Wh (Watt-heure), plus vous pouvez rouler longtemps (c'est l'autonomie). C'est comme le réservoir d'essence d'une voiture.</li>
+                <div id="batterie_explication2" class="explication-zone">
+                    <p>Les batteries sont généralement au lithium-ion. Elles sont amovibles, ce qui permet de les recharger facilement à la maison ou au bureau. La capacité de la batterie (en Wh) détermine l'autonomie du vélo. Plus la capacité est élevée, plus tu peux rouler longtemps.</p>
+                </div>
+                 <li><span class="important" onclick="afficherExplication('controleur_explication2')">Le Contrôleur :</span> C'est le cerveau du vélo ! 🧠 Il gère la puissance du moteur en fonction de ce que vous faites.</li>
+                <div id="controleur_explication2" class="explication-zone">
+                    <p>Le contrôleur reçoit les informations des différents capteurs (capteur de pédalage, capteur de vitesse) et adapte la puissance du moteur en conséquence. C'est lui qui permet de gérer les différents niveaux d'assistance.</p>
+                </div>
+
+                 <li><span class="important" onclick="afficherExplication('capteur_explication2')">Le Capteur de Pédalage :</span> Il détecte quand vous pédalez et active l'assistance du moteur. C'est comme un interrupteur qui s'allume quand vous pédalez.</li>
+                <div id="capteur_explication2" class="explication-zone">
+                    <p>Le capteur de pédalage détecte si vous êtes en train de pédaler ou pas. Il existe deux types de capteurs : capteurs de rotation et capteurs de couple. Les capteurs de couple sont plus précis et offrent une assistance plus naturelle.</p>
+                </div>
+                 <li><span class="important" onclick="afficherExplication('affichage_explication2')">L'Affichage (Console) :</span> Il vous montre des informations importantes comme votre vitesse, le niveau de batterie, le niveau d'assistance… 📊 C'est comme le tableau de bord d'une voiture.</li>
+                <div id="affichage_explication2" class="explication-zone">
+                    <p>L'affichage vous donne des informations utiles comme la vitesse, le niveau de batterie, le niveau d'assistance, la distance parcourue, etc. Certains affichages sont connectés à une application mobile, ce qui permet de suivre ses performances et de personnaliser les réglages du vélo.</p>
+                </div>
+                 <li><span class="important" onclick="afficherExplication('freins_explication')">Les Freins :</span> Pour ralentir et s'arrêter en toute sécurité. Ils sont essentiels !</li>
+                <div id="freins_explication" class="explication-zone">
+                    <p>Il existe différents types de freins (freins à patins, freins à disque). Les freins à disque offrent un freinage plus puissant et plus fiable, surtout par temps humide.</p>
+                </div>
+                 <li><span class="important" onclick="afficherExplication('cables_explication')">Les Câbles et Gaines :</span> Ils relient les différents composants entre eux et permettent de transmettre les informations et l'énergie. Ils sont souvent en métal ou en plastique.</li>
+                <div id="cables_explication" class="explication-zone">
+                    <p>Les câbles et gaines doivent être de bonne qualité pour garantir un fonctionnement fiable du vélo.</p>
+                </div>
+                 <li><span class="important" onclick="afficherExplication('gardes_explication')">Les Garde-boues (optionnels) :</span> Pour ne pas se salir quand il pleut. Ils sont souvent en plastique.</li>
+                <div id="gardes_explication" class="explication-zone">
+                    <p>Les gardes-boues sont utiles pour se protéger des projections d'eau et de boue. Il existe différents types de gardes-boues (fixes, amovibles, etc.).</p>
+                </div>
+            </ul>
+
+            <h4>B. Comment ça Marche ?</h4>
+            <ol>
+                <li>Vous pédalez, comme sur un vélo normal.</li>
+                <li>Le capteur de pédalage détecte que vous pédalez.</li>
+                <li>Le contrôleur dit au moteur de vous donner un coup de pouce.</li>
+                <li>La batterie fournit l'énergie au moteur.</li>
+                <li>Le moteur vous aide à pédaler plus facilement.</li>
+                <li>Vous choisissez le niveau d'assistance (faible, moyen, fort) grâce à l'affichage.</li>
+            </ol>
+        </div>
+  <div id="fonctionnement" class="section">
+      <h3>II. Pourquoi le Vélo Électrique Existe ? (Besoin et Avantages):</h3>
+
+    <h4>A. Le Besoin : La Mobilité Facilitée</h4>
+            <p>Les vélos électriques ont été créés pour répondre à un besoin : se déplacer plus facilement, plus rapidement et avec moins d'effort. Imaginez que vous habitez en haut d'une colline ou que vous devez transporter des courses lourdes. Le vélo électrique vous aide à surmonter ces difficultés !</p>
+         <h4>B. Les Avantages:</h4>
+
+            <ul>
+                <li> Moins d'Effort : Plus besoin de transpirer dans les montées !</li>
+                <li> Plus de Distance : Vous pouvez parcourir de plus longues distances sans vous fatiguer.</li>
+                <li> Plus Écologique : Moins de pollution qu'une voiture ou un scooter à essence.</li>
+                <li>Plus Rapide : Dans certaines situations, un vélo électrique peut être plus rapide qu'une voiture en ville.</li>
+                <li>Bon pour la Santé : Vous faites quand même de l'exercice, même si c'est plus facile !</li>
+                <li>Pratique : Facile à garer, pas besoin de permis (dans la plupart des cas).</li>
+            </ul>
+
+        </div>
+
+  <div id="fonctionnement" class="section">
+   <h3>III. Les Matériaux et Leurs Propriétés :</h3>
+
+            <p>Un vélo électrique est fait de différents matériaux, chacun ayant un rôle précis :</p>
+            <ul>
+
+                <li> Métal (Aluminium, Acier) : Le cadre, la fourche, le guidon, les jantes sont souvent en métal car c'est solide, résistant et léger (surtout l'aluminium).</li>
+                <li>Plastique : Les garde-boues, les protections, les gaines de câbles, certains éléments de l'affichage sont souvent en plastique car c'est léger, résistant à l'eau et facile à mouler.</li>
+                <li>Caoutchouc : Les pneus sont en caoutchouc pour l'adhérence et le confort.</li>
+                <li> Composites (Fibre de Carbone) : Certains vélos haut de gamme utilisent des matériaux composites (fibre de carbone) pour être encore plus légers et performants.</li>
+
+            </ul>
+
+        </div>
+  <div id="fonctionnement" class="section">
+  <h3>IV. La Source d'Énergie :</h3>
+
+        <p>L'énergie du vélo électrique vient de la batterie. On la recharge en la branchant sur une prise électrique, comme un téléphone portable. L'électricité utilisée peut provenir de différentes sources : panneaux solaires, éoliennes, centrales nucléaires, etc. Choisir une source d'énergie renouvelable est un bon moyen de rendre le vélo électrique encore plus écologique !</p>
+
+        <h4>Comment Recharger la Batterie ?</h4>
+        <ul>
+            <li>Brancher le chargeur sur une prise électrique.</li>
+            <li>Connecter le chargeur à la batterie du vélo.</li>
+            <li>Attendre que la batterie soit complètement chargée (le chargeur indique généralement quand c'est le cas).</li>
+        </ul>
+
+    </div>
+
+        <div id="fabrication" class="section">
+            <h3>V. Comment Fabrique-t-on un Vélo Électrique ? (Fabrication)</h3>
+            <h4>A. Les Étapes de Fabrication :</h4>
+            <ol>
+                <li>Conception : Les ingénieurs dessinent les plans du vélo et choisissent les meilleurs matériaux.</li>
+                <li>Fabrication du Cadre : On soude ou on assemble les tubes de métal (aluminium, acier) pour former le cadre.</li>
+                <li>Peinture : On peint le cadre pour le protéger de la rouille et lui donner une belle couleur.</li>
+                <li>Montage des Composants : On fixe les roues, le guidon, la selle, les freins, le dérailleur, etc.</li>
+                <li>Installation du Moteur et de la Batterie : On place le moteur dans la roue ou au niveau des pédales, et on fixe la batterie sur le cadre.</li>
+                <li>Câblage : On relie tous les composants électriques entre eux avec des câbles.</li>
+                <li>Tests et Contrôle Qualité : On vérifie que tout fonctionne bien et que le vélo est sûr.</li>
+            </ol>
+
+            <h4>B. Les Machines et Les Outils :</h4>
+            <ul>
+                <li> Machines à Souder : Pour assembler le cadre.</li>
+                <li> Machines de Découpe Laser : Pour couper les tubes de métal avec précision.</li>
+                <li> Robots Peintres : Pour peindre le cadre de manière uniforme.</li>
+                <li> Tournevis, Clés, Pinces : Pour monter les composants.</li>
+                <li> Ordinateurs : Pour programmer le contrôleur du moteur et gérer l'assistance électrique.</li>
+            </ul>
+             <p>On utilise des <span class="important" onclick="afficherExplication('algorithmes_explication')">algorithmes</span>, des <span class="important" onclick="afficherExplication('variable_explication')">variables</span> et des <span class="important" onclick="afficherExplication('boucles_explication')">boucles</span> pour programmer le contrôleur et gérer l'assistance du moteur.</p>
+                  <div id="algorithmes_explication" class="explication-zone">
+                             <p>C'est un ensemble d'instructions que l'ordinateur suit pour résoudre un problème. </p>
+                        </div>
+                               <div id="variable_explication" class="explication-zone">
+                             <p>est une zone de la mémoire de l'ordinateur qui contient une information.  </p>
+                        </div>
+                             <div id="boucles_explication" class="explication-zone">
+                             <p>C'est des instructions qui tournent en rond, comme quand tu fais du vélo.</p>
+                        </div>
+        </div>
+        <div id="impact" class="section">
+            <h3>VI. L'Impact du Vélo Électrique sur l'Environnement :</h3>
+
+            <h4>A. Moins de Pollution :</h4>
+            <p>Le vélo électrique ne rejette pas de gaz d'échappement, contrairement aux voitures et aux scooters à essence. Il contribue donc à améliorer la qualité de l'air dans les villes et à réduire les émissions de gaz à effet de serre responsables du changement climatique.</p>
+
+            <h4>B. Recyclage de la Batterie :</h4>
+            <p>Les batteries de vélos électriques contiennent des matériaux précieux (lithium, cobalt, nickel) qui peuvent être recyclés. Il est important de déposer les batteries usagées dans des points de collecte spécifiques pour qu'elles soient traitées correctement et que les matériaux puissent être réutilisés.</p>
+
+        </div>
+        <div id="reglementation" class="section">
+            <h3>VII. Les Règles de Sécurité et la Réglementation :</h3>
+            <h4>A. Les Règles de Sécurité :</h4>
+            <ul>
+                <li>Porter un Casque : C'est obligatoire et ça protège votre tête en cas de chute.</li>
+                <li>Être Visible : Porter des vêtements clairs ou un gilet réfléchissant, surtout la nuit.</li>
+                <li>Respecter le Code de la Route : Les vélos électriques sont soumis aux mêmes règles que les vélos normaux.</li>
+                <li>Vérifier l'État du Vélo : Freins, pneus, éclairage… Assurez-vous que tout est en bon état avant de partir.</li>
+            </ul>
+            <h4>B. La Réglementation :</h4>
+            <p>En France, un vélo électrique est considéré comme un vélo normal s'il respecte les conditions suivantes :</p>
+            <ul>
+                <li>Puissance du moteur limitée à 250 Watts.</li>
+                <li>Assistance électrique qui se coupe au-delà de 25 km/h.</li>
+                <li>Pas besoin de permis ni d'assurance spécifique.</li>
+            </ul>
+        </div>
+        <div id="entretien" class="section">
+            <h3>VIII. Comment Entretenir Son Vélo Électrique ? (Maintenance)</h3>
+            <h4>A. Les Vérifications Régulières :</h4>
+            <ul>
+                <li>Pression des Pneus : Vérifiez-la régulièrement et gonflez les pneus si nécessaire.</li>
+                <li>Freins : Assurez-vous qu'ils freinent bien et faites-les régler si besoin.</li>
+                <li>Chaîne : Nettoyez-la et lubrifiez-la régulièrement.</li>
+                <li>Batterie : Rechargez-la régulièrement et stockez-la dans un endroit sec et tempéré.</li>
+                <li>Câbles et Gaines : Vérifiez qu'ils ne sont pas endommagés.</li>
+            </ul>
+            <h4>B. Les Réparations :</h4>
+            <p>Pour les réparations plus importantes, il est préférable de faire appel à un professionnel (mécanicien cycle). Il pourra diagnostiquer les problèmes et effectuer les réparations nécessaires.</p>
+        </div>
+         <div id="choisir" class="section">
+            <h3>IX. Comment Choisir Son Vélo Électrique ?</h3>
+            <h4>A. Les Critères de Choix :</h4>
+            <ul>
+                <li>L'Utilisation : Ville, campagne, VTT… Choisissez un vélo adapté à votre pratique.</li>
+                <li>L'Autonomie : Définissez vos besoins en fonction des distances que vous parcourez.</li>
+                <li>Le Type de Moteur : Moteur moyeu ou moteur pédalier ? Chaque type a ses avantages et ses inconvénients.</li>
+                <li>Le Budget : Les prix des vélos électriques varient beaucoup. Définissez un budget avant de commencer vos recherches.</li>
+                <li>Le Confort : Essayez le vélo avant de l'acheter pour vérifier qu'il est confortable et adapté à votre morphologie.</li>
+                <li>Le Style : Il existe des vélos électriques de tous les styles (urbain, VTC, VTT, pliant…). Choisissez celui qui vous plaît le plus !</li>
+            </ul>
+        </div>
+        <div id="conclusion" class="section">
+            <h3>Conclusion</h3>
+            <p>Voilà, vous savez maintenant tout (ou presque) sur les vélos électriques ! J'espère que ce guide vous a été utile et que vous êtes prêts à enfourcher votre vélo électrique pour partir à l'aventure. N'oubliez pas : le vélo électrique, c'est bon pour la planète, bon pour la santé et bon pour le moral ! 😃</p>
+
+        </div>
+    </div>
+
+    <script>
+        function afficherExplication(id) {
+            var explicationZone = document.getElementById(id);
+            if (explicationZone.style.display === "none") {
+                explicationZone.style.display = "block";
+            } else {
+                explicationZone.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
