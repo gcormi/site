@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌊 La Station d'Épuration : Nettoyer l'Eau Sale ! 🌍</title>
+    <style>
+       /* Styles CSS */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #fff3e0; /* Orange très clair */
+            color: #333;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #bf360c; /* Marron foncé */
+            border-bottom: 3px solid #bf360c;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ffb74d; /* Orange clair */
+            background-color: #ffe0b2; /* Orange très clair */
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: scale(1.02);
+        }
+
+        .important {
+            font-weight: bold;
+            color: #5d4037; /* Marron très foncé */
+            cursor: pointer; /* Indiquer que c'est cliquable */
+        }
+
+        .important:hover {
+            text-decoration: underline;
+            color: #3e2723; /* Marron encore plus foncé */
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        ul li {
+            transition: background-color 0.3s ease;
+        }
+
+        ul li:hover {
+            background-color: #ffcc80; /* Orange clair au survol */
+            cursor: pointer;
+        }
+
+        .qcm {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ffb74d; /* Orange clair */
+            background-color: #fff;
+            border-radius: 6px;
+        }
+
+        .qcm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .feedback {
+            margin-top: 5px;
+            font-style: italic;
+            color: red;
+        }
+
+        button {
+            background-color: #e65100; /* Orange foncé */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #bf360c; /* Marron foncé */
+        }
+
+        .explication-button {
+            background-color: #ff8a65; /* Orange vif */
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .explication-button:hover {
+            background-color: #d84315; /* Orange foncé */
+        }
+
+        .explication-zone {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #795548; /* Marron */
+            background-color: #fbe9e7; /* Orange très clair */
+            border-radius: 5px;
+            display: none;
+        }
+
+         input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        #partie2 {
+            display: none; /* Masquer la partie 2 initialement */
+        }
+
+        .reveal-button {
+            background-color: #795548; /* Marron */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .reveal-button:hover {
+            background-color: #4e342e; /* Marron très foncé */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <h2>🌊 La Station d'Épuration : Nettoyer l'Eau Sale ! 🌍</h2>
+        <p>Salut les pros de l'environnement ! Aujourd'hui, on va plonger dans le monde fascinant des  <span class="important" onclick="afficherExplication('stations_explication')">stations d'épuration</span>. Ce sont de vraies usines à nettoyer l'eau, et c'est super important pour notre planète ! 🌍 Alors, prêts à découvrir comment ça marche ?</p>
+        <div id="stations_explication" class="explication-zone">
+            <p>Les stations d'épuration sont des installations conçues pour traiter les eaux usées et les eaux pluviales afin de les débarrasser des polluants avant de les rejeter dans le milieu naturel (rivières, lacs, mer, etc.).</p>
+        </div>
+
+        <div id="introduction" class="section">
+            <h3>Introduction</h3>
+            <p>Les stations d'épuration sont comme de grandes usines qui nettoient les eaux usées (eaux sales) avant de les renvoyer dans la nature. C'est super important pour l'environnement ! 🌍 Sans ces stations, nos rivières et nos mers seraient polluées, et ce serait une catastrophe pour les animaux et les plantes aquatiques.</p>
+
+        </div>
+
+        <div id="pre_traitement" class="section">
+            <h3>1. Pré-traitement : On enlève le plus gros ! 🗑️</h3>
+            <p>La première étape du nettoyage, c'est d'enlever les gros déchets qui arrivent dans la station. C'est un peu comme trier les déchets avant de les recycler ! On utilise plusieurs techniques :</p>
+            <ul>
+                <li onclick="afficherExplication('degrillage_explication')">Dégrillage : On retire les gros déchets (bouteilles, plastiques...).</li>
+                <div id="degrillage_explication" class="explication-zone">
+                    <p>Le dégrillage consiste à faire passer l'eau à travers une grille qui retient les objets de grande taille. Ces dégrilleurs peuvent être manuels ou automatiques, et ils sont nettoyés régulièrement pour éviter qu'ils ne se bouchent. Les déchets récupérés sont ensuite envoyés à la décharge ou à l'incinération.</p>
+					<p>Imaginez les dégrilleurs comme de grands peignes qui retirent les cheveux et autres objets bloquant l'évier de votre salle de bain. </p>
+                </div>
+                <li onclick="afficherExplication('dessablage_explication')">Désablage : On enlève le sable et les graviers.</li>
+                <div id="dessablage_explication" class="explication-zone">
+                    <p>Le désablage permet d'éliminer les matières minérales (sable, graviers, etc.) qui pourraient endommager les équipements de la station (pompes, canalisations...). L'eau est ralentie dans un bassin, ce qui permet aux matières les plus lourdes de se déposer au fond. Le sable et les graviers sont ensuite extraits et envoyés à la décharge.</p>
+					<p>Sans le désablage, le sable et les graviers agiraient comme du papier de verre, usant prématurément les pompes et les canalisations. </p>
+                </div>
+                <li onclick="afficherExplication('dehuilage_explication')">Déshuilage : On retire les huiles et graisses.</li>
+                <div id="dehuilage_explication" class="explication-zone">
+                    <p>Le déshuilage est important car les huiles et les graisses peuvent former une couche imperméable à la surface de l'eau, ce qui perturbe les traitements biologiques. De plus, elles peuvent se solidifier et boucher les canalisations.</p>
+					<p>Pour cela, on injecte de l'air dans le bassin, ce qui fait remonter les huiles et les graisses à la surface où elles sont ensuite récupérées.</p>
+                </div>
+            </ul>
+        </div>
+        <div id="qcm_pre_traitement" class="qcm">
+            <h3>QCM : Le Pré-traitement</h3>
+            <p>Question : Quelle est la première étape du pré-traitement ?</p>
+            <label><input type="radio" name="pre_traitement_q1" value="a"> Le déshuilage.</label>
+            <label><input type="radio" name="pre_traitement_q1" value="b"> Le démaquillage.</label>
+            <label><input type="radio" name="pre_traitement_q1" value="c"> Le dégrillage.</label>
+            <button onclick="validerPreTraitement(document.querySelector('input[name=\'pre_traitement_q1\']:checked'))">Valider</button>
+            <p id="pre_traitement_feedback" class="feedback"></p>
+        </div>
+
+        <button class="reveal-button" onclick="afficherPartie2()">Découvrir la Suite !</button>
+
+        <div id="partie2">
+            <h2>🌊 La Station d'Épuration : Nettoyer l'Eau Sale ! 🌍 (Partie 2)</h2>
+
+            <div id="traitements_biologiques" class="section">
+                <h3>2. Traitements Biologiques : Les microbes au travail ! 🦠</h3>
+                <p>Après le pré-traitement, l'eau contient encore plein de petites saletés invisibles à l'œil nu. Pour les éliminer, on fait appel à des micro-organismes, comme des bactéries ! C'est comme si on avait une armée de petits travailleurs qui mangent la pollution !</p>
+                <div id="micro_organismes_explication" class="explication-zone">
+                    <p>Les micro-organismes utilisés dans les traitements sont principalement des bactéries, mais on peut aussi trouver des protozoaires, des champignons et des algues. Ils se nourrissent de la matière organique présente dans l'eau (déchets alimentaires, excréments, etc.) et la transforment en gaz carbonique et en eau.</p>
+					<p>Ces micro-organismes sont regroupés sous le nom de boues activées, car ils sont très actifs dans le processus de dépollution.</p>
+                </div>
+                <ul>
+                    <li onclick="afficherExplication('bassin_aeration_explication')">Bassin d'aération : Des micro-organismes mangent la pollution.</li>
+                    <div id="bassin_aeration_explication" class="explication-zone">
+                        <p>Le bassin d'aération est un grand bassin où l'on injecte de l'air pour favoriser le développement des micro-organismes. L'air permet aux micro-organismes de respirer et de se multiplier. L'eau est brassée en permanence pour que les micro-organismes soient en contact avec la pollution.</p>
+						<p>C'est dans ce bassin que se déroule la majeure partie du traitement biologique.</p>
+                    </div>
+                    <li onclick="afficherExplication('decanteur_biologique_explication')">Décanteur biologique : Les microbes se déposent et l'eau se sépare.</li>
+                    <div id="decanteur_biologique_explication" class="explication-zone">
+                        <p>Le décanteur biologique est un bassin où l'eau se calme. Les micro-organismes, alourdis par la matière organique qu'ils ont consommée, se déposent au fond du bassin sous forme de boues. L'eau claire, débarrassée de la plus grande partie de sa pollution, est ensuite envoyée vers les étapes suivantes du traitement.</p>
+						<p>Une partie des boues est recyclée vers le bassin d'aération pour maintenir une concentration suffisante de micro-organismes.</p>
+                    </div>
+                </ul>
+            </div>
+
+            <div id="qcm_biologiques" class="qcm">
+                <h3>QCM : Les Traitements Biologiques</h3>
+                <p>Question : Dans quel bassin les micro-organismes mangent-ils la pollution ?</p>
+                <label><input type="radio" name="biologiques_q1" value="a"> Décanteur biologique.</label>
+                <label><input type="radio" name="biologiques_q1" value="b"> Bassin de stockage.</label>
+                <label><input type="radio" name="biologiques_q1" value="c"> Bassin d'aération.</label>
+                <button onclick="validerBiologiques(document.querySelector('input[name=\'biologiques_q1\']:checked'))">Valider</button>
+                <p id="biologiques_feedback" class="feedback"></p>
+            </div>
+
+            <div id="traitements_chimiques" class="section">
+                <h3>3. Traitements Chimiques (parfois) : Pour une eau encore plus propre ! 🧪</h3>
+                <p>Dans certaines stations, on utilise aussi des traitements chimiques pour éliminer les polluants les plus résistants (phosphore, azote, métaux lourds...). C'est comme donner un coup de polish pour faire briller la voiture !</p>
+                <ul>
+                    <li onclick="afficherExplication('floculation_explication')">Floculation : On regroupe les petites saletés pour les enlever plus facilement.</li>
+                    <div id="floculation_explication" class="explication-zone">
+                        <p>La floculation consiste à ajouter des produits chimiques (sels de fer, chlorure ferrique, etc.) qui agglomèrent les petites particules en suspension en flocons plus gros, plus faciles à séparer.</p>
+						<p>Ces flocons sont comparables à de petites boules de neige qui piègent la saleté.</p>
+                    </div>
+                    <li onclick="afficherExplication('clarification_explication')">Clarification : On sépare les saletés de l'eau claire.</li>
+                    <div id="clarification_explication" class="explication-zone">
+                        <p>La clarification consiste à séparer les flocons de l'eau à l'aide de différents procédés :</p>
+						<ul>
+							<li>Décantation : les flocons se déposent au fond du bassin sous l'effet de la gravité.</li>
+							<li>Filtration : l'eau passe à travers un filtre qui retient les flocons.</li>
+						</ul>
+                        <p>L'eau clarifiée est alors envoyée vers l'étape de désinfection.</p>
+                    </div>
+                </ul>
+            </div>
+
+            <div id="traitements_tertiaires" class="section">
+                <h3>4. Traitements Tertiaires (si besoin) : La touche finale ! ✨</h3>
+                <p>Pour obtenir une eau de très haute qualité (par exemple, pour la réutiliser pour l'irrigation ou l'industrie), on peut ajouter des traitements supplémentaires :</p>
+                <ul>
+                    <li onclick="afficherExplication('filtration_explication')">Filtration : On filtre l'eau avec du sable ou du charbon.</li>
+                    <div id="filtration_explication" class="explication-zone">
+                        <p>La filtration sur sable consiste à faire passer l'eau à travers une couche de sable qui retient les dernières particules en suspension. La filtration sur charbon actif permet d'éliminer les micropolluants (pesticides, médicaments, etc.) qui n'ont pas été éliminés lors des étapes précédentes.</p>
+						<p>Ces filtres sont régulièrement lavés pour éliminer les impuretés qu'ils ont retenues.</p>
+                    </div>
+                    <li onclick="afficherExplication('desinfection_explication')">Désinfection : On tue les microbes (avec du chlore, des UV...).</li>
+                    <div id="desinfection_explication" class="explication-zone">
+                        <p>La désinfection permet de garantir la qualité bactériologique de l'eau avant son rejet dans le milieu naturel. On utilise différents procédés :</p>
+						<ul>
+							<li>Chlore : c'est le procédé le plus couramment utilisé. Le chlore tue les bactéries, les virus et les autres micro-organismes pathogènes.</li>
+							<li>UV : les rayons ultraviolets détruisent l'ADN des micro-organismes, ce qui les empêche de se reproduire.</li>
+							<li>Ozone : l'ozone est un gaz qui a un fort pouvoir oxydant et qui détruit les micro-organismes.</li>
+						</ul>
+                    </div>
+                </ul>
+            </div>
+            <div id="qcm_chimiques" class="qcm">
+                <h3>QCM : Les Traitements Chimiques</h3>
+                <p>Question : Quel est l'objectif de la floculation ?</p>
+                <label><input type="radio" name="chimiques_q1" value="a"> Regrouper les petites saletés.</label>
+                <label><input type="radio" name="chimiques_q1" value="b"> Colorer l'eau en bleu.</label>
+                <label><input type="radio" name="chimiques_q1" value="c"> Ajouter des vitamines.</label>
+                <button onclick="validerChimiques(document.querySelector('input[name=\'chimiques_q1\']:checked'))">Valider</button>
+                <p id="chimiques_feedback" class="feedback"></p>
+            </div>
+
+            <div id="boues" class="section">
+                <h3>5. Que deviennent les boues ? 💩</h3>
+                <p>Toute la saleté qu'on a retirée de l'eau, ça forme des boues. On ne peut pas les rejeter comme ça dans la nature, alors on les traite aussi !</p>
+                <ul>
+                    <li onclick="afficherExplication('digestion_explication')">Digestion : Des bactéries transforment les boues en gaz et en engrais.</li>
+                    <div id="digestion_explication" class="explication-zone">
+                        <p>La digestion est un processus biologique qui se déroule en absence d'oxygène (anaérobie). Des bactéries transforment la matière organique contenue dans les boues en méthane (un gaz qui peut être utilisé comme source d'énergie) et en un résidu solide qui peut être utilisé comme engrais agricole.</p>
+						<p>C'est une façon de valoriser les boues au lieu de les envoyer à la décharge.</p>
+                    </div>
+                    <li onclick="afficherExplication('sechage_explication')">Séchage : On retire l'eau des boues pour réduire leur volume.</li>
+                    <div id="sechage_explication" class="explication-zone">
+                        <p>Le séchage permet de réduire le volume des boues et de faciliter leur transport et leur stockage. On peut utiliser différentes techniques :</p>
+						<ul>
+							<li>Séchage naturel : on étale les boues sur des lits de séchage et on laisse le soleil et le vent faire leur travail.</li>
+							<li>Séchage thermique : on utilise de la chaleur pour évaporer l'eau contenue dans les boues.</li>
+						</ul>
+                    </div>
+                    <li onclick="afficherExplication('valorisation_explication')">Valorisation : On utilise les boues comme engrais ou pour faire de l'énergie.</li>
+                    <div id="valorisation_explication" class="explication-zone">
+                        <p>La valorisation des boues est une étape importante pour limiter l'impact environnemental des stations d'épuration. On peut utiliser les boues de différentes façons :</p>
+						<ul>
+							<li>Épandage agricole : les boues sont utilisées comme engrais pour les cultures.</li>
+							<li>Méthanisation : les boues sont utilisées pour produire du biogaz, une source d'énergie renouvelable.</li>
+							<li>Incinération : les boues sont brûlées pour produire de la chaleur ou de l'électricité.</li>
+						</ul>
+                    </div>
+                </ul>
+            </div>
+
+            <div id="qcm_boues" class="qcm">
+                <h3>QCM : Que deviennent les boues ?</h3>
+                <p>Question : Qu'est-ce que la digestion des boues ?</p>
+                <label><input type="radio" name="boues_q1" value="a"> On les jette dans la mer.</label>
+                <label><input type="radio" name="boues_q1" value="b"> Des bactéries les transforment.</label>
+                <label><input type="radio" name="boues_q1" value="c"> On les mange !</label>
+                <button onclick="validerBoues(document.querySelector('input[name=\'boues_q1\']:checked'))">Valider</button>
+                <p id="boues_feedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <div id="conclusion" class="section">
+            <h3>Conclusion</h3>
+            <p>Voilà, tu sais maintenant comment fonctionnent les stations d'épuration ! Ce sont de véritables héros de l'environnement, qui nous aident à protéger notre planète en nettoyant l'eau que nous utilisons. Alors, la prochaine fois que tu tires la chasse d'eau, pense à tout le travail que font ces stations pour que l'eau puisse retourner propre dans la nature ! 🌍</p>
+        </div>
+    </div>
+
+    <script>
+        function afficherExplication(id) {
+            var explicationZone = document.getElementById(id);
+            if (explicationZone.style.display === "none") {
+                explicationZone.style.display = "block";
+            } else {
+                explicationZone.style.display = "none";
+            }
+        }
+
+        function afficherPartie2() {
+            document.getElementById("partie2").style.display = "block";
+        }
+
+        function validerPreTraitement(reponse) {
+            let feedback = document.getElementById("pre_traitement_feedback");
+            if (reponse && reponse.value === "c") {
+                feedback.textContent = "Bravo ! C'est la bonne réponse !";
+                feedback.style.color = "green";
+            } else {
+                feedback.textContent = "Essaie encore... Le dégrillage, c'est la première étape !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function validerBiologiques(reponse) {
+            let feedback = document.getElementById("biologiques_feedback");
+            if (reponse && reponse.value === "c") {
+                feedback.textContent = "Génial ! Les microbes font leur festin dans le bassin d'aération !";
+                feedback.style.color = "green";
+            } else {
+                feedback.textContent = "Presque... C'est dans le bassin d'aération que ça se passe !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function validerChimiques(reponse) {
+            let feedback = document.getElementById("chimiques_feedback");
+            if (reponse && reponse.value === "a") {
+                feedback.textContent = "Parfait ! On regroupe les saletés pour mieux les éliminer !";
+                feedback.style.color = "green";
+            } else {
+                feedback.textContent = "Pas tout à fait... L'objectif est de regrouper les saletés !";
+                feedback.style.color = "red";
+            }
+        }
+
+        function validerBoues(reponse) {
+            let feedback = document.getElementById("boues_feedback");
+            if (reponse && reponse.value === "b") {
+                feedback.textContent = "Super ! Les bactéries font un super boulot de transformation !";
+                feedback.style.color = "green";
+            } else {
+                feedback.textContent = "Non, on ne les mange pas ! Ce sont des bactéries qui s'en occupent !";
+                feedback.style.color = "red";
+            }
+        }
+    </script>
+
+</body>
+</html>
