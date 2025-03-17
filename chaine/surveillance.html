@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Boîtier de Surveillance pour Contrôle d'Accès</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f0f4f7;
+        }
+        .explication {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .exercise-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .chaine {
+            display: flex;
+            gap: 15px;
+            margin: 25px 0;
+            padding: 20px;
+            border: 2px solid;
+            border-radius: 10px;
+        }
+        .info-chain { border-color: #27ae60; }
+        .energy-chain { border-color: #e74c3c; }
+        .box {
+            border: 2px dashed #34495e;
+            padding: 15px;
+            width: 180px;
+            min-height: 80px;
+            border-radius: 8px;
+            text-align: center;
+            background: #f8f9fa;
+            transition: all 0.3s;
+        }
+        .draggable {
+            background: #ecf0f1;
+            padding: 12px;
+            margin: 8px;
+            border-radius: 5px;
+            cursor: grab;
+            border: 2px solid #3498db;
+        }
+        #validation {
+            text-align: center;
+            margin-top: 30px;
+        }
+        button {
+            background: #2980b9;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #resultat {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .correct { border-color: #27ae60 !important; }
+        .incorrect { border-color: #e74c3c !important; }
+        .exemple-box {
+            border: 2px solid;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== PARTIE EXPLICATIONS ========== -->
+    <div class="explication">
+        <h1>🔧 Boîtier de Surveillance pour Contrôle d’Accès</h1>
+        <div class="exemple-box" style="border-color: #27ae60;">
+            <h2>📦 Où utilise-t-on ces boîtiers ?</h2>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                <div>
+                    <h3>🏫 Au collège</h3>
+                    <ul>
+                        <li>Portail d’entrée sécurisé</li>
+                        <li>Casiers connectés</li>
+                        <li>Salle des serveurs</li>
+                    </ul>
+                    <p>Exemple : Badge à la cantine :</p>
+                    <ul>
+                        <li>Contrôle température du lecteur</li>
+                        <li>Vérification alimentation</li>
+                        <li>Communication avec serveur</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>🏡 Vie quotidienne</h3>
+                    <ul>
+                        <li>Parkings sécurisés</li>
+                        <li>Casiers de piscine</li>
+                        <li>Salles de sport</li>
+                    </ul>
+                    <p>Exemple : Casier piscine :</p>
+                    <ol>
+                        <li>Lecture du badge</li>
+                        <li>Vérification mécanisme</li>
+                        <li>Ouverture du casier</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <h2>Fonctionnement Technique</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px;">
+            <div>
+                <h3 style="color: #27ae60;">Chaîne d'Information</h3>
+                <ul>
+                    <li><strong>Surveillance</strong><br>
+                        Capteurs vérifient 50x/s :<br>
+                        - Température (-20°C à 60°C)<br>
+                        - Intégrité électrique</li>
+                    <li><strong>Régulation</strong><br>
+                        - Ventilateur 12V (>35°C)<br>
+                        - Résistance 50W (<5°C)</li>
+                    <li><strong>Communication</strong><br>
+                        - WiFi + 4G de secours<br>
+                        - Cryptage AES-256</li>
+                </ul>
+            </div>
+            <div>
+                <h3 style="color: #e74c3c;">Chaîne d'Énergie</h3>
+                <ul>
+                    <li><strong>Alimentation</strong><br>
+                        - Secteur 220V ➔ 12V<br>
+                        - Batterie 72h</li>
+                    <li><strong>Distribution</strong><br>
+                        - Relais intelligents<br>
+                        - Protection surtensions</li>
+                    <li><strong>Conversion</strong><br>
+                        - 12V ➔ 5V (92% efficacité)</li>
+                    <li><strong>Actionnement</strong><br>
+                        - Moteur 2A<br>
+                        - Portail/casiers</li>
+                </ul>
+            </div>
+        </div>
+        <div class="exemple-box" style="border-color: #3498db; margin-top: 30px;">
+            <h2>🔍 Exemple Concret</h2>
+            <p>Panne électrique :</p>
+            <ol>
+                <li><span style="color: #e74c3c;">Batterie</span> s’active</li>
+                <li><span style="color: #27ae60;">Capteurs</span> vérifient température</li>
+                <li><span style="color: #27ae60;">Processeur</span> active mode économie</li>
+                <li><span style="color: #27ae60;">4G</span> envoie alerte</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- ========== PARTIE EXERCICE ========== -->
+    <div class="exercise-container">
+        <h2>Exercice Interactif</h2>
+        <div class="chaine info-chain">
+            <h3>Chaîne d'Information</h3>
+            <div class="box" data-correct="Surveillance"></div>
+            <div class="box" data-correct="Régulation"></div>
+            <div class="box" data-correct="Communication"></div>
+        </div>
+        <div class="chaine energy-chain">
+            <h3>Chaîne d'Énergie</h3>
+            <div class="box" data-correct="Alimentation"></div>
+            <div class="box" data-correct="Distribution"></div>
+            <div class="box" data-correct="Conversion"></div>
+            <div class="box" data-correct="Actionnement"></div>
+        </div>
+        <div id="etiquettes" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0;">
+            <div class="draggable">Surveillance</div>
+            <div class="draggable">Régulation</div>
+            <div class="draggable">Communication</div>
+            <div class="draggable">Alimentation</div>
+            <div class="draggable">Distribution</div>
+            <div class="draggable">Conversion</div>
+            <div class="draggable">Actionnement</div>
+            <div class="draggable">Ventilateur</div>
+            <div class="draggable">Écran</div>
+            <div class="draggable">LED</div>
+        </div>
+        <div id="validation">
+            <button onclick="validerReponses()">Vérifier les réponses</button>
+            <p id="resultat"></p>
+        </div>
+    </div>
+
+    <script>
+        let currentDragged = null;
+
+        // Gestion du drag & drop
+        document.querySelectorAll('.draggable').forEach(draggable => {
+            draggable.addEventListener('dragstart', () => {
+                draggable.classList.add('dragging');
+                currentDragged = draggable;
+            });
+            draggable.addEventListener('dragend', () => {
+                draggable.classList.remove('dragging');
+                currentDragged = null;
+            });
+        });
+
+        document.querySelectorAll('.box').forEach(box => {
+            box.addEventListener('dragover', e => e.preventDefault());
+            box.addEventListener('drop', e => {
+                e.preventDefault();
+                if(currentDragged) {
+                    box.textContent = currentDragged.textContent;
+                    box.classList.remove('correct', 'incorrect');
+                }
+            });
+        });
+
+        // Validation
+        function validerReponses() {
+            let allCorrect = true;
+            document.querySelectorAll('.box').forEach(box => {
+                const expected = box.dataset.correct;
+                const actual = box.textContent.trim();
+                if(actual === expected) {
+                    box.classList.add('correct');
+                    box.classList.remove('incorrect');
+                } else {
+                    box.classList.add('incorrect');
+                    box.classList.remove('correct');
+                    allCorrect = false;
+                }
+            });
+            const resultat = document.getElementById('resultat');
+            if(allCorrect) {
+                resultat.innerHTML = '🎉 Bravo ! Mot magique : <strong>5R6-I8O</strong>';
+                resultat.style.color = 'green';
+            } else {
+                resultat.innerHTML = '❌ Corrigez les cases en rouge';
+                resultat.style.color = '#e74c3c';
+            }
+        }
+    </script>
+</body>
+</html>
