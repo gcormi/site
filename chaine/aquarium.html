@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Aquarium d'Ornement - Étude Complète</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #eaf6f6; /* Bleu clair aquatique */
+        }
+        .explication {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .exercise-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .chaine {
+            display: flex;
+            gap: 15px;
+            margin: 25px 0;
+            padding: 20px;
+            border: 2px solid;
+            border-radius: 10px;
+        }
+        .info-chain { border-color: #1abc9c; } /* Vert aqua */
+        .energy-chain { border-color: #3498db; } /* Bleu doux */
+        .function-chain { border-color: #f39c12; } /* Orange doux */
+        .box {
+            border: 2px dashed #2c3e50;
+            padding: 15px;
+            width: 180px;
+            min-height: 80px;
+            border-radius: 8px;
+            text-align: center;
+            background: #f8f9fa;
+            transition: all 0.3s;
+        }
+        .draggable {
+            background: #ecf0f1;
+            padding: 12px;
+            margin: 8px;
+            border-radius: 5px;
+            cursor: grab;
+            border: 2px solid #3498db;
+        }
+        #validation {
+            text-align: center;
+            margin-top: 30px;
+        }
+        button {
+            background: #1abc9c;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #resultat {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .correct { border-color: #1abc9c !important; }
+        .incorrect { border-color: #e74c3c !important; }
+        .exemple-box {
+            border: 2px solid;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        /* Style pour l'image */
+        .image-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .image-container img {
+            width: 500px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== PARTIE EXPLICATIONS ========== -->
+    <div class="explication">
+        <h1>🐟 Aquarium d'Ornement</h1>
+
+        <!-- Image insérée -->
+        <div class="image-container">
+            <img src="https://images.unsplash.com/photo-1580140404772-decde5a9cc9f?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YXF1YXJpdW18ZW58MHx8MHx8fDA%3D" alt="Aquarium d'ornement">
+        </div>
+
+        <div class="exemple-box" style="border-color: #1abc9c;">
+            <h2>📦 Où utilise-t-on ces aquariums ?</h2>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                <div>
+                    <h3>🏫 Au collège</h3>
+                    <ul>
+                        <li>Salle de classe (biologie)</li>
+                        <li>Cantine (décoration)</li>
+                        <li>Bibliothèque (ambiance relaxante)</li>
+                    </ul>
+                    <p>Exemple : Cours de biologie :</p>
+                    <ul>
+                        <li>Étude des écosystèmes aquatiques</li>
+                        <li>Vie des poissons tropicaux</li>
+                        <li>Gestion de la qualité de l'eau</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>🏡 Dans la vie quotidienne</h3>
+                    <ul>
+                        <li>Maison (salon)</li>
+                        <li>Bureau (décoration)</li>
+                        <li>Commerces (poissonneries)</li>
+                    </ul>
+                    <p>Exemple : Salon :</p>
+                    <ol>
+                        <li>Relaxation grâce au bruit de l'eau</li>
+                        <li>Décoration moderne</li>
+                        <li>Entretien régulier</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <h2>Fonctionnement Technique</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px;">
+            <div>
+                <h3 style="color: #1abc9c;">Chaîne de Maintenance</h3>
+                <ul>
+                    <li><strong>Filtration</strong><br>
+                        Filtre vérifie 24h/24 :<br>
+                        - Qualité de l'eau<br>
+                        - Élimination des déchets</li>
+                    <li><strong>Température</strong><br>
+                        - Chauffage automatique<br>
+                        - Thermomètre intégré</li>
+                    <li><strong>Alimentation</strong><br>
+                        - Distribution automatique<br>
+                        - Programmation horaire</li>
+                </ul>
+            </div>
+            <div>
+                <h3 style="color: #3498db;">Chaîne d'Éclairage</h3>
+                <ul>
+                    <li><strong>LED</strong><br>
+                        - Lumière douce<br>
+                        - Simulation jour/nuit</li>
+                    <li><strong>Programmation</strong><br>
+                        - Horloge intégrée<br>
+                        - Mode vacances</li>
+                    <li><strong>Effets Visuels</strong><br>
+                        - Couleurs changeantes<br>
+                        - Ambiance dynamique</li>
+                </ul>
+            </div>
+        </div>
+        <div class="exemple-box" style="border-color: #3498db; margin-top: 30px;">
+            <h2>🔍 Exemple Concret</h2>
+            <p>Panne de courant :</p>
+            <ol>
+                <li><span style="color: #3498db;">Batterie</span> s'active</li>
+                <li><span style="color: #1abc9c;">Filtre</span> continue de fonctionner</li>
+                <li><span style="color: #1abc9c;">Chauffage</span> maintient la température</li>
+                <li><span style="color: #3498db;">LED</span> passe en mode basse consommation</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- ========== PARTIE EXERCICE ========== -->
+    <div class="exercise-container">
+        <h2>Exercice Interactif</h2>
+        
+        <!-- Chaîne de Fonctionnement -->
+        <div class="chaine function-chain" style="border-color: #f39c12;">
+            <h3>Chaîne de Fonctionnement</h3>
+            <div class="box" data-correct="Détection"></div>
+            <div class="box" data-correct="Traitement"></div>
+            <div class="box" data-correct="Action"></div>
+        </div>
+        
+        <!-- Chaîne de Maintenance -->
+        <div class="chaine info-chain">
+            <h3>Chaîne de Maintenance</h3>
+            <div class="box" data-correct="Filtration"></div>
+            <div class="box" data-correct="Température"></div>
+            <div class="box" data-correct="Alimentation"></div>
+        </div>
+        
+        <!-- Chaîne d'Éclairage -->
+        <div class="chaine energy-chain">
+            <h3>Chaîne d'Éclairage</h3>
+            <div class="box" data-correct="LED"></div>
+            <div class="box" data-correct="Programmation"></div>
+            <div class="box" data-correct="Effets Visuels"></div>
+        </div>
+        
+        <!-- Étiquettes mélangées -->
+        <div id="etiquettes" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0;">
+            <div class="draggable">Effets Visuels</div>
+            <div class="draggable">Alimentation</div>
+            <div class="draggable">LED</div>
+            <div class="draggable">Détection</div>
+            <div class="draggable">Filtration</div>
+            <div class="draggable">Action</div>
+            <div class="draggable">Température</div>
+            <div class="draggable">Programmation</div>
+            <div class="draggable">Traitement</div>
+        </div>
+        
+        <div id="validation">
+            <button onclick="validerReponses()">Vérifier les réponses</button>
+            <p id="resultat"></p>
+        </div>
+    </div>
+
+    <script>
+        let currentDragged = null;
+
+        // Gestion du drag & drop
+        document.querySelectorAll('.draggable').forEach(draggable => {
+            draggable.addEventListener('dragstart', () => {
+                draggable.classList.add('dragging');
+                currentDragged = draggable;
+            });
+            draggable.addEventListener('dragend', () => {
+                draggable.classList.remove('dragging');
+                currentDragged = null;
+            });
+        });
+
+        document.querySelectorAll('.box').forEach(box => {
+            box.addEventListener('dragover', e => e.preventDefault());
+            box.addEventListener('drop', e => {
+                e.preventDefault();
+                if (currentDragged) {
+                    box.textContent = currentDragged.textContent;
+                    box.classList.remove('correct', 'incorrect');
+                }
+            });
+        });
+
+        // Validation
+        function validerReponses() {
+            let allCorrect = true;
+            document.querySelectorAll('.box').forEach(box => {
+                const expected = box.dataset.correct;
+                const actual = box.textContent.trim();
+                if (actual === expected) {
+                    box.classList.add('correct');
+                    box.classList.remove('incorrect');            }
+        });
+        const resultat = document.getElementById('resultat');
+        if (allCorrect) {
+            resultat.innerHTML = '🎉 Bravo ! Mot magique : <strong>AQ1-F5L</strong>';
+            resultat.style.color = 'green';
+        } else {
+            resultat.innerHTML = '❌ Corrigez les cases en rouge';
+            resultat.style.color = '#e74c3c';
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Système de Sécurité Domestique Connecté</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f9f9f9; /* Fond clair */
+        }
+        .explication {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .exercise-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .chaine {
+            display: flex;
+            gap: 15px;
+            margin: 25px 0;
+            padding: 20px;
+            border: 2px solid;
+            border-radius: 10px;
+        }
+        .info-chain { border-color: #27ae60; } /* Vert pour l'information */
+        .energy-chain { border-color: #e74c3c; } /* Rouge pour l'énergie */
+        .function-chain { border-color: #3498db; } /* Bleu pour le fonctionnement */
+        .box {
+            border: 2px dashed #34495e;
+            padding: 15px;
+            width: 180px;
+            min-height: 80px;
+            border-radius: 8px;
+            text-align: center;
+            background: #f8f9fa;
+            transition: all 0.3s;
+        }
+        .draggable {
+            background: #ecf0f1;
+            padding: 12px;
+            margin: 8px;
+            border-radius: 5px;
+            cursor: grab;
+            border: 2px solid #3498db;
+        }
+        #validation {
+            text-align: center;
+            margin-top: 30px;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #resultat {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .correct { border-color: #27ae60 !important; }
+        .incorrect { border-color: #e74c3c !important; }
+        .exemple-box {
+            border: 2px solid;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== PARTIE EXPLICATIONS ========== -->
+    <div class="explication">
+        <h1>🔒 Système de Sécurité Domestique Connecté</h1>
+
+        <div class="exemple-box" style="border-color: #27ae60;">
+            <h2>📦 Où utilise-t-on ces systèmes ?</h2>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                <div>
+                    <h3>🏠 Dans la vie quotidienne</h3>
+                    <ul>
+                        <li>Maisons individuelles</li>
+                        <li>Appartements</li>
+                        <li>Garages</li>
+                    </ul>
+                    <p>Exemple : Maison :</p>
+                    <ul>
+                        <li>Détection d'intrusion</li>
+                        <li>Alerte sur smartphone</li>
+                        <li>Caméras en temps réel</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>🏢 En entreprise</h3>
+                    <ul>
+                        <li>Bureaux</li>
+                        <li>Commerces</li>
+                        <li>Entrepôts</li>
+                    </ul>
+                    <p>Exemple : Commerce :</p>
+                    <ol>
+                        <li>Détection de mouvement</li>
+                        <li>Enregistrement vidéo</li>
+                        <li>Alarme sonore</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <h2>Fonctionnement Technique</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px;">
+            <div>
+                <h3 style="color: #27ae60;">Chaîne d'Information</h3>
+                <ul>
+                    <li><strong>Surveillance</strong><br>
+                        Capteurs détectent les intrusions, fumée ou chaleur.</li>
+                    <li><strong>Régulation</strong><br>
+                        Ajustement automatique des paramètres (ex. désactivation si présence).</li>
+                    <li><strong>Communication</strong><br>
+                        Transmission des données via WiFi/4G vers une application mobile.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 style="color: #e74c3c;">Chaîne d'Énergie</h3>
+                <ul>
+                    <li><strong>Alimentation</strong><br>
+                        Secteur électrique principal (220V) avec batterie de secours (72h).</li>
+                    <li><strong>Distribution</strong><br>
+                        Relais alimentent les capteurs, caméras et alarmes.</li>
+                    <li><strong>Conversion</strong><br>
+                        Transformateur adapte la tension pour chaque composant.</li>
+                    <li><strong>Actionnement</strong><br>
+                        Activation des alarmes, caméras ou mécanismes.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="exemple-box" style="border-color: #3498db; margin-top: 30px;">
+            <h2>🔍 Exemple Concret</h2>
+            <p>Intrusion détectée :</p>
+            <ol>
+                <li><span style="color: #e74c3c;">Capteur</span> détecte un mouvement suspect.</li>
+                <li><span style="color: #27ae60;">Processeur</span> analyse l'événement.</li>
+                <li><span style="color: #27ae60;">Alarme</span> se déclenche immédiatement.</li>
+                <li><span style="color: #27ae60;">Notification</span> envoyée au propriétaire.</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- ========== PARTIE EXERCICE ========== -->
+    <div class="exercise-container">
+        <h2>Exercice Interactif</h2>
+        
+        <!-- Chaîne de Fonctionnement -->
+        <div class="chaine function-chain">
+            <h3>Chaîne de Fonctionnement</h3>
+            <div class="box" data-correct="Détection"></div>
+            <div class="box" data-correct="Traitement"></div>
+            <div class="box" data-correct="Action"></div>
+        </div>
+        
+        <!-- Chaîne d'Information -->
+        <div class="chaine info-chain">
+            <h3>Chaîne d'Information</h3>
+            <div class="box" data-correct="Surveillance"></div>
+            <div class="box" data-correct="Régulation"></div>
+            <div class="box" data-correct="Communication"></div>
+        </div>
+        
+        <!-- Chaîne d'Énergie -->
+        <div class="chaine energy-chain">
+            <h3>Chaîne d'Énergie</h3>
+            <div class="box" data-correct="Alimentation"></div>
+            <div class="box" data-correct="Distribution"></div>
+            <div class="box" data-correct="Conversion"></div>
+            <div class="box" data-correct="Actionnement"></div>
+        </div>
+        
+        <!-- Étiquettes mélangées -->
+        <div id="etiquettes" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0;">
+            <div class="draggable">Surveillance</div>
+            <div class="draggable">Régulation</div>
+            <div class="draggable">Communication</div>
+            <div class="draggable">Alimentation</div>
+            <div class="draggable">Distribution</div>
+            <div class="draggable">Conversion</div>
+            <div class="draggable">Actionnement</div>
+            <div class="draggable">Détection</div>
+            <div class="draggable">Traitement</div>
+            <div class="draggable">Action</div>
+        </div>
+        
+        <div id="validation">
+            <button onclick="validerReponses()">Vérifier les réponses</button>
+            <p id="resultat"></p>
+        </div>
+    </div>
+
+    <script>
+        let currentDragged = null;
+
+        // Gestion du drag & drop
+        document.querySelectorAll('.draggable').forEach(draggable => {
+            draggable.addEventListener('dragstart', () => {
+                draggable.classList.add('dragging');
+                currentDragged = draggable;
+            });
+            draggable.addEventListener('dragend', () => {
+                draggable.classList.remove('dragging');
+                currentDragged = null;
+            });
+        });
+
+        document.querySelectorAll('.box').forEach(box => {
+            box.addEventListener('dragover', e => e.preventDefault());
+            box.addEventListener('drop', e => {
+                e.preventDefault();
+                if (currentDragged) {
+                    box.textContent = currentDragged.textContent.trim(); // Assure que le texte est propre
+                    box.classList.remove('correct', 'incorrect');
+                }
+            });
+        });
+
+        // Validation
+        function validerReponses() {
+            let allCorrect = true;
+            document.querySelectorAll('.box').forEach(box => {
+                const expected = box.dataset.correct; // Récupère la réponse attendue
+                const actual = box.textContent.trim(); // Récupère le texte actuel dans la boîte
+                if (actual === expected) {
+                    box.classList.add('correct');
+                    box.classList.remove('incorrect');
+                } else {
+                    box.classList.add('incorrect');
+                    box.classList.remove('correct');
+                    allCorrect = false;
+                }
+            });
+            const resultat = document.getElementById('resultat');
+            if (allCorrect) {
+                resultat.innerHTML = '🎉 Bravo ! Mot magique : <strong>SE1-CUR</strong>';
+                resultat.style.color = 'green';
+            } else {
+                resultat.innerHTML = '❌ Corrigez les cases en rouge';
+                resultat.style.color = '#e74c3c';
+            }
+        }
+    </script>
+</body>
+</html>

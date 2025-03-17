@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mot Super Magique</title>
+    <style>
+        /* Styles généraux */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #34495e;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        /* Styles pour le formulaire */
+        .word-input {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .word-input div {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        /* Bouton de validation */
+        button {
+            background: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+
+        /* Résultat */
+        #resultat {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .correct {
+            color: #2ecc71;
+        }
+        .incorrect {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== CONTAINER PRINCIPAL ========== -->
+    <div class="container">
+        <h1>🏆 Mot Super Magique 🏆</h1>
+        <p>Pour obtenir le mot super magique, entrez les 5 mots magiques des exercices précédents :</p>
+
+        <!-- Formulaire pour les mots magiques -->
+        <div class="word-input">
+            <div>
+                <label for="mot1">Mot magique 1 (Boîtier de Gestion de l'Énergie) :</label>
+                <input type="text" id="mot1" placeholder="Entrez le mot magique...">
+            </div>
+            <div>
+                <label for="mot2">Mot magique 2 (Détection d'Incendie) :</label>
+                <input type="text" id="mot2" placeholder="Entrez le mot magique...">
+            </div>
+            <div>
+                <label for="mot3">Mot magique 3 (Aquarium d'Ornement) :</label>
+                <input type="text" id="mot3" placeholder="Entrez le mot magique...">
+            </div>
+            <div>
+                <label for="mot4">Mot magique 4 (Contrôle d'Accès) :</label>
+                <input type="text" id="mot4" placeholder="Entrez le mot magique...">
+            </div>
+            <div>
+                <label for="mot5">Mot magique 5 (Sécurité Domestique) :</label>
+                <input type="text" id="mot5" placeholder="Entrez le mot magique...">
+            </div>
+        </div>
+
+        <!-- Bouton de validation -->
+        <button onclick="validerMots()">Valider les mots</button>
+
+        <!-- Résultat -->
+        <div id="resultat"></div>
+    </div>
+
+    <script>
+        // Fonction pour valider les mots magiques
+        function validerMots() {
+            // Récupération des mots entrés par l'utilisateur
+            const mot1 = document.getElementById('mot1').value.trim();
+            const mot2 = document.getElementById('mot2').value.trim();
+            const mot3 = document.getElementById('mot3').value.trim();
+            const mot4 = document.getElementById('mot4').value.trim();
+            const mot5 = document.getElementById('mot5').value.trim();
+
+            // Mots magiques attendus
+            const motsAttendus = ["5R6-I8O", "FI5-R3D", "AQ1-F5L", "5R6-I8O", "SE1-CUR"];
+
+            // Vérification des mots
+            if (
+                mot1 === motsAttendus[0] &&
+                mot2 === motsAttendus[1] &&
+                mot3 === motsAttendus[2] &&
+                mot4 === motsAttendus[3] &&
+                mot5 === motsAttendus[4]
+            ) {
+                // Affichage du mot super magique
+                document.getElementById('resultat').innerHTML = `
+                    <span class="correct">🎉 Bravo ! Voici le mot à coller dans l'exercice : <strong>SUPER-MAGIQUE</strong></span>
+                `;
+            } else {
+                // Message d'erreur si au moins un mot est incorrect
+                document.getElementById('resultat').innerHTML = `
+                    <span class="incorrect">❌ Au moins un mot est incorrect. Veuillez vérifier vos réponses.</span>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
