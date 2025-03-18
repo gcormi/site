@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Objets Connectés</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(to right, #4CAF50, #81C784);
+            color: white;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #7d7d7d 3px solid;
+            text-align: center;
+        }
+        header h1 {
+            animation: fadeIn 2s ease-in-out;
+        }
+        nav {
+            background: #6a1b9a;
+            color: white;
+            padding: 10px 0;
+        }
+        nav ul {
+            list-style: none;
+            text-align: center;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid #7d7d7d;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: slideIn 1s ease-in-out;
+        }
+        section h2 {
+            color: #ff6f61;
+        }
+        .important {
+            color: #ff6f61;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            color: white;
+            background-color: #6a1b9a;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #3f005e;
+        }
+        .quiz {
+            display: none;
+            margin-top: 20px;
+        }
+        .quiz-active {
+            display: block;
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .image-container img {
+            width: 200px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .image-container img:hover {
+            transform: scale(1.1);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.9);
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+        @keyframes slideIn {
+            from {transform: translateX(-100%);}
+            to {transform: translateX(0);}
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Cours sur les Objets Connectés</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#competences">Compétences</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+            <li><a href="#quiz" onclick="showQuiz()">Quiz</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <section id="introduction">
+            <h2>Introduction</h2>
+            <p>Les objets connectés, ou "Internet des Objets" (IoT), sont des dispositifs électroniques capables de communiquer entre eux ou avec des systèmes informatiques via Internet. Ils sont de plus en plus présents dans notre quotidien, que ce soit à la maison, au travail ou dans les espaces publics. Ces objets répondent à des besoins variés, comme la simplification des tâches, l'amélioration de l'efficacité énergétique ou l'accessibilité pour tous. Ce cours permettra d'explorer leur fonctionnement, leurs composants, leurs impacts et les perspectives qu'ils offrent pour l'avenir.</p>
+        </section>
+
+        <section id="competences">
+            <h2>Compétences du programme de technologie (5e)</h2>
+
+            <h3>1. Identifier les besoins auxquels répond un objet technique</h3>
+            <p>Les objets connectés répondent à des besoins variés dans la vie quotidienne :</p>
+            <ul>
+                <li><strong>Simplification des tâches :</strong> Les robots ménagers (aspirateurs, cuiseurs) automatisent des tâches répétitives.</li>
+                <li><strong>Accessibilité :</strong> Les objets connectés peuvent être contrôlés à distance via des applications, facilitant leur utilisation pour les personnes à mobilité réduite.</li>
+                <li><strong>Efficacité :</strong> Optimisation des ressources (ex. : gestion de l'énergie avec des thermostats intelligents).</li>
+            </ul>
+            <p><strong>Exemple :</strong> Un aspirateur robot permet de nettoyer les sols sans intervention humaine, libérant du temps pour d'autres activités.</p>
+            <p><strong>Exemple :</strong> Une ampoule connectée peut être allumée ou éteinte à distance via une application mobile, ce qui est utile pour les personnes ayant des difficultés à se déplacer.</p>
+            <p><strong>Exemple :</strong> Un thermostat intelligent ajuste automatiquement la température en fonction des habitudes des occupants, réduisant ainsi la consommation d'énergie.</p>
+
+            <h3>2. Analyser le fonctionnement et la structure d’un objet technique</h3>
+            <p>Les objets connectés sont composés de plusieurs éléments :</p>
+            <ul>
+                <li><strong>Composants électroniques :</strong> Microcontrôleurs (ex. : Arduino, Raspberry Pi) pour gérer les fonctions de l'objet.</li>
+                <li><strong>Capteurs :</strong> Gyroscopes (pour la navigation), caméras (pour la détection d'obstacles).</li>
+                <li><strong>Actionneurs :</strong> Pompes à eau (pour les robots nettoyeurs de piscine), bras mécaniques (pour les robots industriels).</li>
+                <li><strong>Connectivité :</strong> Wi-Fi, Bluetooth ou réseaux cellulaires pour communiquer avec d'autres appareils ou serveurs.</li>
+            </ul>
+            <p><strong>Exemple :</strong> Un microcontrôleur dans une ampoule connectée gère les commandes d'allumage et d'extinction.</p>
+            <p><strong>Exemple :</strong> Un robot aspirateur utilise des capteurs pour détecter les obstacles et éviter les collisions.</p>
+            <p><strong>Exemple :</strong> Un robot nettoyeur de piscine utilise une pompe pour aspirer les débris.</p>
+            <p><strong>Exemple :</strong> Une montre connectée utilise Bluetooth pour se connecter à un smartphone et synchroniser les données.</p>
+
+            <div class="image-container">
+                <img src="https://gcormi.github.io/site/cours/5/images/2connecte.png" alt="Objets connectés" onclick="openModal('https://gcormi.github.io/site/cours/5/images/2connecte.png')">
+            </div>
+
+            <h3>3. Comprendre la chaîne d’énergie et la chaîne d’information d’un objet technique</h3>
+            <h4>Chaîne énergétique :</h4>
+            <ul>
+                <li><strong>Source :</strong> Batterie, panneau solaire, secteur.</li>
+                <li><strong>Conversion :</strong> Convertisseurs pour adapter la tension ou le courant.</li>
+                <li><strong>Stockage :</strong> Batteries rechargeables.</li>
+                <li><strong>Consommation optimisée :</strong> Gestion de l'énergie pour prolonger l'autonomie.</li>
+            </ul>
+            <p><strong>Exemple :</strong> Une montre connectée utilise une batterie rechargeable pour fonctionner.</p>
+            <p><strong>Exemple :</strong> Un chargeur de smartphone convertit le courant alternatif du secteur en courant continu pour recharger la batterie.</p>
+            <p><strong>Exemple :</strong> Une voiture électrique utilise une batterie lithium-ion pour stocker l'énergie.</p>
+            <p><strong>Exemple :</strong> Un smartphone passe en mode veille pour économiser la batterie lorsqu'il n'est pas utilisé.</p>
+            <h4>Chaîne d’information :</h4>
+            <ul>
+                <li><strong>Entrée :</strong> Capteurs pour détecter des données (ex. : température, mouvement).</li>
+                <li><strong>Traitement :</strong> Analyse des données par le microcontrôleur.</li>
+                <li><strong>Sortie :</strong> Action déclenchée par un actionneur (ex. : allumer un moteur).</li>
+            </ul>
+            <p><strong>Exemple :</strong> Un thermostat intelligent utilise un capteur de température pour mesurer la température ambiante.</p>
+            <p><strong>Exemple :</strong> Un microcontrôleur dans une ampoule connectée traite les commandes reçues via Wi-Fi.</p>
+            <p><strong>Exemple :</strong> Un moteur dans un robot aspirateur est activé pour déplacer l'appareil.</p>
+
+            <h3>4. Décrire le principe de fonctionnement d’un objet technique</h3>
+            <p>Les objets connectés fonctionnent selon une chaîne fonctionnelle :</p>
+            <ul>
+                <li><strong>Détection :</strong> Les capteurs collectent des informations sur l'environnement.</li>
+                <li><strong>Analyse :</strong> Le microcontrôleur traite les données pour prendre une décision.</li>
+                <li><strong>Action :</strong> Un actionneur exécute une tâche en fonction des instructions.</li>
+            </ul>
+            <p><strong>Exemple :</strong> Un capteur de mouvement détecte la présence d'une personne dans une pièce.</p>
+            <p><strong>Exemple :</strong> Le microcontrôleur analyse les données du capteur de mouvement pour déterminer s'il y a une présence.</p>
+            <p><strong>Exemple :</strong> Si une présence est détectée, le microcontrôleur active un moteur pour ouvrir une porte automatique.</p>
+            <p><strong>Exemple complet :</strong> Un aspirateur robot détecte les obstacles avec des capteurs, analyse leur position, puis ajuste sa trajectoire pour les éviter.</p>
+
+            <div class="image-container">
+                <img src="https://gcormi.github.io/site/cours/5/images/4connecte.png" alt="Objets connectés" onclick="openModal('https://gcormi.github.io/site/cours/5/images/4connecte.png')">
+            </div>
+
+            <h3>5. Utiliser des outils numériques pour modéliser et simuler le comportement d’un objet technique</h3>
+            <ul>
+                <li><strong>Prototypage rapide :</strong> Utilisation d'outils comme l'impression 3D pour créer des pièces personnalisées.</li>
+                <li><strong>Simulations numériques :</strong> Logiciels comme Tinkercad ou Fritzing pour modéliser des circuits électroniques et simuler leur fonctionnement.</li>
+            </ul>
+            <p><strong>Exemple :</strong> Concevoir un boîtier pour un capteur de température avec un logiciel de modélisation 3D, puis l'imprimer pour tester son intégration dans un prototype.</p>
+            <p><strong>Exemple :</strong> Simuler le comportement d'un circuit électronique avant de le construire pour vérifier qu'il fonctionne correctement.</p>
+
+            <h3>6. Mettre en œuvre une démarche de projet pour concevoir et réaliser un objet technique</h3>
+            <p>La démarche de projet suit un cycle en V simplifié :</p>
+            <ul>
+                <li><strong>Analyse des besoins :</strong> Identifier les fonctionnalités attendues.</li>
+                <li><strong>Conception :</strong> Dessiner les plans et choisir les composants.</li>
+                <li><strong>Réalisation :</strong> Assembler le prototype.</li>
+                <li><strong>Tests :</strong> Vérifier le fonctionnement et identifier les problèmes.</li>
+                <li><strong>Améliorations :</strong> Apporter des modifications pour optimiser le prototype.</li>
+            </ul>
+            <p><strong>Exemple :</strong> Pour un système d'arrosage automatique, les besoins incluent l'arrosage à heures fixes et l'ajustement en fonction des conditions météorologiques.</p>
+            <p><strong>Exemple :</strong> Choisir une pompe, un capteur d'humidité et un microcontrôleur pour le système d'arrosage.</p>
+            <p><strong>Exemple :</strong> Assembler les composants sur une carte de prototypage et les connecter.</p>
+            <p><strong>Exemple :</strong> Tester le système d'arrosage pour s'assurer qu'il arrose correctement et ajuste l'humidité.</p>
+            <p><strong>Exemple :</strong> Ajouter un capteur de pluie pour éviter l'arrosage inutile en cas de pluie.</p>
+
+            <h3>7. Programmer un objet technique en utilisant des algorithmes simples</h3>
+            <ul>
+                <li><strong>Algorithmes :</strong> Logique conditionnelle (si... alors...), boucles (tant que...), opérations booléennes (ET, OU).</li>
+                <li><strong>Variables :</strong> Stocker des valeurs pour les utiliser dans le programme.</li>
+            </ul>
+            <p><strong>Exemple :</strong> Programmer un robot pour qu'il s'arrête lorsqu'il détecte un obstacle :</p>
+            <pre>
+SI capteur détecte obstacle ALORS
+   Arrêter le moteur
+SINON
+   Avancer
+FIN SI
+            </pre>
+            <p><strong>Exemple :</strong> Utiliser une variable pour stocker la température mesurée par un capteur.</p>
+
+            <h3>8. Identifier les impacts environnementaux d’un objet technique et proposer des solutions pour les réduire</h3>
+            <ul>
+                <li><strong>Cycle de vie :</strong> Conception, production, distribution, utilisation, fin de vie.</li>
+                <li><strong>Éco-conception :</strong> Utiliser des matériaux biodégradables, favoriser la réparabilité.</li>
+                <li><strong>Gestion de l’énergie :</strong> Intégrer des panneaux solaires ou des systèmes de recharge optimisés.</li>
+            </ul>
+            <p><strong>Exemple :</strong> Un robot ménager passe par plusieurs étapes, de la conception à la fin de vie, où il peut être recyclé.</p>
+            <p><strong>Exemple :</strong> Concevoir un robot avec des matériaux recyclables et des composants facilement remplaçables.</p>
+            <p><strong>Exemple :</strong> Un robot ménager équipé de panneaux solaires pour se recharger.</p>
+
+            <h3>9. Comprendre les interactions entre l’humain et la machine</h3>
+            <ul>
+                <li><strong>Interfaces Homme-Machine (IHM) :</strong> Écrans tactiles, commandes vocales, applications mobiles.</li>
+                <li><strong>Intelligence artificielle :</strong> Apprentissage automatique pour adapter le comportement de l'objet.</li>
+                <li><strong>Interactions sociales :</strong> Robots comme Pepper, capables de dialoguer avec les humains.</li>
+            </ul>
+            <p><strong>Exemple :</strong> Un assistant vocal comme Google Home utilise une IHM basée sur la reconnaissance vocale pour interagir avec l'utilisateur.</p>
+            <p><strong>Exemple :</strong> Un thermostat intelligent utilise l'IA pour apprendre les habitudes des occupants et ajuster la température en conséquence.</p>
+            <p><strong>Exemple :</strong> Pepper peut être utilisé dans les magasins pour accueillir les clients et répondre à leurs questions.</p>
+
+            <div class="image-container">
+                <img src="https://gcormi.github.io/site/cours/5/images/9connecte.png" alt="Objets connectés" onclick="openModal('https://gcormi.github.io/site/cours/5/images/9connecte.png')">
+            </div>
+
+            <h3>10. Identifier les avantages et les limites d’un objet technique</h3>
+            <h4>Avantages :</h4>
+            <ul>
+                <li><strong>Optimisation du temps :</strong> Les objets connectés automatisent des tâches répétitives, libérant du temps pour d'autres activités.</li>
+                <li><strong>Accessibilité universelle :</strong> Les objets connectés peuvent être contrôlés à distance, facilitant leur utilisation pour les personnes à mobilité réduite.</li>
+            </ul>
+            <h4>Limites :</h4>
+            <ul>
+                <li><strong>Dépendance technologique :</strong> Certains objets connectés nécessitent une connexion Internet pour fonctionner.</li>
+                <li><strong>Exclusion numérique :</strong> Les personnes peu familiarisées avec les technologies peuvent avoir des difficultés à utiliser ces objets.</li>
+            </ul>
+            <p><strong>Exemple :</strong> Un aspirateur robot permet de nettoyer les sols sans intervention humaine.</p>
+            <p><strong>Exemple :</strong> Une ampoule connectée peut être allumée ou éteinte à distance via une application mobile.</p>
+            <p><strong>Exemple :</strong> Un thermostat intelligent nécessite une connexion Wi-Fi pour être contrôlé à distance.</p>
+            <p><strong>Exemple :</strong> Les personnes âgées peuvent avoir des difficultés à utiliser une application mobile pour contrôler un objet connecté.</p>
+        </section>
+
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+            <p>Les objets connectés représentent une révolution technologique qui transforme notre quotidien. Ils offrent de nombreux avantages, comme la simplification des tâches, l'amélioration de l'efficacité énergétique et l'accessibilité pour tous. Cependant, ils posent également des défis, notamment en termes de dépendance technologique et d'exclusion numérique. En comprenant leur fonctionnement, leurs composants et leurs impacts, nous pouvons mieux appréhender leur rôle dans notre société et contribuer à leur développement responsable.</p>
+        </section>
+
+        <section id="perspectives">
+            <h2>Perspectives et avenir</h2>
+            <p>Les objets connectés ont un avenir prometteur, avec des innovations constantes et des applications de plus en plus variées. Voici quelques perspectives pour l'avenir :</p>
+            <ul>
+                <li><strong>Intégration accrue dans la vie quotidienne :</strong> Les objets connectés deviendront de plus en plus présents dans nos maisons, nos voitures et nos lieux de travail, offrant des fonctionnalités toujours plus avancées.</li>
+                <li><strong>Développement de l'intelligence artificielle :</strong> L'IA permettra aux objets connectés de devenir plus autonomes et plus intelligents, capables d'apprendre et de s'adapter à nos besoins.</li>
+                <li><strong>Éco-conception et durabilité :</strong> Les futurs objets connectés seront conçus avec des matériaux plus durables et des systèmes de gestion de l'énergie plus efficaces, réduisant ainsi leur impact environnemental.</li>
+                <li><strong>Interopérabilité :</strong> Les objets connectés seront de plus en plus capables de communiquer entre eux, créant des écosystèmes intelligents et interconnectés.</li>
+            </ul>
+        </section>
+
+        <section id="quiz" class="quiz">
+            <h2>Quiz : Testez vos connaissances !</h2>
+            <form id="quizForm">
+                <p><strong>Question 1 :</strong> Quel est le principal avantage des objets connectés ?</p>
+                <input type="radio" id="q1a1" name="q1" value="Réduction de la pollution">
+                <label for="q1a1">Réduction de la pollution</label><br>
+                <input type="radio" id="q1a2" name="q1" value="Augmentation des déchets électroniques">
+                <label for="q1a2">Augmentation des déchets électroniques</label><br>
+                <input type="radio" id="q1a3" name="q1" value="Simplification des tâches">
+                <label for="q1a3">Simplification des tâches</label>
+                <br><br>
+
+                <p><strong>Question 2 :</strong> Quel composant permet à un objet connecté de détecter son environnement ?</p>
+                <input type="radio" id="q2a1" name="q2" value="Microcontrôleur">
+                <label for="q2a1">Microcontrôleur</label><br>
+                <input type="radio" id="q2a2" name="q2" value="Capteur">
+                <label for="q2a2">Capteur</label><br>
+                <input type="radio" id="q2a3" name="q2" value="Actionneur">
+                <label for="q2a3">Actionneur</label>
+                <br><br>
+
+                <p><strong>Question 3 :</strong> Quel est un exemple d'objet connecté ?</p>
+                <input type="radio" id="q3a1" name="q3" value="Crayon">
+                <label for="q3a1">Crayon</label><br>
+                <input type="radio" id="q3a2" name="q3" value="Aspirateur robot">
+                <label for="q3a2">Aspirateur robot</label><br>
+                <input type="radio" id="q3a3" name="q3" value="Lampe à huile">
+                <label for="q3a3">Lampe à huile</label>
+                <br><br>
+
+                <button type="button" onclick="checkQuiz()" class="button">Vérifier mes réponses</button>
+                <p id="quizResult"></p>
+            </form>
+        </section>
+    </div>
+
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="imgModal">
+    </div>
+
+    <script>
+        function showQuiz() {
+            document.getElementById("quiz").classList.toggle("quiz-active");
+        }
+
+        function checkQuiz() {
+            let score = 0;
+            const q1 = document.querySelector('input[name="q1"]:checked');
+            const q2 = document.querySelector('input[name="q2"]:checked');
+            const q3 = document.querySelector('input[name="q3"]:checked');
+
+            if (q1 && q1.value === "Simplification des tâches") score++;
+            if (q2 && q2.value === "Capteur") score++;
+            if (q3 && q3.value === "Aspirateur robot") score++;
+
+            const result = document.getElementById("quizResult");
+            result.innerHTML = `Votre score : ${score}/3`;
+        }
+
+        function openModal(src) {
+            document.getElementById("myModal").style.display = "block";
+            document.getElementById("imgModal").src = src;
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+    </script>
+</body>
+</html>
