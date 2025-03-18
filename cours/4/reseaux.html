@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌐 Les Réseaux Informatiques : Communication et Transmission de l'Information</title>
+    <style>
+        /* Palettes de Couleurs Modernes et Tech */
+        :root {
+            --primary-color: #3498db; /* Bleu clair */
+            --secondary-color: #ecf0f1; /* Gris très clair */
+            --accent-color: #e74c3c; /* Rouge */
+            --text-color: #2c3e50; /* Bleu foncé */
+            --background-color: #f0f8ff; /* LightBlue */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        #container {
+            max-width: 960px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        p, li {
+            line-height: 1.7;
+        }
+
+        /* Styles Interactifs */
+       .interactive-word {
+            color: var(--accent-color);
+            text-decoration: none;
+            cursor: pointer;
+            border-bottom: 2px dashed var(--accent-color);
+            transition: color 0.3s ease;
+            position: relative; /* Nécessaire pour positionner le tooltip */
+        }
+
+        .interactive-word:hover {
+            color: darken(var(--accent-color), 15%);
+        }
+
+        .interactive-word .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .interactive-word .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+        .interactive-word:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .definition {
+            display: none;
+            background-color: var(--secondary-color);
+            padding: 20px;
+            margin-top: 15px;
+            border-radius: 10px;
+            border: 2px solid var(--primary-color);
+        }
+
+        /* Quiz Styles */
+        .quiz {
+            margin-top: 30px;
+        }
+
+        .quiz-question {
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .quiz-options label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .quiz-submit {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .quiz-submit:hover {
+            background-color: darken(var(--primary-color), 10%);
+        }
+
+        /* Image styles */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 25px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Accordion Styles */
+        .accordion {
+            background-color: #d9edf7;
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 20px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 16px;
+            transition: 0.4s;
+            margin-bottom: 8px;
+            border-radius: 8px;
+        }
+
+        .accordion:hover {
+            background-color: #c0dbe8;
+        }
+
+        .panel {
+            padding: 0 20px;
+            background-color: var(--secondary-color);
+            display: none;
+            overflow: hidden;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .active {
+             background-color: #c0dbe8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
+        }
+         /* Style pour le lien de l'image */
+        .image-link {
+            display: inline-block; /* Pour que le margin fonctionne */
+            margin-top: 10px; /* Ajustez la marge selon vos besoins */
+            color: var(--primary-color); /* Couleur du texte du lien */
+            text-decoration: none; /* Supprime le soulignement par défaut */
+            font-weight: bold; /* Met le texte en gras, si désiré */
+            transition: color 0.3s ease; /* Ajoute une transition pour un effet visuel */
+        }
+
+        .image-link:hover {
+            color: darken(var(--primary-color), 15%); /* Change la couleur au survol */
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <h1>🌐 Les Réseaux Informatiques : Communication et Transmission de l'Information</h1>
+
+    <section>
+        <h2>Pour comprendre :</h2>
+       <iframe width="976" height="549" src="https://www.youtube.com/embed/15LiYQPHB-0" title="Le réseau informatique au collège" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+    </section>
+
+    <section>
+        <h2>Introduction : Le Monde Connecté à Portée de Main</h2>
+        <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Image de réseaux informatiques">
+        
+        <p>Imagine un monde où tous tes appareils peuvent se parler et partager des informations en un clin d'œil. C'est le pouvoir des <a href="#" class="interactive-word" ><span class="tooltiptext">Un réseau informatique est un ensemble d’appareils interconnectés qui peuvent communiquer et partager des données.</span>réseaux informatiques</a>! Ils connectent des ordinateurs, des smartphones, des tablettes et bien plus encore, permettant d'échanger des données, de partager des ressources et d'accéder à l'<a href="#" class="interactive-word" ><span class="tooltiptext">Réseau mondial d'ordinateurs interconnectés qui permet de partager des informations et d'accéder à des services en ligne.</span>Internet</a>. C'est grâce aux réseaux que tu peux regarder des vidéos en streaming, jouer en ligne avec des amis ou communiquer avec ta famille à l'autre bout du monde. 🌍</p>
+    </section>
+
+    <section>
+        <h2>1. Qu'est-ce qu'un Réseau Informatique ?</h2>
+          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8cmVzZWF1eCUyMGluZm9ybWF0aXF1ZXxlbnwwfHwwfHx8MA%3D%3D" alt="Concept de réseau informatique">
+
+        <p>Un <a href="#" class="interactive-word" ><span class="tooltiptext">Un ensemble d'appareils interconnectés qui peuvent communiquer et partager des ressources.</span>réseau informatique</a> est un ensemble d'appareils interconnectés (ordinateurs, smartphones, imprimantes, serveurs, etc.) qui peuvent communiquer et partager des ressources (fichiers, imprimantes, connexions Internet). Pense à un réseau comme à un système routier qui relie les différentes villes (appareils) entre elles, permettant aux voitures (données) de circuler d'un point à un autre. 🚗</p>
+    </section>
+
+    <section>
+        <h2>2. Types de Réseaux</h2>
+        <p>Il existe principalement deux types de réseaux :</p>
+        <ul>
+            <li><strong><a href="#" class="interactive-word" ><span class="tooltiptext">Connecte des appareils dans une zone géographique limitée (maison, école, bureau).</span>Réseau Local (LAN)</a> :</strong> Connecte des appareils dans une zone géographique limitée (maison, école, bureau). C'est comme un quartier résidentiel avec ses rues locales. 🏘️</li>
+            <li><strong><a href="#" class="interactive-word" ><span class="tooltiptext">S'étend sur une vaste zone géographique (ville, pays, monde entier). Internet est le plus grand WAN.</span>Réseau Étendu (WAN)</a> :</strong> S'étend sur une vaste zone géographique (ville, pays, monde entier). Internet est le plus grand WAN. C'est comme un réseau autoroutier qui relie les différentes villes et pays. 🛣️</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>3. Composants Essentiels d'un Réseau</h2>
+        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8cmVzZWF1eCUyMGluZm9ybWF0aXF1ZXxlbnwwfHwwfHx8MA%3D%3D" alt="Concept de réseau informatique">
+        <ul>
+            <li><strong><a href="#" class="interactive-word" ><span class="tooltiptext">Appareils qui utilisent le réseau.</span>Ordinateurs/Terminaux</a> :</strong> Les appareils qui utilisent le réseau (ordinateurs, smartphones, tablettes).</li>
+            <li><strong><a href="#" class="interactive-word" ><span class="tooltiptext">Permettent aux appareils de se connecter au réseau.</span>Cartes Réseau</a> :</strong> Permettent aux appareils de se connecter au réseau.</li>
+            <li><strong>Câbles/Wi-Fi :</strong> Les moyens de transmission des données (câbles Ethernet, ondes radio Wi-Fi).</li>
+            <li><strong><a href="#" class="interactive-word" ><span class="tooltiptext">Connectent plusieurs appareils dans un LAN.</span>Commutateurs</a> :</strong> Connectent plusieurs appareils dans un LAN.</li>
+            <li><strong><a href="#" class="interactive-word" ><span class="tooltiptext">Connectent des réseaux entre eux.</span>Routeurs</a> :</strong> Connectent des réseaux entre eux (par exemple, un LAN à Internet).</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>4. Adresse IP : L'Identité de Chaque Appareil</h2>
+        <p>Chaque appareil connecté à un réseau possède une <a href="#" class="interactive-word" ><span class="tooltiptext">Identifiant unique pour chaque appareil connecté à un réseau.</span>adresse IP</a> unique, comme un numéro de téléphone. Elle permet d'identifier l'appareil et de lui envoyer des données.</p>
+        <p>Il existe deux types d'adresses IP :</p>
+        <ul>
+            <li><strong><a href="#" class="interactive-word" ><span class="tooltiptext">Utilisée à l'intérieur d'un LAN.</span>Adresse IP Privée</a> :</strong> Utilisée à l'intérieur d'un LAN.</li>
+            <li><strong><a href="#" class="interactive-word" ><span class="tooltiptext">Utilisée pour communiquer sur Internet.</span>Adresse IP Publique</a> :</strong> Utilisée pour communiquer sur Internet.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>5. Le Débit : La Vitesse de l'Information</h2>
+        <p>Le <a href="#" class="interactive-word" ><span class="tooltiptext">Mesure la quantité de données qui peuvent être transmises par seconde.</span>débit</a> mesure la quantité de données qui peuvent être transmises par seconde sur un réseau. Plus le débit est élevé, plus la connexion est rapide. Il s'exprime en bits par seconde (bps) ou en multiples (Kbps, Mbps, Gbps). Imaginez un tuyau : plus le tuyau est gros, plus il peut transporter d'eau rapidement. 💧</p>
+    </section>
+
+    <section>
+        <h2>6. Technologies de Transmission</h2>
+         <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8cmVzZWF1eCUyMGluZm9ybWF0aXF1ZXxlbnwwfHwwfHx8MA%3D%3D" alt="Concept de transmission">
+        <p>Différentes technologies sont utilisées pour transmettre des données sur un réseau :</p>
+        <ul>
+            <li><strong><a href="#" class="interactive-word" ><span class="tooltiptext">Connexion filaire, fiable et rapide.</span>Câble Ethernet</a> :</strong> Connexion filaire, fiable et rapide.</li>
+            <li><strong><a href="#" class="interactive-word" ><span class="tooltiptext">Connexion sans fil, pratique mais potentiellement moins rapide et stable.</span>Wi-Fi</a> :</strong> Connexion sans fil, pratique mais potentiellement moins rapide et stable.</li>
+            <li><strong><a href="#" class="interactive-word" ><span class="tooltiptext">Technologie très haut débit.</span>Fibre Optique</a> :</strong> Technologie très haut débit, utilisée pour les connexions Internet rapides.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>7. Sécurité des Réseaux : Se Protéger en Ligne</h2>
+        <p>La sécurité des réseaux est essentielle pour protéger les données personnelles et éviter les attaques malveillantes. Voici quelques mesures importantes :</p>
+        <ul>
+            <li><strong>Mots de passe forts :</strong> Utilisez des mots de passe complexes et différents pour chaque compte.</li>
+            <li><strong><a href="#" class="interactive-word" ><span class="tooltiptext">Système de sécurité qui protège un réseau.</span>Pare-feu</a> :</strong> Activer le pare-feu de votre routeur pour bloquer les accès non autorisés.</li>
+            <li><strong><a href="#" class="interactive-word" ><span class="tooltiptext">Logiciel pour protéger votre pc contre les virus.</span>Antivirus</a> :</strong> Installez un antivirus et maintenez-le à jour.</li>
+            <li><strong>Mises à jour :</strong> Installez régulièrement les mises à jour de vos logiciels et systèmes d'exploitation.</li>
+            <li><strong><a href="#" class="interactive-word" ><span class="tooltiptext">Technique frauduleuse visant à obtenir des informations personnelles.</span>Phishing</a> :</strong> Soyez vigilant face aux emails et liens suspects.</li>
+            <li><strong>Réseaux Wi-Fi publics :</strong> Évitez de saisir des informations sensibles sur les réseaux Wi-Fi publics.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>8. Tables de routage : Trouver son chemin sur Internet</h2>
+        <p>Une table de routage est un outil qui permet de diriger les informations entre les différents appareils d’un réseau, comme un GPS qui indique le chemin le plus efficace pour atteindre une destination. Imaginez que vous souhaitez regarder une vidéo sur YouTube. Votre demande va voyager à travers le réseau internet en utilisant des tables de routage pour atteindre le serveur de YouTube et vous renvoyer la vidéo. Chaque routeur sur Internet possède une table de routage qui lui indique vers quel autre routeur envoyer les données pour les rapprocher de leur destination.</p>
+    </section>
+
+    <section>
+        <h2>Glossaire des réseaux informatiques</h2>
+            <button class="accordion">Adresse IP</button>
+            <div class="panel">
+                <p>Numéro d'identification unique attribué à chaque appareil connecté à un réseau utilisant le protocole Internet. Elle permet d'identifier et de localiser un appareil sur un réseau.</p>
+            </div>
+
+            <button class="accordion">Bluetooth</button>
+            <div class="panel">
+                <p>Technologie sans fil à courte portée, utilisée pour connecter les appareils mobiles entre eux.</p>
+            </div>
+
+            <button class="accordion">Câble réseau</button>
+            <div class="panel">
+                <p>Câble physique qui permet de connecter des appareils à un réseau local. Il transmet les informations numériques sous forme de signaux électriques.</p>
+            </div>
+
+             <button class="accordion">Carte réseau</button>
+            <div class="panel">
+                <p>Composant électronique intégré dans un appareil qui permet de se connecter à un réseau. Il gère l'envoi et la réception des informations sur le réseau.</p>
+            </div>
+                <button class="accordion">Commutateur</button>
+            <div class="panel">
+                <p>Appareil qui permet de relier plusieurs appareils sur un réseau local et de gérer le flux de données entre eux. Il assure une communication efficace entre les appareils du réseau.</p>
+            </div>
+                <button class="accordion">Débit</button>
+            <div class="panel">
+                <p>Quantité d'informations transmises par seconde sur un réseau. Il mesure la vitesse de transmission des données. S'exprime en bits par seconde (bps) ou en multiples de bps, comme les kilobits par seconde (kbps) ou les mégabits par seconde (Mbps).</p>
+            </div>
+                <button class="accordion">Fibre optique</button>
+            <div class="panel">
+                <p>Technologie de transmission de données à très haut débit utilisant des faisceaux lumineux dans des fibres optiques. Elle permet des vitesses de transmission très élevées et une grande capacité de transmission.</p>
+            </div>
+                <button class="accordion">4G LTE</button>
+            <div class="panel">
+                <p>Technologie mobile cellulaire de quatrième génération, offrant des débits élevés pour les communications mobiles.</p>
+            </div>
+                <button class="accordion">5G</button>
+            <div class="panel">
+                <p>Technologie mobile cellulaire de cinquième génération, offrant des débits très élevés et une faible latence.</p>
+            </div>
+                <button class="accordion">Internet</button>
+            <div class="panel">
+                <p>Réseau mondial d'ordinateurs interconnectés qui permet de partager des informations, de communiquer et d'accéder à des services en ligne. C'est un réseau de réseaux locaux.</p>
+            </div>
+                <button class="accordion">Liaison non filaire</button>
+            <div class="panel">
+                <p>Connexion sans fil entre des appareils sur un réseau, utilisant des ondes radio. Exemple : Wi-Fi.</p>
+            </div>
+                <button class="accordion">Pare-feu</button>
+            <div class="panel">
+                <p>Système de sécurité qui protège un réseau ou un ordinateur en filtrant le trafic réseau et en bloquant les accès non autorisés.</p>
+            </div>
+                <button class="accordion">Phishing</button>
+            <div class="panel">
+                <p>Technique frauduleuse visant à obtenir des informations personnelles (mots de passe, numéros de carte bancaire) en se faisant passer pour un tiers de confiance.</p>
+            </div>
+                <button class="accordion">Réseau local (LAN)</button>
+            <div class="panel">
+                <p>Réseau informatique qui connecte des appareils dans un lieu restreint, comme une maison, un bureau ou un collège.</p>
+            </div>
+                <button class="accordion">Routeur</button>
+            <div class="panel">
+                <p>Appareil qui permet de relier plusieurs réseaux locaux et de gérer le trafic de données entre eux. Il achemine les informations vers leur destination finale.</p>
+            </div>
+                <button class="accordion">Serveur</button>
+            <div class="panel">
+                <p>Ordinateur qui fournit des services et des ressources aux autres appareils d'un réseau. Il stocke des informations et des données et les met à disposition des autres appareils.</p>
+            </div>
+                <button class="accordion">Terminal</button>
+            <div class="panel">
+                <p>Appareil qui se connecte à un réseau, comme un ordinateur, un smartphone ou une tablette. Il sert de point d'accès au réseau.</p>
+            </div>
+                <button class="accordion">Table de routage</button>
+            <div class="panel">
+                <p>Structure de données qui permet de diriger les informations entre les différents appareils d'un réseau. Elle indique le chemin le plus efficace pour atteindre une destination.</p>
+            </div>
+                <button class="accordion">Wi-Fi</button>
+            <div class="panel">
+                <p>Technologie sans fil qui permet aux appareils de se connecter à un réseau local sans câble. Il utilise des ondes radio pour transmettre les informations.</p>
+            </div>
+    </section>
+
+    <section>
+        <h2>Quiz : Testez Vos Connaissances !</h2>
+        <div class="quiz">
+            <div class="quiz-question">Quelle est la fonction principale d'un routeur ?</div>
+            <div class="quiz-options">
+                <label><input type="radio" name="q1" value="a"> Connecter des appareils à un LAN.</label>
+                <label><input type="radio" name="q1" value="b"> Connecter des réseaux entre eux, comme un LAN à Internet.</label>
+                <label><input type="radio" name="q1" value="c"> Mesurer la vitesse de la connexion Internet.</label>
+            </div>
+        </div>
+        <div class="quiz">
+            <div class="quiz-question">Qu'est-ce qu'une adresse IP ?</div>
+            <div class="quiz-options">
+                <label><input type="radio" name="q2" value="a"> Le nom d'un ordinateur.</label>
+                <label><input type="radio" name="q2" value="b"> Un identifiant unique pour chaque appareil sur un réseau.</label>
+                <label><input type="radio" name="q2" value="c"> Un type de câble réseau.</label>
+            </div>
+        </div>
+        <button class="quiz-submit">Vérifier mes réponses</button>
+    </section>
+
+    <section>
+        <h2>Conclusion : Connectés Vers l'Avenir</h2>
+        <p>Les réseaux informatiques sont le fondement de notre monde numérique moderne. Ils nous permettent de communiquer, de partager des informations et d'accéder à des services essentiels. Comprendre leur fonctionnement et les enjeux de sécurité associés est crucial pour utiliser efficacement et en toute sécurité les technologies d'aujourd'hui et de demain. 🚀</p>
+    </section>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+              // Gestion des mots interactifs
+        const interactiveWords = document.querySelectorAll('.interactive-word');
+          interactiveWords.forEach(word => {
+              word.addEventListener('click', function(event) {
+                event.preventDefault();
+                const definition = document.createElement('div');
+                definition.classList.add('definition');
+                definition.textContent = this.dataset.definition;
+
+                if (this.nextElementSibling && this.nextElementSibling.classList.contains('definition')) {
+                    this.nextElementSibling.remove();
+                } else {
+                    this.parentNode.insertBefore(definition, this.nextSibling);
+                    definition.style.display = 'block';
+                }
+            });
+        });
+
+        // Gestion du quiz
+        const quizSubmitButton = document.querySelector('.quiz-submit');
+        quizSubmitButton.addEventListener('click', function() {
+            alert('Fonctionnalité de vérification du quiz en développement !'); // Exemple de feedback
+        });
+
+         // Gestion des accordions
+        const accordions = document.getElementsByClassName("accordion");
+        for (let i = 0; i < accordions.length; i++) {
+            accordions[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                const panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                    panel.style.display = "block";
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>
