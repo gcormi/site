@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Du Passé au Présent : L'Évolution des Objets</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Style CSS */
+        body {
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e8f5e9; /* Vert très clair */
+            color: #37474f; /* Gris foncé */
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #9fa8da; /* Bleu mauve pastel */
+            color: #263238; /* Gris foncé */
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        main {
+            padding: 30px;
+            max-width: 950px;
+            margin: 30px auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        section {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        h1, h2, h3 {
+            color: #673ab7; /* Mauve pour les titres */
+            margin-bottom: 12px;
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .example {
+            padding: 20px;
+            background-color: #e1bee7; /* Mauve très clair */
+            border-left: 6px solid #7e57c2; /* Mauve plus foncé */
+            margin-bottom: 20px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .example::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 300%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+            transform: skewX(-45deg);
+            animation: wave 2s linear infinite;
+        }
+
+        .glossary {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .glossary-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .glossary-list li {
+            margin: 8px 15px;
+            padding: 10px 20px;
+            background-color: #7986cb; /* Bleu mauve */
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            animation: pulse 1.5s infinite;
+        }
+
+        .glossary-list li:hover {
+            background-color: #5e35b1; /* Mauve foncé */
+            transform: scale(1.05);
+        }
+
+        .glossary-definition {
+            margin-top: 15px;
+            padding: 20px;
+            background-color: #f3e5f5; /* Mauve encore plus clair */
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .clickable-info {
+            cursor: pointer;
+            color: #1a237e; /* Bleu marine pour les liens */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .clickable-info:hover {
+            text-decoration: underline;
+            color: #0d47a1;
+        }
+
+        .hidden-info {
+            display: none;
+            padding: 15px;
+            background-color: #e8eaf6; /* Bleu mauve très clair */
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            animation: slideInDown 0.5s ease-out;
+        }
+
+        .future-outlook {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #e0f7fa; /* Bleu très clair */
+            border-left: 6px solid #4dd0e1; /* Bleu turquoise */
+            border-radius: 8px;
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #9fa8da; /* Bleu mauve pastel pour l'en-tête */
+            color: #263238;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f3e5f5; /* Mauve encore plus clair pour les lignes paires */
+        }
+         /* Style pour les boutons */
+        .info-button {
+            background-color: #7e57c2; /* Mauve foncé */
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .info-button:hover {
+            background-color: #673ab7; /* Mauve encore plus foncé */
+        }
+
+
+        /* Animations CSS */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes wave {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Du Passé au Présent 🕰️: L'Évolution des Objets 🚀</h1>
+        <p>Explore comment les matériaux et l'énergie ont transformé nos objets ! ✨</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Introduction : Un Voyage à Travers le Temps ⏳</h2>
+            <p>Salut les historiens du futur ! 👋 Avez-vous déjà pensé que les objets qui vous entourent ont une histoire 📚 ? Ils n'ont pas toujours été comme ça ! 😉 Les matériaux et l'énergie ont joué un rôle clé dans leur évolution. Préparez-vous à un voyage passionnant à travers le temps pour découvrir comment les objets ont été transformés par les découvertes et les inventions ! 🧐</p>
+        </section>
+
+        <section>
+            <h2>1. Les Matériaux : Des Découvertes Qui Changent la Donne 🧱</h2>
+            <p>La découverte de nouveaux matériaux a toujours été un moteur d'innovation. Des outils en pierre de la Préhistoire aux alliages sophistiqués utilisés dans l'aérospatiale, les matériaux ont permis de repousser les limites du possible. 🚀</p>
+
+            <h3>Exemples de matériaux et leurs impacts :</h3>
+            <ul>
+                <li><b>Le Bronze :</b> Alliage de cuivre et d'étain, il a permis de fabriquer des outils et des armes plus résistants que la pierre. ⚔️ <button class="info-button" onclick="toggleInfo('bronzeInfo')">Plus d'infos</button>
+                 <div id="bronzeInfo" class="hidden-info">L'âge du bronze a marqué une étape importante dans le développement des civilisations.</div>
+                </li>
+                <li><b>Le Fer :</b> Plus abondant et plus dur que le bronze, il a révolutionné l'agriculture, la guerre et la construction. 🔨 <button class="info-button" onclick="toggleInfo('ferInfo')">Techniques</button>
+                 <div id="ferInfo" class="hidden-info">La maîtrise de la forge du fer a permis de créer des outils plus performants et des armes plus efficaces.</div>
+                </li>
+                <li><b>L'Acier :</b> Alliage de fer et de carbone, il offre une résistance et une élasticité exceptionnelles. Il est utilisé dans de nombreux domaines, de la construction aux transports. 🏢 <button class="info-button" onclick="toggleInfo('acierInfo')">Applications</button>
+                 <div id="acierInfo" class="hidden-info">L'acier a permis la construction de gratte-ciel, de ponts suspendus et de véhicules rapides.</div>
+                </li>
+                <li><b>Les Plastiques :</b> Synthétisés à partir du pétrole, ils sont légers, résistants, économiques et faciles à mouler. Ils ont envahi notre quotidien, mais posent des problèmes environnementaux. ♻️ <button class="info-button" onclick="toggleInfo('plastiqueInfo')">Enjeux</button>
+                 <div id="plastiqueInfo" class="hidden-info">La gestion des déchets plastiques est un défi majeur pour notre planète.</div>
+                </li>
+                <li><b>Les Composites :</b> Association de plusieurs matériaux (fibre de carbone, résine...) pour combiner leurs propriétés. Ils sont utilisés dans l'aéronautique, le sport et l'automobile pour leur légèreté et leur résistance. 🚀 <button class="info-button" onclick="toggleInfo('compositeInfo')">Performances</button>
+                 <div id="compositeInfo" class="hidden-info">Les matériaux composites permettent de concevoir des structures plus légères et plus performantes, ce qui réduit la consommation d'énergie et améliore la vitesse.</div>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. L'Énergie : De la Force Animale à la Fée Électricité ⚡</h2>
+            <p>L'accès à de nouvelles sources d'énergie a également transformé les objets techniques. Le passage de la force animale à la motorisation a permis d'automatiser les tâches, d'augmenter la production et de se déplacer plus rapidement. 💨</p>
+
+            <h3>L'évolution des sources d'énergie :</h3>
+            <ul>
+                <li><b>La Force Animale :</b> Utilisée depuis des millénaires pour l'agriculture, le transport et l'industrie. Elle est limitée en puissance et en endurance. 🐴 <button class="info-button" onclick="toggleInfo('animaleInfo')">Inconvénients</button>
+                 <div id="animaleInfo" class="hidden-info">L'utilisation de la force animale nécessite des soins importants et limite la production.</div>
+                </li>
+                <li><b>L'Énergie Hydraulique :</b> Utilisée pour faire tourner les moulins à eau, elle a permis de mécaniser la mouture des céréales et d'autres tâches artisanales. 💧 <button class="info-button" onclick="toggleInfo('hydrauliqueInfo')">Limites</button>
+                 <div id="hydrauliqueInfo" class="hidden-info">L'énergie hydraulique est dépendante des cours d'eau et ne peut être utilisée partout.</div>
+                </li>
+                <li><b>L'Énergie Éolienne :</b> Utilisée pour faire                tourner les moulins à vent et actionner les pompes, elle a permis de produire de la farine et d'irriguer les terres. 🌬️ <button class="info-button" onclick="toggleInfo('eolienneInfo')">Inconvénients</button>
+                 <div id="eolienneInfo" class="hidden-info">L'énergie éolienne est intermittente et dépendante du vent.</div>
+                </li>
+                <li><b>La Vapeur :</b> Produite en chauffant de l'eau, elle a permis de faire fonctionner les machines à vapeur, qui ont révolutionné l'industrie, les transports et l'agriculture. 🚂 <button class="info-button" onclick="toggleInfo('vapeurInfo')">Impact</button>
+                 <div id="vapeurInfo" class="hidden-info">La machine à vapeur a été un élément clé de la révolution industrielle.</div>
+                </li>
+                <li><b>L'Électricité :</b> Facile à transporter et à utiliser, elle a permis d'électrifier les villes, les usines et les foyers. Elle est à la base de nombreux objets techniques modernes. ⚡ <button class="info-button" onclick="toggleInfo('electriciteInfo')">Applications</button>
+                 <div id="electriciteInfo" class="hidden-info">L'électricité est utilisée pour l'éclairage, le chauffage, la communication, l'informatique, etc.</div>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. L'Évolution d'un Objet : L'Exemple de l'Éclairage 💡</h2>
+            <p>Pour illustrer l'évolution des objets techniques, prenons l'exemple de l'éclairage. Au fil des siècles, les sources de lumière ont évolué grâce à la découverte de nouveaux matériaux et de nouvelles formes d'énergie. 🌟</p>
+
+            <h3>Les étapes de l'évolution de l'éclairage :</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Étape</th>
+                        <th>Source de Lumière</th>
+                        <th>Matériaux</th>
+                        <th>Énergie</th>
+                        <th>Avantages</th>
+                        <th>Inconvénients</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Préhistoire</td>
+                        <td>Feu de bois</td>
+                        <td>Bois, pierres</td>
+                        <td>Chimique (combustion)</td>
+                        <td>Chauffage, protection</td>
+                        <td>Fumée, danger d'incendie</td>
+                    </tr>
+                    <tr>
+                        <td>Antiquité</td>
+                        <td>Bougie</td>
+                        <td>Cire, suif</td>
+                        <td>Chimique (combustion)</td>
+                        <td>Portable, moins de fumée</td>
+                        <td>Faible luminosité, durée limitée</td>
+                    </tr>
+                    <tr>
+                        <td>Moyen Âge</td>
+                        <td>Lampe à huile</td>
+                        <td>Huile végétale, métal</td>
+                        <td>Chimique (combustion)</td>
+                        <td>Meilleure combustion</td>
+                        <td>Odeur, risque d'incendie</td>
+                    </tr>
+                    <tr>
+                        <td>XIXe siècle</td>
+                        <td>Lampe à gaz</td>
+                        <td>Gaz, verre, métal</td>
+                        <td>Chimique (combustion)</td>
+                        <td>Lumière plus vive</td>
+                        <td>Risque d'explosion, pollution</td>
+                    </tr>
+                    <tr>
+                        <td>XXe siècle</td>
+                        <td>Lampe à incandescence</td>
+                        <td>Verre, tungstène</td>
+                        <td>Électrique</td>
+                        <td>Facile à utiliser</td>
+                        <td>Forte consommation, chaleur</td>
+                    </tr>
+                    <tr>
+                        <td>XXIe siècle</td>
+                        <td>LED</td>
+                        <td>Semi-conducteurs, plastique</td>
+                        <td>Électrique</td>
+                        <td>Faible consommation, longue durée</td>
+                        <td>Coût plus élevé</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. Inventions et Ruptures Technologiques 🚀</h2>
+            <p>L'évolution des objets techniques est ponctuée d'inventions et d'innovations qui marquent des ruptures dans les solutions techniques. Ces ruptures sont souvent liées à la découverte de nouveaux matériaux ou de nouvelles sources d'énergie. 💡</p>
+
+            <h3>Exemples d'inventions marquantes :</h3>
+            <ul>
+                <li><b>L'Imprimerie :</b> Invention de Gutenberg au XVe siècle, elle a permis de diffuser les connaissances à grande échelle grâce à l'utilisation de caractères mobiles en métal. 📚 <button class="info-button" onclick="toggleInfo('imprimerieInfo')">Impact</button>
+                  <div id="imprimerieInfo" class="hidden-info">L'imprimerie a révolutionné la diffusion des idées et a favorisé le développement de la science et de la culture.</div>
+                </li>
+                <li><b>La Machine à Vapeur :</b> Mise au point par James Watt au XVIIIe siècle, elle a permis d'automatiser les tâches et de développer de nouvelles industries grâce à l'utilisation de la vapeur comme source d'énergie. ⚙️ <button class="info-button" onclick="toggleInfo('vapeurInfo2')">Conséquences</button>
+                  <div id="vapeurInfo2" class="hidden-info">La machine à vapeur a été un moteur essentiel de la révolution industrielle et a transformé la société.</div>
+                </li>
+                <li><b>Le Transistor :</b> Inventé au XXe siècle, il a permis de miniaturiser les circuits électroniques et de développer l'informatique moderne grâce à l'utilisation de semi-conducteurs. 💻 <button class="info-button" onclick="toggleInfo('transistorInfo')">Avantages</button>
+                  <div id="transistorInfo" class="hidden-info">Le transistor a rendu possible la création d'ordinateurs plus petits, plus rapides et moins chers.</div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="future-outlook">
+            <h2>Avenir et Perspectives : Des Objets Toujours Plus Intelligents et Durables 🔮</h2>
+            <p>L'évolution des objets techniques n'est pas terminée. L'avenir nous réserve de nombreuses surprises grâce aux progrès de la science des matériaux, de l'intelligence artificielle et des énergies renouvelables. 🌿 Imaginez des objets auto-réparants, des bâtiments autonomes en énergie et des transports propres et efficaces ! 🚀</p>
+            <ul>
+                <li><b>Matériaux Intelligents :</b> Des matériaux qui s'adaptent à leur environnement (changement de couleur, auto-réparation...).</li>
+                <li><b>Objets Connectés :</b> Des objets qui communiquent entre eux et avec nous pour améliorer notre quotidien.</li>
+                <li><b>Énergies Renouvelables :</b> Des sources d'énergie propres et inépuisables (solaire, éolien, géothermie...).</li>
+                <li><b>Intelligence Artificielle :</b> Des systèmes qui apprennent et s'adaptent pour optimiser les performances des objets.</li>
+            </ul>
+        </section>
+
+        <section class="glossary">
+            <h2>Glossaire 📚</h2>
+            <ul class="glossary-list">
+                <li onclick="showDefinition('materiau')">Matériau 🧱</li>
+                <li onclick="showDefinition('energie')">Énergie ⚡</li>
+                <li onclick="showDefinition('invention')">Invention 💡</li>
+                <li onclick="showDefinition('innovation')">Innovation 🚀</li>
+                <li onclick="showDefinition('rupture')">Rupture 💥</li>
+                <li onclick="showDefinition('bronze')">Bronze ⚔️</li>
+                <li onclick="showDefinition('fer')">Fer 🔨</li>
+                <li onclick="showDefinition('acier')">Acier 🏢</li>
+                <li onclick="showDefinition('plastique')">Plastique ♻️</li>
+                <li onclick="showDefinition('composite')">Composite 🚀</li>
+                <li onclick="showDefinition('vapeur')">Vapeur ⚙️</li>
+                <li onclick="showDefinition('transistor')">Transistor 💻</li>
+            </ul>
+
+            <div id="materiauDefinition" class="glossary-definition">Substance utilisée pour fabriquer un objet.</div>
+            <div id="energieDefinition" class="glossary-definition">Capacité à effectuer un travail ou à provoquer un changement.</div>
+            <div id="inventionDefinition" class="glossary-definition">Création d'un objet ou d'un procédé nouveau.</div>
+            <div id="innovationDefinition" class="glossary-definition">Amélioration significative d'un objet ou d'un procédé existant.</div>
+            <div id="ruptureDefinition" class="glossary-definition">Changement radical dans une technologie ou un marché.</div>
+            <div id="bronzeDefinition" class="glossary-definition">Alliage de cuivre et d'étain.</div>
+            <div id="ferDefinition" class="glossary-definition">Métal utilisé pour fabriquer des outils et des armes.</div>
+            <div id="acierDefinition" class="glossary-definition">Alliage de fer et de carbone, très résistant.</div>
+            <div id="plastiqueDefinition" class="glossary-definition">Matériau synthétique dérivé du pétrole.</div>
+            <div id="compositeDefinition" class="glossary-definition">Matériau constitué de plusieurs composants.</div>
+            <div id="vapeurDefinition" class="glossary-definition">Gaz produit en chauffant de l'eau.</div>
+            <div id="transistorDefinition" class="glossary-definition">Composant électronique utilisé dans les circuits intégrés.</div>
+        </section>
+    </main>
+
+    <script>
+        function showDefinition(word) {
+            // Hide all definitions first
+            document.querySelectorAll('.glossary-definition').forEach(def => {
+                def.style.display = 'none';
+            });
+            // Show the selected definition
+            document.getElementById(word + 'Definition').style.display = 'block';
+        }
+
+        function toggleInfo(infoId) {
+            var info = document.getElementById(infoId);
+            if (info.style.display === "none") {
+                info.style.display = "block";
+            } else {
+                info.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
