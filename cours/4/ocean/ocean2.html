@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Surpêche : Menaces sur la Biodiversité Marine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Style CSS */
+        body {
+            font-family: 'Lato', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff; /* Bleu très clair */
+            color: #263238; /* Gris foncé */
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #4fc3f7; /* Bleu clair pastel */
+            color: #0d47a1; /* Bleu foncé */
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        main {
+            padding: 30px;
+            max-width: 950px;
+            margin: 30px auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        section {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        h1, h2, h3 {
+            color: #0277bd; /* Bleu plus foncé pour les titres */
+            margin-bottom: 12px;
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .example {
+            padding: 20px;
+            background-color: #bbdefb; /* Bleu très clair */
+            border-left: 6px solid #29b6f6; /* Bleu clair */
+            margin-bottom: 20px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .example::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 300%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+            transform: skewX(-45deg);
+            animation: wave 2s linear infinite;
+        }
+
+        .glossary {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .glossary-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .glossary-list li {
+            margin: 8px 15px;
+            padding: 10px 20px;
+            background-color: #0d47a1; /* Bleu foncé */
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            animation: pulse 1.5s infinite;
+        }
+
+        .glossary-list li:hover {
+            background-color: #0d47a1; /* Bleu foncé (plus foncé) */
+            transform: scale(1.05);
+        }
+
+        .glossary-definition {
+            margin-top: 15px;
+            padding: 20px;
+            background-color: #e3f2fd; /* Bleu très clair */
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .clickable-info {
+            cursor: pointer;
+            color: #1565c0; /* Bleu un peu foncé pour les liens */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .clickable-info:hover {
+            text-decoration: underline;
+            color: #0d47a1;
+        }
+
+        .hidden-info {
+            display: none;
+            padding: 15px;
+            background-color: #b2ebf2; /* Bleu clair */
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            animation: slideInDown 0.5s ease-out;
+        }
+
+        .future-outlook {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #e1f5fe; /* Bleu très clair */
+            border-left: 6px solid #03a9f4; /* Bleu clair */
+            border-radius: 8px;
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4fc3f7; /* Bleu clair pastel pour l'en-tête */
+            color: #0d47a1;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #bbdefb; /* Bleu très clair pour les lignes paires */
+        }
+
+         /* Style pour les boutons */
+        .info-button {
+            background-color: #1565c0; /* Bleu un peu foncé */
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .info-button:hover {
+            background-color: #0d47a1; /* Bleu foncé */
+        }
+
+        /* Animations CSS */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes wave {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+ <header>
+        <h1>La Surpêche 🎣: Menace sur la Biodiversité Marine 🌊</h1>
+        <p>Explorons les causes et les conséquences de la surpêche sur nos océans ! 🐠</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Introduction : La Surpêche, un Danger Invisible ? 🌍</h2>
+            <p>Salut les défenseurs des océans ! 🌊 Avez-vous déjà entendu parler de la surpêche 🎣 ? C'est un problème majeur qui menace la vie marine 🐳 et la sécurité alimentaire de millions de personnes. Dans ce cours, nous allons plonger au cœur de ce problème et découvrir comment on peut agir pour préserver nos océans. 💪</p>
+        </section>
+
+        <section>
+            <h2>1. Qu'est-ce Que la Surpêche ? 🤔</h2>
+            <p>La surpêche, c'est lorsque l'on pêche plus de poissons 🐟 que les populations ne peuvent se renouveler naturellement. Cela entraîne une diminution du nombre de poissons, voire l'extinction de certaines espèces. 😥 C'est comme vider un compte en banque sans jamais y déposer d'argent ! 🏦</p>
+
+            <h3>Comment reconnaître la surpêche ?</h3>
+            <ul>
+                <li><b>Diminution des prises :</b> Les pêcheurs pêchent moins de poissons qu'avant, même en pêchant plus longtemps et plus fort. 📉
+                  <button class="info-button" onclick="toggleInfo('prisesInfo')">Exemple</button>
+                  <div id="prisesInfo" class="hidden-info">Dans certaines régions, les prises de thon rouge ont diminué de plus de 80% en quelques décennies.</div>
+                </li>
+                <li><b>Diminution de la taille des poissons :</b> Les poissons pêchés sont plus petits qu'avant, car les plus gros ont déjà été capturés. 📏
+                 <button class="info-button" onclick="toggleInfo('tailleInfo')">Conséquence</button>
+                  <div id="tailleInfo" class="hidden-info">La diminution de la taille des poissons affecte leur capacité à se reproduire et à assurer la survie de l'espèce.</div>
+                </li>
+                <li><b>Disparition d'espèces :</b> Certaines espèces de poissons deviennent rares, voire disparaissent complètement de certaines zones. 👻
+                 <button class="info-button" onclick="toggleInfo('disparitionInfo')">Espèces menacées</button>
+                  <div id="disparitionInfo" class="hidden-info">Le thon rouge, la morue, l'espadon et de nombreuses espèces de requins sont menacés par la surpêche.</div>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. Les Causes de la Surpêche ⚠️</h2>
+            <p>La surpêche est un problème complexe qui a de nombreuses causes. En voici quelques-unes :</p>
+
+            <h3>Les principales causes de la surpêche :</h3>
+            <ul>
+                <li><b>Techniques de pêche destructrices :</b> Certaines techniques de pêche, comme le chalutage de fond et la pêche à la dynamite, détruisent les fonds marins et capturent de nombreuses espèces non ciblées (prises accessoires). 💥
+                 <button class="info-button" onclick="toggleInfo('techniquesInfo')">Chalutage de fond</button>
+                  <div id="techniquesInfo" class="hidden-info">Le chalutage de fond est une technique qui consiste à traîner un grand filet sur le fond marin, détruisant les habitats et capturant tout ce qui se trouve sur son passage.</div>
+                </li>
+                <li><b>Manque de réglementation :</b> Dans certaines régions, la pêche n'est pas suffisamment réglementée, ce qui permet aux pêcheurs de pêcher plus que ce qui est autorisé. 📜
+                 <button class="info-button" onclick="toggleInfo('reglementationInfo')">Zones non réglementées</button>
+                  <div id="reglementationInfo" class="hidden-info">La haute mer (les eaux internationales) est difficile à contrôler, ce qui favorise la pêche illégale.</div>
+                </li>
+                <li><b>Subventions à la pêche :</b> Dans de nombreux pays, les gouvernements subventionnent la pêche, ce qui encourage les pêcheurs à pêcher plus, même si les populations de poissons sont en déclin. 💰
+                 <button class="info-button" onclick="toggleInfo('subventionsInfo')">Impact</button>
+                  <div id="subventionsInfo" class="hidden-info">Les subventions à la pêche peuvent inciter à la surcapacité des flottes de pêche et à la surexploitation des ressources.</div>
+                </li>
+                <li><b>Demande croissante de poisson :</b> La population mondiale augmente, et la demande de poisson augmente également. Cela met une pression supplémentaire sur les populations de poissons. 📈
+                 <button class="info-button" onclick="toggleInfo('demandeInfo')">Alternatives</button>
+                  <div id="demandeInfo" class="hidden-info">Réduire notre consommation de poisson, privilégier les espèces pêchées de manière durable et développer l'aquaculture responsable sont des solutions pour réduire la pression sur les populations de poissons sauvages.</div>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Les Conséquences de la Surpêche 📉</h2>
+            <p>La surpêche a des conséquences graves sur les écosystèmes marins, les populations humaines et l'économie. En voici quelques exemples :</p>
+
+            <h3>Les conséquences de la surpêche :</h3>
+            <ul>
+                <li><b>Disparition d'espèces :</b> La surpêche peut entraîner l'extinction d'espèces de poissons, ce qui perturbe l'équilibre des écosystèmes marins. 🐠➡️👻
+                 <button class="info-button" onclick="toggleInfo('consequencesEspècesInfo')">Effet domino</button>
+                  <div id="consequencesEspècesInfo" class="hidden-info">La disparition d'une espèce peut avoir un effet domino sur l'ensemble de la chaîne alimentaire, affectant d'autres espèces.</div>
+                </li>
+                <li><b>Destruction des habitats :</b> Les techniques de pêche destructrices, comme le chalutage de fond, détruisent les fonds marins, les herbiers et les récifs coralliens. 💔
+                 <button class="info-button" onclick="toggleInfo('consequencesHabitatsInfo')">Impacts</button>
+                  <div id="consequencesHabitatsInfo" class="hidden-info">La destruction des habitats réduit la biodiversité et la capacité des océans à absorber le dioxyde de carbone.</div>
+                </li>
+                <li><b>Insécurité alimentaire :</b> La surpêche prive les populations côtières qui dépendent de la pêche pour leur subsistance et leur alimentation. 😔
+                 <button class="info-button" onclick="toggleInfo('consequencesAlimentaireInfo')">Dépendance</button>
+                  <div id="consequencesAlimentaireInfo" class="hidden-info">Dans de nombreux pays en développement, le poisson est la principale source de protéines pour les populations côtières.</div>
+                </li>
+                <li><b>Pertes économiques :</b> La surpêche entraîne une diminution des prises et une baisse des revenus pour les pêcheurs. 💸
+                 <button class="info-button" onclick="toggleInfo('consequencesEconomiquesInfo')">À long terme</button>
+                  <div id="consequencesEconomiquesInfo" class="hidden-info">À long terme, la surpêche peut entraîner l'effondrement des pêcheries et des pertes économiques considérables.</div>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>4. Besoins Non Satisfaits et Pistes d'Innovation 💡</h2>
+            <p>Face à la surpêche, de nombreux besoins restent à satisfaire. L'innovation et la créativité peuvent nous aider à trouver des solutions pour une pêche plus durable et une meilleure protection des océans. 💪</p>
+
+            <h3>Besoins et pistes d'innovation :</h3>
+            <ul>
+                <li><b>Techniques de pêche sélectives :</b> Développer des techniques de pêche qui permettent de cibler les espèces visées et de réduire les prises accessoires. 🎯
+                 <button class="info-button" onclick="toggleInfo('besoinsTechniquesInfo')">Exemples</button>
+                  <div id="besoinsTechniquesInfo" class="hidden-info">Utiliser des filets avec des mailles plus larges pour laisser passer les jeunes poissons, installer des dispositifs d'exclusion des tortues dans les filets de pêche.</div>
+                </li>
+                <li><b>Surveillance des zones de pêche :</b> Mettre en place des systèmes de surveillance efficaces pour contrôler la pêche illégale et faire respecter les quotas. 🛰️
+                 <button class="info-button" onclick="toggleInfo('besoinsSurveillanceInfo')">Technologies</button>
+                  <div id="besoinsSurveillanceInfo" class="hidden-info">Utiliser des satellites, des drones et des balises pour suivre les navires de pêche et détecter les activités illégales.</div>
+                </li>
+                <li><b>Aquaculture durable :</b> Développer des pratiques d'aquaculture qui respectent l'environnement et le bien-être animal. 🐠
+                 <button class="info-button" onclick="toggleInfo('besoinsAquacultureInfo')">Solutions</button>
+                  <div id="besoinsAquacultureInfo" class="hidden-info">Utiliser des aliments pour poissons à base d'ingrédients durables, limiter l'utilisation d'antibiotiques, choisir des sites d'implantation appropriés.</div>
+                </li>
+                <li><b>Alternatives à la consommation de poisson :</b> Développer des sources de protéines alternatives (algues, insectes, protéines végétales) pour réduire la pression sur les populations de poissons sauvages. 🌿
+                 <button class="info-button" onclick="toggleInfo('besoinsAlternativesInfo')">Intérêts</button>
+                  <div id="besoinsAlternativesInfo" class="hidden-info">Les algues sont riches en protéines, en vitamines et en minéraux, et leur culture a un faible impact environnemental.</div>
+                </li>
+                <li><b>Sensibilisation et éducation :</b> Informer le public sur les enjeux de la surpêche et encourager une consommation responsable de produits de la mer. 📣
+                 <button class="info-button" onclick="toggleInfo('besoinsSensibilisationInfo')">Actions</button>
+                  <div id="besoinsSensibilisationInfo" class="hidden-info">Utiliser des étiquettes qui indiquent l'origine et la méthode de pêche des produits de la mer, organiser des campagnes d'information, proposer des recettes alternatives à base de produits durables.</div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="glossary">
+            <h2>Glossaire 📚</h2>
+            <ul class="glossary-list">
+                <li onclick="showDefinition('surpeche')">Surpêche 🎣</li>
+                <li onclick="showDefinition('biodiversite')">Biodiversité 🐠</li>
+                <li onclick="showDefinition('ecosysteme')">Écosystème Marin 🌿</li>
+                <li onclick="showDefinition('quotas')">Quotas de Pêche 📊</li>
+                <li onclick="showDefinition('aquaculture')">Aquaculture 🐠</li>
+                <li onclick="showDefinition('durable')">Pêche Durable 🌱</li>
+            </ul>
+
+            <div id="surpecheDefinition" class="glossary-definition">Exploitation excessive des ressources halieutiques, qui entraîne une diminution des populations de poissons.</div>
+            <div id="biodiversiteDefinition" class="glossary-definition">Diversité des espèces vivantes dans un écosystème.</div>
+            <div id="ecosystemeDefinition" class="glossary-definition">Ensemble formé par un milieu naturel et les êtres vivants qui y vivent.</div>
+            <div id="quotasDefinition" class="glossary-definition">Limites de capture fixées pour chaque espèce de poisson dans une zone donnée.</div>
+            <div id="aquacultureDefinition" class="glossary-definition">Élevage de poissons et d'autres organismes aquatiques.</div>
+            <div id="durableDefinition" class="glossary-definition">Se dit d'une activité qui respecte l'environnement et les ressources naturelles.</div>
+        </section>
+    </main>
+
+    <script>
+        function showDefinition(word) {
+            // Hide all definitions first
+            document.querySelectorAll('.glossary-definition').forEach(def => {
+                def.style.display = 'none';
+            });
+            // Show the selected definition
+            document.getElementById(word + 'Definition').style.display = 'block';
+        }
+
+        function toggleInfo(infoId) {
+            var info = document.getElementById(infoId);
+            if (info.style.display === "none") {
+                info.style.display = "block";
+            } else {
+                info.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
