@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Plastiques : Un Monde de Matériaux</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Style général */
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff; /* Bleu très clair */
+            color: #333;
+        }
+
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+
+        section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out; /* Effet de survol */
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+        }
+
+        ul, ol {
+            margin-left: 20px;
+        }
+
+        /* Style pour les mots cliquables */
+        .clickable-word {
+            color: #3498db;
+            cursor: pointer;
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .clickable-word:hover {
+            text-decoration: underline;
+            color: #2980b9;
+        }
+
+        /* Style pour les infobulles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 250px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Style spécifique pour les tableaux */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px; /* Augmentation du padding pour une meilleure lisibilité */
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold; /* Texte en gras pour les en-têtes */
+        }
+
+        /* Style pour les exemples concrets */
+        .example {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9; /* Légère variation de couleur pour les exemples */
+        }
+
+        .example h4 {
+            margin-top: 0;
+            color: #34495e; /* Titre des exemples un peu plus foncé */
+        }
+
+        /* Style pour les quiz interactifs */
+        .quiz-options {
+            margin-top: 10px;
+        }
+
+        .quiz-options label {
+            display: block;
+            margin-bottom: 5px;
+            cursor: pointer; /* Cursor en forme de main pour indiquer qu'on peut cliquer */
+        }
+
+        .quiz-options input[type="radio"] {
+            margin-right: 5px; /* Espacement entre le bouton radio et le texte */
+        }
+
+        .quiz-feedback {
+            margin-top: 10px;
+            font-weight: bold;
+            transition: color 0.3s ease-in-out; /* Transition pour la couleur du feedback */
+        }
+
+        /* Style pour les images */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15); /* Légère ombre pour les images */
+        }
+
+        /* Style pour les liens externes */
+        a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease-in-out; /* Transition pour le hover */
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #2980b9;
+        }
+
+        /* Style pour les boutons */
+        .info-button {
+            background-color: #3498db;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .info-button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Style pour les informations cachées */
+        .hidden-info {
+            display: none;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Les Plastiques : Un Monde de Matériaux</h1>
+
+    <section>
+        <h2>Introduction</h2>
+        <p>Les <span class="tooltip"><a href="#" class="clickable-word" onclick="showDefinition('plastiques')">plastiques</a><span class="tooltiptext">Matériaux organiques de synthèse, constitués de longues chaînes de molécules appelées polymères.</span></span> sont omniprésents dans notre vie quotidienne. Des emballages alimentaires aux composants électroniques, en passant par les vêtements et les véhicules, ils sont utilisés dans une multitude d'applications. Mais qu'est-ce qu'un plastique exactement ? Quels sont les différents types de plastiques et leurs propriétés ? Et comment choisir le bon plastique pour une application donnée ? C'est ce que nous allons découvrir dans ce cours.</p>
+
+        <p>Pourquoi les plastiques sont-ils si populaires ? Ils offrent de nombreux avantages : légèreté, résistance, facilité de mise en forme, faible coût. Cependant, ils présentent aussi des inconvénients, notamment en termes d'impact environnemental. Il est donc important de comprendre les enjeux liés à l'utilisation des plastiques et de choisir les matériaux de manière responsable.</p>
+    </section>
+
+    <section>
+        <h2>I. Les Différents Types de Plastiques</h2>
+        <p>Il existe de nombreux types de plastiques, chacun ayant des propriétés spécifiques. On peut les classer en trois grandes catégories : les thermoplastiques, les thermodurcissables et les élastomères.</p>
+
+        <h3>A. Les Thermoplastiques</h3>
+        <p>Les <span class="tooltip"><a href="#" class="clickable-word" onclick="showDefinition('thermoplastiques')">thermoplastiques</a><span class="tooltiptext">Plastiques qui peuvent être ramollis par la chaleur et reprendre leur forme initiale en refroidissant. Ils sont recyclables.</span></span> sont des plastiques qui peuvent être ramollis par la chaleur et reprendre leur forme initiale en refroidissant. Ils sont donc recyclables.</p>
+        <ul>
+            <li><b>Polyéthylène (PE) :</b> Utilisé pour les sacs plastiques, les bouteilles, les films d'emballage.</li>
+            <li><b>Polypropylène (PP) :</b> Utilisé pour les emballages alimentaires, les bouchons de bouteille, les fibres textiles.</li>
+            <li><b>Polystyrène (PS) :</b> Utilisé pour les gobelets, les barquettes alimentaires, les jouets.</li>
+            <li><b>Polychlorure de vinyle (PVC) :</b> Utilisé pour les tuyaux, les revêtements de sol, les fenêtres.</li>
+            <li><b>Polyéthylène téréphtalate (PET) :</b> Utilisé pour les bouteilles d'eau, les fibres textiles.</li>
+        </ul>
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgODAwIj48dGl0bGU+UGxhc3RpYyByZWN5Y2xpbmcgc3ltYm9sczwvdGl0bGU+PHBhdGggZD0iTTQ0Mi4zNyw0NDkuODVMMjQwLjg5LDI0Ni45MmMtOC4yNS04LjI1LTguMjUtMjEuNjUsMC0yOS45MWw1Mi45MS01Mi45MWM4LjI1LTguMjUsMjEuNjUtOC4yNSwyOS45MSwwbDExOS4zNywxMTkuMzdjOC4yNSw4LjI1LDguMjUsMjEuNjUsMCwyOS45MVptLTMwLjMxLTc3LjY4TDQ0MCwzMTAuNzlWMjE1YzAtMTEuODctOS42MS0yMS40OC0yMS40OC0yMS40OGgtOTQuNzZjLTExLjg3LDAtMjEuNDgsOS42MS0yMS40OCwyMS40OHptLTcyLjY1LDc3LjY4bDExOS4zNy0xMTkuMzdjOC4yNS04LjI1LDIxLjY1LTguMjUsMjkuOTEsMGw1Mi45MSw1Mi45MWM4LjI1LDguMjUsOC4yNSwyMS42NSwwLDI5LjkxTDM1Ny42Myw0NDkuODVjLTguMjUsOC4yNS0yMS42NSw4LjI1LTI5LjkxLDBsLTUyLjkxLTUyLjkxQzI3NS40MywzNzIuMTksMjc1LjQzLDM1OC43OSwyODMuNjksMzUwLjUxbTkuNjEtNjYuMzVWNDU1YzAsMTEuODcsOS42MSwyMS40OCwyMS40OCwyMS40OGg5NC43NmMxMS44NywwLDIxLjQ4LTkuNjEsMjEuNDgtMjEuNDhWMzg0LjIxbDczLjI3LDY2LjM1Yy04LjI1LDguMjUtOC4yNSwyMS42NSwwLDI5LjkxbDUyLjkxLDUyLjkxYzguMjUsOC4yNSwyMS42NSw4LjI1LDI5LjkxLDBsMTE2LjQ2LTExNi40NmM4LjI1LTguMjUsOC4yNS0yMS42NSwwLTI5LjkxbC01Mi45MS01Mi45MWMtOC4yNS04LjI1LTguMjUtMjEuNjUsMC0yOS45MWwtMTE2LjQ2LDExNi40Nm0zMC4zMSw3Ny42OEwzNTkuNzgsNDg5LjIxVjc4NWMwLDExLjg3LTkuNjEsMjEuNDgtMjEuNDgsMjEuNDhoLTk0Ljc2Yy0xMS44NywwLTIxLjQ4LTkuNjEtMjEuNDgtMjEuNDhWNTQ0Ljc5bDczLjI3LTY2LjM1YzguMjUtOC4yNSw4LjI1LTIxLjY1LDAtMjkuOTFsLTUyLjkxLTUyLjkxYy04LjI1LTguMjUtMjEuNjUtOC4yNS0yOS45MSwwTDIwOC4zNywzNTAuMTVjLTguMjUsOC4yNS04LjI1LDIxLjY1LDAsMjkuOTFsNTIuOTEsNTIuOTFjOC4yNSw4LjI1LDIxLjY1LDguMjUsMjkuOTEtMGwtMTAuMzQtNjYuMzVWNDU1YzAtMTEuODctOS42MS0yMS40OC0yMS40OC0yMS40OGgtOTQuNzZjLTExLjg3LDAtMjEuNDgsOS42MS0yMS40OCwyMS40OHoiIGZpbGw9IiMwMDkxZWEiLz48L3N2Zz4=" alt="Symboles de recyclage des plastiques" style="width: 200px; display: block; margin: 10px auto;">
+
+        <h3>B. Les Thermodurcissables</h3>
+        <p>Les <span class="tooltip"><a href="#" class="clickable-word" onclick="showDefinition('thermodurcissables')">thermodurcissables</a><span class="tooltiptext">Plastiques qui durcissent de manière irréversible sous l'effet de la chaleur. Ils ne sont pas recyclables.</span></span> sont des plastiques qui durcissent de manière irréversible sous l'effet de la chaleur. Ils ne sont donc pas recyclables.</p>
+        <ul>
+            <li><b>Résines époxy :</b> Utilisées pour les colles, les revêtements, les composites.</li>
+            <li><b>Polyuréthane (PU) :</b> Utilisé pour les mousses, les isolants, les revêtements.</li>
+            <li><b>Bakélite :</b> Utilisée pour les prises électriques, les interrupteurs, les poignées d'ustensiles.</li>
+        </ul>
+
+        <h3>C. Les Élastomères</h3>
+        <p>Les <span class="tooltip"><a href="#" class="clickable-word" onclick="showDefinition('élastomères')">élastomères</a><span class="tooltiptext">Matériaux qui présentent des propriétés élastiques importantes. Ils peuvent être étirés et reprendre leur forme initiale.</span></span> sont des matériaux qui présentent des propriétés élastiques importantes. Ils peuvent être étirés et reprendre leur forme initiale.</p>
+        <ul>
+            <li><b>Caoutchouc naturel :</b> Utilisé pour les pneus, les joints, les articles de sport.</li>
+            <li><b>Caoutchouc synthétique :</b> Utilisé pour les pneus, les joints, les semelles de chaussures.</li>
+            <li><b>Silicone :</b> Utilisé pour les joints, les moules, les implants médicaux.</li>
+        </ul>
+
+        <div class="quiz-options">
+            <p><b>Testez vos connaissances :</b> Quel type de plastique est utilisé pour fabriquer les bouteilles d'eau ?</p>
+            <label><input type="radio" name="q1" value="Thermoplastique" onclick="checkAnswer('Thermoplastique', 'quiz1')"> Thermoplastique</label>
+            <label><input type="radio" name="q1" value="Thermodurcissable" onclick="checkAnswer('Thermodurcissable', 'quiz1')"> Thermodurcissable</label>
+            <label><input type="radio" name="q1" value="Élastomère" onclick="checkAnswer('Élastomère', 'quiz1')"> Élastomère</label>
+            <p id="quiz1" class="quiz-feedback"></p>
+        </div>
+    </section>
+
+    <section>
+        <h2>II. Propriétés des Plastiques</h2>
+        <p>Les plastiques possèdent des propriétés variées qui les rendent adaptés à de nombreuses applications. Parmi ces propriétés, on peut citer :</p>
+
+        <h3>A. Propriétés Mécaniques</h3>
+        <ul>
+            <li><b>Résistance à la traction :</b> Capacité à supporter une force de traction sans se rompre.</li>
+            <li><b>Résistance à la compression :</b> Capacité à résister à une force de compression sans se déformer.</li>
+            <li><b>Résistance aux chocs :</b> Capacité à absorber l'énergie d'un choc sans se casser.</li>
+        </ul>
+
+        <h3>B. Propriétés Thermiques</h3>
+        <ul>
+            <li><b>Résistance à la chaleur :</b> Capacité à résister à des températures élevées sans se déformer ou se décomposer.</li>
+            <li><b>Conductivité thermique :</b> Capacité à conduire la chaleur.</li>
+            <li><b>Dilatation thermique :</b> Variation de volume en fonction de la température.</li>
+        </ul>
+
+        <h3>C. Propriétés Chimiques</h3>
+        <ul>
+            <li><b>Résistance aux acides :</b> Capacité à résister à l'action des acides.</li>
+            <li><b>Résistance aux bases :</b> Capacité à résister à l'action des bases.</li>
+            <li><b>Résistance aux solvants :</b> Capacité à résister à l'action des solvants.</li>
+        </ul>
+
+        <h3>D. Autres Propriétés</h3>
+        <ul>
+            <li><b>Transparence :</b> Capacité à laisser passer la lumière.</li>
+            <li><b>Imperméabilité :</b> Capacité à empêcher le passage des liquides et des gaz.</li>
+            <li><b>Légèreté :</b> Faible masse volumique.</li>
+            <li><b>Coût :</b> Prix du matériau.</li>
+        </ul>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Propriété</th>
+                    <th>Thermoplastiques</th>
+                    <th>Thermodurcissables</th>
+                    <th>Élastomères</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Résistance à la traction</td>
+                    <td>Variable</td>
+                    <td>Élevée</td>
+                    <td>Faible</td>
+                </tr>
+                <tr>
+                    <td>Résistance à la chaleur</td>
+                    <td>Faible</td>
+                    <td>Élevée</td>
+                    <td>Faible</td>
+                </tr>
+                <tr>
+                    <td>Résistance chimique</td>
+                    <td>Bonne</td>
+                    <td>Excellente</td>
+                    <td>Variable</td>
+                </tr>
+                <tr>
+                    <td>Transparence</td>
+                    <td>Variable</td>
+                    <td>Faible</td>
+                    <td>Variable</td>
+                </tr>
+                <tr>
+                    <td>Recyclabilité</td>
+                    <td>Bonne</td>
+                    <td>Mauvaise</td>
+                    <td>Variable</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>III. Critères de Choix des Matériaux Plastiques</h2>
+        <p>Le choix d'un matériau plastique pour une application donnée dépend de nombreux critères, notamment :</p>
+
+        <h3>A. Masse</h3>
+        <p>La <span class="tooltip"><a href="#" class="clickable-word" onclick="showDefinition('masse')">masse</a><span class="tooltiptext">Quantité de matière contenue dans un objet.</span></span> est un critère important dans les applications où la légèreté est essentielle, comme dans le transport (aéronautique, automobile) ou pour les équipements portables.</p>
+
+        <h3>B. Coût</h3>
+        <p>Le <span class="tooltip"><a href="#" class="clickable-word" onclick="showDefinition('coût')">coût</a><span class="tooltiptext">Prix du matériau, incluant le coût de la matière première et le coût de transformation.</span></span> est un facteur déterminant dans le choix du matériau, surtout pour les applications de grande consommation.</p>
+
+        <h3>C. Qualité (Propriétés)</h3>
+        <p>Les <span class="tooltip"><a href="#" class="clickable-word" onclick="showDefinition('qualités')">qualités</a><span class="tooltiptext">Ensemble des propriétés mécaniques, thermiques, chimiques et autres qui rendent un matériau adapté à une application donnée.</span></span> du matériau doivent être adaptées aux exigences de l'application. Par exemple, un emballage alimentaire doit être imperméable et apte au contact alimentaire, tandis qu'un composant mécanique doit être résistant et durable.</p>
+
+        <h3>D. Impact Environnemental</h3>
+        <p>L'<span class="tooltip"><a href="#" class="clickable-word" onclick="showDefinition('impact environnemental')">impact environnemental</a><span class="tooltiptext">Ensemble des effets négatifs d'un matériau sur l'environnement, de sa production à sa fin de vie.</span></span> est un critère de plus en plus important. Il faut prendre en compte la recyclabilité, la biodégradabilité et l'utilisation de ressources renouvelables.</p>
+
+        <h3>E. Contraintes de Fabrication</h3>
+        <p>La <span class="tooltip"><a href="#" class="clickable-word" onclick="showDefinition('contraintes de fabrication')">facilité de mise en œuvre</a><span class="tooltiptext">Aptitude d'un matériau à être transformé en un objet fini.</span></span> (moulage, extrusion, etc.) et la disponibilité des technologies de transformation sont des facteurs à considérer.</p>
+    </section>
+
+    <section>
+        <h2>IV. Exemples Concrets</h2>
+
+        <div class="example">
+            <h4>1. Bouteille d'eau en PET</h4>
+            <p><b>Contraintes :</b> Légèreté, transparence, coût, recyclabilité, contact alimentaire.</p>
+            <p><b>Justification du choix du PET :</b> Léger, transparent, recyclable, apte au contact alimentaire, économique.</p>
+            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAoHBwkHBgoJCAgJCwoMDQ4PEAwTMBUTEw8XFhcXFx0jHxsfIceHHyEhHzkrIicnKy0qNT0qISI8Ly0zODw4OD/2wBDAQwJCgwM<div id="quiz2" class="quiz-feedback"></p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Conclusion</h2>
+        <p>Les plastiques sont des matériaux indispensables à notre vie moderne, mais leur utilisation doit être gérée de manière responsable. En comprenant les propriétés des différents types de plastiques, les critères de choix et l'impact environnemental, nous pouvons faire des choix plus éclairés et contribuer à un avenir plus durable.</p>
+    </section>
+
+    <script>
+        function showDefinition(word) {
+            let definition = "";
+            switch (word) {
+                case 'plastiques':
+                    definition = "Matériaux organiques de synthèse, constitués de longues chaînes de molécules appelées polymères.";
+                    break;
+                case 'thermoplastiques':
+                    definition = "Plastiques qui peuvent être ramollis par la chaleur et reprendre leur forme initiale en refroidissant. Ils sont recyclables.";
+                    break;
+                case 'thermodurcissables':
+                    definition = "Plastiques qui durcissent de manière irréversible sous l'effet de la chaleur. Ils ne sont pas recyclables.";
+                    break;
+                case 'élastomères':
+                    definition = "Matériaux qui présentent des propriétés élastiques importantes. Ils peuvent être étirés et reprendre leur forme initiale.";
+                case 'masse':
+                    definition = "Quantité de matière contenue dans un objet.";
+                    break;
+                case 'coût':
+                    definition = "Prix du matériau, incluant le coût de la matière première et le coût de transformation.";
+                    break;
+                case 'qualités':
+                    definition = "Ensemble des propriétés mécaniques, thermiques, chimiques et autres qui rendent un matériau adapté à une application donnée.";
+                    break;
+                case 'impact environnemental':
+                    definition = "Ensemble des effets négatifs d'un matériau sur l'environnement, de sa production à sa fin de vie.";
+                    break;
+                case 'contraintes de fabrication':
+                    definition = "Aptitude d'un matériau à être transformé en un objet fini.";
+                    break;
+                default:
+                    definition = "Définition non disponible.";
+            }
+            alert(definition); // Affiche la définition dans une alerte
+        }
+
+        function checkAnswer(answer, quizId) {
+            let feedbackElement = document.getElementById(quizId);
+            if (answer === 'Thermoplastique' && quizId === 'quiz1') {
+                feedbackElement.textContent = "Bravo ! Les bouteilles d'eau sont en PET, un thermoplastique.";
+                feedbackElement.style.color = "green";
+            } else if (answer === 'Réduire la consommation' && quizId === 'quiz2') {
+                feedbackElement.textContent = "Bravo ! Réduire la consommation est la meilleure solution.";
+                feedbackElement.style.color = "green";
+            } else {
+                feedbackElement.textContent = "Incorrect. Réessayez.";
+                feedbackElement.style.color = "red";
+            }
+        }
+    </script>
+
+</body>
+</html>
