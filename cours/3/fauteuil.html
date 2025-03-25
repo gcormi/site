@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Fauteuil Roulant Électrique - Cours Complet</title>
+  <style>
+    /* CSS */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f0f8ff, #e6f7ff);
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #2E7D32; /* Vert */
+      color: white;
+      padding: 20px 10px;
+      text-align: center;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+    }
+
+    nav {
+      background: #FFA726; /* Orange */
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #FFD700;
+      transform: scale(1.1);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #2E7D32; /* Vert */
+      font-size: 2rem;
+      margin-top: 30px;
+      border-bottom: 2px solid #2E7D32; /* Vert */
+      padding-bottom: 10px;
+    }
+
+    p, ul, table {
+      font-size: 1rem;
+      margin: 15px 0;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f4f4f4;
+    }
+
+    .highlight {
+      background-color: #e6f7ff;
+      padding: 10px;
+      border-radius: 5px;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .highlight:hover {
+      transform: scale(1.02);
+      background-color: #d1e7fd;
+    }
+
+    .interactive-btn {
+      display: inline-block;
+      margin: 10px 0;
+      padding: 10px 20px;
+      background: #2E7D32; /* Vert */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .interactive-btn:hover {
+      background-color: #1B5E20; /* Vert foncé */
+      transform: scale(1.05);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .reveal {
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: #2E7D32; /* Vert */
+      color: white;
+      margin-top: 30px;
+      border-radius: 5px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      p, ul, table {
+        font-size: 0.9rem;
+      }
+    }
+
+    /* Styles spécifiques pour les mots-clés cliquables */
+    .keyword {
+      color: #2E7D32; /* Vert */
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+
+    .keyword:hover {
+      color: #FF4500; /* Orange vif */
+    }
+
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      display: none;
+    }
+
+    .popup.active {
+      display: block;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .popup button {
+      margin-top: 10px;
+      padding: 5px 10px;
+      background: #2E7D32; /* Vert */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .popup button:hover {
+      background: #1B5E20; /* Vert foncé */
+    }
+  </style>
+</head>
+<body>
+  <!-- HTML -->
+  <header>
+    <h1>✨ Le Fauteuil Roulant Électrique : Un Système Technologique au Service de la Mobilité 🚀</h1>
+  </header>
+
+  <nav>
+    <a href="#competences">🎯 Compétences Clés</a>
+    <a href="#introduction">📖 Introduction</a>
+    <a href="#fonctionnement">⚙️ Fonctionnement Général</a>
+    <a href="#cycle-vie">♻️ Cycle de Vie</a>
+    <a href="#energie-materiaux">⚡ Énergie & Matériaux</a>
+    <a href="#information-fonctionnement">📊 Chaînes d'Information</a>
+    <a href="#programmation">📱 Programmation</a>
+    <a href="#glossaire">📚 Glossaire</a>
+  </nav>
+
+  <div class="container">
+    <section id="competences">
+      <h2>🎯 Compétences Clés</h2>
+      <p><strong>Analyser le fonctionnement :</strong> Décomposer un fauteuil roulant électrique et comprendre le rôle de ses éléments (<span class="keyword" onclick="showDefinition('commande')">commande</span>, <span class="keyword" onclick="showDefinition('controleur')">contrôleur</span>, moteurs, batterie).</p>
+      <p><strong>Identifier les principes scientifiques :</strong> Comprendre les principes de l'<span class="keyword" onclick="showDefinition('electronique')">électronique</span>, de la mécanique et de l'énergie.</p>
+      <p><strong>Mettre en relation :</strong> Évaluer l'impact social (<span class="keyword" onclick="showDefinition('autonomie')">autonomie</span>, inclusion) et environnemental.</p>
+    </section>
+
+    <section id="introduction">
+      <h2>📖 Introduction</h2>
+      <p><em>"Imaginez un outil qui transforme une contrainte de mobilité en une liberté de mouvement."</em></p>
+      <p>Le fauteuil roulant électrique est un dispositif technologique conçu pour offrir une autonomie de déplacement aux personnes ayant des difficultés à se mouvoir. Il combine des éléments mécaniques, électriques et électroniques pour transformer une intention de déplacement en un mouvement fluide et contrôlé.</p>
+    </section>
+
+    <section id="fonctionnement">
+      <h2>⚙️ Fonctionnement Général</h2>
+      <p>Le processus commence lorsque l'utilisateur souhaite se déplacer. Voici les étapes clés :</p>
+      <ul>
+        <li><strong>Commande :</strong> L'action de l'utilisateur sur un <span class="keyword" onclick="showDefinition('joystick')">joystick</span> envoie des signaux électriques.</li>
+        <li><strong>Contrôleur :</strong> Le contrôleur interprète ces signaux et gère l'énergie de la batterie.</li>
+        <li><strong>Batterie :</strong> La batterie alimente les moteurs.</li>
+        <li><strong>Moteurs :</strong> Les moteurs transforment l'énergie électrique en mouvement mécanique.</li>
+      </ul>
+    </section>
+
+    <section id="cycle-vie">
+      <h2>♻️ Cycle de Vie</h2>
+      <p>Le cycle de vie comprend plusieurs étapes :</p>
+      <ul>
+        <li><strong>Conception :</strong> Analyse des besoins et prototypage.</li>
+        <li><strong>Fabrication :</strong> Extraction des matériaux et assemblage.</li>
+        <li><strong>Utilisation :</strong> Déplacements quotidiens et entretien.</li>
+        <li><strong>Recyclage :</strong> Démontage et récupération des matériaux.</li>
+      </ul>
+    </section>
+
+    <section id="energie-materiaux">
+      <h2>⚡ Énergie & Matériaux Spécifiques</h2>
+      <p>La batterie est la source d'énergie principale. Les matériaux incluent des alliages d'aluminium, des polymères et des composants électroniques.</p>
+    </section>
+
+    <section id="information-fonctionnement">
+      <h2>📊 Chaînes d'Information et de Fonctionnement</h2>
+      <p>Les chaînes d'information et d'énergie interagissent étroitement pour assurer un fonctionnement optimal.</p>
+    </section>
+
+    <section id="programmation">
+      <h2>📱 Programmation Informatique</h2>
+      <p>La programmation joue un rôle crucial dans le fonctionnement du fauteuil. Elle permet de gérer des fonctionnalités complexes comme la détection d'obstacles ou la gestion intelligente de la batterie.</p>
+    </section>
+
+    <section id="glossaire">
+      <h2>📚 Glossaire Complet</h2>
+      <table>
+        <tr>
+          <th>Terme</th>
+          <th>Définition</th>
+        </tr>
+        <tr>
+          <td>Autonomie</td>
+          <td>Distance maximale qu'un fauteuil roulant électrique peut parcourir avec une charge complète.</td>
+        </tr>
+        <tr>
+          <td>Batterie (Lithium-ion)</td>
+          <td>Source d'énergie rechargeable essentielle.</td>
+        </tr>
+        <tr>
+          <td>Châssis</td>
+          <td>Structure principale du fauteuil, supportant les différents composants.</td>
+        </tr>
+        <tr>
+          <td>Commande (Joystick)</td>
+          <td>Interface utilisateur permettant de contrôler la direction et la vitesse du fauteuil.</td>
+        </tr>
+        <tr>
+          <td>Contrôleur</td>
+          <td>Dispositif électronique qui interprète les commandes de l'utilisateur et gère les moteurs.</td>
+        </tr>
+        <tr>
+          <td>Couple</td>
+          <td>Force de rotation d'un moteur, influant sur sa capacité à franchir des obstacles.</td>
+        </tr>
+        <tr>
+          <td>Ergonomie</td>
+          <td>Conception du fauteuil pour un confort optimal et une adaptation à la morphologie de l'utilisateur.</td>
+        </tr>
+        <tr>
+          <td>Freinage régénératif</td>
+          <td>Système de freinage qui récupère une partie de l'énergie lors du ralentissement ou de la descente.</td>
+        </tr>
+        <tr>
+          <td>Moteur électrique (DC)</td>
+          <td>Dispositif qui transforme l'énergie électrique en énergie mécanique (rotation des roues).</td>
+        </tr>
+        <tr>
+          <td>Pneumatique</td>
+          <td>Type de pneu contenant de l'air.</td>
+        </tr>
+        <tr>
+          <td>Rendement</td>
+          <td>Rapport entre l'énergie utile et l'énergie consommée dans un système.</td>
+        </tr>
+      </table>
+    </section>
+  </div>
+
+  <footer>
+    <p>© Le Fauteuil Roulant Électrique : Un Système Technologique au Service de la Mobilité</p>
+  </footer>
+
+  <!-- Popup pour les définitions -->
+  <div class="popup" id="definitionPopup">
+    <p id="definitionText"></p>
+    <button onclick="closePopup()">Fermer ✖️</button>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const definitions = {
+      "commande": "Interface utilisateur permettant de contrôler la direction et la vitesse du fauteuil.",
+      "controleur": "Dispositif électronique qui interprète les commandes de l'utilisateur et gère les moteurs.",
+      "electronique": "Domaine scientifique qui traite des circuits électriques et des dispositifs électroniques.",
+      "autonomie": "Distance maximale qu'un fauteuil roulant électrique peut parcourir avec une charge complète.",
+      "joystick": "Interface utilisateur principale pour contrôler le fauteuil."
+    };
+
+    function showDefinition(term) {
+      const popup = document.getElementById('definitionPopup');
+      const definitionText = document.getElementById('definitionText');
+      definitionText.textContent = definitions[term];
+      popup.classList.add('active');
+    }
+
+    function closePopup() {
+      const popup = document.getElementById('definitionPopup');
+      popup.classList.remove('active');
+    }
+
+    function toggleInfo(id) {
+      const element = document.getElementById(id);
+      element.classList.toggle('hidden');
+      element.classList.add('reveal');
+    }
+
+    // Animation pour tous les éléments interactifs
+    document.querySelectorAll('.keyword').forEach(keyword => {
+      keyword.addEventListener('click', () => {
+        keyword.style.transform = 'scale(1.1)';
+        setTimeout(() => {
+          keyword.style.transform = 'scale(1)';
+        }, 200);
+      });
+    });
+
+    // Animation de chargement pour les sections
+    document.querySelectorAll('section').forEach(section => {
+      section.style.animation = 'slideIn 1s ease-in-out';
+    });
+  </script>
+</body>
+</html>
