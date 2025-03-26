@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Éoliennes Domestiques - Cours Complet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary: #3498DB;        /* Bleu clair (accent principal) */
+            --secondary: #2ECC71;      /* Vert (pour les éléments secondaires) */
+            --dark: #2C3E50;           /* Bleu foncé (pour le texte et les fonds sombres) */
+            --light: #ECF0F1;          /* Gris clair (pour les fonds clairs) */
+            --accent: #E74C3C;         /* Rouge (pour les liens et les éléments interactifs) */
+            --white: #FFFFFF;          /* Blanc */
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Ombre légère */
+        }
+        /* Styles généraux */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--light), #f0f0f0); /* Gris clair */
+            color: var(--dark);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        header {
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            color: var(--white);
+            padding: 30px 10px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin: 0;
+        }
+        nav {
+            background: var(--secondary);
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+        nav a {
+            color: var(--dark);
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+        section {
+            margin-bottom: 50px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        h2 {
+            color: var(--dark);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            margin-top: 40px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--accent);
+            display: inline-block;
+        }
+        p, ul {
+            font-size: 1rem;
+            margin: 15px 0;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .highlight {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid var(--primary);
+            transition: all 0.4s ease;
+        }
+        .highlight:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        .interactive-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(75, 87, 88, 0.3);
+            margin: 15px 0;
+        }
+        .interactive-btn:hover {
+            background: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(75, 87, 88, 0.4);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: var(--shadow);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        th {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        tr:hover {
+            background-color: #f0f0f0;
+        }
+        /* Styles spécifiques pour le glossaire */
+        .glossary-container {
+            margin-top: 30px;
+        }
+        .glossary-term {
+            padding: 15px;
+            margin: 10px 0;
+            background: #f5f5f5;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .glossary-term:hover {
+            background: #e0e0e0;
+        }
+        .glossary-term::after {
+            content: "+";
+            font-size: 1.2rem;
+        }
+        .glossary-term.active::after {
+            content: "-";
+        }
+        .glossary-def {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            padding: 0 15px;
+            background: white;
+            border-radius: 0 0 8px 8px;
+        }
+        .glossary-term.active + .glossary-def {
+            max-height: 300px;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-top: none;
+            margin-bottom: 15px;
+        }
+        /* Styles pour le diagramme */
+        .diagram-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+        }
+        .diagram-element {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .diagram-box {
+            padding: 10px 15px;
+            border: 2px solid var(--primary);
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            color: var(--dark);
+            background-color: var(--white);
+        }
+        .diagram-arrow {
+            margin: 0 15px;
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            color: var(--white);
+            margin-top: 50px;
+            position: relative;
+        }
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(135deg, var(--secondary), rgba(255, 193, 7, 0.5));
+        }
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            p, ul, table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- HTML -->
+<header>
+    <h1>🌍 Les Éoliennes Domestiques : L'Énergie du Vent à la Maison 🌬️</h1>
+</header>
+<nav>
+    <a href="#introduction">📖 Introduction</a>
+    <a href="#fonctionnement">⚙️ Fonctionnement Général</a>
+    <a href="#cycle-vie">♻️ Cycle de Vie</a>
+    <a href="#energie-materiaux">⚡ Énergie & Matériaux</a>
+    <a href="#information-fonctionnement">📊 Chaînes d'Information</a>
+    <a href="#programmation">📱 Programmation</a>
+    <a href="#developpement-durable">🌱 Développement Durable</a>
+    <a href="#perspectives">🔮 Perspectives</a>
+    <a href="#glossaire">📚 Glossaire</a>
+</nav>
+<div class="container">
+    <!-- Section Introduction -->
+    <section id="introduction">
+        <h2>📖 Introduction</h2>
+        <p><em>"Le vent est une ressource inépuisable qui peut transformer notre manière de produire de l'énergie."</em></p>
+        <div style="text-align:center; margin:20px 0;">
+            <img src="https://media.istockphoto.com/id/1434094605/fr/photo/panneaux-solaires-sur-les-toits-de-logements-r%C3%A9sidentiels-et-une-%C3%A9olienne-aux-pays-bas.jpg?s=1024x1024&w=is&k=20&c=iiSgSaa8bzY0vXek-qXWu0kSKIa52FGTTDRT-HL5bdE=" 
+                 alt="Éolienne domestique" 
+                 style="max-width:400px; height:auto; border-radius:10px; box-shadow: var(--shadow);">
+        </div>
+        <p>Les éoliennes domestiques sont des dispositifs qui permettent de produire de l’électricité à partir du vent. Elles sont de plus en plus utilisées dans les maisons pour réduire la consommation d’énergie provenant des centrales électriques traditionnelles. Ces éoliennes offrent une solution durable et écologique pour répondre aux besoins croissants en énergie tout en minimisant l'impact environnemental.</p>
+        <div style="text-align:center; margin:20px 0;">
+            <img src="https://images.unsplash.com/photo-1677161048735-9f34f3ac9168?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                 alt="Éolienne isolée" 
+                 style="max-width:300px; height:auto; border-radius:10px; box-shadow: var(--shadow);">
+        </div>
+        <button class="interactive-btn" onclick="toggleContent('histoire')">Découvrir l'histoire des éoliennes</button>
+        <div id="histoire" class="info-box">
+            <h3>Histoire des éoliennes</h3>
+            <p>Les premières éoliennes remontent à l'Antiquité, où elles étaient utilisées pour moudre du grain ou pomper de l'eau. Au Moyen Âge, elles ont été adoptées en Europe pour diverses tâches agricoles. Au XXe siècle, les éoliennes ont évolué pour produire de l'électricité, notamment avec les modèles modernes comme ceux développés par Poul La Cour au Danemark. Aujourd'hui, les éoliennes domestiques représentent une avancée technologique majeure, permettant aux particuliers de produire leur propre énergie renouvelable.</p>
+        </div>
+    </section>
+
+    <!-- Section Fonctionnement -->
+    <section id="fonctionnement">
+        <h2>⚙️ Fonctionnement Général</h2>
+        <p>Le fonctionnement d'une éolienne domestique repose sur une interaction précise entre plusieurs composants. Voici comment elle transforme l'énergie cinétique du vent en énergie électrique :</p>
+        <p>Lorsque le vent souffle, il fait tourner les pales de l'éolienne. Ces pales, conçues pour être aérodynamiques, captent l'énergie cinétique du vent et la transforment en mouvement mécanique. Ce mouvement est ensuite transmis à un générateur, qui convertit l'énergie mécanique en énergie électrique. L'électricité produite peut être immédiatement utilisée pour alimenter les appareils domestiques ou stockée dans une batterie pour une utilisation ultérieure.</p>
+        <button class="interactive-btn" onclick="toggleContent('composants')">Explorer les composants essentiels</button>
+        <div id="composants" class="info-box">
+            <h3>Composants essentiels</h3>
+            <p>Une éolienne domestique est composée de plusieurs éléments cruciaux :</p>
+            <ul>
+                <li><strong>Pales :</strong> Conçues pour maximiser la capture de l'énergie cinétique du vent. Leur forme et leur taille sont optimisées pour garantir un rendement optimal.</li>
+                <li><strong>Générateur :</strong> Convertit le mouvement mécanique des pales en énergie électrique. Il s'agit souvent d'un générateur à aimants permanents pour une efficacité accrue.</li>
+                <li><strong>Batterie :</strong> Stocke l'énergie produite pour une utilisation ultérieure, surtout lorsque la production dépasse la consommation immédiate.</li>
+                <li><strong>Contrôleur :</strong> Régule la production et la distribution d'énergie, assurant que l'électricité est utilisée de manière efficace et sécurisée.</li>
+                <li><strong>Mât :</strong> Élève l'éolienne à une hauteur où le vent est plus fort et constant, augmentant ainsi son rendement.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Section Cycle de Vie -->
+    <section id="cycle-vie">
+        <h2>♻️ Cycle de Vie</h2>
+        <p>Le cycle de vie d'une éolienne domestique, de sa conception à sa fin de vie, est un processus complexe impliquant plusieurs étapes interconnectées :</p>
+        <p><strong>Conception :</strong> Cette phase commence par une analyse des besoins énergétiques des utilisateurs. Des prototypes sont créés et testés pour optimiser l'efficacité, la durabilité et la sécurité de l'éolienne. Les matériaux sont choisis en fonction de leur résistance, leur légèreté et leur impact environnemental.</p>
+        <p><strong>Fabrication :</strong> Les composants de l'éolienne sont produits dans des usines spécialisées. Les pales sont fabriquées à partir de matériaux composites, tandis que le générateur et le contrôleur intègrent des technologies avancées. L'assemblage final est réalisé avec soin pour garantir un fonctionnement optimal.</p>
+        <p><strong>Installation :</strong> Une fois fabriquée, l'éolienne est transportée jusqu'au site d'installation. Elle est montée sur un mât et connectée au réseau électrique domestique. Des tests sont effectués pour vérifier son bon fonctionnement.</p>
+        <p><strong>Utilisation :</strong> Pendant son utilisation, l'éolienne produit de l'électricité en continu, tant que le vent est suffisamment fort. Un entretien régulier est nécessaire pour garantir sa longévité et son efficacité.</p>
+        <p><strong>Fin de vie :</strong> À la fin de sa durée de vie, l'éolienne est démontée et ses composants sont recyclés. Les pales en composite et les batteries peuvent être traitées pour récupérer des matériaux précieux, réduisant ainsi l'impact environnemental.</p>
+        <button class="interactive-btn" onclick="toggleContent('recyclage')">S'informer sur le recyclage responsable</button>
+        <div id="recyclage" class="info-box">
+            <h3>Recyclage des éoliennes</h3>
+            <p>Le recyclage des éoliennes est une étape cruciale pour minimiser leur impact environnemental. Les pales en composite, bien que difficiles à recycler, peuvent être broyées et réutilisées dans des applications comme les panneaux de construction. Les batteries au lithium-ion sont démantelées pour récupérer des métaux précieux comme le lithium et le cobalt. Enfin, les matériaux métalliques sont fondus et réutilisés dans de nouvelles productions.</p>
+        </div>
+    </section>
+
+    <!-- Section Énergie & Matériaux -->
+    <section id="energie-materiaux">
+        <h2>⚡ Énergie & Matériaux Spécifiques</h2>
+        <p>Le choix des matériaux et de la source d'énergie est crucial pour les performances et la durabilité des éoliennes domestiques :</p>
+        <p><strong>Pales :</strong> Les pales sont généralement fabriquées à partir de matériaux composites, comme la fibre de verre ou de carbone, pour leur légèreté et leur résistance. Ces matériaux permettent de maximiser la capture de l'énergie cinétique du vent tout en résistant aux conditions météorologiques extrêmes.</p>
+        <p><strong>Mât :</strong> Le mât est souvent en acier ou en béton, offrant une stabilité et une résistance exceptionnelles. Sa hauteur est soigneusement calculée pour capter des vents plus forts et constants.</p>
+        <p><strong>Générateur :</strong> Les générateurs modernes utilisent des aimants permanents pour améliorer leur efficacité. Ils sont conçus pour fonctionner même à faible vitesse, garantissant une production d'énergie continue.</p>
+        <p><strong>Batterie :</strong> Les batteries au lithium-ion sont privilégiées pour leur capacité à stocker une grande quantité d'énergie dans un format compact. Elles offrent une autonomie prolongée et une durée de vie supérieure, bien qu'elles nécessitent une gestion précise pour éviter les surcharges et les décharges profondes.</p>
+        <button class="interactive-btn" onclick="toggleContent('materiaux-innovants')">Explorer les matériaux innovants</button>
+        <div id="materiaux-innovants" class="info-box">
+            <h3>Matériaux innovants et durables</h3>
+            <p>Des recherches sont en cours pour développer des matériaux biosourcés ou recyclés pour les pales. Ces matériaux, issus de fibres naturelles comme le lin ou le chanvre, offrent une alternative plus respectueuse de l'environnement. De plus, des polymères recyclés sont explorés pour réduire l'empreinte écologique des éoliennes.</p>
+        </div>
+    </section>
+
+    <!-- Section Chaînes d'Information -->
+    <section id="information-fonctionnement">
+        <h2>📊 Chaînes d'Information et de Fonctionnement</h2>
+        <p>Le fonctionnement d'une éolienne repose sur une interaction étroite entre les chaînes d'information et d'énergie. Voici un diagramme simplifié :</p>
+        <div class="diagram-container">
+            <h3>Chaînes d'Information et d'Énergie</h3>
+            <div class="diagram-element">
+                <div class="diagram-box">Vent (Source)</div>
+                <div class="diagram-arrow">➡️</div>
+                <div class="diagram-box">Pales (Captation)</div>
+                <div class="diagram-arrow">➡️</div>
+                <div class="diagram-box">Rotor (Conversion)</div>
+                <div class="diagram-arrow">➡️</div>
+                <div class="diagram-box">Générateur (Production)</div>
+                <div class="diagram-arrow">🔄</div>
+                <div class="diagram-box">Batterie (Stockage)</div>
+            </div>
+        </div>
+        <p>La chaîne d'information permet de traduire les intentions de l'utilisateur en commandes pour les moteurs, tandis que la chaîne d'énergie fournit l'énergie nécessaire pour réaliser ces mouvements.</p>
+    </section>
+
+    <!-- Section Programmation -->
+    <section id="programmation">
+        <h2>📱 Programmation Informatique</h2>
+        <p>La programmation joue un rôle essentiel dans le fonctionnement avancé des éoliennes domestiques. Elle permet de gérer :</p>
+        <p><strong>La surveillance :</strong> Des capteurs mesurent la vitesse du vent, la direction et d'autres paramètres pour ajuster automatiquement l'angle des pales et maximiser la production d'énergie.</p>
+        <p><strong>La gestion de l'énergie :</strong> Des algorithmes sophistiqués optimisent la consommation d'énergie, la recharge des batteries et l'estimation de l'autonomie restante. Par exemple, un microcontrôleur peut décider de rediriger l'énergie excédentaire vers des systèmes de chauffage ou de climatisation.</p>
+        <p><strong>Le confort :</strong> Des interfaces utilisateur, comme des applications mobiles, permettent aux utilisateurs de surveiller et de contrôler leur éolienne à distance. Ils peuvent visualiser la production d'énergie en temps réel, recevoir des alertes en cas de dysfonctionnement et ajuster les paramètres selon leurs besoins.</p>
+    </section>
+
+    <!-- Section Développement Durable -->
+    <section id="developpement-durable">
+        <h2>🌱 Développement Durable</h2>
+        <p>Les éoliennes domestiques sont un excellent exemple de développement durable :</p>
+        <p><strong>Énergie renouvelable :</strong> Le vent est une ressource inépuisable qui ne produit pas de gaz à effet de serre lors de sa transformation en électricité. Contrairement aux énergies fossiles, qui s'épuisent avec le temps, le vent est toujours présent, ce qui en fait une source d'énergie durable et fiable.</p>
+        <p><strong>Réduction des émissions de CO2 :</strong> Les éoliennes ne brûlent pas de combustibles fossiles pour produire de l'électricité. Ainsi, elles ne rejettent pas de gaz à effet de serre, contribuant à lutter contre le réchauffement climatique. Une seule éolienne domestique peut réduire considérablement l'empreinte carbone d'un foyer.</p>
+        <p><strong>Matériaux recyclables :</strong> De nombreux composants des éoliennes, comme les pales ou les mâts, peuvent être fabriqués à partir de matériaux recyclés ou recyclables. Cela réduit leur impact sur l'environnement et favorise une économie circulaire.</p>
+    </section>
+
+    <!-- Section Perspectives -->
+    <section id="perspectives">
+        <h2>🔮 Perspectives</h2>
+        <p><strong>Innovations futures :</strong></p>
+        <p><strong>Éoliennes flottantes :</strong> Ces éoliennes sont conçues pour être installées en mer, où les vents sont plus forts et plus constants. Elles pourraient révolutionner la production d'énergie renouvelable, notamment dans les régions côtières.</p>
+        <p><strong>Éoliennes urbaines :</strong> Intégrées dans les bâtiments, ces éoliennes permettraient de produire de l'énergie directement dans les villes, réduisant les pertes liées au transport d'électricité. Elles pourraient également être combinées avec des panneaux solaires pour maximiser la production d'énergie.</p>
+        <p><strong>Technologies hybrides :</strong> Combiner des éoliennes avec des panneaux solaires offre une solution pour produire de l'énergie en continu, quel que soit le temps. Par exemple, les panneaux solaires produisent de l'énergie pendant la journée, tandis que les éoliennes prennent le relais la nuit ou par temps venteux.</p>
+        <p><strong>Défis à relever :</strong></p>
+        <p><strong>Efficacité :</strong> Améliorer le rendement des éoliennes pour produire plus d'énergie avec moins de ressources. Cela inclut l'optimisation de la forme des pales, la réduction des pertes d'énergie et l'amélioration des systèmes de conversion.</p>
+        <p><strong>Accessibilité :</strong> Rendre les éoliennes domestiques plus abordables pour les particuliers et les petites entreprises. Cela passe par la réduction des coûts de production et l'incitation financière (subventions, crédits d'impôt, etc.).</p>
+        <p><strong>Acceptation sociale :</strong> Sensibiliser le public aux avantages des éoliennes et surmonter les réticences liées à leur installation. Cela inclut la communication sur leur impact environnemental positif et leur rôle dans la transition énergétique.</p>
+    </section>
+
+    <!-- Section Glossaire -->
+    <section id="glossaire">
+        <h2>📚 Glossaire Interactif</h2>
+        <p>Cliquez sur les termes pour voir leurs définitions détaillées :</p>
+        <div class="glossary-container">
+            <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+                Autonomie énergétique
+            </div>
+            <div class="glossary-def">
+                <p>Capacité à produire sa propre électricité sans dépendre des réseaux publics. L'autonomie énergétique est un objectif clé pour de nombreuses familles qui cherchent à réduire leur empreinte carbone et à maîtriser leurs dépenses énergétiques.</p>
+            </div>
+            <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+                Énergie renouvelable
+            </div>
+            <div class="glossary-def">
+                <p>Énergie provenant de sources naturelles inépuisables, comme le vent, le soleil ou l'eau. Contrairement aux énergies fossiles, qui s'épuisent avec le temps, les énergies renouvelables sont disponibles en permanence et ne produisent pas de gaz à effet de serre.</p>
+            </div>
+            <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+                Générateur
+            </div>
+            <div class="glossary-def">
+                <p>Dispositif qui convertit l'énergie mécanique en énergie électrique. Dans une éolienne, le générateur est activé par le mouvement des pales, transformant ainsi l'énergie cinétique du vent en électricité utilisable.</p>
+            </div>
+            <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+                Mât
+            </div>
+            <div class="glossary-def">
+                <p>Structure qui supporte l'éolienne et l'élève à une hauteur où le vent est plus fort et constant. Le mât est généralement en acier ou en béton, offrant une stabilité et une résistance exceptionnelles.</p>
+            </div>
+            <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+                Contrôleur
+            </div>
+            <div class="glossary-def">
+                <p>Système qui régule la production et la distribution d'énergie. Le contrôleur ajuste automatiquement la puissance envoyée aux batteries et aux appareils domestiques, garantissant un fonctionnement sûr et efficace.</p>
+            </div>
+            <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+                Batterie
+            </div>
+            <div class="glossary-def">
+                <p>Dispositif qui stocke l'énergie produite par l'éolienne pour une utilisation ultérieure. Les batteries au lithium-ion sont couramment utilisées pour leur capacité à stocker une grande quantité d'énergie dans un format compact.</p>
+            </div>
+            <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+                Pales
+            </div>
+            <div class="glossary-def">
+                <p>Parties de l'éolienne qui captent l'énergie cinétique du vent. Les pales sont conçues pour être aérodynamiques et résistantes, maximisant ainsi la capture de l'énergie tout en résistant aux conditions météorologiques extrêmes.</p>
+            </div>
+            <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+                Éoliennes flottantes
+            </div>
+            <div class="glossary-def">
+                <p>Éoliennes installées en mer pour exploiter les vents plus forts et constants. Ces éoliennes sont fixées sur des plateformes flottantes, permettant leur installation dans des zones où les fonds marins sont trop profonds pour des structures fixes.</p>
+            </div>
+            <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+                Capteurs ultrason
+            </div>
+            <div class="glossary-def">
+                <p>Capteurs qui mesurent la distance en émettant des ondes ultrasonores et en mesurant le temps qu'elles mettent à revenir après avoir rebondi sur un objet. Utilisé pour la détection d'obstacles autour des éoliennes.</p>
+            </div>
+            <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+                Microcontrôleur
+            </div>
+            <div class="glossary-def">
+                <p>Petit ordinateur intégré dans l'éolienne pour automatiser des tâches comme la mesure de la vitesse du vent, l'ajustement des pales et la gestion de la production d'énergie.</p>
+            </div>
+        </div>
+    </section>
+</div>
+<footer>
+    <p>© Les Éoliennes Domestiques : L'Énergie du Vent à la Maison</p>
+</footer>
+<script>
+    // Basculer l'affichage du contenu
+    function toggleContent(id) {
+        const element = document.getElementById(id);
+        element.classList.toggle('expanded');
+    }
+    // Basculer les termes du glossaire
+    function toggleGlossaryTerm(element) {
+        element.classList.toggle('active');
+    }
+    // Animation au défilement
+    function checkVisibility() {
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 100) {
+                section.classList.add('visible');
+            }
+        });
+    }
+    window.addEventListener('scroll', checkVisibility);
+    window.addEventListener('load', checkVisibility);
+</script>
+</body>
+</html>

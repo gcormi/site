@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Montre Connectée - Cours Complet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* CSS Variables */
+    :root {
+      --primary: #455A64; /* Gris bleu */
+      --secondary: #FFB300; /* Jaune vif */
+      --dark: #263238; /* Gris foncé */
+      --light: #ECEFF1; /* Gris clair */
+      --accent: #FF5722; /* Orange */
+      --white: #ffffff;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Styles généraux */
+    body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, var(--light), #f0f0f0); /* Gris clair */
+      color: var(--dark);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--dark), var(--primary));
+      color: var(--white);
+      padding: 30px 10px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    header h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.5rem;
+      margin: 0;
+    }
+
+    nav {
+      background: var(--secondary);
+      padding: 15px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    nav a {
+      color: var(--dark);
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 15px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-3px);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: var(--shadow);
+    }
+
+    section {
+      margin-bottom: 50px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h2 {
+      color: var(--dark);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2rem;
+      margin-top: 40px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid var(--accent);
+      display: inline-block;
+    }
+
+    p, ul {
+      font-size: 1rem;
+      margin: 15px 0;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+
+    .highlight {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+      border-left: 4px solid var(--primary);
+      transition: all 0.4s ease;
+    }
+
+    .highlight:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .interactive-btn {
+      display: inline-block;
+      padding: 12px 25px;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(75, 87, 88, 0.3); /* Couleur gris modifiée */
+      margin: 15px 0;
+    }
+
+    .interactive-btn:hover {
+      background: var(--dark);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(75, 87, 88, 0.4); /* Couleur gris modifiée */
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      box-shadow: var(--shadow);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    th {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+
+    tr:hover {
+      background-color: #f0f0f0; /* Gris très clair */
+    }
+
+    .glossary-container {
+      margin-top: 30px;
+    }
+
+    .glossary-term {
+      padding: 15px;
+      margin: 10px 0;
+      background: #f5f5f5;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      color: var(--dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .glossary-term:hover {
+      background: #e0e0e0;
+    }
+
+    .glossary-term::after {
+      content: "+";
+      font-size: 1.2rem;
+    }
+
+    .glossary-term.active::after {
+      content: "-";
+    }
+
+    .glossary-def {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+      padding: 0 15px;
+      background: white;
+      border-radius: 0 0 8px 8px;
+    }
+
+    .glossary-term.active + .glossary-def {
+      max-height: 300px;
+      padding: 15px;
+      border: 1px solid #e0e0e0;
+      border-top: none;
+      margin-bottom: 15px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .reveal {
+      animation: fadeIn 1s ease-out;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(135deg, var(--dark), var(--primary));
+      color: var(--white);
+      margin-top: 50px;
+      position: relative;
+    }
+
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 10px;
+      background: linear-gradient(135deg, var(--secondary), rgba(255, 193, 7, 0.5)); /* Adaptation de la couleur secondaire */
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      nav a {
+        margin: 0 5px;
+        padding: 5px 10px;
+        font-size: 0.9rem;
+      }
+      .container {
+        padding: 20px;
+        margin: 15px;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Styles spécifiques pour les mots-clés cliquables */
+    .keyword {
+      color: var(--accent);
+      font-weight: 700;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .keyword:hover {
+      text-shadow: 0 0 8px rgba(255, 109, 0, 0.3);
+    }
+
+    .info-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      text-align: center;
+      line-height: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-left: 5px;
+      transition: all 0.3s ease;
+      vertical-align: middle;
+      font-size: 0.9rem;
+    }
+
+    .info-btn:hover {
+      transform: scale(1.2);
+      background: var(--dark);
+    }
+
+    .info-box {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+      padding: 0 20px;
+      background: #f9f9f9;
+      border-radius: 8px;
+      margin: 5px 0;
+    }
+
+    .info-box.expanded {
+      max-height: 500px;
+      padding: 15px 20px;
+      margin: 10px 0;
+      border-left: 4px solid var(--accent);
+    }
+
+  </style>
+</head>
+<body>
+  <!-- HTML Structure -->
+  <header>
+    <h1>✨ La Montre Connectée : Un Objet Technologique Innovant 🚀</h1>
+  </header>
+
+  <nav>
+    <a href="#introduction">📖 Introduction</a>
+    <a href="#fonctionnement">⚙️ Fonctionnement</a>
+    <a href="#cycle-vie">♻️ Cycle de Vie</a>
+    <a href="#materiaux">💎 Matériaux</a>
+    <a href="#energie">⚡ Chaîne d'Énergie</a>
+    <a href="#information">📊 Chaîne d'Information</a>
+    <a href="#numerique">📱 Numérique</a>
+    <a href="#perspectives">🔮 Perspectives</a>
+    <a href="#glossaire">📚 Glossaire</a>
+    <a href="#reflexion">🤔 Réflexion</a>
+  </nav>
+
+  <div class="container">
+    <!-- Section Introduction -->
+    <section id="introduction">
+      <h2>📖 Introduction</h2>
+      <p>La montre connectée, bien plus qu'un simple gadget, est un concentré de technologie portable qui a révolutionné notre manière d'interagir avec le monde numérique. Elle combine les fonctions d'une montre traditionnelle avec des capacités informatiques avancées, offrant une expérience utilisateur riche et personnalisée.</p>
+
+      <div class="highlight">
+        <p><strong>Pourquoi étudier les montres connectées ?</strong></p>
+        <ul>
+          <li><span class="keyword" onclick="showDefinition('suivi-sante')">Suivi de la santé</span><button class="info-btn" onclick="toggleInfoBox('suivi-sante-info')">i</button>: Les montres connectées peuvent surveiller votre fréquence cardiaque, votre niveau d'activité et même votre sommeil, fournissant des données précieuses pour améliorer votre bien-être.
+            <div class="info-box" id="suivi-sante-info">
+              <p>Les montres connectées utilisent des capteurs sophistiqués pour collecter des données physiologiques, qui peuvent être analysées pour détecter des anomalies et adopter un mode de vie plus sain.  Certaines montres peuvent même effectuer des ECG ou mesurer la saturation en oxygène.</p>
+            </div>
+          </li>
+          <li><span class="keyword" onclick="showDefinition('connectivite')">Connectivité</span><button class="info-btn" onclick="toggleInfoBox('connectivite-info')">i</button> : Restez connecté à vos notifications, appels et applications préférées directement depuis votre poignet, sans avoir à sortir constamment votre téléphone.
+            <div class="info-box" id="connectivite-info">
+              <p>Grâce à la connectivité Bluetooth et Wi-Fi, les montres connectées peuvent recevoir des notifications, passer des appels, envoyer des messages et même effectuer des paiements sans contact.</p>
+            </div>
+          </li>
+          <li><span class="keyword" onclick="showDefinition('innovation')">Innovation technologique</span><button class="info-btn" onclick="toggleInfoBox('innovation-info')">i</button>: Les montres connectées sont à la pointe de l'innovation en matière de technologie portable, intégrant des capteurs avancés, des écrans haute résolution et des logiciels sophistiqués.
+            <div class="info-box" id="innovation-info">
+              <p>Les fabricants de montres connectées investissent massivement dans la recherche et le développement pour proposer des fonctionnalités toujours plus innovantes, comme la réalité augmentée, la commande gestuelle et l'intelligence artificielle.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+       
+      <button class="interactive-btn" onclick="toggleContent('histoire-montres')">Découvrir l'histoire des montres connectées</button>
+      <div class="info-box" id="histoire-montres">
+        <h3>Un peu d'histoire :</h3>
+        <p>Les premières montres connectées remontent aux années 1970, avec des modèles comme la Pulsar Calculator Watch.  Cependant, c'est au XXIe siècle qu'elles ont vraiment décollé, avec des modèles comme la Pebble (2013) et l'Apple Watch (2015). La Seiko Data 2000 (1983) est souvent considérée comme l'une des premières montres avec des capacités de stockage et de connectivité.</p>
+      </div>
+    </section>
+
+    <!-- Section Fonctionnement -->
+    <section id="fonctionnement">
+      <h2>⚙️ Fonctionnement de la Montre Connectée</h2>
+      <p>La montre connectée est un écosystème complexe de composants électroniques, de capteurs et de logiciels qui fonctionnent en synergie pour offrir une multitude de fonctionnalités. Voici un aperçu de son fonctionnement :</p>
+      <ul>
+        <li><strong>Affichage de l'Heure :</strong> Grâce à un <span class="keyword" onclick="showDefinition('ecran-numerique')">écran numérique</span> (LCD, OLED ou AMOLED).<button class="info-btn" onclick="toggleInfoBox('ecran-numerique-info')">i</button>
+          <div class="info-box" id="ecran-numerique-info">
+            <p>Les écrans LCD (Liquid Crystal Display) sont économiques et consomment peu d'énergie, mais offrent un contraste et une luminosité limités. Les écrans OLED (Organic Light Emitting Diode) offrent un contraste élevé, des couleurs vives et une faible consommation d'énergie. Les écrans AMOLED (Active Matrix OLED) sont une variante des écrans OLED, offrant une meilleure réactivité et une plus grande efficacité énergétique.</p>
+          </div>
+        </li>
+        <li><strong>Suivi d'Activité :</strong> Intègre des <span class="keyword" onclick="showDefinition('capteur-optique')">capteurs optiques</span> pour mesurer les pas, la fréquence cardiaque, etc.<button class="info-btn" onclick="toggleInfoBox('capteur-optique-info')">i</button>
+          <div class="info-box" id="capteur-optique-info">
+            <p>Les capteurs optiques utilisent des LED (Light Emitting Diode) et des photodiodes pour mesurer le flux sanguin à travers la peau. En analysant les variations de la lumière réfléchie, ils peuvent déterminer la fréquence cardiaque, la saturation en oxygène et d'autres paramètres physiologiques.</p>
+          </div>
+        </li>
+        <li><strong>Notifications :</strong> Reçoit des notifications via <span class="keyword" onclick="showDefinition('bluetooth')">Bluetooth</span>.<button class="info-btn" onclick="toggleInfoBox('bluetooth-info')">i</button>
+          <div class="info-box" id="bluetooth-info">
+            <p>Le Bluetooth est une technologie de communication sans fil à courte portée qui permet de connecter la montre à un smartphone ou à d'autres appareils compatibles.  Il permet d'échanger des données, comme les notifications, les appels, les messages et les informations de suivi d'activité.</p>
+          </div>
+        </li>
+        <li><strong>Interactions :</strong> Permet d'interagir avec d'autres appareils ou applications via des commandes tactiles, vocales ou gestuelles.</li>
+      </ul>
+      <button class="interactive-btn" onclick="toggleContent('exemple-fonctionnement')">Afficher un exemple concret</button>
+      <div id="exemple-fonctionnement" class="info-box">
+        <strong>Exemple concret :</strong> Lorsque vous recevez un appel sur votre smartphone, la montre connectée vibre et affiche le nom de l'appelant. Vous pouvez alors décrocher directement depuis votre montre.
+      </div>
+    </section>
+
+    <!-- Section Cycle de Vie -->
+    <section id="cycle-vie">
+      <h2>♻️ Cycle de Vie de la Montre Connectée</h2>
+      <p>Le cycle de vie d'une montre connectée est un processus complexe qui comprend plusieurs étapes, de la conception à la fin de vie. Il est important de prendre en compte les impacts environnementaux et sociaux à chaque étape :</p>
+      <ul>
+        <li><strong>Conception :</strong> Choix des matériaux, conception du produit, emballage.</li>
+        <li><strong>Fabrication :</strong> Extraction des matières premières, production des composants, assemblage.</li>
+        <li><strong>Distribution :</strong> Transport du produit vers les points de vente.</li>
+        <li><strong>Utilisation :</strong> Exploitation des fonctionnalités de la montre, mises à jour logicielles.</li>
+        <li><strong>Obsolescence programmée :</strong> Fin du support logiciel ou évolution technologique qui rendent la montre obsolète.</li>
+        <li><strong>Fin de vie :</strong> Collecte, recyclage ou élimination des déchets.</li>
+      </ul>
+      <button class="interactive-btn" onclick="toggleContent('exemple-cycle-vie')">Afficher un exemple concret</button>
+      <div id="exemple-cycle-vie" class="info-box">
+        <strong>Exemple concret :</strong> L'extraction du cobalt, un métal essentiel pour les batteries, est souvent associée à des conditions de travail difficiles dans les mines artisanales de République démocratique du Congo.
+      </div>
+    </section>
+
+    <!-- Section Matériaux -->
+    <section id="materiaux">
+      <h2>💎 Matériaux et Énergies Utilisés</h2>
+      <p>La fabrication d'une montre connectée nécessite une grande variété de matériaux, allant des métaux précieux aux plastiques techniques en passant par les semi-conducteurs. L'énergie est également un élément crucial, tant pour la fabrication que pour l'utilisation de la montre :</p>
+      <table>
+        <tr>
+          <th>Matériau</th>
+          <th>Utilisation</th>
+          <th>Exemple concret</th>
+          <th>Impact</th>
+        </tr>
+        <tr>
+          <td>Verre (Gorilla Glass, verre saphir)</td>
+          <td>Écran (résistant aux rayures)</td>
+          <td>Écran en verre saphir de l'Apple Watch Series 7</td>
+          <td>Le verre saphir est très résistant mais plus coûteux et énergivore à produire.</td>
+        </tr>
+        <tr>
+          <td>Métaux (aluminium, acier inoxydable, titane)</td>
+          <td>Boîtier (résistant à la corrosion)</td>
+          <td>Boîtier en titane de la Garmin Fenix 6 Pro</td>
+          <td>L'extraction et la transformation des métaux ont un impact environnemental important.</td>
+        </tr>
+        <tr>
+          <td>Plastique (polycarbonate, silicone)</td>
+          <td>Bracelets et parties du boîtier (flexible et léger)</td>
+          <td>Bracelet en silicone de la Fitbit Versa 3</td>
+          <td>La production de plastique contribue à la pollution des océans et à l'épuisement des ressources fossiles.</td>
+        </tr>
+        <tr>
+          <td>Semi-conducteurs (silicium, germanium)</td>
+          <td>Circuits électroniques (processeur, mémoire)</td>
+          <td>Processeur Apple S7 de l'Apple Watch Series 7</td>
+          <td>La fabrication des semi-conducteurs nécessite des produits chimiques toxiques et une grande quantité d'eau.</td>
+        </tr>
+        <tr>
+          <td>Batterie au lithium-ion</td>
+          <td>Alimentation électrique (stockage de l'énergie)</td>
+          <td>Batterie de la Samsung Galaxy Watch 4</td>
+          <td>L'extraction du lithium et la fabrication des batteries ont un impact environnemental et social.</td>
+        </tr>
+      </table>
+      <button class="interactive-btn" onclick="toggleContent('exemple-materiaux')">En savoir plus sur les matériaux durables</button>
+      <div id="exemple-materiaux" class="info-box">
+        <strong>Matériaux durables :</strong> Certains fabricants explorent des alternatives plus écologiques, comme les plastiques recyclés, les métaux recyclés et les matériaux biosourcés.
+      </div>
+    </section>
+
+    <!-- Section Énergie -->
+    <section id="energie">
+      <h2>⚡ Chaîne d'Énergie</h2>
+      <p>La montre connectée transforme l'énergie électrique stockée dans la batterie en différentes actions. Comprendre la chaîne d'énergie permet d'optimiser la consommation et de prolonger l'autonomie :</p>
+      <ul>
+        <li><strong>Batterie :</strong> Fournit l’énergie électrique nécessaire au fonctionnement de la montre (Li-ion, Li-Po). La capacité de la batterie est mesurée en mAh (milliampères-heure).</li>
+        <li><strong>Affichage :</strong> L'écran utilise l'énergie pour afficher l'heure, les notifications, les données et les interfaces graphiques. La consommation de l'écran dépend de sa taille, de sa luminosité et de la technologie utilisée.</li>
+        <li><strong>Capteurs :</strong> Les capteurs (accéléromètre, gyroscope, capteur de fréquence cardiaque, GPS) consomment de l'énergie pour collecter des données. La fréquence des mesures et le type de capteur influencent la consommation.</li>
+        <li><strong>Processeur :</strong> Le processeur exécute les instructions du système d'exploitation et des applications. Sa consommation dépend de sa puissance et de sa fréquence d'horloge.</li>
+        <li><strong>Transmission :</strong> La connexion Bluetooth ou Wi-Fi envoie des informations vers un smartphone ou un autre appareil. La consommation dépend du débit de données et de la distance de transmission.</li>
+      </ul>
+      <button class="interactive-btn" onclick="toggleContent('exemple-energie')">Astuces pour économiser l'énergie</button>
+      <div id="exemple-energie" class="info-box">
+        <strong>Astuces :</strong> Réduire la luminosité de l'écran, désactiver les notifications inutiles, limiter l'utilisation du GPS et désactiver le Bluetooth lorsque vous n'en avez pas besoin.
+      </div>
+    </section>
+
+    <!-- Section Information -->
+    <section id="information">
+      <h2>📊 Chaîne de Fonctionnement et Chaîne d'Information</h2>
+      <p>La montre connectée repose sur deux chaînes essentielles : la chaîne de fonctionnement (transformation de l'énergie) et la chaîne d'information (acquisition, traitement et communication des données) :</p>
+      <ul>
+        <li><strong>Acquisition :</strong> Les capteurs collectent des données physiques (mouvement, fréquence cardiaque, température).</li>
+        <li><strong>Conversion :</strong> Les données analogiques sont converties en données numériques.</li>
+        <li><strong>Traitement :</strong> Le processeur traite les données numériques à l'aide d'algorithmes.</li>
+        <li><strong>Stockage :</strong> Les données sont stockées dans la mémoire de la montre.</li>
+        <li><strong>Affichage :</strong> Les données sont affichées sur l'écran de la montre.</li>
+        <li><strong>Transmission :</strong> Les données sont transmises à un smartphone ou à un serveur cloud via Bluetooth ou Wi-Fi.</li>
+      </ul>
+      <button class="interactive-btn" onclick="toggleContent('exemple-information')">Exemple concret : Analyse du sommeil</button>
+      <div id="exemple-information" class="info-box">
+        <strong>Exemple :</strong> Le capteur de fréquence cardiaque collecte des données pendant votre sommeil. Ces données sont transmises via Bluetooth à votre smartphone et analysées par une application pour déterminer la qualité de votre sommeil (durée, phases, interruptions).
+      </div>
+    </section>
+
+    <!-- Section Numérique -->
+    <section id="numerique">
+      <h2>📱 Lien avec le Numérique et l’Informatique</h2>
+      <p>La montre connectée est un objet intelligent grâce à son logiciel embarqué et ses connexions numériques. Elle est étroitement liée au monde du numérique et de l'informatique :</p>
+      <ul>
+        <li><strong>Système d'exploitation (OS) :</strong> Le système d’exploitation gère les fonctionnalités de la montre et permet d'exécuter des applications (watchOS, Wear OS, Tizen).</li>
+        <li><strong>Applications :</strong> Des applications permettent d’étendre les fonctionnalités de la montre (sport, santé, musique, productivité). Elles sont généralement développées en utilisant des langages de programmation comme Swift (iOS) ou Java (Android).</li>
+        <li><strong>Connectivité :</strong> La montre se connecte à un smartphone, à un réseau Wi-Fi ou à un réseau cellulaire pour échanger des données, recevoir des mises à jour et accéder à des services en ligne.</li>
+        <li><strong>Sécurité :</strong> La sécurité des données et la protection de la vie privée sont des enjeux importants. Les montres connectées utilisent des mécanismes de chiffrement et d'authentification pour protéger les informations sensibles.</li>
+      </ul>
+      <button class="interactive-btn" onclick="toggleContent('exemple-numerique')">Systèmes d'exploitation populaires</button>
+      <div id="exemple-numerique" class="info-box">
+        <strong>Systèmes d'exploitation :</strong> watchOS (Apple), Wear OS (Google), Tizen (Samsung), Fitbit OS (Fitbit)
+      </div>
+    </section>
+
+    <!-- Section Perspectives -->
+    <section id="perspectives">
+      <h2>🔮 Perspectives d’Avenir</h2>
+      <p>La montre connectée est un objet technologique en constante évolution, avec de nombreuses perspectives d'avenir :</p>
+      <ul>
+        <li><strong>Amélioration de l’autonomie :</strong> Batteries plus performantes (nouvelles chimies, miniaturisation) ou systèmes de recharge innovants (solaire, cinétique, sans fil).</li>
+        <li><strong>Santé avancée :</strong> Capteurs pour détecter des maladies (diabète, problèmes cardiaques, stress) et suivi plus précis des paramètres physiologiques.</li>
+        <li><strong>Intégration avec l’écosystème numérique :</strong> Devenir des hubs centraux pour contrôler tous les appareils connectés de la maison (IoT), la voiture et les services en ligne.</li>
+        <li><strong>Design personnalisable :</strong> Offrir des designs modulaires, permettant aux utilisateurs de personnaliser leur appareil (bracelet, boîtier, écran).</li>
+        <li><strong>Réduction de l’impact environnemental :</strong> Utiliser des matériaux recyclés, concevoir des montres plus durables et mettre en place des programmes de recyclage.</li>
+        <li><strong>Réalité augmentée :</strong> Intégration de la réalité augmentée pour afficher des informations contextuelles et des interactions virtuelles directement sur l'écran de la montre.</li>
+        <li><strong>Intelligence artificielle :</strong> Utilisation de l'IA pour personnaliser l'expérience utilisateur, optimiser la consommation d'énergie et fournir des conseils de santé personnalisés.</li>
+      </ul>
+    </section>
+
+    <!-- Section Glossaire -->
+    <section id="glossaire">
+      <h2>📚 Glossaire Interactif</h2>
+      <p>Cliquez sur les termes pour voir leurs définitions détaillées :</p>
+      
+      <div class="glossary-container">
+        <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+          Montre Connectée
+        </div>
+        <div class="glossary-def">
+          <p>Appareil portable qui combine les fonctions d'une montre traditionnelle avec des capacités informatiques avancées, telles que le suivi de l'activité physique, la réception de notifications et le contrôle de la musique.</p>
+        </div>
+        
+        <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+          Capteur Optique
+        </div>
+        <div class="glossary-def">
+          <p>Dispositif qui utilise des LED et des photodiodes pour mesurer le flux sanguin à travers la peau, ce qui permet de déterminer la fréquence cardiaque.</p>
+        </div>
+        
+        <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+          Bluetooth
+        </div>
+        <div class="glossary-def">
+          <p>Technologie de communication sans fil à courte portée qui permet de connecter la montre à un smartphone ou à d'autres appareils.</p>
+        </div>
+        
+        <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+          Écran Numérique
+        </div>
+        <div class="glossary-def">
+          <p>Écran utilisant des technologies comme LCD, OLED ou AMOLED pour afficher des informations. Les écrans OLED offrent des couleurs vives et un contraste élevé, tandis que les écrans LCD sont plus économiques.</p>
+        </div>
+        
+        <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+          Accéléromètre
+        </div>
+        <div class="glossary-def">
+          <p>Capteur qui mesure l'accélération linéaire, permettant de détecter les mouvements de la montre dans l'espace.</p>
+        </div>
+
+        <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+            Gyroscope
+        </div>
+        <div class="glossary-def">
+            <p>Capteur qui mesure la vitesse angulaire, permettant de détecter la rotation de la montre.</p>
+        </div>
+
+        <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+            GPS (Global Positioning System)
+        </div>
+        <div class="glossary-def">
+            <p>Système de positionnement par satellites qui permet de déterminer la position géographique de la montre.</p>
+        </div>
+
+        <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+            mAh (milliampères-heure)
+        </div>
+        <div class="glossary-def">
+            <p>Unité de mesure de la capacité d'une batterie. Plus le nombre de mAh est élevé, plus la batterie peut stocker d'énergie.</p>
+        </div>
+
+        <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+            watchOS
+        </div>
+        <div class="glossary-def">
+            <p>Système d'exploitation développé par Apple pour ses montres connectées Apple Watch.</p>
+        </div>
+
+        <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+            Wear OS
+        </div>
+        <div class="glossary-def">
+            <p>Système d'exploitation développé par Google pour les montres connectées. Auparavant connu sous le nom d'Android Wear.</p>
+        </div>
+
+        <div class="glossary-term" onclick="toggleGlossaryTerm(this)">
+            Tizen
+        </div>
+        <div class="glossary-def">
+            <p>Système d'exploitation développé par Samsung pour ses montres connectées Galaxy Watch.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Réflexion -->
+    <section id="reflexion">
+      <h2>🤔 Réflexion</h2>
+      <p>Les montres connectées sont un exemple fascinant de la manière dont la technologie transforme notre quotidien, offrant de nouvelles possibilités en matière de santé, de communication et de productivité. Cependant, il est essentiel de réfléchir à leur <span class="keyword" onclick="showDefinition('impact-environnemental')">impact environnemental</span>, à la protection de la vie privée et à la manière dont nous pouvons les utiliser de manière responsable.</p>
+        <ul>
+            <li><strong>Impact environnemental :</strong> L'extraction des matières premières, la fabrication, le transport et l'élimination des montres connectées ont un impact sur l'environnement. Il est important de choisir des montres fabriquées avec des matériaux durables et de les recycler en fin de vie.</li>
+            <li><strong>Protection de la vie privée :</strong> Les montres connectées collectent de nombreuses données personnelles (localisation, activité physique, fréquence cardiaque). Il est important de comprendre comment ces données sont utilisées et de prendre des mesures pour protéger sa vie privée.</li>
+            <li><strong>Utilisation responsable :</strong> Les montres connectées peuvent être addictives et avoir un impact sur notre attention et notre productivité. Il est important de les utiliser avec modération et de se fixer des limites.</li>
+        </ul>
+    </section>
+  </div>
+
+  <footer>
+    <p>© La Montre Connectée : Un Objet Technologique Innovant</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Définitions
+    const definitions = {
+      "montre-connectee": "Objet technologique combinant les fonctions d'une montre traditionnelle avec des fonctionnalités numériques avancées.",
+      "electronique": "Domaine scientifique qui traite des circuits électriques et des dispositifs électroniques.",
+      "optique": "Branche de la physique qui étudie la lumière et ses propriétés.",
+      "bluetooth":"Technologie sans fil permettant la connexion entre la montre et un smartphone.",
+      "ecran-numerique": "Écran utilisant des technologies comme LCD, OLED ou AMOLED pour afficher des informations.",
+      "capteur-optique": "Dispositif mesurant des données physiologiques, comme la fréquence cardiaque.",
+      "impact-environnemental": "Effet d'une activité humaine ou d'un produit sur l'environnement naturel.",
+      "suivi-sante": "Les montres connectées peuvent surveiller votre fréquence cardiaque, votre niveau d'activité et même votre sommeil.",
+      "connectivite": "Restez connecté à vos notifications, appels et applications préférées directement depuis votre poignet.",
+      "innovation": "Les montres connectées sont à la pointe de l'innovation en matière de technologie portable.",
+      "accelerometre": "Capteur qui mesure l'accélération linéaire, permettant de détecter les mouvements de la montre.",
+      "gyroscope": "Capteur qui mesure la vitesse angulaire, permettant de détecter la rotation de la montre.",
+      "gps": "Système de positionnement par satellites qui permet de déterminer la position géographique de la montre.",
+      "mah": "Unité de mesure de la capacité d'une batterie.",
+      "watchos": "Système d'exploitation développé par Apple pour ses montres connectées.",
+      "wearos": "Système d'exploitation développé par Google pour les montres connectées.",
+      "tizen": "Système d'exploitation développé par Samsung pour ses montres connectées."
+    };
+
+    // Afficher une définition dans une popup
+    function showDefinition(term) {
+      const definition = definitions[term] || "Définition non disponible.";
+      alert(term.toUpperCase() + ":\n" + definition);
+    }
+
+    // Basculer l'affichage des info-box
+    function toggleInfoBox(id) {
+      event.stopPropagation(); // Empêche la propagation du clic
+      const infoBox = document.getElementById(id);
+      infoBox.classList.toggle('expanded');
+    }
+
+    // Basculer l'affichage du contenu
+    function toggleContent(id) {
+      const element = document.getElementById(id);
+      element.classList.toggle('expanded');
+    }
+
+    // Basculer les termes du glossaire
+    function toggleGlossaryTerm(element) {
+      element.classList.toggle('active');
+    }
+
+    // Animation au défilement
+    function checkVisibility() {
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          section.classList.add('visible');
+        }
+      });
+    }
+
+    // Écouteur d'événement pour le défilement
+    window.addEventListener('scroll', checkVisibility);
+    window.addEventListener('load', checkVisibility);
+
+    // Initialisation des animations
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animation pour les boutons interactifs
+      document.querySelectorAll('.interactive-btn').forEach(btn => {
+        btn.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-3px)';
+        });
+        btn.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0)';
+        });
+      });
+
+      // Animation pour les cartes
+      document.querySelectorAll('.usage-card, .eco-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-5px)';
+          this.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+        });
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0)';
+          this.style.boxShadow = 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
