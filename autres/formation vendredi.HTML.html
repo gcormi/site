@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formation IA pour Professeurs - Version Complète v4</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* --- CSS --- */
+        :root {
+            --primary-blue: #2c3e50;
+            --secondary-blue: #3498db;
+            --accent-blue: #5dade2;
+            --light-blue: #ecf0f1;
+            --dark-gray: #7f8c8d;
+            --medium-gray: #bdc3c7;
+            --light-gray: #f7f9f9;
+            --white: #ffffff;
+            --shadow-color: rgba(44, 62, 80, 0.15);
+            --shadow-color-hover: rgba(44, 62, 80, 0.25);
+            --nav-height: 60px;
+            --garnet-red: #800000;
+            
+            /* Variables pour le thème sombre */
+            --bg-dark: #1a1a2e;
+            --text-dark: #e6e6e6;
+            --card-dark: #16213e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: var(--nav-height); }
+        body { background-color: var(--light-gray); color: #333; line-height: 1.7; font-family: 'Roboto', sans-serif; padding-top: var(--nav-height); }
+
+        /* --- Préambule sur l'IA --- */
+        .ia-intro {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--secondary-blue);
+        }
+        .ia-intro h2 {
+            color: var(--primary-blue);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            position: relative;
+        }
+        .ia-intro h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--secondary-blue);
+        }
+        .ia-intro p {
+            margin-bottom: 1.2rem;
+            color: #444;
+            text-align: justify;
+            line-height: 1.8;
+        }
+        .ia-intro ul {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+        .ia-intro li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        .ia-intro li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-blue);
+            font-weight: bold;
+        }
+        .ia-intro .highlight {
+            background-color: rgba(52, 152, 219, 0.15);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* --- Navigation --- */
+        nav.main-nav { position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height); background-color: var(--primary-blue); box-shadow: 0 2px 10px rgba(0,0,0,0.2); z-index: 1001; display: flex; justify-content: center; align-items: center; padding: 0 1rem; }
+        nav.main-nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
+        nav.main-nav li { margin: 0 1rem; }
+        nav.main-nav a { color: var(--white); text-decoration: none; font-family: 'Poppins', sans-serif; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: background-color 0.3s ease, color 0.3s ease; font-size: 0.95rem; white-space: nowrap; }
+        nav.main-nav a:hover, nav.main-nav a:focus { background-color: rgba(255, 255, 255, 0.15); color: #f1c40f; }
+        nav.main-nav a.active { color: #f1c40f; border-bottom: 2px solid #f1c40f; padding-bottom: calc(0.5rem - 2px); }
+
+        /* --- Header --- */
+        h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; color: var(--primary-blue); }
+        header { background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue), var(--secondary-blue)); background-size: 200% 200%; color: var(--white); padding: 3rem 1rem; text-align: center; position: relative; overflow: hidden; animation: gradientAnimation 10s ease infinite; }
+        @keyframes gradientAnimation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .header-content { max-width: 1200px; margin: 0 auto; padding: 0 1rem; position: relative; z-index: 2; }
+        h1 { font-size: clamp(2rem, 5vw, 2.8rem); margin-bottom: 1rem; font-weight: 700; animation: fadeInUp 1s ease-out; }
+        .subtitle { font-size: clamp(1rem, 3vw, 1.2rem); opacity: 0.9; max-width: 800px; margin: 0 auto 1rem; font-weight: 400; animation: fadeInUp 1.2s ease-out; }
+
+        /* --- Container & Sections --- */
+        .container { max-width: 1100px; margin: 3rem auto; padding: 0 1rem; }
+        .intro-image { display: block; max-width: 700px; width: 90%; height: auto; margin: 1rem auto 2.5rem; border-radius: 10px; box-shadow: 0 6px 18px var(--shadow-color); }
+        .section { background-color: var(--white); border-radius: 12px; padding: clamp(1.5rem, 4vw, 2.5rem); margin-bottom: 2.5rem; box-shadow: 0 5px 20px var(--shadow-color); transition: transform 0.3s ease, box-shadow 0.3s ease; border-left: 5px solid transparent; }
+        .section:hover { transform: translateY(-8px); box-shadow: 0 10px 25px var(--shadow-color-hover); border-left-color: var(--secondary-blue); }
+        h2 { font-size: clamp(1.5rem, 4vw, 2rem); margin-bottom: 2rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--medium-gray); position: relative; font-weight: 600; }
+        h2::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 80px; height: 3px; background-color: var(--secondary-blue); border-radius: 2px; animation: growLine 1s ease-out forwards; }
+        @keyframes growLine { from { width: 0; } to { width: 80px; } }
+        h3 { color: var(--accent-blue); margin: 1.8rem 0 1.2rem; font-weight: 600; font-size: clamp(1.2rem, 3vw, 1.4rem); }
+        p { margin-bottom: 1.2rem; color: #555; }
+        .section-conclusion { margin-top: 2rem; padding: 1rem; border-top: 1px dashed var(--medium-gray); border-radius: 0 0 8px 8px; background-color: #fdfefe; font-style: italic; text-align: center; font-size: 0.95rem; }
+        .section-conclusion i { margin-right: 0.5rem; vertical-align: middle; }
+        .section-conclusion strong { font-style: normal; font-weight: 600; }
+
+        ul, ol { margin-bottom: 1.5rem; padding-left: 1.8rem; }
+        li { margin-bottom: 0.7rem; }
+
+        /* --- Example & Importance Boxes --- */
+        .example-box, .importance-box { border-left-width: 5px; padding: 1.2rem 1.5rem; margin: 1.8rem 0; border-radius: 0 8px 8px 0; transition: background-color 0.3s ease; }
+        .example-box { background-color: #eaf5fc; border-left-color: var(--secondary-blue); }
+        .example-box:hover { background-color: #d6eaf8; }
+        .importance-box { background-color: #f4f6f7; border-left-color: var(--dark-gray); }
+        .importance-box:hover { background-color: #e5e8e8; }
+        .example-title, .importance-title { font-weight: 600; margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .example-title::before, .importance-title::before { font-family: "Font Awesome 6 Free"; font-weight: 900; margin-right: 0.6rem; font-size: 1.1em; }
+        .example-title::before { content: "\f0eb"; color: var(--secondary-blue); }
+        .importance-title::before { content: "\f071"; color: var(--dark-gray); }
+
+        /* --- Tool Cards --- */
+        .tool-card { background-color: var(--white); border-radius: 10px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 15px var(--shadow-color); border-top: 5px solid var(--secondary-blue); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .tool-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 8px 20px var(--shadow-color-hover); }
+        .tool-title { color: var(--primary-blue); margin-bottom: 1.2rem; display: flex; align-items: center; font-size: 1.5rem; }
+        .tool-title i { margin-right: 1rem; color: var(--secondary-blue); font-size: 1.5em; width: 30px; text-align: center; }
+
+        /* --- Listes --- */
+        .feature-list, .application-list { list-style-type: none; padding-left: 0; }
+        .feature-list li::before, .application-list li::before { position: absolute; left: 0; font-weight: 900; font-family: "Font Awesome 6 Free"; color: var(--secondary-blue); }
+        .feature-list li { position: relative; padding-left: 2rem; margin-bottom: 1rem; }
+        .feature-list li::before { content: '\f058'; }
+        .application-list li { position: relative; padding-left: 2rem; margin-bottom: 1rem; }
+        .application-list li::before { content: '\f111'; font-size: 0.7em; top: 0.3em; }
+
+        /* --- FAQ --- */
+        .faq-section { background-color: var(--light-blue); border-radius: 10px; padding: 2rem; margin-top: 2.5rem; }
+        .faq-item { margin-bottom: 1rem; border-bottom: 1px solid var(--medium-gray); padding-bottom: 1rem; }
+        .faq-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .faq-question { font-weight: 600; color: var(--primary-blue); cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; }
+        .faq-question::after { content: '\f078'; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 1rem; color: var(--secondary-blue); transition: transform 0.3s ease; }
+        .faq-question.active::after { transform: rotate(180deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, padding 0.4s ease-out; padding: 0 0.5rem; color: #555; }
+        .faq-answer.show { max-height: 600px; padding: 1rem 0.5rem 0.5rem; }
+        .faq-answer ul { margin-top: 1rem; }
+
+        /* --- Footer --- */
+        footer { background-color: var(--primary-blue); color: var(--light-gray); text-align: center; padding: 2.5rem 1rem; margin-top: 4rem; clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%); }
+        .footer-content { max-width: 1100px; margin: 0 auto; padding: 0 1rem; opacity: 0.9; }
+        .footer-content p { color: var(--light-gray); margin-bottom: 0.5rem;}
+
+        /* --- Animations & Effets --- */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .scroll-animate { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .scroll-animate.is-visible { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
+        .tooltip { position: relative; display: inline-block; border-bottom: 1px dashed var(--dark-gray); cursor: help; }
+        .tooltip .tooltiptext { visibility: hidden; width: 220px; background-color: var(--primary-blue); color: var(--white); text-align: center; border-radius: 6px; padding: 8px 12px; position: absolute; z-index: 10; bottom: 135%; left: 50%; margin-left: -110px; opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease; transform: translateY(10px); box-shadow: 0 2px 8px rgba(0,0,0,0.2); font-size: 0.9rem; line-height: 1.4; }
+        .tooltip .tooltiptext::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -5px; border-width: 5px; border-style: solid; border-color: var(--primary-blue) transparent transparent transparent; }
+        .tooltip:hover .tooltiptext { visibility: visible; opacity: 1; transform: translateY(0); }
+        .highlight { background-color: rgba(52, 152, 219, 0.15); padding: 0.2rem 0.5rem; border-radius: 4px; transition: background-color 0.3s ease, box-shadow 0.3s ease; box-shadow: inset 0 -2px 0 rgba(52, 152, 219, 0.2); }
+        .highlight:hover { background-color: rgba(52, 152, 219, 0.25); box-shadow: inset 0 -2px 0 rgba(52, 152, 219, 0.4); }
+
+        /* --- Accordéon ACTIF --- */
+        .actif-accordion { margin: 2rem 0; }
+        .actif-item { margin-bottom: 0.8rem; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .actif-header { background-color: var(--primary-blue); color: white; padding: 1rem 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background-color 0.3s; }
+        .actif-header:hover { background-color: #1f2c39; }
+        .actif-header span { font-weight: 600; }
+        .actif-header::after { content: '\f078'; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 1rem; transition: transform 0.3s ease; }
+        .actif-header.active::after { transform: rotate(180deg); }
+        .actif-content { background-color: var(--light-blue); max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, padding 0.4s ease-out; padding: 0 1.5rem; }
+        .actif-content.show { max-height: 800px; padding: 0 1.5rem; }
+        .actif-content-inner { padding: 1.5rem 0; }
+
+        /* --- Indicateur Progression & Retour Haut --- */
+        .progress-container { position: fixed; top: var(--nav-height); left: 0; width: 100%; height: 5px; background-color: transparent; z-index: 1000; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, var(--secondary-blue), var(--accent-blue)); width: 0%; transition: width 0.15s ease; border-radius: 0 2px 2px 0; }
+        .back-to-top { position: fixed; bottom: 2rem; right: 2rem; background-color: var(--secondary-blue); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); z-index: 999; font-size: 1.2rem; }
+        .back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+        .back-to-top:hover { background-color: var(--primary-blue); transform: scale(1.1); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3); }
+
+        /* --- Graphique ACTIF --- */
+        .chart-container {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+
+        /* --- Sélecteur de thème --- */
+        .theme-switcher {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--primary-blue);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+        .theme-switcher:hover {
+            transform: scale(1.1);
+        }
+
+        /* --- Thème sombre --- */
+        body.dark-theme {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+        .dark-theme .section,
+        .dark-theme .tool-card,
+        .dark-theme .chart-container,
+        .dark-theme .ia-intro {
+            background-color: var(--card-dark);
+            color: var(--text-dark);
+        }
+        .dark-theme h1,
+        .dark-theme h2,
+        .dark-theme h3,
+        .dark-theme h4,
+        .dark-theme h5,
+        .dark-theme h6 {
+            color: var(--accent-blue);
+        }
+        .dark-theme p {
+            color: #d1d1d1;
+        }
+        .dark-theme .example-box {
+            background-color: #2c3e50;
+        }
+        .dark-theme .importance-box {
+            background-color: #34495e;
+        }
+        .dark-theme footer {
+            background-color: #0f0f1a;
+        }
+        .dark-theme .ia-intro {
+            background: linear-gradient(135deg, #2c3e50 0%, #1a2a3a 100%);
+        }
+
+        /* --- Media Queries --- */
+        @media (max-width: 768px) {
+             :root { --nav-height: 50px; }
+             body { padding-top: var(--nav-height); }
+             nav.main-nav { height: var(--nav-height); }
+             nav.main-nav ul { justify-content: space-around; width: 100%;}
+             nav.main-nav li { margin: 0 0.2rem; }
+             nav.main-nav a { padding: 0.4rem 0.5rem; font-size: 0.85rem; }
+             .intro-image { max-width: 90%; margin-bottom: 2rem; }
+             header { padding: 2rem 1rem; clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);}
+             .container { margin: 2rem auto; padding: 0 0.8rem; }
+             .section { padding: 1.5rem; margin-bottom: 2rem; }
+             h2 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+             h3 { font-size: 1.3rem; }
+             .tool-title i { font-size: 1.3em; margin-right: 0.8rem; }
+             footer { clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 100%); }
+             .section-conclusion { font-size: 0.9rem; }
+             .ia-intro { padding: 1.5rem; }
+        }
+         @media (max-width: 480px) {
+              nav.main-nav a { font-size: 0.75rem; padding: 0.3rem 0.4rem;}
+              .intro-image { max-width: 95%; }
+              .ia-intro { padding: 1rem; }
+              .ia-intro h2 { font-size: 1.5rem; }
+         }
+    </style>
+</head>
+<body>
+    <!-- Barre de Navigation Principale -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#introduction">Introduction ACTIF</a></li>
+            <li><a href="#outils">Outils IA</a></li>
+            <li><a href="#questions">Questions/FAQ</a></li>
+        </ul>
+    </nav>
+
+    <!-- Barre de Progression -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <h1><i class="fas fa-brain"></i> Formation IA pour Professeurs</h1>
+            <p class="subtitle">Intégrez l'intelligence artificielle dans votre pédagogie pour innover et gagner du temps.</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Préambule sur l'IA dans l'enseignement -->
+        <section class="ia-intro scroll-animate">
+            <h2>L'IA dans l'enseignement : un partenaire pédagogique</h2>
+            <p>L'intelligence artificielle révolutionne l'éducation en offrant des outils adaptatifs et personnalisés. Dans un contexte de classes surchargées et de besoins diversifiés, l'IA permet :</p>
+            
+            <ul>
+                <li><span class="highlight">Différenciation pédagogique</span> : création d'exercices sur mesure selon le niveau de chaque élève</li>
+                <li><span class="highlight">Gain de temps</span> : automatisation des corrections et génération de supports</li>
+                <li><span class="highlight">Accès à l'information</span> : synthèse instantanée de connaissances complexes</li>
+            </ul>
+
+            <p>Les chatbots éducatifs et outils comme ChatGPT deviennent des tuteurs disponibles 24h/24. L'IA ne remplace pas l'enseignant mais l'assiste dans trois domaines clés :</p>
+            
+            <ol>
+                <li>Individualisation des parcours d'apprentissage</li>
+                <li>Détection précoce des difficultés scolaires</li>
+                <li>Création de ressources pédagogiques engageantes</li>
+            </ol>
+
+            <p>Perspective : à l'horizon 2030, l'IA pourrait permettre une véritable "école sur mesure", tout en nécessitant un cadre éthique pour préserver la relation humaine au cœur de l'acte éducatif. Son déploiement requiert une formation des enseignants à ces nouveaux outils.</p>
+        </section>
+
+        <!-- Image ajoutée ici -->
+        <img src="https://gcormi.github.io/site/images/formation%20prof.jpg"
+             alt="Illustration conceptuelle de l'intelligence artificielle dans l'éducation avec un cerveau et des circuits"
+             class="intro-image scroll-animate">
+
+        <!-- Section Introduction -->
+        <section class="section scroll-animate" id="introduction">
+             <h2><i class="fas fa-lightbulb"></i> Introduction aux Prompts Efficaces : Méthode ACTIF</h2>
+             <p>La méthode <strong class="highlight">ACTIF</strong> est une structure simple pour guider l'IA et obtenir des résultats précis. Optimisez vos requêtes pour des réponses pertinentes.</p>
+
+             <!-- Graphique ACTIF -->
+             <div class="chart-container scroll-animate delay-1">
+                 <canvas id="actifChart"></canvas>
+             </div>
+
+             <div class="actif-accordion">
+                 <!-- Item A - Action -->
+                 <div class="actif-item scroll-animate delay-1">
+                     <div class="actif-header">
+                         <span><i class="fas fa-play"></i> A - Action</span>
+                     </div>
+                     <div class="actif-content">
+                         <div class="actif-content-inner">
+                             <p>Définissez clairement le verbe d'action : <strong>Rédige, Crée, Analyse, Explique, Liste, Compare...</strong></p>
+                             <div class="example-box">
+                                 <div class="example-title">Exemple concret</div>
+                                 <p>"<code>Crée</code> un quiz", "<code>Résume</code> ce texte", "<code>Génère</code> des idées d'activités".</p>
+                             </div>
+                             <div class="importance-box">
+                                 <div class="importance-title">Pourquoi c'est crucial ?</div>
+                                 <p>Une action précise oriente l'IA et évite les réponses génériques ou hors sujet.</p>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <!-- Item C - Contexte -->
+                 <div class="actif-item scroll-animate delay-2">
+                     <div class="actif-header">
+                         <span><i class="fas fa-map-marker-alt"></i> C - Contexte</span>
+                     </div>
+                     <div class="actif-content">
+                         <div class="actif-content-inner">
+                             <p>Fournissez les informations de fond nécessaires : <strong>Niveau scolaire, matière, sujet précis, public cible...</strong></p>
+                             <div class="example-box">
+                                 <div class="example-title">Exemple concret</div>
+                                 <p>"Pour des <code>élèves de 4ème</code> sur <code>la digestion</code>", "Basé sur l'extrait de <code>'Cyrano de Bergerac'</code>".</p>
+                             </div>
+                             <div class="importance-box">
+                                 <div class="importance-title">Pourquoi c'est crucial ?</div>
+                                 <p>Le contexte adapte la réponse au besoin spécifique, la rendant plus pertinente.</p>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <!-- Item T - Tonalité -->
+                 <div class="actif-item scroll-animate delay-3">
+                    <div class="actif-header">
+                        <span><i class="fas fa-comments"></i> T - Tonalité</span>
+                    </div>
+                    <div class="actif-content">
+                        <div class="actif-content-inner">
+                            <p>Indiquez le style de langage souhaité : <strong>Pédagogique, formel, informel, simple, engageant, neutre...</strong></p>
+                             <div class="example-box">
+                                <div class="example-title">Exemple concret</div>
+                                <p>"Adopte un ton <code>pédagogique et encourageant</code>", "Utilise un langage <code>simple adapté aux 12-13 ans</code>".</p>
+                            </div>
+                            <div class="importance-box">
+                                <div class="importance-title">Pourquoi c'est crucial ?</div>
+                                <p>La tonalité ajuste le style de communication pour mieux correspondre au public.</p>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                 <!-- Item I - Identité -->
+                  <div class="actif-item scroll-animate delay-1">
+                     <div class="actif-header">
+                         <span><i class="fas fa-user-tie"></i> I - Identité (Rôle)</span>
+                     </div>
+                     <div class="actif-content">
+                         <div class="actif-content-inner">
+                             <p>Assignez un rôle à l'IA : <strong>Professeur, expert, assistant, conseiller pédagogique...</strong></p>
+                              <div class="example-box">
+                                 <div class="example-title">Exemple concret</div>
+                                 <p>"Agis comme un <code>professeur d'histoire</code>", "Prends le rôle d'un <code>correcteur bienveillant</code>".</p>
+                             </div>
+                             <div class="importance-box">
+                                 <div class="importance-title">Pourquoi c'est crucial ?</div>
+                                 <p>L'identité influence la perspective, le niveau de détail et le style de la réponse.</p>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <!-- Item F - Format -->
+                  <div class="actif-item scroll-animate delay-2">
+                     <div class="actif-header">
+                         <span><i class="fas fa-list-alt"></i> F - Format</span>
+                     </div>
+                     <div class="actif-content">
+                         <div class="actif-content-inner">
+                             <p>Spécifiez la structure de la réponse : <strong>Liste à puces, tableau, paragraphe, plan détaillé, QCM...</strong></p>
+                              <div class="example-box">
+                                 <div class="example-title">Exemple concret</div>
+                                 <p>"Présente la réponse sous forme de <code>tableau comparatif</code>", "Structure en <code>3 paragraphes</code>", "Fournis une <code>liste numérotée</code>."</p>
+                             </div>
+                              <div class="importance-box">
+                                 <div class="importance-title">Pourquoi c'est crucial ?</div>
+                                 <p>Un format clair rend la sortie directement exploitable et facile à lire.</p>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+            <div class="example-box scroll-animate delay-3" style="background-color: #e8f4fc; border-color: var(--accent-blue);">
+                <div class="example-title" style="color: var(--primary-blue);"><i class="fas fa-magic"></i> Prompt ACTIF complet :</div>
+                <p>
+                    "<span class="highlight">Agis comme un professeur de SVT</span> <i class="fas fa-user-tie"></i>(I) et <span class="highlight">crée un exercice d'application</span> <i class="fas fa-play"></i>(A) sur <span class="highlight">la photosynthèse pour une classe de 5ème</span> <i class="fas fa-map-marker-alt"></i>(C). <span class="highlight">Utilise un ton ludique</span> <i class="fas fa-comments"></i>(T) et présente l'exercice sous forme de <span class="highlight">3 questions à choix multiples avec justifications</span> <i class="fas fa-list-alt"></i>(F)."
+                </p>
+            </div>
+        </section>
+
+        <!-- Section Outils -->
+        <section class="section scroll-animate" id="outils">
+            <h2><i class="fas fa-tools"></i> Outils IA pour l'Éducation</h2>
+            <p>Explorez ces outils basés sur l'IA pour enrichir votre pratique pédagogique et optimiser votre temps.</p>
+
+            <!-- Tool Card 1: NotebookLM -->
+            <div class="tool-card scroll-animate delay-1">
+                <h3 class="tool-title"><i class="fas fa-book-open"></i> NotebookLM (Google)</h3>
+                <p>Votre assistant de recherche personnel basé sur vos propres documents.</p>
+                <ul class="feature-list">
+                    <li>Importez PDF, Google Docs, URL de sites web.</li>
+                    <li>Posez des questions sur vos sources, générez des résumés, trouvez des connexions.</li>
+                    <li>Crée des guides d'étude, des FAQ, des plans basés sur vos contenus.</li>
+                </ul>
+                <h4>Applications pédagogiques :</h4>
+                <ul class="application-list">
+                    <li>Analyser rapidement des articles de recherche ou chapitres de manuels.</li>
+                    <li>Préparer des fiches de révision personnalisées à partir de vos cours.</li>
+                    <li>Générer des questions de compréhension sur des documents spécifiques.</li>
+                </ul>
+                <div class="example-box">                <div class="example-title">Cas d'usage</div>
+                <p>Importez vos notes de cours sur la Révolution Française et demandez : "Crée un résumé en 5 points clés pour des élèves de 4ème" ou "Liste les principales dates et événements mentionnés".</p>
+            </div>
+        </div>
+
+        <!-- Tool Card 2: AI Studio -->
+        <div class="tool-card scroll-animate delay-2">
+            <h3 class="tool-title"><i class="fas fa-cogs"></i> AI Studio (Google)</h3>
+            <p>Plateforme pour expérimenter et prototyper avec les modèles d'IA générative de Google (Gemini).</p>
+            <ul class="feature-list">
+                <li>Testez des prompts structurés (comme ACTIF) directement.</li>
+                <li>Créez des "prompts personnalisés" pour des tâches récurrentes.</li>
+                <li>Explorez les capacités multimodales (texte, image).</li>
+            </ul>
+            <h4>Applications pédagogiques :</h4>
+            <ul class="application-list">
+                <li>Développer des assistants pédagogiques spécialisés (ex: aide en grammaire).</li>
+                <li>Générer des exemples variés pour illustrer des concepts complexes.</li>
+                <li>Explorer la création d'images pour des supports visuels.</li>
+            </ul>
+            <div class="example-box">
+                <div class="example-title">Cas d'usage</div>
+                <p>Créez un prompt dans AI Studio : "Génère 5 problèmes de mathématiques différents sur les fractions (niveau 6ème), avec leurs solutions détaillées." Sauvegardez ce prompt pour le réutiliser facilement.</p>
+            </div>
+        </div>
+
+        <!-- Tool Card 3: Quiz Wizard -->
+        <div class="tool-card scroll-animate delay-3">
+            <h3 class="tool-title"><i class="fas fa-question-circle"></i> Quiz Wizard</h3>
+            <p>Générateur de quiz et flashcards rapide à partir de n'importe quel contenu.</p>
+            <ul class="feature-list">
+                <li>Collez du texte, une URL, ou téléchargez un fichier (PDF, DOCX).</li>
+                <li>Génère automatiquement QCM, Vrai/Faux, questions ouvertes, flashcards.</li>
+                <li>Exportez vers Wooclap, Moodle, Google Forms, etc.</li>
+                <li>Gratuit et simple d'utilisation.</li>
+            </ul>
+            <h4>Applications pédagogiques :</h4>
+            <ul class="application-list">
+                <li>Créer rapidement des évaluations formatives après une leçon.</li>
+                <li>Produire des flashcards pour la mémorisation du vocabulaire ou des dates.</li>
+                <li>Transformer un article d'actualité en activité de compréhension.</li>
+            </ul>
+            <div class="example-box">
+                <div class="example-title">Cas d'usage</div>
+                <p>Copiez/collez le texte d'une leçon sur le système solaire. En quelques secondes, Quiz Wizard propose un QCM interactif prêt à être partagé avec vos élèves via Wooclap.</p>
+            </div>
+        </div>
+
+        <!-- Conclusion modifiée pour la section outils -->
+        <p class="section-conclusion scroll-animate delay-1" style="color: var(--garnet-red);">
+            <i class="fas fa-exclamation-triangle"></i>
+            Attention : Ces outils fonctionnent souvent sur un modèle 'freemium' (version gratuite limitée).
+            Le monde de l'IA éducative est vaste ! <strong>Nous listerons prochainement d'autres solutions intéressantes à explorer.</strong>
+        </p>
+    </section>
+
+    <!-- Section Questions -->
+    <section class="section scroll-animate" id="questions">
+        <h2><i class="fas fa-comments"></i> Échanges et Questions</h2>
+        <p>C'est le moment de partager vos réflexions, questions et idées sur l'intégration de ces outils dans votre quotidien d'enseignant.</p>
+
+        <ul class="application-list">
+            <li>Quelles sont vos premières impressions sur ces outils ?</li>
+            <li>Voyez-vous des applications concrètes dans votre matière ?</li>
+            <li>Quelles craintes ou quels défis anticipez-vous ?</li>
+            <li>Comment assurer une utilisation éthique et pédagogiquement pertinente ?</li>
+        </ul>
+
+        <div class="faq-section scroll-animate delay-2">
+            <h3>Questions Fréquentes (FAQ)</h3>
+            <!-- FAQ Item 1 -->
+            <div class="faq-item">
+                <div class="faq-question">La qualité des contenus générés est-elle fiable ?</div>
+                <div class="faq-answer">
+                    <p>L'IA est un <strong>assistant</strong>, pas un expert infaillible. Il est crucial de :</p>
+                    <ul>
+                        <li><strong>Vérifier</strong> systématiquement les informations générées.</li>
+                        <li><strong>Adapter</strong> le contenu au niveau et aux besoins spécifiques de vos élèves.</li>
+                        <li><strong>Reformuler</strong> avec votre propre style pédagogique.</li>
+                        <li>Utiliser l'IA comme point de départ ou source d'inspiration, pas comme produit final brut.</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- FAQ Item 2 -->
+            <div class="faq-item">
+                <div class="faq-question">Quid de la protection des données personnelles ?</div>
+                <div class="faq-answer">
+                    <p>Soyez vigilant :</p>
+                    <ul>
+                        <li><strong>Anonymisez</strong> toute donnée sensible concernant des élèves avant de l'utiliser dans un prompt.</li>
+                        <li>Privilégiez les outils respectueux de la vie privée (consultez leurs politiques).</li>
+                        <li>Ne partagez jamais d'informations confidentielles ou personnelles identifiables.</li>
+                        <li>Renseignez-vous sur les directives de votre établissement scolaire concernant l'utilisation d'outils externes.</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- FAQ Item 3 -->
+            <div class="faq-item">
+                <div class="faq-question">Comment initier les élèves à l'IA de manière responsable ?</div>
+                <div class="faq-answer">
+                    <p>L'éducation à l'IA est essentielle :</p>
+                    <ul>
+                        <li>Expliquez le fonctionnement de base de ces outils (sans entrer dans la technique complexe).</li>
+                        <li>Discutez des limites et des biais potentiels de l'IA.</li>
+                        <li>Insistez sur l'importance de la pensée critique et de la vérification des sources.</li>
+                        <li>Définissez des règles claires sur l'utilisation de l'IA pour les devoirs (autorisé pour brainstorming, interdit pour copier/coller, etc.).</li>
+                        <li>Valorisez l'originalité et l'effort personnel.</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- FAQ Item 4 -->
+            <div class="faq-item">
+                <div class="faq-question">Ces outils vont-ils remplacer les professeurs ?</div>
+                <div class="faq-answer">
+                    <p>Non, l'IA est un outil destiné à <strong>augmenter</strong> les capacités de l'enseignant, pas à le remplacer. Votre expertise pédagogique, votre relation avec les élèves, votre capacité à adapter l'enseignement et à susciter la motivation restent irremplaçables. L'IA peut automatiser certaines tâches, fournir des ressources, mais elle ne remplace pas l'humain dans l'acte éducatif.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <p><i class="fas fa-graduation-cap"></i> Formation IA pour Professeurs - GC@</p>
+        <p>© - Vers une pédagogie augmentée</p>
+    </div>
+</footer>
+
+<!-- Back to Top -->
+<div class="back-to-top" id="backToTop" title="Retour en haut">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
+<!-- Sélecteur de thème -->
+<div class="theme-switcher" id="themeSwitcher">
+    <i class="fas fa-moon"></i>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Accordion Functionality (ACTIF & FAQ) ---
+        const setupAccordion = (headerSelector, contentSelector, activeClass, showClass) => {
+            const headers = document.querySelectorAll(headerSelector);
+
+            headers.forEach(header => {
+                const contentElement = header.nextElementSibling;
+                if (contentElement && !contentElement.classList.contains(contentSelector.substring(1))) {
+                    contentElement.classList.add(contentSelector.substring(1));
+                }
+
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    if (!content || !content.classList.contains(contentSelector.substring(1))) {
+                        console.warn("Accordion content not found or doesn't match selector for:", header);
+                        return;
+                    }
+
+                    const isActive = header.classList.contains(activeClass);
+                    let groupContainer = header.closest('.actif-accordion, .faq-section');
+                    let groupHeaders = groupContainer ? groupContainer.querySelectorAll(headerSelector) : headers;
+
+                    groupHeaders.forEach(h => {
+                        if (h !== header) {
+                            h.classList.remove(activeClass);
+                            const otherContent = h.nextElementSibling;
+                            if (otherContent && otherContent.classList.contains(contentSelector.substring(1))) {
+                                otherContent.classList.remove(showClass);
+                                otherContent.style.maxHeight = null;
+                            }
+                        }
+                    });
+
+                    if (!isActive) {
+                        header.classList.add(activeClass);
+                        content.classList.add(showClass);
+                        setTimeout(() => { content.style.maxHeight = content.scrollHeight + 'px'; }, 0);
+                    } else {
+                        header.classList.remove(activeClass);
+                        content.classList.remove(showClass);
+                        content.style.maxHeight = null;
+                    }
+                });
+            });
+        };
+
+        // Setup accordions
+        setupAccordion('.actif-header', '.actif-content', 'active', 'show');
+        setupAccordion('.faq-question', '.faq-answer', 'active', 'show');
+
+        // --- Progress Bar ---
+        const progressBar = document.getElementById('progressBar');
+        const updateProgressBar = () => {
+            const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const scrolled = (scrollableHeight > 0) ? (winScroll / scrollableHeight) * 100 : 0;
+            if (progressBar) {
+                progressBar.style.width = Math.min(scrolled, 100) + '%';
+            }
+        };
+        window.addEventListener('scroll', updateProgressBar, { passive: true });
+        updateProgressBar();
+
+        // --- Back to Top Button ---
+        const backToTopBtn = document.getElementById('backToTop');
+        const toggleBackToTopVisibility = () => {
+            if (backToTopBtn) {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            }
+        };
+        window.addEventListener('scroll', toggleBackToTopVisibility, { passive: true });
+        if (backToTopBtn) {
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+        toggleBackToTopVisibility();
+
+        // --- Scroll Animation ---
+        const animatedElements = document.querySelectorAll('.scroll-animate');
+        if ("IntersectionObserver" in window) {
+            const observer = new IntersectionObserver((entries, observerInstance) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(element => { observer.observe(element); });
+        } else {
+            animatedElements.forEach(element => { element.classList.add('is-visible'); });
+        }
+
+        // --- Active Nav Link ---
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('nav.main-nav a');
+        const navHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 60;
+
+        const activateNavLink = () => {
+            let currentSectionId = '';
+            const scrollPosition = window.pageYOffset;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - navHeight - 10;
+                const sectionHeight = section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    currentSectionId = section.getAttribute('id');
+                }
+            });
+
+            let foundActive = false;
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSectionId}`) {
+                    link.classList.add('active');
+                    foundActive = true;
+                }
+            });
+
+            if (!foundActive) {
+                if (scrollPosition < window.innerHeight / 3) {
+                    const firstLink = document.querySelector('nav.main-nav ul li:first-child a');
+                    if (firstLink) firstLink.classList.add('active');
+                }
+                else if (window.innerHeight + scrollPosition >= document.body.offsetHeight - 50) {
+                    const lastLink = document.querySelector('nav.main-nav ul li:last-child a');
+                    if (lastLink) lastLink.classList.add('active');
+                }
+            }
+        };
+        window.addEventListener('scroll', activateNavLink, { passive: true });
+        activateNavLink();
+
+        // --- Graphique ACTIF ---
+        const actifChart = new Chart(document.getElementById('actifChart'), {
+            type: 'radar',
+            data: {
+                labels: ['Action', 'Contexte', 'Tonalité', 'Identité', 'Format'],
+                datasets: [{
+                    label: 'Prompt basique',
+                    data: [45, 30, 20, 15, 10],
+                    backgroundColor: 'rgba(155, 89, 182, 0.2)',
+                    borderColor: 'rgba(155, 89, 182, 1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(155, 89, 182, 1)'
+                }, {
+                    label: 'Prompt ACTIF',
+                    data: [90, 85, 80, 75, 70],
+                    backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                    borderColor: 'rgba(52, 152, 219, 1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(52, 152, 219, 1)'
+                }]
+            },
+            options: {
+                scales: {
+                    r: {
+                        angleLines: { display: true },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Efficacité comparée des prompts',
+                        font: { size: 16 }
+                    },
+                    legend: { position: 'top' }
+                }
+            }
+        });
+
+        // --- Sélecteur de thème ---
+        const themeSwitcher = document.getElementById('themeSwitcher');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedTheme = localStorage.getItem('theme');
+        
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            document.body.classList.add('dark-theme');
+            themeSwitcher.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        
+        themeSwitcher.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            const isDark = document.body.classList.contains('dark-theme');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            themeSwitcher.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            
+            if (isDark) {
+                actifChart.options.scales.r.grid.color = 'rgba(255, 255, 255, 0.1)';
+                actifChart.options.scales.r.angleLines.color = 'rgba(255, 255, 255, 0.1)';
+            } else {
+                actifChart.options.scales.r.grid.color = 'rgba(0, 0, 0, 0.1)';
+                actifChart.options.scales.r.angleLines.color = 'rgba(0, 0, 0, 0.1)';
+            }
+            actifChart.update();
+        });
+    });
+</script>
+</body>
+</html>
