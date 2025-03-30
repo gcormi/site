@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chaînes d'Information et d'Energie</title>
+  <style>
+    /* Styles globaux */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .schema-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .schema {
+      position: relative;
+      width: 80%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .box {
+      display: inline-block;
+      background-color: #fff;
+      border: 2px solid #0074d9;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .arrow {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 10px;
+      font-size: 1.5em;
+      color: #0074d9;
+    }
+
+    .chain-info {
+      border: 2px dashed #ff851b;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+
+    .chain-energy {
+      border: 2px dashed #0074d9;
+      padding: 10px;
+    }
+
+    .label {
+      color: #ff851b;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .highlight {
+      background-color: #e9f7ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="schema-container">
+    <h2 style="text-align: center;">Chaîne d'information</h2>
+    <div class="schema chain-info">
+      <div class="box" onclick="highlightBox(this)" data-step="1">capteur de température<br />(0,5)</div>
+      <span class="arrow">&rarr;</span>
+      <div class="box" onclick="highlightBox(this)" data-step="2">micro processeur<br />(0,5)</div>
+      <span class="arrow">&rarr;</span>
+      <div class="box" onclick="highlightBox(this)" data-step="3">D.E.L.<br />(1)</div>
+      <span class="arrow">&rarr;</span>
+      <span>Signal visuel</span>
+    </div>
+    <p class="label">Acquérir &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Traiter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Communiquer</p>
+
+    <hr style="margin: 20px 0;">
+
+    <h2 style="text-align: center;">Chaîne d'énergie</h2>
+    <div class="schema chain-energy">
+      <div class="box" onclick="highlightBox(this)" data-step="4">réseau électrique<br />(0,5)</div>
+      <span class="arrow">&rarr;</span>
+      <div class="box" onclick="highlightBox(this)" data-step="5">interrupteur électronique de puissance</div>
+      <span class="arrow">&rarr;</span>
+      <div class="box" onclick="highlightBox(this)" data-step="6">moteur<br />(0,5)</div>
+      <span class="arrow">&rarr;</span>
+      <div class="box" onclick="highlightBox(this)" data-step="7">pales<br />(0,5)</div>
+    </div>
+    <p class="label">Alimenter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Traiter (1) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Convertir &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transmettre</p>
+  </div>
+
+  <script>
+    // Fonction pour mettre en surbrillance les boîtes lorsqu'elles sont cliquées
+    function highlightBox(box) {
+      const boxes = document.querySelectorAll('.box');
+      boxes.forEach(b => b.classList.remove('highlight'));
+      box.classList.add('highlight');
+    }
+  </script>
+</body>
+</html>

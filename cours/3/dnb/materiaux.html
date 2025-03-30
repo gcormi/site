@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercices : Choix des Matériaux</title>
+  <style>
+    /* Styles globaux */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+    }
+
+    header {
+      background-color: #0074d9;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin: 0;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      color: #0074d9;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    table th {
+      background-color: #f9f9f9;
+      color: #0074d9;
+    }
+
+    textarea {
+      width: 100%;
+      height: 60px;
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    button {
+      background-color: #0074d9;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #005cbf;
+    }
+
+    .feedback {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #ff851b;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    footer {
+      background-color: #0074d9;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Exercices : Choix des Matériaux pour Objets Techniques</h1>
+  </header>
+
+  <main>
+    <!-- Premier Exercice : Robot Aspirateur -->
+    <section>
+      <h2>Exercice 1 : Robot Aspirateur ROBOTIX 500</h2>
+      <p>
+        Le boîtier du robot aspirateur <strong>ROBOTIX 500</strong> doit être résistant aux chocs, léger et résistant aux températures élevées rencontrées dans les environnements domestiques. Il est composé de deux parties distinctes :
+        <ul>
+          <li><strong>Le capot (5)</strong> qui doit être transparent et résistant aux rayons Ultra-Violets (U.V.) ;</li>
+          <li><strong>Le support (7)</strong> qui doit être opaque.</li>
+        </ul>
+        Parmi les trois matériaux plastiques présentés dans le tableau ci-dessous, choisissez le matériau le mieux adapté pour réaliser le <strong>capot (5)</strong> ainsi que le matériau le mieux adapté pour réaliser le <strong>support (7)</strong>. Justifiez chacun des choix.
+      </p>
+
+      <table border="1" style="border-collapse: collapse; width: 100%;">
+        <tr>
+          <th style="background-color: #f9f9f9;">Matériau</th>
+          <th style="background-color: #f9f9f9;">Caractéristiques</th>
+        </tr>
+        <tr>
+          <td>Polycarbonate</td>
+          <td>Transparent, résistant aux chocs, résistant aux UV, léger</td>
+        </tr>
+        <tr>
+          <td>ABS</td>
+          <td>Opaque, résistant aux chocs, résistant aux températures élevées, léger</td>
+        </tr>
+        <tr>
+          <td>PVC</td>
+          <td>Transparent, résistant aux températures élevées, léger, peu résistant aux chocs</td>
+        </tr>
+      </table>
+
+      <h3>Répondez aux questions ci-dessous :</h3>
+
+      <form id="exercise-1-form">
+        <div>
+          <label for="capot-material"><strong>Capot (5) : Quel matériau choisissez-vous ?</strong></label>
+          <input type="text" id="capot-material" placeholder="Entrez votre réponse ici..." required>
+        </div>
+        <div>
+          <label for="capot-justification"><strong>Justification :</strong></label>
+          <textarea id="capot-justification" placeholder="Expliquez pourquoi vous avez choisi ce matériau..."></textarea>
+        </div>
+
+        <div>
+          <label for="support-material"><strong>Support (7) : Quel matériau choisissez-vous ?</strong></label>
+          <input type="text" id="support-material" placeholder="Entrez votre réponse ici..." required>
+        </div>
+        <div>
+          <label for="support-justification"><strong>Justification :</strong></label>
+          <textarea id="support-justification" placeholder="Expliquez pourquoi vous avez choisi ce matériau..."></textarea>
+        </div>
+      </form>
+    </section>
+
+    <!-- Deuxième Exercice : Système de Sécurité Domestique -->
+    <section>
+      <h2>Exercice 2 : Système de Sécurité Domestique SECURHOME 3000</h2>
+      <p>
+        Le système de sécurité domestique <strong>SECURHOME 3000</strong> comprend deux éléments principaux :
+        <ul>
+          <li><strong>La caméra extérieure (1)</strong> qui doit être résistante aux intempéries (pluie, soleil) et transparente pour laisser passer la lumière ;</li>
+          <li><strong>Le boîtier de contrôle (2)</strong> qui doit être opaque et résistant aux chocs pour protéger les composants électroniques.</li>
+        </ul>
+        Parmi les trois matériaux plastiques présentés dans le tableau ci-dessous, choisissez le matériau le mieux adapté pour réaliser la <strong>caméra extérieure (1)</strong> ainsi que le matériau le mieux adapté pour réaliser le <strong>boîtier de contrôle (2)</strong>. Justifiez chacun des choix.
+      </p>
+
+      <table border="1" style="border-collapse: collapse; width: 100%;">
+        <tr>
+          <th style="background-color: #f9f9f9;">Matériau</th>
+          <th style="background-color: #f9f9f9;">Caractéristiques</th>
+        </tr>
+        <tr>
+          <td>Polycarbonate</td>
+          <td>Transparent, résistant aux chocs, résistant aux UV, léger</td>
+        </tr>
+        <tr>
+          <td>ABS</td>
+          <td>Opaque, résistant aux chocs, résistant aux températures élevées, léger</td>
+        </tr>
+        <tr>
+          <td>PVC</td>
+          <td>Transparent, résistant aux températures élevées, léger, peu résistant aux chocs</td>
+        </tr>
+      </table>
+
+      <h3>Répondez aux questions ci-dessous :</h3>
+
+      <form id="exercise-2-form">
+        <div>
+          <label for="camera-material"><strong>Caméra extérieure (1) : Quel matériau choisissez-vous ?</strong></label>
+          <input type="text" id="camera-material" placeholder="Entrez votre réponse ici..." required>
+        </div>
+        <div>
+          <label for="camera-justification"><strong>Justification :</strong></label>
+          <textarea id="camera-justification" placeholder="Expliquez pourquoi vous avez choisi ce matériau..."></textarea>
+        </div>
+
+        <div>
+          <label for="control-box-material"><strong>Boîtier de contrôle (2) : Quel matériau choisissez-vous ?</strong></label>
+          <input type="text" id="control-box-material" placeholder="Entrez votre réponse ici..." required>
+        </div>
+        <div>
+          <label for="control-box-justification"><strong>Justification :</strong></label>
+          <textarea id="control-box-justification" placeholder="Expliquez pourquoi vous avez choisi ce matériau..."></textarea>
+        </div>
+      </form>
+    </section>
+
+    <!-- Champ pour le mot magique -->
+    <section>
+      <h3>Accès aux Réponses</h3>
+      <p>Pour accéder aux réponses correctes, entrez le mot magique donné par l'enseignant :</p>
+      <input type="text" id="magic-word" placeholder="Entrez le mot magique ici...">
+      <button type="button" onclick="unlockAnswers()">Activer les réponses</button>
+    </section>
+
+    <!-- Bouton pour afficher les réponses -->
+    <button id="show-answers-btn" class="hidden" type="button" onclick="displayAnswers()">Afficher les réponses</button>
+
+    <!-- Réponses Correctes -->
+    <div id="correct-answers" class="hidden">
+      <h3>Réponses Correctes</h3>
+
+      <h4>Exercice 1 : Robot Aspirateur ROBOTIX 500</h4>
+      <p><strong>Capot (5) :</strong> Polycarbonate</p>
+      <p><strong>Justification :</strong> Le polycarbonate est transparent, résistant aux chocs, résistant aux UV et léger, ce qui en fait le matériau idéal pour le capot.</p>
+      <p><strong>Support (7) :</strong> ABS</p>
+      <p><strong>Justification :</strong> L'ABS est opaque, résistant aux chocs, résistant aux températures élevées et léger, ce qui convient parfaitement au support.</p>
+
+      <h4>Exercice 2 : Système de Sécurité Domestique SECURHOME 3000</h4>
+      <p><strong>Caméra extérieure (1) :</strong> Polycarbonate</p>
+      <p><strong>Justification :</strong> Le polycarbonate est transparent, résistant aux chocs et résistant aux UV, ce qui en fait le matériau idéal pour une caméra extérieure exposée aux intempéries.</p>
+      <p><strong>Boîtier de contrôle (2) :</strong> ABS</p>
+      <p><strong>Justification :</strong> L'ABS est opaque, résistant aux chocs et protège efficacement les composants électroniques sensibles.</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>Exercices sur le choix des matériaux pour objets techniques - examencollègeannée</p>
+  </footer>
+
+  <script>
+    // Fonction pour déverrouiller les réponses avec le mot magique
+    function unlockAnswers() {
+      const magicWord = document.getElementById('magic-word').value.trim();
+      const showAnswersBtn = document.getElementById('show-answers-btn');
+
+      if (magicWord === 'dnbmontesoro2025') {
+        showAnswersBtn.classList.remove('hidden'); // Affiche le bouton "Afficher les réponses"
+        alert('Mot magique correct ! Vous pouvez maintenant afficher les réponses.');
+      } else {
+        alert('Mot magique incorrect. Veuillez demander à votre enseignant.');
+      }
+    }
+
+    // Fonction pour afficher les réponses
+    function displayAnswers() {
+      const correctAnswers = document.getElementById('correct-answers');
+      correctAnswers.classList.remove('hidden'); // Affiche les réponses correctes
+    }
+  </script>
+</body>
+</html>

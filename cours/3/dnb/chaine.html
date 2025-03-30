@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Les Chaînes d'Énergie et d'Information</title>
+  <style>
+    /* Styles globaux */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #0074d9;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      margin: 0;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      color: #0074d9;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+    }
+
+    p, li {
+      font-size: 1.1em;
+      margin-bottom: 15px;
+    }
+
+    .important {
+      color: #ff851b;
+      font-weight: bold;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    table th {
+      background-color: #f9f9f9;
+      color: #0074d9;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid #ccc;
+      margin: 40px 0;
+    }
+
+    footer {
+      background-color: #0074d9;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      margin-top: 40px;
+    }
+
+    a {
+      color: #ff851b;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Boutons interactifs */
+    button {
+      background-color: #0074d9;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    button:hover {
+      background-color: #005cbf;
+    }
+
+    .info-box {
+      background-color: #e9f7ff;
+      border: 1px solid #0074d9;
+      padding: 15px;
+      margin-top: 10px;
+      border-radius: 5px;
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .fade-in.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    iframe {
+      width: 100%;
+      max-width: 600px;
+      height: 350px;
+      margin: 20px auto;
+      display: block;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+    }
+
+    /* Schéma personnalisé */
+    .schema-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .schema {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .box {
+      display: inline-block;
+      background-color: #fff;
+      border: 2px solid #0074d9;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .arrow {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 10px;
+      font-size: 1.5em;
+      color: #0074d9;
+    }
+
+    .chain-info {
+      border: 2px dashed #ff851b;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+
+    .chain-energy {
+      border: 2px dashed #0074d9;
+      padding: 10px;
+    }
+
+    .label {
+      color: #ff851b;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .highlight {
+      background-color: #e9f7ff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Les Chaînes d'Énergie et d'Information</h1>
+  </header>
+
+  <main>
+    <section id="introduction" class="fade-in">
+      <h2>Introduction</h2>
+      <p>Dans la technologie moderne, de nombreux systèmes fonctionnent en combinant différentes chaînes de processus. Ce cours traite de deux concepts clés : la <span class="important">chaîne d’énergie</span> et la <span class="important">chaîne d’information</span>. Ces notions permettent de comprendre comment un objet technique réalise des actions autonomes ou assistées.</p>
+    </section>
+
+    <section id="video" class="fade-in">
+      <h2>Vidéo explicative</h2>
+      <iframe src="https://www.youtube.com/embed/uBcx25yGnKA" frameborder="0" allowfullscreen></iframe>
+    </section>
+
+    <section id="schema" class="fade-in">
+      <h2>Schémas des Chaînes d'Énergie et d'Information</h2>
+      <div class="schema-container">
+        <h3 style="text-align: center;">Chaîne d'information</h3>
+        <div class="schema chain-info">
+          <div class="box" onclick="highlightBox(this)">Capteur de température</div>
+          <span class="arrow">&rarr;</span>
+          <div class="box" onclick="highlightBox(this)">Microprocesseur</div>
+          <span class="arrow">&rarr;</span>
+          <div class="box" onclick="highlightBox(this)">D.E.L.</div>
+          <span class="arrow">&rarr;</span>
+          <span>Signal visuel</span>
+        </div>
+        <p class="label">Acquérir &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Traiter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Communiquer</p>
+
+        <hr style="margin: 20px 0;">
+
+        <h3 style="text-align: center;">Chaîne d'énergie</h3>
+        <div class="schema chain-energy">
+          <div class="box" onclick="highlightBox(this)">Réseau électrique</div>
+          <span class="arrow">&rarr;</span>
+          <div class="box" onclick="highlightBox(this)">Interrupteur électronique de puissance</div>
+          <span class="arrow">&rarr;</span>
+          <div class="box" onclick="highlightBox(this)">Moteur</div>
+          <span class="arrow">&rarr;</span>
+          <div class="box" onclick="highlightBox(this)">Pales</div>
+        </div>
+        <p class="label">Alimenter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Traiter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Convertir &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transmettre</p>
+      </div>
+    </section>
+
+    <section id="exemples" class="fade-in">
+      <h2>Exemples Concrets</h2>
+      <p>Voici quelques exemples concrets de systèmes techniques :</p>
+
+      <!-- Défibrillateur Automatique Externe -->
+      <button onclick="toggleInfo('dae-energy')">Chaîne d'énergie du DAE</button>
+      <button onclick="toggleInfo('dae-information')">Chaîne d'information du DAE</button>
+
+      <div id="dae-energy" class="info-box">
+        <p><strong>Chaîne d'énergie :</strong> Le DAE utilise une batterie interne comme source d'énergie. L'énergie électrique est convertie en un choc électrique contrôlé qui est transmis à l'utilisateur via des électrodes placées sur le torse.</p>
+        <ul>
+          <li><strong>Source d'énergie :</strong> Batterie interne.</li>
+          <li><strong>Transformation :</strong> Conversion de l'énergie électrique en un choc électrique adapté.</li>
+          <li><strong>Transmission :</strong> Électrodes appliquées sur le torse de la personne.</li>
+          <li><strong>Actionnement :</strong> Livraison du choc électrique pour rétablir le rythme cardiaque normal.</li>
+        </ul>
+      </div>
+
+      <div id="dae-information" class="info-box">
+        <p><strong>Chaîne d'information :</strong> Le DAE analyse les signaux électriques du cœur pour détecter si un choc électrique est nécessaire.</p>
+        <ul>
+          <li><strong>Acquisition :</strong> Les électrodes captent les signaux électriques du cœur.</li>
+          <li><strong>Traitement :</strong> Le microprocesseur analyse les données pour détecter une arythmie dangereuse.</li>
+          <li><strong>Communication :</strong> Si un choc est nécessaire, le DAE affiche des instructions visuelles et/ou vocales pour guider l'utilisateur.</li>
+        </ul>
+      </div>
+
+      <!-- Nouvel exemple : Robot Aspirateur -->
+      <button onclick="toggleInfo('robot-energy')">Chaîne d'énergie d'un robot aspirateur</button>
+      <button onclick="toggleInfo('robot-information')">Chaîne d'information d'un robot aspirateur</button>
+
+      <div id="robot-energy" class="info-box">
+        <p><strong>Chaîne d'énergie :</strong> Un robot aspirateur utilise une batterie rechargeable comme source d'énergie. L'énergie est convertie en mouvement pour nettoyer le sol.<div id="robot-energy" class="info-box">
+        <p><strong>Chaîne d'énergie :</strong> Un robot aspirateur utilise une batterie rechargeable comme source d'énergie. L'énergie est convertie en mouvement pour nettoyer le sol.</p>
+        <ul>
+          <li><strong>Source d'énergie :</strong> Batterie rechargeable interne.</li>
+          <li><strong>Transformation :</strong> Conversion de l'énergie électrique en énergie mécanique via un moteur.</li>
+          <li><strong>Transmission :</strong> Énergie transmise aux roues et à la brosse rotative.</li>
+          <li><strong>Actionnement :</strong> Déplacement autonome et aspiration des débris.</li>
+        </ul>
+      </div>
+
+      <div id="robot-information" class="info-box">
+        <p><strong>Chaîne d'information :</strong> Le robot aspirateur utilise des capteurs pour naviguer et éviter les obstacles tout en optimisant son parcours.</p>
+        <ul>
+          <li><strong>Acquisition :</strong> Capteurs infrarouges et caméras détectent les obstacles et les zones à nettoyer.</li>
+          <li><strong>Traitement :</strong> Le microprocesseur analyse les données pour planifier un itinéraire optimal.</li>
+          <li><strong>Communication :</strong> Le robot ajuste sa trajectoire en fonction des informations reçues et peut envoyer des notifications à l'utilisateur via une application mobile.</li>
+        </ul>
+      </div>
+
+      <!-- Nouvel exemple : Système de Sécurité Domestique -->
+      <button onclick="toggleInfo('security-energy')">Chaîne d'énergie d'un système de sécurité domestique</button>
+      <button onclick="toggleInfo('security-information')">Chaîne d'information d'un système de sécurité domestique</button>
+
+      <div id="security-energy" class="info-box">
+        <p><strong>Chaîne d'énergie :</strong> Un système de sécurité domestique est généralement alimenté par une source d'énergie électrique ou une batterie de secours.</p>
+        <ul>
+          <li><strong>Source d'énergie :</strong> Réseau électrique principal ou batterie de secours.</li>
+          <li><strong>Transformation :</strong> Conversion de l'énergie électrique en signaux pour alimenter les capteurs, caméras et alarmes.</li>
+          <li><strong>Transmission :</strong> Énergie distribuée aux différents composants (caméras, détecteurs de mouvement, sirène).</li>
+          <li><strong>Actionnement :</strong> Activation des alertes (alarme, notifications sur smartphone) en cas de détection d'intrusion.</li>
+        </ul>
+      </div>
+
+      <div id="security-information" class="info-box">
+        <p><strong>Chaîne d'information :</strong> Le système de sécurité domestique utilise des capteurs pour surveiller l'environnement et avertir l'utilisateur en cas de danger.</p>
+        <ul>
+          <li><strong>Acquisition :</strong> Détecteurs de mouvement, caméras et capteurs de porte/fenêtre captent des données sur l'environnement.</li>
+          <li><strong>Traitement :</strong> Les données sont analysées pour détecter des anomalies (intrusion, ouverture non autorisée).</li>
+          <li><strong>Communication :</strong> En cas d'anomalie, le système envoie des notifications à l'utilisateur via une application mobile ou déclenche une alarme sonore.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="conclusion" class="fade-in">
+      <h2>Conclusion</h2>
+      <p>La compréhension des chaînes d’énergie et d’information est essentielle pour aborder les objets techniques modernes. Ces concepts permettent d'expliquer comment les systèmes automatisés et connectés fonctionnent de manière autonome. La maîtrise de ces notions est cruciale pour réussir l’épreuve de technologie au Diplôme National du Brevet (DNB).</p>
+    </section>
+
+    <footer>
+      <p>Les Chaînes d'Énergie et d'Information</p>
+    </footer>
+  </main>
+
+  <script>
+    // Effet de fade-in lors du scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Afficher/masquer les boîtes d'information
+    function toggleInfo(id) {
+      const infoBox = document.getElementById(id);
+      if (infoBox.style.display === "block") {
+        infoBox.style.display = "none";
+      } else {
+        infoBox.style.display = "block";
+      }
+    }
+
+    // Mettre en surbrillance les boîtes du schéma
+    function highlightBox(box) {
+      const boxes = document.querySelectorAll('.box');
+      boxes.forEach(b => b.classList.remove('highlight'));
+      box.classList.add('highlight');
+    }
+  </script>
+</body>
+</html>
