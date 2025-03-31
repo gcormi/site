@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Surpêche : Menaces sur la Biodiversité Marine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Style CSS amélioré pour des élèves de 14 ans */
+        :root {
+            --primary-color: #0277bd;
+            --secondary-color: #039be5;
+            --accent-color: #ff5722;
+            --dark-blue: #01579b;
+            --light-blue: #e1f5fe;
+            --success-color: #66bb6a;
+            --warning-color: #ffa726;
+            --danger-color: #ef5350;
+            --text-color: #263238;
+            --light-text: #ffffff;
+            --background-light: #f5f9ff;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-light);
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--dark-blue), var(--primary-color));
+            color: var(--light-text);
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 25px 25px;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: pulse 5s infinite;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-top: 0;
+        }
+
+        /* Barre de progression */
+        .progress-container {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto 10px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            position: relative;
+            height: 12px;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(to right, var(--accent-color), #ffab91);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-label {
+            text-align: center;
+            color: var(--light-text);
+            font-weight: bold;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        /* Effet de vague d'eau */
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.2" d="M0,224L48,224C96,224,192,224,288,202.7C384,181,480,139,576,144C672,149,768,203,864,208C960,213,1056,171,1152,165.3C1248,160,1344,192,1392,208L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        nav {
+            background-color: var(--dark-blue);
+            display: flex;
+            justify-content: center;
+            padding: 12px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap;
+            transition: background-color 0.3s ease;
+        }
+
+        nav.scrolled {
+            background-color: rgba(1, 87, 155, 0.95);
+        }
+
+        nav a {
+            color: var(--light-text);
+            text-decoration: none;
+            margin: 5px 10px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        nav a.active {
+            background-color: var(--accent-color);
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        main {
+            padding: 30px;
+            max-width: 950px;
+            margin: 30px auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        section {
+            margin-bottom: 40px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 3px solid var(--light-blue);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        b {
+            color: var(--primary-color);
+        }
+
+        .example {
+            padding: 20px;
+            background-color: var(--light-blue);
+            border-left: 5px solid var(--secondary-color);
+            margin: 20px 0;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .glossary {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .glossary-search {
+            width: 80%;
+            max-width: 400px;
+            padding: 10px 15px;
+            border: 2px solid var(--primary-color);
+            border-radius: 20px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        .glossary-search:focus {
+            box-shadow: 0 0 5px rgba(2, 119, 189, 0.5);
+        }
+
+        .glossary-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .glossary-list li {
+            margin: 5px;
+            padding: 10px 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .glossary-list li:hover {
+            background-color: var(--dark-blue);
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .glossary-definition {
+            margin: 15px auto;
+            padding: 15px 20px;
+            background-color: var(--light-blue);
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+            border-left: 5px solid var(--primary-color);
+            max-width: 600px;
+            text-align: left;
+        }
+
+        .hidden-info {
+            display: none;
+            padding: 15px;
+            background-color: var(--light-blue);
+            border-radius: 8px;
+            margin-top: 10px;
+            border-left: 4px solid var(--primary-color);
+            animation: slideInDown 0.5s ease-out;
+            color: var(--dark-blue);
+        }
+
+        /* Style pour les boutons d'info */
+        .info-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-size: 14px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .info-button:hover {
+            background-color: var(--dark-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Quiz interactif */
+        .quiz-container {
+            background-color: var(--light-blue);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 30px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-title {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .quiz-question {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .quiz-option {
+            background-color: white;
+            border: 2px solid var(--secondary-color);
+            border-radius: 10px;
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .quiz-option:hover {
+            background-color: rgba(3, 155, 229, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-option.selected {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .quiz-option.correct {
+            background-color: var(--success-color);
+            color: white;
+            border-color: #388e3c;
+        }
+
+        .quiz-option.incorrect {
+            background-color: var(--danger-color);
+            color: white;
+            border-color: #d32f2f;
+        }
+
+        .quiz-feedback {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+            font-weight: bold;
+        }
+
+        .quiz-feedback.correct {
+            background-color: rgba(102, 187, 106, 0.2);
+            color: #388e3c;
+            border-left: 5px solid #388e3c;
+        }
+
+        .quiz-feedback.incorrect {
+            background-color: rgba(239, 83, 80, 0.2);
+            color: #d32f2f;
+            border-left: 5px solid #d32f2f;
+        }
+
+        /* Jeu interactif */
+        .game-container {
+            background-color: var(--light-blue);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .game-title {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+
+        .game-canvas {
+            border: 3px solid var(--primary-color);
+            border-radius: 10px;
+            max-width: 100%;
+            margin: 15px auto;
+            background-color: white;
+        }
+
+        .game-button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .game-button:hover {
+            background-color: #e64a19;
+            transform: scale(1.05);
+        }
+
+        /* Aide flottante */
+        .help-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .help-btn:hover {
+            background-color: #e64a19;
+            transform: scale(1.1);
+        }
+
+        .help-content {
+            position: fixed;
+            bottom: 90px;
+            right: 30px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            width: 300px;
+            display: none;
+        }
+
+        .help-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .help-title {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .help-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        /* Carte interactive */
+        .map-container {
+            position: relative;
+            margin: 20px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-image {
+            width: 100%;
+            display: block;
+            border-radius: 10px;
+        }
+
+        .map-hotspot {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(255, 87, 34, 0.8);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .map-hotspot:hover {
+            transform: scale(1.2);
+            background-color: var(--accent-color);
+        }
+
+        .map-info {
+            position: absolute;
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 3;
+            max-width: 250px;
+            display: none;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .map-info h4 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .map-info.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* Animations CSS */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.03);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            main {
+                padding: 20px;
+                margin: 20px 10px;
+            }
+            
+            nav a {
+                margin: 3px 5px;
+                padding: 6px 10px;
+                font-size: 14px;
+            }
+            
+            .info-button {
+                margin-top: 5px;
+                margin-left: 0;
+                font-size: 12px;
+                padding: 6px 10px;
+                display: inline-block;
+            }
+            
+            .help-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+                right: 20px;
+                bottom: 20px;
+            }
+            
+            .help-content {
+                width: 80%;
+                right: 20px;
+                bottom: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>La Surpêche 🎣: Menace sur la Biodiversité Marine 🌊</h1>
+        <p>Explorons les causes et les conséquences de la surpêche sur nos océans ! 🐠</p>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-label">Progression: <span id="progressPercent">0%</span></div>
+        
+        <div class="wave"></div>
+    </header>
+
+    <nav id="mainNav">
+        <a href="#introduction" class="nav-link active">Introduction</a>
+        <a href="#quest-ce-que-la-surpeche" class="nav-link">Qu'est-ce Que la Surpêche ?</a>
+        <a href="#les-causes-de-la-surpeche" class="nav-link">Les Causes</a>
+        <a href="#les-consequences-de-la-surpeche" class="nav-link">Les Conséquences</a>
+        <a href="#besoins-non-satisfaits-et-pistes-dinnovation" class="nav-link">Pistes d'Innovation</a>
+        <a href="#quiz-section" class="nav-link">Quiz</a>
+        <a href="#glossaire" class="nav-link">Glossaire</a>
+    </nav>
+
+    <main>
+        <section id="introduction" class="content-section">
+            <h2>Introduction : La Surpêche, un Danger Invisible ? 🌍</h2>
+            <p>Salut les défenseurs des océans ! 🌊 Avez-vous déjà entendu parler de la surpêche 🎣 ? C'est un problème majeur qui menace la vie marine 🐳 et la sécurité alimentaire de millions de personnes. Dans ce cours, nous allons plonger au cœur de ce problème et découvrir comment on peut agir pour préserver nos océans. 💪</p>
+            
+            <div class="map-container">
+                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'><rect width='800' height='400' fill='%23b3e5fc'/><path d='M0,180 C50,160 100,200 150,180 C200,160 250,140 300,160 C350,180 400,200 450,190 C500,180 550,160 600,170 C650,180 700,200 750,190 L800,190 L800,400 L0,400 Z' fill='%230277bd' opacity='0.3'/><circle cx='200' cy='130' r='15' fill='%23ff5722'/><circle cx='500' cy='150' r='15' fill='%23ff5722'/><circle cx='700' cy='180' r='15' fill='%23ff5722'/></svg>" alt="Carte mondiale montrant des zones de surpêche" class="map-image">
+                
+                <div class="map-hotspot" style="top: 32%; left: 25%;" onclick="toggleMapInfo('map1', this)">1</div>
+                <div class="map-hotspot" style="top: 38%; left: 62%;" onclick="toggleMapInfo('map2', this)">2</div>
+                <div class="map-hotspot" style="top: 45%; left: 87%;" onclick="toggleMapInfo('map3', this)">3</div>
+                
+                <div id="map1" class="map-info" style="top: 38%; left: 30%;">
+                    <h4>Atlantique Nord-Est</h4>
+                    <p>Plus de 60% des stocks de poissons sont surexploités dans cette région. La morue de l'Atlantique a subi un effondrement majeur dans les années 1990.</p>
+                </div>
+                
+                <div id="map2" class="map-info" style="top: 44%; left: 67%;">
+                    <h4>Méditerranée</h4>
+                    <p>Cette mer fermée souffre particulièrement de la surpêche, avec plus de 80% des stocks de poissons en situation de surpêche.</p>
+                </div>
+                
+                <div id="map3" class="map-info" style="top: 51%; left: 72%;">
+                    <h4>Pacifique</h4>
+                    <p>Les populations de thon rouge du Pacifique ont diminué de plus de 95% en raison de la surpêche intensive pour le marché du sushi haut de gamme.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="quest-ce-que-la-surpeche" class="content-section">
+            <h2>1. Qu'est-ce Que la Surpêche ? 🤔</h2>
+            <p>La surpêche, c'est lorsque l'on pêche plus de poissons 🐟 que les populations ne peuvent se renouveler naturellement. Cela entraîne une diminution du nombre de poissons, voire l'extinction de certaines espèces. 😥 C'est comme vider un compte en banque sans jamais y déposer d'argent ! 🏦</p>
+
+            <h3>Comment reconnaître la surpêche ?</h3>
+            <ul>
+                <li><b>Diminution des prises :</b> Les pêcheurs pêchent moins de poissons qu'avant, même en pêchant plus longtemps et plus fort. 📉
+                  <button class="info-button" onclick="toggleInfo('prisesInfo')">Exemple</button>
+                  <div id="prisesInfo" class="hidden-info">Dans certaines régions, les prises de thon rouge ont diminué de plus de 80% en quelques décennies.</div>
+                </li>
+                <li><b>Diminution de la taille des poissons :</b> Les poissons pêchés sont plus petits qu'avant, car les plus gros ont déjà été capturés. 📏
+                 <button class="info-button" onclick="toggleInfo('tailleInfo')">Conséquence</button>
+                  <div id="tailleInfo" class="hidden-info">La diminution de la taille des poissons affecte leur capacité à se reproduire et à assurer la survie de l'espèce.</div>
+                </li>
+                <li><b>Disparition d'espèces :</b> Certaines espèces de poissons deviennent rares, voire disparaissent complètement de certaines zones. 👻
+                 <button class="info-button" onclick="toggleInfo('disparitionInfo')">Espèces menacées</button>
+                  <div id="disparitionInfo" class="hidden-info">Le thon rouge, la morue, l'espadon et de nombreuses espèces de requins sont menacés par la surpêche.</div>
+                </li>
+            </ul>
+        </section>
+
+        <section id="les-causes-de-la-surpeche" class="content-section">
+            <h2>2. Les Causes de la Surpêche ⚠️</h2>
+            <p>La surpêche est un problème complexe qui a de nombreuses causes. En voici quelques-unes :</p>
+
+            <h3>Les principales causes de la surpêche :</h3>
+            <ul>
+                <li><b>Techniques de pêche destructrices :</b> Certaines techniques de pêche, comme le chalutage de fond et la pêche à la dynamite, détruisent les fonds marins et capturent de nombreuses espèces non ciblées (prises accessoires). 💥
+                 <button class="info-button" onclick="toggleInfo('techniquesInfo')">Chalutage de fond</button>
+                  <div id="techniquesInfo" class="hidden-info">Le chalutage de fond est une technique qui consiste à traîner un grand filet sur le fond marin, détruisant les habitats et capturant tout ce qui se trouve sur son passage.</div>
+                </li>
+                <li><b>Manque de réglementation :</b> Dans certaines régions, la pêche n'est pas suffisamment réglementée, ce qui permet aux pêcheurs de pêcher plus que ce qui est autorisé. 📜
+                 <button class="info-button" onclick="toggleInfo('reglementationInfo')">Zones non réglementées</button>
+                  <div id="reglementationInfo" class="hidden-info">La haute mer (les eaux internationales) est difficile à contrôler, ce qui favorise la pêche illégale.</div>
+                </li>
+                <li><b>Subventions à la pêche :</b> Dans de nombreux pays, les gouvernements subventionnent la pêche, ce qui encourage les pêcheurs à pêcher plus, même si les populations de poissons sont en déclin. 💰
+                 <button class="info-button" onclick="toggleInfo('subventionsInfo')">Impact</button>
+                  <div id="subventionsInfo" class="hidden-info">Les subventions à la pêche peuvent inciter à la surcapacité des flottes de pêche et à la surexploitation des ressources.</div>
+                </li>
+                <li><b>Demande croissante de poisson :</b> La population mondiale augmente, et la demande de poisson augmente également. Cela met une pression supplémentaire sur les populations de poissons. 📈
+                 <button class="info-button" onclick="toggleInfo('demandeInfo')">Alternatives</button>
+                  <div id="demandeInfo" class="hidden-info">Réduire notre consommation de poisson, privilégier les espèces pêchées de manière durable et développer l'aquaculture responsable sont des solutions pour réduire la pression sur les populations de poissons sauvages.</div>
+                </li>
+            </ul>
+        </section>
+
+        <section id="les-consequences-de-la-surpeche" class="content-section">
+            <h2>3. Les Conséquences de la Surpêche 📉</h2>
+            <p>La surpêche a des conséquences graves sur les écosystèmes marins, les populations humaines et l'économie. En voici quelques exemples :</p>
+
+            <h3>Les conséquences de la surpêche :</h3>
+            <ul>
+                <li><b>Disparition d'espèces :</b> La surpêche peut entraîner l'extinction d'espèces de poissons, ce qui perturbe l'équilibre des écosystèmes marins. 🐠➡️👻
+                 <button class="info-button" onclick="toggleInfo('consequencesEspècesInfo')">Effet domino</button>
+                  <div id="consequencesEspècesInfo" class="hidden-info">La disparition d'une espèce peut avoir un effet domino sur l'ensemble de la chaîne alimentaire, affectant d'autres espèces.</div>
+                </li>
+                <li><b>Destruction des habitats :</b> Les techniques de pêche destructrices, comme le chalutage de fond, détruisent les fonds marins, les herbiers et les récifs coralliens. 💔
+                 <button class="info-button" onclick="toggleInfo('consequencesHabitatsInfo')">Impacts</button>
+                  <div id="consequencesHabitatsInfo" class="hidden-info">La destruction des habitats réduit la biodiversité et la capacité des océans à absorber le dioxyde de carbone.</div>
+                </li>
+                <li><b>Insécurité alimentaire :</b> La surpêche prive les populations côtières qui dépendent de la pêche pour leur subsistance et leur alimentation. 😔
+                 <button class="info-button" onclick="toggleInfo('consequencesAlimentaireInfo')">Dépendance</button>
+                  <div id="consequencesAlimentaireInfo" class="hidden-info">Dans de nombreux pays en développement, le poisson est la principale source de protéines pour les populations côtières.</div>
+                </li>
+                <li><b>Pertes économiques :</b> La surpêche entraîne une diminution des prises et une baisse des revenus pour les pêcheurs. 💸
+                 <button class="info-button" onclick="toggleInfo('consequencesEconomiquesInfo')">À long terme</button>
+                  <div id="consequencesEconomiquesInfo" class="hidden-info">À long terme, la surpêche peut entraîner l'effondrement des pêcheries et des pertes économiques considérables.</div>
+                </li>
+            </ul>
+        </section>
+
+        <section id="besoins-non-satisfaits-et-pistes-dinnovation" class="content-section">
+            <h2>4. Besoins Non Satisfaits et Pistes d'Innovation 💡</h2>
+            <p>Face à la surpêche, de nombreux besoins restent à satisfaire. L'innovation et la créativité peuvent nous aider à trouver des solutions pour une pêche plus durable et une meilleure protection des océans. 💪</p>
+
+            <h3>Besoins et pistes d'innovation :</h3>
+            <ul>
+                <li><b>Techniques de pêche sélectives :</b> Développer des techniques de pêche qui permettent de cibler les espèces visées et de réduire les prises accessoires. 🎯
+                 <button class="info-button" onclick="toggleInfo('besoinsTechniquesInfo')">Exemples</button>
+                  <div id="besoinsTechniquesInfo" class="hidden-info">Filets avec des mailles plus larges pour laisser passer les petits poissons, utilisation de répulsifs pour éviter la capture d'espèces protégées.</div>
+                </li>
+                <li><b>Surveillance et contrôle :</b> Améliorer les systèmes de surveillance et de contrôle de la pêche pour lutter contre la pêche illégale. 👮
+                 <button class="info-button" onclick="toggleInfo('besoinsSurveillanceInfo')">Solutions</button>
+                  <div id="besoinsSurveillanceInfo" class="hidden-info">Développer des drones marins, des systèmes de suivi par satellite et des applications mobiles pour signaler les activités de pêche illégales.</div>
+                </li>
+                <li><b>Aquaculture durable :</b> Développer des pratiques d'aquaculture qui respectent l'environnement et le bien-être animal. 🐠
+                 <button class="info-button" onclick="toggleInfo('besoinsAquacultureInfo')">Solutions</button>
+                  <div id="besoinsAquacultureInfo" class="hidden-info">Utiliser des aliments pour poissons à base d'ingrédients durables, limiter l'utilisation d'antibiotiques, choisir des sites d'implantation appropriés.</div>
+                </li>
+                <li><b>Alternatives à la consommation de poisson :</b> Développer des sources de protéines alternatives (algues, insectes, protéines végétales) pour réduire la pression sur les populations de poissons sauvages. 🌿
+                 <button class="info-button" onclick="toggleInfo('besoinsAlternativesInfo')">Intérêts</button>
+                  <div id="besoinsAlternativesInfo" class="hidden-info">Les algues sont riches en protéines, en vitamines et en minéraux, et leur culture a un faible impact environnemental.</div>
+                </li>
+                <li><b>Sensibilisation et éducation :</b> Informer le public sur les enjeux de la surpêche et encourager une consommation responsable de produits de la mer. 📣
+                 <button class="info-button" onclick="toggleInfo('besoinsSensibilisationInfo')">Actions</button>
+                  <div id="besoinsSensibilisationInfo" class="hidden-info">Utiliser des étiquettes qui indiquent l'origine et la méthode de pêche des produits de la mer, organiser des campagnes d'information, proposer des recettes alternatives à base de produits durables.</div>
+                </li>
+            </ul>
+            
+            <div class="game-container">
+                <h3 class="game-title">🎮 Mini-jeu : Pêche Responsable</h3>
+                <p>Attrape uniquement les poissons adultes et évite les espèces protégées !</p>
+                <canvas id="gameCanvas" width="600" height="300" class="game-canvas"></canvas>
+                <div id="gameScore">Score: 0</div>
+                <button id="startGameBtn" class="game-button">Commencer le jeu</button>
+            </div>
+        </section>
+        
+        <section id="quiz-section" class="content-section">
+            <h2>Testez vos connaissances ! 🧠</h2>
+            
+            <div class="quiz-container">
+                <h3 class="quiz-title">Quiz sur la surpêche</h3>
+                <div class="quiz-question">Qu'est-ce que la surpêche ?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Pêcher en utilisant des bateaux trop grands</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">Pêcher plus de poissons que les populations ne peuvent se renouveler</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Pêcher sans autorisation</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Pêcher uniquement pendant la période estivale</div>
+                </div>
+                <div class="quiz-feedback"></div>
+            </div>
+            
+            <div class="quiz-container">
+                <h3 class="quiz-title">Quiz sur les conséquences</h3>
+                <div class="quiz-question">Quelle est l'une des conséquences de la surpêche ?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Augmentation de la biodiversité marine</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Baisse du prix des produits de la mer</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">Disparition d'espèces et déséquilibre des écosystèmes</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Augmentation de la taille des poissons</div>
+                </div>
+                <div class="quiz-feedback"></div>
+            </div>
+        </section>
+
+        <section id="glossaire" class="content-section glossary">
+            <h2>Glossaire 📚</h2>
+            <input type="text" class="glossary-search" id="glossarySearch" placeholder="Rechercher un terme...">
+            <ul class="glossary-list">
+                <li onclick="showDefinition('surpeche')">Surpêche 🎣</li>
+                <li onclick="showDefinition('biodiversite')">Biodiversité 🐠</li>
+                <li onclick="showDefinition('ecosysteme')">Écosystème Marin 🌿</li>
+                <li onclick="showDefinition('quotas')">Quotas de Pêche 📊</li>
+                <li onclick="showDefinition('aquaculture')">Aquaculture 🐠</li>
+                <li onclick="showDefinition('durable')">Pêche Durable 🌱</li>
+            </ul>
+
+            <div id="surpecheDefinition" class="glossary-definition">Exploitation excessive des ressources halieutiques, qui entraîne une diminution des populations de poissons.</div>
+            <div id="biodiversiteDefinition" class="glossary-definition">Diversité des espèces vivantes dans un écosystème.</div>
+            <div id="ecosystemeDefinition" class="glossary-definition">Ensemble formé par un milieu naturel et les êtres vivants qui y vivent.</div>
+            <div id="quotasDefinition" class="glossary-definition">Limites de capture fixées pour chaque espèce de poisson dans une zone donnée.</div>
+            <div id="aquacultureDefinition" class="glossary-definition">Élevage de poissons et d'autres organismes aquatiques.</div>
+            <div id="durableDefinition" class="glossary-definition">Se dit d'une activité qui respecte l'environnement et les ressources naturelles.</div>
+        </section>
+
+        <section id="conclusion" class="content-section">
+            <h2>Conclusion : Agissons Ensemble pour des Océans Durables ! 💙</h2>
+            <p>Bravo, jeunes défenseurs des océans ! 🎉 Vous avez maintenant une meilleure compréhension des enjeux liés à la surpêche. N'oubliez pas que chacun de nous peut agir au quotidien pour préserver les ressources marines. Alors, consommons de manière responsable, soutenons les initiatives de pêche durable et sensibilisons notre entourage ! Ensemble, nous pouvons faire la différence ! 💪</p>
+        </section>
+    </main>
+
+    <div class="help-btn" onclick="toggleHelp()">?</div>
+    <div class="help-content" id="helpContent">
+        <button class="help-close" onclick="toggleHelp()">×</button>
+        <h3 class="help-title">Navigation du cours</h3>
+        <p>👋 Bienvenue dans ce cours sur la surpêche!</p>
+        <p>🔍 <strong>Glossaire:</strong> Clique sur les mots du glossaire pour voir leur définition.</p>
+        <p>🎮 <strong>Mini-jeux:</strong> Teste tes connaissances avec les quiz et le jeu de pêche responsable.</p>
+        <p>📚 <strong>Contenu:</strong> Utilise le menu en haut pour naviguer entre les différentes sections.</p>
+    </div>
+
+    <script>
+        // Variables globales
+        let completedSections = {};
+        let gameScore = 0;
+        let gameInterval;
+        let gamePlayer = { x: 300, y: 250, width: 60, height: 30 };
+        let gameObjects = [];
+        let gameActive = false;
+
+        // Initialisation au chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialiser les animations de défilement
+            initScrollAnimations();
+            
+            // Initialiser le système de navigation
+            initNavigation();
+            
+            // Initialiser la barre de progression
+            updateProgress();
+            
+            // Initialiser le jeu
+            initGame();
+            
+            // Initialiser le glossaire
+            initGlossary();
+        });
+
+        // Fonction pour les animations au défilement
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // Marquer la section comme vue pour la progression
+                        if (entry.target.id) {
+                            completedSections[entry.target.id] = true;
+                            updateProgress();
+                        }
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            document.querySelectorAll('.content-section').forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        // Système de navigation
+        function initNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const nav = document.getElementById('mainNav');
+            
+            // Gérer le clic sur les liens de navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Supprimer la classe active de tous les liens
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
+                    });
+                    
+                    // Ajouter la classe active au lien cliqué
+                    this.classList.add('active');
+                    
+                    // Faire défiler jusqu'à la section
+                    const targetId = this.getAttribute('href').substring(1);
+                    document.getElementById(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Changer l'apparence du menu lors du défilement
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+                
+                // Mettre à jour le lien actif en fonction de la position de défilement
+                const sections = document.querySelectorAll('.content-section');
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= 150 && rect.bottom >= 150) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === '#' + section.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            });
+        }
+
+        // Mise à jour de la barre de progression
+        function updateProgress() {
+            const totalSections = document.querySelectorAll('.content-section').length;
+            const completedCount = Object.keys(completedSections).length;
+            const progressPercent = Math.floor((completedCount / totalSections) * 100);
+            
+            document.getElementById('progressBar').style.width = progressPercent + '%';
+            document.getElementById('progressPercent').textContent = progressPercent + '%';
+        }
+
+        // Initialisation du jeu
+        function initGame() {
+            const canvas = document.getElementById('gameCanvas');
+            const ctx = canvas.getContext('2d');
+            const startBtn = document.getElementById('startGameBtn');
+            const scoreDisplay = document.getElementById('gameScore');
+            
+            startBtn.addEventListener('click', function() {
+                if (!gameActive) {
+                    startGame();
+                    this.textContent = 'Jeu en cours...';
+                    this.disabled = true;
+                }
+            });
+            
+            function startGame() {
+                // Réinitialiser le jeu
+                gameScore = 0;
+                gameObjects = [];
+                scoreDisplay.textContent = 'Score: 0';
+                gameActive = true;
+                
+                // Créer des poissons
+                for (let i = 0; i < 5; i++) {
+                    createFish();
+                }
+                
+                // Démarrer la boucle de jeu
+                if (gameInterval) clearInterval(gameInterval);
+                gameInterval = setInterval(updateGame, 30);
+                
+                // Ajouter les écouteurs d'événements pour déplacer le joueur
+                canvas.addEventListener('mousemove', movePlayer);
+                canvas.addEventListener('touchmove', movePlayerTouch);
+            }
+            
+            function createFish() {
+                const types = [
+                    { emoji: '🐟', points: 10, type: 'normal', size: 1 },
+                    { emoji: '🐠', points: 20, type: 'normal', size: 1 },
+                    { emoji: '🦐', points: 5, type: 'small', size: 0.7 },
+                    { emoji: '🐬', points: -50, type: 'protected', size: 1.5 },
+                    { emoji: '🐙', points: 15, type: 'normal', size: 1.2 }
+                ];
+                
+                const fishType = types[Math.floor(Math.random() * types.length)];
+                
+                gameObjects.push({
+                    x: Math.random() * (canvas.width - 30),
+                    y: -30,
+                    type: fishType.type,
+                    emoji: fishType.emoji,
+                    points: fishType.points,
+                    size: fishType.size,
+                    speed: Math.random() * 2 + 1
+                });
+            }
+            
+            function updateGame() {
+                // Effacer le canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Dessiner l'arrière-plan (océan)
+                ctx.fillStyle = '#e1f5fe';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Dessiner quelques bulles pour l'effet
+                for (let i = 0; i < 5; i++) {
+                    ctx.beginPath();
+                    ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 5 + 2, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                    ctx.fill();
+                }
+                
+                // Dessiner le fond marin
+                ctx.fillStyle = '#b3e5fc';
+                for (let i = 0; i < canvas.width; i += 30) {
+                    ctx.beginPath();
+                    ctx.arc(i, canvas.height, 15, Math.PI, 0, false);
+                    ctx.fill();
+                }
+                
+                // Dessiner le filet (joueur)
+                ctx.fillStyle = '#0277bd';
+                ctx.beginPath();
+                ctx.moveTo(gamePlayer.x, gamePlayer.y);
+                ctx.lineTo(gamePlayer.x + gamePlayer.width, gamePlayer.y);
+                ctx.lineTo(gamePlayer.x + gamePlayer.width, gamePlayer.y + gamePlayer.height);
+                ctx.lineTo(gamePlayer.x, gamePlayer.y + gamePlayer.height);
+                ctx.closePath();
+                ctx.fill();
+                
+                // Ajouter un motif de filet
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.lineWidth = 1;
+                for (let i = 5; i < gamePlayer.width; i += 10) {
+                    ctx.beginPath();
+                    ctx.moveTo(gamePlayer.x + i, gamePlayer.y);
+                    ctx.lineTo(gamePlayer.x + i, gamePlayer.y + gamePlayer.height);
+                    ctx.stroke();
+                }
+                for (let j = 5; j < gamePlayer.height; j += 10) {
+                    ctx.beginPath();
+                    ctx.moveTo(gamePlayer.x, gamePlayer.y + j);
+                    ctx.lineTo(gamePlayer.x + gamePlayer.width, gamePlayer.y + j);
+                    ctx.stroke();
+                }
+                
+                // Mettre à jour et dessiner les poissons
+                for (let i = 0; i < gameObjects.length; i++) {
+                    const fish = gameObjects[i];
+                    
+                    // Déplacer le poisson
+                    fish.y += fish.speed;
+                    
+                    // Dessiner le poisson
+                    ctx.font = `${Math.floor(24 * fish.size)}px Arial`;
+                    ctx.textAlign = 'center';
+                    ctx.fillText(fish.emoji, fish.x, fish.y);
+                    
+                    // Vérifier la collision avec le joueur
+                    if (fish.y > gamePlayer.y && fish.y < gamePlayer.y + gamePlayer.height &&
+                        fish.x > gamePlayer.x && fish.x < gamePlayer.x + gamePlayer.width) {
+                        // Collision! Ajouter des points
+                        gameScore += fish.points;
+                        scoreDisplay.textContent = 'Score: ' + gameScore;
+                        
+                        // Feedback visuel selon le type de poisson
+                        if (fish.type === 'protected') {
+                            // Message d'alerte pour les espèces protégées
+                            ctx.fillStyle = 'rgba(239, 83, 80, 0.7)';
+                            ctx.fillRect(canvas.width/2 - 150, 50, 300, 50);
+                            ctx.fillStyle = 'white';
+                            ctx.font = 'bold 16px Arial';
+                            ctx.textAlign = 'center';
+                            ctx.fillText('⚠️ Espèce protégée ! Ne pas pêcher !', canvas.width/2, 80);
+                            
+                            // Fin du jeu si on attrape une espèce protégée
+                            if (gameScore < 0) {
+                                clearInterval(gameInterval);
+                                gameActive = false;
+                                startBtn.textContent = 'Réessayer';
+                                startBtn.disabled = false;
+                                
+                                // Message de fin
+                                ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                                ctx.fillStyle = 'white';
+                                ctx.font = 'bold 24px Arial';
+                                ctx.textAlign = 'center';
+                                ctx.fillText('Jeu terminé!', canvas.width/2, canvas.height/2 - 30);
+                                ctx.font = '18px Arial';
+                                ctx.fillText('Vous avez pêché des espèces protégées.', canvas.width/2, canvas.height/2);
+                                ctx.fillText('Score final: ' + gameScore, canvas.width/2, canvas.height/2 + 30);
+                                
+                                return;
+                            }
+                        }
+                        
+                        gameObjects.splice(i, 1);
+                        i--;
+                        createFish();
+                    }
+                    // Si le poisson atteint le fond
+                    else if (fish.y > canvas.height) {
+                        gameObjects.splice(i, 1);
+                        i--;
+                        createFish();
+                    }
+                }
+                
+                // Afficher le score en cours
+                ctx.fillStyle = '#0277bd';
+                ctx.font = 'bold 16px Arial';
+                ctx.textAlign = 'left';
+                ctx.fillText('Score: ' + gameScore, 10, 30);
+                
+                // Afficher une légende
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.fillRect(canvas.width - 180, 10, 170, 90);
+                ctx.fillStyle = '#0277bd';
+                ctx.font = '14px Arial';
+                ctx.textAlign = 'left';
+                ctx.fillText('🐟 🐠 🐙: Pêche autorisée', canvas.width - 170, 30);
+                ctx.fillText('🐬: Espèce protégée', canvas.width - 170, 50);
+                ctx.fillText('🦐: Trop petit, à éviter', canvas.width - 170, 70);
+                ctx.fillText('Objectif: 100 points', canvas.width - 170, 90);
+                
+                // Vérifier si le joueur a atteint 100 points pour gagner
+                if (gameScore >= 100) {
+                    clearInterval(gameInterval);
+                    gameActive = false;
+                    startBtn.textContent = 'Rejouer';
+                    startBtn.disabled = false;
+                    
+                    // Message de victoire
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = 'white';
+                    ctx.font = 'bold 24px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('Félicitations !', canvas.width/2, canvas.height/2 - 30);
+                    ctx.font = '18px Arial';
+                    ctx.fillText('Vous avez pratiqué une pêche responsable !', canvas.width/2, canvas.height/2);
+                    ctx.fillText('Score final: ' + gameScore, canvas.width/2, canvas.height/2 + 30);
+                    
+                    // Marquer comme activité complétée pour la progression
+                    completedSections['gameCompleted'] = true;
+                    updateProgress();
+                }
+            }
+            
+            function movePlayer(e) {
+                const rect = canvas.getBoundingClientRect();
+                gamePlayer.x = e.clientX - rect.left - gamePlayer.width / 2;
+                
+                // Limiter aux bords du canvas
+                if (gamePlayer.x < 0) gamePlayer.x = 0;
+                if (gamePlayer.x + gamePlayer.width > canvas.width) gamePlayer.x = canvas.width - gamePlayer.width;
+            }
+            
+            function movePlayerTouch(e) {
+                e.preventDefault();
+                const rect = canvas.getBoundingClientRect();
+                const touch = e.touches[0];
+                gamePlayer.x = touch.clientX - rect.left - gamePlayer.width / 2;
+                
+                // Limiter aux bords du canvas
+                if (gamePlayer.x < 0) gamePlayer.x = 0;
+                if (gamePlayer.x + gamePlayer.width > canvas.width) gamePlayer.x = canvas.width - gamePlayer.width;
+            }
+            
+            // Dessiner l'état initial du jeu
+            ctx.fillStyle = '#e1f5fe';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#0277bd';
+            ctx.font = 'bold 22px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Jeu de Pêche Responsable', canvas.width / 2, canvas.height / 2 - 40);
+            
+            ctx.font = '16px Arial';
+            ctx.fillText('Pêche les poissons 🐟 mais évite les espèces protégées 🐬', canvas.width / 2, canvas.height / 2);
+            ctx.fillText('Clique sur "Commencer" et déplace la souris pour jouer', canvas.width / 2, canvas.height / 2 + 30);
+        }
+
+        // Fonctions pour le glossaire
+        function initGlossary() {
+            const searchInput = document.getElementById('glossarySearch');
+            
+            searchInput.addEventListener('input', function() {
+                const searchText = this.value.toLowerCase();
+                const glossaryItems = document.querySelectorAll('.glossary-list li');
+                
+                glossaryItems.forEach(item => {
+                    const itemText = item.textContent.toLowerCase();
+                    if (itemText.includes(searchText)) {
+                        item.style.display = 'inline-block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        function showDefinition(term) {
+            // Masquer toutes les définitions
+            document.querySelectorAll('.glossary-definition').forEach(def => {
+                def.style.display = 'none';
+            });
+            
+            // Afficher la définition sélectionnée
+            document.getElementById(term + 'Definition').style.display = 'block';
+            
+            // Marquer comme activité complétée pour la progression
+            completedSections['glossaryInteraction'] = true;
+            updateProgress();
+        }
+
+        // Fonction pour le quiz
+        function checkAnswer(option, isCorrect) {
+            const options = option.parentElement.querySelectorAll('.quiz-option');
+            const feedback = option.parentElement.nextElementSibling;
+            
+            // Désactiver les clics sur toutes les options
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+            
+            if (isCorrect) {
+                option.classList.add('correct');
+                feedback.textContent = '✅ Bravo ! C\'est la bonne réponse !';
+                feedback.classList.add('correct');
+                feedback.classList.remove('incorrect');
+            } else {
+                option.classList.add('incorrect');
+                
+                // Montrer la bonne réponse
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('true')) {
+                        opt.classList.add('correct');
+                    }
+                });
+                
+                feedback.textContent = '❌ Pas tout à fait ! Regarde la bonne réponse en vert.';
+                feedback.classList.add('incorrect');
+                feedback.classList.remove('correct');
+            }
+            
+            feedback.style.display = 'block';
+            
+            // Marquer comme activité complétée pour la progression
+            completedSections['quizAttempt'] = true;
+            updateProgress();
+        }
+
+        // Fonction pour afficher/masquer les informations supplémentaires
+        function toggleInfo(infoId) {
+            const info = document.getElementById(infoId);
+            if (info.style.display === "block") {
+                info.style.display = "none";
+            } else {
+                info.style.display = "block";
+                
+                // Marquer comme activité complétée pour la progression
+                completedSections['infoInteraction'] = true;
+                updateProgress();
+            }
+        }
+
+        // Fonction pour afficher/masquer l'aide
+        function toggleHelp() {
+            const helpContent = document.getElementById('helpContent');
+            helpContent.classList.toggle('active');
+        }
+        
+        // Fonction pour les points d'information sur la carte
+        function toggleMapInfo(infoId, hotspot) {
+            const info = document.getElementById(infoId);
+            const allInfos = document.querySelectorAll('.map-info');
+            
+            // Masquer toutes les infos
+            allInfos.forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Afficher l'info sélectionnée
+            info.classList.add('active');
+            
+            // Marquer comme activité complétée pour la progression
+            completedSections['mapInteraction'] = true;
+            updateProgress();
+        }
+    </script>
+</body>
+</html>

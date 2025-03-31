@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modéliser et Simuler les Océans : Des Outils pour Comprendre et Innover</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Variables pour les couleurs */
+        :root {
+            --primary-color: #0277bd;
+            --secondary-color: #039be5;
+            --accent-color: #ff6d00;
+            --dark-blue: #01579b;
+            --medium-blue: #0288d1;
+            --light-blue: #e1f5fe;
+            --very-light-blue: #f3f9ff;
+            --text-dark: #263238;
+            --text-light: #ffffff;
+        }
+        
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--very-light-blue);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--dark-blue), var(--medium-blue));
+            color: var(--text-light);
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 30px 30px;
+        }
+
+        header h1 {
+            margin-bottom: 15px;
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            color: var(--text-light);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin: 0;
+            color: var(--text-light);
+        }
+
+        /* Barre de progression */
+        .progress-container {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto 10px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            position: relative;
+            height: 12px;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(to right, var(--accent-color), #ffab91);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-label {
+            text-align: center;
+            color: var(--text-light);
+            font-weight: bold;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        /* Effet de vague d'océan */
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.2" d="M0,224L48,224C96,224,192,224,288,202.7C384,181,480,139,576,144C672,149,768,203,864,208C960,213,1056,171,1152,165.3C1248,160,1344,192,1392,208L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        nav {
+            background-color: var(--dark-blue);
+            display: flex;
+            justify-content: center;
+            padding: 12px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin: 5px 10px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        nav a.active {
+            background-color: var(--accent-color);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        main {
+            padding: 30px;
+            max-width: 950px;
+            margin: 30px auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        section {
+            margin-bottom: 40px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 3px solid var(--light-blue);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        b {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .info-button {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-left: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .info-button:hover {
+            background-color: var(--dark-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .hidden-info {
+            display: none;
+            padding: 15px;
+            background-color: var(--light-blue);
+            border-radius: 8px;
+            margin-top: 10px;
+            border-left: 4px solid var(--primary-color);
+            animation: slideInDown 0.5s ease-out;
+            color: var(--text-dark);
+        }
+
+        .example {
+            padding: 20px;
+            background-color: var(--light-blue);
+            border-left: 5px solid var(--medium-blue);
+            margin: 20px 0;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .glossary {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .glossary-search {
+            width: 80%;
+            max-width: 400px;
+            padding: 10px 15px;
+            border: 2px solid var(--primary-color);
+            border-radius: 20px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        .glossary-search:focus {
+            box-shadow: 0 0 5px rgba(2, 119, 189, 0.5);
+        }
+
+        .glossary-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .glossary-list li {
+            margin: 5px;
+            padding: 10px 15px;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .glossary-list li:hover {
+            background-color: var(--dark-blue);
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .glossary-definition {
+            margin: 15px auto;
+            padding: 15px 20px;
+            background-color: var(--light-blue);
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+            border-left: 5px solid var(--primary-color);
+            max-width: 600px;
+            text-align: left;
+        }
+
+        .future-outlook {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: var(--very-light-blue);
+            border-left: 6px solid var(--medium-blue);
+            border-radius: 8px;
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--very-light-blue);
+        }
+
+        tr:hover {
+            background-color: var(--light-blue);
+        }
+
+        /* Simulateur interactif */
+        .simulator-container {
+            background-color: var(--light-blue);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .simulator-canvas {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(180deg, #bbdefb 0%, #0288d1 100%);
+            border-radius: 10px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .simulator-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .simulator-button {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .simulator-button:hover {
+            background-color: var(--dark-blue);
+            transform: scale(1.05);
+        }
+
+        .simulator-slider {
+            width: 200px;
+            margin: 0 10px;
+        }
+
+        /* Quiz interactif */
+        .quiz-container {
+            background-color: var(--light-blue);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-title {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .quiz-question {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .quiz-option {
+            background-color: white;
+            border: 2px solid var(--medium-blue);
+            border-radius: 10px;
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .quiz-option:hover {
+            background-color: rgba(3, 155, 229, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-option.selected {
+            background-color: var(--medium-blue);
+            color: white;
+        }
+
+        .quiz-option.correct {
+            background-color: #4caf50;
+            color: white;
+            border-color: #388e3c;
+        }
+
+        .quiz-option.incorrect {
+            background-color: #f44336;
+            color: white;
+            border-color: #d32f2f;
+        }
+
+        .quiz-feedback {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+            font-weight: bold;
+        }
+
+        .quiz-feedback.correct {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #388e3c;
+            border-left: 5px solid #388e3c;
+        }
+
+        .quiz-feedback.incorrect {
+            background-color: rgba(244, 67, 54, 0.2);
+            color: #d32f2f;
+            border-left: 5px solid #d32f2f;
+        }
+
+        /* Visualisation de données */
+        .data-viz {
+            width: 100%;
+            height: 300px;
+            background-color: var(--very-light-blue);
+            border-radius: 10px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--light-blue);
+        }
+
+        /* Aide flottante */
+        .help-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .help-btn:hover {
+            background-color: #e65100;
+            transform: scale(1.1);
+        }
+
+        .help-content {
+            position: fixed;
+            bottom: 90px;
+            right: 30px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            width: 300px;
+            display: none;
+        }
+
+        .help-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .help-title {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .help-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        /* Animations CSS */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0) translateY(0); }
+            50% { transform: translateX(-25px) translateY(-10px); }
+            100% { transform: translateX(0) translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            main {
+                padding: 20px;
+                margin: 20px 10px;
+            }
+            
+            nav a {
+                margin: 3px 5px;
+                padding: 6px 10px;
+                font-size: 14px;
+            }
+            
+            .info-button {
+                margin-top: 5px;
+                margin-left: 0;
+                font-size: 12px;
+                padding: 6px 10px;
+                display: inline-block;
+            }
+            
+            .help-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+                right: 20px;
+                bottom: 20px;
+            }
+            
+            .help-content {
+                width: 80%;
+                right: 20px;
+                bottom: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Modéliser et Simuler les Océans 🌊 : Des Outils pour Comprendre et Innover 🚀</h1>
+        <p>Plongez dans le monde fascinant de la simulation marine ! 🐬</p>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-label">Progression: <span id="progressPercent">0%</span></div>
+        
+        <div class="wave"></div>
+    </header>
+
+    <nav id="mainNav">
+        <a href="#introduction" class="nav-link active">Introduction</a>
+        <a href="#modelisation-simulation" class="nav-link">Modélisation et Simulation</a>
+        <a href="#modeles-etudies-oceans" class="nav-link">Modèles Utilisés</a>
+        <a href="#simulateur" class="nav-link">Simulateur</a>
+        <a href="#quiz" class="nav-link">Quiz</a>
+        <a href="#avenir-perspectives" class="nav-link">Avenir et Perspectives</a>
+        <a href="#glossaire" class="nav-link">Glossaire</a>
+    </nav>
+
+    <main>
+        <section id="introduction" class="content-section">
+            <h2>Introduction : Dompter les Océans avec la Science 🌍</h2>
+            <p>Salut les explorateurs virtuels ! 💻 L'océan, c'est un monde immense et complexe, difficile à étudier directement. 🤯 Heureusement, grâce à la modélisation et à la simulation, on peut créer des copies virtuelles de l'océan pour mieux le comprendre et imaginer des solutions innovantes. Prêts pour l'aventure ? ⚓</p>
+            
+            <div class="data-viz" id="oceanVisualization">
+                <!-- Visualisation interactive de données océaniques -->
+            </div>
+        </section>
+
+        <section id="modelisation-simulation" class="content-section">
+            <h2>1. Qu'est-ce que la Modélisation et la Simulation ? 🤔</h2>
+            <p>La modélisation et la simulation, c'est comme créer des maquettes virtuelles du monde réel. Ça nous permet de faire des expériences, de tester des idées et de prédire ce qui va se passer, sans avoir besoin d'aller sur le terrain (ou en pleine mer !) 🌊.</p>
+
+            <h3>La modélisation, c'est :</h3>
+            <ul>
+                <li><b>Simplifier :</b> Créer une version simplifiée de la réalité, en ne gardant que les éléments importants. 🧩
+                <button class="info-button" onclick="toggleInfo('simplifierInfo')">Exemple</button>
+                 <div id="simplifierInfo" class="hidden-info">Une carte du monde est une simplification de la surface de la Terre. Elle ne montre pas tous les détails, mais elle permet de se repérer et de planifier des voyages. 🗺️</div>
+                </li>
+                <li><b>Représenter :</b> Utiliser des symboles, des équations ou des programmes informatiques pour représenter les objets et les phénomènes. ✍️
+                 <button class="info-button" onclick="toggleInfo('representerInfo')">Types de modèles</button>
+                  <div id="representerInfo" class="hidden-info">Il existe différents types de modèles : physiques (maquettes), mathématiques (équations), numériques (programmes informatiques).</div>
+                </li>
+                <li><b>Comprendre :</b> Mieux comprendre comment fonctionne un système en étudiant son modèle. 🧠
+                 <button class="info-button" onclick="toggleInfo('comprendreInfo')">Utilité</button>
+                  <div id="comprendreInfo" class="hidden-info">En étudiant un modèle de circulation océanique, on peut comprendre comment les courants marins transportent la chaleur et les nutriments à travers le globe.</div>
+                </li>
+            </ul>
+
+            <h3>La simulation, c'est :</h3>
+            <ul>
+                <li><b>Expérimenter :</b> Faire des expériences virtuelles sur le modèle pour voir comment il réagit à différentes situations. 🧪
+                 <button class="info-button" onclick="toggleInfo('experimenterInfo')">Conditions</button>
+                  <div id="experimenterInfo" class="hidden-info">On peut simuler des tempêtes, des marées noires, des changements climatiques...</div>
+                </li>
+                <li><b>Prédire :</b> Utiliser le modèle pour prédire ce qui va se passer dans le futur ou dans des situations qu'on ne peut pas observer directement. 🔮
+                 <button class="info-button" onclick="toggleInfo('predireInfo')">Prévisions</button>
+                  <div id="predireInfo" class="hidden-info">On peut simuler la propagation d'une marée noire pour savoir quelles zones seront touchées et comment organiser le nettoyage.</div>
+                </li>
+                <li><b>Optimiser :</b> Améliorer la conception d'un objet ou d'un système en testant différentes configurations sur le modèle. 👍
+                 <button class="info-button" onclick="toggleInfo('optimiserInfo')">Exemple</button>
+                  <div id="optimiserInfo" class="hidden-info">On peut simuler le comportement d'une éolienne marine pour trouver la forme et l'emplacement optimal pour maximiser sa production d'électricité.</div>
+                </li>
+            </ul>
+        </section>
+
+        <section id="modeles-etudies-oceans" class="content-section">
+            <h2>2. Les Modèles Utilisés pour Étudier les Océans 🌊</h2>
+            <p>Pour étudier les océans, les scientifiques utilisent différents types de modèles, chacun ayant ses avantages et ses inconvénients. En voici quelques exemples :</p>
+
+            <h3>Modèles de circulation océanique :</h3>
+            <ul>
+                <li><b>Objectif :</b> Simuler les mouvements des courants marins à différentes échelles. 🔄
+                 <button class="info-button" onclick="toggleInfo('circulationObjectifInfo')">Utilité</button>
+                  <div id="circulationObjectifInfo" class="hidden-info">Comprendre comment la chaleur et les nutriments se répartissent dans l'océan, prédire la dispersion des polluants, étudier l'impact du changement climatique.</div>
+                </li>
+                <li><b>Éléments pris en compte :</b> Vent, température, salinité, relief des fonds marins, rotation de la Terre. 🌍
+                 <button class="info-button" onclick="toggleInfo('circulationElementsInfo')">Complexité</button>
+                  <div id="circulationElementsInfo" class="hidden-info">Les modèles de circulation océanique sont très complexes et nécessitent des superordinateurs pour effectuer les calculs.</div>
+                </li>
+            </ul>
+
+            <h3>Autres modèles océaniques importants :</h3>
+            <ul>
+                <li><b>Modèles de vagues :</b> Simulent la formation et la propagation des vagues en fonction du vent et de la bathymétrie (profondeur des fonds marins). 🌊</li>
+                <li><b>Modèles de marées :</b> Prédisent les variations du niveau de la mer dues à l'attraction gravitationnelle de la Lune et du Soleil. 🌙</li>
+                <li><b>Modèles écosystémiques :</b> Simulent les interactions entre les différentes espèces marines et leur environnement. 🐠</li>
+                <li><b>Modèles hydrodynamiques :</b> Étudient la propagation des ondes de tempête et des tsunamis. 🌪️</li>
+                <li><b>Modèles de transport de sédiments :</b> Permettent de comprendre l'évolution des côtes. 🏖️</li>
+            </ul>
+            
+            <table>
+                <tr>
+                    <th>Type de modèle</th>
+                    <th>Applications</th>
+                    <th>Échelle</th>
+                </tr>
+                <tr>
+                    <td>Circulation océanique</td>
+                    <td>Prévision des courants, dispersion des polluants</td>
+                    <td>Globale / Régionale</td>
+                </tr>
+                <tr>
+                    <td>Modèle de vagues</td>
+                    <td>Prévisions pour la navigation, surf, érosion côtière</td>
+                    <td>Régionale / Locale</td>
+                </tr>
+                <tr>
+                    <td>Écosystème marin</td>
+                    <td>Gestion des pêches, biodiversité</td>
+                    <td>Régionale</td>
+                </tr>
+                <tr>
+                    <td>Océanographie côtière</td>
+                    <td>Aménagement du littoral, protection</td>
+                    <td>Locale</td>
+                </tr>
+            </table>
+        </section>
+        
+        <section id="simulateur" class="content-section">
+            <h2>3. Simulation Interactive : Modéliser un Courant Océanique 🌊</h2>
+            
+            <div class="simulator-container">
+                <h3>Simulateur de Courant Océanique</h3>
+                <p>Modifiez les paramètres et observez comment les courants se forment et circulent dans l'océan !</p>
+                
+                <div class="simulator-canvas" id="oceanCurrentSimulator">
+                    <!-- La simulation sera rendue ici par JavaScript -->
+                </div>
+                
+                <div class="simulator-controls">
+                    <div>
+                        <label for="windStrength">Force du vent:</label>
+                        <input type="range" id="windStrength" class="simulator-slider" min="0" max="10" value="5">
+                    </div>
+                    
+                    <div>
+                        <label for="temperature">Température:</label>
+                        <input type="range" id="temperature" class="simulator-slider" min="0" max="10" value="5">
+                    </div>
+                    
+                    <button class="simulator-button" id="startSimulation">Lancer la simulation</button>
+                    <button class="simulator-button" id="resetSimulation">Réinitialiser</button>
+                </div>
+            </div>
+            
+            <div class="example">
+                <h4>Saviez-vous que... 🤔</h4>
+                <p>Le Gulf Stream, un puissant courant océanique chaud de l'Atlantique Nord, transporte environ 100 fois plus d'eau que tous les fleuves de la Terre réunis ! Il joue un rôle crucial dans le climat de l'Europe occidentale, le rendant plus doux qu'il ne le serait sans lui.</p>
+            </div>
+        </section>
+        
+        <section id="quiz" class="content-section">
+            <h2>4. Testez vos connaissances ! 🧠</h2>
+            
+            <div class="quiz-container">
+                <h3 class="quiz-title">Quiz sur la modélisation des océans</h3>
+                <div class="quiz-question">Qu'est-ce que la modélisation océanique permet de faire ?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Créer des plages artificielles</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">Prévoir le comportement des océans sans avoir à faire des mesures directes</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Contrôler les marées</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Parler aux poissons</div>
+                </div>
+                <div class="quiz-feedback"></div>
+            </div>
+            
+            <div class="quiz-container">
+                <h3 class="quiz-title">Quiz sur les types de modèles</h3>
+                <div class="quiz-question">Quel type de modèle est utilisé pour prévoir la trajectoire d'un tsunami ?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Modèle de biodiversité</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Modèle de pêche</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">Modèle hydrodynamique</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Modèle d'écosystème</div>
+                </div>
+                <div class="quiz-feedback"></div>
+            </div>
+        </section>
+
+        <section id="avenir-perspectives" class="content-section future-outlook">
+            <h2>5. Avenir et Perspectives : Des Océans Virtuels pour un Avenir Durable 🚀</h2>
+            <p>La modélisation et la simulation sont des outils essentiels pour comprendre et protéger les océans. L'avenir nous réserve des modèles toujours plus précis et performants, capables de simuler des phénomènes complexes et d'aider à prendre des décisions éclairées. En utilisant ces outils, nous pouvons devenir des gardiens des océans ! 🐬</p>
+            <ul>
+                <li><b>Modèles couplés :</b> Des modèles qui combinent différentes composantes du système océanique (circulation, vagues, biologie, chimie...) pour une vision plus globale.</li>
+                <li><b>Intelligence artificielle :</b> L'utilisation de l'IA pour améliorer la précision et la rapidité des simulations.</li>
+                <li><b>Réalité virtuelle :</b> L'immersion dans des environnements marins simulés pour explorer et comprendre les océans comme jamais auparavant.</li>
+                <li><b>Jumeau numérique :</b> Reproduction de l'océan pour permettre l'essai de nombreuses choses en sécurité pour le milieu marin.</li>
+            </ul>
+            
+            <div class="example">
+                <h4>Applications futures prometteuses</h4>
+                <ul>
+                    <li>Prévision précise des catastrophes naturelles (tsunamis, tempêtes)</li>
+                    <li>Gestion durable des ressources marines</li>
+                    <li>Restauration des écosystèmes marins endommagés</li>
+                    <li>Conception de structures marines plus résistantes (plateformes, éoliennes offshore)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="glossaire" class="content-section glossary">
+            <h2>Glossaire 📚</h2>
+            <input type="text" class="glossary-search" id="glossarySearch" placeholder="Rechercher un terme...">
+            <ul class="glossary-list">
+                <li onclick="showDefinition('modelisation')">Modélisation ✍️</li>
+                <li onclick="showDefinition('simulation')">Simulation 🧪</li>
+                <li onclick="showDefinition('circulation')">Circulation Océanique 🔄</li>
+                <li onclick="showDefinition('vague')">Vague 🌊</li>
+                <li onclick="showDefinition('maree')">Marée 🌙</li>
+                <li onclick="showDefinition('tsunami')">Tsunami 💥</li>
+                <li onclick="showDefinition('hydrodynamique')">Hydrodynamique 💧</li>
+                <li onclick="showDefinition('mercator')">Mercator Ocean 🛰️</li>
+            </ul>
+
+            <div id="modelisationDefinition" class="glossary-definition">Création d'une représentation simplifiée d'un objet ou d'un système.</div>
+            <div id="simulationDefinition" class="glossary-definition">Utilisation d'un modèle pour simuler le comportement d'un système.</div>
+            <div id="circulationDefinition" class="glossary-definition">Mouvement des courants marins à différentes échelles.</div>
+            <div id="vagueDefinition" class="glossary-definition">Ondulation à la surface de l'eau, causée par le vent ou d'autres perturbations.</div>
+            <div id="mareeDefinition" class="glossary-definition">Montée et descente périodique du niveau de la mer, causée par l'attraction de la Lune et du Soleil.</div>
+            <div id="tsunamiDefinition" class="glossary-definition">Onde marine de grande amplitude, causée par un séisme ou une éruption volcanique sous-marine.</div>
+            <div id="hydrodynamiqueDefinition" class="glossary-definition">Étude des mouvements des fluides (eau, air...).</div>
+            <div id="mercatorDefinition" class="glossary-definition">Centre français d'analyses et de prévisions océaniques, qui développe des modèles océaniques de référence.</div>
+        </section>
+
+        <section id="conclusion" class="content-section">
+            <h2>Conclusion : Modéliser pour Mieux Protéger 🌎</h2>
+            <p>Bravo, jeunes scientifiques des mers ! 🎓 Vous avez découvert le pouvoir de la modélisation et de la simulation pour explorer et comprendre les océans. N'oubliez pas que ces outils sont entre vos mains pour inventer un avenir où les océans sont protégés et exploités de manière durable. Alors, à vos claviers, et que la simulation commence ! 💻</p>
+        </section>
+    </main>
+
+    <div class="help-btn" onclick="toggleHelp()">?</div>
+    <div class="help-content" id="helpContent">
+        <button class="help-close" onclick="toggleHelp()">×</button>
+        <h3 class="help-title">Navigation du cours</h3>
+        <p>👋 Bienvenue dans ce cours sur la modélisation et la simulation des océans!</p>
+        <p>🔍 <strong>Glossaire:</strong> Utilise la recherche du glossaire pour trouver les définitions des termes clés.</p>
+        <p>🎮 <strong>Simulateur:</strong> Teste la simulation de courants océaniques en modifiant les paramètres.</p>
+        <p>🧠 <strong>Quiz:</strong> Vérifie tes connaissances à la fin de chaque section.</p>
+    </div>
+
+    <script>
+        // Variables globales
+        let completedSections = {};
+        let currentQuestion = 0;
+        let simulationActive = false;
+        let particles = [];
+        
+        // Initialisation au chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialiser les animations de défilement
+            initScrollAnimations();
+            
+            // Initialiser le système de navigation
+            initNavigation();
+            
+            // Initialiser la barre de progression
+            updateProgress();
+            
+            // Initialiser la visualisation océanique
+            initOceanVisualization();
+            
+            // Initialiser le simulateur de courants
+            initOceanSimulator();
+            
+            // Initialiser le glossaire
+            initGlossary();
+            
+            // Marquer la première section comme visible immédiatement
+            document.getElementById('introduction').classList.add('visible');
+            completedSections['introduction'] = true;
+            updateProgress();
+        });
+
+        // Fonction pour les animations au défilement
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // Marquer la section comme vue pour la progression
+                        if (entry.target.id) {
+                            completedSections[entry.target.id] = true;
+                            updateProgress();
+                        }
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            document.querySelectorAll('.content-section').forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        // Système de navigation
+        function initNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const nav = document.getElementById('mainNav');
+            
+            // Gérer le clic sur les liens de navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Supprimer la classe active de tous les liens
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
+                    });
+                    
+                    // Ajouter la classe active au lien cliqué
+                    this.classList.add('active');
+                    
+                    // Faire défiler jusqu'à la section
+                    const targetId = this.getAttribute('href').substring(1);
+                    document.getElementById(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Changer l'apparence du menu lors du défilement
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('.content-section');
+                
+                // Déterminer quelle section est visible
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= 150 && rect.bottom >= 150) {
+                        // Mettre à jour le lien actif
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === '#' + section.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            });
+        }
+
+        // Mise à jour de la barre de progression
+        function updateProgress() {
+            const totalSections = document.querySelectorAll('.content-section').length;
+            const completedCount = Object.keys(completedSections).length;
+            const progressPercent = Math.floor((completedCount / totalSections) * 100);
+            
+            document.getElementById('progressBar').style.width = progressPercent + '%';
+            document.getElementById('progressPercent').textContent = progressPercent + '%';
+        }
+
+        // Fonction pour afficher/masquer les informations supplémentaires
+        function toggleInfo(infoId) {
+            const info = document.getElementById(infoId);
+            if (info.style.display === "block") {
+                info.style.display = "none";
+            } else {
+                info.style.display = "block";
+                
+                // Marquer comme activité complétée pour la progression
+                completedSections['infoInteraction'] = true;
+                updateProgress();
+            }
+        }
+
+        // Fonction pour la recherche et l'affichage du glossaire
+        function initGlossary() {
+            const searchInput = document.getElementById('glossarySearch');
+            
+            searchInput.addEventListener('input', function() {
+                const searchText = this.value.toLowerCase();
+                const glossaryItems = document.querySelectorAll('.glossary-list li');
+                
+                glossaryItems.forEach(item => {
+                    const itemText = item.textContent.toLowerCase();
+                    if (itemText.includes(searchText)) {
+                        item.style.display = 'inline-block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Fonction pour afficher une définition du glossaire
+        function showDefinition(term) {
+            // Masquer toutes les définitions
+            document.querySelectorAll('.glossary-definition').forEach(def => {
+                def.style.display = 'none';
+            });
+            
+            // Afficher la définition sélectionnée
+            document.getElementById(term + 'Definition').style.display = 'block';
+            
+            // Marquer comme activité complétée pour la progression
+            completedSections['glossaryInteraction'] = true;
+            updateProgress();
+        }
+
+        // Fonction pour le quiz
+        function checkAnswer(option, isCorrect) {
+            const options = option.parentElement.querySelectorAll('.quiz-option');
+            const feedback = option.parentElement.nextElementSibling;
+            
+            // Désactiver les clics sur toutes les options
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+            
+            if (isCorrect) {
+                option.classList.add('correct');
+                feedback.textContent = '✅ Bravo ! C\'est la bonne réponse !';
+                feedback.classList.add('correct');
+                feedback.classList.remove('incorrect');
+            } else {
+                option.classList.add('incorrect');
+                
+                // Montrer la bonne réponse
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('true')) {
+                        opt.classList.add('correct');
+                    }
+                });
+                
+                feedback.textContent = '❌ Pas tout à fait ! Regarde la bonne réponse en vert.';
+                feedback.classList.add('incorrect');
+                feedback.classList.remove('correct');
+            }
+            
+            feedback.style.display = 'block';
+            
+            // Marquer comme activité complétée pour la progression
+            completedSections['quizAttempt'] = true;
+            updateProgress();
+        }
+
+        // Fonction pour afficher/masquer l'aide
+        function toggleHelp() {
+            const helpContent = document.getElementById('helpContent');
+            helpContent.classList.toggle('active');
+        }
+        
+        // Initialisation de la visualisation océanique
+        function initOceanVisualization() {
+            const canvas = document.createElement('canvas');
+            canvas.width = document.getElementById('oceanVisualization').offsetWidth;
+            canvas.height = document.getElementById('oceanVisualization').offsetHeight;
+            document.getElementById('oceanVisualization').appendChild(canvas);
+            
+            const ctx = canvas.getContext('2d');
+            
+            // Dessiner l'arrière-plan océanique
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, '#bbdefb');  // Bleu clair en haut
+            gradient.addColorStop(1, '#01579b');  // Bleu foncé en bas
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Dessiner une simple représentation de la Terre
+            ctx.fillStyle = '#4CAF50';  // Vert pour la terre
+            ctx.beginPath();
+            ctx.arc(canvas.width / 2, canvas.height / 3, 50, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Dessiner quelques courants océaniques simples
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.lineWidth = 3;
+            
+            // Courant 1
+            ctx.beginPath();
+            ctx.moveTo(canvas.width * 0.2, canvas.height * 0.6);
+            ctx.bezierCurveTo(
+                canvas.width * 0.4, canvas.height * 0.5,
+                canvas.width * 0.6, canvas.height * 0.7,
+                canvas.width * 0.8, canvas.height * 0.6
+            );
+            ctx.stroke();
+            
+            // Courant 2
+            ctx.beginPath();
+            ctx.moveTo(canvas.width * 0.8, canvas.height * 0.3);
+            ctx.bezierCurveTo(
+                canvas.width * 0.6, canvas.height * 0.4,
+                canvas.width * 0.4, canvas.height * 0.2,
+                canvas.width * 0.2, canvas.height * 0.3
+            );
+            ctx.stroke();
+            
+            // Ajouter du texte explicatif
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 16px Nunito';
+            ctx.textAlign = 'center';
+            ctx.fillText('Visualisation simplifiée des courants océaniques globaux', canvas.width / 2, 30);
+        }
+        
+        // Initialisation du simulateur de courants océaniques
+        function initOceanSimulator() {
+            const canvas = document.createElement('canvas');
+            canvas.width = document.getElementById('oceanCurrentSimulator').offsetWidth;
+            canvas.height = document.getElementById('oceanCurrentSimulator').offsetHeight;
+            document.getElementById('oceanCurrentSimulator').appendChild(canvas);
+            
+            const ctx = canvas.getContext('2d');
+            
+            // Dessiner l'arrière-plan océanique
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, '#bbdefb');  // Bleu clair en haut
+            gradient.addColorStop(1, '#01579b');  // Bleu foncé en bas
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Dessiner un simple obstacle (île)
+            ctx.fillStyle = '#8bc34a';  // Vert pour l'île
+            ctx.beginPath();
+            ctx.arc(canvas.width / 2, canvas.height / 2, 40, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Ajouter du texte explicatif initial
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 16px Nunito';
+            ctx.textAlign = 'center';
+            ctx.fillText('Ajustez les paramètres et cliquez sur "Lancer la simulation"', canvas.width / 2, 30);
+            
+            // Initialiser les boutons de contrôle
+            document.getElementById('startSimulation').addEventListener('click', function() {
+                startOceanSimulation(canvas, ctx);
+            });
+            
+            document.getElementById('resetSimulation').addEventListener('click', function() {
+                resetOceanSimulation(canvas, ctx);
+            });
+        }
+        
+        // Démarrer la simulation de courants océaniques
+        function startOceanSimulation(canvas, ctx) {
+            // Marquer comme activité complétée
+            completedSections['simulatorInteraction'] = true;
+            updateProgress();
+            
+            // Arrêter toute simulation existante
+            if (simulationActive) {
+                clearInterval(simulationInterval);
+            }
+            
+            // Lire les paramètres des curseurs
+            const windStrength = document.getElementById('windStrength').value / 10;
+            const temperature = document.getElementById('temperature').value / 10;
+            
+            // Créer des particules pour visualiser les courants
+            particles = [];
+            for (let i = 0; i < 100; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 3 + 1,
+                    speedX: 0,
+                    speedY: 0,
+                    color: `rgba(255, 255, 255, ${Math.random() * 0.5 + 0.2})`
+                });
+            }
+            
+            // Démarrer la boucle d'animation
+            simulationActive = true;
+            simulationInterval = setInterval(() => {
+                // Effacer le canvas
+                const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                gradient.addColorStop(0, '#bbdefb');
+                gradient.addColorStop(1, '#01579b');
+                
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Dessiner l'île
+                ctx.fillStyle = '#8bc34a';
+                ctx.beginPath();
+                ctx.arc(canvas.width / 2, canvas.height / 2, 40, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Mettre à jour et dessiner les particules
+                particles.forEach(particle => {
+                    // Calculer la distance à l'île
+                    const dx = particle.x - canvas.width / 2;
+                    const dy = particle.y - canvas.height / 2;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    // Effet du vent (direction de gauche à droite)
+                    particle.speedX += windStrength * 0.05;
+                    
+                    // Effet de la température (circulation verticale)
+                    particle.speedY += (temperature - 0.5) * 0.02;
+                    
+                    // Effet de l'île (obstruction du courant)
+                    if (distance < 60) {
+                        // Déviation autour de l'île
+                        const angle = Math.atan2(dy, dx);
+                        particle.speedX += Math.cos(angle + Math.PI/2) * 0.1;
+                        particle.speedY += Math.sin(angle + Math.PI/2) * 0.1;
+                    }
+                    
+                    // Appliquer un peu de friction pour stabiliser
+                    particle.speedX *= 0.98;
+                    particle.speedY *= 0.98;
+                    
+                    // Mettre à jour la position
+                    particle.x += particle.speedX;
+                    particle.y += particle.speedY;
+                    
+                    // Rebondir sur les bords du canvas
+                    if (particle.x < 0) {
+                        particle.x = canvas.width;
+                    } else if (particle.x > canvas.width) {
+                        particle.x = 0;
+                    }
+                    
+                    if (particle.y < 0) {
+                        particle.y = canvas.height;
+                    } else if (particle.y > canvas.height) {
+                        particle.y = 0;
+                    }
+                    
+                    // Dessiner la particule
+                    ctx.fillStyle = particle.color;
+                    ctx.beginPath();
+                    ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                
+                // Afficher les informations sur la simulation
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 16px Nunito';
+                ctx.textAlign = 'center';
+                ctx.fillText(`Simulation en cours - Vent: ${Math.round(windStrength * 10)}, Temp: ${Math.round(temperature * 10)}`, canvas.width / 2, 30);
+            }, 30);
+        }
+        
+        // Réinitialiser la simulation
+        function resetOceanSimulation(canvas, ctx) {
+            // Arrêter la simulation
+            if (simulationActive) {
+                clearInterval(simulationInterval);
+                simulationActive = false;
+            }
+            
+            // Effacer et redessiner le canvas initial
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, '#bbdefb');
+            gradient.addColorStop(1, '#01579b');
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Dessiner un simple obstacle (île)
+            ctx.fillStyle = '#8bc34a';
+            ctx.beginPath();
+            ctx.arc(canvas.width / 2, canvas.height / 2, 40, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Ajouter du texte explicatif initial
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 16px Nunito';
+            ctx.textAlign = 'center';
+            ctx.fillText('Ajustez les paramètres et cliquez sur "Lancer la simulation"', canvas.width / 2, 30);
+            
+            // Réinitialiser les curseurs
+            document.getElementById('windStrength').value = 5;
+            document.getElementById('temperature').value = 5;
+        }
+    </script>
+</body>
+</html>
