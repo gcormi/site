@@ -1,0 +1,2918 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Énergie au Cœur des Objets Techniques</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variables pour la gestion des couleurs et le contraste */
+        :root {
+            /* Couleurs primaires */
+            --primary-color: #ff6d00;
+            --primary-light: #ff9e40;
+            --primary-dark: #c43c00;
+            
+            /* Couleurs secondaires */
+            --secondary-color: #2196f3;
+            --secondary-light: #6ec6ff;
+            --secondary-dark: #0069c0;
+            
+            /* Couleurs de fond et texte */
+            --background-color: #f8f9fa;
+            --text-color: #263238;
+            --light-text: #ffffff;
+            
+            /* Couleurs d'accent */
+            --example-bg: #fff8e1;
+            --example-border: #ffb300;
+            --success-color: #4caf50;
+            --warning-color: #ff9800;
+            --error-color: #f44336;
+            
+            /* Effets de design */
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            
+            /* Dark mode colors */
+            --dark-background: #121212;
+            --dark-surface: #1e1e1e;
+            --dark-primary: #ff9e40;
+            --dark-text: #e0e0e0;
+            --dark-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Dark mode theme */
+        [data-theme="dark"] {
+            --background-color: var(--dark-background);
+            --text-color: var(--dark-text);
+            --primary-color: var(--dark-primary);
+            --example-bg: #2c2c2c;
+            --example-border: #ff9e40;
+            --shadow: var(--dark-shadow);
+        }
+
+        /* Base styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            line-height: 1.3;
+            transition: color 0.3s ease;
+        }
+
+        a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--secondary-dark);
+            text-decoration: underline;
+        }
+
+        button {
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Switch mode toggle */
+        .theme-switch-wrapper {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-switch {
+            display: inline-block;
+            height: 34px;
+            position: relative;
+            width: 60px;
+        }
+
+        .theme-switch input {
+            display: none;
+        }
+
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+            border-radius: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5px;
+        }
+
+        .slider:before {
+            background-color: white;
+            bottom: 4px;
+            content: "";
+            height: 26px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 26px;
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .slider .fa-sun {
+            color: #ff9800;
+            font-size: 14px;
+            margin-left: auto;
+        }
+
+        .slider .fa-moon {
+            color: #3f51b5;
+            font-size: 14px;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-dark);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px var(--primary-dark);
+        }
+
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: var(--light-text);
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        header h1 {
+            color: var(--light-text);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .energy-icon {
+            margin-left: 10px;
+            animation: energyPulse 2s infinite;
+        }
+
+        @keyframes energyPulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        /* Barre de progression */
+        .progress-container {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto 10px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            position: relative;
+            height: 15px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(to right, var(--secondary-color), var(--secondary-light));
+            border-radius: 10px;
+            transition: width 0.8s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                rgba(255,255,255,0) 0%, 
+                rgba(255,255,255,0.3) 50%, 
+                rgba(255,255,255,0) 100%);
+            animation: progressShine 2s infinite linear;
+        }
+
+        @keyframes progressShine {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .progress-label {
+            text-align: center;
+            color: var(--light-text);
+            font-weight: bold;
+            margin-top: 8px;
+            font-size: 16px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Wave effect */
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23f8f9fa" fill-opacity="1" d="M0,224L48,229.3C96,235,192,245,288,234.7C384,224,480,192,576,186.7C672,181,768,203,864,218.7C960,235,1056,245,1152,218.7C1248,192,1344,128,1392,96L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: 0;
+        }
+
+        [data-theme="dark"] .wave {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23121212" fill-opacity="1" d="M0,224L48,229.3C96,235,192,245,288,234.7C384,224,480,192,576,186.7C672,181,768,203,864,218.7C960,235,1056,245,1152,218.7C1248,192,1344,128,1392,96L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--primary-dark);
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--light-text);
+            text-decoration: none;
+            padding: 15px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            text-align: center;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background-color: var(--light-text);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--light-text);
+            text-decoration: none;
+        }
+
+        nav a:hover::after {
+            width: 60%;
+        }
+
+        nav a.active {
+            background-color: var(--secondary-color);
+        }
+
+        nav a.active::after {
+            width: 80%;
+            background-color: var(--light-text);
+        }
+
+        /* Main content */
+        main {
+            padding: 30px;
+            max-width: 1100px;
+            margin: 30px auto;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        [data-theme="dark"] main {
+            background-color: var(--dark-surface);
+        }
+
+        /* Section styling */
+        section {
+            margin-bottom: 40px;
+            position: relative;
+            padding: 25px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        [data-theme="dark"] section {
+            border-bottom-color: rgba(255, 255, 255, 0.05);
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-icon {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+
+        /* Bouton marquage de section terminée */
+        .mark-complete {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .complete-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .complete-btn i {
+            margin-left: 8px;
+        }
+
+        .complete-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .complete-btn:active {
+            transform: translateY(0);
+        }
+
+        .complete-btn.completed {
+            background-color: var(--success-color);
+            pointer-events: none;
+        }
+
+        /* Animation d'énergie */
+        .energy-concept {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            padding: 20px;
+            background-color: rgba(255, 109, 0, 0.05);
+            border-radius: 15px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .energy-animation {
+            flex: 1;
+            min-height: 150px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            background-color: rgba(33, 150, 243, 0.1);
+        }
+
+        .energy-particle {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: particleMove 3s infinite linear;
+        }
+
+        .energy-particle:nth-child(1) {
+            top: 20%;
+            left: 0;
+            animation-delay: 0s;
+        }
+
+        .energy-particle:nth-child(2) {
+            top: 50%;
+            left: 0;
+            animation-delay: 1s;
+        }
+
+        .energy-particle:nth-child(3) {
+            top: 80%;
+            left: 0;
+            animation-delay: 2s;
+        }
+
+        @keyframes particleMove {
+            0% {
+                left: 0;
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            20% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            80% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                left: 100%;
+                opacity: 0;
+                transform: scale(0.5);
+            }
+        }
+
+        .energy-text {
+            flex: 2;
+            padding: 0 20px;
+        }
+
+        .energy-text p {
+            font-size: 1.1rem;
+        }
+
+        /* Example Styling */
+        .interactive-example {
+            background-color: var(--example-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s ease;
+        }
+
+        .example-title {
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary-dark);
+        }
+
+        .example-items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .example-item {
+            background: white;
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 15px;
+            width: 180px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="dark"] .example-item {
+            background: var(--dark-surface);
+            border-color: var(--dark-primary);
+        }
+
+        .example-item i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .example-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .example-item:hover i {
+            transform: scale(1.2);
+        }
+
+        .example-item.active {
+            background-color: rgba(255, 109, 0, 0.1);
+            border-color: var(--primary-dark);
+        }
+
+        .example-info {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+            min-height: 100px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] .example-info {
+            background-color: rgba(30, 30, 30, 0.8);
+        }
+
+        /* Fun fact styling */
+        .funfact {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: rgba(33, 150, 243, 0.05);
+            border-radius: 12px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .funfact:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .funfact-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 60px;
+            height: 60px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            margin-right: 20px;
+            font-size: 24px;
+        }
+
+        .funfact-content h4 {
+            color: var(--secondary-dark);
+            margin-bottom: 5px;
+        }
+
+        /* Sources d'énergie */
+        .energy-sources {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .energy-source-card {
+            width: 250px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] .energy-source-card {
+            background-color: var(--dark-surface);
+        }
+
+        .energy-source-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .source-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 30px;
+            color: white;
+        }
+
+        .source-icon.electrical {
+            background-color: #ffeb3b;
+            color: #212121;
+        }
+
+        .source-icon.battery {
+            background-color: #4caf50;
+        }
+
+        .source-icon.fuel {
+            background-color: #f44336;
+        }
+
+        .source-icon.human {
+            background-color: #9c27b0;
+        }
+
+        .source-animation {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                rgba(255,109,0,0) 0%, 
+                rgba(255,109,0,1) 50%, 
+                rgba(255,109,0,0) 100%);
+            animation: sourceFlow 3s infinite;
+        }
+
+        @keyframes sourceFlow {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        /* Table styling */
+        .interactive-table {
+            margin: 30px 0;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .interactive-table h3 {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            margin: 0;
+        }
+
+        .energy-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        [data-theme="dark"] .energy-table {
+            background-color: var(--dark-surface);
+        }
+
+        .energy-table th, .energy-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        [data-theme="dark"] .energy-table th, [data-theme="dark"] .energy-table td {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .energy-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        .energy-table tr:hover {
+            background-color: rgba(255, 109, 0, 0.05);
+        }
+
+        .energy-table tr.highlight-row {
+            background-color: rgba(255, 109, 0, 0.1);
+        }
+
+        /* Transformation d'énergie */
+        .transformation-demo {
+            background-color: rgba(33, 150, 243, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .transformation-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .energy-flow-animation {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .energy-input, .object-transformer, .energy-output {
+            background: white;
+            border: 2px solid var(--secondary-color);
+            border-radius: 10px;
+            padding: 15px;
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] .energy-input, [data-theme="dark"] .object-transformer, [data-theme="dark"] .energy-output {
+            background-color: var(--dark-surface);
+            border-color: var(--secondary-light);
+        }
+
+        .transformation-arrow {
+            font-size: 24px;
+            color: var(--secondary-color);
+            margin: 0 10px;
+            animation: arrowPulse 1.5s infinite;
+        }
+
+        @keyframes arrowPulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+        }
+
+        .energy-label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--secondary-dark);
+        }
+
+        select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        select:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+        }
+
+        #energyOutputDisplay {
+            background-color: rgba(33, 150, 243, 0.1);
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: 600;
+            min-height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .transformation-explanation {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 5px solid var(--secondary-color);
+            text-align: left;
+        }
+
+        [data-theme="dark"] .transformation-explanation {
+            background-color: rgba(33, 33, 33, 0.8);
+        }
+
+        /* Exemple de transformations */
+        .transformation-examples {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .transformation-example {
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        [data-theme="dark"] .transformation-example {
+            background-color: rgba(33, 33, 33, 0.8);
+        }
+
+        .transformation-example:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .example-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .example-content {
+            flex: 1;
+        }
+
+        .example-content h4 {
+            margin-bottom: 5px;
+            color: var(--primary-dark);
+        }
+
+        .info-toggle {
+            background-color: transparent;
+            border: none;
+            color: var(--secondary-color);
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: 600;
+            text-decoration: underline;
+            transition: all 0.3s;
+        }
+
+        .info-toggle:hover {
+            color: var(--secondary-dark);
+        }
+
+        .hidden-example-info {
+            display: none;
+            background-color: rgba(33, 150, 243, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border-left: 3px solid var(--secondary-color);
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Quiz styling */
+        .quiz-container {
+            background-color: rgba(33, 150, 243, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .quiz-title {
+            font-size: 1.5rem;
+            color: var(--secondary-dark);
+            margin-bottom: 20px;
+        }
+
+        .quiz-description {
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-btn {
+            margin: 10px;
+        }
+
+        .quiz-question-container {
+            text-align: left;
+        }
+
+        .quiz-question {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--secondary-dark);
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .quiz-option {
+            background-color: white;
+            border: 2px solid var(--secondary-color);
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        [data-theme="dark"] .quiz-option {
+            background-color: var(--dark-surface);
+        }
+
+        .quiz-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-option.selected {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .quiz-option.correct {
+            background-color: var(--success-color);
+            color: white;
+            border-color: var(--success-color);
+        }
+
+        .quiz-option.incorrect {
+            background-color: var(--error-color);
+            color: white;
+            border-color: var(--error-color);
+        }
+
+        .quiz-feedback {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+            text-align: left;
+        }
+
+        .quiz-feedback.correct {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-left: 5px solid var(--success-color);
+        }
+
+        .quiz-feedback.incorrect {
+            background-color: rgba(244, 67, 54, 0.1);
+            border-left: 5px solid var(--error-color);
+        }
+
+        .quiz-navigation {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .quiz-stats {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 50px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        [data-theme="dark"] .quiz-stats {
+            background-color: rgba(30, 30, 30, 0.8);
+        }
+
+        .quiz-score-display {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .quiz-results {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] .quiz-results {
+            background-color: rgba(30, 30, 30, 0.8);
+        }
+
+        .quiz-results-header {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .score-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: rgba(33, 150, 243, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border: 3px solid var(--secondary-color);
+        }
+
+        .final-score {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--secondary-dark);
+        }
+
+        .score-text {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .result-message {
+            margin: 20px 0;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Glossary styling */
+        .glossary-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="dark"] .glossary-container {
+            background-color: rgba(30, 30, 30, 0.8);
+        }
+
+        .glossary-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .glossary-search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .glossary-search {
+            padding: 10px 15px;
+            border: 2px solid var(--primary-color);
+            border-radius: 30px;
+            width: 100%;
+            max-width: 400px;
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .glossary-search:focus {
+            box-shadow: 0 0 0 2px rgba(255, 109, 0, 0.2);
+        }
+
+        .glossary-categories {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .glossary-category {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .glossary-category:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        .glossary-category.active {
+            background-color: var(--primary-dark);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .glossary-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .glossary-term {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .glossary-term:hover {
+            background-color: var(--secondary-dark);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .glossary-display {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            text-align: left;
+        }
+
+        [data-theme="dark"] .glossary-display {
+            background-color: rgba(33, 33, 33, 0.8);
+        }
+
+        .glossary-definition {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .glossary-definition.highlight {
+            animation: highlightPulse 1s ease;
+        }
+
+        @keyframes highlightPulse {
+            0% {
+                background-color: rgba(33, 150, 243, 0.2);
+            }
+            100% {
+                background-color: transparent;
+            }
+        }
+
+        .definition-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        .definition-content {
+            line-height: 1.7;
+        }
+
+        /* Future outlook styling */
+        .future-section {
+            background: linear-gradient(135deg, rgba(255, 109, 0, 0.05), rgba(33, 150, 243, 0.05));
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .future-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 20px;
+            margin-top: 20px;
+        }
+
+        .future-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        [data-theme="dark"] .future-card {
+            background-color: rgba(33, 33, 33, 0.9);
+        }
+
+        .future-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .future-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 24px;
+        }
+
+        .future-card h4 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        /* Certificate styling */
+        .completion-certificate {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+            color: white;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease;
+        }
+
+        .certificate-header {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .certificate-content {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .certificate-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .certificate-btn {
+            background-color: white;
+            color: var(--primary-color);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .certificate-btn i {
+            margin-right: 8px;
+        }
+
+        .certificate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive design */
+        @media (max-width: 992px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            main {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            .energy-flow-animation {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .transformation-arrow {
+                transform: rotate(90deg);
+                margin: 15px 0;
+            }
+
+            .energy-input, .object-transformer, .energy-output {
+                width: 80%;
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding: 5px 0;
+            }
+
+            nav a {
+                padding: 10px 15px;
+                white-space: nowrap;
+            }
+
+            .energy-concept {
+                flex-direction: column;
+            }
+
+            .energy-animation {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .energy-sources {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .future-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .funfact {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .funfact-icon {
+                margin: 0 0 15px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.7rem;
+            }
+
+            .progress-container {
+                width: 90%;
+            }
+
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+
+            .certificate-header {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .animated {
+            animation: pulse 0.5s ease;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider round">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+            </div>
+        </label>
+    </div>
+
+    <header id="header">
+        <div class="energy-pulse"></div>
+        <h1>L'Énergie au Cœur des Objets Techniques <i class="fas fa-bolt energy-icon"></i></h1>
+        <p>Explore comment l'énergie fait fonctionner le monde qui t'entoure ! ⚙️</p>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+            <div class="progress-label" id="progressLabel">0% Complété</div>
+        </div>
+        
+        <div class="wave"></div>
+    </header>
+
+    <nav id="mainNav">
+        <a href="#introduction" class="nav-item" data-section="introduction">Introduction</a>
+        <a href="#besoin-energie" class="nav-item" data-section="besoin-energie">Besoin d'Énergie</a>
+        <a href="#sources-energie" class="nav-item" data-section="sources-energie">Sources d'Énergie</a>
+        <a href="#transformation-energie" class="nav-item" data-section="transformation-energie">Transformation</a>
+        <a href="#entrees-sorties" class="nav-item" data-section="entrees-sorties">Entrées/Sorties</a>
+        <a href="#quiz-energie" class="nav-item" data-section="quiz-energie">Quiz</a>
+        <a href="#avenir" class="nav-item" data-section="avenir">Avenir</a>
+        <a href="#glossaire" class="nav-item" data-section="glossaire">Glossaire</a>
+    </nav>
+
+    <main>
+        <section id="introduction" class="content-section" data-progress="12.5">
+            <h2><i class="fas fa-lightbulb section-icon"></i> Introduction : L'Énergie, Force Vitale des Objets</h2>
+            <p>Salut les curieux ! 👋 Tu t'es déjà demandé comment un téléphone 📱 peut prendre des photos 📸, comment une voiture 🚗 peut rouler aussi vite 💨, ou comment une lampe 💡 peut éclairer toute une pièce 🌟?</p>
+            
+            <div class="energy-concept">
+                <div class="energy-animation">
+                    <div class="energy-particle"></div>
+                    <div class="energy-particle"></div>
+                    <div class="energy-particle"></div>
+                </div>
+                <div class="energy-text">
+                    <p><strong>La réponse, c'est l'énergie!</strong> ⚡ Elle est partout autour de nous et fait fonctionner absolument tout.</p>
+                </div>
+            </div>
+            
+            <p>Dans ce cours interactif, on va explorer ensemble comment l'énergie fait fonctionner les objets techniques qui nous entourent. Tu vas comprendre pourquoi une tablette a besoin d'être chargée et ce qui se passe à l'intérieur d'une télévision quand tu l'allumes. C'est comme si on allait démonter tous ces objets pour voir leur magie intérieure! 🧙‍♂️</p>
+            
+            <div class="mark-complete">
+                <button class="complete-btn" data-section="introduction">J'ai compris! <i class="fas fa-check"></i></button>
+            </div>
+        </section>
+
+        <section id="besoin-energie" class="content-section" data-progress="12.5">
+            <h2><i class="fas fa-plug section-icon"></i> Les Objets Techniques Ont Besoin d'Énergie</h2>
+            
+            <p>Tous les objets techniques ont besoin d'énergie pour fonctionner. C'est comme nous : on a besoin de manger 🍎 pour avoir de l'énergie et bouger. Les objets, c'est pareil! 😉</p>
+            
+            <div class="interactive-example">
+                <div class="example-title">Clique sur chaque objet pour découvrir son énergie!</div>
+                <div class="example-items">
+                    <div class="example-item" data-info="Cette lampe de poche a besoin de piles 🔋 pour transformer l'énergie chimique en lumière ✨. Sans cette énergie, pas de lumière!">
+                        <i class="fas fa-flashlight"></i>
+                        <span>Lampe de poche 🔦</span>
+                    </div>
+                    <div class="example-item" data-info="L'ordinateur a besoin d'électricité 🔌 pour faire fonctionner tous ses composants. Cette énergie alimente le processeur, l'écran et tous les circuits!">
+                        <i class="fas fa-laptop"></i>
+                        <span>Ordinateur 💻</span>
+                    </div>
+                    <div class="example-item" data-info="Le vélo transforme l'énergie musculaire 💪 que tu fournis en pédalant en énergie mécanique qui fait tourner les roues. C'est toi la source d'énergie!">
+                        <i class="fas fa-bicycle"></i>
+                        <span>Vélo 🚲</span>
+                    </div>
+                    <div class="example-item" data-info="Le four à micro-ondes transforme l'électricité en ondes électromagnétiques qui agitent les molécules d'eau dans les aliments, produisant de la chaleur 🔥.">
+                        <i class="fas fa-microwave"></i>
+                        <span>Micro-ondes 🔌</span>
+                    </div>
+                </div>
+                <div class="example-info" id="objectInfoBox">
+                    <p>Clique sur un objet pour voir comment il utilise l'énergie!</p>
+                </div>
+            </div>
+            
+            <div class="funfact">
+                <div class="funfact-icon"><i class="fas fa-lightbulb"></i></div>
+                <div class="funfact-content">
+                    <h4>Le savais-tu?</h4>
+                    <p>Ton corps fonctionne comme une centrale électrique! Ton cœur bat, ton cerveau envoie des signaux et tes muscles bougent, tout ça grâce à l'énergie de la nourriture que tu manges. Exactement comme les objets techniques, sans énergie, nous ne pourrions pas fonctionner.</p>
+                </div>
+            </div>
+            
+            <div class="mark-complete">
+                <button class="complete-btn" data-section="besoin-energie">J'ai compris! <i class="fas fa-check"></i></button>
+            </div>
+        </section>
+
+        <section id="sources-energie" class="content-section" data-progress="12.5">
+            <h2><i class="fas fa-solar-panel section-icon"></i> Les Sources d'Énergie des Objets Techniques</h2>
+            
+            <p>Les objets techniques utilisent différentes sources d'énergie pour fonctionner. Certains utilisent de l'électricité, d'autres du carburant, des piles ou même la force humaine!</p>
+            
+            <div class="energy-sources">
+                <div class="energy-source-card">
+                    <div class="source-icon electrical">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Électricité 🔌</h3>
+                    <p>Utilisée par: Télévision 📺, Réfrigérateur 🧊, Ordinateur 💻</p>
+                    <div class="source-animation"></div>
+                </div>
+                
+                <div class="energy-source-card">
+                    <div class="source-icon battery">
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                    <h3>Piles et Batteries 🔋</h3>
+                    <p>Utilisées par: Téléphone 📱, Télécommande 🕹️, Montre ⌚</p>
+                    <div class="source-animation"></div>
+                </div>
+                
+                <div class="energy-source-card">
+                    <div class="source-icon fuel">
+                        <i class="fas fa-gas-pump"></i>
+                    </div>
+                    <h3>Carburant ⛽</h3>
+                    <p>Utilisé par: Voiture 🚗, Avion ✈️, Tondeuse à gazon 🌱</p>
+                    <div class="source-animation"></div>
+                </div>
+                
+                <div class="energy-source-card">
+                    <div class="source-icon human">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <h3>Force Humaine 💪</h3>
+                    <p>Utilisée par: Vélo 🚲, Trottinette 🛴, Ouvre-boîte manuel 🥫</p>
+                    <div class="source-animation"></div>
+                </div>
+            </div>
+            
+            <div class="interactive-table">
+                <h3>Tableau des Sources d'Énergie</h3>
+                <table class="energy-table">
+                    <thead>
+                        <tr>
+                            <th>Source d'Énergie</th>
+                            <th>Objets qui l'utilisent</th>
+                            <th>Avantages</th>
+                            <th>Inconvénients</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="highlight-row">
+                            <td>Électricité 🔌</td>
+                            <td>Télévision, Ordinateur, Lampe</td>
+                            <td>Facile à utiliser, puissante</td>
+                            <td>Besoin d'une prise, pollution si produite avec charbon</td>
+                        </tr>
+                        <tr>
+                            <td>Piles 🔋</td>
+                            <td>Télécommande, Montre, Console portable</td>
+                            <td>Portable, pratique</td>
+                            <td>Doit être remplacée ou rechargée, contient des produits chimiques</td>
+                        </tr>
+                        <tr>
+                            <td>Carburant ⛽</td>
+                            <td>Voiture, Avion, Bateau</td>
+                            <td>Grande autonomie, puissant</td>
+                            <td>Pollue, coûteux, non renouvelable</td>
+                        </tr>
+                        <tr>
+                            <td>Force Humaine 💪</td>
+                            <td>Vélo, Trottinette, Outils manuels</td>
+                            <td>Écologique, exercice physique</td>
+                            <td>Fatiguant, puissance limitée</td>
+                        </tr>
+                        <tr>
+                            <td>Énergie Solaire ☀️</td>
+                            <td>Calculatrice solaire, Lampe jardin</td>
+                            <td>Gratuite, renouvelable, propre</td>
+                            <td>Dépend de l'ensoleillement, moins puissante</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="mark-complete">
+                <button class="complete-btn" data-section="sources-energie">J'ai compris! <i class="fas fa-check"></i></button>
+            </div>
+        </section>
+
+        <section id="transformation-energie" class="content-section" data-progress="12.5">
+            <h2><i class="fas fa-exchange-alt section-icon"></i> Transformation de l'Énergie : Magie en Action</h2>
+            
+            <p>Les objets techniques ne font pas que consommer de l'énergie, ils la transforment! 🔄 C'est comme de la magie: ils prennent une forme d'énergie et la transforment en une autre pour faire quelque chose d'utile.</p>
+            
+            <div class="transformation-demo">
+                <h3>Comment l'énergie se transforme</h3>
+                <div class="transformation-container">
+                    <div class="energy-flow-animation">
+                        <div class="energy-input">
+                            <span class="energy-label">Énergie initiale</span>
+                            <select id="energyInputType">
+                                <option value="electricity">Électricité ⚡</option>
+                                <option value="chemical">Énergie chimique 🧪</option>
+                                <option value="mechanical">Énergie mécanique 🔄</option>
+                                <option value="light">Lumière ☀️</option>
+                            </select>
+                        </div>
+                        <div class="transformation-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="object-transformer">
+                            <span class="energy-label">Objet transformateur</span>
+                            <select id="transformerObject">
+                                <option value="lamp">Lampe 💡</option>
+                                <option value="motor">Moteur électrique ⚙️</option>
+                                <option value="battery">Batterie 🔋</option>
+                                <option value="speaker">Haut-parleur 🔊</option>
+                                <option value="panel">Panneau solaire 📟</option>
+                            </select>
+                        </div>
+                        <div class="transformation-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="energy-output">
+                            <span class="energy-label">Énergie produite</span>
+                            <div id="energyOutputDisplay">Lumière et chaleur ✨🔥</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="transformationExplanation" class="transformation-explanation">
+                    <p>Dans une lampe, l'électricité circule dans un filament qui chauffe et produit de la lumière. Une partie de l'énergie électrique est transformée en chaleur (c'est pour ça que les ampoules chauffent!)</p>
+                </div>
+            </div>
+            
+            <div class="examples-container">
+                <h3>Exemples de transformations d'énergie :</h3>
+                <div class="transformation-examples">
+                    <div class="transformation-example">
+                        <div class="example-icon"><i class="fas fa-lightbulb"></i></div>
+                        <div class="example-content">
+                            <h4>Une Lampe 💡</h4>
+                            <p>Transforme l'électricité ⚡ en lumière ✨ et en chaleur 🔥</p>
+                            <button class="info-toggle" data-target="lampInfo">Comment ça marche ?</button>
+                            <div id="lampInfo" class="hidden-example-info">
+                                <p>L'électricité passe à travers un filament qui résiste au courant. Cette résistance génère de la chaleur et de la lumière. Dans les LED modernes, c'est plus efficace et produit moins de chaleur!</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="transformation-example">
+                        <div class="example-icon"><i class="fas fa-cog"></i></div>
+                        <div class="example-content">
+                            <h4>Un Moteur Électrique ⚙️</h4>
+                            <p>Transforme l'électricité ⚡ en mouvement rotatif 🔄</p>
+                            <button class="info-toggle" data-target="motorInfo">Comment ça marche ?</button>
+                            <div id="motorInfo" class="hidden-example-info">
+                                <p>Le moteur utilise des aimants et des électro-aimants. Quand l'électricité passe dans les bobines, elle crée un champ magnétique qui fait tourner l'axe central. C'est cette rotation qui peut faire avancer une voiture électrique ou tourner un ventilateur!</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="transformation-example">
+                        <div class="example-icon"><i class="fas fa-fire"></i></div>
+                        <div class="example-content">
+                            <h4>Une Cuisinière à Gaz 🔥</h4>
+                            <p>Transforme l'énergie chimique du gaz ⛽ en chaleur 🔥</p>
+                            <button class="info-toggle" data-target="stoveInfo">Comment ça marche ?</button>
+                            <div id="stoveInfo" class="hidden-example-info">
+                                <p>Quand le gaz brûle, les liaisons chimiques se transforment, libérant de l'énergie sous forme de chaleur. Cette réaction chimique appelée combustion combine le gaz avec l'oxygène de l'air pour produire de la chaleur que tu utilises pour cuire tes aliments.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mark-complete">
+                <button class="complete-btn" data-section="transformation-energie">J'ai compris! <i class="fas fa-check"></i></button>
+            </div>
+        </section>
+
+        <section id="entrees-sorties" class="content-section" data-progress="12.5">
+            <h2><i class="fas fa-random section-icon"></i> Entrées et Sorties d'Énergie</h2>
+            
+            <p>Pour comprendre comment fonctionne un objet technique, on peut regarder ce qui entre (l'énergie qu'il consomme) et ce qui sort (ce qu'il produit). C'est comme un jeu d'entrée et de sortie! 🚪</p>
+            
+            <div class="interactive-example">
+                <div class="example-title">Analyse des Entrées et Sorties d'Énergie</div>
+                <div class="example-items">
+                    <div class="example-item" data-info="<b>Entrée:</b> Électricité ⚡<br><b>Sortie:</b> Air chaud 🔥 et bruit 📢<br><b>Fonction:</b> Sécher les cheveux 💆‍♀️<br><br>L'électricité fait tourner un moteur qui propulse l'air, et chauffe une résistance pour le réchauffer.">
+                        <i class="fas fa-wind"></i>
+                        <span>Sèche-Cheveux 🌬️</span>
+                    </div>
+                    <div class="example-item" data-info="<b>Entrée:</b> Lumière du soleil ☀️<br><b>Sortie:</b> Électricité ⚡<br><b>Fonction:</b> Produire de l'électricité 💡<br><br>Les cellules photovoltaïques transforment directement l'énergie lumineuse du soleil en courant électrique.">
+                        <i class="fas fa-solar-panel"></i>
+                        <span>Panneau Solaire ☀️</span>
+                    </div>
+                    <div class="example-item" data-info="<b>Entrée:</b> Carburant (essence) ⛽<br><b>Sortie:</b> Mouvement des roues 🔄, chaleur 🔥, gaz d'échappement 💨<br><b>Fonction:</b> Se déplacer 🚗<br><br>Le moteur brûle le carburant pour créer une poussée qui est transmise aux roues.">
+                        <i class="fas fa-car"></i>
+                        <span>Voiture 🚗</span>
+                    </div>
+                    <div class="example-item" data-info="<b>Entrée:</b> Électricité ⚡<br><b>Sortie:</b> Froid ❄️, chaleur à l'arrière 🔥, bruit 📢<br><b>Fonction:</b> Conserver les aliments au frais 🍎<br><br>Le compresseur fait circuler un gaz qui absorbe la chaleur à l'intérieur et la rejette à l'extérieur.">
+                        <i class="fas fa-snowflake"></i>
+                        <span>Réfrigérateur 🧊</span>
+                    </div>
+                </div>
+                <div class="example-info" id="objectInfoBox">
+                    <p>Clique sur un objet pour analyser ses entrées et sorties d'énergie!</p>
+                </div>
+            </div>
+            
+            <div class="funfact">
+                <div class="funfact-icon"><i class="fas fa-info-circle"></i></div>
+                <div class="funfact-content">
+                    <h4>À retenir!</h4>
+                    <p>L'énergie ne disparaît jamais, elle se transforme! Quand tu crois qu'elle a disparu, elle s'est en fait convertie en une autre forme d'énergie. Par exemple, quand tu freines à vélo, l'énergie de mouvement se transforme en chaleur dans les freins. C'est la loi de conservation de l'énergie, l'une des lois fondamentales de la physique!</p>
+                </div>
+            </div>
+            
+            <div class="mark-complete">
+                <button class="complete-btn" data-section="entrees-sorties">J'ai compris! <i class="fas fa-check"></i></button>
+            </div>
+        </section>
+
+        <section id="quiz-energie" class="content-section" data-progress="12.5">
+            <h2><i class="fas fa-question-circle section-icon"></i> Quiz: Teste tes Connaissances!</h2>
+            
+            <div class="quiz-container">
+                <div class="quiz-title">Quiz sur l'Énergie dans les Objets Techniques</div>
+                <p class="quiz-description">Vérifie si tu as bien compris les concepts d'énergie! Réponds aux questions suivantes pour tester tes connaissances.</p>
+                
+                <div class="quiz-stats">
+                    <div class="quiz-score-display">
+                        <span>Score: </span>
+                        <span id="quizScore">0</span>
+                        <span>/</span>
+                        <span id="quizTotal">5</span>
+                    </div>
+                </div>
+                
+                <div id="startQuizBox">
+                    <button id="startQuizBtn" class="btn quiz-btn">Commencer le Quiz <i class="fas fa-play"></i></button>
+                </div>
+                
+                <div id="quizContent">
+                    <!-- Le contenu du quiz sera inséré ici par JavaScript -->
+                </div>
+                
+                <div id="quizResults" class="hidden">
+                    <div class="quiz-results">
+                        <h3 class="quiz-results-header">Résultats du Quiz</h3>
+                        <div class="score-container">
+                            <div class="score-circle">
+                                <div class="final-score" id="finalScore">0</div>
+                                <div class="score-text">sur <span id="totalQuestions">5</span></div>
+                            </div>
+                        </div>
+                        <p class="result-message" id="resultMessage"></p>
+                        <button class="btn quiz-btn" id="retryQuizBtn">Réessayer <i class="fas fa-redo"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mark-complete">
+                <button class="complete-btn" data-section="quiz-energie">J'ai terminé le quiz! <i class="fas fa-check"></i></button>
+            </div>
+        </section>
+
+        <section id="avenir" class="content-section" data-progress="12.5">
+            <h2><i class="fas fa-rocket section-icon"></i> Avenir et Perspectives : L'Énergie de Demain</h2>
+            
+            <p>L'avenir des objets techniques est étroitement lié à l'énergie. On cherche de plus en plus à utiliser des énergies renouvelables 🌱 et à créer des objets plus efficaces 💡 qui consomment moins d'énergie.</p>
+            
+            <div class="future-section">
+                <h3>Les innovations énergétiques du futur</h3>
+                <div class="future-grid">
+                    <div class="future-card">
+                        <div class="future-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h4>Objets connectés à faible consommation 📱</h4>
+                        <p>Des appareils qui utilisent très peu d'énergie tout en restant connectés au réseau. Ils pourront fonctionner pendant des mois sans être rechargés!</p>
+                    </div>
+                    
+                    <div class="future-card">
+                        <div class="future-icon">
+                            <i class="fas fa-battery-full"></i>
+                        </div>
+                        <h4>Stockage d'énergie innovant 🔋</h4>
+                        <p>Des batteries plus performantes, plus durables et écologiques. Imagine pouvoir charger ton téléphone en quelques secondes pour qu'il dure une semaine!</p>
+                    </div>
+                    
+                    <div class="future-card">
+                        <div class="future-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h4>Réseaux électriques intelligents 🌐</h4>
+                        <p>Des systèmes qui distribuent l'électricité de façon optimale, en fonction des besoins réels, pour éviter le gaspillage.</p>
+                    </div>
+                    
+                    <div class="future-card">
+                        <div class="future-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h4>Bâtiments à énergie positive 🏡</h4>
+                        <p>Des maisons qui produisent plus d'énergie qu'elles n'en consomment, grâce aux panneaux solaires, à l'isolation et aux systèmes intelligents!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <p>À l'avenir, nous pourrions voir des voitures volantes solaires 🚗☀️, des vêtements qui produisent de l'électricité grâce à nos mouvements 👕⚡, ou encore des objets qui se rechargent grâce à la chaleur de notre corps! 🔥</p>
+            
+            <div class="funfact">
+                <div class="funfact-icon"><i class="fas fa-lightbulb"></i></div>
+                <div class="funfact-content">
+                    <h4>Le savais-tu?</h4>
+                    <p>Des chercheurs travaillent déjà sur des routes qui peuvent recharger les voitures électriques pendant qu'elles roulent! D'autres développent des fenêtres transparentes qui produisent de l'électricité comme des panneaux solaires. Le futur de l'énergie est passionnant!</p>
+                </div>
+            </div>
+            
+            <div class="mark-complete">
+                <button class="complete-btn" data-section="avenir">J'ai compris! <i class="fas fa-check"></i></button>
+            </div>
+        </section>
+
+        <section id="glossaire" class="content-section" data-progress="12.5">
+            <h2><i class="fas fa-book section-icon"></i> Glossaire : Les Mots de l'Énergie</h2>
+            
+            <div class="glossary-container">
+                <div class="glossary-header">
+                    <h3>Découvre tous les mots importants du cours</h3>
+                </div>
+                
+                <div class="glossary-search-container">
+                    <input type="text" id="glossarySearch" class="glossary-search" placeholder="Rechercher un terme...">
+                </div>
+                
+                <div class="glossary-categories">
+                    <button class="glossary-category active" data-category="all">Tous</button>
+                    <button class="glossary-category" data-category="sources">Sources d'énergie</button>
+                    <button class="glossary-category" data-category="transformation">Transformation</button>
+                    <button class="glossary-category" data-category="mesures">Mesures</button>
+                </div>
+                
+                <ul id="glossaryList" class="glossary-list">
+                    <!-- Les termes seront ajoutés ici par JavaScript -->
+                </ul>
+                
+                <div class="glossary-display">
+                    <div id="glossaryDefinition" class="glossary-definition">
+                        <h4 id="definitionTitle" class="definition-title"></h4>
+                        <p id="definitionContent" class="definition-content"></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mark-complete">
+                <button class="complete-btn" data-section="glossaire">J'ai compris! <i class="fas fa-check"></i></button>
+            </div>
+        </section>
+
+        <div id="completionCertificate" class="completion-certificate hidden">
+            <div class="certificate-header">Félicitations! 🎉</div>
+            <div class="certificate-content">
+                <p>Tu as terminé le cours sur <strong>L'Énergie au Cœur des Objets Techniques</strong>!</p>
+                <p>Tu comprends maintenant comment l'énergie circule et se transforme dans les objets qui t'entourent.</p>
+                <p>Continue d'explorer le monde fascinant de la science et de la technologie!</p>
+            </div>
+            <div class="certificate-buttons">
+                <button id="printCertificateBtn" class="certificate-btn"><i class="fas fa-print"></i> Imprimer ce certificat</button>
+                <button id="restartCourseBtn" class="certificate-btn"><i class="fas fa-redo"></i> Recommencer le cours</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Darkmode script
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+            const currentTheme = localStorage.getItem('theme');
+            
+            // Check for saved theme preference
+            if (currentTheme) {
+                document.documentElement.setAttribute('data-theme', currentTheme);
+                
+                // Update toggle position if dark theme is active
+                if (currentTheme === 'dark') {
+                    toggleSwitch.checked = true;
+                }
+            }
+            
+            // Toggle theme function
+            function switchTheme(e) {
+                if (e.target.checked) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    playThemeSound('dark');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                    playThemeSound('light');
+                }
+            }
+            
+            // Add event listener to theme toggle
+            if (toggleSwitch) {
+                toggleSwitch.addEventListener('change', switchTheme, false);
+            }
+            
+            // Play theme switch sound (disabled)
+            function playThemeSound(theme) {
+                // Fonction de son désactivée à la demande de l'utilisateur
+            }
+        });
+
+        // Main script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize all sections to be invisible by default except the first one
+            const sections = document.querySelectorAll('.content-section');
+            if (sections.length > 0) {
+                sections[0].classList.add('visible');
+            }
+
+            // Show sections as they come into view
+            const observerOptions = {
+                root: null, // Use the viewport
+                rootMargin: '0px',
+                threshold: 0.2 // When 20% of the target is visible
+            };
+
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Stop observing once visible
+                    }
+                });
+            }, observerOptions);
+
+            // Start observing all sections
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // Navigation highlighting
+            const navLinks = document.querySelectorAll('nav a');
+            
+            function updateActiveNavLink() {
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (window.scrollY >= (sectionTop - 200)) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSection}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', updateActiveNavLink);
+            
+            // Initialize nav highlighting
+            updateActiveNavLink();
+
+            // Handle click on example items - for all examples sections
+            function setupExampleItems() {
+                const exampleItems = document.querySelectorAll('.example-item');
+                const objectInfoBoxes = document.querySelectorAll('#objectInfoBox');
+                
+                exampleItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        // Find the closest parent section
+                        const parentSection = this.closest('section');
+                        
+                        // Find all example-items in this section only
+                        const sectionItems = parentSection.querySelectorAll('.example-item');
+                        
+                        // Remove active class from all items in this section
+                        sectionItems.forEach(i => i.classList.remove('active'));
+                        
+                        // Add active class to clicked item
+                        this.classList.add('active');
+                        
+                        // Find the objectInfoBox in this section
+                        const objectInfoBox = parentSection.querySelector('#objectInfoBox');
+                        
+                        // Update info box with item's data
+                        if (objectInfoBox) {
+                            const info = this.getAttribute('data-info');
+                            objectInfoBox.innerHTML = `<p>${info}</p>`;
+                            
+                            // Add animation
+                            objectInfoBox.classList.add('animated');
+                            setTimeout(() => {
+                                objectInfoBox.classList.remove('animated');
+                            }, 500);
+                        }
+                    });
+                });
+            }
+            
+            // Call the function to set up all example items
+            setupExampleItems();
+
+            // Toggle hidden info elements
+            const infoToggles = document.querySelectorAll('.info-toggle');
+            
+            infoToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement.style.display === 'block') {
+                        targetElement.style.display = 'none';
+                        this.textContent = this.textContent.replace('Masquer', 'Comment ça marche ?');
+                    } else {
+                        targetElement.style.display = 'block';
+                        this.textContent = this.textContent.replace('Comment ça marche ?', 'Masquer les détails');
+                        
+                        // Scroll to make visible if needed
+                        setTimeout(() => {
+                            targetElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }, 100);
+                    }
+                });
+            });
+
+            // Energy transformation demo
+            const energyInputType = document.getElementById('energyInputType');
+            const transformerObject = document.getElementById('transformerObject');
+            const energyOutputDisplay = document.getElementById('energyOutputDisplay');
+            const transformationExplanation = document.getElementById('transformationExplanation');
+            
+            // Object to map transformations
+            const transformations = {
+                electricity: {
+                    lamp: {
+                        output: "Lumière et chaleur ✨🔥",
+                        explanation: "Dans une lampe, l'électricité circule dans un filament qui chauffe et produit de la lumière. Une partie de l'énergie électrique est transformée en chaleur (c'est pour ça que les ampoules chauffent!)"
+                    },
+                    motor: {
+                        output: "Mouvement rotatif 🔄",
+                        explanation: "Le moteur utilise des électro-aimants pour générer un champ magnétique qui fait tourner l'axe. L'électricité est transformée en mouvement mécanique."
+                    },
+                    battery: {
+                        output: "Énergie chimique stockée 🧪",
+                        explanation: "Dans une batterie en charge, l'électricité provoque des réactions chimiques qui stockent l'énergie pour une utilisation ultérieure."
+                    },
+                    speaker: {
+                        output: "Ondes sonores 🔊",
+                        explanation: "Le haut-parleur transforme l'électricité en mouvement mécanique d'une membrane, ce qui crée des ondes de pression dans l'air que nous entendons comme du son."
+                    }
+                },
+                chemical: {
+                    lamp: {
+                        output: "Pas de transformation directe ❌",
+                        explanation: "Une lampe ne peut pas utiliser directement l'énergie chimique. Il faudrait d'abord la convertir en électricité avec une pile ou une batterie."
+                    },
+                    motor: {
+                        output: "Pas de transformation directe ❌",
+                        explanation: "Un moteur électrique ne peut pas utiliser directement l'énergie chimique. Dans les voitures à essence, c'est le moteur à combustion qui transforme l'énergie chimique en mouvement."
+                    },
+                    battery: {
+                        output: "Énergie chimique stockée 🧪",
+                        explanation: "Les batteries stockent l'énergie sous forme chimique. Une batterie pleine possède des produits chimiques prêts à réagir pour libérer de l'électricité."
+                    },
+                    speaker: {
+                        output: "Pas de transformation directe ❌",
+                        explanation: "Un haut-parleur ne peut pas convertir directement l'énergie chimique en son. Il faut d'abord la transformer en électricité."
+                    }
+                },
+                mechanical: {
+                    lamp: {
+                        output: "Pas de transformation directe ❌",
+                        explanation: "Une lampe standard ne peut pas convertir directement l'énergie mécanique en lumière. Mais une lampe dynamo utilise un générateur pour convertir le mouvement en électricité, puis en lumière."
+                    },
+                    motor: {
+                        output: "Énergie électrique (en générateur) ⚡",
+                        explanation: "En fonctionnant à l'envers, un moteur devient un générateur! Le mouvement mécanique fait tourner un axe qui génère de l'électricité."
+                    },
+                    battery: {
+                        output: "Pas de transformation directe ❌",
+                        explanation: "Une batterie ne peut pas être rechargée directement avec de l'énergie mécanique. Il faut d'abord la convertir en électricité."
+                    },
+                    speaker: {
+                        output: "Ondes sonores (comme microphone) 🔊",
+                        explanation: "En fonctionnant à l'envers, un haut-parleur devient un microphone! Les vibrations mécaniques de la membrane sont converties en signaux électriques."
+                    }
+                },
+                light: {
+                    lamp: {
+                        output: "Pas de transformation directe ❌",
+                        explanation: "Une lampe est conçue pour émettre de la lumière, pas pour la capter ou la transformer."
+                    },
+                    motor: {
+                        output: "Pas de transformation directe ❌",
+                        explanation: "Un moteur électrique ne peut pas utiliser directement la lumière comme source d'énergie."
+                    },
+                    battery: {
+                        output: "Pas de transformation directe ❌",
+                        explanation: "Une batterie standard ne peut pas stocker directement l'énergie lumineuse."
+                    },
+                    speaker: {
+                        output: "Pas de transformation directe ❌",
+                        explanation: "Un haut-parleur ne peut pas convertir la lumière en son."
+                    },
+                    panel: {
+                        output: "Énergie électrique ⚡",
+                        explanation: "Le panneau solaire contient des cellules photovoltaïques qui convertissent la lumière du soleil en électricité. C'est comme une petite usine qui transforme les photons en courant électrique!"
+                    }
+                }
+            };
+            
+            function updateTransformation() {
+                const inputType = energyInputType.value;
+                const transformer = transformerObject.value;
+                
+                // Handle special case for solar panel
+                if (transformer === 'panel') {
+                    energyOutputDisplay.textContent = "Énergie électrique ⚡";
+                    transformationExplanation.innerHTML = "<p>Le panneau solaire contient des cellules photovoltaïques qui convertissent la lumière du soleil en électricité. C'est comme une petite usine qui transforme les photons en courant électrique!</p>";
+                    return;
+                }
+                
+                // Set output based on the combination
+                if (transformations[inputType] && transformations[inputType][transformer]) {
+                    energyOutputDisplay.textContent = transformations[inputType][transformer].output;
+                    transformationExplanation.innerHTML = `<p>${transformations[inputType][transformer].explanation}</p>`;
+                } else {
+                    energyOutputDisplay.textContent = "Transformation inconnue ❓";
+                    transformationExplanation.innerHTML = "<p>Cette combinaison de transformation d'énergie n'est pas courante ou possible.</p>";
+                }
+            }
+            
+            // Add event listeners for the selects
+            if (energyInputType && transformerObject) {
+                energyInputType.addEventListener('change', updateTransformation);
+                transformerObject.addEventListener('change', updateTransformation);
+                
+                // Initial update
+                updateTransformation();
+            }
+
+            // Certificate buttons
+            const printCertificateBtn = document.getElementById('printCertificateBtn');
+            const restartCourseBtn = document.getElementById('restartCourseBtn');
+            
+            if (printCertificateBtn) {
+                printCertificateBtn.addEventListener('click', function() {
+                    window.print();
+                });
+            }
+            
+            if (restartCourseBtn) {
+                restartCourseBtn.addEventListener('click', function() {
+                    // Reset progress
+                    localStorage.removeItem('courseProgress');
+                    localStorage.removeItem('completedSections');
+                    window.location.reload();
+                });
+            }
+        });
+        
+        // Progress tracking script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Progress elements
+            const progressBar = document.getElementById('progressBar');
+            const progressLabel = document.getElementById('progressLabel');
+            const completeButtons = document.querySelectorAll('.complete-btn');
+            const completionCertificate = document.getElementById('completionCertificate');
+            const sections = document.querySelectorAll('.content-section');
+            
+            // Initialize progress tracking
+            let courseProgress = 0;
+            let completedSections = [];
+            
+            // Load progress from localStorage
+            function loadProgress() {
+                const savedProgress = localStorage.getItem('courseProgress');
+                const savedCompletions = localStorage.getItem('completedSections');
+                
+                if (savedProgress) {
+                    courseProgress = parseFloat(savedProgress);
+                    updateProgressBar();
+                }
+                
+                if (savedCompletions) {
+                    completedSections = JSON.parse(savedCompletions);
+                    updateCompletedButtons();
+                }
+            }
+            
+            // Update the progress bar visually
+            function updateProgressBar() {
+                if (progressBar && progressLabel) {
+                    progressBar.style.width = `${courseProgress}%`;
+                    progressLabel.textContent = `${Math.round(courseProgress)}% Complété`;
+                    
+                    // Add progress level classes for visual feedback
+                    progressBar.classList.remove('progress-low', 'progress-medium', 'progress-high', 'progress-complete');
+                    
+                    if (courseProgress >= 100) {
+                        progressBar.classList.add('progress-complete');
+                        showCompletionCertificate();
+                    } else if (courseProgress >= 66) {
+                        progressBar.classList.add('progress-high');
+                    } else if (courseProgress >= 33) {
+                        progressBar.classList.add('progress-medium');
+                    } else {
+                        progressBar.classList.add('progress-low');
+                    }
+                }
+            }
+            
+            // Mark buttons as completed visually
+            function updateCompletedButtons() {
+                completeButtons.forEach(button => {
+                    const sectionId = button.getAttribute('data-section');
+                    
+                    if (completedSections.includes(sectionId)) {
+                        button.classList.add('completed');
+                        button.innerHTML = 'Terminé <i class="fas fa-check-circle"></i>';
+                    }
+                });
+            }
+            
+            // Mark a section as complete
+            function completeSection(sectionId) {
+                // If already completed, do nothing
+                if (completedSections.includes(sectionId)) {
+                    return;
+                }
+                
+                // Add to completed sections
+                completedSections.push(sectionId);
+                
+                // Save to localStorage
+                localStorage.setItem('completedSections', JSON.stringify(completedSections));
+                
+                // Calculate new progress percentage
+                calculateProgress();
+                
+                // Update button visually
+                updateCompletedButtons();
+                
+                // Play completion sound
+                playCompletionSound();
+            }
+            
+            // Calculate overall progress
+            function calculateProgress() {
+                const totalSections = sections.length;
+                const completedCount = completedSections.length;
+                
+                courseProgress = (completedCount / totalSections) * 100;
+                
+                // Save to localStorage
+                localStorage.setItem('courseProgress', courseProgress.toString());
+                
+                // Update progress bar
+                updateProgressBar();
+            }
+            
+            // Show completion certificate
+            function showCompletionCertificate() {
+                if (completionCertificate && courseProgress >= 100) {
+                    setTimeout(() => {
+                        completionCertificate.classList.remove('hidden');
+                        playCongratulationsSound();
+                    }, 1000);
+                }
+            }
+            
+            // Add event listeners to completion buttons
+            completeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const sectionId = this.getAttribute('data-section');
+                    completeSection(sectionId);
+                    
+                    // Scroll to next section if available
+                    const currentSection = document.getElementById(sectionId);
+                    const nextSection = currentSection.nextElementSibling;
+                    
+                    if (nextSection && nextSection.classList.contains('content-section')) {
+                        setTimeout(() => {
+                            nextSection.scrollIntoView({ behavior: 'smooth' });
+                        }, 500);
+                    }
+                });
+            });
+            
+            // Sound functions replaced with empty functions (no sounds)
+            function playCompletionSound() {
+                // Fonction de son désactivée à la demande de l'utilisateur
+            }
+            
+            // Sound for course completion (disabled)
+            function playCongratulationsSound() {
+                // Fonction de son désactivée à la demande de l'utilisateur
+            }
+            
+            // Load progress on page load
+            loadProgress();
+        });
+        
+        // Quiz script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Quiz data
+            const quizQuestions = [
+                {
+                    question: "Quelle source d'énergie fait fonctionner un téléphone portable ?",
+                    options: [
+                        "Énergie solaire ☀️",
+                        "Énergie électrique stockée dans une batterie 🔋",
+                        "Carburant ⛽",
+                        "Force humaine 💪"
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Un téléphone portable utilise l'énergie électrique stockée dans sa batterie. Cette batterie doit être rechargée régulièrement en la connectant à une prise électrique."
+                },
+                {
+                    question: "Quelle transformation d'énergie se produit dans un panneau solaire ?",
+                    options: [
+                        "Énergie mécanique → Énergie électrique",
+                        "Énergie thermique → Énergie chimique",
+                        "Énergie lumineuse → Énergie électrique",
+                        "Énergie électrique → Énergie lumineuse"
+                    ],
+                    correctAnswer: 2,
+                    explanation: "Un panneau solaire transforme l'énergie lumineuse (du soleil) en énergie électrique grâce à l'effet photovoltaïque. C'est pourquoi ils ne fonctionnent que lorsqu'ils sont exposés à la lumière."
+                },
+                {
+                    question: "Dans une lampe à pile, quelle transformation d'énergie a lieu ?",
+                    options: [
+                        "Énergie chimique → Énergie électrique → Énergie lumineuse",
+                        "Énergie mécanique → Énergie lumineuse",
+                        "Énergie électrique → Énergie chimique",
+                        "Énergie solaire → Énergie lumineuse"
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Dans une lampe à pile, l'énergie chimique stockée dans la pile est d'abord transformée en énergie électrique, puis cette électricité est transformée en lumière (et un peu de chaleur) dans l'ampoule."
+                },
+                {
+                    question: "Quel objet technique n'utilise PAS l'électricité comme source d'énergie principale ?",
+                    options: [
+                        "Un ventilateur",
+                        "Une calculatrice",
+                        "Un vélo traditionnel",
+                        "Un réfrigérateur"
+                    ],
+                    correctAnswer: 2,
+                    explanation: "Un vélo traditionnel utilise la force musculaire humaine comme source d'énergie principale, qui est transformée en énergie mécanique pour faire avancer le vélo. Les autres objets mentionnés fonctionnent à l'électricité."
+                },
+                {
+                    question: "Quelle est la sortie (output) d'énergie principale d'un haut-parleur ?",
+                    options: [
+                        "Lumière",
+                        "Chaleur",
+                        "Mouvement",
+                        "Son"
+                    ],
+                    correctAnswer: 3,
+                    explanation: "Un haut-parleur transforme l'énergie électrique en ondes sonores (son). Il le fait en convertissant les signaux électriques en vibrations mécaniques de la membrane du haut-parleur, qui créent des ondes de pression dans l'air."
+                }
+            ];
+            
+            // Quiz elements
+            const quizContent = document.getElementById('quizContent');
+            const quizResults = document.getElementById('quizResults');
+            const startQuizBtn = document.getElementById('startQuizBtn');
+            const quizScoreDisplay = document.getElementById('quizScore');
+            const quizTotalDisplay = document.getElementById('quizTotal');
+            const finalScoreDisplay = document.getElementById('finalScore');
+            const totalQuestionsDisplay = document.getElementById('totalQuestions');
+            const resultMessageDisplay = document.getElementById('resultMessage');
+            const retryQuizBtn = document.getElementById('retryQuizBtn');
+            
+            let currentQuestion = 0;
+            let score = 0;
+            let quizStarted = false;
+            
+            // Set total questions display
+            if (quizTotalDisplay) {
+                quizTotalDisplay.textContent = quizQuestions.length;
+            }
+            
+            if (totalQuestionsDisplay) {
+                totalQuestionsDisplay.textContent = quizQuestions.length;
+            }
+            
+            // Start quiz button
+            if (startQuizBtn) {
+                startQuizBtn.addEventListener('click', startQuiz);
+            }
+            
+            // Retry quiz button
+            if (retryQuizBtn) {
+                retryQuizBtn.addEventListener('click', retryQuiz);
+            }
+            
+            // Start the quiz
+            function startQuiz() {
+                quizStarted = true;
+                currentQuestion = 0;
+                score = 0;
+                
+                if (quizScoreDisplay) {
+                    quizScoreDisplay.textContent = score;
+                }
+                
+                // Hide start box
+                document.getElementById('startQuizBox').style.display = 'none';
+                
+                displayQuestion();
+            }
+            
+            // Display current question
+            function displayQuestion() {
+                if (currentQuestion >= quizQuestions.length) {
+                    showResults();
+                    return;
+                }
+                
+                const question = quizQuestions[currentQuestion];
+                
+                // Create quiz question HTML
+                let questionHTML = `
+                    <div class="quiz-question-container">
+                        <div class="quiz-question">${currentQuestion + 1}. ${question.question}</div>
+                        <div class="quiz-options">
+                `;
+                
+                // Add options
+                question.options.forEach((option, index) => {
+                    questionHTML += `
+                        <div class="quiz-option" data-index="${index}">${option}</div>
+                    `;
+                });
+                
+                questionHTML += `
+                        </div>
+                        <div class="quiz-feedback" id="questionFeedback"></div>
+                        <div class="quiz-navigation">
+                            <button class="btn quiz-btn" id="submitAnswerBtn" disabled>Vérifier ma réponse</button>
+                            <button class="btn quiz-btn" id="nextQuestionBtn" style="display: none;">Question suivante</button>
+                        </div>
+                    </div>
+                `;
+                
+                if (quizContent) {
+                    quizContent.innerHTML = questionHTML;
+                    
+                    // Add event listeners to options
+                    const options = document.querySelectorAll('.quiz-option');
+                    options.forEach(option => {
+                        option.addEventListener('click', selectOption);
+                    });
+                    
+                    // Add event listeners to buttons
+                    const submitBtn = document.getElementById('submitAnswerBtn');
+                    const nextBtn = document.getElementById('nextQuestionBtn');
+                    
+                    if (submitBtn) {
+                        submitBtn.addEventListener('click', checkAnswer);
+                    }
+                    
+                    if (nextBtn) {
+                        nextBtn.addEventListener('click', () => {
+                            currentQuestion++;
+                            displayQuestion();
+                        });
+                    }
+                }
+            }
+            
+            // Select option
+            function selectOption() {
+                // Remove selected class from all options
+                const options = document.querySelectorAll('.quiz-option');
+                options.forEach(opt => opt.classList.remove('selected'));
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                
+                // Enable submit button
+                const submitBtn = document.getElementById('submitAnswerBtn');
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                }
+            }
+            
+            // Check answer
+            function checkAnswer() {
+                const selectedOption = document.querySelector('.quiz-option.selected');
+                if (!selectedOption) return;
+                
+                const selectedIndex = parseInt(selectedOption.getAttribute('data-index'));
+                const correctIndex = quizQuestions[currentQuestion].correctAnswer;
+                const feedbackElement = document.getElementById('questionFeedback');
+                const submitBtn = document.getElementById('submitAnswerBtn');
+                const nextBtn = document.getElementById('nextQuestionBtn');
+                
+                // Disable all options
+                const options = document.querySelectorAll('.quiz-option');
+                options.forEach(opt => {
+                    opt.style.pointerEvents = 'none';
+                });
+                
+                // Show correct and incorrect options
+                options.forEach((opt, index) => {
+                    if (index === correctIndex) {
+                        opt.classList.add('correct');
+                    } else if (index === selectedIndex && selectedIndex !== correctIndex) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+                
+                // Display feedback
+                if (feedbackElement) {
+                    if (selectedIndex === correctIndex) {
+                        feedbackElement.textContent = "Bravo ! C'est la bonne réponse. " + quizQuestions[currentQuestion].explanation;
+                        feedbackElement.classList.add('correct');
+                        feedbackElement.classList.remove('incorrect');
+                        score++;
+                        
+                        if (quizScoreDisplay) {
+                            quizScoreDisplay.textContent = score;
+                        }
+                        
+                        // Play success sound
+                        playSound('success');
+                    } else {
+                        feedbackElement.textContent = "Ce n'est pas correct. " + quizQuestions[currentQuestion].explanation;
+                        feedbackElement.classList.add('incorrect');
+                        feedbackElement.classList.remove('correct');
+                        
+                        // Play error sound
+                        playSound('error');
+                    }
+                    
+                    feedbackElement.style.display = 'block';
+                }
+                
+                // Hide submit button, show next button
+                if (submitBtn) {
+                    submitBtn.style.display = 'none';
+                }
+                
+                if (nextBtn) {
+                    nextBtn.style.display = 'inline-block';
+                    
+                    // If this is the last question, change button text
+                    if (currentQuestion === quizQuestions.length - 1) {
+                        nextBtn.textContent = 'Voir les résultats';
+                    }
+                }
+            }
+            
+            // Show quiz results
+            function showResults() {
+                if (quizContent && quizResults) {
+                    quizContent.style.display = 'none';
+                    quizResults.classList.remove('hidden');
+                    
+                    if (finalScoreDisplay) {
+                        finalScoreDisplay.textContent = score;
+                    }
+                    
+                    // Display message based on score
+                    let resultMessage = '';
+                    const percentage = (score / quizQuestions.length) * 100;
+                    
+                    if (percentage >= 80) {
+                        resultMessage = "Excellent ! Tu maîtrises très bien les concepts d'énergie dans les objets techniques ! 🌟";
+                    } else if (percentage >= 60) {
+                        resultMessage = "Bien joué ! Tu as une bonne compréhension des bases de l'énergie. Continue comme ça ! 👍";
+                    } else if (percentage >= 40) {
+                        resultMessage = "Pas mal ! Tu connais plusieurs concepts, mais il y a encore des choses à apprendre. 📚";
+                    } else {
+                        resultMessage = "C'est un début ! N'hésite pas à relire le cours et réessayer le quiz pour améliorer tes connaissances. 💪";
+                    }
+                    
+                    if (resultMessageDisplay) {
+                        resultMessageDisplay.textContent = resultMessage;
+                    }
+                }
+            }
+            
+            // Retry quiz
+            function retryQuiz() {
+                if (quizContent && quizResults) {
+                    quizResults.classList.add('hidden');
+                    quizContent.style.display = 'block';
+                    startQuiz();
+                }
+            }
+            
+            // Sound effects (disabled)
+            function playSound(type) {
+                // Fonction de son désactivée à la demande de l'utilisateur
+            }
+        });
+        
+        // Glossary script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Glossary terms and definitions
+            const glossaryTerms = {
+                'Électricité ⚡': {
+                    definition: "Forme d'énergie résultant du mouvement des électrons. C'est l'énergie qui fait fonctionner la plupart de nos appareils modernes comme les ordinateurs, les téléviseurs et les lampes.",
+                    category: "sources"
+                },
+                'Énergie solaire ☀️': {
+                    definition: "Énergie provenant du rayonnement du soleil. Elle peut être captée par des panneaux solaires et transformée en électricité ou en chaleur. C'est une énergie renouvelable et propre.",
+                    category: "sources"
+                },
+                'Énergie mécanique 🔄': {
+                    definition: "Énergie associée au mouvement (énergie cinétique) et à la position (énergie potentielle) d'un objet. Par exemple, un vélo en mouvement possède de l'énergie mécanique.",
+                    category: "sources"
+                },
+                'Énergie chimique 🧪': {
+                    definition: "Énergie stockée dans les liaisons chimiques des molécules. On la trouve dans les piles, les batteries, les carburants, et même dans la nourriture que nous mangeons.",
+                    category: "sources"
+                },
+                'Énergie thermique 🔥': {
+                    definition: "Énergie liée à la chaleur et à la température. Elle résulte du mouvement aléatoire des atomes et des molécules dans la matière. On la ressent quand on s'approche d'un radiateur.",
+                    category: "sources"
+                },
+                'Transformation d\'énergie 🔄': {
+                    definition: "Processus par lequel une forme d'énergie est convertie en une autre forme. Par exemple, une lampe transforme l'énergie électrique en lumière et en chaleur.",
+                    category: "transformation"
+                },
+                'Rendement énergétique 📊': {
+                    definition: "Rapport entre l'énergie utile produite par un système et l'énergie totale consommée. Un rendement de 100% signifierait qu'aucune énergie n'est perdue, ce qui est impossible en pratique.",
+                    category: "transformation"
+                },
+                'Alternateur ⚙️': {
+                    definition: "Machine qui transforme l'énergie mécanique en énergie électrique. On le trouve dans les centrales électriques et les voitures pour recharger la batterie.",
+                    category: "transformation"
+                },
+                'Moteur électrique 🔌': {
+                    definition: "Machine qui transforme l'énergie électrique en énergie mécanique (mouvement). On le trouve dans de nombreux appareils comme les ventilateurs, les mixeurs, les voitures électriques.",
+                    category: "transformation"
+                },
+                'Watt (W) 📏': {
+                    definition: "Unité de mesure de la puissance, c'est-à-dire la quantité d'énergie utilisée par seconde. Par exemple, une ampoule LED peut consommer 10 watts, tandis qu'un four peut consommer 2000 watts.",
+                    category: "mesures"
+                },
+                'Joule (J) 📏': {
+                    definition: "Unité de mesure de l'énergie ou du travail. Un joule représente l'énergie produite par un watt pendant une seconde. Par exemple, lever une pomme d'un mètre nécessite environ un joule.",
+                    category: "mesures"
+                },
+                'Ampère (A) 📏': {
+                    definition: "Unité de mesure de l'intensité du courant électrique, qui représente le nombre d'électrons qui circulent dans un circuit par seconde. Les appareils électriques consomment généralement entre 0,1 et 16 ampères.",
+                    category: "mesures"
+                },
+                'Volt (V) 📏': {
+                    definition: "Unité de mesure de la tension électrique, qui représente la force qui pousse les électrons dans un circuit. Les prises électriques domestiques fournissent généralement 220-240 volts en Europe.",
+                    category: "mesures"
+                }
+            };
+            
+            // Glossary elements
+            const glossarySearch = document.getElementById('glossarySearch');
+            const glossaryList = document.getElementById('glossaryList');
+            const glossaryDefinition = document.getElementById('glossaryDefinition');
+            const definitionTitle = document.getElementById('definitionTitle');
+            const definitionContent = document.getElementById('definitionContent');
+            const categoriesButtons = document.querySelectorAll('.glossary-category');
+            
+            let currentCategory = 'all';
+            
+            // Initialize glossary list
+            function initGlossary() {
+                if (!glossaryList) return;
+                
+                // Clear list
+                glossaryList.innerHTML = '';
+                
+                // Create terms from the object
+                for (const term in glossaryTerms) {
+                    createGlossaryTerm(term, glossaryTerms[term].category);
+                }
+                
+                // Add event listeners to the terms
+                const terms = document.querySelectorAll('.glossary-term');
+                terms.forEach(term => {
+                    term.addEventListener('click', function() {
+                        showDefinition(this.textContent);
+                    });
+                });
+            }
+            
+            // Create a glossary term element
+            function createGlossaryTerm(term, category) {
+                const li = document.createElement('li');
+                li.textContent = term;
+                li.classList.add('glossary-term');
+                li.setAttribute('data-category', category);
+                glossaryList.appendChild(li);
+            }
+            
+            // Show term definition
+            function showDefinition(term) {
+                if (glossaryTerms[term]) {
+                    definitionTitle.textContent = term;
+                    definitionContent.textContent = glossaryTerms[term].definition;
+                    
+                    // Show definition with animation
+                    glossaryDefinition.style.display = 'block';
+                    
+                    // Add a highlight animation
+                    glossaryDefinition.classList.add('highlight');
+                    setTimeout(() => {
+                        glossaryDefinition.classList.remove('highlight');
+                    }, 1000);
+                    
+                    // Scroll to definition if needed
+                    setTimeout(() => {
+                        glossaryDefinition.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 100);
+                }
+            }
+            
+            // Search functionality
+            if (glossarySearch) {
+                glossarySearch.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase();
+                    const terms = document.querySelectorAll('.glossary-term');
+                    
+                    terms.forEach(term => {
+                        const termText = term.textContent.toLowerCase();
+                        const category = term.getAttribute('data-category');
+                        
+                        // Show/hide based on search term and current category
+                        if (termText.includes(searchTerm) && (currentCategory === 'all' || category === currentCategory)) {
+                            term.style.display = 'block';
+                        } else {
+                            term.style.display = 'none';
+                        }
+                    });
+                });
+            }
+            
+            // Category filtering
+            categoriesButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active button
+                    categoriesButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Get selected category
+                    currentCategory = this.getAttribute('data-category');
+                    
+                    // Filter terms
+                    const terms = document.querySelectorAll('.glossary-term');
+                    terms.forEach(term => {
+                        const category = term.getAttribute('data-category');
+                        
+                        if (currentCategory === 'all' || category === currentCategory) {
+                            term.style.display = 'block';
+                        } else {
+                            term.style.display = 'none';
+                        }
+                    });
+                    
+                    // If there's a search term, also apply that filter
+                    if (glossarySearch && glossarySearch.value) {
+                        const searchTerm = glossarySearch.value.toLowerCase();
+                        
+                        terms.forEach(term => {
+                            const termText = term.textContent.toLowerCase();
+                            const category = term.getAttribute('data-category');
+                            
+                            if (term.style.display === 'block' && !termText.includes(searchTerm)) {
+                                term.style.display = 'none';
+                            }
+                        });
+                    }
+                });
+            });
+            
+            // Initialize the glossary
+            initGlossary();
+        });
+    </script>
+</body>
+</html>

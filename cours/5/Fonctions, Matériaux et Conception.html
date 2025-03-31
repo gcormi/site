@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Décrypter le Monde des Objets</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Variables pour la gestion des couleurs et le contraste */
+        :root {
+            --primary-color: #e65100;
+            --primary-light: #ff833a;
+            --primary-dark: #ac1900;
+            --secondary-color: #0277bd;
+            --secondary-light: #58a5f0;
+            --secondary-dark: #004c8c;
+            --background-color: #f8f9fa;
+            --text-color: #37474f;
+            --light-text: #ffffff;
+            --example-bg: #fff3e0;
+            --example-border: #ff9800;
+            --success-color: #4caf50;
+            --warning-color: #ff9800;
+            --error-color: #f44336;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: var(--light-text);
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+        }
+        
+        header h1 {
+            color: var(--light-text);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            margin: 0;
+            opacity: 0.9;
+        }
+        
+        /* Barre de progression */
+        .progress-container {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto 10px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            position: relative;
+            height: 12px;
+        }
+        
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(to right, var(--secondary-color), var(--secondary-light));
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-label {
+            text-align: center;
+            color: var(--light-text);
+            font-weight: bold;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        
+        /* Wave animation en bas du header */
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23f8f9fa" fill-opacity="1" d="M0,224L48,224C96,224,192,224,288,202.7C384,181,480,139,576,144C672,149,768,203,864,208C960,213,1056,171,1152,165.3C1248,160,1344,192,1392,208L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        
+        nav {
+            background-color: var(--primary-dark);
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: var(--light-text);
+            text-decoration: none;
+            margin: 5px 10px;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        nav a.active {
+            background-color: var(--secondary-color);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        main {
+            padding: 30px;
+            max-width: 1100px;
+            margin: 30px auto;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        section {
+            margin-bottom: 40px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 3px solid rgba(230, 81, 0, 0.2);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            margin-top: 25px;
+        }
+        
+        ul, ol {
+            padding-left: 25px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        b {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .example {
+            padding: 20px;
+            background-color: var(--example-bg);
+            border-left: 5px solid var(--example-border);
+            margin: 20px 0;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Animation de vague pour les exemples */
+        .example::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 300%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+            transform: skewX(-45deg);
+            animation: wave 3s linear infinite;
+            pointer-events: none;
+        }
+        
+        .clickable-info {
+            cursor: pointer;
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .clickable-info:hover {
+            color: var(--secondary-dark);
+            text-decoration: underline;
+        }
+        
+        .hidden-info {
+            display: none;
+            padding: 15px;
+            background-color: rgba(2, 119, 189, 0.1);
+            border-radius: 8px;
+            margin-top: 10px;
+            border-left: 4px solid var(--secondary-color);
+            animation: slideInDown 0.5s ease-out;
+        }
+        
+        .future-outlook {
+            margin-top: 30px;
+            padding: 25px;
+            background-color: rgba(230, 81, 0, 0.05);
+            border-left: 6px solid var(--primary-color);
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .glossary {
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .glossary-search {
+            width: 80%;
+            max-width: 400px;
+            padding: 10px 15px;
+            border: 2px solid var(--primary-color);
+            border-radius: 20px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            outline: none;
+        }
+        
+        .glossary-search:focus {
+            box-shadow: 0 0 5px rgba(230, 81, 0, 0.5);
+        }
+        
+        .glossary-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .glossary-list li {
+            margin: 5px;
+            padding: 10px 15px;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .glossary-list li:hover {
+            background-color: var(--primary-dark);
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .glossary-definition {
+            margin: 15px auto;
+            padding: 15px 20px;
+            background-color: rgba(230, 81, 0, 0.05);
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+            border-left: 5px solid var(--primary-color);
+            max-width: 600px;
+            text-align: left;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background-color: rgba(230, 81, 0, 0.05);
+        }
+        
+        tr:hover {
+            background-color: rgba(230, 81, 0, 0.1);
+        }
+        
+        /* Jeu interactif 1: Quiz de matériaux */
+        .quiz-container {
+            background-color: rgba(2, 119, 189, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .quiz-title {
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .quiz-question {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--secondary-dark);
+        }
+        
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .quiz-option {
+            padding: 15px;
+            background-color: white;
+            border: 2px solid var(--secondary-color);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .quiz-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .quiz-option.selected {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .quiz-option.correct {
+            background-color: var(--success-color);
+            color: white;
+            border-color: var(--success-color);
+        }
+        
+        .quiz-option.incorrect {
+            background-color: var(--error-color);
+            color: white;
+            border-color: var(--error-color);
+        }
+        
+        .quiz-feedback {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .quiz-feedback.correct {
+            background-color: rgba(76, 175, 80, 0.2);
+            border-left: 5px solid var(--success-color);
+        }
+        
+        .quiz-feedback.incorrect {
+            background-color: rgba(244, 67, 54, 0.2);
+            border-left: 5px solid var(--error-color);
+        }
+        
+        .quiz-next {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+            cursor: pointer;
+            display: none;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-next:hover {
+            background-color: var(--secondary-dark);
+            transform: translateY(-3px);
+        }
+        
+        /* Jeu interactif 2: Memory des matériaux */
+        .memory-game {
+            background-color: rgba(230, 81, 0, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .memory-title {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .memory-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 15px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .memory-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .memory-card {
+            height: 100px;
+            background-color: var(--primary-dark);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 18px;
+            color: white;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+            position: relative;
+        }
+        
+        .memory-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .memory-card-front, .memory-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+        
+        .memory-card-front {
+            background-color: var(--primary-color);
+        }
+        
+        .memory-card-back {
+            background-color: white;
+            transform: rotateY(180deg);
+            border: 2px solid var(--primary-color);
+            color: var(--text-color);
+            font-weight: bold;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .memory-card.matched .memory-card-back {
+            background-color: rgba(76, 175, 80, 0.2);
+            border-color: var(--success-color);
+        }
+        
+        /* Jeu interactif 3: Concepteur d'objets */
+        .object-designer {
+            background-color: rgba(2, 119, 189, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .designer-title {
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .designer-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .designer-form label {
+            display: block;
+            margin-top: 15px;
+            color: var(--secondary-dark);
+            font-weight: 600;
+        }
+        
+        .designer-form select, .designer-form input, .designer-form textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 5px;
+            font-family: 'Open Sans', sans-serif;
+        }
+        
+        .designer-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .designer-submit {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .designer-submit:hover {
+            background-color: var(--secondary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .designer-result {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+            border: 2px solid var(--secondary-color);
+        }
+        
+        .designer-result h4 {
+            color: var(--secondary-color);
+            margin-top: 0;
+        }
+        
+        /* Aide flottante */
+        .help-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .help-btn:hover {
+            background-color: var(--primary-dark);
+            transform: scale(1.1);
+        }
+        
+        .help-content {
+            position: fixed;
+            bottom: 90px;
+            right: 30px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            width: 300px;
+            display: none;
+        }
+        
+        .help-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .help-title {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        
+        .help-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+        
+        /* Animation pour les icons */
+        .icon-animate {
+            display: inline-block;
+            animation: iconWiggle 2s infinite;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideInLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideInDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes wave {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        @keyframes iconWiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            75% { transform: rotate(-10deg); }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            main {
+                padding: 20px;
+                margin: 20px 10px;
+            }
+            
+            nav {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+            
+            nav a {
+                margin: 5px;
+                font-size: 14px;
+            }
+            
+            .example::before {
+                animation: none;
+            }
+            
+            .help-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+                right: 20px;
+                bottom: 20px;
+            }
+            
+            .help-content {
+                width: 80%;
+                right: 10%;
+                left: 10%;
+                bottom: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Décrypter le Monde des Objets 🛠️: Fonctions, Matériaux et Conception 💡</h1>
+        <p>Explore comment les objets sont faits et pourquoi ils sont importants ! ✨</p>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-label">Progression: <span id="progressPercent">0%</span></div>
+        
+        <div class="wave"></div>
+    </header>
+
+    <nav id="mainNav">
+        <a href="#introduction" class="nav-link active">Introduction</a>
+        <a href="#definition" class="nav-link">Objet Technique</a>
+        <a href="#fonction" class="nav-link">Fonctions</a>
+        <a href="#materiaux" class="nav-link">Matériaux</a>
+        <a href="#conception" class="nav-link">Conception</a>
+        <a href="#jeux-interactifs" class="nav-link">Jeux Interactifs</a>
+        <a href="#avenir" class="nav-link">Avenir</a>
+        <a href="#glossaire" class="nav-link">Glossaire</a>
+    </nav>
+
+    <main>
+        <section id="introduction" class="content-section">
+            <h2>Introduction : Les Objets, Miroirs de Nos Besoins et de Nos Technologies 🌍</h2>
+            <p>Les objets techniques ne sont pas de simples outils. Ils sont le reflet de nos besoins 🧐, de nos connaissances scientifiques 🧪 et de nos avancées technologiques 🚀. Chaque objet est le résultat d'un processus de conception complexe qui prend en compte sa fonction, les matériaux disponibles, les contraintes économiques 💰 et environnementales ♻️, et même les aspects esthétiques🎨. Ce cours va t'ouvrir les portes de ce monde fascinant. 🚪</p>
+            
+            <div class="example">
+                <h3>Le saviez-vous ? <span class="icon-animate">💫</span></h3>
+                <p>Le premier objet technique conçu par l'homme remonte à environ 2,6 millions d'années ! Il s'agit d'un simple galet taillé utilisé comme outil de coupe. Cette invention marque le début de la technologie humaine, bien avant l'écriture, l'agriculture ou la roue.</p>
+            </div>
+        </section>
+
+        <section id="definition" class="content-section">
+            <h2>1. Qu'est-ce Qu'un Objet Technique ? 🤔: Au-Delà de la Simple Définition</h2>
+            <p>Un objet technique est un artefact créé par l'homme pour répondre à un besoin spécifique 🎯. Il se distingue des objets naturels par son origine artificielle et sa finalité intentionnelle. La conception d'un objet technique implique un processus itératif d'analyse des besoins, de recherche de solutions, de prototypage 🧪, de tests et d'amélioration continue. ✅</p>
+
+            <h3>Développement :</h3>
+            <ul>
+                <li><b>Analyse des Besoins :</b> Identifier précisément le problème à résoudre ou le besoin à satisfaire. <a href="#" class="clickable-info" onclick="toggleInfo('besoinInfo')">🔍 Exemple</a>
+                    <div id="besoinInfo" class="hidden-info">Le besoin de communiquer à distance a conduit à l'invention du téléphone 📞.</div></li>
+                <li><b>Recherche de Solutions :</b> Explorer différentes approches pour répondre au besoin identifié. <a href="#" class="clickable-info" onclick="toggleInfo('solutionInfo')">💡 Exemple</a>
+                    <div id="solutionInfo" class="hidden-info">Les premières solutions pour le transport individuel ont inclus la marche 🚶‍♀️, la course 🏃, les animaux 🐴, avant d'arriver à la bicyclette 🚲 et à l'automobile 🚗.</div></li>
+                <li><b>Prototypage :</b> Créer des modèles préliminaires pour tester les solutions envisagées. <a href="#" class="clickable-info" onclick="toggleInfo('protoInfo')">🛠️ Exemple</a>
+                    <div id="protoInfo" class="hidden-info">Les prototypes peuvent être physiques (maquettes 🏗️) ou virtuels (simulations informatiques 💻).</div></li>
+                <li><b>Tests et Améliorations :</b> Évaluer les performances des prototypes et apporter des modifications pour améliorer leur efficacité, leur fiabilité, leur ergonomie, etc.</li>
+                <li><b>Industrialisation :</b> Concevoir un produit qui peut être fabriqué en série à un coût raisonnable, tout en respectant les normes de qualité et de sécurité.</li>
+                <li><b>Obsolescence et Évolution :</b> Un objet technique évolue dans le temps en fonction des avancées technologiques et des nouveaux besoins. <a href="#" class="clickable-info" onclick="toggleInfo('evolutionInfo')">📱 Exemple</a>
+                    <div id="evolutionInfo" class="hidden-info">Le téléphone est passé du téléphone fixe à cadran au smartphone tactile multifonction en moins d'un siècle.</div></li>
+            </ul>
+
+            <h3>Exemples :</h3>
+            <div class="example">
+                <b>Un Avion ✈️:</b> Son besoin est de se déplacer rapidement sur de longues distances. Sa fonction est de transporter des personnes ou des marchandises par voie aérienne.
+            </div>
+            <div class="example">
+                <b>Une Prothèse de Jambe 🦵:</b> Son besoin est de remplacer une partie du corps manquante. Sa fonction est de permettre la mobilité et l'autonomie d'une personne amputée.
+            </div>
+            <div class="example">
+                <b>Un Panneau Solaire ☀️:</b> Son besoin est de produire de l'électricité à partir d'une source renouvelable. Sa fonction est de convertir l'énergie solaire en énergie électrique.
+            </div>
+            <div class="example">
+                <b>Un Casque Audio 🎧:</b> Son besoin est d'écouter du son sans déranger les autres. Sa fonction est de convertir des signaux électriques en ondes sonores audibles uniquement par l'utilisateur.
+            </div>
+        </section>
+
+        <section id="fonction" class="content-section">
+            <h2>2. La Fonction d'un Objet : Une Analyse Approfondie 🧐</h2>
+            <p>La fonction d'un objet technique est sa raison d'être, son objectif principal. Elle peut être décomposée en fonctions principales (la plus importante) et en fonctions secondaires (complémentaires). L'analyse fonctionnelle est une méthode rigoureuse pour identifier et caractériser toutes les fonctions d'un objet.</p>
+
+            <h3>Développement :</h3>
+            <ul>
+                <li><b>Fonction Principale :</b> La fonction essentielle qui justifie l'existence de l'objet. Elle répond à la question : "À quoi sert cet objet, en premier lieu ?"</li>
+                <li><b>Fonctions Secondaires :</b> Les fonctions qui complètent ou améliorent la fonction principale. Elles peuvent concerner la sécurité, le confort, l'esthétique, la durabilité, etc.</li>
+                <li><b>Contraintes :</b> Les limitations ou exigences que l'objet doit respecter. Elles peuvent être d'ordre technique (résistance, poids, dimensions), économique (coût de fabrication, prix de vente), environnemental (impact écologique), réglementaire (normes de sécurité), etc.</li>
+                <li><b>Fonctions d'usage :</b> Ce sont les fonctions pratiques et utilitaires d'un objet. <a href="#" class="clickable-info" onclick="toggleInfo('usageInfo')">🔧 Exemple</a>
+                    <div id="usageInfo" class="hidden-info">La fonction d'usage d'une montre est d'indiquer l'heure.</div></li>
+                <li><b>Fonctions d'estime :</b> Ce sont les fonctions liées à l'aspect esthétique, au plaisir, au statut social. <a href="#" class="clickable-info" onclick="toggleInfo('estimeInfo')">✨ Exemple</a>
+                    <div id="estimeInfo" class="hidden-info">Une montre de luxe a aussi pour fonction de montrer le statut social de son propriétaire.</div></li>
+            </ul>
+
+            <h3>Exemples :</h3>
+            <div class="example">
+                <b>Un Ordinateur Portable 💻:</b>
+                <ul>
+                    <li>Fonction principale : traiter et stocker des informations.</li>
+                    <li>Fonctions secondaires : afficher des informations (écran), permettre la saisie de données (clavier, souris), se connecter à Internet (Wi-Fi), être transportable (batterie).</li>
+                    <li>Contraintes : être léger, avoir une autonomie suffisante, être compatible avec les logiciels, être protégé contre les virus.</li>
+                </ul>
+            </div>
+            <div class="example">
+                <b>Une Voiture 🚗:</b>
+                <ul>
+                    <li>Fonction principale : transporter des personnes ou des marchandises.</li>
+                    <li>Fonctions secondaires : assurer la sécurité des passagers (ceintures de sécurité, airbags), offrir un confort (sièges, climatisation), limiter la pollution (pot catalytique).</li>
+                    <li>Contraintes : respecter les normes de sécurité routière, consommer le moins de carburant possible, être accessible en termes de prix.</li>
+                </ul>
+            </div>
+            <div class="example">
+                <b>Un Réfrigérateur 🧊:</b>
+                <ul>
+                    <li>Fonction principale : Conserver les aliments au froid 🧊.</li>
+                    <li>Fonctions secondaires : Fabriquer de la glace, distribuer de l'eau fraîche, informer de la température interne.</li>
+                    <li>Contraintes : Consommer le moins d'énergie possible, maintenir une température stable, être facile à nettoyer.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="materiaux" class="content-section">
+            <h2>3. Les Matériaux : Des Propriétés Essentielles à la Conception 🧱</h2>
+            <p>Les matériaux sont les "briques" avec lesquelles sont construits les objets techniques. Le choix du matériau est crucial, car il détermine les performances, la durabilité, le coût et l'impact environnemental de l'objet. Chaque matériau possède des propriétés spécifiques qui le rendent adapté à certaines applications.</p>
+
+            <h3>Développement :</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Propriété</th>
+                        <th>Description</th>
+                        <th>Exemple</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Résistance 💪</td>
+                        <td>Capacité à supporter des charges sans se casser.</td>
+                        <td>Acier utilisé dans les ponts.</td>
+                    </tr>
+                    <tr>
+                        <td>Dureté 💎</td>
+                        <td>Capacité à résister à la rayure ou à l'indentation.</td>
+                        <td>Diamant utilisé pour les outils de coupe.</td>
+                    </tr>
+                    <tr>
+                        <td>Élasticité 🤸</td>
+                        <td>Capacité à reprendre sa forme initiale après une déformation.</td>
+                        <td>Caoutchouc utilisé dans les élastiques.</td>
+                    </tr>
+                    <tr>
+                        <td>Conductivité Thermique 🔥</td>
+                        <td>Capacité à transmettre la chaleur.</td>
+                        <td>Cuivre utilisé dans les casseroles.</td>
+                    </tr>
+                    <tr>
+                        <td>Conductivité Électrique ⚡</td>
+                        <td>Capacité à laisser passer le courant électrique.</td>
+                        <td>Cuivre utilisé dans les fils électriques.</td>
+                    </tr>
+                    <tr>
+                        <td>Résistance à la Corrosion 🛡️</td>
+                        <td>Capacité à résister à la dégradation par les agents chimiques.</td>
+                        <td>Acier inoxydable utilisé dans les couverts.</td>
+                    </tr>
+                    <tr>
+                        <td>Transparence 👓</td>
+                        <td>Capacité à laisser passer la lumière.</td>
+                        <td>Verre utilisé dans les fenêtres.</td>
+                    </tr>
+                    <tr>
+                        <td>Masse Volumique ⚖️</td>
+                        <td>Rapport entre la masse et le volume (densité).</td>
+                        <td>Aluminium (léger) utilisé dans les avions.</td>
+                    </tr>
+                    <tr>
+                        <td>Biodégradabilité ♻️</td>
+                        <td>Capacité à être décomposé par des organismes vivants.</td>
+                        <td>Amidon de maïs utilisé dans les emballages.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Exemples :</h3>
+            <div class="example">
+                <b>Les Métaux 🔩:</b>
+                <ul>
+                    <li>Acier : Très résistant, utilisé pour les structures (ponts 🌉, bâtiments 🏢), les outils 🛠️, les véhicules 🚗.</li>
+                    <li>Aluminium : Léger, résistant à la corrosion, utilisé pour les avions ✈️, les canettes 🥤, les cadres de vélo 🚲.</li>
+                    <li>Cuivre : Excellent conducteur électrique, utilisé pour les câbles 🔌, les circuits électroniques 💡.</li>
+                </ul>
+            </div>
+            <div class="example">
+                <b>Les Plastiques ♻️:</b>
+                <ul>
+                    <li>Polyéthylène (PE) : Léger, souple, utilisé pour les sacs 🛍️, les bouteilles 🍾, les films plastiques.</li>
+                    <li>Polychlorure de Vinyle (PVC) : Résistant, imperméable, utilisé pour les tuyaux 🚰, les revêtements de sol, les fenêtres.</li>
+                    <li>Polystyrène (PS) : Léger, isolant, utilisé pour les emballages 📦, les gobelets 🥛, les maquettes.</li>
+                </ul>
+            </div>
+            <div class="example">
+                <b>Le Bois 🌳:</b>
+                <ul>
+                    <li>Chêne : Dur, résistant, utilisé pour les meubles 🪑, les parquets, les charpentes.</li>
+                    <li>Pin : Léger, facile à travailler, utilisé pour les constructions, les emballages, les jouets 🧸.</li>
+                </ul>
+            </div>
+            <div class="example">
+                <b>Le Verre 🥛:</b>
+                <ul>
+                    <li>Verre Sodocalcique : Transparent, facile à mouler, utilisé pour les bouteilles 🍾, les fenêtres, les miroirs.</li>
+                    <li>Verre Borosilicate (Pyrex) : Résistant à la chaleur 🔥, utilisé pour les ustensiles de cuisine 🍳, les instruments de laboratoire 🔬.</li>
+                </ul>
+            </div>
+            <div class="example">
+                <b>Les Textiles 🧶:</b>
+                <ul>
+                    <li>Coton : Doux, absorbant, utilisé pour les vêtements 👕, le linge de maison 🛌.</li>
+                    <li>Polyester : Résistant, infroissable, utilisé pour les vêtements de sport 🏃‍♀️, les tissus d'ameublement 🛋️.</li>
+                </ul>
+            </div>
+            <div class="example">
+                <b>Les Matériaux Composites 🔄:</b>
+                <ul>
+                    <li>Fibre de carbone : Très léger et résistant, utilisé pour les équipements sportifs 🏎️, les pièces d'avion ✈️.</li>
+                    <li>Béton armé : Combinaison de béton et d'acier, utilisé pour les bâtiments 🏙️ et les infrastructures 🌉.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="conception" class="content-section">
+            <h2>4. Lier Objets, Fonctions et Matériaux : Vers une Conception Optimale 🎯</h2>
+            <p>La conception d'un objet technique est un compromis entre les exigences fonctionnelles, les propriétés des matériaux et les contraintes économiques et environnementales. Un bon concepteur doit être capable de choisir les matériaux les plus appropriés pour chaque application, en tenant compte de tous ces facteurs.</p>
+
+            <h3>Développement :</h3>
+            <div class="example">
+                <b>Exemple 1 : Un vélo de course 🚲:</b>
+                <ul>
+                    <li>Fonction : Se déplacer rapidement 💨.</li>
+                    <li>Matériaux : Cadre en fibre de carbone (léger et résistant 💪), roues en aluminium (léger et rigide), pneus en caoutchouc (adhérence et confort).</li>
+                    <li>Justification : La légèreté est essentielle pour la performance, la résistance est nécessaire pour la sécurité, l'adhérence assure le contrôle.</li>
+                </ul>
+            </div>
+            <div class="example">
+                <b>Exemple 2 : Un sac poubelle 🗑️:</b>
+                <ul>
+                    <li>Fonction : Contenir et transporter des déchets ♻️.</li>
+                    <li>Matériaux : Polyéthylène (PE) basse densité (souple et imperméable ☔).</li>
+                    <li>Justification : La souplesse permet d'épouser la forme des déchets, l'imperméabilité évite les fuites, le coût est faible.</li>
+                </ul>
+            </div>
+            <div class="example">
+                <b>Exemple 3 : Un smartphone 📱:</b>
+                <ul>
+                    <li>Fonction : Communiquer, naviguer sur internet, prendre des photos, etc.</li>
+                    <li>Matériaux : Écran en verre trempé (résistant aux rayures 🛡️), coque en aluminium (léger et résistant), composants électroniques en silicium (semi-conducteur).</li>
+                    <li>Justification : Le verre trempé offre une bonne transparence tout en étant assez résistant, l'aluminium allie légèreté et résistance, le silicium est idéal pour les circuits électroniques.</li>
+                </ul>
+            </div>
+            
+            <h3>La démarche de conception :</h3>
+            <ul>
+                <li><b>Analyse du besoin :</b> Comprendre précisément ce que l'objet doit faire et dans quelles conditions.</li>
+                <li><b>Cahier des charges :</b> Définir les fonctions et les contraintes que l'objet doit respecter.</li>
+                <li><b>Recherche de solutions :</b> Explorer différentes approches pour répondre au cahier des charges.</li>
+                <li><b>Choix des matériaux :</b> Sélectionner les matériaux les plus adaptés pour chaque partie de l'objet.</li>
+                <li><b>Prototypage :</b> Créer un modèle pour tester la solution retenue.</li>
+                <li><b>Tests et améliorations :</b> Évaluer les performances du prototype et l'améliorer si nécessaire.</li>
+                <li><b>Industrialisation :</b> Préparer la fabrication en série de l'objet.</li>
+                <li><b>Recyclage et fin de vie :</b> Prévoir comment l'objet sera traité après usage pour minimiser son impact environnemental. <a href="#" class="clickable-info" onclick="toggleInfo('recycleInfo')">♻️ Approches</a>
+                    <div id="recycleInfo" class="hidden-info">
+                        <ul>
+                            <li>Éco-conception : concevoir dès le départ des objets faciles à recycler</li>
+                            <li>Matériaux biodégradables : utiliser des matériaux qui se décomposent naturellement</li>
+                            <li>Réutilisation : concevoir des objets qui peuvent avoir une seconde vie</li>
+                            <li>Démontage facilité : permettre de séparer facilement les différents matériaux</li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        
+        <section id="jeux-interactifs" class="content-section">
+            <h2>5. Jeux Interactifs : Teste tes Connaissances ! 🎮</h2>
+            
+            <!-- Quiz de matériaux -->
+            <div class="quiz-container">
+                <h3 class="quiz-title">Quiz : Matériaux et Leurs Propriétés 🧠</h3>
+                <div id="quiz-content">
+                    <div class="quiz-question">Quel matériau est le plus adapté pour fabriquer le cadre d'une bicyclette de compétition ?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Acier</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">Fibre de carbone</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Bois</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Béton</div>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                    <button class="quiz-next" onclick="nextQuestion()">Question suivante</button>
+                </div>
+            </div>
+            
+            <!-- Memory des matériaux -->
+            <div class="memory-game">
+                <h3 class="memory-title">Memory : Associe les Matériaux à leurs Utilisations 🎯</h3>
+                <p>Retrouve les paires en associant chaque matériau à son utilisation typique !</p>
+                
+                <div class="memory-container" id="memory-board">
+                    <!-- Les cartes seront générées dynamiquement par JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Concepteur d'objets -->
+            <div class="object-designer">
+                <h3 class="designer-title">Concepteur d'Objets : Crée ton Propre Objet Technique 🛠️</h3>
+                <p>Imagine un objet technique en choisissant sa fonction et ses matériaux !</p>
+                
+                <div class="designer-form">
+                    <label for="object-name">Nom de ton objet :</label>
+                    <input type="text" id="object-name" placeholder="Ex: Lampe écologique">
+                    
+                    <label for="object-function">Fonction principale :</label>
+                    <input type="text" id="object-function" placeholder="Ex: Éclairer une pièce sans consommer d'électricité du réseau">
+                    
+                    <label for="object-material1">Matériau principal :</label>
+                    <select id="object-material1">
+                        <option value="">Choisis un matériau...</option>
+                        <option value="Aluminium">Aluminium</option>
+                        <option value="Acier">Acier</option>
+                        <option value="Plastique">Plastique</option>
+                        <option value="Bois">Bois</option>
+                        <option value="Verre">Verre</option>
+                        <option value="Fibre de carbone">Fibre de carbone</option>
+                        <option value="Silicone">Silicone</option>
+                        <option value="Tissu">Tissu</option>
+                        <option value="Céramique">Céramique</option>
+                    </select>
+                    
+                    <label for="material-justification">Pourquoi ce matériau ? (propriétés utiles)</label>
+                    <textarea id="material-justification" placeholder="Ex: L'aluminium est léger, résistant à la corrosion et bon conducteur de chaleur, ce qui permet de dissiper la chaleur des LED"></textarea>
+                    
+                    <button class="designer-submit" onclick="designObject()">Créer mon objet</button>
+                </div>
+                
+                <div class="designer-result" id="design-result"></div>
+            </div>
+        </section>
+
+        <section id="avenir" class="content-section future-outlook">
+            <h2>Avenir et Perspectives 🔮</h2>
+            <p>L'avenir des objets techniques est passionnant ! Les innovations en science des matériaux, en robotique 🤖 et en intelligence artificielle 🧠 vont transformer la façon dont nous concevons et utilisons les objets. Imagine des matériaux auto-réparants 🛠️, des objets connectés qui anticipent nos besoins 🤔, et des robots qui collaborent avec nous pour résoudre les défis de demain 🤝.</p>
+
+            <ul>
+                <li><b>Les Matériaux Intelligents :</b> Des matériaux qui changent de forme, de couleur ou de propriétés en fonction de l'environnement. <a href="#" class="clickable-info" onclick="toggleInfo('smartMaterials')">🔄 Exemples</a>
+                    <div id="smartMaterials" class="hidden-info">
+                        <ul>
+                            <li>Alliages à mémoire de forme : reprennent leur forme initiale après déformation quand ils sont chauffés</li>
+                            <li>Matériaux piézoélectriques : génèrent de l'électricité quand ils sont comprimés</li>
+                            <li>Hydrogels : absorbent et libèrent de l'eau selon les conditions d'humidité</li>
+                        </ul>
+                    </div>
+                </li>
+                <li><b>L'Impression 3D :</b> La possibilité de créer des objets sur mesure à partir de modèles numériques. <a href="#" class="clickable-info" onclick="toggleInfo('print3d')">🖨️ Révolution</a>
+                    <div id="print3d" class="hidden-info">
+                        L'impression 3D permet de fabriquer des pièces complexes impossibles à réaliser avec les techniques traditionnelles, de personnaliser les objets selon les besoins de chaque utilisateur, et de produire localement, réduisant ainsi les transports et l'empreinte carbone.
+                    </div>
+                </li>
+                <li><b>L'Internet des Objets (IoT) :</b> Des objets connectés qui communiquent entre eux pour améliorer notre quotidien. <a href="#" class="clickable-info" onclick="toggleInfo('iot')">📱 Applications</a>
+                    <div id="iot" class="hidden-info">
+                        <ul>
+                            <li>Maison intelligente : thermostats, éclairage et appareils qui s'adaptent à nos habitudes</li>
+                            <li>Ville intelligente : capteurs de stationnement, gestion optimisée des déchets et de l'énergie</li>
+                            <li>Santé connectée : dispositifs médicaux qui surveillent notre santé en temps réel</li>
+                        </ul>
+                    </div>
+                </li>
+                <li><b>L'Économie Circulaire :</b> Une approche qui vise à réduire les déchets et à réutiliser les matériaux pour préserver les ressources de la planète 🌍.</li>
+                <li><b>La Biomimétique :</b> S'inspirer des solutions développées par la nature pour créer des objets plus efficaces et plus durables. <a href="#" class="clickable-info" onclick="toggleInfo('biominetic')">🐾 Inspirations</a>
+                    <div id="biominetic" class="hidden-info">
+                        <ul>
+                            <li>Le train à grande vitesse japonais Shinkansen inspiré du bec du martin-pêcheur pour réduire le bruit</li>
+                            <li>Le Velcro inspiré des crochets des bardanes</li>
+                            <li>Les peintures autonettoyantes inspirées des feuilles de lotus</li>
+                        </ul>
+                    </div>
+                </li>
+                <li><b>Les Nanomatériaux :</b> Des matériaux dont les dimensions sont à l'échelle nanométrique, offrant des propriétés uniques. <a href="#" class="clickable-info" onclick="toggleInfo('nanomaterials')">⚛️ Propriétés</a>
+                    <div id="nanomaterials" class="hidden-info">
+                        Les nanomatériaux peuvent être plus légers, plus résistants, plus conducteurs ou plus réactifs que les matériaux traditionnels. Ils sont utilisés dans les batteries, les revêtements, les médicaments et même les vêtements.
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section id="glossaire" class="content-section glossary">
+            <h2>Glossaire 📚</h2>
+            <input type="text" class="glossary-search" id="glossarySearch" placeholder="Rechercher un terme...">
+            
+            <ul class="glossary-list">
+                <li onclick="showDefinition('objet')">Objet Technique 🛠️</li>
+                <li onclick="showDefinition('fonctionTech')">Fonction 🎯</li>
+                <li onclick="showDefinition('materiau')">Matériau 🧱</li>
+                <li onclick="showDefinition('resistance')">Résistance 💪</li>
+                <li onclick="showDefinition('durete')">Dureté 💎</li>
+                <li onclick="showDefinition('elasticite')">Élasticité 🤸</li>
+                <li onclick="showDefinition('conductivite')">Conductivité 🔥⚡</li>
+                <li onclick="showDefinition('corrosion')">Corrosion 🛡️</li>
+                <li onclick="showDefinition('transparence')">Transparence 👓</li>
+                <li onclick="showDefinition('ergonomie')">Ergonomie 👍</li>
+                <li onclick="showDefinition('prototype')">Prototype 🧪</li>
+                <li onclick="showDefinition('industrialisation')">Industrialisation 🏭</li>
+                <li onclick="showDefinition('composite')">Matériau Composite 🔄</li>
+                <li onclick="showDefinition('biodegradable')">Biodégradabilité ♻️</li>
+                <li onclick="showDefinition('innovation')">Innovation 💡</li>
+                <li onclick="showDefinition('durabilite')">Durabilité 🌱</li>
+            </ul>
+
+            <div id="objetDefinition" class="glossary-definition">Artefact créé par l'homme pour répondre à un besoin.</div>
+            <div id="fonctionTechDefinition" class="glossary-definition">Raison d'être d'un objet, son objectif principal.</div>
+            <div id="materiauDefinition" class="glossary-definition">Substance utilisée pour construire un objet.</div>
+            <div id="resistanceDefinition" class="glossary-definition">Capacité à supporter des charges sans se casser.</div>
+            <div id="dureteDefinition" class="glossary-definition">Capacité à résister à la rayure ou à l'indentation.</div>
+            <div id="elasticiteDefinition" class="glossary-definition">Capacité à reprendre sa forme initiale après une déformation.</div>
+            <div id="conductiviteDefinition" class="glossary-definition">Capacité à transmettre la chaleur ou l'électricité.</div>
+            <div id="corrosionDefinition" class="glossary-definition">Dégradation d'un matériau par réaction chimique.</div>
+            <div id="transparenceDefinition" class="glossary-definition">Capacité à laisser passer la lumière.</div>
+            <div id="ergonomieDefinition" class="glossary-definition">Conception d'un objet pour qu'il soit facile et confortable à utiliser.</div>
+            <div id="prototypeDefinition" class="glossary-definition">Modèle préliminaire pour tester une solution.</div>
+            <div id="industrialisationDefinition" class="glossary-definition">Processus de fabrication en série d'un produit.</div>
+            <div id="compositeDefinition" class="glossary-definition">Matériau constitué d'au moins deux composants différents, combinant leurs propriétés pour obtenir des performances supérieures.</div>
+            <div id="biodegradableDefinition" class="glossary-definition">Capacité d'un matériau à être décomposé naturellement par des micro-organismes en composés simples qui se réintègrent dans l'environnement.</div>
+            <div id="innovationDefinition" class="glossary-definition">Processus qui transforme une idée nouvelle en un produit ou service utile et commercialisable.</div>
+            <div id="durabiliteDefinition" class="glossary-definition">Caractéristique d'un objet conçu pour minimiser son impact environnemental tout au long de son cycle de vie.</div>
+        </section>
+    </main>
+
+    <div class="help-btn" onclick="toggleHelp()">?</div>
+    <div class="help-content" id="helpContent">
+        <button class="help-close" onclick="toggleHelp()">×</button>
+        <h3 class="help-title">Aide à la navigation</h3>
+        <p>👋 Bienvenue dans ce cours sur les objets techniques!</p>
+        <p>📖 <strong>Contenu :</strong> Naviguez entre les sections grâce au menu en haut de page.</p>
+        <p>🔍 <strong>Glossaire :</strong> Utilisez la recherche pour trouver les définitions des termes techniques.</p>
+        <p>🎮 <strong>Jeux :</strong> Testez vos connaissances avec les jeux interactifs dans la section dédiée.</p>
+        <p>ℹ️ <strong>Infos supplémentaires :</strong> Cliquez sur les liens interactifs pour plus d'informations.</p>
+    </div>
+
+    <script>
+        // Variables globales
+        let completedSections = {};
+        let currentQuizIndex = 0;
+        let memoryFlippedCards = [];
+        let memoryMatchedPairs = 0;
+        let memoryCards = []; // Ajout d'une variable pour stocker les cartes mémory
+        
+        // Questions du quiz
+        const quizQuestions = [
+            {
+                question: "Quel matériau est le plus adapté pour fabriquer le cadre d'une bicyclette de compétition ?",
+                options: ["Acier", "Fibre de carbone", "Bois", "Béton"],
+                answer: 1, // Fibre de carbone
+                explanation: "La fibre de carbone est idéale car elle est à la fois très légère et extrêmement résistante, deux propriétés essentielles pour les vélos de compétition."
+            },
+            {
+                question: "Quelle propriété est la plus importante pour les fils électriques ?",
+                options: ["Transparence", "Élasticité", "Conductivité électrique", "Dureté"],
+                answer: 2, // Conductivité électrique
+                explanation: "Les fils électriques doivent laisser passer facilement le courant électrique, c'est pourquoi la conductivité électrique est leur propriété essentielle."
+            },
+            {
+                question: "Quel matériau est le plus adapté pour fabriquer une poêle à frire ?",
+                options: ["Plastique", "Bois", "Aluminium", "Coton"],
+                answer: 2, // Aluminium
+                explanation: "L'aluminium est un excellent conducteur thermique, léger et relativement bon marché, ce qui en fait un matériau idéal pour les poêles à frire."
+            }
+        ];
+        
+        // Paires pour le jeu de memory
+        const memoryPairs = [
+            { name: "Acier", use: "Ponts et structures" },
+            { name: "Aluminium", use: "Cadres de vélos" },
+            { name: "Bois", use: "Meubles" },
+            { name: "Verre", use: "Fenêtres" },
+            { name: "Coton", use: "Vêtements" },
+            { name: "Silicone", use: "Joints d'étanchéité" }
+        ];
+        
+        // Initialisation au chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialiser les animations de défilement
+            initScrollAnimations();
+            
+            // Initialiser le système de navigation
+            initNavigation();
+            
+            // Initialiser la barre de progression
+            updateProgress();
+            
+            // Initialiser le glossaire
+            initGlossary();
+            
+            // Initialiser le jeu de memory
+            initMemoryGame();
+            
+            // Charge la première question du quiz
+            loadQuestion(0);
+            
+            // Marquer la première section comme visible immédiatement
+            document.getElementById('introduction').classList.add('visible');
+            completedSections['introduction'] = true;
+            updateProgress();
+        });
+
+        // Fonction pour les animations au défilement
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // Marquer la section comme vue pour la progression
+                        if (entry.target.id) {
+                            completedSections[entry.target.id] = true;
+                            updateProgress();
+                        }
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            document.querySelectorAll('.content-section').forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        // Système de navigation
+        function initNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            // Gérer le clic sur les liens de navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Supprimer la classe active de tous les liens
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
+                    });
+                    
+                    // Ajouter la classe active au lien cliqué
+                    this.classList.add('active');
+                    
+                    // Faire défiler jusqu'à la section
+                    const targetId = this.getAttribute('href').substring(1);
+                    document.getElementById(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Changer l'apparence du menu lors du défilement
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('.content-section');
+                
+                // Déterminer quelle section est visible
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= 150 && rect.bottom >= 150) {
+                        // Mettre à jour le lien actif
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === '#' + section.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            });
+        }
+
+        // Mise à jour de la barre de progression
+        function updateProgress() {
+            const totalSections = document.querySelectorAll('.content-section').length;
+            const completedCount = Object.keys(completedSections).length;
+            const progressPercent = Math.floor((completedCount / totalSections) * 100);
+            
+            document.getElementById('progressBar').style.width = progressPercent + '%';
+            document.getElementById('progressPercent').textContent = progressPercent + '%';
+        }
+
+        // Fonction pour afficher/masquer les informations supplémentaires
+        function toggleInfo(infoId) {
+            const info = document.getElementById(infoId);
+            if (info.style.display === "block") {
+                info.style.display = "none";
+            } else {
+                info.style.display = "block";
+                
+                // Marquer comme activité complétée pour la progression
+                completedSections['infoInteraction'] = true;
+                updateProgress();
+            }
+        }
+
+        // Fonction pour la recherche et l'affichage du glossaire
+        function initGlossary() {
+            const searchInput = document.getElementById('glossarySearch');
+            
+            searchInput.addEventListener('input', function() {
+                const searchText = this.value.toLowerCase();
+                const glossaryItems = document.querySelectorAll('.glossary-list li');
+                
+                glossaryItems.forEach(item => {
+                    const itemText = item.textContent.toLowerCase();
+                    if (itemText.includes(searchText)) {
+                        item.style.display = 'inline-block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Fonction pour afficher une définition du glossaire
+        function showDefinition(term) {
+            // Masquer toutes les définitions
+            document.querySelectorAll('.glossary-definition').forEach(def => {
+                def.style.display = 'none';
+            });
+            
+            // Afficher la définition sélectionnée
+            document.getElementById(term + 'Definition').style.display = 'block';
+            
+            // Marquer comme activité complétée pour la progression
+            completedSections['glossaryInteraction'] = true;
+            updateProgress();
+        }
+
+        // Fonction pour le quiz
+        function loadQuestion(index) {
+            const question = quizQuestions[index];
+            const quizContent = document.getElementById('quiz-content');
+            
+            quizContent.querySelector('.quiz-question').textContent = question.question;
+            
+            const options = quizContent.querySelector('.quiz-options');
+            options.innerHTML = '';
+            
+            question.options.forEach((option, i) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'quiz-option';
+                optionDiv.textContent = option;
+                optionDiv.onclick = function() {
+                    checkAnswer(this, i === question.answer);
+                };
+                options.appendChild(optionDiv);
+            });
+            
+            quizContent.querySelector('.quiz-feedback').style.display = 'none';
+            quizContent.querySelector('.quiz-next').style.display = 'none';
+            
+            currentQuizIndex = index;
+        }
+
+        function checkAnswer(option, isCorrect) {
+            const options = document.querySelectorAll('.quiz-option');
+            const feedback = document.querySelector('.quiz-feedback');
+            const nextButton = document.querySelector('.quiz-next');
+            
+            // Désactiver les clics sur toutes les options
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+            
+            if (isCorrect) {
+                option.classList.add('correct');
+                feedback.textContent = '✅ Bravo ! ' + quizQuestions[currentQuizIndex].explanation;
+                feedback.className = 'quiz-feedback correct';
+            } else {
+                option.classList.add('incorrect');
+                
+                // Montrer la bonne réponse
+                options[quizQuestions[currentQuizIndex].answer].classList.add('correct');
+                
+                feedback.textContent = '❌ Pas tout à fait ! ' + quizQuestions[currentQuizIndex].explanation;
+                feedback.className = 'quiz-feedback incorrect';
+            }
+            
+            feedback.style.display = 'block';
+            
+            // Afficher le bouton suivant s'il y a d'autres questions
+            if (currentQuizIndex < quizQuestions.length - 1) {
+                nextButton.style.display = 'block';
+            }
+            
+            // Marquer comme activité complétée pour la progression
+            completedSections['quizAttempt'] = true;
+            updateProgress();
+        }
+
+        function nextQuestion() {
+            if (currentQuizIndex < quizQuestions.length - 1) {
+                loadQuestion(currentQuizIndex + 1);
+            }
+        }
+
+        // Initialisation du jeu de memory
+        function initMemoryGame() {
+            const board = document.getElementById('memory-board');
+            memoryCards = []; // Réinitialiser la variable globale
+            
+            // Créer les cartes (matériaux et utilisations)
+            memoryPairs.forEach(pair => {
+                memoryCards.push({ type: 'name', content: pair.name });
+                memoryCards.push({ type: 'use', content: pair.use });
+            });
+            
+            // Mélanger les cartes
+            memoryCards = shuffleArray(memoryCards);
+            
+            // Vider le board avant d'ajouter de nouvelles cartes
+            board.innerHTML = "";
+            
+            // Ajouter les cartes au tableau
+            memoryCards.forEach((card, index) => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'memory-card';
+                cardElement.dataset.index = index;
+                cardElement.onclick = function() {
+                    flipCard(this);
+                };
+                
+                const frontElement = document.createElement('div');
+                frontElement.className = 'memory-card-front';
+                frontElement.textContent = '?';
+                
+                const backElement = document.createElement('div');
+                backElement.className = 'memory-card-back';
+                backElement.textContent = card.content;
+                
+                cardElement.appendChild(frontElement);
+                cardElement.appendChild(backElement);
+                board.appendChild(cardElement);
+            });
+        }
+
+        function flipCard(card) {
+            // Si la carte est déjà retournée ou si deux cartes sont déjà retournées, ne rien faire
+            if (card.classList.contains('flipped') || memoryFlippedCards.length >= 2) {
+                return;
+            }
+            
+            // Retourner la carte
+            card.classList.add('flipped');
+            memoryFlippedCards.push(card);
+            
+            // Si deux cartes sont retournées, vérifier si elles forment une paire
+            if (memoryFlippedCards.length === 2) {
+                setTimeout(checkForMatch, 1000);
+            }
+        }
+
+        function checkForMatch() {
+            const card1 = memoryFlippedCards[0];
+            const card2 = memoryFlippedCards[1];
+            
+            const index1 = parseInt(card1.dataset.index);
+            const index2 = parseInt(card2.dataset.index);
+            
+            // Déterminer si les cartes forment une paire
+            // Une paire est constituée d'un nom de matériau et de son utilisation
+            const pairs = memoryPairs.map(pair => [pair.name, pair.use]);
+            let isMatch = false;
+            
+            for (let pair of pairs) {
+                if ((memoryCards[index1].content === pair[0] && memoryCards[index2].content === pair[1]) ||
+                    (memoryCards[index1].content === pair[1] && memoryCards[index2].content === pair[0])) {
+                    isMatch = true;
+                    break;
+                }
+            }
+            
+            if (isMatch) {
+                // Marquer les cartes comme trouvées
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                
+                // Désactiver le clic sur ces cartes
+                card1.onclick = null;
+                card2.onclick = null;
+                
+                memoryMatchedPairs++;
+                
+                // Vérifier si toutes les paires ont été trouvées
+                if (memoryMatchedPairs === memoryPairs.length) {
+                    // Marquer comme activité complétée pour la progression
+                    completedSections['memoryCompleted'] = true;
+                    updateProgress();
+                }
+            } else {
+                // Retourner les cartes
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+            }
+            
+            // Réinitialiser les cartes retournées
+            memoryFlippedCards = [];
+        }
+
+        // Fonction pour créer un objet technique
+        function designObject() {
+            const name = document.getElementById('object-name').value;
+            const mainFunction = document.getElementById('object-function').value;
+            const material = document.getElementById('object-material1').value;
+            const justification = document.getElementById('material-justification').value;
+            
+            if (!name || !mainFunction || !material || !justification) {
+                alert("Merci de remplir tous les champs !");
+                return;
+            }
+            
+            const resultDiv = document.getElementById('design-result');
+            resultDiv.innerHTML = `
+                <h4>Votre Objet Technique : ${name}</h4>
+                <div class="example">
+                    <p><b>Fonction principale :</b> ${mainFunction}</p>
+                    <p><b>Matériau principal :</b> ${material}</p>
+                    <p><b>Justification du choix du matériau :</b> ${justification}</p>
+                </div>
+                <p>Félicitations ! Vous avez conçu un objet technique en tenant compte de sa fonction et des propriétés des matériaux. C'est exactement ce que font les ingénieurs et les designers !</p>
+            `;
+            
+            resultDiv.style.display = 'block';
+            
+            // Marquer comme activité complétée pour la progression
+            completedSections['designerCompleted'] = true;
+            updateProgress();
+        }
+
+        // Fonction pour afficher/masquer l'aide
+        function toggleHelp() {
+            const helpContent = document.getElementById('helpContent');
+            helpContent.classList.toggle('active');
+        }
+
+        // Fonction utilitaire pour mélanger un tableau
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+    </script>
+</body>
+</html>

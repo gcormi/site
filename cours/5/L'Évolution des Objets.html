@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Du Passé au Présent : L'Évolution des Objets</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Variables pour les couleurs (permettant le mode sombre) */
+        :root {
+            --bg-color: #e8f5e9;
+            --main-bg: white;
+            --text-color: #37474f;
+            --header-color: #9fa8da;
+            --nav-color: #673ab7;
+            --title-color: #673ab7;
+            --accent-color: #7e57c2;
+            --example-bg: #e1bee7;
+            --example-border: #7e57c2;
+            --info-bg: #e8eaf6;
+            --future-bg: #e0f7fa;
+            --future-border: #4dd0e1;
+            --glossary-item: #7986cb;
+            --glossary-hover: #5e35b1;
+            --glossary-def-bg: #f3e5f5;
+            --table-header: #9fa8da;
+            --table-even: #f3e5f5;
+            --timeline-bg: #f3e5f5;
+            --timeline-dot: #673ab7;
+            --box-shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        /* Mode sombre */
+        .dark-theme {
+            --bg-color: #263238;
+            --main-bg: #37474f;
+            --text-color: #eceff1;
+            --header-color: #4527a0;
+            --nav-color: #512da8;
+            --title-color: #b39ddb;
+            --accent-color: #9575cd;
+            --example-bg: #4527a0;
+            --example-border: #9575cd;
+            --info-bg: #3949ab;
+            --future-bg: #006064;
+            --future-border: #00acc1;
+            --glossary-item: #5c6bc0;
+            --glossary-hover: #3f51b5;
+            --glossary-def-bg: #4527a0;
+            --table-header: #512da8;
+            --table-even: #455a64;
+            --timeline-bg: #455a64;
+            --timeline-dot: #b39ddb;
+            --box-shadow: rgba(0, 0, 0, 0.4);
+        }
+
+        /* Style CSS de base */
+        body {
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        header {
+            background-color: var(--header-color);
+            color: var(--text-color);
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 6px 8px var(--box-shadow);
+            animation: fadeIn 1s ease-in-out;
+            position: relative;
+        }
+
+        /* Bouton de changement de thème */
+        .theme-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+        }
+
+        nav {
+            background-color: var(--nav-color);
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            box-shadow: 0 4px 6px var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            padding: 5px 0;
+        }
+
+        nav a:hover {
+            color: var(--bg-color);
+            border-bottom: 2px solid white;
+        }
+
+        main {
+            padding: 30px;
+            max-width: 950px;
+            margin: 30px auto;
+            background-color: var(--main-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 8px var(--box-shadow);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        main:hover {
+            transform: scale(1.01);
+        }
+
+        section {
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            padding: 10px;
+            border-radius: 8px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px var(--box-shadow);
+        }
+
+        h1, h2, h3 {
+            color: var(--title-color);
+            margin-bottom: 12px;
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        /* Style amélioré pour les exemples */
+        .example {
+            padding: 20px;
+            background-color: var(--example-bg);
+            border-left: 6px solid var(--example-border);
+            margin-bottom: 20px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .example:hover {
+            transform: translateX(10px);
+        }
+
+        .example::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 300%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+            transform: skewX(-45deg);
+            animation: wave 3s linear infinite;
+        }
+
+        /* Style pour les boutons */
+        .info-button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            box-shadow: 0 2px 5px var(--box-shadow);
+        }
+
+        .info-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px var(--box-shadow);
+        }
+
+        .info-button i {
+            margin-right: 5px;
+        }
+
+        /* Style amélioré pour les informations cachées */
+        .hidden-info {
+            display: none;
+            padding: 15px;
+            background-color: var(--info-bg);
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 1px solid var(--accent-color);
+            animation: slideInDown 0.5s ease-out;
+            position: relative;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease;
+        }
+
+        .hidden-info.visible {
+            max-height: 500px;
+        }
+
+        .hidden-info::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid var(--info-bg);
+        }
+
+        /* Frise chronologique */
+        .timeline {
+            position: relative;
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 20px 0;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--accent-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--timeline-dot);
+            border: 4px solid white;
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd)::after {
+            right: -14px;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -14px;
+        }
+
+        .timeline-content {
+            padding: 15px;
+            background-color: var(--timeline-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px var(--box-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.05);
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        /* Quiz */
+        .quiz-container {
+            background-color: var(--example-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 3px 6px var(--box-shadow);
+        }
+
+        .quiz-question {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--title-color);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            padding: 10px 15px;
+            background-color: var(--main-bg);
+            border: 2px solid var(--accent-color);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .quiz-option:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .quiz-option.selected {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .quiz-option.correct {
+            background-color: #81c784;
+            color: #1b5e20;
+            border-color: #2e7d32;
+        }
+
+        .quiz-option.incorrect {
+            background-color: #e57373;
+            color: #b71c1c;
+            border-color: #c62828;
+        }
+
+        .quiz-feedback {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .quiz-feedback.correct {
+            background-color: #c8e6c9;
+            color: #1b5e20;
+            border: 1px solid #81c784;
+        }
+
+        .quiz-feedback.incorrect {
+            background-color: #ffcdd2;
+            color: #b71c1c;
+            border: 1px solid #e57373;
+        }
+
+        .quiz-button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .quiz-button:hover {
+            background-color: var(--title-color);
+        }
+
+        /* Cartes de comparaison */
+        .comparison-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .comparison-card {
+            flex: 1 1 250px;
+            max-width: 300px;
+            background-color: var(--main-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px var(--box-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-header {
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--accent-color);
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 15px;
+            background-color: var(--timeline-bg);
+            font-size: 0.9em;
+        }
+
+        /* Glossaire amélioré */
+        .glossary {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .glossary-search {
+            width: 80%;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            border: 2px solid var(--accent-color);
+            border-radius: 25px;
+            font-size: 16px;
+            background-color: var(--main-bg);
+            color: var(--text-color);
+        }
+
+        .glossary-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .glossary-list li {
+            margin: 8px 15px;
+            padding: 10px 20px;
+            background-color: var(--glossary-item);
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .glossary-list li:hover {
+            background-color: var(--glossary-hover);
+            transform: scale(1.05);
+        }
+
+        .glossary-definition {
+            margin-top: 15px;
+            padding: 20px;
+            background-color: var(--glossary-def-bg);
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+            text-align: left;
+            box-shadow: 0 3px 8px var(--box-shadow);
+        }
+
+        .glossary-image {
+            max-width: 100px;
+            max-height: 100px;
+            margin: 10px auto;
+            display: block;
+        }
+
+        /* Tableaux améliorés */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px var(--box-shadow);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--accent-color);
+            transition: background-color 0.3s ease;
+        }
+
+        tr:hover td {
+            background-color: var(--example-bg);
+        }
+
+        th {
+            background-color: var(--table-header);
+            color: white;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--table-even);
+        }
+
+        /* Section avenir */
+        .future-outlook {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: var(--future-bg);
+            border-left: 6px solid var(--future-border);
+            border-radius: 8px;
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        /* Animations CSS */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes wave {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            nav { flex-direction: column; align-items: center; }
+            nav a { margin: 5px 0; }
+            .timeline::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item:nth-child(even) { left: 0; }
+            .timeline-item:nth-child(odd)::after { right: auto; left: 15px; }
+            .timeline-item:nth-child(even)::after { left: 15px; }
+            .comparison-cards { flex-direction: column; align-items: center; }
+            .comparison-card { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </button>
+        <h1>Du Passé au Présent 🕰️: L'Évolution des Objets 🚀</h1>
+        <p>Explore comment les matériaux et l'énergie ont transformé nos objets ! ✨</p>
+    </header>
+
+    <nav>
+        <a href="#introduction">Introduction</a>
+        <a href="#timeline">Frise Chronologique</a>
+        <a href="#materiaux">Matériaux</a>
+        <a href="#energie">Énergie</a>
+        <a href="#eclairage">Éclairage</a>
+        <a href="#inventions">Inventions</a>
+        <a href="#avenir">Avenir</a>
+        <a href="#quiz">Quiz</a>
+        <a href="#glossaire">Glossaire</a>
+    </nav>
+
+    <main>
+        <section id="introduction">
+            <h2>Introduction : Un Voyage à Travers le Temps ⏳</h2>
+            <p>Salut les historiens du futur ! 👋 Avez-vous déjà pensé que les objets qui vous entourent ont une histoire 📚 ? Ils n'ont pas toujours été comme ça ! 😉 Les matériaux et l'énergie ont joué un rôle clé dans leur évolution.</p>
+            
+            <div class="example">
+                <p><i class="fas fa-lightbulb"></i> <strong>Saviez-vous que...</strong> votre smartphone contient plus de puissance de calcul que tous les ordinateurs utilisés par la NASA pour envoyer les premiers hommes sur la Lune ? 🌕 La miniaturisation des composants et les progrès dans les matériaux ont rendu cela possible.</p>
+                <button class="info-button" onclick="toggleInfo('introEvolutionInfo')"><i class="fas fa-info-circle"></i> En savoir plus</button>
+                <div id="introEvolutionInfo" class="hidden-info">
+                    L'évolution des objets techniques n'est pas linéaire. Elle est souvent marquée par des sauts technologiques liés à trois facteurs clés :
+                    <ul>
+                        <li>La découverte de nouveaux matériaux (comme les semi-conducteurs pour l'électronique)</li>
+                        <li>L'accès à de nouvelles sources d'énergie (comme l'électricité)</li>
+                        <li>Des innovations dans les procédés de fabrication (comme la miniaturisation)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="timeline">
+            <h2>Frise Chronologique : Les Grandes Étapes 🗓️</h2>
+            <p>Parcourez les moments clés qui ont transformé nos objets du quotidien.</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Préhistoire (-400 000 ans)</div>
+                        <h3>Maîtrise du feu</h3>
+                        <p>Premier contrôle d'une forme d'énergie par l'homme, transformant la vie quotidienne.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Âge du Bronze (-3000 av. J.-C.)</div>
+                        <h3>Premiers alliages métalliques</h3>
+                        <p>Mélange de cuivre et d'étain permettant de créer des outils plus résistants.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Moyen Âge (12e siècle)</div>
+                        <h3>Moulins à eau et à vent</h3>
+                        <p>Exploitation de sources d'énergie naturelles pour mécaniser des tâches.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Révolution industrielle (1760-1840)</div>
+                        <h3>Machine à vapeur</h3>
+                        <p>Première source d'énergie mécanique indépendante des contraintes naturelles.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">19e siècle (1879)</div>
+                        <h3>Ampoule électrique</h3>
+                        <p>Thomas Edison développe la première ampoule électrique commercialement viable.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">20e siècle (1947)</div>
+                        <h3>Invention du transistor</h3>
+                        <p>Révolution dans l'électronique, permettant la miniaturisation des composants.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">21e siècle (2007)</div>
+                        <h3>Premier smartphone</h3>
+                        <p>Convergence de multiples technologies dans un objet multifonction de poche.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="materiaux">
+            <h2>1. Les Matériaux : Des Découvertes Qui Changent la Donne 🧱</h2>
+            <p>La découverte de nouveaux matériaux a toujours été un moteur d'innovation. Des outils en pierre de la Préhistoire aux alliages sophistiqués utilisés dans l'aérospatiale, les matériaux ont permis de repousser les limites du possible. 🚀</p>
+
+            <div class="comparison-cards">
+                <div class="comparison-card">
+                    <div class="card-header">Bronze (3000 av. J.-C.)</div>
+                    <div class="card-body">
+                        <p>Alliage de cuivre et d'étain, premier métal travaillé par l'homme, marquant une révolution technique.</p>
+                        <button class="info-button" onclick="toggleInfo('bronzeDetailInfo')"><i class="fas fa-tools"></i> Techniques</button>
+                        <div id="bronzeDetailInfo" class="hidden-info">
+                            La fabrication du bronze nécessitait une température de fusion d'environ 950°C. Cette découverte a permis de fabriquer des outils et des armes bien plus résistants que ceux en pierre, transformant l'agriculture et l'art de la guerre.
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span>Dureté: ★★★☆☆</span>
+                        <span>Durabilité: ★★★☆☆</span>
+                    </div>
+                </div>
+
+                <div class="comparison-card">
+                    <div class="card-header">Acier (19e siècle)</div>
+                    <div class="card-body">
+                        <p>Alliage de fer et de carbone, l'acier moderne a permis la construction de gratte-ciels et de ponts.</p>
+                        <button class="info-button" onclick="toggleInfo('acierDetailInfo')"><i class="fas fa-industry"></i> Applications</button>
+                        <div id="acierDetailInfo" class="hidden-info">
+                            L'acier est probablement le matériau le plus important de l'ère industrielle. Ses propriétés exceptionnelles en termes de résistance, de ductilité et de durabilité ont rendu possibles les infrastructures modernes : ponts, rails de chemin de fer, gratte-ciels et automobiles.
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span>Dureté: ★★★★☆</span>
+                        <span>Durabilité: ★★★★★</span>
+                    </div>
+                </div>
+
+                <div class="comparison-card">
+                    <div class="card-header">Fibre de carbone (1960+)</div>
+                    <div class="card-body">
+                        <p>Matériau composite moderne alliant légèreté et une résistance exceptionnelle.</p>
+                        <button class="info-button" onclick="toggleInfo('compositeDetailInfo')"><i class="fas fa-plane"></i> Applications</button>
+                        <div id="compositeDetailInfo" class="hidden-info">
+                            Les matériaux composites comme la fibre de carbone combinent plusieurs matériaux pour obtenir des propriétés supérieures. Plus légère que l'acier mais tout aussi résistante, la fibre de carbone est utilisée dans l'aéronautique, l'automobile haut de gamme, et les équipements sportifs professionnels.
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span>Dureté: ★★★★★</span>
+                        <span>Légèreté: ★★★★★</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Exemples de matériaux et leurs impacts :</h3>
+            <ul>
+                <li><b>Le Bronze :</b> Alliage de cuivre et d'étain, il a permis de fabriquer des outils et des armes plus résistants que la pierre. ⚔️ 
+                    <button class="info-button" onclick="toggleInfo('bronzeInfo')"><i class="fas fa-history"></i> Plus d'infos</button>
+                    <div id="bronzeInfo" class="hidden-info">
+                        L'âge du bronze (3000 à 1000 av. J.-C.) a marqué une étape importante dans le développement des civilisations. La métallurgie a nécessité des techniques complexes comme le moulage et la forge, créant des métiers spécialisés et de nouveaux systèmes sociaux.
+                    </div>
+                </li>
+                <li><b>Le Fer :</b> Plus abondant et plus dur que le bronze, il a révolutionné l'agriculture, la guerre et la construction. 🔨 
+                    <button class="info-button" onclick="toggleInfo('ferInfo')"><i class="fas fa-fire"></i> Techniques</button>
+                    <div id="ferInfo" class="hidden-info">
+                        La maîtrise de la forge du fer nécessitait des températures bien plus élevées (environ 1500°C) que le bronze. Les forgerons devaient maîtriser non seulement la chauffe mais aussi le martelage pour éliminer les impuretés. Cette expertise technique a donné naissance à une classe d'artisans respectés et essentiels dans les sociétés anciennes.
+                    </div>
+                </li>
+                <li><b>Les Plastiques :</b> Synthétisés à partir du pétrole, ils sont légers, résistants, économiques et faciles à mouler. Ils ont envahi notre quotidien, mais posent des problèmes environnementaux. ♻️ 
+                    <button class="info-button" onclick="toggleInfo('plastiqueInfo')"><i class="fas fa-recycle"></i> Enjeux</button>
+                    <div id="plastiqueInfo" class="hidden-info">
+                        La production mondiale de plastique est passée de 2 millions de tonnes en 1950 à plus de 380 millions de tonnes aujourd'hui. La durabilité qui fait la force du plastique est aussi sa faiblesse écologique : certains plastiques mettent jusqu'à 1000 ans pour se dégrader dans la nature. Des alternatives biosourcées et biodégradables sont en développement.
+                    </div>
+                </li>
+            </ul>
+
+            <div class="quiz-container">
+                <div class="quiz-question">Quiz rapide : Quel matériau a permis la construction des premiers gratte-ciels ?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer('materiaux', 0, false)">Le bronze</div>
+                    <div class="quiz-option" onclick="checkAnswer('materiaux', 1, true)">L'acier</div>
+                    <div class="quiz-option" onclick="checkAnswer('materiaux', 2, false)">L'aluminium</div>
+                    <div class="quiz-option" onclick="checkAnswer('materiaux', 3, false)">La fibre de carbone</div>
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback-materiaux"></div>
+                <button class="quiz-button" id="quiz-next-materiaux" style="display: none;" onclick="resetQuiz('materiaux')">Question suivante</button>
+            </div>
+        </section>
+
+        <section id="energie">
+            <h2>2. L'Énergie : De la Force Animale à la Fée Électricité ⚡</h2>
+            <p>L'accès à de nouvelles sources d'énergie a également transformé les objets techniques. Le passage de la force animale à la motorisation a permis d'automatiser les tâches, d'augmenter la production et de se déplacer plus rapidement. 💨</p>
+
+            <div class="comparison-cards">
+                <div class="comparison-card">
+                    <div class="card-header">Moulin à eau (Moyen Âge)</div>
+                    <div class="card-body">
+                        <p>Premier usage à grande échelle d'une énergie naturelle pour remplacer la force humaine ou animale.</p>
+                        <button class="info-button" onclick="toggleInfo('moulinDetailInfo')"><i class="fas fa-water"></i> Fonctionnement</button>
+                        <div id="moulinDetailInfo" class="hidden-info">
+                            Les moulins à eau ont représenté une révolution technologique majeure au Moyen Âge. En transformant l'énergie hydraulique en mouvement rotatif, ils ont permis de mécaniser la mouture du grain, le foulage des tissus et même les premières scieries, multipliant par 5 à 10 la productivité humaine.
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span>Puissance: ★★☆☆☆</span>
+                        <span>Contrôle: ★★☆☆☆</span>
+                    </div>
+                </div>
+
+                <div class="comparison-card">
+                    <div class="card-header">Machine à vapeur (1769)</div>
+                    <div class="card-body">
+                        <p>Première source d'énergie indépendante des contraintes naturelles, moteur de la révolution industrielle.</p>
+                        <button class="info-button" onclick="toggleInfo('vapeurDetailInfo')"><i class="fas fa-train"></i> Applications</button>
+                        <div id="vapeurDetailInfo" class="hidden-info">
+                            La machine à vapeur perfectionnée par James Watt en 1769 a transformé le monde en permettant l'installation d'usines loin des cours d'eau. Les locomotives à vapeur ont révolutionné le transport, réduisant des voyages de plusieurs semaines à quelques jours. C'est cette maîtrise de l'énergie qui a véritablement lancé la révolution industrielle.
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span>Puissance: ★★★★☆</span>
+                        <span>Efficacité: ★★☆☆☆</span>
+                    </div>
+                </div>
+
+                <div class="comparison-card">
+                    <div class="card-header">Énergie électrique (fin 19e)</div>
+                    <div class="card-body">
+                        <p>Énergie propre, instantanée et polyvalente, transportable sur de longues distances.</p>
+                        <button class="info-button" onclick="toggleInfo('electriciteDetailInfo')"><i class="fas fa-bolt"></i> Révolution</button>
+                        <div id="electriciteDetailInfo" class="hidden-info">
+                            L'électricité a représenté une rupture technologique totale. Contrairement aux énergies mécaniques précédentes, elle permet de transporter l'énergie instantanément sur des centaines de kilomètres sans perte majeure. Elle est aussi convertible facilement en lumière, chaleur, ou mouvement. Les réseaux électriques ont transformé les villes et les foyers, créant la société moderne.
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span>Polyvalence: ★★★★★</span>
+                        <span>Efficacité: ★★★★☆</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3>L'évolution des sources d'énergie :</h3>
+            <ul>
+                <li><b>La Force Animale :</b> Utilisée depuis des millénaires pour l'agriculture, le transport et l'industrie. Elle est limitée en puissance et en endurance. 🐴 
+                    <button class="info-button" onclick="toggleInfo('animaleInfo')"><i class="fas fa-horse"></i> Comparaison</button>
+                    <div id="animaleInfo" class="hidden-info">
+                        Un cheval de trait peut fournir environ 1 chevaux-vapeur (746 watts) pendant plusieurs heures, mais nécessite repos, nourriture et soins. À titre de comparaison, un petit moteur électrique moderne peut fournir la même puissance en continu pendant des jours avec seulement quelques kilowatts d'électricité. La mécanisation a ainsi multiplié la productivité agricole par plus de 50 en un siècle.
+                    </div>
+                </li>
+                <li><b>La Vapeur :</b> Produite en chauffant de l'eau, elle a permis de faire fonctionner les machines à vapeur, qui ont révolutionné l'industrie, les transports et l'agriculture. 🚂 
+                    <button class="info-button" onclick="toggleInfo('vapeurInfo')"><i class="fas fa-industry"></i> Impact</button>
+                    <div id="vapeurInfo" class="hidden-info">
+                        Avant la machine à vapeur, la productivité humaine était restée relativement stable pendant des millénaires. Une grande machine à vapeur industrielle pouvait remplacer le travail de centaines d'ouvriers ou de dizaines de chevaux. Cette révolution a transformé non seulement l'économie mais aussi l'organisation sociale, avec l'essor des villes industrielles et de la classe ouvrière.
+                    </div>
+                </li>
+                <li><b>L'Électricité :</b> Facile à transporter et à utiliser, elle a permis d'électrifier les villes, les usines et les foyers. Elle est à la base de nombreux objets techniques modernes. ⚡ 
+                    <button class="info-button" onclick="toggleInfo('electriciteInfo')"><i class="fas fa-lightbulb"></i> Applications</button>
+                    <div id="electriciteInfo" class="hidden-info">
+                        L'électricité a transformé tous les aspects de la vie quotidienne :
+                        <ul>
+                            <li>Éclairage : passage des lampes à pétrole aux ampoules électriques, multipliant l'intensité lumineuse par 10</li>
+                            <li>Communication : télégraphe, téléphone, radio, télévision, internet</li>
+                            <li>Électroménager : réfrigérateurs, machines à laver, fours électriques</li>
+                            <li>Informatique : ordinateurs, smartphones, objets connectés</li>
+                        </ul>
+                        C'est cette énergie polyvalente qui a rendu possible la société de l'information actuelle.
+                    </div>
+                </li>
+            </ul>
+
+            <div class="quiz-container">
+                <div class="quiz-question">Quiz rapide : Quelle innovation énergétique a été le moteur principal de la première révolution industrielle ?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer('energie', 0, false)">L'électricité</div>
+                    <div class="quiz-option" onclick="checkAnswer('energie', 1, true)">La machine à vapeur</div>
+                    <div class="quiz-option" onclick="checkAnswer('energie', 2, false)">L'énergie nucléaire</div>
+                    <div class="quiz-option" onclick="checkAnswer('energie', 3, false)">L'énergie hydraulique</div>
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback-energie"></div>
+                <button class="quiz-button" id="quiz-next-energie" style="display: none;" onclick="resetQuiz('energie')">Question suivante</button>
+            </div>
+        </section>
+
+        <section id="eclairage">
+            <h2>3. L'Évolution d'un Objet : L'Exemple de l'Éclairage 💡</h2>
+            <p>Pour illustrer l'évolution des objets techniques, prenons l'exemple de l'éclairage. Au fil des siècles, les sources de lumière ont évolué grâce à la découverte de nouveaux matériaux et de nouvelles formes d'énergie. 🌟</p>
+
+            <!-- Slider d'évolution de l'éclairage -->
+            <div class="comparison-cards">
+                <div class="comparison-card">
+                    <div class="card-header">Bougie (Antiquité - 19e s.)</div>
+                    <div class="card-body">
+                        <p>Source de lumière à base de cire et d'une mèche, utilisée pendant des millénaires.</p>
+                        <button class="info-button" onclick="toggleInfo('bougieDetailInfo')"><i class="fas fa-fire"></i> Fonctionnement</button>
+                        <div id="bougieDetailInfo" class="hidden-info">
+                            La bougie fonctionne par capillarité : la mèche absorbe la cire fondue qui est ensuite brûlée, produisant une flamme. Une bougie standard produit environ 13 lumens, soit environ 1/100e de la lumière d'une ampoule LED moderne.
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span>Luminosité: ★☆☆☆☆</span>
+                        <span>Durabilité: ★★☆☆☆</span>
+                    </div>
+                </div>
+
+                <div class="comparison-card">
+                    <div class="card-header">Lampe à incandescence (1879)</div>
+                    <div class="card-body">
+                        <p>Invention d'Edison, utilisant un filament chauffé par électricité jusqu'à incandescence.</p>
+                        <button class="info-button" onclick="toggleInfo('incandescenteDetailInfo')"><i class="fas fa-lightbulb"></i> Évolution</button>
+                        <div id="incandescenteDetailInfo" class="hidden-info">
+                            Les premières ampoules à incandescence utilisaient des filaments de carbone qui brûlaient rapidement. L'introduction du tungstène en 1906 a révolutionné leur durabilité. Malgré leur inefficacité (95% de l'énergie perdue en chaleur), elles ont transformé le monde en permettant l'éclairage électrique dans tous les foyers.
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span>Luminosité: ★★★☆☆</span>
+                        <span>Efficacité: ★☆☆☆☆</span>
+                    </div>
+                </div>
+
+                <div class="comparison-card">
+                    <div class="card-header">Ampoule LED (2000+)</div>
+                    <div class="card-body">
+                        <p>Technologie récente utilisant des diodes électroluminescentes pour produire de la lumière.</p>
+                        <button class="info-button" onclick="toggleInfo('ledDetailInfo')"><i class="fas fa-microchip"></i> Avantages</button>
+                        <div id="ledDetailInfo" class="hidden-info">
+                            Les LED représentent une rupture technologique majeure dans l'éclairage :
+                            <ul>
+                                <li>Consommation d'énergie réduite de 80-90% par rapport aux ampoules à incandescence</li>
+                                <li>Durée de vie 25 fois supérieure (25 000 h contre 1 000 h)</li>
+                                <li>Possibilité de contrôler précisément la couleur et l'intensité</li>
+                                <li>Pas d'émission de chaleur et résistance aux chocs</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span>Luminosité: ★★★★★</span>
+                        <span>Efficacité: ★★★★★</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Les étapes de l'évolution de l'éclairage :</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Étape</th>
+                        <th>Source de Lumière</th>
+                        <th>Matériaux</th>
+                        <th>Énergie</th>
+                        <th>Avantages</th>
+                        <th>Inconvénients</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Préhistoire</td>
+                        <td>Feu de bois</td>
+                        <td>Bois, pierres</td>
+                        <td>Chimique (combustion)</td>
+                        <td>Chauffage, protection</td>
+                        <td>Fumée, danger d'incendie</td>
+                    </tr>
+                    <tr>
+                        <td>Antiquité</td>
+                        <td>Bougie</td>
+                        <td>Cire, suif</td>
+                        <td>Chimique (combustion)</td>
+                        <td>Portable, moins de fumée</td>
+                        <td>Faible luminosité, durée limitée</td>
+                    </tr>
+                    <tr>
+                        <td>XIXe siècle</td>
+                        <td>Lampe à gaz</td>
+                        <td>Gaz, verre, métal</td>
+                        <td>Chimique (combustion)</td>
+                        <td>Lumière plus vive</td>
+                        <td>Risque d'explosion, pollution</td>
+                    </tr>
+                    <tr>
+                        <td>XXe siècle</td>
+                        <td>Lampe à incandescence</td>
+                        <td>Verre, tungstène</td>
+                        <td>Électrique</td>
+                        <td>Facile à utiliser</td>
+                        <td>Forte consommation, chaleur</td>
+                    </tr>
+                    <tr>
+                        <td>XXIe siècle</td>
+                        <td>LED</td>
+                        <td>Semi-conducteurs, plastique</td>
+                        <td>Électrique</td>
+                        <td>Faible consommation, longue durée</td>
+                        <td>Coût initial plus élevé</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="example">
+                <p><i class="fas fa-lightbulb"></i> <strong>Fait étonnant :</strong> Une ampoule LED moderne consomme environ 85% d'énergie en moins qu'une ampoule à incandescence équivalente et dure 25 fois plus longtemps. Si chaque foyer dans le monde remplaçait une seule ampoule à incandescence par une LED, l'économie d'énergie permettrait d'éviter l'émission de millions de tonnes de CO₂ chaque année. 🌍</p>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-question">Quiz rapide : Quel est l'avantage principal des ampoules LED par rapport aux ampoules à incandescence ?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer('eclairage', 0, false)">Une lumière plus naturelle</div>
+                    <div class="quiz-option" onclick="checkAnswer('eclairage', 1, false)">Un prix d'achat moins élevé</div>
+                    <div class="quiz-option" onclick="checkAnswer('eclairage', 2, true)">Une consommation d'énergie bien plus faible</div>
+                    <div class="quiz-option" onclick="checkAnswer('eclairage', 3, false)">Un effet décoratif supérieur</div>
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback-eclairage"></div>
+                <button class="quiz-button" id="quiz-next-eclairage" style="display: none;" onclick="resetQuiz('eclairage')">Question suivante</button>
+            </div>
+        </section>
+
+        <section id="inventions">
+            <h2>4. Inventions et Ruptures Technologiques 🚀</h2>
+            <p>L'évolution des objets techniques est ponctuée d'inventions et d'innovations qui marquent des ruptures dans les solutions techniques. Ces ruptures sont souvent liées à la découverte de nouveaux matériaux ou de nouvelles sources d'énergie. 💡</p>
+
+            <h3>Exemples d'inventions marquantes :</h3>
+            <ul>
+                <li><b>L'Imprimerie :</b> Invention de Gutenberg au XVe siècle, elle a permis de diffuser les connaissances à grande échelle grâce à l'utilisation de caractères mobiles en métal. 📚 
+                    <button class="info-button" onclick="toggleInfo('imprimerieInfo')"><i class="fas fa-book"></i> Révolution culturelle</button>
+                    <div id="imprimerieInfo" class="hidden-info">
+                        <p>Avant l'imprimerie, un livre manuscrit coûtait l'équivalent du salaire annuel d'un artisan. Gutenberg a combiné trois technologies existantes (presse à vin, encre à base d'huile et poinçons métalliques) pour créer une innovation de rupture. En quelques décennies, le prix des livres a été divisé par 300, démocratisant l'accès au savoir.</p>
+                        <p>L'imprimerie a été un facteur clé de la Renaissance, de la Réforme protestante et de la révolution scientifique. On estime qu'en 1500, seulement 50 ans après l'invention de Gutenberg, plus de 20 millions de livres avaient déjà été imprimés en Europe.</p>
+                    </div>
+                </li>
+                <li><b>Le Transistor :</b> Inventé en 1947 par Bardeen, Brattain et Shockley aux Bell Labs, il a permis de miniaturiser les circuits électroniques et de développer l'informatique moderne grâce à l'utilisation de semi-conducteurs. 💻 
+                    <button class="info-button" onclick="toggleInfo('transistorInfo')"><i class="fas fa-microchip"></i> Impact</button>
+                    <div id="transistorInfo" class="hidden-info">
+                        <p>Le transistor a remplacé les tubes à vide, qui étaient volumineux, fragiles et énergivores. Les premiers ordinateurs avec des tubes (comme l'ENIAC) pesaient plusieurs tonnes et occupaient des salles entières.</p>
+                        <p>Le processeur d'un smartphone moderne contient plus de 5 milliards de transistors dans un espace plus petit qu'un ongle. Cette miniaturisation, prédite par la loi de Moore, a permis de multiplier la puissance de calcul par un million en quelques décennies tout en divisant les coûts par 1000.</p>
+                        <p>Sans le transistor, l'informatique portable, Internet et l'ère numérique seraient impossibles.</p>
+                    </div>
+                </li>
+                <li><b>Internet :</b> Développé initialement comme ARPANET dans les années 1960, il est devenu un réseau mondial de communication transformant tous les aspects de la société. 🌐 
+                    <button class="info-button" onclick="toggleInfo('internetInfo')"><i class="fas fa-globe"></i> Révolution</button>
+                    <div id="internetInfo" class="hidden-info">
+                        <p>Internet représente une rupture technologique et sociale sans précédent. En interconnectant des milliards d'appareils avec des protocoles standardisés, il a créé un système d'échange d'information universel et décentralisé.</p>
+                        <p>En 1993, le Web représentait 1% du trafic Internet. En 2023, plus de 5 milliards de personnes utilisent Internet quotidiennement, soit 63% de la population mondiale. Cette adoption est la plus rapide de toute technologie dans l'histoire humaine.</p>
+                        <p>Internet a transformé l'économie (commerce en ligne), la culture (réseaux sociaux), l'éducation (cours en ligne), et presque tous les aspects de la vie moderne.</p>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="example">
+                <p><i class="fas fa-lightbulb"></i> <strong>Ruptures technologiques :</strong> Les véritables ruptures technologiques sont rares mais transformatrices. Elles ne se contentent pas d'améliorer les solutions existantes mais créent de nouvelles possibilités inimaginables auparavant. Parmi les ruptures majeures récentes, on trouve l'intelligence artificielle, l'édition génomique (CRISPR) et les énergies renouvelables à faible coût.</p>
+            </div>
+        </section>
+
+        <section id="avenir" class="future-outlook">
+            <h2>Avenir et Perspectives : Des Objets Toujours Plus Intelligents et Durables 🔮</h2>
+            <p>L'évolution des objets techniques n'est pas terminée. L'avenir nous réserve de nombreuses surprises grâce aux progrès de la science des matériaux, de l'intelligence artificielle et des énergies renouvelables. 🌿</p>
+            
+            <div class="comparison-cards">
+                <div class="comparison-card">
+                    <div class="card-header">Matériaux auto-réparants</div>
+                    <div class="card-body">
+                        <p>Des matériaux intelligents capables de détecter et réparer automatiquement leurs dommages.</p>
+                        <button class="info-button" onclick="toggleInfo('autoRepairInfo')"><i class="fas fa-wrench"></i> Applications</button>
+                        <div id="autoRepairInfo" class="hidden-info">
+                            <p>Les matériaux auto-réparants intègrent des microcapsules contenant des agents de réparation qui se libèrent lorsqu'une fissure apparaît. Certains s'inspirent du corps humain qui guérit ses blessures.</p>
+                            <p>Applications futures : routes qui réparent leurs nids-de-poule, smartphones dont l'écran se répare après une chute, peintures automobiles résistantes aux rayures, implants médicaux plus durables.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comparison-card">
+                    <div class="card-header">Objets connectés (IoT)</div>
+                    <div class="card-body">
+                        <p>Objets quotidiens intégrant des capteurs et connectés à Internet pour plus d'intelligence et d'automatisation.</p>
+                        <button class="info-button" onclick="toggleInfo('iotInfo')"><i class="fas fa-wifi"></i> Potentiel</button>
+                        <div id="iotInfo" class="hidden-info">
+                            <p>D'ici 2030, on estime que plus de 50 milliards d'objets seront connectés à Internet, depuis les réfrigérateurs jusqu'aux vêtements.</p>
+                            <p>Les infrastructures urbaines (éclairage, trafic, gestion des déchets) deviendront "intelligentes", optimisant les ressources et réduisant la pollution. Les maisons connectées ajusteront automatiquement leur consommation d'énergie selon les besoins et habitudes de leurs occupants.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comparison-card">
+                    <div class="card-header">Énergies renouvelables</div>
+                    <div class="card-body">
+                        <p>Transition vers des sources d'énergie propres et durables pour alimenter nos objets techniques.</p>
+                        <button class="info-button" onclick="toggleInfo('renewableInfo')"><i class="fas fa-leaf"></i> Avenir</button>
+                        <div id="renewableInfo" class="hidden-info">
+                            <p>Le coût de l'énergie solaire a chuté de 89% depuis 2010, la rendant moins chère que les combustibles fossiles dans de nombreux pays. Cette tendance va transformer nos objets techniques.</p>
+                            <p>Les futurs appareils électroniques pourraient intégrer leurs propres cellules solaires transparentes dans leurs écrans. Les textiles photovoltaïques permettront aux vêtements de recharger nos appareils. Les capteurs IoT utiliseront l'énergie ambiante (lumière, vibrations, chaleur) pour fonctionner sans batterie pendant des années.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ul>
+                <li><b>Intelligence Artificielle :</b> Des systèmes qui apprennent et s'adaptent pour optimiser les performances des objets. 🧠 
+                    <button class="info-button" onclick="toggleInfo('iaInfo')"><i class="fas fa-robot"></i> Applications futures</button>
+                    <div id="iaInfo" class="hidden-info">
+                        <p>L'IA transformera les objets du quotidien en les rendant plus intuitifs et adaptatifs :</p>
+                        <ul>
+                            <li>Appareils électroménagers qui apprennent vos préférences et s'adaptent à vos habitudes</li>
+                            <li>Véhicules autonomes optimisant les itinéraires et réduisant la consommation d'énergie</li>
+                            <li>Systèmes de santé personnalisés prédisant et prévenant les problèmes de santé</li>
+                            <li>Assistants virtuels capables de comprendre le contexte et les nuances du langage</li>
+                        </ul>
+                    </div>
+                </li>
+                <li><b>Nanotechnologies :</b> Manipulation de la matière à l'échelle atomique pour créer des matériaux aux propriétés extraordinaires. 🔬 
+                    <button class="info-button" onclick="toggleInfo('nanoInfo')"><i class="fas fa-atom"></i> Potentiel</button>
+                    <div id="nanoInfo" class="hidden-info">
+                        <p>Les nanotechnologies permettront de créer des matériaux aux propriétés inédites : tissus repoussant parfaitement l'eau et les taches, surfaces auto-nettoyantes, vitres à opacité variable, matériaux ultra-légers mais plus résistants que l'acier.</p>
+                        <p>En médecine, des nanorobots pourront circuler dans le corps pour délivrer des médicaments avec précision ou réparer des tissus endommagés. Ces innovations pourraient augmenter considérablement l'espérance de vie en bonne santé.</p>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="quiz-container">
+                <div class="quiz-question">Quiz rapide : Parmi ces technologies, laquelle représente le plus grand potentiel de transformation pour les objets de demain ?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer('avenir', 0, false)">La réalité virtuelle</div>
+                    <div class="quiz-option" onclick="checkAnswer('avenir', 1, true)">L'intelligence artificielle</div>
+                    <div class="quiz-option" onclick="checkAnswer('avenir', 2, false)">Les écrans pliables</div>
+                    <div class="quiz-option" onclick="checkAnswer('avenir', 3, false)">La 5G</div>
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback-avenir"></div>
+                <button class="quiz-button" id="quiz-next-avenir" style="display: none;" onclick="resetQuiz('avenir')">Question suivante</button>
+            </div>
+        </section>
+
+        <section id="quiz">
+            <h2>Quiz Final : Testez Vos Connaissances 🧠</h2>
+            <p>Vérifiez ce que vous avez retenu de ce voyage à travers l'évolution des objets techniques !</p>
+            
+            <div class="quiz-container">
+                <div id="quiz-main">
+                    <div class="quiz-question" id="quiz-question">Chargement des questions...</div>
+                    <div class="quiz-options" id="quiz-options"></div>
+                    <div class="quiz-feedback" id="quiz-feedback"></div>
+                    <button class="quiz-button" id="quiz-next" onclick="nextQuestion()" style="display: none;">Question suivante</button>
+                    <div id="quiz-results" style="display: none;">
+                        <h3>Résultats</h3>
+                        <p>Vous avez obtenu <span id="quiz-score">0</span> sur <span id="quiz-total">0</span> !</p>
+                        <button class="quiz-button" onclick="startQuiz()">Réessayer</button>
+                    </div>
+                    <button class="quiz-button" id="quiz-start" onclick="startQuiz()">Commencer le Quiz</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="glossaire" class="glossary">
+            <h2>Glossaire 📚</h2>
+            <input type="text" id="glossarySearch" class="glossary-search" placeholder="Rechercher un terme...">
+            
+            <ul class="glossary-list">
+                <li onclick="showDefinition('materiau')"><i class="fas fa-cube"></i> Matériau 🧱</li>
+                <li onclick="showDefinition('energie')"><i class="fas fa-bolt"></i> Énergie ⚡</li>
+                <li onclick="showDefinition('invention')"><i class="fas fa-lightbulb"></i> Invention 💡</li>
+                <li onclick="showDefinition('innovation')"><i class="fas fa-rocket"></i> Innovation 🚀</li>
+                <li onclick="showDefinition('rupture')"><i class="fas fa-cut"></i> Rupture 💥</li>
+                <li onclick="showDefinition('bronze')"><i class="fas fa-gavel"></i> Bronze ⚔️</li>
+                <li onclick="showDefinition('fer')"><i class="fas fa-hammer"></i> Fer 🔨</li>
+                <li onclick="showDefinition('acier')"><i class="fas fa-building"></i> Acier 🏢</li>
+                <li onclick="showDefinition('plastique')"><i class="fas fa-recycle"></i> Plastique ♻️</li>
+                <li onclick="showDefinition('composite')"><i class="fas fa-layer-group"></i> Composite 🚀</li>
+                <li onclick="showDefinition('vapeur')"><i class="fas fa-train"></i> Vapeur ⚙️</li>
+                <li onclick="showDefinition('transistor')"><i class="fas fa-microchip"></i> Transistor 💻</li>
+                <li onclick="showDefinition('led')"><i class="fas fa-lightbulb"></i> LED 💡</li>
+                <li onclick="showDefinition('nanotechnologie')"><i class="fas fa-atom"></i> Nanotechnologie 🔬</li>
+            </ul>
+
+            <div id="materiauDefinition" class="glossary-definition">
+                <h3>Matériau 🧱</h3>
+                <p>Substance physique utilisée pour fabriquer un objet technique. Les propriétés des matériaux (résistance, ductilité, conductivité, etc.) déterminent leur usage.</p>
+            </div>
+            
+            <div id="energieDefinition" class="glossary-definition">
+                <h3>Énergie ⚡</h3>
+                <p>Capacité à effectuer un travail ou à provoquer un changement. Existe sous différentes formes (mécanique, thermique, électrique, etc.) qui peuvent être transformées les unes en les autres.</p>
+            </div>
+            
+            <div id="inventionDefinition" class="glossary-definition">
+                <h3>Invention 💡</h3>
+                <p>Création d'un objet, d'un procédé ou d'une technique qui n'existait pas auparavant. Résulte souvent d'une découverte scientifique ou d'une combinaison originale d'éléments existants.</p>
+            </div>
+            
+            <div id="innovationDefinition" class="glossary-definition">
+                <h3>Innovation 🚀</h3>
+                <p>Introduction d'une nouveauté dans un domaine particulier. L'innovation peut être incrémentale (amélioration progressive) ou de rupture (transformation radicale).</p>
+            </div>
+            
+            <div id="ruptureDefinition" class="glossary-definition">
+                <h3>Rupture technologique 💥</h3>
+                <p>Changement radical dans une technologie ou un marché, qui transforme fondamentalement les modèles existants et crée de nouvelles possibilités inimaginables auparavant.</p>
+            </div>
+            
+            <div id="bronzeDefinition" class="glossary-definition">
+                <h3>Bronze ⚔️</h3>
+                <p>Alliage de cuivre et d'étain, premier métal largement utilisé pour fabriquer des outils et des armes. A donné son nom à une période historique (l'âge du bronze, env. 3000-1000 av. J.-C.).</p>
+            </div>
+            
+            <div id="ferDefinition" class="glossary-definition">
+                <h3>Fer 🔨</h3>
+                <p>Métal pur, plus résistant que le bronze mais nécessitant des températures plus élevées pour être travaillé. A donné son nom à l'âge du fer (env. 1000 av. J.-C. à 500 ap. J.-C.).</p>
+            </div>
+            
+            <div id="acierDefinition" class="glossary-definition">
+                <h3>Acier 🏢</h3>
+                <p>Alliage de fer et de carbone (moins de 2%), offrant une résistance et une élasticité supérieures au fer pur. Matériau fondamental de l'ère industrielle moderne.</p>
+            </div>
+            
+            <div id="plastiqueDefinition" class="glossary-definition">
+                <h3>Plastique ♻️</h3>
+                <p>Matériau synthétique à base de polymères, généralement dérivé du pétrole. Léger, résistant et facilement moulable, il a transformé la production d'objets au 20e siècle.</p>
+            </div>
+            
+            <div id="compositeDefinition" class="glossary-definition">
+                <h3>Matériau composite 🚀</h3>
+                <p>Assemblage d'au moins deux matériaux non miscibles, combinant leurs propriétés pour obtenir un matériau aux performances supérieures (ex : fibre de carbone + résine).</p>
+            </div>
+            
+            <div id="vapeurDefinition" class="glossary-definition">
+                <h3>Machine à vapeur ⚙️</h3>
+                <p>Dispositif convertissant l'énergie thermique de la vapeur d'eau sous pression en énergie mécanique. A été le moteur de la première révolution industrielle.</p>
+            </div>
+            
+            <div id="transistorDefinition" class="glossary-definition">
+                <h3>Transistor 💻</h3>
+                <p>Composant électronique semi-conducteur qui régule le courant ou la tension électrique. Brique fondamentale de l'électronique moderne et de l'informatique.</p>
+            </div>
+            
+            <div id="ledDefinition" class="glossary-definition">
+                <h3>LED (Diode électroluminescente) 💡</h3>
+                <p>Composant électronique qui émet de la lumière lorsqu'il est parcouru par un courant électrique. Bien plus efficace que les ampoules à incandescence.</p>
+            </div>
+            
+            <div id="nanotechnologieDefinition" class="glossary-definition">
+                <h3>Nanotechnologie 🔬</h3>
+                <p>Manipulation de la matière à l'échelle nanométrique (un milliardième de mètre). Permet de créer des matériaux et dispositifs aux propriétés inédites.</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Mode clair/sombre
+        const themeToggle = document.getElementById('themeToggle');
+        const icon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            if (document.body.classList.contains('dark-theme')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+
+        // Fonction pour afficher/masquer les informations cachées
+        function toggleInfo(infoId) {
+            const info = document.getElementById(infoId);
+            if (info.style.display === "block") {
+                info.style.display = "none";
+                info.classList.remove('visible');
+            } else {
+                info.style.display = "block";
+                setTimeout(() => {
+                    info.classList.add('visible');
+                }, 10);
+            }
+        }
+
+        // Fonction pour le glossaire
+        function showDefinition(word) {
+            // Masquer toutes les définitions
+            document.querySelectorAll('.glossary-definition').forEach(def => {
+                def.style.display = 'none';
+            });
+            // Afficher la définition sélectionnée
+            document.getElementById(word + 'Definition').style.display = 'block';
+        }
+
+        // Recherche dans le glossaire
+        const glossarySearch = document.getElementById('glossarySearch');
+        if (glossarySearch) {
+            glossarySearch.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                document.querySelectorAll('.glossary-list li').forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Mini-quiz dans les sections
+        function checkAnswer(quizId, optionIndex, isCorrect) {
+            const options = document.querySelectorAll(`#quiz-feedback-${quizId}`).item(0).parentNode.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById(`quiz-feedback-${quizId}`);
+            const nextButton = document.getElementById(`quiz-next-${quizId}`);
+            
+            // Désactiver toutes les options
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+            });
+            
+            // Marquer l'option sélectionnée
+            options[optionIndex].classList.add(isCorrect ? 'correct' : 'incorrect');
+            
+            // Afficher feedback
+            feedback.classList.add(isCorrect ? 'correct' : 'incorrect');
+            feedback.style.display = 'block';
+            feedback.innerHTML = isCorrect ? 
+                '<i class="fas fa-check-circle"></i> Correct ! Bonne réponse !' : 
+                '<i class="fas fa-times-circle"></i> Incorrect. Essayez encore !';
+            
+            // Afficher bouton suivant
+            nextButton.style.display = 'block';
+        }
+
+        function resetQuiz(quizId) {
+            const options = document.querySelectorAll(`#quiz-feedback-${quizId}`).item(0).parentNode.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById(`quiz-feedback-${quizId}`);
+            const nextButton = document.getElementById(`quiz-next-${quizId}`);
+            
+            // Réinitialiser les options
+            options.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+                option.style.pointerEvents = 'auto';
+            });
+            
+            // Masquer feedback et bouton
+            feedback.style.display = 'none';
+            feedback.classList.remove('correct', 'incorrect');
+            nextButton.style.display = 'none';
+        }
+
+        // Quiz final
+        const questions = [
+            {
+                question: "Quelle invention a été le moteur principal de la première révolution industrielle?",
+                options: ["L'ampoule électrique", "La machine à vapeur", "Le téléphone", "L'imprimerie"],
+                correct: 1
+            },
+            {
+                question: "Quel matériau a marqué une rupture importante en permettant la construction des premiers gratte-ciels?",
+                options: ["Le béton armé", "L'acier", "Le verre", "L'aluminium"],
+                correct: 1
+            },
+            {
+                question: "Quelle source d'énergie a permis l'électrification massive des foyers au 20e siècle?",
+                options: ["L'énergie nucléaire", "L'énergie éolienne", "L'électricité produite par centrales thermiques et hydrauliques", "L'énergie solaire"],
+                correct: 2
+            },
+            {
+                question: "Quelle invention de 1947 a rendu possible l'ère de l'informatique moderne?",
+                options: ["Le transistor", "L'imprimante", "Le disque dur", "Le réseau internet"],
+                correct: 0
+            },
+            {
+                question: "Qu'est-ce qui caractérise principalement une 'rupture technologique'?",
+                options: ["Une amélioration progressive d'une technologie existante", "Un changement radical créant de nouvelles possibilités", "Une baisse significative des coûts de production", "L'abandon d'une ancienne technologie"],
+                correct: 1
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function startQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById('quiz-start').style.display = 'none';
+            document.getElementById('quiz-results').style.display = 'none';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const questionEl = document.getElementById('quiz-question');
+            const optionsEl = document.getElementById('quiz-options');
+            const feedbackEl = document.getElementById('quiz-feedback');
+            const nextBtn = document.getElementById('quiz-next');
+            
+            // Masquer feedback et bouton suivant
+            feedbackEl.style.display = 'none';
+            nextBtn.style.display = 'none';
+            
+            // Afficher la question
+            questionEl.textContent = questions[currentQuestion].question;
+            
+            // Générer les options
+            optionsEl.innerHTML = '';
+            questions[currentQuestion].options.forEach((option, index) => {
+                const optionEl = document.createElement('div');
+                optionEl.className = 'quiz-option';
+                optionEl.textContent = option;
+                optionEl.onclick = () => checkFinalAnswer(index);
+                optionsEl.appendChild(optionEl);
+            });
+        }
+
+        function checkFinalAnswer(index) {
+            const options = document.querySelectorAll('#quiz-options .quiz-option');
+            const feedbackEl = document.getElementById('quiz-feedback');
+            const nextBtn = document.getElementById('quiz-next');
+            const correct = questions[currentQuestion].correct;
+            
+            // Désactiver les options
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+            });
+            
+            // Marquer la réponse correcte et incorrecte
+            options[correct].classList.add('correct');
+            if (index !== correct) {
+                options[index].classList.add('incorrect');
+            } else {
+                score++;
+            }
+            
+            // Afficher feedback
+            feedbackEl.innerHTML = index === correct ? 
+                '<i class="fas fa-check-circle"></i> Correct ! Bonne réponse !' : 
+                `<i class="fas fa-times-circle"></i> Incorrect. La bonne réponse était : ${questions[currentQuestion].options[correct]}`;
+            feedbackEl.className = 'quiz-feedback';
+            feedbackEl.classList.add(index === correct ? 'correct' : 'incorrect');
+            feedbackEl.style.display = 'block';
+            
+            // Afficher bouton suivant
+            nextBtn.style.display = 'block';
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('quiz-question').textContent = 'Quiz terminé !';
+            document.getElementById('quiz-options').innerHTML = '';
+            document.getElementById('quiz-feedback').style.display = 'none';
+            document.getElementById('quiz-next').style.display = 'none';
+            
+            const resultsEl = document.getElementById('quiz-results');
+            document.getElementById('quiz-score').textContent = score;
+            document.getElementById('quiz-total').textContent = questions.length;
+            resultsEl.style.display = 'block';
+        }
+
+        // Initialiser le glossaire à l'ouverture de la page
+        window.addEventListener('DOMContentLoaded', function() {
+            // Masquer toutes les infos cachées au chargement
+            document.querySelectorAll('.hidden-info').forEach(info => {
+                info.style.display = 'none';
+            });
+            
+            // Activer le premier terme du glossaire s'il existe
+            const firstTerm = document.querySelector('.glossary-list li');
+            if (firstTerm) {
+                firstTerm.click();
+            }
+        });
+    </script>
+</body>
+</html>

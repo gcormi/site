@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imaginer et Décrire un Objet : Besoins, Contraintes et Cahier des Charges</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variables pour faciliter la gestion des couleurs et le contraste */
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #ff6d00;
+            --accent-color: #00acc1;
+            --background-color: #f5f7fa;
+            --text-color: #333333;
+            --light-text: #ffffff;
+            --section-bg: #ffffff;
+            --border-radius: 15px;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #303f9f);
+            color: var(--light-text);
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 50px 50px;
+        }
+        
+        header h1 {
+            color: var(--light-text);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        /* Barre de progression */
+        .progress-container {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto 10px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            position: relative;
+            height: 12px;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(to right, var(--secondary-color), #ff9e40);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-label {
+            text-align: center;
+            color: var(--light-text);
+            font-weight: bold;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        
+        /* Style des vagues en bas du header */
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23f5f7fa" fill-opacity="1" d="M0,128L48,138.7C96,149,192,171,288,165.3C384,160,480,128,576,117.3C672,107,768,117,864,138.7C960,160,1056,192,1152,197.3C1248,203,1344,181,1392,170.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        
+        nav {
+            background-color: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: var(--light-text);
+            text-decoration: none;
+            margin: 5px 15px;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        nav a.active {
+            background-color: var(--secondary-color);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        main {
+            padding: 30px;
+            max-width: 1100px;
+            margin: 30px auto;
+            background-color: var(--section-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        section {
+            margin-bottom: 40px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            background-color: var(--section-bg);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 3px solid rgba(26, 35, 126, 0.2);
+            padding-bottom: 10px;
+            display: inline-block;
+            color: var(--primary-color);
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-color);
+            margin-top: 25px;
+        }
+        
+        ul, ol {
+            padding-left: 25px;
+        }
+        
+        li {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        b {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .info-button {
+            background-color: var(--accent-color);
+            color: var(--light-text);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-left: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: var(--transition);
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .info-button:hover {
+            background-color: #007c91;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hidden-info {
+            display: none;
+            padding: 15px;
+            background-color: rgba(0, 172, 193, 0.1);
+            border-radius: 8px;
+            margin-top: 10px;
+            border-left: 4px solid var(--accent-color);
+            animation: slideInDown 0.5s ease-out;
+        }
+        
+        .example {
+            padding: 20px;
+            background-color: rgba(255, 109, 0, 0.1);
+            border-left: 5px solid var(--secondary-color);
+            margin: 20px 0;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .future-outlook {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: rgba(26, 35, 126, 0.05);
+            border-left: 6px solid var(--primary-color);
+            border-radius: 8px;
+        }
+        
+        .glossary {
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .glossary-search {
+            width: 80%;
+            max-width: 400px;
+            padding: 10px 15px;
+            border: 2px solid var(--primary-color);
+            border-radius: 20px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            outline: none;
+        }
+        
+        .glossary-search:focus {
+            box-shadow: 0 0 5px rgba(26, 35, 126, 0.5);
+        }
+        
+        .glossary-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .glossary-list li {
+            margin: 5px;
+            padding: 10px 15px;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+        
+        .glossary-list li:hover {
+            background-color: #303f9f;
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .glossary-definition {
+            margin: 15px auto;
+            padding: 15px 20px;
+            background-color: rgba(26, 35, 126, 0.05);
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+            border-left: 5px solid var(--primary-color);
+            max-width: 600px;
+            text-align: left;
+        }
+        
+        /* Jeu interactif 1: Design Challenge */
+        .design-challenge {
+            background-color: rgba(255, 109, 0, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .design-challenge-title {
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .challenge-scenario {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .challenge-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .challenge-option {
+            padding: 15px;
+            background-color: white;
+            border: 2px solid var(--secondary-color);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .challenge-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .challenge-option.selected {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .challenge-feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .challenge-feedback.correct {
+            background-color: rgba(76, 175, 80, 0.2);
+            border-left: 5px solid #4CAF50;
+        }
+        
+        .challenge-feedback.incorrect {
+            background-color: rgba(244, 67, 54, 0.2);
+            border-left: 5px solid #F44336;
+        }
+        
+        /* Jeu interactif 2: Drag and Drop Constraints */
+        .constraint-matcher {
+            background-color: rgba(0, 172, 193, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .constraint-matcher-title {
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .constraint-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        
+        .constraint-type {
+            width: 200px;
+            padding: 15px;
+            background-color: white;
+            border: 2px solid var(--accent-color);
+            border-radius: 10px;
+            text-align: center;
+            min-height: 200px;
+        }
+        
+        .constraint-drop-zone {
+            min-height: 120px;
+            border: 2px dashed rgba(0, 172, 193, 0.3);
+            border-radius: 8px;
+            margin-top: 10px;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .constraint-example {
+            padding: 10px;
+            margin: 5px;
+            background-color: var(--background-color);
+            border-radius: 5px;
+            cursor: move;
+            transition: var(--transition);
+            user-select: none;
+            -webkit-user-drag: element;
+        }
+        
+        .constraint-example:hover {
+            background-color: rgba(0, 172, 193, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .constraint-example.correct {
+            background-color: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4CAF50;
+        }
+        
+        .constraint-example.incorrect {
+            background-color: rgba(244, 67, 54, 0.2);
+            border: 1px solid #F44336;
+        }
+        
+        /* Jeu interactif 3: Cahier des Charges Builder */
+        .cdc-builder {
+            background-color: rgba(26, 35, 126, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cdc-builder-title {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .cdc-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cdc-form label {
+            display: block;
+            margin-top: 15px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .cdc-form input, .cdc-form textarea, .cdc-form select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 5px;
+            font-family: 'Quicksand', sans-serif;
+        }
+        
+        .cdc-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .cdc-submit {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+        
+        .cdc-submit:hover {
+            background-color: #303f9f;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cdc-preview {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(26, 35, 126, 0.05);
+            border-radius: 10px;
+            display: none;
+        }
+        
+        /* Case study section */
+        .case-study {
+            background-color: rgba(26, 35, 126, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .case-study-title {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .case-study-images {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .case-image {
+            width: 250px;
+            height: 180px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .case-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .case-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .case-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            font-size: 14px;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+        
+        .case-image:hover .case-caption {
+            transform: translateY(0);
+        }
+        
+        /* Aide flottante */
+        .help-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        .help-btn:hover {
+            background-color: #e65100;
+            transform: scale(1.1);
+        }
+        
+        .help-content {
+            position: fixed;
+            bottom: 90px;
+            right: 30px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            width: 300px;
+            display: none;
+        }
+        
+        .help-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .help-title {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        
+        .help-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideInLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideInDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            main {
+                padding: 20px;
+                margin: 20px 10px;
+            }
+            
+            nav {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+            
+            nav a {
+                margin: 5px;
+                font-size: 14px;
+            }
+            
+            .challenge-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .constraint-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .constraint-type {
+                width: 100%;
+            }
+            
+            .help-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+                right: 20px;
+                bottom: 20px;
+            }
+            
+            .help-content {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+                bottom: 70px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Imaginer et Décrire un Objet 💡: Besoins, Contraintes et Cahier des Charges 📝</h1>
+        <p>Apprends à concevoir des objets qui répondent à des besoins réels ! ✨</p>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-label">Progression: <span id="progressPercent">0%</span></div>
+        
+        <div class="wave"></div>
+    </header>
+
+    <nav id="mainNav">
+        <a href="#introduction" class="nav-link active">Introduction</a>
+        <a href="#besoin" class="nav-link">Identifier un Besoin</a>
+        <a href="#contraintes" class="nav-link">Définir les Contraintes</a>
+        <a href="#cahier-des-charges" class="nav-link">Cahier des Charges</a>
+        <a href="#jeux-interactifs" class="nav-link">Jeux Interactifs</a>
+        <a href="#etudes-de-cas" class="nav-link">Études de Cas</a>
+        <a href="#avenir" class="nav-link">Avenir</a>
+        <a href="#glossaire" class="nav-link">Glossaire</a>
+    </nav>
+
+    <main>
+        <section id="introduction" class="content-section">
+            <h2>Introduction : Rêver, Imaginer, Créer 🌟</h2>
+            <p>Salut les inventeurs ! 👋 Avez-vous déjà eu une idée géniale pour un objet qui pourrait améliorer la vie de quelqu'un 😮 ? Pour transformer cette idée en réalité, il faut suivre une démarche rigoureuse : identifier le besoin, définir les contraintes et rédiger un cahier des charges. Dans ce cours, nous allons apprendre à faire tout ça ! 🚀</p>
+            
+            <div class="example">
+                <h3>Le saviez-vous ? 💫</h3>
+                <p>Les grands inventeurs comme Thomas Edison ou Steve Jobs ne se sont pas contentés d'avoir des idées brillantes. Ils ont suivi une méthode pour transformer ces idées en objets concrets qui ont changé notre quotidien. Edison a testé plus de 1 000 matériaux différents avant de trouver le filament parfait pour son ampoule électrique !</p>
+            </div>
+        </section>
+
+        <section id="besoin" class="content-section">
+            <h2>1. Identifier un Besoin : Quel Problème Résoudre ? 🤔</h2>
+            <p>Tout objet technique répond à un besoin. Ce besoin peut être évident (se déplacer, éclairer, couper...) ou plus subtil (améliorer le confort, faciliter une tâche, divertir...). La première étape de la conception consiste donc à identifier clairement le besoin auquel l'objet devra répondre. 🎯</p>
+
+            <h3>Comment identifier un besoin ?</h3>
+            <ul>
+                <li><b>Observer le monde qui vous entoure :</b> Quels sont les problèmes que vous rencontrez au quotidien ? Quels sont les besoins qui ne sont pas satisfaits ? 🧐 <button class="info-button" onclick="toggleInfo('observerInfo')">Exemples</button>
+                   <div id="observerInfo" class="hidden-info">Manque de prises électriques, difficulté à ranger les affaires, absence d'abri contre la pluie...</div>
+                </li>
+                <li><b>Écouter les autres :</b> Quels sont les besoins ou les problèmes que rencontrent vos amis, votre famille, vos voisins ? 👂 <button class="info-button" onclick="toggleInfo('ecouterInfo')">Questions à poser</button>
+                   <div id="ecouterInfo" class="hidden-info">Qu'est-ce qui vous manque ? Qu'est-ce qui vous rend la vie difficile ? Qu'est-ce qui pourrait être amélioré ?</div>
+                </li>
+                <li><b>Faire des recherches :</b> Quels sont les besoins exprimés sur internet, dans les magazines, à la télévision ? 🌐 <button class="info-button" onclick="toggleInfo('rechercherInfo')">Outils</button>
+                   <div id="rechercherInfo" class="hidden-info">Utiliser les moteurs de recherche, consulter les forums, lire les articles de presse...</div>
+                </li>
+                <li><b>Analyser les tendances :</b> Quelles sont les évolutions de la société qui pourraient créer de nouveaux besoins ? 📈 <button class="info-button" onclick="toggleInfo('tendancesInfo')">Tendances actuelles</button>
+                   <div id="tendancesInfo" class="hidden-info">Développement durable, vieillissement de la population, digitalisation, mobilité urbaine, santé connectée...</div>
+                </li>
+            </ul>
+
+            <h3>Exemples de besoins :</h3>
+            <div class="example">
+                <b>Besoin :</b> Se protéger du soleil en été.
+                <br><b>Objet technique :</b> Parasol, casquette, crème solaire.
+            </div>
+            <div class="example">
+                <b>Besoin :</b> Communiquer à distance.
+                <br><b>Objet technique :</b> Téléphone, ordinateur, lettre.
+            </div>
+            <div class="example">
+                <b>Besoin :</b> Transporter des objets lourds.
+                <br><b>Objet technique :</b> Chariot, sac à dos, voiture.
+            </div>
+            <div class="example">
+                <b>Besoin :</b> Économiser l'eau dans les régions arides.
+                <br><b>Objet technique :</b> Système de récupération d'eau de pluie, pompe à eau solaire, goutte-à-goutte.
+            </div>
+        </section>
+
+        <section id="contraintes" class="content-section">
+            <h2>2. Définir les Contraintes : Quelles Limites à Respecter ? 🚧</h2>
+            <p>La conception d'un objet technique est rarement sans limites. Il faut tenir compte de nombreuses contraintes, qui peuvent être liées aux matériaux disponibles, au coût de fabrication, aux normes de sécurité, à l'impact environnemental, etc. ⚖️</p>
+
+            <h3>Les différents types de contraintes :</h3>
+            <ul>
+                <li><b>Contraintes techniques :</b> Liées aux propriétés des matériaux, aux performances de l'objet, à sa complexité de fabrication... ⚙️ <button class="info-button" onclick="toggleInfo('techniqueInfo')">Exemples</button>
+                   <div id="techniqueInfo" class="hidden-info">Résistance aux chocs, étanchéité, autonomie de la batterie, durée de vie...</div>
+                </li>
+                <li><b>Contraintes économiques :</b> Liées au coût des matériaux, au coût de la main d'œuvre, au prix de vente de l'objet... 💰 <button class="info-button" onclick="toggleInfo('economiqueInfo')">Importance</button>
+                   <div id="economiqueInfo" class="hidden-info">Un objet trop cher ne se vendra pas, même s'il est performant.</div>
+                </li>
+                <li><b>Contraintes environnementales :</b> Liées à l'impact de l'objet sur l'environnement (consommation d'énergie, utilisation de matériaux polluants, production de déchets...). ♻️ <button class="info-button" onclick="toggleInfo('environnementaleInfo')">Objectif</button>
+                   <div id="environnementaleInfo" class="hidden-info">Concevoir des objets plus respectueux de l'environnement est un enjeu majeur pour l'avenir.</div>
+                </li>
+                <li><b>Contraintes sociales et éthiques :</b> Liées aux normes de sécurité, aux conditions de travail, au respect des droits de l'homme... 🤝 <button class="info-button" onclick="toggleInfo('socialeInfo')">Responsabilité</button>
+                   <div id="socialeInfo" class="hidden-info">Les concepteurs ont une responsabilité sociale et éthique envers les utilisateurs et les travailleurs.</div>
+                </li>
+                <li><b>Contraintes réglementaires :</b> Liées aux lois, aux normes et aux règlements en vigueur. 📜 <button class="info-button" onclick="toggleInfo('reglementaireInfo')">Exemple</button>
+                   <div id="reglementaireInfo" class="hidden-info">Les jouets doivent respecter des normes de sécurité strictes pour protéger les enfants.</div>
+                </li>
+                <li><b>Contraintes ergonomiques :</b> Liées à la facilité d'utilisation, au confort, à l'adaptation à l'anatomie humaine. 👤 <button class="info-button" onclick="toggleInfo('ergonomieInfo')">Principes</button>
+                   <div id="ergonomieInfo" class="hidden-info">Un objet bien conçu doit s'adapter à l'utilisateur et non l'inverse. L'ergonomie tient compte des capacités physiques et cognitives des utilisateurs.</div>
+                </li>
+            </ul>
+            
+            <div class="example">
+                <h3>Exemple concret : Contraintes pour une gourde isotherme</h3>
+                <ul>
+                    <li><b>Techniques :</b> Doit maintenir les boissons chaudes pendant 8h minimum, résister aux chocs, être étanche à 100%</li>
+                    <li><b>Économiques :</b> Prix de vente cible de 25€ maximum</li>
+                    <li><b>Environnementales :</b> Matériaux recyclables, durée de vie de 5 ans minimum</li>
+                    <li><b>Ergonomiques :</b> Poignée confortable, ouverture facile d'une seule main</li>
+                    <li><b>Réglementaires :</b> Matériaux sans BPA, conformes aux normes alimentaires</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="cahier-des-charges" class="content-section">
+            <h2>3. Rédiger un Cahier des Charges : Décrire l'Objet Idéal 📝</h2>
+            <p>Le cahier des charges est un document qui décrit précisément les besoins auxquels l'objet doit répondre et les contraintes qu'il doit respecter. C'est une sorte de contrat entre le concepteur et l'utilisateur. Il est essentiel de bien le rédiger pour éviter les erreurs et les malentendus. 👍</p>
+
+            <h3>Les éléments clés d'un cahier des charges simple :</h3>
+            <ul>
+                <li><b>Identification du besoin :</b> Description claire et précise du besoin auquel l'objet doit répondre.</li>
+                <li><b>Fonctions attendues :</b> Liste des fonctions que l'objet doit remplir (par exemple, éclairer, couper, transporter...).</li>
+                <li><b>Critères de performance :</b> Niveau de performance attendu pour chaque fonction (par exemple, luminosité, capacité de coupe, poids maximal...).</li>
+                <li><b>Contraintes à respecter :</b> Liste des contraintes techniques, économiques, environnementales, sociales et réglementaires.</li>
+                <li><b>Critères d'acceptation :</b> Conditions que l'objet doit remplir pour être considéré comme satisfaisant par l'utilisateur.</li>
+                <li><b>Délais et budget :</b> Planification temporelle et limites financières du projet.</li>
+                <li><b>Documentation requise :</b> Manuels, guides, plans ou autres documents à fournir avec l'objet.</li>
+            </ul>
+
+            <h3>Exemple de cahier des charges simple :</h3>
+            <div class="example">
+                <b>Objet :</b> Une lampe de chevet pour enfant.
+                <ul>
+                    <li><b>Besoin :</b> Éclairer la chambre d'un enfant pour lire avant de dormir.</li>
+                    <li><b>Fonctions attendues :</b>
+                        <ul>
+                            <li>Éclairer la zone de lecture.</li>
+                            <li>Être facile à allumer et à éteindre.</li>
+                            <li>Être stable et ne pas risque de tomber.</li>
+                            <li>Ne pas chauffer excessivement.</li>
+                        </ul>
+                    </li>
+                    <li><b>Critères de performance :</b>
+                        <ul>
+                            <li>Luminosité suffisante pour la lecture.</li>
+                            <li>Interrupteur facile à manipuler par un enfant.</li>
+                            <li>Base stable et antidérapante.</li>
+                            <li>Température maximale de 40°C.</li>
+                        </ul>
+                    </li>
+                    <li><b>Contraintes à respecter :</b>
+                        <ul>
+                            <li>Coût : inférieur à 20 euros.</li>
+                            <li>Sécurité : respecter les normes électriques en vigueur.</li>
+                            <li>Matériaux : non toxiques et résistants aux chocs.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="example">
+                <h3>Méthodologie SMART pour un cahier des charges efficace</h3>
+                <p>Pour que votre cahier des charges soit réellement utile, assurez-vous que chaque critère est :</p>
+                <ul>
+                    <li><b>S</b>pécifique : précis et sans ambiguïté</li>
+                    <li><b>M</b>esurable : quantifiable pour évaluer sa réalisation</li>
+                    <li><b>A</b>tteignable : réaliste et réalisable</li>
+                    <li><b>R</b>éaliste : en accord avec les contraintes identifiées</li>
+                    <li><b>T</b>emporel : avec une échéance définie</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="jeux-interactifs" class="content-section">
+            <h2>4. Jeux Interactifs : Mets en Pratique tes Connaissances ! 🎮</h2>
+            
+            <!-- Jeu 1: Design Challenge -->
+            <div class="design-challenge">
+                <h3 class="design-challenge-title">🎯 Design Challenge : Identifie le Besoin</h3>
+                <div class="challenge-scenario">
+                    <p>Voici la situation : <span id="scenario-text">Dans une école, les élèves ont souvent soif pendant les cours, mais ne peuvent pas sortir de classe pour aller boire.</span></p>
+                    <p>Quel est le besoin principal qui doit être résolu ?</p>
+                </div>
+                <div class="challenge-options">
+                    <div class="challenge-option" onclick="checkDesignAnswer(this, true)">Avoir accès à de l'eau potable pendant les cours</div>
+                    <div class="challenge-option" onclick="checkDesignAnswer(this, false)">Pouvoir quitter la classe quand on veut</div>
+                    <div class="challenge-option" onclick="checkDesignAnswer(this, false)">Réduire la soif des élèves</div>
+                    <div class="challenge-option" onclick="checkDesignAnswer(this, false)">Rendre l'école plus amusante</div>
+                </div>
+                <div class="challenge-feedback" id="design-feedback"></div>
+                <button class="info-button" style="margin-top: 20px; display: none;" id="next-scenario" onclick="loadNextScenario()">Scénario suivant</button>
+            </div>
+            
+            <!-- Jeu 2: Constraint Matcher -->
+            <div class="constraint-matcher">
+                <h3 class="constraint-matcher-title">🧩 Classe les Contraintes</h3>
+                <p>Fais glisser chaque exemple vers le type de contrainte correspondant :</p>
+                
+                <div class="constraint-container">
+                    <div class="constraint-type" id="tech-constraints">
+                        <h4>Techniques</h4>
+                        <div class="constraint-drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)" data-type="tech"></div>
+                    </div>
+                    
+                    <div class="constraint-type" id="eco-constraints">
+                        <h4>Économiques</h4>
+                        <div class="constraint-drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)" data-type="eco"></div>
+                    </div>
+                    
+                    <div class="constraint-type" id="env-constraints">
+                        <h4>Environnementales</h4>
+                        <div class="constraint-drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)" data-type="env"></div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; margin-top: 30px; gap: 10px;">
+                    <div class="constraint-example" draggable="true" ondragstart="drag(event)" id="tech1" data-type="tech">Résistance aux chocs</div>
+                    <div class="constraint-example" draggable="true" ondragstart="drag(event)" id="eco1" data-type="eco">Budget limité à 50€</div>
+                    <div class="constraint-example" draggable="true" ondragstart="drag(event)" id="env1" data-type="env">Matériaux recyclables</div>
+                    <div class="constraint-example" draggable="true" ondragstart="drag(event)" id="tech2" data-type="tech">Autonomie de 24h</div>
+                    <div class="constraint-example" draggable="true" ondragstart="drag(event)" id="eco2" data-type="eco">Coût de production minimal</div>
+                    <div class="constraint-example" draggable="true" ondragstart="drag(event)" id="env2" data-type="env">Faible consommation d'énergie</div>
+                </div>
+            </div>
+            
+            <!-- Jeu 3: Cahier des charges Builder -->
+            <div class="cdc-builder">
+                <h3 class="cdc-builder-title">📋 Crée ton Cahier des Charges</h3>
+                <p>Imagine un objet et complète son cahier des charges :</p>
+                
+                <div class="cdc-form">
+                    <label for="object-name">Nom de l'objet :</label>
+                    <input type="text" id="object-name" placeholder="Ex: Sac à dos intelligent">
+                    
+                    <label for="object-need">Besoin à satisfaire :</label>
+                    <textarea id="object-need" placeholder="Ex: Permettre aux élèves de transporter leurs affaires scolaires de manière organisée et confortable"></textarea>
+                    
+                    <label for="object-functions">Fonctions principales (une par ligne) :</label>
+                    <textarea id="object-functions" placeholder="Ex: 
+- Contenir tous les livres et cahiers
+- Protéger les affaires de la pluie
+- Être confortable à porter"></textarea>
+                    
+                    <label for="object-constraints">Contraintes principales (une par ligne) :</label>
+                    <textarea id="object-constraints" placeholder="Ex:
+- Poids total inférieur à 1kg
+- Prix de vente maximum de 30€
+- Durée de vie minimale de 2 ans"></textarea>
+                    
+                    <button class="cdc-submit" onclick="generateCDC()">Générer mon cahier des charges</button>
+                </div>
+                
+                <div class="cdc-preview" id="cdc-preview"></div>
+            </div>
+        </section>
+        
+        <section id="etudes-de-cas" class="content-section">
+            <h2>5. Études de Cas : Apprendre des Succès et des Échecs 🔍</h2>
+            
+            <p>L'étude de cas réels nous permet de mieux comprendre l'importance d'un bon cahier des charges et les conséquences d'une mauvaise analyse des besoins ou des contraintes.</p>
+            
+            <div class="case-study">
+                <h3 class="case-study-title">Histoire de succès : Le Post-it®</h3>
+                
+                <p>En 1968, le chercheur Spencer Silver de la société 3M développe par accident un adhésif qui colle... mais pas trop ! Au lieu de jeter cette "erreur", il cherche une application pour cette colle "imparfaite".</p>
+                
+                <p>Ce n'est que plusieurs années plus tard qu'un collègue, Art Fry, trouve le besoin parfait : un marque-page qui ne tombe pas des livres mais qui ne les abîme pas non plus. Le Post-it® était né !</p>
+                
+                <div class="example">
+                    <h4>Ce que nous pouvons apprendre :</h4>
+                    <ul>
+                        <li>Parfois, la solution existe avant que le besoin ne soit identifié</li>
+                        <li>L'observation des utilisateurs en situation réelle peut révéler des besoins insoupçonnés</li>
+                        <li>Ce qui semble être un défaut peut devenir une qualité dans un autre contexte</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="case-study">
+                <h3 class="case-study-title">Leçon d'échec : Le pont de Tacoma Narrows</h3>
+                
+                <p>En 1940, un nouveau pont suspendu est inauguré à Tacoma (USA). Seulement quatre mois après, il s'effondre spectaculairement sous l'effet du vent.</p>
+                
+                <p>Les ingénieurs avaient négligé une contrainte fondamentale : la résonance aérodynamique. Le cahier des charges ne prenait pas suffisamment en compte les effets du vent sur une structure aussi légère et flexible.</p>
+                
+                <div class="example">
+                    <h4>Ce que nous pouvons apprendre :</h4>
+                    <ul>
+                        <li>Négliger une contrainte peut avoir des conséquences catastrophiques</li>
+                        <li>L'esthétique et l'économie ne doivent pas compromettre la sécurité</li>
+                        <li>Il faut toujours tester les objets dans des conditions extrêmes</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="case-study-images">
+                <div class="case-image">
+                    <svg width="250" height="180" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100%" height="100%" fill="#f5f5f5"/>
+                        <rect x="50" y="50" width="150" height="100" fill="#ffeb3b" rx="5"/>
+                        <line x1="50" y1="70" x2="200" y2="70" stroke="#333" stroke-width="2"/>
+                    </svg>
+                    <div class="case-caption">Post-it® : une "erreur" devenue un succès mondial</div>
+                </div>
+                
+                <div class="case-image">
+                    <svg width="250" height="180" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100%" height="100%" fill="#f5f5f5"/>
+                        <path d="M10,100 C90,140 160,60 240,100" stroke="#333" stroke-width="5" fill="none"/>
+                        <path d="M10,100 C90,80 160,120 240,100" stroke="#333" stroke-width="5" fill="none" stroke-dasharray="5,5"/>
+                    </svg>
+                    <div class="case-caption">Pont de Tacoma : oscillations fatales</div>
+                </div>
+                
+                <div class="case-image">
+                    <svg width="250" height="180" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100%" height="100%" fill="#f5f5f5"/>
+                        <circle cx="125" cy="90" r="60" fill="#4caf50"/>
+                        <rect x="85" y="60" width="80" height="60" fill="#212121" rx="5"/>
+                        <circle cx="125" cy="90" r="20" fill="#fff"/>
+                    </svg>
+                    <div class="case-caption">Appareil photo numérique : l'innovation qui a changé la photographie</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="avenir" class="content-section">
+            <h2>6. Avenir et Perspectives : L'Ingénierie au Service de l'Humain et de la Planète 🚀</h2>
+            <p>Comprendre les besoins, les contraintes et rédiger un cahier des charges est une compétence essentielle pour les futurs ingénieurs et concepteurs. L'avenir nous réserve de nombreux défis : inventer des objets plus performants, plus durables et plus respectueux de l'environnement. Alors, à vos crayons, et laissez libre cours à votre créativité ! 🎨</p>
+            
+            <ul>
+                <li><b>Design Thinking :</b> Une méthode de conception centrée sur l'utilisateur et ses besoins. 👥 <button class="info-button" onclick="toggleInfo('designThinkingInfo')">Étapes</button>
+                   <div id="designThinkingInfo" class="hidden-info">1. Empathie (comprendre les utilisateurs), 2. Définition (du problème), 3. Idéation (génération d'idées), 4. Prototypage, 5. Test.</div>
+                </li>
+                <li><b>Éco-conception :</b> Une approche qui vise à minimiser l'impact environnemental des produits tout au long de leur cycle de vie. ♻️ <button class="info-button" onclick="toggleInfo('ecoConceptionInfo')">Principes</button>
+                   <div id="ecoConceptionInfo" class="hidden-info">Réduction des matières premières, choix de matériaux recyclables, optimisation de la durée de vie, facilité de démontage et de recyclage.</div>
+                </li>
+                <li><b>Ingénierie Sociale :</b> Une discipline qui cherche à résoudre les problèmes sociaux grâce à des solutions techniques innovantes. 🤝 <button class="info-button" onclick="toggleInfo('ingenierieInfo')">Applications</button>
+                   <div id="ingenierieInfo" class="hidden-info">Accès à l'eau potable, éducation pour tous, mobilité pour les personnes handicapées, logements d'urgence...</div>
+                </li>
+                <li><b>Industrie 4.0 :</b> Une nouvelle révolution industrielle qui intègre les technologies numériques dans les processus de conception et de fabrication. 🏭 <button class="info-button" onclick="toggleInfo('industrie40Info')">Technologies</button>
+                   <div id="industrie40Info" class="hidden-info">Impression 3D, Internet des Objets, Intelligence Artificielle, Réalité Augmentée, Cobotique (robots collaboratifs).</div>
+                </li>
+                <li><b>Biomimétisme :</b> S'inspirer de la nature pour concevoir des objets plus efficaces et plus durables. 🌿 <button class="info-button" onclick="toggleInfo('biomimetismeInfo')">Exemples</button>
+                   <div id="biomimetismeInfo" class="hidden-info">Le Velcro s'inspire des crochets des bardanes, les combinaisons de natation imitent la peau de requin, les éoliennes s'inspirent des nageoires des baleines...</div>
+                </li>
+            </ul>
+            
+            <div class="future-outlook">
+                <h3>Les défis de demain</h3>
+                <p>Dans les années à venir, les concepteurs devront répondre à des besoins de plus en plus complexes :</p>
+                <ul>
+                    <li>Adaptation au changement climatique</li>
+                    <li>Économie circulaire et zéro déchet</li>
+                    <li>Vieillissement de la population</li>
+                    <li>Urbanisation croissante</li>
+                    <li>Accès universel aux services essentiels</li>
+                </ul>
+                <p>Ces défis nécessiteront une approche encore plus rigoureuse de l'analyse des besoins et des contraintes, ainsi qu'une collaboration interdisciplinaire entre ingénieurs, designers, sociologues, écologistes et utilisateurs.</p>
+            </div>
+        </section>
+
+        <section id="glossaire" class="content-section glossary">
+            <h2>Glossaire 📚</h2>
+            <input type="text" class="glossary-search" id="glossarySearch" placeholder="Rechercher un terme...">
+            
+            <ul class="glossary-list">
+                <li onclick="showDefinition('besoin')">Besoin 🤔</li>
+                <li onclick="showDefinition('contrainte')">Contrainte 🚧</li>
+                <li onclick="showDefinition('cahier')">Cahier des Charges 📝</li>
+                <li onclick="showDefinition('fonction')">Fonction ⚙️</li>
+                <li onclick="showDefinition('performance')">Performance 👍</li>
+                <li onclick="showDefinition('technique')">Technique 🔩</li>
+                <li onclick="showDefinition('economique')">Économique 💰</li>
+                <li onclick="showDefinition('environnementale')">Environnementale ♻️</li>
+                <li onclick="showDefinition('sociale')">Sociale 🤝</li>
+                <li onclick="showDefinition('reglementaire')">Réglementaire 📜</li>
+                <li onclick="showDefinition('utilisateur')">Utilisateur 🧑‍💻</li>
+                <li onclick="showDefinition('conception')">Conception 🎨</li>
+                <li onclick="showDefinition('ergonomie')">Ergonomie 👤</li>
+                <li onclick="showDefinition('prototype')">Prototype 🔨</li>
+                <li onclick="showDefinition('innovation')">Innovation 💡</li>
+                <li onclick="showDefinition('biomimetisme')">Biomimétisme 🌿</li>
+            </ul>
+
+            <div id="besoinDefinition" class="glossary-definition">Manque ou nécessité ressentie par un individu ou une société.</div>
+            <div id="contrainteDefinition" class="glossary-definition">Limitation ou exigence à respecter lors de la conception d'un objet.</div>
+            <div id="cahierDefinition" class="glossary-definition">Document qui décrit précisément les besoins et les contraintes d'un projet.</div>
+            <div id="fonctionDefinition" class="glossary-definition">Action réalisée par un objet pour répondre à un besoin.</div>
+            <div id="performanceDefinition" class="glossary-definition">Niveau de qualité ou d'efficacité d'une fonction.</div>
+            <div id="techniqueDefinition" class="glossary-definition">Relatif aux propriétés des matériaux, aux performances de l'objet.</div>
+            <div id="economiqueDefinition" class="glossary-definition">Relatif au coût des matériaux, à la main d'œuvre, au prix de vente.</div>
+            <div id="environnementaleDefinition" class="glossary-definition">Relatif à l'impact de l'objet sur l'environnement.</div>
+            <div id="socialeDefinition" class="glossary-definition">Relatif aux normes de sécurité, aux conditions de travail.</div>
+            <div id="reglementaireDefinition" class="glossary-definition">Relatif aux lois, aux normes et aux règlements en vigueur.</div>
+            <div id="utilisateurDefinition" class="glossary-definition">Personne qui utilise l'objet.</div>
+            <div id="conceptionDefinition" class="glossary-definition">Processus de création d'un objet technique.</div>
+            <div id="ergonomieDefinition" class="glossary-definition">Science qui étudie l'adaptation d'un objet à son utilisateur pour favoriser l'efficacité et le confort d'utilisation.</div>
+            <div id="prototypeDefinition" class="glossary-definition">Premier exemplaire d'un objet, destiné à tester sa faisabilité et à valider sa conception avant la production en série.</div>
+            <div id="innovationDefinition" class="glossary-definition">Introduction d'une nouveauté dans un domaine, qui apporte une amélioration significative ou résout un problème de manière originale.</div>
+            <div id="biomimetismeDefinition" class="glossary-definition">Démarche d'innovation qui s'inspire des formes, matériaux, propriétés ou processus observés dans la nature pour concevoir des objets techniques.</div>
+        </section>
+    </main>
+
+    <div class="help-btn" onclick="toggleHelp()">?</div>
+    <div class="help-content" id="helpContent">
+        <button class="help-close" onclick="toggleHelp()">×</button>
+        <h3 class="help-title">Aide à la navigation</h3>
+        <p>👋 Bienvenue dans ce cours sur la conception d'objets!</p>
+        <p>📖 <strong>Contenu :</strong> Naviguez entre les sections avec le menu en haut de page.</p>
+        <p>🔍 <strong>Glossaire :</strong> Utilisez la recherche du glossaire pour trouver les définitions.</p>
+        <p>🎮 <strong>Jeux :</strong> Testez vos connaissances avec les jeux interactifs.</p>
+        <p>ℹ️ <strong>Boutons d'info :</strong> Cliquez sur les boutons bleus pour plus d'informations.</p>
+    </div>
+
+    <script>
+        // Variables globales
+        let completedSections = {};
+        let currentScenario = 0;
+        let scenarios = [
+            {
+                text: "Dans une école, les élèves ont souvent soif pendant les cours, mais ne peuvent pas sortir de classe pour aller boire.",
+                answer: "Avoir accès à de l'eau potable pendant les cours"
+            },
+            {
+                text: "Les personnes âgées ont du mal à se souvenir de prendre leurs médicaments aux heures prescrites.",
+                answer: "Se rappeler quand prendre ses médicaments"
+            },
+            {
+                text: "Dans les zones urbaines, les cyclistes ont peur de se faire voler leur vélo quand ils le laissent dans la rue.",
+                answer: "Sécuriser son vélo contre le vol"
+            }
+        ];
+        
+        // Initialisation au chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialiser les animations de défilement
+            initScrollAnimations();
+            
+            // Initialiser le système de navigation
+            initNavigation();
+            
+            // Initialiser la barre de progression
+            updateProgress();
+            
+            // Initialiser le glossaire
+            initGlossary();
+            
+            // Marquer la première section comme visible immédiatement
+            document.getElementById('introduction').classList.add('visible');
+            completedSections['introduction'] = true;
+            updateProgress();
+        });
+
+        // Fonction pour les animations au défilement
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // Marquer la section comme vue pour la progression
+                        if (entry.target.id) {
+                            completedSections[entry.target.id] = true;
+                            updateProgress();
+                        }
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            document.querySelectorAll('.content-section').forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        // Système de navigation
+        function initNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            // Gérer le clic sur les liens de navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Supprimer la classe active de tous les liens
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
+                    });
+                    
+                    // Ajouter la classe active au lien cliqué
+                    this.classList.add('active');
+                    
+                    // Faire défiler jusqu'à la section
+                    const targetId = this.getAttribute('href').substring(1);
+                    document.getElementById(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Changer l'apparence du menu lors du défilement
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('.content-section');
+                
+                // Déterminer quelle section est visible
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= 150 && rect.bottom >= 150) {
+                        // Mettre à jour le lien actif
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === '#' + section.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            });
+        }
+
+        // Mise à jour de la barre de progression
+        function updateProgress() {
+            const totalSections = document.querySelectorAll('.content-section').length;
+            const completedCount = Object.keys(completedSections).length;
+            const progressPercent = Math.floor((completedCount / totalSections) * 100);
+            
+            document.getElementById('progressBar').style.width = progressPercent + '%';
+            document.getElementById('progressPercent').textContent = progressPercent + '%';
+        }
+
+        // Fonction pour afficher/masquer les informations supplémentaires
+        function toggleInfo(infoId) {
+            const info = document.getElementById(infoId);
+            if (info.style.display === "block") {
+                info.style.display = "none";
+            } else {
+                info.style.display = "block";
+                
+                // Marquer comme activité complétée pour la progression
+                completedSections['infoInteraction'] = true;
+                updateProgress();
+            }
+        }
+
+        // Fonction pour la recherche et l'affichage du glossaire
+        function initGlossary() {
+            const searchInput = document.getElementById('glossarySearch');
+            
+            searchInput.addEventListener('input', function() {
+                const searchText = this.value.toLowerCase();
+                const glossaryItems = document.querySelectorAll('.glossary-list li');
+                
+                glossaryItems.forEach(item => {
+                    const itemText = item.textContent.toLowerCase();
+                    if (itemText.includes(searchText)) {
+                        item.style.display = 'inline-block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Fonction pour afficher une définition du glossaire
+        function showDefinition(term) {
+            // Masquer toutes les définitions
+            document.querySelectorAll('.glossary-definition').forEach(def => {
+                def.style.display = 'none';
+            });
+            
+            // Afficher la définition sélectionnée
+            document.getElementById(term + 'Definition').style.display = 'block';
+            
+            // Marquer comme activité complétée pour la progression
+            completedSections['glossaryInteraction'] = true;
+            updateProgress();
+        }
+
+        // Fonction pour le jeu de design challenge
+        function checkDesignAnswer(option, isCorrect) {
+            const options = document.querySelectorAll('.challenge-option');
+            const feedback = document.getElementById('design-feedback');
+            
+            // Désactiver les clics sur toutes les options
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+            
+            if (isCorrect) {
+                option.classList.add('selected');
+                feedback.textContent = '✅ Bravo ! Tu as correctement identifié le besoin principal. C\'est la première étape essentielle de la conception d\'un objet.';
+                feedback.style.display = 'block';
+                feedback.className = 'challenge-feedback correct';
+                document.getElementById('next-scenario').style.display = 'block';
+            } else {
+                option.classList.add('selected');
+                const correctOption = Array.from(options).find(opt => opt.textContent === scenarios[currentScenario].answer);
+                if (correctOption) {
+                    correctOption.classList.add('selected');
+                }
+                
+                feedback.textContent = '❌ Pas tout à fait ! Le besoin principal est "' + scenarios[currentScenario].answer + '". Les autres options sont des solutions ou des besoins secondaires.';
+                feedback.style.display = 'block';
+                feedback.className = 'challenge-feedback incorrect';
+                document.getElementById('next-scenario').style.display = 'block';
+            }
+            
+            // Marquer comme activité complétée pour la progression
+            completedSections['designChallenge'] = true;
+            updateProgress();
+        }
+
+        // Fonction pour passer au scénario suivant
+        function loadNextScenario() {
+            currentScenario++;
+            if (currentScenario >= scenarios.length) {
+                currentScenario = 0;
+            }
+            
+            // Mettre à jour le texte du scénario
+            document.getElementById('scenario-text').textContent = scenarios[currentScenario].text;
+            
+            // Réinitialiser les options
+            const options = document.querySelectorAll('.challenge-option');
+            options.forEach(opt => {
+                opt.classList.remove('selected');
+                opt.style.pointerEvents = 'auto';
+            });
+            
+            // Masquer le feedback et le bouton "suivant"
+            document.getElementById('design-feedback').style.display = 'none';
+            document.getElementById('next-scenario').style.display = 'none';
+        }
+
+        // Fonctions pour le drag & drop
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+            ev.dataTransfer.setData("type", ev.target.getAttribute("data-type"));
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            var type = ev.dataTransfer.getData("type");
+            
+            // Si on dépose sur la zone de drop ou directement sur le div parent
+            let target = ev.target;
+            while (target && !target.classList.contains('constraint-drop-zone') && !target.classList.contains('constraint-type')) {
+                target = target.parentNode;
+            }
+            
+            if (!target) return;
+            
+            let targetType;
+            if (target.classList.contains('constraint-drop-zone')) {
+                targetType = target.getAttribute("data-type");
+            } else if (target.classList.contains('constraint-type')) {
+                targetType = target.querySelector('.constraint-drop-zone').getAttribute("data-type");
+                target = target.querySelector('.constraint-drop-zone');
+            }
+            
+            if (targetType === type) {
+                document.getElementById(data).classList.add("correct");
+                
+                // Marquer comme activité complétée pour la progression
+                completedSections['constraintGame'] = true;
+                updateProgress();
+            } else {
+                document.getElementById(data).classList.add("incorrect");
+                setTimeout(() => {
+                    document.getElementById(data).classList.remove("incorrect");
+                }, 1000);
+            }
+            
+            target.appendChild(document.getElementById(data));
+        }
+
+        // Fonction pour générer un cahier des charges
+        function generateCDC() {
+            const objectName = document.getElementById('object-name').value;
+            const objectNeed = document.getElementById('object-need').value;
+            const objectFunctions = document.getElementById('object-functions').value;
+            const objectConstraints = document.getElementById('object-constraints').value;
+            
+            if (!objectName || !objectNeed || !objectFunctions || !objectConstraints) {
+                alert("Merci de remplir tous les champs !");
+                return;
+            }
+            
+            const preview = document.getElementById('cdc-preview');
+            preview.innerHTML = `
+                <h3>Cahier des Charges : ${objectName}</h3>
+                <div class="example">
+                    <p><b>Besoin :</b> ${objectNeed}</p>
+                    <p><b>Fonctions attendues :</b></p>
+                    <ul>
+                        ${objectFunctions.split('\n').map(f => f ? `<li>${f}</li>` : '').join('')}
+                    </ul>
+                    <p><b>Contraintes à respecter :</b></p>
+                    <ul>
+                        ${objectConstraints.split('\n').map(c => c ? `<li>${c}</li>` : '').join('')}
+                    </ul>
+                </div>
+                <p>Bravo ! Tu as réussi à créer un cahier des charges complet. C'est une étape essentielle avant de commencer la conception d'un objet.</p>
+            `;
+            
+            preview.style.display = 'block';
+            
+            // Marquer comme activité complétée pour la progression
+            completedSections['cdcBuilder'] = true;
+            updateProgress();
+        }
+
+        // Fonction pour afficher/masquer l'aide
+        function toggleHelp() {
+            const helpContent = document.getElementById('helpContent');
+            helpContent.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
