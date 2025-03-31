@@ -1,433 +1,791 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Les Plastiques : Un Monde de Matériaux</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        /* Style général */
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f8ff; /* Bleu très clair */
-            color: #333;
-            transition: background-color 0.3s ease; /* Transition pour le mode sombre */
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercices : Choix des Matériaux</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Variables pour les couleurs (permettant le mode sombre) */
+    :root {
+        --bg-color: #f4f4f9;
+        --main-bg: white;
+        --text-color: #333;
+        --header-color: #0074d9;
+        --title-color: #0074d9;
+        --accent-color: #0074d9;
+        --btn-color: #0074d9;
+        --btn-hover: #005cbf;
+        --border-color: #ccc;
+        --input-bg: white;
+        --feedback-color: #ff851b;
+        --correct-color: #2ecc40;
+        --incorrect-color: #ff4136;
+        --section-bg: #f9f9f9;
+        --table-header: #f9f9f9;
+        --table-border: #ddd;
+        --table-odd: #f9f9f9;
+        --table-highlight: #e3f2fd;
+        --box-shadow: rgba(0, 0, 0, 0.1);
+    }
 
-        body.dark-mode {
-            background-color: #333;
-            color: #f0f8ff;
-        }
+    /* Mode sombre */
+    .dark-theme {
+        --bg-color: #1a1a2e;
+        --main-bg: #16213e;
+        --text-color: #e1e1e6;
+        --header-color: #0f3460;
+        --title-color: #4cc9f0;
+        --accent-color: #4cc9f0;
+        --btn-color: #4361ee;
+        --btn-hover: #3f37c9;
+        --border-color: #4cc9f0;
+        --input-bg: #0f3460;
+        --feedback-color: #ffb703;
+        --correct-color: #52b788;
+        --incorrect-color: #e63946;
+        --section-bg: #0f3460;
+        --table-header: #162447;
+        --table-border: #3a506b;
+        --table-odd: #1f2b49;
+        --table-highlight: #1a3a5f;
+        --box-shadow: rgba(0, 0, 0, 0.3);
+    }
 
-        h1, h2, h3 {
-            color: #2c3e50;
-            transition: color 0.3s ease; /* Transition pour le mode sombre */
-        }
+    /* Style CSS de base */
+    body {
+        font-family: 'Nunito', sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        transition: all 0.3s ease;
+    }
 
-        .dark-mode h1, .dark-mode h2, .dark-mode h3 {
-            color: #fff;
-        }
+    header {
+        background-color: var(--header-color);
+        color: white;
+        text-align: center;
+        padding: 30px 0;
+        position: relative;
+        box-shadow: 0 4px 6px var(--box-shadow);
+    }
 
+    h1 {
+        font-size: 2.2em;
+        margin: 0;
+        animation: fadeInDown 0.8s ease;
+    }
+
+    /* Bouton de changement de thème */
+    .theme-toggle {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+        transform: rotate(30deg);
+    }
+
+    main {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 0 20px;
+        animation: fadeIn 1s ease;
+    }
+
+    section {
+        background-color: var(--main-bg);
+        margin-bottom: 40px;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px var(--box-shadow);
+        transition: transform 0.3s ease;
+    }
+
+    section:hover {
+        transform: translateY(-5px);
+    }
+
+    h2 {
+        color: var(--title-color);
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 10px;
+        margin-top: 0;
+        font-size: 1.8em;
+        display: flex;
+        align-items: center;
+    }
+
+    h2 i {
+        margin-right: 10px;
+    }
+
+    h3 {
+        color: var(--title-color);
+        margin-top: 25px;
+        font-size: 1.5em;
+    }
+
+    p {
+        margin: 15px 0;
+    }
+
+    ul, ol {
+        padding-left: 25px;
+    }
+
+    li {
+        margin-bottom: 10px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px var(--box-shadow);
+    }
+
+    table th, table td {
+        border: 1px solid var(--table-border);
+        padding: 12px;
+        text-align: left;
+        transition: background-color 0.3s ease;
+    }
+
+    table th {
+        background-color: var(--table-header);
+        color: var(--title-color);
+        font-weight: bold;
+    }
+
+    table tr:nth-child(odd) {
+        background-color: var(--table-odd);
+    }
+
+    table tr:hover td {
+        background-color: var(--table-highlight);
+    }
+
+    .material-card {
+        background-color: var(--section-bg);
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 8px;
+        border-left: 4px solid var(--accent-color);
+        transition: all 0.3s ease;
+    }
+
+    .material-card:hover {
+        box-shadow: 0 6px 12px var(--box-shadow);
+    }
+
+    label {
+        font-weight: bold;
+        color: var(--title-color);
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    textarea {
+        width: 100%;
+        height: 80px;
+        margin-top: 10px;
+        padding: 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+        font-size: 1em;
+        background-color: var(--input-bg);
+        color: var(--text-color);
+        resize: vertical;
+        transition: border 0.3s ease;
+    }
+
+    textarea:focus {
+        border-color: var(--accent-color);
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 116, 217, 0.3);
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 12px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+        font-size: 1em;
+        background-color: var(--input-bg);
+        color: var(--text-color);
+    }
+
+    input[type="text"]:focus {
+        border-color: var(--accent-color);
+        outline: none;
+    }
+
+    button {
+        background-color: var(--btn-color);
+        color: white;
+        border: none;
+        padding: 12px 18px;
+        font-size: 1em;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    button i {
+        margin-right: 8px;
+    }
+
+    button:hover {
+        background-color: var(--btn-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px var(--box-shadow);
+    }
+
+    .btn-check {
+        margin-top: 15px;
+    }
+
+    .feedback {
+        margin-top: 15px;
+        padding: 10px;
+        border-radius: 5px;
+        font-weight: bold;
+        display: none;
+    }
+
+    .feedback.correct {
+        background-color: rgba(46, 204, 64, 0.1);
+        color: var(--correct-color);
+        border: 1px solid var(--correct-color);
+    }
+
+    .feedback.incorrect {
+        background-color: rgba(255, 65, 54, 0.1);
+        color: var(--incorrect-color);
+        border: 1px solid var(--incorrect-color);
+    }
+
+    .access-section {
+        background-color: var(--section-bg);
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .access-section h3 {
+        margin-top: 0;
+    }
+
+    .answers-section {
+        padding: 20px;
+        border-radius: 8px;
+        background-color: var(--section-bg);
+        margin-top: 30px;
+        display: none;
+    }
+
+    .answer-card {
+        background-color: var(--main-bg);
+        padding: 15px;
+        border-radius: 8px;
+        margin: 15px 0;
+        box-shadow: 0 2px 6px var(--box-shadow);
+    }
+
+    .answer-card h4 {
+        color: var(--title-color);
+        margin-top: 0;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 8px;
+    }
+
+    /* Animation du score */
+    .score-display {
+        font-size: 1.3em;
+        margin: 20px 0;
+        animation: pulse 2s infinite;
+        text-align: center;
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 20px;
+        background-color: var(--section-bg);
+        border-radius: 10px;
+        margin: 20px 0;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background-color: var(--accent-color);
+        width: 0%;
+        transition: width 1s ease;
+        border-radius: 10px;
+    }
+
+    .summary {
+        padding: 20px;
+        background-color: var(--section-bg);
+        border-radius: 8px;
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .material-box {
+        padding: 15px;
+        background-color: var(--table-odd);
+        border-radius: 8px;
+        margin: 15px 0;
+        box-shadow: 0 2px 4px var(--box-shadow);
+    }
+
+    .material-box h4 {
+        margin-top: 0;
+        color: var(--title-color);
+    }
+
+    .material-property {
+        display: inline-block;
+        padding: 5px 10px;
+        margin: 5px;
+        background-color: var(--accent-color);
+        color: white;
+        border-radius: 15px;
+        font-size: 0.9em;
+    }
+
+    footer {
+        background-color: var(--header-color);
+        color: white;
+        text-align: center;
+        padding: 20px 0;
+        margin-top: 50px;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        header {
+            padding: 20px 0;
+        }
+        
+        h1 {
+            font-size: 1.8em;
+        }
+        
         section {
-            margin-bottom: 30px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease-in-out, background-color 0.3s ease; /* Effet de survol et mode sombre */
-        }
-
-        .dark-mode section {
-            background-color: #444;
-            color: #fff;
-            box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
-        }
-
-        section:hover {
-            transform: translateY(-5px);
-        }
-
-        ul, ol {
-            margin-left: 20px;
-        }
-
-        /* Style pour les mots cliquables */
-        .clickable-word {
-            color: #3498db;
-            cursor: pointer;
-            text-decoration: none;
-            transition: color 0.3s ease-in-out;
-        }
-
-        .clickable-word:hover {
-            text-decoration: underline;
-            color: #2980b9;
-        }
-
-        /* Style pour les infobulles */
-        .tooltip {
-            position: relative;
-            display: inline-block;
-        }
-
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 250px;
-            background-color: #555;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -125px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        /* Style spécifique pour les tableaux */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        .dark-mode th {
-            background-color: #666;
-            color: #fff;
-        }
-
-        .dark-mode td {
-            border-color: #666;
-        }
-
-        /* Style pour les exemples concrets */
-        .example {
-            margin-bottom: 20px;
             padding: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
+        
+        .theme-toggle {
+            top: 10px;
+            right: 10px;
+        }
+    }
 
-        .example:hover {
-            border-color: #3498db;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-        }
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
 
-        .example h4 {
-            margin-top: 0;
-            color: #34495e;
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
         }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
-        /* Style pour les liens externes */
-        a {
-            color: #3498db;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            text-decoration: underline;
-            color: #2980b9;
-        }
-
-        /* Bouton pour activer/désactiver le mode sombre */
-        #darkModeToggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #444;
-            color: white;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            z-index: 1000;
-            transition: background-color 0.3s ease;
-        }
-
-        #darkModeToggle:hover {
-            background-color: #666;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .fade-in {
-            animation: fadeIn 1s ease-in-out;
-        }
-    </style>
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+  </style>
 </head>
-<body class="fade-in">
+<body>
+  <header>
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+    <h1><i class="fas fa-tools"></i> Exercices : Choix des Matériaux pour Objets Techniques</h1>
+  </header>
 
-    <button id="darkModeToggle">Mode Sombre</button>
+  <main>
+    <div class="summary">
+      <h3><i class="fas fa-tasks"></i> Votre Progression</h3>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressBar"></div>
+      </div>
+      <p class="score-display">Score actuel: <span id="currentScore">0</span>/<span id="totalPossible">8</span> points</p>
+    </div>
 
-    <h1>Les Plastiques : Un Monde de Matériaux</h1>
+    <!-- Premier Exercice : Robot Aspirateur -->
+    <section id="exercice1">
+      <h2><i class="fas fa-robot"></i> Exercice 1 : Robot Aspirateur ROBOTIX 500</h2>
+      <p>
+        Le boîtier du robot aspirateur <strong>ROBOTIX 500</strong> doit être résistant aux chocs, léger et résistant aux températures élevées rencontrées dans les environnements domestiques. Il est composé de deux parties distinctes :
+      </p>
+      
+      <ul>
+        <li><strong><i class="fas fa-shield-alt"></i> Le capot (5)</strong> qui doit être transparent et résistant aux rayons Ultra-Violets (U.V.) ;</li>
+        <li><strong><i class="fas fa-cube"></i> Le support (7)</strong> qui doit être opaque.</li>
+      </ul>
+      
+      <p>Parmi les trois matériaux plastiques présentés dans le tableau ci-dessous, choisissez le matériau le mieux adapté pour réaliser le <strong>capot (5)</strong> ainsi que le matériau le mieux adapté pour réaliser le <strong>support (7)</strong>. Justifiez chacun des choix.</p>
 
-    <section>
-        <h2>Introduction</h2>
-        <p>Les <span class="tooltip"><a href="#" class="clickable-word" onclick="showDefinition('plastiques')">plastiques</a><span class="tooltiptext">Matériaux organiques de synthèse, constitués de longues chaînes de molécules appelées polymères.</span></span> sont omniprésents dans notre vie quotidienne. Des emballages alimentaires aux composants électroniques, en passant par les vêtements et les véhicules, ils sont utilisés dans une multitude d'applications. Mais qu'est-ce qu'un plastique exactement ? Quels sont les différents types de plastiques et leurs propriétés ? Et comment choisir le bon plastique pour une application donnée ? C'est ce que nous allons découvrir dans ce cours.</p>
-
-        <p>Pourquoi les plastiques sont-ils si populaires ? Ils offrent de nombreux avantages : légèreté, résistance, facilité de mise en forme, faible coût. Cependant, ils présentent aussi des inconvénients, notamment en termes d'impact environnemental. Il est donc important de comprendre les enjeux liés à l'utilisation des plastiques et de choisir les matériaux de manière responsable.</p>
-    </section>
-
-    <section>
-        <h2>I. Les Différents Types de Plastiques</h2>
-        <p>Il existe de nombreux types de plastiques, chacun ayant des propriétés spécifiques. On peut les classer en trois grandes catégories : les thermoplastiques, les thermodurcissables et les élastomères.</p>
-
-        <h3>A. Les Thermoplastiques</h3>
-        <p>Les <span class="tooltip"><a href="#" class="clickable-word" onclick="showDefinition('thermoplastiques')">thermoplastiques</a><span class="tooltiptext">Plastiques qui peuvent être ramollis par la chaleur et reprendre leur forme initiale en refroidissant. Ils sont donc recyclables.</span></span> sont des plastiques qui peuvent être ramollis par la chaleur et reprendre leur forme initiale en refroidissant. Ils sont donc recyclables.</p>
-        <ul>
-            <li><b>Polyéthylène (PE) :</b> Utilisé pour les sacs plastiques, les bouteilles, les films d'emballage.</li>
-            <li><b>Polypropylène (PP) :</b> Utilisé pour les emballages alimentaires, les bouchons de bouteille, les fibres textiles.</li>
-            <li><b>Polystyrène (PS) :</b> Utilisé pour les gobelets, les barquettes alimentaires, les jouets.</li>
-            <li><b>Polychlorure de vinyle (PVC) :</b> Utilisé pour les tuyaux, les revêtements de sol, les fenêtres.</li>
-            <li><b>Polyéthylène téréphtalate (PET) :</b> Utilisé pour les bouteilles d'eau, les fibres textiles.</li>
-        </ul>
-        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgODAwIj48dGl0bGU+UGxhc3RpYyByZWN5Y2xpbmcgc3ltYm9sczwvdGl0bGU+PHBhdGggZD0iTTQ0Mi4zNyw0NDkuODVMMjQwLjg5LDI0Ni45MmMtOC4yNS04LjI1LTguMjUtMjEuNjUsMC0yOS45MWw1Mi45MS01Mi45MWM4LjI1LTguMjUsMjEuNjUtOC4yNSwyOS45MSwwbDExOS4zNywxMTkuMzdjOC4yNSw4LjI1LDguMjUsMjEuNjUsMCwyOS45MVptLTMwLjMxLTc3LjY4TDQ0MCwzMTAuNzlWMjE1YzAtMTEuODctOS42MS0yMS40OC0yMS40OC0yMS40OGgtOTQuNzZjLTExLjg3LDAtMjEuNDgsOS42MS0yMS40OCwyMS40OHptLTcyLjY1LDc3LjY4bDExOS4zNy0xMTkuMzdjOC4yNS04LjI1LDIxLjY1LTguMjUsMjkuOTEsMGw1Mi45MSw1Mi45MWM4LjI1LDguMjUsOC4yNSwyMS42NSwwLDI5LjkxTDM1Ny42Myw0NDkuODVjLTguMjUsOC4yNS0yMS42NSw4LjI1LTI5LjkxLDBsLTUyLjkxLTUyLjkxQzI3NS40MywzNzIuMTksMjc1LjQzLDM1OC43OSwyODMuNjksMzUwLjUxbTkuNjEtNjYuMzVWNDU1YzAsMTEuODcsOS42MSwyMS40OCwyMS40OCwyMS40OGg5NC43NmMxMS44NywwLDIxLjQ4LTkuNjEsMjEuNDgtMjEuNDhWMzg0LjIxbDczLjI3LDY2LjM1Yy04LjI1LDguMjUtOC4yNSwyMS42NSwwLDI5LjkxbDUyLjkxLDUyLjkxYzguMjUsOC4yNSwyMS42NSw4LjI1LDI5LjkxLDBsMTE2LjQ2LTExNi40NmM4LjI1LTguMjUsOC4yNS0yMS42NSwwLTI5LjkxbC01Mi45MS01Mi45MWMtOC4yNS04LjI1LTguMjUtMjEuNjUsMC0yOS45MWwtMTE2LjQ2LDExNi40Nm0zMC4zMSw3Ny42OEwzNTkuNzgsNDg5LjIxVjc4NWMwLDExLjg3LTkuNjEsMjEuNDgtMjEuNDgsMjEuNDhoLTk0Ljc2Yy0xMS44NywwLTIxLjQ4LTkuNjEtMjEuNDgtMjEuNDhWNTQ0Ljc5bDczLjI3LTY2LjM1YzguMjUtOC4yNSw4LjI1LTIxLjY1LDAtMjkuOTFsLTUyLjkxLTUyLjkxYy04LjI1LTguMjUtMjEuNjUtOC4yNS0yOS45MSwwTDIwOC4zNywzNTAuMTVjLTguMjUsOC4yNS04LjI1LDIxLjY1LDAsMjkuOTFsNTIuOTEsNTIuOTFjOC4yNSw4LjI1LDIxLjY1LDguMjUsMjkuOTEtMGwtMTAuMzQtNjYuMzVWNDU1YzAtMTEuODctOS42MS0yMS40OC0yMS40OC0yMS40OGgtOTQuNzZjLTExLjg3LDAtMjEuNDgsOS42MS0yMS40OCwyMS40OHoiIGZpbGw9IiMwMDkxZWEiLz48L3N2Zz4=" alt="Symboles de recyclage des plastiques" style="width: 200px; display: block; margin: 10px auto;">
-
-        <h3>B. Les Thermodurcissables</h3>
-        <p>Les <span class="tooltip"><a href="#" class="clickable-word" onclick="showDefinition('thermodurcissables')">thermodurcissables</a><span class="tooltiptext">Plastiques qui durcissent de manière irréversible sous l'effet de la chaleur. Ils ne sont pas recyclables.</span></span> sont des plastiques qui durcissent de manière irréversible sous l'effet de la chaleur. Ils ne sont donc pas recyclables.</p>
-        <ul>
-            <li><b>Résines époxy :</b> Utilisées pour les colles, les revêtements, les composites.</li>
-            <li><b>Polyuréthane (PU) :</b> Utilisé pour les mousses, les isolants, les revêtements.</li>
-            <li><b>Bakélite :</b> Utilisée pour les prises électriques, les interrupteurs, les poignées d'ustensiles.</li>
-        </ul>
-
-        <h3>C. Les Élastomères</h3>
-        <p>Les <span class="tooltip"><a href="#" class="clickable-word" onclick="showDefinition('élastomères')">élastomères</a><span class="tooltiptext">Matériaux qui présentent des propriétés élastiques importantes. Ils peuvent être étirés et reprendre leur forme initiale.</span></span> sont des matériaux qui présentent des propriétés élastiques importantes. Ils peuvent être étirés et reprendre leur forme initiale.</p>
-        <ul>
-            <li><b>Caoutchouc naturel :</b> Utilisé pour les pneus, les joints, les articles de sport.</li>
-            <li><b>Caoutchouc synthétique :</b> Utilisé pour les pneus, les joints, les semelles de chaussures.</li>
-            <li><b>Silicone :</b> Utilisé pour les joints, les moules, les implants médicaux.</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>II. Propriétés des Plastiques</h2>
-        <p>Les plastiques possèdent des propriétés variées qui les rendent adaptés à de nombreuses applications. Parmi ces propriétés, on peut citer :</p>
-
-        <h3>A. Propriétés Mécaniques</h3>
-        <ul>
-            <li><b>Résistance à la traction :</b> Capacité à supporter une force de traction sans se rompre.</li>
-            <li><b>Résistance à la compression :</b> Capacité à résister à une force de compression sans se déformer.</li>
-            <li><b>Résistance aux chocs :</b> Capacité à absorber l'énergie d'un choc sans se casser.</li>
-        </ul>
-
-        <h3>B. Propriétés Thermiques</h3>
-        <ul>
-            <li><b>Résistance à la chaleur :</b> Capacité à résister à des températures élevées sans se déformer ou se décomposer.</li>
-            <li><b>Conductivité thermique :</b> Capacité à conduire la chaleur.</li>
-            <li><b>Dilatation thermique :</b> Variation de volume en fonction de la température.</li>
-        </ul>
-
-        <h3>C. Propriétés Chimiques</h3>
-        <ul>
-            <li><b>Résistance aux acides :</b> Capacité à résister à l'action des acides.</li>
-            <li><b>Résistance aux bases :</b> Capacité à résister à l'action des bases.</li>
-            <li><b>Résistance aux solvants :</b> Capacité à résister à l'action des solvants.</li>
-        </ul>
-
-        <h3>D. Autres Propriétés</h3>
-        <ul>
-            <li><b>Transparence :</b> Capacité à laisser passer la lumière.</li>
-            <li><b>Imperméabilité :</b> Capacité à empêcher le passage des liquides et des gaz.</li>
-            <li><b>Légèreté :</b> Faible masse volumique.</li>
-            <li><b>Coût :</b> Prix du matériau.</li>
-        </ul>
-
+      <div class="material-box">
+        <h4><i class="fas fa-vial"></i> Les matériaux disponibles</h4>
         <table>
-            <thead>
-                <tr>
-                    <th>Propriété</th>
-                    <th>Thermoplastiques</th>
-                    <th>Thermodurcissables</th>
-                    <th>Élastomères</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Résistance à la traction</td>
-                    <td>Variable</td>
-                    <td>Élevée</td>
-                    <td>Faible</td>
-                </tr>
-                <tr>
-                    <td>Résistance à la chaleur</td>
-                    <td>Faible</td>
-                    <td>Élevée</td>
-                    <td>Faible</td>
-                </tr>
-                <tr>
-                    <td>Résistance chimique</td>
-                    <td>Bonne</td>
-                    <td>Excellente</td>
-                    <td>Variable</td>
-                </tr>
-                <tr>
-                    <td>Transparence</td>
-                    <td>Variable</td>
-                    <td>Faible</td>
-                    <td>Variable</td>
-                </tr>
-                <tr>
-                    <td>Recyclabilité</td>
-                    <td>Bonne</td>
-                    <td>Mauvaise</td>
-                    <td>Variable</td>
-                </tr>
-            </tbody>
+          <tr>
+            <th>Matériau</th>
+            <th>Caractéristiques</th>
+          </tr>
+          <tr>
+            <td><strong>Polycarbonate</strong></td>
+            <td>
+              <span class="material-property"><i class="fas fa-glasses"></i> Transparent</span>
+              <span class="material-property"><i class="fas fa-hammer"></i> Résistant aux chocs</span>
+              <span class="material-property"><i class="fas fa-sun"></i> Résistant aux UV</span>
+              <span class="material-property"><i class="fas fa-feather"></i> Léger</span>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>ABS</strong></td>
+            <td>
+              <span class="material-property"><i class="fas fa-eye-slash"></i> Opaque</span>
+              <span class="material-property"><i class="fas fa-hammer"></i> Résistant aux chocs</span>
+              <span class="material-property"><i class="fas fa-temperature-high"></i> Résistant aux températures élevées</span>
+              <span class="material-property"><i class="fas fa-feather"></i> Léger</span>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>PVC</strong></td>
+            <td>
+              <span class="material-property"><i class="fas fa-glasses"></i> Transparent</span>
+              <span class="material-property"><i class="fas fa-temperature-high"></i> Résistant aux températures élevées</span>
+              <span class="material-property"><i class="fas fa-feather"></i> Léger</span>
+              <span class="material-property"><i class="fas fa-exclamation-triangle"></i> Peu résistant aux chocs</span>
+            </td>
+          </tr>
         </table>
-    </section>
+      </div>
 
-    <section>
-        <h2>III. Critères de Choix des Matériaux Plastiques</h2>
-        <p>Le choix d'un matériau plastique pour une application donnée dépend de nombreux critères, notamment :</p>
+      <h3><i class="fas fa-question-circle"></i> Répondez aux questions ci-dessous :</h3>
 
-        <h3>A. Masse</h3>
-        <p>La <span class="tooltip"><a href="#" class="clickable-word" onclick="showDefinition('masse')">masse</a><span class="tooltiptext">Quantité de matière contenue dans un objet.</span></span> est un critère important dans les applications où la légèreté est essentielle, comme dans le transport (aéronautique, automobile) ou pour les équipements portables.</p>
-
-        <h3>B. Coût</h3>
-        <p>Le <span class="tooltip"><a href="#" class="clickable-word" onclick="showDefinition('coût')">coût</a><span class="tooltiptext">Prix du matériau, incluant le coût de la matière première et le coût de transformation.</span></span> est un facteur déterminant dans le choix du matériau, surtout pour les applications de grande consommation.</p>
-
-        <h3>C. Qualité (Propriétés)</h3>
-        <p>Les <span class="tooltip"><a href="#" class="clickable-word" onclick="showDefinition('qualités')">qualités</a><span class="tooltiptext">Ensemble des propriétés mécaniques, thermiques, chimiques et autres qui rendent un matériau adapté à une application donnée.</span></span> du matériau doivent être adaptées aux exigences de l'application. Par exemple, un emballage alimentaire doit être imperméable et apte au contact alimentaire, tandis qu'un composant mécanique doit être résistant et durable.</p>
-
-        <h3>D. Impact Environnemental</h3>
-        <p>L'<span class="tooltip"><a href="#" class="clickable-word" onclick="showDefinition('impact environnemental')">impact environnemental</a><span class="tooltiptext">Ensemble des effets négatifs d'un matériau sur l'environnement, de sa production à sa fin de vie.</span></span> est un critère de plus en plus important. Il faut prendre en compte la recyclabilité, la biodégradabilité et l'utilisation de ressources renouvelables.</p>
-
-        <h3>E. Contraintes de Fabrication</h3>
-        <p>La <span class="tooltip"><a href="#" class="clickable-word" onclick="showDefinition('contraintes de fabrication')">facilité de mise en œuvre</a><span class="tooltiptext">Aptitude d'un matériau à être transformé en un objet fini.</span></span> (moulage, extrusion, etc.) et la disponibilité des technologies de transformation sont des facteurs à considérer.</p>
-    </section>
-
-    <section>
-        <h2>IV. Exemples Concrets</h2>
-
-        <div class="example">
-            <h4>1. Bouteille d'eau en PET</h4>
-            <p><b>Contraintes :</b> Légèreté, transparence, coût, recyclabilité, contact alimentaire.</p>
-            <p><b>Justification du choix du PET :</b> Léger, transparent, recyclable, apte au contact alimentaire, économique.</p>
+      <form id="exercise-1-form">
+        <div class="material-card">
+          <label for="capot-material"><i class="fas fa-shield-alt"></i> Capot (5) : Quel matériau choisissez-vous ?</label>
+          <input type="text" id="capot-material" placeholder="Entrez votre réponse ici..." required>
+          <div id="feedback-capot" class="feedback"></div>
+          <button type="button" class="btn-check" onclick="checkMaterial('capot-material', 'feedback-capot', 'polycarbonate', 1)">
+            <i class="fas fa-check-circle"></i> Vérifier
+          </button>
+        </div>
+        
+        <div class="material-card">
+          <label for="capot-justification"><i class="fas fa-comment-dots"></i> Justification :</label>
+          <textarea id="capot-justification" placeholder="Expliquez pourquoi vous avez choisi ce matériau..."></textarea>
+          <div id="feedback-capot-just" class="feedback"></div>
+          <button type="button" class="btn-check" onclick="checkJustification('capot-justification', 'feedback-capot-just', ['transparent', 'résistant', 'uv', 'chocs'], 1)">
+            <i class="fas fa-check-circle"></i> Vérifier
+          </button>
         </div>
 
-        <div class="example">
-            <h4>2. Boîtier d'ordinateur portable en ABS</h4>
-            <p><b>Contraintes :</b> Résistance aux chocs, rigidité, aspect esthétique, coût, facilité de moulage.</p>
-            <p><b>Justification du choix de l'ABS :</b> Résistant aux chocs, rigide, bon rendu esthétique, facile à mouler, coût raisonnable.</p>
+        <div class="material-card">
+          <label for="support-material"><i class="fas fa-cube"></i> Support (7) : Quel matériau choisissez-vous ?</label>
+          <input type="text" id="support-material" placeholder="Entrez votre réponse ici..." required>
+          <div id="feedback-support" class="feedback"></div>
+          <button type="button" class="btn-check" onclick="checkMaterial('support-material', 'feedback-support', 'abs', 1)">
+            <i class="fas fa-check-circle"></i> Vérifier
+          </button>
         </div>
-
-        <div class="example">
-            <h4>3. Pare-chocs de voiture en Polypropylène (PP)</h4>
-            <p><b>Contraintes :</b> Résistance aux chocs, flexibilité, résistance aux intempéries, coût, recyclabilité.</p>
-            <p><b>Justification du choix du PP :</b> Résistant aux chocs, flexible, résistant aux UV, économique, recyclable.</p>
+        
+        <div class="material-card">
+          <label for="support-justification"><i class="fas fa-comment-dots"></i> Justification :</label>
+          <textarea id="support-justification" placeholder="Expliquez pourquoi vous avez choisi ce matériau..."></textarea>
+          <div id="feedback-support-just" class="feedback"></div>
+          <button type="button" class="btn-check" onclick="checkJustification('support-justification', 'feedback-support-just', ['opaque', 'température', 'chocs', 'résistant'], 1)">
+            <i class="fas fa-check-circle"></i> Vérifier
+          </button>
         </div>
-
-        <div class="example">
-            <h4>4. Défibrillateur Automatique Externe (DAE)</h4>
-            <p><b>Contraintes :</b> Résistance aux chocs, légèreté, isolation électrique, résistance aux produits de nettoyage, durabilité.</p>
-            <p><b>Justification du choix :</b> Un boîtier en polycarbonate (PC) ou en ABS/PC blend offre une excellente résistance aux chocs pour protéger les composants électroniques sensibles en cas de chute ou de manipulation brusque. Le PC est également un bon isolant électrique, ce qui est crucial pour la sécurité de l'utilisateur. La légèreté est importante pour faciliter le transport du DAE, et la résistance aux produits de nettoyage est essentielle pour maintenir l'hygiène de l'appareil.</p>
-        </div>
-
-        <div class="example">
-            <h4>5. Câble électrique en PVC</h4>
-            <p><b>Contraintes :</b> Isolation électrique, flexibilité, résistance au feu, coût, durabilité.</p>
-            <p><b>Justification du choix du PVC :</b> Excellent isolant électrique, flexible, peut être ignifugé, économique, durable.</p>
-        </div>
+      </form>
     </section>
 
-    <section>
-        <h2>V. Impact Environnemental des Plastiques</h2>
-        <p>La production, l'utilisation et la fin de vie des plastiques ont un impact significatif sur l'environnement :</p>
+    <!-- Deuxième Exercice : Système de Sécurité Domestique -->
+    <section id="exercice2">
+      <h2><i class="fas fa-shield-alt"></i> Exercice 2 : Système de Sécurité Domestique SECURHOME 3000</h2>
+      <p>
+        Le système de sécurité domestique <strong>SECURHOME 3000</strong> comprend deux éléments principaux :
+      </p>
+      
+      <ul>
+        <li><strong><i class="fas fa-video"></i> La caméra extérieure (1)</strong> qui doit être résistante aux intempéries (pluie, soleil) et transparente pour laisser passer la lumière ;</li>
+        <li><strong><i class="fas fa-box"></i> Le boîtier de contrôle (2)</strong> qui doit être opaque et résistant aux chocs pour protéger les composants électroniques.</li>
+      </ul>
+      
+      <p>Parmi les trois matériaux plastiques présentés dans le tableau ci-dessous, choisissez le matériau le mieux adapté pour réaliser la <strong>caméra extérieure (1)</strong> ainsi que le matériau le mieux adapté pour réaliser le <strong>boîtier de contrôle (2)</strong>. Justifiez chacun des choix.</p>
 
-        <h3>A. Production</h3>
-        <p>La production de plastiques consomme des ressources fossiles (pétrole, gaz) et émet des gaz à effet de serre.</p>
+      <div class="material-box">
+        <h4><i class="fas fa-vial"></i> Les matériaux disponibles</h4>
+        <table>
+          <tr>
+            <th>Matériau</th>
+            <th>Caractéristiques</th>
+          </tr>
+          <tr>
+            <td><strong>Polycarbonate</strong></td>
+            <td>
+              <span class="material-property"><i class="fas fa-glasses"></i> Transparent</span>
+              <span class="material-property"><i class="fas fa-hammer"></i> Résistant aux chocs</span>
+              <span class="material-property"><i class="fas fa-sun"></i> Résistant aux UV</span>
+              <span class="material-property"><i class="fas fa-feather"></i> Léger</span>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>ABS</strong></td>
+            <td>
+              <span class="material-property"><i class="fas fa-eye-slash"></i> Opaque</span>
+              <span class="material-property"><i class="fas fa-hammer"></i> Résistant aux chocs</span>
+              <span class="material-property"><i class="fas fa-temperature-high"></i> Résistant aux températures élevées</span>
+              <span class="material-property"><i class="fas fa-feather"></i> Léger</span>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>PVC</strong></td>
+            <td>
+              <span class="material-property"><i class="fas fa-glasses"></i> Transparent</span>
+              <span class="material-property"><i class="fas fa-temperature-high"></i> Résistant aux températures élevées</span>
+              <span class="material-property"><i class="fas fa-feather"></i> Léger</span>
+              <span class="material-property"><i class="fas fa-exclamation-triangle"></i> Peu résistant aux chocs</span>
+            </td>
+          </tr>
+        </table>
+      </div>
 
-        <h3>B. Utilisation</h3>
-        <p>La durée de vie des objets en plastique peut être très longue, ce qui entraîne une accumulation de déchets. De plus, les plastiques peuvent se dégrader en microplastiques, qui polluent les océans et les sols.</p>
+      <h3><i class="fas fa-question-circle"></i> Répondez aux questions ci-dessous :</h3>
 
-        <h3>C. Fin de Vie</h3>
-        <p>L'incinération des plastiques émet des polluants atmosphériques. La mise en décharge entraîne une accumulation de déchets. Le recyclage est une solution, mais il a ses limites (tous les plastiques ne sont pas recyclables, le recyclage consomme de l'énergie).</p>
+      <form id="exercise-2-form">
+        <div class="material-card">
+          <label for="camera-material"><i class="fas fa-video"></i> Caméra extérieure (1) : Quel matériau choisissez-vous ?</label>
+          <input type="text" id="camera-material" placeholder="Entrez votre réponse ici..." required>
+          <div id="feedback-camera" class="feedback"></div>
+          <button type="button" class="btn-check" onclick="checkMaterial('camera-material', 'feedback-camera', 'polycarbonate', 1)">
+            <i class="fas fa-check-circle"></i> Vérifier
+          </button>
+        </div>
+        
+        <div class="material-card">
+          <label for="camera-justification"><i class="fas fa-comment-dots"></i> Justification :</label>
+          <textarea id="camera-justification" placeholder="Expliquez pourquoi vous avez choisi ce matériau..."></textarea>
+          <div id="feedback-camera-just" class="feedback"></div>
+          <button type="button" class="btn-check" onclick="checkJustification('camera-justification', 'feedback-camera-just', ['transparent', 'résistant', 'uv', 'intempéries', 'chocs'], 1)">
+            <i class="fas fa-check-circle"></i> Vérifier
+          </button>
+        </div>
 
-        <h3>D. Solutions</h3>
-        <ul>
-            <li>Réduire la consommation de plastique.</li>
-            <li>Utiliser des plastiques biosourcés et biodégradables.</li>
-            <li>Améliorer le recyclage.</li>
-            <li>Éco-concevoir les produits.</li>
-        </ul>
+        <div class="material-card">
+          <label for="control-box-material"><i class="fas fa-box"></i> Boîtier de contrôle (2) : Quel matériau choisissez-vous ?</label>
+          <input type="text" id="control-box-material" placeholder="Entrez votre réponse ici..." required>
+          <div id="feedback-control" class="feedback"></div>
+          <button type="button" class="btn-check" onclick="checkMaterial('control-box-material', 'feedback-control', 'abs', 1)">
+            <i class="fas fa-check-circle"></i> Vérifier
+          </button>
+        </div>
+        
+        <div class="material-card">
+          <label for="control-box-justification"><i class="fas fa-comment-dots"></i> Justification :</label>
+          <textarea id="control-box-justification" placeholder="Expliquez pourquoi vous avez choisi ce matériau..."></textarea>
+          <div id="feedback-control-just" class="feedback"></div>
+          <button type="button" class="btn-check" onclick="checkJustification('control-box-justification', 'feedback-control-just', ['opaque', 'résistant', 'chocs', 'protège', 'électroniques'], 1)">
+            <i class="fas fa-check-circle"></i> Vérifier
+          </button>
+        </div>
+      </form>
     </section>
 
-    <section>
-        <h2>Conclusion</h2>
-        <p>Les plastiques sont des matériaux indispensables à notre vie moderne, mais leur utilisation doit être gérée de manière responsable. En comprenant les propriétés des différents types de plastiques, les critères de choix et l'impact environnemental, nous pouvons faire des choix plus éclairés et contribuer à un avenir plus durable.</p>
+    <!-- Champ pour le mot magique -->
+    <section class="access-section">
+      <h3><i class="fas fa-key"></i> Accès aux Réponses</h3>
+      <p>Pour accéder aux réponses correctes, entrez le mot magique donné par l'enseignant :</p>
+      <input type="text" id="magic-word" placeholder="Entrez le mot magique ici...">
+      <button type="button" onclick="unlockAnswers()">
+        <i class="fas fa-unlock-alt"></i> Activer les réponses
+      </button>
     </section>
 
-    <script>
-        // Mode sombre
-        document.getElementById('darkModeToggle').addEventListener('click', function() {
-            document.body.classList.toggle('dark-mode');
-        });
+    <!-- Bouton pour afficher les réponses -->
+    <button id="show-answers-btn" class="hidden" type="button" onclick="displayAnswers()">
+      <i class="fas fa-eye"></i> Afficher les réponses
+    </button>
 
-        // Infobulles
-        function showDefinition(word) {
-            let definition = "";
-            switch (word) {
-                case 'plastiques':
-                    definition = "Matériaux organiques de synthèse, constitués de longues chaînes de molécules appelées polymères.";
-                    break;
-                case 'thermoplastiques':
-                    definition = "Plastiques qui peuvent être ramollis par la chaleur et reprendre leur forme initiale en refroidissant. Ils sont donc recyclables.";
-                    break;
-                case 'thermodurcissables':
-                    definition = "Plastiques qui durcissent de manière irréversible sous l'effet de la chaleur. Ils ne sont pas recyclables.";
-                    break;
-                case 'élastomères':
-                    definition = "Matériaux qui présentent des propriétés élastiques importantes. Ils peuvent être étirés et reprendre leur forme initiale.";
-                    break;
-                case 'masse':
-                    definition = "Quantité de matière contenue dans un objet.";
-                    break;
-                case 'coût':
-                    definition = "Prix du matériau, incluant le coût de la matière première et le coût de transformation.";
-                    break;
-                case 'qualités':
-                    definition = "Ensemble des propriétés mécaniques, thermiques, chimiques et autres qui rendent un matériau adapté à une application donnée.";
-                    break;
-                case 'impact environnemental':
-                    definition = "Ensemble des effets négatifs d'un matériau sur l'environnement, de sa production à sa fin de vie.";
-                    break;
-                case 'contraintes de fabrication':
-                    definition = "Aptitude d'un matériau à être transformé en un objet fini.";
-                    break;
-                default:
-                    definition = "Définition non disponible.";
-            }
-            alert(definition); // Affiche la définition dans une alerte (peut être amélioré avec une infobulle plus élégante)
+    <!-- Réponses Correctes -->
+    <div id="correct-answers" class="hidden">
+      <h3>Réponses Correctes</h3>
+
+      <h4>Exercice 1 : Robot Aspirateur ROBOTIX 500</h4>
+      <p><strong>Capot (5) :</strong> Polycarbonate</p>
+      <p><strong>Justification :</strong> Le polycarbonate est transparent, résistant aux chocs, résistant aux UV et léger, ce qui en fait le matériau idéal pour le capot.</p>
+      <p><strong>Support (7) :</strong> ABS</p>
+      <p><strong>Justification :</strong> L'ABS est opaque, résistant aux chocs, résistant aux températures élevées et léger, ce qui convient parfaitement au support.</p>
+
+      <h4>Exercice 2 : Système de Sécurité Domestique SECURHOME 3000</h4>
+      <p><strong>Caméra extérieure (1) :</strong> Polycarbonate</p>
+      <p><strong>Justification :</strong> Le polycarbonate est transparent, résistant aux chocs et résistant aux UV, ce qui en fait le matériau idéal pour une caméra extérieure exposée aux intempéries.</p>
+      <p><strong>Boîtier de contrôle (2) :</strong> ABS</p>
+      <p><strong>Justification :</strong> L'ABS est opaque, résistant aux chocs et protège efficacement les composants électroniques sensibles.</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>Exercices sur le choix des matériaux pour objets techniques - examencollègeannée</p>
+  </footer>
+
+  <script>
+    // Gestion du mode sombre
+    const themeToggle = document.getElementById('themeToggle');
+    const icon = themeToggle.querySelector('i');
+
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-theme');
+        if (document.body.classList.contains('dark-theme')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
         }
-    </script>
+    });
 
+    // Suivi du score
+    let userScore = 0;
+    const totalPossibleScore = 8; // 2 exercices avec 2 matériaux et 2 justifications = 8 points
+
+    // Fonction pour vérifier le choix du matériau
+    function checkMaterial(inputId, feedbackId, correctMaterial, points) {
+      const userAnswer = document.getElementById(inputId).value.trim().toLowerCase();
+      const feedbackElement = document.getElementById(feedbackId);
+      
+      // Vérifier si la réponse est correcte
+      const isCorrect = userAnswer.includes(correctMaterial.toLowerCase());
+      
+      // Afficher le feedback
+      feedbackElement.style.display = 'block';
+      if (isCorrect) {
+        feedbackElement.className = 'feedback correct';
+        feedbackElement.innerHTML = `<i class="fas fa-check-circle"></i> Correct ! Le ${correctMaterial} est effectivement le matériau idéal pour cette application. +${points} point${points > 1 ? 's' : ''}`;
+        
+        // Ajouter des points au score seulement si la question n'a pas déjà été répondue correctement
+        if (!feedbackElement.dataset.scored) {
+          userScore += points;
+          feedbackElement.dataset.scored = "true";
+          updateScore();
+        }
+      } else {
+        feedbackElement.className = 'feedback incorrect';
+        feedbackElement.innerHTML = `<i class="fas fa-times-circle"></i> Incorrect. Réexaminez les propriétés requises et les caractéristiques des matériaux.`;
+      }
+    }
+
+    // Fonction pour vérifier une justification
+    function checkJustification(textareaId, feedbackId, keywordsList, points) {
+      const userAnswer = document.getElementById(textareaId).value.trim().toLowerCase();
+      const feedbackElement = document.getElementById(feedbackId);
+      
+      // Compter combien de mots-clés sont présents dans la réponse
+      let matches = 0;
+      for (const keyword of keywordsList) {
+        if (userAnswer.includes(keyword.toLowerCase())) {
+          matches++;
+        }
+      }
+      
+      // Vérifier si la réponse est suffisamment correcte (au moins 60% des mots-clés)
+      const requiredMatches = Math.ceil(keywordsList.length * 0.6);
+      const isCorrect = matches >= requiredMatches;
+      
+      // Afficher le feedback
+      feedbackElement.style.display = 'block';
+      if (isCorrect) {
+        feedbackElement.className = 'feedback correct';
+        feedbackElement.innerHTML = `<i class="fas fa-check-circle"></i> Bonne justification ! Votre explication contient les points clés nécessaires. +${points} point${points > 1 ? 's' : ''}`;
+        
+        // Ajouter des points au score seulement si la question n'a pas déjà été répondue correctement
+        if (!feedbackElement.dataset.scored) {
+          userScore += points;
+          feedbackElement.dataset.scored = "true";
+          updateScore();
+        }
+      } else {
+        feedbackElement.className = 'feedback incorrect';
+        feedbackElement.innerHTML = `<i class="fas fa-times-circle"></i> Justification incomplète. Assurez-vous de mentionner les propriétés clés qui font de ce matériau le choix idéal.`;
+      }
+    }
+
+    // Mettre à jour l'affichage du score
+    function updateScore() {
+      document.getElementById('currentScore').textContent = userScore;
+      
+      // Mettre à jour la barre de progression
+      const progressPercentage = (userScore / totalPossibleScore) * 100;
+      document.getElementById('progressBar').style.width = `${progressPercentage}%`;
+      
+      // Féliciter l'utilisateur s'il obtient tous les points
+      if (userScore === totalPossibleScore) {
+        alert('Félicitations ! Vous avez obtenu le score maximal. 🎉');
+      }
+    }
+
+    // Fonction pour déverrouiller les réponses avec le mot magique
+    function unlockAnswers() {
+      const magicWord = document.getElementById('magic-word').value.trim();
+      const showAnswersBtn = document.getElementById('show-answers-btn');
+
+      if (magicWord === 'dnbmontesoro2025') {
+        showAnswersBtn.classList.remove('hidden'); // Affiche le bouton "Afficher les réponses"
+        alert('Mot magique correct ! Vous pouvez maintenant afficher les réponses.');
+      } else {
+        alert('Mot magique incorrect. Veuillez demander à votre enseignant.');
+      }
+    }
+
+    // Fonction pour afficher les réponses
+    function displayAnswers() {
+      const correctAnswers = document.getElementById('correct-answers');
+      correctAnswers.classList.remove('hidden'); // Affiche les réponses correctes
+    }
+
+    // Initialiser le score au chargement de la page
+    document.addEventListener('DOMContentLoaded', function() {
+      updateScore();
+    });
+  </script>
 </body>
 </html>

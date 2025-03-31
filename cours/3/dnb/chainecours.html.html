@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaînes d'Énergie et d'Information</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #e74c3c;
+            --background-light: #e6f7ff;
+            --text-light: #333;
+            --background-dark: #222;
+            --text-dark: #f5f5f5;
+            --card-light: #fff;
+            --card-dark: #333;
+            --highlight-light: #f0f0f0;
+            --highlight-dark: #444;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-light);
+            color: var(--text-light);
+            padding: 20px;
+            transition: background-color 0.5s ease;
+            overflow-x: hidden;
+        }
+
+        body.dark-mode {
+            background-color: var(--background-dark);
+            color: var(--text-dark);
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: Arial, sans-serif;
+            margin-bottom: 0.8em;
+            color: var(--primary-color);
+        }
+
+        .dark-mode h1, .dark-mode h2, .dark-mode h3, .dark-mode h4, .dark-mode h5 {
+            color: #78c2ff;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 1.5rem 0;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+            padding: 0.5rem 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dark-mode h1 {
+            background: linear-gradient(90deg, #78c2ff, #6ae792);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: var(--card-light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
+        }
+
+        .dark-mode section {
+            background-color: var(--card-dark);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+        }
+
+        .dark-mode section:hover {
+            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.08);
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Style pour les mots cliquables */
+        .clickable-term {
+            color: var(--primary-color);
+            cursor: pointer;
+            font-weight: 600;
+            border-bottom: 1px dotted var(--primary-color);
+            padding: 0 2px;
+            transition: all 0.3s ease;
+        }
+
+        .clickable-term:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        .dark-mode .clickable-term {
+            color: #78c2ff;
+            border-bottom-color: #78c2ff;
+        }
+
+        .dark-mode .clickable-term:hover {
+            background-color: rgba(120, 194, 255, 0.1);
+        }
+
+        /* Style pour les éléments interactifs */
+        .interactive-element {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border: 2px solid rgba(52, 152, 219, 0.3);
+            border-radius: var(--border-radius);
+            background: rgba(52, 152, 219, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .interactive-element:hover {
+            border-color: var(--primary-color);
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .dark-mode .interactive-element {
+            border-color: rgba(120, 194, 255, 0.3);
+            background: rgba(120, 194, 255, 0.05);
+        }
+
+        .dark-mode .interactive-element:hover {
+            border-color: #78c2ff;
+            background: rgba(120, 194, 255, 0.1);
+        }
+
+        /* Style pour les boutons */
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 4px 6px rgba(52, 152, 219, 0.3);
+        }
+
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(52, 152, 219, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(52, 152, 219, 0.3);
+        }
+
+        button:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .dark-mode button {
+            background-color: #2171a1;
+            box-shadow: 0 4px 6px rgba(120, 194, 255, 0.3);
+        }
+
+        .dark-mode button:hover {
+            background-color: #1a5a8a;
+            box-shadow: 0 6px 8px rgba(120, 194, 255, 0.4);
+        }
+
+        /* Style pour les schémas */
+        .schema {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .schema {
+            background-color: #2a2a2a;
+        }
+
+        .schema-element {
+            display: inline-block;
+            margin: 0 5px;
+            padding: 8px 15px;
+            background-color: white;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .schema-element:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode .schema-element {
+            background-color: #3a3a3a;
+            border-color: #444;
+            color: var(--text-dark);
+        }
+
+        .dark-mode .schema-element:hover {
+            border-color: #78c2ff;
+            color: #78c2ff;
+        }
+
+        /* Styles pour le bouton mode sombre */
+        #darkModeToggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        /* Style pour les définitions */
+        #modalContainer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal {
+            background-color: var(--card-light);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .dark-mode .modal {
+            background-color: var(--card-dark);
+        }
+
+        .modal-title {
+            margin-top: 0;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+
+        .dark-mode .modal-title {
+            color: #78c2ff;
+            border-bottom-color: #78c2ff;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #777;
+            padding: 5px 10px;
+            box-shadow: none;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-color);
+            background: none;
+            box-shadow: none;
+        }
+
+        /* Quiz styles */
+        .quiz-container {
+            background-color: rgba(52, 152, 219, 0.05);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 2px solid rgba(52, 152, 219, 0.2);
+        }
+
+        .dark-mode .quiz-container {
+            background-color: rgba(120, 194, 255, 0.05);
+            border-color: rgba(120, 194, 255, 0.2);
+        }
+
+        .quiz-question {
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .quiz-option {
+            padding: 10px 15px;
+            background-color: white;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--secondary-color);
+            background-color: rgba(46, 204, 113, 0.1);
+        }
+
+        .quiz-option.incorrect {
+            border-color: var(--accent-color);
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+
+        .dark-mode .quiz-option {
+            background-color: #3a3a3a;
+            border-color: #444;
+        }
+
+        .dark-mode .quiz-option:hover {
+            border-color: #78c2ff;
+        }
+
+        .dark-mode .quiz-option.selected {
+            border-color: #78c2ff;
+            background-color: rgba(120, 194, 255, 0.1);
+        }
+
+        .dark-mode .quiz-option.correct {
+            border-color: #6ae792;
+            background-color: rgba(46, 204, 113, 0.2);
+        }
+
+        .dark-mode .quiz-option.incorrect {
+            border-color: #ff6b6b;
+            background-color: rgba(231, 76, 60, 0.2);
+        }
+
+        .quiz-feedback {
+            margin-top: 1rem;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            display: none;
+        }
+
+        .quiz-feedback.correct {
+            display: block;
+            background-color: rgba(46, 204, 113, 0.1);
+            color: #27ae60;
+            border-left: 4px solid #27ae60;
+        }
+
+        .quiz-feedback.incorrect {
+            display: block;
+            background-color: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .dark-mode .quiz-feedback.correct {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+        }
+
+        .dark-mode .quiz-feedback.incorrect {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: #ff6b6b;
+        }
+
+        .quiz-progress {
+            margin-top: 1rem;
+            background-color: #eee;
+            border-radius: 50px;
+            height: 10px;
+            overflow: hidden;
+        }
+
+        .quiz-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .dark-mode .quiz-progress {
+            background-color: #444;
+        }
+
+        .dark-mode .quiz-progress-bar {
+            background: linear-gradient(90deg, #78c2ff, #6ae792);
+        }
+
+        .mb-1 {
+            margin-bottom: 0.5rem;
+        }
+
+        .mt-1 {
+            margin-top: 0.5rem;
+        }
+
+        .mt-2 {
+            margin-top: 1rem;
+        }
+
+        .mt-3 {
+            margin-top: 1.5rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Device examples styles */
+        .device-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .device-card {
+            padding: 15px;
+            border: 2px solid #e5e5e5;
+            border-radius: var(--border-radius);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .device-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .device-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .device-type {
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .dark-mode .device-card {
+            border-color: #444;
+        }
+
+        .dark-mode .device-card:hover {
+            border-color: #78c2ff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .dark-mode .device-type {
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <button id="darkModeToggle">Mode Sombre</button>
+
+    <h1>Chaînes d'Énergie et d'Information</h1>
+
+    <section>
+        <h2>Introduction</h2>
+        <p>Les systèmes automatisés qui nous entourent, des <span class="clickable-term" data-term="objets connectés">objets connectés</span> aux robots industriels, fonctionnent grâce à deux chaînes essentielles : la <span class="clickable-term" data-term="chaîne d'information">chaîne d'information</span> et la <span class="clickable-term" data-term="chaîne d'énergie">chaîne d'énergie</span>. Ces chaînes interagissent pour permettre au système de percevoir son environnement, de prendre des décisions et d'agir en conséquence.</p>
+        <p>Prenons l'exemple d'un <span class="clickable-term" data-term="DAE">Défibrillateur Automatique Externe (DAE)</span> : cet appareil, vital en cas d'arrêt cardiaque, utilise les deux chaînes pour analyser le rythme cardiaque d'une personne et, si nécessaire, délivrer un choc électrique pour rétablir un rythme normal.</p>
+    </section>
+
+    <section>
+        <h2>1. La Chaîne d'Information</h2>
+        <p>La chaîne d'information est le "cerveau" du système automatisé. Elle est responsable de la collecte, du traitement et de la communication des informations.</p>
+
+        <h3>1.1 Fonctions de la Chaîne d'Information</h3>
+        <h4>Acquérir</h4>
+        <p>Cette fonction consiste à capter les informations provenant de l'environnement extérieur ou du système lui-même. Les <span class="clickable-term" data-term="capteurs">capteurs</span> sont les éléments qui réalisent cette acquisition.</p>
+        <h5>Exemples de capteurs :</h5>
+        <ul>
+            <li><span class="clickable-term" data-term="capteur de température">Capteurs de température</span> : mesurent la température (ex: thermostat d'un radiateur connecté).</li>
+            <li><span class="clickable-term" data-term="photorésistance">Photorésistances</span> : mesurent la luminosité (ex: détecteur de luminosité d'un smartphone).</li>
+            <li><span class="clickable-term" data-term="capteur de présence">Capteurs de présence</span> : détectent une présence (ex: détecteur de mouvement d'une alarme).</li>
+        </ul>
+        <p><b>Exemple du DAE :</b> Le DAE utilise des électrodes (qui sont des types de capteurs) pour acquérir le signal électrique du cœur (ECG). Ces électrodes détectent l'activité électrique du cœur et transmettent cette information à l'unité de traitement.</p>
+
+        <h4>Traiter</h4>
+        <p>Cette fonction consiste à analyser les informations acquises et à prendre des décisions. Les <span class="clickable-term" data-term="microcontrôleurs">microcontrôleurs</span>, les cartes électroniques et les ordinateurs sont des exemples d'éléments qui réalisent cette fonction.</p>
+        <h5>Exemples d'éléments de traitement :</h5>
+        <ul>
+            <li>Microcontrôleurs : petits ordinateurs intégrés (ex: <span class="clickable-term" data-term="Arduino">Arduino</span>, utilisé dans les projets de domotique).</li>
+            <li>Automates programmables : dispositifs de commande industriels.</li>
+        </ul>
+        <p><b>Exemple du DAE :</b> Un microcontrôleur analyse le signal ECG acquis par les électrodes. Il utilise des algorithmes complexes pour déterminer si le rythme cardiaque est normal ou s'il présente une anomalie nécessitant un choc électrique.</p>
+
+        <h4>Communiquer</h4>
+        <p>Cette fonction consiste à transmettre les informations traitées, soit à l'utilisateur, soit à la chaîne d'énergie pour qu'elle agisse.</p>
+        <h5>Exemples d'éléments de communication :</h5>
+        <ul>
+            <li>Voyants lumineux : signalent un état (ex: LED qui indique si un appareil est en marche).</li>
+            <li>Buzzer : émettent des signaux sonores (ex: alarme d'un détecteur de fumée).</li>
+            <li>Afficheurs : visualisent des informations (ex: écran d'une montre connectée).</li>
+            <li>Interfaces de communication sans fil (<span class="clickable-term" data-term="Wi-Fi">Wi-Fi</span>, <span class="clickable-term" data-term="Bluetooth">Bluetooth</span>, Lifi) : transmettent des données (ex: Bluetooth pour connecter un casque sans fil).</li>
+        </ul>
+        <p><b>Exemple du DAE :</b> Le DAE communique avec l'utilisateur à travers un écran qui affiche des instructions (par exemple, "Appliquer les électrodes sur la poitrine du patient") et des messages d'alerte. Il peut également émettre des instructions vocales pour guider l'utilisateur.</p>
+
+        <h3>1.2 Schéma de la Chaîne d'Information</h3>
+        <div class="schema">
+            <div class="schema-element" data-term="Informations extérieures">Informations extérieures</div>
+            →
+            <div class="schema-element" data-term="Acquérir">Acquérir (Capteurs)</div>
+            →
+            <div class="schema-element" data-term="Traiter">Traiter (Microprocesseur)</div>
+            →
+            <div class="schema-element" data-term="Communiquer">Communiquer</div>
+            →
+            <div class="schema-element" data-term="Ordres">Ordres</div>
+        </div>
+
+        <div class="interactive-element">
+            <h4>Explorer les composants :</h4>
+            <div class="quiz-container">
+                <p class="quiz-question">Qu'est-ce qui appartient à la chaîne d'information ?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="true">Un capteur de température</div>
+                    <div class="quiz-option" data-correct="false">Un moteur électrique</div>
+                    <div class="quiz-option" data-correct="false">Une batterie</div>
+                    <div class="quiz-option" data-correct="true">Un écran d'affichage</div>
+                </div>
+                <button class="quiz-submit" onclick="checkQuiz(this)">Vérifier ma réponse</button>
+                <div class="quiz-feedback"></div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>2. La Chaîne d'Énergie</h2>
+        <p>La chaîne d'énergie est le "muscle" du système automatisé. Elle est responsable de la fourniture, de la transformation et de la distribution de l'énergie nécessaire au fonctionnement du système.</p>
+
+        <h3>2.1 Fonctions de la Chaîne d'Énergie</h3>
+        <h4>Alimenter</h4>
+        <p>Cette fonction consiste à fournir l'énergie nécessaire au système.</p>
+        <h5>Exemples d'éléments d'alimentation :</h5>
+        <ul>
+            <li>Prises électriques : fournissent l'énergie électrique du réseau.</li>
+            <li><span class="clickable-term" data-term="batteries">Batteries</span> : fournissent de l'énergie chimique (ex: Batteries Li-ion dans les smartphones).</li>
+            <li><span class="clickable-term" data-term="panneaux solaires">Panneaux solaires</span> : fournissent de l'énergie solaire (ex: panneau solaire pour recharger un appareil mobile).</li>
+        </ul>
+        <p><b>Exemple du DAE :</b> Le DAE est alimenté par une batterie qui fournit l'énergie électrique nécessaire pour analyser le rythme cardiaque et délivrer un choc électrique si nécessaire.</p>
+
+        <h4>Distribuer</h4>
+        <p>Cette fonction consiste à commander, contrôler et répartir la quantité d'énergie nécessaire au système.</p>
+        <h5>Exemples d'éléments de distribution :</h5>
+        <ul>
+            <li>Interrupteurs : commandent le passage du courant électrique.</li>
+            <li>Robinets : contrôlent le débit d'un fluide.</li>
+        </ul>
+        <p><b>Exemple du DAE :</b> Un circuit de distribution contrôle le moment et la quantité d'énergie délivrée au patient lors du choc électrique.</p>
+
+        <h4>Convertir</h4>
+        <p>Cette fonction consiste à transformer une forme d'énergie en une autre forme d'énergie, nécessaire à l'action à réaliser.</p>
+        <h5>Exemples d'éléments de conversion :</h5>
+        <ul>
+            <li>Moteurs : convertissent l'énergie électrique en énergie mécanique (ex: moteur d'un robot aspirateur).</li>
+            <li>Résistances chauffantes : convertissent l'énergie électrique en énergie thermique (ex: radiateur électrique).</li>
+        </ul>
+        <p><b>Exemple du DAE :</b> Le défibrillateur convertit l'énergie électrique stockée en une impulsion électrique contrôlée qui sera délivrée au patient.</p>
+
+        <h4>Transmettre</h4>
+        <p>Cette fonction consiste à transmettre l'énergie convertie aux actionneurs qui réaliseront l'action finale.</p>
+        <h5>Exemples d'éléments de transmission :</h5>
+        <ul>
+            <li>Engrenages : transmettent l'énergie mécanique (ex: boîte de vitesses d'une voiture).</li>
+            <li>Courroies : transmettent l'énergie mécanique (ex: courroie de distribution d'un moteur).</li>
+        </ul>
+        <p><b>Exemple du DAE :</b> Les électrodes transmettent l'impulsion électrique au cœur du patient.</p>
+
+        <h3>2.2 Schéma de la Chaîne d'Énergie</h3>
+        <div class="schema">
+            <div class="schema-element" data-term="Alimenter">Alimenter</div>
+            →
+            <div class="schema-element" data-term="Distribuer">Distribuer</div>
+            →
+            <div class="schema-element" data-term="Convertir">Convertir</div>
+            →
+            <div class="schema-element" data-term="Transmettre">Transmettre</div>
+            →
+            <div class="schema-element" data-term="Action mécanique">Action mécanique</div>
+        </div>
+
+        <div class="interactive-element">
+            <div class="quiz-container">
+                <p class="quiz-question">Qu'est-ce qui appartient à la chaîne d'énergie ?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">Un capteur de pression</div>
+                    <div class="quiz-option" data-correct="true">Un moteur</div>
+                    <div class="quiz-option" data-correct="true">Une batterie</div>
+                    <div class="quiz-option" data-correct="false">Un microprocesseur</div>
+                </div>
+                <button class="quiz-submit" onclick="checkQuiz(this)">Vérifier ma réponse</button>
+                <div class="quiz-feedback"></div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>3. Interaction entre les Chaînes</h2>
+        <p>Les chaînes d'information et d'énergie ne fonctionnent pas de manière indépendante, elles interagissent constamment pour assurer le bon fonctionnement du système automatisé.</p>
+
+        <h3>3.1 Flux d'Informations et d'Énergie</h3>
+        <p>La chaîne d'information reçoit des informations de l'environnement, les traite et envoie des ordres à la chaîne d'énergie. La chaîne d'énergie, quant à elle, fournit l'énergie nécessaire pour que la chaîne d'information puisse fonctionner et pour réaliser les actions demandées.</p>
+
+        <h3>3.2 Exemple Complet : Robot Aspirateur</h3>
+        <h4>Chaîne d'Information :</h4>
+        <ul>
+            <li><b>Acquérir :</b> Les capteurs détectent les obstacles, la saleté et le niveau de batterie.</li>
+            <li><b>Traiter :</b> Le microcontrôleur analyse ces informations et décide des actions à entreprendre (avancer, tourner, s'arrêter, retourner à la base de charge).</li>
+            <li><b>Communiquer :</b> Des signaux sont envoyés aux moteurs, et des indications peuvent être affichées sur l'écran ou via une application mobile.</li>
+        </ul>
+
+        <h4>Chaîne d'Énergie :</h4>
+        <ul>
+            <li><b>Alimenter :</b> La batterie fournit l'énergie électrique nécessaire.</li>
+            <li><b>Distribuer :</b> Un circuit électronique répartit l'énergie entre les différents composants.</li>
+            <li><b>Convertir :</b> Les moteurs convertissent l'énergie électrique en énergie mécanique.</li>
+            <li><b>Transmettre :</b> Les roues et les brosses transmettent cette énergie mécanique pour déplacer le robot et aspirer la poussière.</li>
+        </ul>
+
+        <div class="interactive-element">
+            <div class="quiz-container">
+                <p class="quiz-question">Dans un robot aspirateur, quelle partie appartient à la chaîne d'information ?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">Les roues</div>
+                    <div class="quiz-option" data-correct="false">La batterie</div>
+                    <div class="quiz-option" data-correct="true">Les capteurs de proximité</div>
+                    <div class="quiz-option" data-correct="false">Le moteur d'aspiration</div>
+                </div>
+                <button class="quiz-submit" onclick="checkQuiz(this)">Vérifier ma réponse</button>
+                <div class="quiz-feedback"></div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>4. Exercice : Identifier les chaînes dans des objets courants</h2>
+        <p>Peux-tu identifier, pour les objets suivants, s'ils utilisent plutôt la chaîne d'information, la chaîne d'énergie, ou les deux ?</p>
+
+        <div class="device-examples">
+            <div class="device-card" data-device="smartphone" data-type="both">
+                <div class="device-title">Smartphone</div>
+                <div class="device-type">Chaîne : ?</div>
+            </div>
+            <div class="device-card" data-device="robot-aspirateur" data-type="both">
+                <div class="device-title">Robot aspirateur</div>
+                <div class="device-type">Chaîne : ?</div>
+            </div>
+            <div class="device-card" data-device="voiture" data-type="both">
+                <div class="device-title">Voiture moderne</div>
+                <div class="device-type">Chaîne : ?</div>
+            </div>
+            <div class="device-card" data-device="montre-connectee" data-type="both">
+                <div class="device-title">Montre connectée</div>
+                <div class="device-type">Chaîne : ?</div>
+            </div>
+        </div>
+
+        <div class="quiz-container mt-3">
+            <p class="quiz-question">Quiz final : vérifie tes connaissances !</p>
+            
+            <div class="mb-1 mt-2">
+                <p><strong>1. Qu'est-ce qui fait partie de la chaîne d'information ?</strong></p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="true">Un capteur de température</div>
+                    <div class="quiz-option" data-correct="false">Un moteur électrique</div>
+                    <div class="quiz-option" data-correct="false">Une batterie</div>
+                    <div class="quiz-option" data-correct="true">Un écran d'affichage</div>
+                </div>
+            </div>
+            
+            <div class="mb-1 mt-2">
+                <p><strong>2. Qu'est-ce qui fait partie de la chaîne d'énergie ?</strong></p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">Un capteur de mouvement</div>
+                    <div class="quiz-option" data-correct="true">Un panneau solaire</div>
+                    <div class="quiz-option" data-correct="true">Un moteur</div>
+                    <div class="quiz-option" data-correct="false">Un microprocesseur</div>
+                </div>
+            </div>
+            
+            <div class="mb-1 mt-2">
+                <p><strong>3. Dans un smartphone, quels éléments appartiennent à la chaîne d'information ?</strong></p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="true">Le capteur d'empreinte digitale</div>
+                    <div class="quiz-option" data-correct="false">La batterie</div>
+                    <div class="quiz-option" data-correct="true">Le processeur</div>
+                    <div class="quiz-option" data-correct="false">Le moteur de vibration</div>
+                </div>
+            </div>
+            
+            <div class="mb-1 mt-2">
+                <p><strong>4. Dans un robot aspirateur, quels éléments appartiennent à la chaîne d'énergie ?</strong></p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">Les capteurs de proximité</div>
+                    <div class="quiz-option" data-correct="true">La batterie</div>
+                    <div class="quiz-option" data-correct="true">Le moteur d'aspiration</div>
+                    <div class="quiz-option" data-correct="false">Le microcontrôleur</div>
+                </div>
+            </div>
+            
+            <div class="mb-1 mt-2">
+                <p><strong>5. Classe correctement ces appareils selon leur utilisation principale des chaînes :</strong></p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="true">Un smartphone utilise principalement la chaîne d'information mais a aussi besoin de la chaîne d'énergie</div>
+                    <div class="quiz-option" data-correct="false">Une lampe torche utilise uniquement la chaîne d'information</div>
+                    <div class="quiz-option" data-correct="false">Un robot aspirateur utilise uniquement la chaîne d'énergie</div>
+                    <div class="quiz-option" data-correct="true">Une voiture moderne utilise les deux chaînes de manière équilibrée</div>
+                </div>
+            </div>
+            
+            <div class="mt-2">
+                <div class="quiz-progress">
+                    <div class="quiz-progress-bar" id="quiz-progress-bar"></div>
+                </div>
+            </div>
+            
+            <button id="quiz-final-submit" class="mt-2" onclick="checkFinalQuiz()">Valider mes réponses</button>
+            <div class="quiz-feedback" id="quiz-final-feedback"></div>
+        </div>
+    </section>
+
+    <!-- Modal pour les définitions -->
+    <div id="modalContainer">
+        <div class="modal">
+            <h3 class="modal-title" id="modalTitle">Titre</h3>
+            <p id="modalContent">Contenu</p>
+            <button class="close-modal" onclick="closeModal()">×</button>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let isDarkMode = false;
+        let definitions = {
+            "objets connectés": "Appareils électroniques qui peuvent se connecter à Internet et interagir avec d'autres appareils.",
+            "chaîne d'information": "Ensemble des éléments qui permettent de collecter, traiter et communiquer des informations.",
+            "chaîne d'énergie": "Ensemble des éléments qui permettent de fournir, transformer et distribuer de l'énergie pour réaliser des actions.",
+            "DAE": "Défibrillateur Automatique Externe - Dispositif médical utilisé en cas d'arrêt cardiaque pour analyser le rythme cardiaque et délivrer un choc électrique si nécessaire.",
+            "capteurs": "Dispositifs qui détectent une grandeur physique (température, lumière, pression, etc.) et la convertissent en un signal électrique.",
+            "capteur de température": "Capteur qui mesure la température ambiante ou d'un objet.",
+            "photorésistance": "Composant électronique dont la résistance varie en fonction de la luminosité.",
+            "capteur de présence": "Capteur qui détecte la présence d'un objet ou d'une personne.",
+            "microcontrôleurs": "Petits ordinateurs intégrés, utilisés pour contrôler des systèmes électroniques.",
+            "Arduino": "Plateforme de prototypage électronique open source, basée sur un microcontrôleur.",
+            "Wi-Fi": "Technologie de communication sans fil qui permet de connecter des appareils à Internet.",
+            "Bluetooth": "Technologie de communication sans fil à courte portée.",
+            "batteries": "Dispositifs qui stockent de l'énergie chimique et la convertissent en énergie électrique.",
+            "panneaux solaires": "Dispositifs qui convertissent l'énergie solaire en énergie électrique.",
+            "Informations extérieures": "Données provenant de l'environnement que le système doit percevoir (température, lumière, son, etc.).",
+            "Acquérir": "Fonction de la chaîne d'information qui consiste à capter des informations via des capteurs.",
+            "Traiter": "Fonction de la chaîne d'information qui consiste à analyser les données et prendre des décisions.",
+            "Communiquer": "Fonction de la chaîne d'information qui transmet les décisions à l'utilisateur ou à la chaîne d'énergie.",
+            "Ordres": "Instructions envoyées par la chaîne d'information à la chaîne d'énergie pour effectuer des actions.",
+            "Alimenter": "Fonction de la chaîne d'énergie qui fournit l'énergie nécessaire au système.",
+            "Distribuer": "Fonction de la chaîne d'énergie qui contrôle et répartit l'énergie dans le système.",
+            "Convertir": "Fonction de la chaîne d'énergie qui transforme une forme d'énergie en une autre.",
+            "Transmettre": "Fonction de la chaîne d'énergie qui transmet l'énergie aux actionneurs.",
+            "Action mécanique": "Résultat final de la chaîne d'énergie, comme un mouvement, une rotation, etc."
+        };
+
+        // Initialisation au chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            initDarkMode();
+            initClickableTerms();
+            initSchemaElements();
+            initDeviceCards();
+            updateQuizProgress();
+        });
+
+        // Fonction pour le mode sombre
+        function initDarkMode() {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            
+            darkModeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                isDarkMode = document.body.classList.contains('dark-mode');
+                
+                if (isDarkMode) {
+                    darkModeToggle.textContent = 'Mode Clair';
+                } else {
+                    darkModeToggle.textContent = 'Mode Sombre';
+                }
+            });
+        }
+
+        // Fonction pour les termes cliquables
+        function initClickableTerms() {
+            const clickableTerms = document.querySelectorAll('.clickable-term');
+            
+            clickableTerms.forEach(term => {
+                term.addEventListener('click', function() {
+                    const termName = this.getAttribute('data-term');
+                    showDefinition(termName);
+                });
+            });
+        }
+
+        // Fonction pour afficher une définition
+        function showDefinition(term) {
+            const modalContainer = document.getElementById('modalContainer');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+            
+            // Afficher la définition si elle existe
+            if (definitions[term]) {
+                modalTitle.textContent = term;
+                modalContent.textContent = definitions[term];
+                modalContainer.style.display = 'flex';
+            }
+        }
+
+        // Fonction pour fermer la modal
+        function closeModal() {
+            document.getElementById('modalContainer').style.display = 'none';
+        }
+
+        // Fermer la modal en cliquant en dehors
+        document.getElementById('modalContainer').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Fonction pour les éléments du schéma
+        function initSchemaElements() {
+            const schemaElements = document.querySelectorAll('.schema-element');
+            
+            schemaElements.forEach(element => {
+                element.addEventListener('click', function() {
+                    const term = this.getAttribute('data-term');
+                    showDefinition(term);
+                });
+            });
+        }
+
+        // Fonction pour vérifier les réponses d'un quiz
+        function checkQuiz(button) {
+            const quizContainer = button.closest('.quiz-container');
+            const options = quizContainer.querySelectorAll('.quiz-option');
+            const feedback = quizContainer.querySelector('.quiz-feedback');
+            let correct = true;
+            let selectedCount = 0;
+
+            options.forEach(option => {
+                if (option.classList.contains('selected')) {
+                    selectedCount++;
+                    if (option.getAttribute('data-correct') !== 'true') {
+                        correct = false;
+                    }
+                } else if (option.getAttribute('data-correct') === 'true') {
+                    correct = false;
+                }
+            });
+
+            // S'assurer qu'au moins une option a été sélectionnée
+            if (selectedCount === 0) {
+                feedback.textContent = "Sélectionne au moins une réponse !";
+                feedback.className = "quiz-feedback incorrect";
+                return;
+            }
+
+            // Afficher le feedback
+            if (correct) {
+                feedback.textContent = "Bravo ! C'est la bonne réponse. 👍";
+                feedback.className = "quiz-feedback correct";
+            } else {
+                feedback.textContent = "Ce n'est pas la bonne réponse. Essaie encore ! 🤔";
+                feedback.className = "quiz-feedback incorrect";
+            }
+
+            // Marquer les réponses correctes et incorrectes
+            options.forEach(option => {
+                if (option.getAttribute('data-correct') === 'true') {
+                    option.classList.add('correct');
+                } else if (option.classList.contains('selected')) {
+                    option.classList.add('incorrect');
+                }
+            });
+
+            // Désactiver le bouton après la vérification
+            button.disabled = true;
+        }
+
+        // Fonction pour vérifier le quiz final
+        function checkFinalQuiz() {
+            const quizContainer = document.querySelector('.quiz-container.mt-3');
+            const questions = quizContainer.querySelectorAll('.mb-1.mt-2');
+            const feedback = document.getElementById('quiz-final-feedback');
+            let correctAnswers = 0;
+            let totalQuestions = questions.length;
+            let allAnswered = true;
+
+            questions.forEach(question => {
+                const options = question.querySelectorAll('.quiz-option');
+                let questionCorrect = true;
+                let questionAnswered = false;
+
+                options.forEach(option => {
+                    const isSelected = option.classList.contains('selected');
+                    const isCorrect = option.getAttribute('data-correct') === 'true';
+
+                    if (isSelected) {
+                        questionAnswered = true;
+                        if (!isCorrect) {
+                            questionCorrect = false;
+                        }
+                    } else if (isCorrect) {
+                        questionCorrect = false;
+                    }
+
+                    // Marquer les réponses
+                    if (isCorrect) {
+                        option.classList.add('correct');
+                    } else if (isSelected) {
+                        option.classList.add('incorrect');
+                    }
+                });
+
+                if (!questionAnswered) {
+                    allAnswered = false;
+                } else if (questionCorrect) {
+                    correctAnswers++;
+                }
+            });
+
+            // Vérifier si toutes les questions ont été répondues
+            if (!allAnswered) {
+                feedback.textContent = "Réponds à toutes les questions avant de valider !";
+                feedback.className = "quiz-feedback incorrect";
+                return;
+            }
+
+            // Calculer le score
+            const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+            let message = '';
+
+            if (percentage === 100) {
+                message = '🎉 Parfait ! Tu as tout compris sur les chaînes d\'énergie et d\'information !';
+                feedback.className = "quiz-feedback correct";
+            } else if (percentage >= 70) {
+                message = '👍 Bien ! Tu as compris les concepts principaux.';
+                feedback.className = "quiz-feedback correct";
+            } else {
+                message = '🤔 Tu peux faire mieux ! Relis les sections pour comprendre les concepts.';
+                feedback.className = "quiz-feedback incorrect";
+            }
+
+            feedback.innerHTML = `${message}<br>Score : ${correctAnswers}/${totalQuestions} (${percentage}%)`;
+
+            // Mettre à jour la barre de progression
+            document.getElementById('quiz-progress-bar').style.width = `${percentage}%`;
+
+            // Désactiver le bouton
+            document.getElementById('quiz-final-submit').disabled = true;
+        }
+
+        // Fonction pour mettre à jour la progression du quiz
+        function updateQuizProgress() {
+            const quizContainer = document.querySelector('.quiz-container.mt-3');
+            const questions = quizContainer.querySelectorAll('.mb-1.mt-2');
+            let answeredQuestions = 0;
+
+            questions.forEach(question => {
+                const options = question.querySelectorAll('.quiz-option');
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].classList.contains('selected')) {
+                        answeredQuestions++;
+                        break;
+                    }
+                }
+            });
+
+            const percentage = Math.round((answeredQuestions / questions.length) * 100);
+            document.getElementById('quiz-progress-bar').style.width = `${percentage}%`;
+        }
+
+        // Fonction pour les cartes d'appareils
+        function initDeviceCards() {
+            const deviceCards = document.querySelectorAll('.device-card');
+            
+            deviceCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const device = this.getAttribute('data-device');
+                    const type = this.getAttribute('data-type');
+                    const typeLabel = this.querySelector('.device-type');
+                    
+                    // Afficher le type d'appareil
+                    if (typeLabel.textContent.includes('?')) {
+                        typeLabel.textContent = `Chaîne : ${getChainType(type)}`;
+                        
+                        // Ajouter une classe pour montrer que c'est révélé
+                        this.classList.add('revealed');
+                    }
+                });
+            });
+        }
+
+        // Fonction pour obtenir le type de chaîne en texte
+        function getChainType(type) {
+            switch(type) {
+                case 'info':
+                    return "Information";
+                case 'energy':
+                    return "Énergie";
+                case 'both':
+                    return "Les deux";
+                default:
+                    return "Inconnu";
+            }
+        }
+
+        // Ajouter des écouteurs d'événements aux options du quiz
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Désélectionner les autres options si c'est une question à choix unique
+                const questionContainer = this.closest('.mb-1.mt-2') || this.closest('.quiz-options').parentNode;
+                
+                // Si c'est une question à choix unique
+                if (!questionContainer.classList.contains('mb-1')) {
+                    const options = questionContainer.querySelectorAll('.quiz-option');
+                    options.forEach(opt => opt.classList.remove('selected'));
+                }
+                
+                // Sélectionner/désélectionner cette option
+                this.classList.toggle('selected');
+                
+                // Mettre à jour la progression du quiz
+                updateQuizProgress();
+            });
+        });
+    </script>
+</body>
+</html>

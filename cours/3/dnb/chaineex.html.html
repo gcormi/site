@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercices : Chaînes d'Énergie et d'Information</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #e74c3c;
+            --warning-color: #f39c12;
+            --background-light: #e6f7ff;
+            --text-light: #333;
+            --background-dark: #2c3e50;
+            --text-dark: #ecf0f1;
+            --card-light: #fff;
+            --card-dark: #34495e;
+            --highlight-light: #f0f0f0;
+            --highlight-dark: #2980b9;
+            --border-radius: 12px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background-light);
+            color: var(--text-light);
+            transition: background-color 0.5s ease;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin: 1.5rem 0;
+            font-size: 2.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        h2, h3, h4 {
+            color: #2c3e50;
+            margin: 1rem 0;
+        }
+
+        section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Style pour les mots cliquables */
+        .clickable-word {
+            color: var(--primary-color);
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            border-bottom: 1px dashed var(--primary-color);
+            padding: 0 2px;
+        }
+
+        .clickable-word:hover {
+            color: #2980b9;
+        }
+
+        /* Style pour les éléments interactifs */
+        .interactive-element {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border: 2px solid rgba(52, 152, 219, 0.3);
+            border-radius: var(--border-radius);
+            background: rgba(52, 152, 219, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Style pour les boutons */
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(52, 152, 219, 0.3);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 10px rgba(52, 152, 219, 0.4);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(52, 152, 219, 0.2);
+        }
+
+        button:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Style pour les feedbacks */
+        .feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .feedback.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feedback.correct {
+            background-color: rgba(46, 204, 113, 0.15);
+            color: #27ae60;
+            border-left: 4px solid #27ae60;
+        }
+
+        .feedback.incorrect {
+            background-color: rgba(231, 76, 60, 0.15);
+            color: #e74c3c;
+            border-left: 4px solid #e74c3c;
+        }
+
+        /* Style pour les infobulles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 240px;
+            background-color: #34495e;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -120px;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: translateY(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -8px;
+            border-width: 8px;
+            border-style: solid;
+            border-color: #34495e transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Style pour les schémas */
+        .schema {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+            text-align: center;
+            position: relative;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .schema::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        }
+
+        .schema-element {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 20px;
+            background-color: white;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease, transform 0.2s ease;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .schema-element:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+            border-color: var(--primary-color);
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style pour les exercices */
+        .exercise {
+            margin-bottom: 30px;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .exercise:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .exercise::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
+        }
+
+        .exercise h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid rgba(52, 152, 219, 0.2);
+            padding-bottom: 0.8rem;
+        }
+
+        .correction {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: rgba(241, 196, 15, 0.1);
+            border-left: 4px solid #f1c40f;
+            display: none;
+            border-radius: 4px;
+            font-style: italic;
+            color: #7f8c8d;
+        }
+
+        /* Style pour les QCM */
+        .qcm-options {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .qcm-option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: #f8f9fa;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .qcm-option:hover {
+            background-color: rgba(52, 152, 219, 0.05);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .qcm-option input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #bdc3c7;
+            border-radius: 50%;
+            outline: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .qcm-option input[type="radio"]:checked {
+            border-color: var(--primary-color);
+            background-color: white;
+        }
+
+        .qcm-option input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        .qcm-option label {
+            cursor: pointer;
+            font-weight: 500;
+            flex: 1;
+        }
+
+        /* Style pour l'exercice d'appariement */
+        .matching-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .matching-column {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .matching-column h4 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(52, 152, 219, 0.2);
+        }
+
+        .matching-item {
+            padding: 12px 15px;
+            background-color: white;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: grab;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 2;
+        }
+
+        .matching-item:hover {
+            background-color: rgba(52, 152, 219, 0.05);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .matching-item.dragging {
+            opacity: 0.5;
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .matching-item.correct {
+            border-color: var(--secondary-color);
+            background-color: rgba(46, 204, 113, 0.1);
+        }
+
+        .drop-target {
+            padding: 15px;
+            min-height: 60px;
+            border: 2px dashed #bdc3c7;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+            position: relative;
+        }
+
+        .drop-target::before {
+            content: attr(data-function) || attr(data-chain);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #bdc3c7;
+            font-size: 0.9rem;
+            pointer-events: none;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .drop-target:has(.matching-item)::before {
+            opacity: 0;
+        }
+
+        .drop-target.highlight {
+            background-color: rgba(52, 152, 219, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        /* Style pour l'exercice de texte à trous */
+        .fill-in-the-blanks {
+            margin-top: 20px;
+            line-height: 2;
+            font-size: 1.1rem;
+        }
+
+        .fill-in-the-blanks input {
+            padding: 8px 12px;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            margin: 0 5px;
+            width: 150px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .fill-in-the-blanks input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .attempts-left {
+            margin-top: 15px;
+            font-style: italic;
+            color: #7f8c8d;
+            display: flex;
+            align-items: center;
+        }
+
+        .attempts-left span {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-left: 5px;
+        }
+
+        /* Style pour les éléments désactivés */
+        .disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* Style pour le bouton de correction globale */
+        .global-correction-btn {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            margin: 30px auto;
+            display: block;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+
+        .global-correction-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        /* Style pour la correction globale */
+        #correctionGlobale {
+            background-color: #f9f9f9;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-top: 30px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid #f1c40f;
+        }
+
+        #correctionGlobale h2 {
+            color: #f39c12;
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(243, 156, 18, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 50px;
+            padding: 30px 0;
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            border-radius: var(--border-radius);
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        }
+
+        footer p {
+            margin: 10px 0;
+            font-size: 1.2rem;
+        }
+
+        footer strong {
+            font-weight: 700;
+            color: #3498db;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Media queries pour la responsivité */
+        @media (max-width: 768px) {
+            .matching-container {
+                flex-direction: column;
+            }
+
+            .matching-column {
+                width: 100%;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .exercise {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Exercices : Chaînes d'Énergie et d'Information</h1>
+
+        <section class="exercise" id="exercice1">
+            <h3>Exercice 1 : Lampe de chevet (QCM)</h3>
+            <p>Quelle est la fonction principale de l'ampoule dans la chaîne d'énergie d'une lampe de chevet ?</p>
+            <div class="qcm-options">
+                <div class="qcm-option">
+                    <input type="radio" name="q1" id="q1-alimenter" value="Alimenter">
+                    <label for="q1-alimenter">Alimenter</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q1" id="q1-convertir" value="Convertir">
+                    <label for="q1-convertir">Convertir</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q1" id="q1-transmettre" value="Transmettre">
+                    <label for="q1-transmettre">Transmettre</label>
+                </div>
+            </div>
+            <button onclick="validerExercice(1, 'Convertir')">Valider</button>
+            <div id="feedback1" class="feedback"></div>
+            <p id="correction1" class="correction">Correction : L'ampoule convertit l'énergie électrique en énergie lumineuse.</p>
+            <p class="attempts-left">Tentatives restantes : <span id="attempts1">3</span></p>
+        </section>
+
+        <section class="exercise" id="exercice2">
+            <h3>Exercice 2 : Smartphone (Appariement)</h3>
+            <p>Faites glisser les composants du smartphone dans leur chaîne correspondante.</p>
+            <div class="matching-container">
+                <div class="matching-column">
+                    <h4>Composants</h4>
+                    <div class="matching-item" draggable="true" data-chain="information">Capteur photo</div>
+                    <div class="matching-item" draggable="true" data-chain="energie">Batterie</div>
+                    <div class="matching-item" draggable="true" data-chain="information">Microprocesseur</div>
+                    <div class="matching-item" draggable="true" data-chain="energie">Écran</div>
+                </div>
+                <div class="matching-column">
+                    <h4>Chaîne d'information</h4>
+                    <div class="drop-target" data-chain="information"></div>
+                    <h4>Chaîne d'énergie</h4>
+                    <div class="drop-target" data-chain="energie"></div>
+                </div>
+            </div>
+            <button onclick="validerExercice(2)">Valider</button>
+            <div id="feedback2" class="feedback"></div>
+            <p id="correction2" class="correction">Correction : Capteur photo - Information, Batterie - Énergie, Microprocesseur - Information, Écran - Énergie.</p>
+            <p class="attempts-left">Tentatives restantes : <span id="attempts2">3</span></p>
+        </section>
+
+        <section class="exercise" id="exercice3">
+            <h3>Exercice 3 : Robot aspirateur (Texte à trous)</h3>
+            <p>Complétez la phrase suivante :</p>
+            <div class="fill-in-the-blanks">
+                Le robot aspirateur utilise un <input type="text" id="q3_1" placeholder="élément 1"> pour détecter les obstacles et un <input type="text" id="q3_2" placeholder="élément 2"> pour se déplacer.
+            </div>
+            <button onclick="validerExercice(3, ['capteur', 'moteur'])">Valider</button>
+            <div id="feedback3" class="feedback"></div>
+            <p id="correction3" class="correction">Correction : Le robot aspirateur utilise un capteur pour détecter les obstacles et un moteur pour se déplacer.</p>
+            <p class="attempts-left">Tentatives restantes : <span id="attempts3">3</span></p>
+        </section>
+
+        <section class="exercise" id="exercice4">
+            <h3>Exercice 4 : Défibrillateur Automatique Externe (DAE) (QCM)</h3>
+            <p>Dans un DAE, quel est le rôle principal du microcontrôleur ?</p>
+            <div class="qcm-options">
+                <div class="qcm-option">
+                    <input type="radio" name="q4" id="q4-signal" value="Acquérir le signal ECG">
+                    <label for="q4-signal">Acquérir le signal ECG</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q4" id="q4-analyser" value="Analyser le rythme cardiaque">
+                    <label for="q4-analyser">Analyser le rythme cardiaque</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q4" id="q4-choc" value="Délivrer le choc électrique">
+                    <label for="q4-choc">Délivrer le choc électrique</label>
+                </div>
+            </div>
+            <button onclick="validerExercice(4, 'Analyser le rythme cardiaque')">Valider</button>
+            <div id="feedback4" class="feedback"></div>
+            <p id="correction4" class="correction">Correction : Le microcontrôleur analyse le rythme cardiaque pour déterminer si un choc est nécessaire.</p>
+            <p class="attempts-left">Tentatives restantes : <span id="attempts4">3</span></p>
+        </section>
+
+        <section class="exercise" id="exercice5">
+            <h3>Exercice 5 : Voiture électrique (Appariement)</h3>
+            <p>Faites glisser les éléments de la voiture électrique dans leur fonction correspondante :</p>
+            <div class="matching-container">
+                <div class="matching-column">
+                    <h4>Éléments</h4>
+                    <div class="matching-item" draggable="true" data-function="Alimenter">Batterie</div>
+                    <div class="matching-item" draggable="true" data-function="Convertir">Moteur électrique</div>
+                    <div class="matching-item" draggable="true" data-function="Transmettre">Roues</div>
+                </div>
+                <div class="matching-column">
+                    <h4>Fonctions</h4>
+                    <div class="drop-target" data-function="Alimenter"></div>
+                    <div class="drop-target" data-function="Convertir"></div>
+                    <div class="drop-target" data-function="Transmettre"></div>
+                </div>
+            </div>
+            <button onclick="validerExercice(5)">Valider</button>
+            <div id="feedback5" class="feedback"></div>
+            <p id="correction5" class="correction">Correction : Batterie - Alimenter, Moteur électrique - Convertir, Roues - Transmettre.</p>
+            <p class="attempts-left">Tentatives restantes : <span id="attempts5">3</span></p>
+        </section>
+
+        <section class="exercise" id="exercice6">
+            <h3>Exercice 6 : Station météo connectée (Texte à trous)</h3>
+            <p>Complétez la phrase suivante concernant la chaîne d'information :</p>
+            <div class="fill-in-the-blanks">
+                La station météo utilise des <input type="text" id="q6_1" placeholder="élément 1"> pour mesurer la température et un <input type="text" id="q6_2" placeholder="élément 2"> pour transmettre les données à un serveur.
+            </div>
+            <button onclick="validerExercice(6, ['capteurs', 'module wifi'])">Valider</button>
+            <div id="feedback6" class="feedback"></div>
+            <p id="correction6" class="correction">Correction : La station météo utilise des capteurs pour mesurer la température et un module wifi pour transmettre les données à un serveur.</p>
+            <p class="attempts-left">Tentatives restantes : <span id="attempts6">3</span></p>
+        </section>
+
+        <button class="global-correction-btn" onclick="afficherCorrection()">Afficher la correction (mot de passe requis)</button>
+        <div id="correctionGlobale" style="display:none;">
+            <!-- Correction globale (sera remplie par le JavaScript) -->
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>Exercices : Chaînes d'Énergie et d'Information-annéecollège</strong></p>
+    </footer>
+
+    <script>
+        // Initialisation du nombre de tentatives par exercice
+        let tentatives = [3, 3, 3, 3, 3, 3];
+        // Mot de passe pour afficher la correction
+        const motDePasseCorrection = "2025MONTESORO";
+
+        // Ajout de la gestion du drag and drop
+        let draggedItem = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialiser les éléments draggables
+            initDragAndDrop();
+        });
+
+        function initDragAndDrop() {
+            document.addEventListener('dragstart', function(event) {
+                if (event.target.classList.contains('matching-item')) {
+                    draggedItem = event.target;
+                    event.target.classList.add('dragging');
+                    // Délai pour l'effet visuel
+                    setTimeout(() => {
+                        event.target.style.opacity = '0.5';
+                    }, 0);
+                }
+            });
+
+            document.addEventListener('dragend', function(event) {
+                if (event.target.classList.contains('matching-item')) {
+                    event.target.classList.remove('dragging');
+                    event.target.style.opacity = '1';
+                    draggedItem = null;
+                }
+            });
+
+            document.addEventListener('dragover', function(event) {
+                if (event.target.classList.contains('drop-target')) {
+                    event.preventDefault();
+                    event.target.classList.add('highlight');
+                }
+            });
+
+            document.addEventListener('dragleave', function(event) {
+                if (event.target.classList.contains('drop-target')) {
+                    event.target.classList.remove('highlight');
+                }
+            });
+
+            document.addEventListener('drop', function(event) {
+                event.preventDefault();
+                if (event.target.classList.contains('drop-target')) {
+                    event.target.classList.remove('highlight');
+                    
+                    // Ne pas permettre plus d'un élément par drop zone
+                    if (!event.target.querySelector('.matching-item') && draggedItem) {
+                        event.target.appendChild(draggedItem);
+                    }
+                }
+            });
+        }
+
+        // Fonction principale pour valider un exercice
+        function validerExercice(numeroExercice, bonneReponse = null) {
+            let feedbackId = "feedback" + numeroExercice;
+            let correctionId = "correction" + numeroExercice;
+            let attemptsId = "attempts" + numeroExercice;
+            let estCorrect = false;
+
+            // Vérifie s'il reste des tentatives
+            if (tentatives[numeroExercice - 1] > 0) {
+                switch (numeroExercice) {
+                    case 1: // Lampe de chevet (QCM)
+                        let reponseQ1 = document.querySelector('input[name="q1"]:checked');
+                        estCorrect = reponseQ1 && reponseQ1.value === bonneReponse;
+                        break;
+                    case 2: // Smartphone (Appariement)
+                        estCorrect = validerAppariement(2);
+                        break;
+                    case 3: // Robot aspirateur (Texte à trous)
+                        let reponseQ3_1 = document.getElementById("q3_1").value.toLowerCase().trim();
+                        let reponseQ3_2 = document.getElementById("q3_2").value.toLowerCase().trim();
+                        estCorrect = reponseQ3_1 === bonneReponse[0] && reponseQ3_2 === bonneReponse[1];
+                        break;
+                    case 4: // DAE (QCM)
+                        let reponseQ4 = document.querySelector('input[name="q4"]:checked');
+                        estCorrect = reponseQ4 && reponseQ4.value === bonneReponse;
+                        break;
+                    case 5: // Voiture électrique (Appariement)
+                        estCorrect = validerAppariement(5);
+                        break;
+                    case 6: // Station météo connectée (Texte à trous)
+                        let reponseQ6_1 = document.getElementById("q6_1").value.toLowerCase().trim();
+                        let reponseQ6_2 = document.getElementById("q6_2").value.toLowerCase().trim();
+                        estCorrect = reponseQ6_1 === bonneReponse[0] && reponseQ6_2 === bonneReponse[1];
+                        break;
+                }
+
+                // Afficher le feedback et mettre à jour les tentatives
+                let feedbackElement = document.getElementById(feedbackId);
+                
+                if (estCorrect) {
+                    feedbackElement.textContent = "🎉 Bravo ! Vous avez trouvé la bonne réponse.";
+                    feedbackElement.className = "feedback correct show";
+                } else {
+                    tentatives[numeroExercice - 1]--;
+                    document.getElementById(attemptsId).textContent = tentatives[numeroExercice - 1];
+                    feedbackElement.textContent = "❌ Incorrect. Il vous reste " + tentatives[numeroExercice - 1] + " tentatives.";
+                    feedbackElement.className = "feedback incorrect show";
+                }
+                
+                // Maintenir le feedback visible
+                clearTimeout(feedbackElement._timeoutId);
+                feedbackElement._timeoutId = setTimeout(() => {
+                    feedbackElement.classList.remove("show");
+                }, 4000);
+            }
+
+            // Désactiver l'exercice si les tentatives sont épuisées ou si la réponse est correcte
+            if (tentatives[numeroExercice - 1] === 0 || estCorrect) {
+                desactiverExercice(numeroExercice);
+                
+                if (tentatives[numeroExercice - 1] === 0) {
+                    let feedbackElement = document.getElementById(feedbackId);
+                    feedbackElement.textContent = "⚠️ Vous avez épuisé toutes vos tentatives. La correction est disponible avec le mot de passe.";
+                    feedbackElement.className = "feedback show";
+                    feedbackElement.style.backgroundColor = "rgba(243, 156, 18, 0.1)";
+                    feedbackElement.style.color = "#f39c12";
+                    feedbackElement.style.borderLeft = "4px solid #f39c12";
+                }
+            }
+        }
+
+        // Fonction pour valider l'exercice d'appariement
+        function validerAppariement(numeroExercice) {
+            let correct = true;
+            let container = document.querySelector("#exercice" + numeroExercice + " .matching-container");
+            let dropTargets = container.querySelectorAll(".matching-column:last-child .drop-target");
+
+            // Réinitialiser les classes "correct"
+            let allItems = container.querySelectorAll(".matching-item");
+            allItems.forEach(item => item.classList.remove("correct"));
+
+            // Vérifier chaque drop target
+            dropTargets.forEach(target => {
+                let itemDansTarget = target.querySelector(".matching-item");
+                if (itemDansTarget) {
+                    let chaineAttendue = target.dataset.chain || target.dataset.function;
+                    let chaineItem = itemDansTarget.dataset.chain || itemDansTarget.dataset.function;
+                    if (chaineItem !== chaineAttendue) {
+                        correct = false;
+                    } else {
+                        itemDansTarget.classList.add("correct");
+                    }
+                } else {
+                    correct = false; // Si un drop target est vide, c'est incorrect
+                }
+            });
+
+            return correct;
+        }
+
+        // Fonction pour afficher la correction globale (nécessite un mot de passe)
+        function afficherCorrection() {
+            let motDePasse = prompt("Entrez le mot de passe pour afficher la correction :");
+            if (motDePasse === motDePasseCorrection) {
+                let correctionGlobale = document.getElementById("correctionGlobale");
+                correctionGlobale.style.display = "block";
+                
+                // Animer l'apparition
+                correctionGlobale.classList.add("fade-in");
+                
+                // Afficher la correction détaillée pour chaque exercice
+                let correctionHTML = "<h2>Correction complète :</h2>";
+                
+                for (let i = 1; i <= 6; i++) {
+                    const correctionText = document.getElementById("correction" + i).textContent;
+                    correctionHTML += `<p><strong>Exercice ${i}:</strong> ${correctionText.replace("Correction : ", "")}</p>`;
+                    document.getElementById("correction" + i).style.display = "block";
+                }
+                
+                correctionGlobale.innerHTML = correctionHTML;
+                
+                // Scroll vers la correction
+                correctionGlobale.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                alert("Mot de passe incorrect. Veuillez réessayer.");
+            }
+        }
+
+        // Fonction pour désactiver un exercice une fois terminé
+        function desactiverExercice(numeroExercice) {
+            let exercise = document.getElementById("exercice" + numeroExercice);
+            
+            // Désactiver les boutons
+            let buttons = exercise.querySelectorAll("button");
+            buttons.forEach(button => {
+                button.disabled = true;
+                button.classList.add("disabled");
+            });
+
+            // Désactiver les éléments d'appariement
+            let matchingItems = exercise.querySelectorAll(".matching-item");
+            matchingItems.forEach(item => {
+                item.draggable = false;
+                item.classList.add("disabled");
+            });
+
+            // Désactiver les champs de texte
+            let textInputs = exercise.querySelectorAll('input[type="text"]');
+            textInputs.forEach(input => {
+                input.disabled = true;
+                input.classList.add("disabled");
+            });
+
+            // Désactiver les radiobuttons
+            let radioButtons = exercise.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(radio => {
+                radio.disabled = true;
+                radio.classList.add("disabled");
+            });
+        }
+    </script>
+</body>
+</html>

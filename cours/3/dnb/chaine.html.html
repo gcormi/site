@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Les Chaînes d'Énergie et d'Information</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    /* Styles globaux */
+    :root {
+      --primary-color: #0074d9;
+      --secondary-color: #ff851b;
+      --background-light: #f4f4f9;
+      --background-dark: #232832;
+      --text-light: #333;
+      --text-dark: #f4f4f4;
+      --border-light: #ccc;
+      --border-dark: #444;
+      --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      --highlight-light: #e9f7ff;
+      --highlight-dark: #384048;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--background-light);
+      color: var(--text-light);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark-theme {
+      background-color: var(--background-dark);
+      color: var(--text-dark);
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 25px 0;
+      position: relative;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      margin: 0;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    main {
+      padding: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--border-light);
+      padding-bottom: 10px;
+      margin-top: 40px;
+      display: flex;
+      align-items: center;
+      font-size: 1.7em;
+    }
+
+    .dark-theme h2 {
+      color: #3498db;
+      border-bottom-color: var(--border-dark);
+    }
+
+    h2 i {
+      margin-right: 12px;
+    }
+
+    p, li {
+      font-size: 1.1em;
+      margin-bottom: 15px;
+      line-height: 1.7;
+    }
+
+    .important {
+      color: var(--secondary-color);
+      font-weight: bold;
+    }
+
+    .dark-theme .important {
+      color: #ff9f55;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 25px 0;
+      box-shadow: var(--box-shadow);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    table th, table td {
+      border: 1px solid var(--border-light);
+      padding: 12px 15px;
+      text-align: left;
+    }
+
+    .dark-theme table th, .dark-theme table td {
+      border-color: var(--border-dark);
+    }
+
+    table th {
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: bold;
+    }
+
+    .dark-theme table th {
+      background-color: #265d91;
+    }
+
+    table tr:nth-child(even) {
+      background-color: rgba(0, 0, 0, 0.03);
+    }
+
+    .dark-theme table tr:nth-child(even) {
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid var(--border-light);
+      margin: 40px 0;
+    }
+
+    .dark-theme hr {
+      border-top-color: var(--border-dark);
+    }
+
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      margin-top: 60px;
+      font-size: 1.1em;
+    }
+
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .dark-theme a {
+      color: #5dade2;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: var(--secondary-color);
+    }
+
+    /* Boutons interactifs */
+    button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      margin-right: 10px;
+      margin-bottom: 15px;
+      display: inline-flex;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    button i {
+      margin-right: 8px;
+    }
+
+    button:hover {
+      background-color: #005cbf;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .dark-theme button {
+      background-color: #265d91;
+    }
+
+    .dark-theme button:hover {
+      background-color: #1c4a74;
+    }
+
+    .info-box {
+      background-color: var(--highlight-light);
+      border: 1px solid var(--primary-color);
+      padding: 18px;
+      margin-top: 15px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+      box-shadow: var(--box-shadow);
+    }
+
+    .dark-theme .info-box {
+      background-color: var(--highlight-dark);
+      border-color: #265d91;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Conteneur de vidéo responsive */
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%; /* Ratio 16:9 */
+      height: 0;
+      overflow: hidden;
+      margin: 30px auto;
+      max-width: 800px;
+      box-shadow: var(--box-shadow);
+      border-radius: 10px;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      border: none;
+    }
+
+    /* Schéma personnalisé */
+    .schema-container {
+      background-color: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow);
+      text-align: center;
+      margin: 30px 0;
+      transition: all 0.3s ease;
+    }
+
+    .dark-theme .schema-container {
+      background-color: #2c3440;
+    }
+
+    .schema {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px 10px;
+    }
+
+    .box {
+      display: inline-block;
+      background-color: white;
+      border: 2px solid var(--primary-color);
+      padding: 12px 24px;
+      margin: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      font-weight: bold;
+    }
+
+    .dark-theme .box {
+      background-color: #384048;
+      border-color: #265d91;
+      color: var(--text-dark);
+    }
+
+    .box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .arrow {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 10px;
+      font-size: 1.5em;
+      color: var(--primary-color);
+      transition: transform 0.3s ease;
+    }
+
+    .dark-theme .arrow {
+      color: #5dade2;
+    }
+
+    .chain-info {
+      border: 2px dashed var(--secondary-color);
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .dark-theme .chain-info {
+      border-color: #ff9f55;
+    }
+
+    .chain-energy {
+      border: 2px dashed var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .dark-theme .chain-energy {
+      border-color: #3498db;
+    }
+
+    .label {
+      color: var(--secondary-color);
+      font-weight: bold;
+      margin-top: 10px;
+      letter-spacing: 1px;
+    }
+
+    .dark-theme .label {
+      color: #ff9f55;
+    }
+
+    .highlight {
+      background-color: var(--highlight-light);
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      border-width: 3px;
+    }
+
+    .dark-theme .highlight {
+      background-color: var(--highlight-dark);
+    }
+
+    /* Thème sombre/clair */
+    .theme-toggle {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.3em;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: scale(1.1);
+    }
+
+    /* Quiz interactif */
+    .quiz-container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 25px;
+      margin: 30px 0;
+      box-shadow: var(--box-shadow);
+    }
+
+    .dark-theme .quiz-container {
+      background-color: #2c3440;
+    }
+
+    .quiz-question {
+      font-weight: bold;
+      margin-bottom: 15px;
+      font-size: 1.2em;
+    }
+
+    .quiz-options {
+      margin-bottom: 20px;
+    }
+
+    .quiz-option {
+      padding: 10px 15px;
+      background-color: #f0f0f0;
+      border-radius: 5px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .dark-theme .quiz-option {
+      background-color: #384048;
+    }
+
+    .quiz-option:hover {
+      background-color: #e0e0e0;
+      transform: translateX(5px);
+    }
+
+    .dark-theme .quiz-option:hover {
+      background-color: #455161;
+    }
+
+    .quiz-option.selected {
+      background-color: #d4e6f1;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .dark-theme .quiz-option.selected {
+      background-color: #2c3e50;
+      border-left: 4px solid #3498db;
+    }
+
+    .quiz-result {
+      display: none;
+      padding: 15px;
+      margin-top: 15px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .quiz-result.correct {
+      background-color: #d4edda;
+      color: #155724;
+      border-left: 4px solid #28a745;
+    }
+
+    .dark-theme .quiz-result.correct {
+      background-color: #1e3c25;
+      color: #a3d9b4;
+      border-left: 4px solid #28a745;
+    }
+
+    .quiz-result.incorrect {
+      background-color: #f8d7da;
+      color: #721c24;
+      border-left: 4px solid #dc3545;
+    }
+
+    .dark-theme .quiz-result.incorrect {
+      background-color: #3d1a1d;
+      color: #e88a93;
+      border-left: 4px solid #dc3545;
+    }
+
+    /* Glossaire de termes techniques */
+    .glossary {
+      background-color: white;
+      border-radius: 10px;
+      padding: 25px;
+      margin: 30px 0;
+      box-shadow: var(--box-shadow);
+    }
+
+    .dark-theme .glossary {
+      background-color: #2c3440;
+    }
+
+    .glossary-term {
+      margin-bottom: 15px;
+      border-bottom: 1px dotted var(--border-light);
+      padding-bottom: 10px;
+    }
+
+    .dark-theme .glossary-term {
+      border-bottom-color: var(--border-dark);
+    }
+
+    .glossary-term dt {
+      font-weight: bold;
+      color: var(--primary-color);
+      font-size: 1.1em;
+      margin-bottom: 5px;
+    }
+
+    .dark-theme .glossary-term dt {
+      color: #3498db;
+    }
+
+    .glossary-term dd {
+      margin-left: 0;
+    }
+
+    /* Cartes interactives */
+    .cards-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow);
+      width: 300px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .dark-theme .card {
+      background-color: #2c3440;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-header {
+      padding: 15px;
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: bold;
+      font-size: 1.2em;
+      text-align: center;
+    }
+
+    .dark-theme .card-header {
+      background-color: #265d91;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .card-body ul {
+      padding-left: 20px;
+      margin-bottom: 0;
+    }
+
+    /* Menu de navigation */
+    .nav-menu {
+      background-color: var(--primary-color);
+      padding: 10px 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-menu a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      margin: 0 5px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .nav-menu a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .nav-menu a.active {
+      background-color: rgba(255, 255, 255, 0.2);
+      font-weight: bold;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      main {
+        padding: 15px;
+      }
+
+      button {
+        width: 100%;
+        margin-right: 0;
+      }
+
+      .cards-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button id="themeToggle" class="theme-toggle">
+      <i class="fas fa-moon"></i>
+    </button>
+    <h1><i class="fas fa-cogs"></i> Les Chaînes d'Énergie et d'Information</h1>
+  </header>
+
+  <div class="nav-menu">
+    <a href="#introduction" class="nav-link">Introduction</a>
+    <a href="#chaines-description" class="nav-link">Description</a>
+    <a href="#schema" class="nav-link">Schémas</a>
+    <a href="#exemples" class="nav-link">Exemples</a>
+    <a href="#quiz" class="nav-link">Quiz</a>
+    <a href="#glossaire" class="nav-link">Glossaire</a>
+  </div>
+
+  <main>
+    <section id="introduction" class="fade-in">
+      <h2><i class="fas fa-book-open"></i> Introduction</h2>
+      <p>Dans la technologie moderne, de nombreux systèmes fonctionnent en combinant différentes chaînes de processus. Ce cours traite de deux concepts clés : la <span class="important">chaîne d'énergie</span> et la <span class="important">chaîne d'information</span>. Ces notions permettent de comprendre comment un objet technique réalise des actions autonomes ou assistées.</p>
+      
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/uBcx25yGnKA" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <section id="chaines-description" class="fade-in">
+      <h2><i class="fas fa-clipboard-list"></i> Description des Chaînes</h2>
+      
+      <div class="cards-container">
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-info-circle"></i> Chaîne d'Information
+          </div>
+          <div class="card-body">
+            <p>La <strong>chaîne d'information</strong> traite et transmet des données pour contrôler le fonctionnement du système.</p>
+            <h4>Composants :</h4>
+            <ul>
+              <li><strong>Acquérir</strong> : Capteurs qui recueillent des informations</li>
+              <li><strong>Traiter</strong> : Système de traitement des données (microprocesseur)</li>
+              <li><strong>Communiquer</strong> : Interface qui transmet les informations à l'utilisateur ou au système</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-bolt"></i> Chaîne d'Énergie
+          </div>
+          <div class="card-body">
+            <p>La <strong>chaîne d'énergie</strong> transforme et distribue l'énergie nécessaire au fonctionnement du système.</p>
+            <h4>Composants :</h4>
+            <ul>
+              <li><strong>Alimenter</strong> : Source d'énergie (batterie, prise électrique)</li>
+              <li><strong>Distribuer</strong> : Acheminement de l'énergie (interrupteurs, variateurs)</li>
+              <li><strong>Convertir</strong> : Transformation en énergie mécanique ou autre (moteurs)</li>
+              <li><strong>Transmettre</strong> : Transmission du mouvement (roues, engrenages)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <p class="important">Les deux chaînes sont étroitement liées. La chaîne d'information commande la chaîne d'énergie qui exécute les actions physiques.</p>
+    </section>
+
+    <section id="schema" class="fade-in">
+      <h2><i class="fas fa-project-diagram"></i> Schémas des Chaînes</h2>
+      <div class="schema-container">
+        <h3><i class="fas fa-info-circle"></i> Chaîne d'information</h3>
+        <div class="schema chain-info">
+          <div class="box" onclick="highlightBox(this)" data-tooltip="Capte les données physiques de l'environnement">Capteur de température</div>
+          <span class="arrow">&rarr;</span>
+          <div class="box" onclick="highlightBox(this)" data-tooltip="Traite les données selon des algorithmes">Microprocesseur</div>
+          <span class="arrow">&rarr;</span>
+          <div class="box" onclick="highlightBox(this)" data-tooltip="Transmet l'information à l'utilisateur">D.E.L.</div>
+          <span class="arrow">&rarr;</span>
+          <span>Signal visuel</span>
+        </div>
+        <p class="label">Acquérir &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Traiter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Communiquer</p>
+
+        <hr>
+
+        <h3><i class="fas fa-bolt"></i> Chaîne d'énergie</h3>
+        <div class="schema chain-energy">
+          <div class="box" onclick="highlightBox(this)" data-tooltip="Source d'énergie primaire">Réseau électrique</div>
+          <span class="arrow">&rarr;</span>
+          <div class="box" onclick="highlightBox(this)" data-tooltip="Contrôle la distribution d'énergie">Interrupteur électronique de puissance</div>
+          <span class="arrow">&rarr;</span>
+          <div class="box" onclick="highlightBox(this)" data-tooltip="Convertit l'énergie électrique en énergie mécanique">Moteur</div>
+          <span class="arrow">&rarr;</span>
+          <div class="box" onclick="highlightBox(this)" data-tooltip="Transmet le mouvement pour l'action finale">Pales</div>
+        </div>
+        <p class="label">Alimenter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Distribuer &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Convertir &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transmettre</p>
+      </div>
+    </section>
+
+    <section id="exemples" class="fade-in">
+      <h2><i class="fas fa-lightbulb"></i> Exemples Concrets</h2>
+      <p>Découvrez comment les chaînes d'énergie et d'information fonctionnent dans des systèmes du quotidien :</p>
+
+      <!-- Défibrillateur Automatique Externe -->
+      <button onclick="toggleInfo('dae-energy')"><i class="fas fa-heartbeat"></i> Chaîne d'énergie du DAE</button>
+      <button onclick="toggleInfo('dae-information')"><i class="fas fa-laptop-medical"></i> Chaîne d'information du DAE</button>
+
+      <div id="dae-energy" class="info-box">
+        <h3><i class="fas fa-bolt"></i> Chaîne d'énergie du Défibrillateur Automatique Externe</h3>
+        <p>Le DAE utilise une batterie interne comme source d'énergie. L'énergie électrique est convertie en un choc électrique contrôlé qui est transmis à l'utilisateur via des électrodes placées sur le torse.</p>
+        <ul>
+          <li><strong>Alimenter :</strong> Batterie interne lithium-ion longue durée.</li>
+          <li><strong>Distribuer :</strong> Circuits de puissance contrôlés par le microprocesseur.</li>
+          <li><strong>Convertir :</strong> Transformation de l'énergie électrique en un choc électrique adapté (jusqu'à 360 joules).</li>
+          <li><strong>Transmettre :</strong> Électrodes adhésives appliquées sur le torse de la personne pour délivrer le choc.</li>
+        </ul>
+      </div>
+
+      <div id="dae-information" class="info-box">
+        <h3><i class="fas fa-info-circle"></i> Chaîne d'information du Défibrillateur Automatique Externe</h3>
+        <p>Le DAE analyse les signaux électriques du cœur pour détecter si un choc électrique est nécessaire.</p>
+        <ul>
+          <li><strong>Acquérir :</strong> Les électrodes captent les signaux électriques du cœur (ECG) avec une précision de l'ordre du millivolt.</li>
+          <li><strong>Traiter :</strong> Le microprocesseur analyse les données pour détecter une fibrillation ventriculaire ou une tachycardie ventriculaire sans pouls, avec des algorithmes spécifiques permettant de filtrer les interférences.</li>
+          <li><strong>Communiquer :</strong> Si un choc est nécessaire, le DAE affiche des instructions visuelles sur un écran LCD et émet des instructions vocales dans plusieurs langues pour guider l'utilisateur étape par étape.</li>
+        </ul>
+      </div>
+
+      <!-- Robot Aspirateur -->
+      <button onclick="toggleInfo('robot-energy')"><i class="fas fa-robot"></i> Chaîne d'énergie d'un robot aspirateur</button>
+      <button onclick="toggleInfo('robot-information')"><i class="fas fa-microchip"></i> Chaîne d'information d'un robot aspirateur</button>
+
+      <div id="robot-energy" class="info-box">
+        <h3><i class="fas fa-bolt"></i> Chaîne d'énergie d'un robot aspirateur</h3>
+        <p>Un robot aspirateur utilise une batterie rechargeable comme source d'énergie. L'énergie est convertie en mouvement pour nettoyer le sol.</p>
+        <ul>
+          <li><strong>Alimenter :</strong> Batterie lithium-ion rechargeable de 3000 à 5000 mAh.</li>
+          <li><strong>Distribuer :</strong> Circuits électroniques qui répartissent l'énergie entre les différents moteurs et composants.</li>
+          <li><strong>Convertir :</strong> Moteurs électriques transformant l'énergie électrique en énergie mécanique (moteur d'aspiration et moteurs de déplacement).</li>
+          <li><strong>Transmettre :</strong> Roues motrices pour le déplacement et brosse rotative pour l'aspiration des débris.</li>
+        </ul>
+      </div>
+
+      <div id="robot-information" class="info-box">
+        <h3><i class="fas fa-info-circle"></i> Chaîne d'information d'un robot aspirateur</h3>
+        <p>Le robot aspirateur utilise des capteurs pour naviguer et éviter les obstacles tout en optimisant son parcours.</p>
+        <ul>
+          <li><strong>Acquérir :</strong> Multiples capteurs : capteurs infrarouges pour détecter les obstacles, capteurs de vide pour éviter les escaliers, capteurs optiques pour mesurer la distance parcourue, caméras ou LIDAR pour la cartographie.</li>
+          <li><strong>Traiter :</strong> Microcontrôleur qui analyse les données des capteurs, maintient une carte de l'environnement en mémoire et planifie un itinéraire optimal en temps réel. Les algorithmes utilisent souvent l'intelligence artificielle pour améliorer l'efficacité.</li>
+          <li><strong>Communiquer :</strong> Le robot ajuste sa trajectoire en fonction des informations traitées et peut envoyer des données de nettoyage, son état, et la carte créée à l'utilisateur via une application mobile Wi-Fi ou Bluetooth.</li>
+        </ul>
+      </div>
+
+      <!-- Système de Sécurité Domestique -->
+      <button onclick="toggleInfo('security-energy')"><i class="fas fa-shield-alt"></i> Chaîne d'énergie d'un système de sécurité</button>
+      <button onclick="toggleInfo('security-information')"><i class="fas fa-video"></i> Chaîne d'information d'un système de sécurité</button>
+
+      <div id="security-energy" class="info-box">
+        <h3><i class="fas fa-bolt"></i> Chaîne d'énergie d'un système de sécurité domestique</h3>
+        <p>Un système de sécurité domestique est généralement alimenté par une source d'énergie électrique ou une batterie de secours.</p>
+        <ul>
+          <li><strong>Alimenter :</strong> Réseau électrique principal (220V) avec batterie de secours intégrée (12V) pour assurer un fonctionnement continu même en cas de coupure.</li>
+          <li><strong>Distribuer :</strong> Unité centrale qui répartit l'alimentation électrique vers les différents composants du système.</li>
+          <li><strong>Convertir :</strong> Transformation de l'énergie électrique en différentes formes : énergie lumineuse (LED d'alerte), énergie sonore (sirène) et énergie mécanique (verrous électromagnétiques).</li>
+          <li><strong>Transmettre :</strong> Câblage ou transmission sans fil pour activer les composants de sécurité distants comme les sirènes extérieures ou les verrous électroniques.</li>
+        </ul>
+      </div>
+
+      <div id="security-information" class="info-box">
+        <h3><i class="fas fa-info-circle"></i> Chaîne d'information d'un système de sécurité domestique</h3>
+        <p>Le système de sécurité domestique utilise des capteurs pour surveiller l'environnement et avertir l'utilisateur en cas de danger.</p>
+        <ul>
+          <li><strong>Acquérir :</strong> Réseau de capteurs variés : détecteurs de mouvement à infrarouge passif (PIR), contacts magnétiques pour portes/fenêtres, détecteurs de bris de verre, caméras de surveillance avec résolution HD ou 4K.</li>
+          <li><strong>Traiter :</strong> Unité centrale avec microprocesseur qui analyse en temps réel les données des capteurs, utilise des algorithmes de détection d'intrusion et de reconnaissance d'image pour éviter les fausses alertes.</li>
+          <li><strong>Communiquer :</strong> Multiple canaux de communication : notifications push sur application mobile, SMS d'alerte, appels téléphoniques automatiques, activation de sirènes, envoi d'images ou vidéos à un centre de télésurveillance via internet ou réseau cellulaire.</li>
+        </ul>
+      </div>
+      
+      <!-- Feu de circulation -->
+      <button onclick="toggleInfo('traffic-energy')"><i class="fas fa-traffic-light"></i> Chaîne d'énergie d'un feu de circulation</button>
+      <button onclick="toggleInfo('traffic-information')"><i class="fas fa-road"></i> Chaîne d'information d'un feu de circulation</button>
+
+      <div id="traffic-energy" class="info-box">
+        <h3><i class="fas fa-bolt"></i> Chaîne d'énergie d'un feu de circulation</h3>
+        <p>Un feu de circulation moderne utilise l'électricité pour fonctionner et signaler aux usagers de la route.</p>
+        <ul>
+          <li><strong>Alimenter :</strong> Réseau électrique urbain (220V) avec possibilité de batterie de secours ou panneaux solaires dans certains cas.</li>
+          <li><strong>Distribuer :</strong> Armoire de commande contenant des relais et disjoncteurs qui répartissent l'électricité.</li>
+          <li><strong>Convertir :</strong> Transformation de l'électricité en lumière visible grâce à des LED de différentes couleurs (rouge, orange, vert).</li>
+          <li><strong>Transmettre :</strong> Diffusion de la lumière à travers des lentilles colorées pour être visible par les usagers.</li>
+        </ul>
+      </div>
+
+      <div id="traffic-information" class="info-box">
+        <h3><i class="fas fa-info-circle"></i> Chaîne d'information d'un feu de circulation</h3>
+        <p>Les feux de circulation modernes sont souvent intelligents et adaptent leur fonctionnement au trafic réel.</p>
+        <ul>
+          <li><strong>Acquérir :</strong> Capteurs multiples : boucles d'induction dans la chaussée, caméras de détection de véhicules, capteurs infrarouges ou radar pour mesurer la densité du trafic.</li>
+          <li><strong>Traiter :</strong> Contrôleur électronique qui calcule les temps de cycle en fonction du trafic, peut communiquer avec d'autres feux pour créer une "onde verte", et peut prioriser les véhicules d'urgence.</li>
+          <li><strong>Communiquer :</strong> Signaux lumineux (rouge, orange, vert) visibles par les usagers, parfois complétés par des signaux sonores pour les malvoyants ou des compteurs de temps d'attente.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="quiz" class="fade-in">
+      <h2><i class="fas fa-question-circle"></i> Quiz Interactif</h2>
+      <p>Testez vos connaissances sur les chaînes d'énergie et d'information :</p>
+      
+      <div class="quiz-container">
+        <div class="quiz-question">1. Dans un robot aspirateur, quel élément fait partie de la chaîne d'information ?</div>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="selectOption(this, 1)">La batterie</div>
+          <div class="quiz-option" onclick="selectOption(this, 1)">Le moteur d'aspiration</div>
+          <div class="quiz-option" onclick="selectOption(this, 1)">Les capteurs infrarouges</div>
+          <div class="quiz-option" onclick="selectOption(this, 1)">Les roues motrices</div>
+        </div>
+        <button onclick="checkAnswer(1)"><i class="fas fa-check"></i> Vérifier</button>
+        <div id="quiz-result-1" class="quiz-result"></div>
+      </div>
+      
+      <div class="quiz-container">
+        <div class="quiz-question">2. Quelle est la fonction principale de la chaîne d'énergie dans un système technique ?</div>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="selectOption(this, 2)">Collecter des informations de l'environnement</div>
+          <div class="quiz-option" onclick="selectOption(this, 2)">Transformer et distribuer l'énergie pour réaliser une action</div>
+          <div class="quiz-option" onclick="selectOption(this, 2)">Communiquer avec l'utilisateur</div>
+          <div class="quiz-option" onclick="selectOption(this, 2)">Analyser des données</div>
+        </div>
+        <button onclick="checkAnswer(2)"><i class="fas fa-check"></i> Vérifier</button>
+        <div id="quiz-result-2" class="quiz-result"></div>
+      </div>
+      
+      <div class="quiz-container">
+        <div class="quiz-question">3. Dans la chaîne d'information d'un DAE, quelle est la fonction des électrodes placées sur le patient ?</div>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="selectOption(this, 3)">Alimenter le DAE en énergie</div>
+          <div class="quiz-option" onclick="selectOption(this, 3)">Acquérir les signaux électriques du cœur</div>
+          <div class="quiz-option" onclick="selectOption(this, 3)">Communiquer des informations à l'utilisateur</div>
+          <div class="quiz-option" onclick="selectOption(this, 3)">Refroidir le système</div>
+        </div>
+        <button onclick="checkAnswer(3)"><i class="fas fa-check"></i> Vérifier</button>
+        <div id="quiz-result-3" class="quiz-result"></div>
+      </div>
+    </section>
+
+    <section id="glossaire" class="fade-in">
+      <h2><i class="fas fa-book"></i> Glossaire Technique</h2>
+      <p>Voici quelques termes techniques importants à connaître :</p>
+      
+      <div class="glossary">
+        <dl>
+          <div class="glossary-term">
+            <dt>Chaîne d'énergie</dt>
+            <dd>Ensemble des composants qui permettent de fournir l'énergie nécessaire à un système technique pour réaliser une action. Elle comprend l'alimentation, la distribution, la conversion et la transmission d'énergie.</dd>
+          </div>
+          
+          <div class="glossary-term">
+            <dt>Chaîne d'information</dt>
+            <dd>Ensemble des composants qui permettent de capter, traiter et communiquer des informations pour piloter la chaîne d'énergie. Elle comprend l'acquisition, le traitement et la communication de données.</dd>
+          </div>
+          
+          <div class="glossary-term">
+            <dt>Capteur</dt>
+            <dd>Dispositif qui convertit une grandeur physique (température, pression, mouvement) en signal électrique exploitable par un système électronique. Il fait partie de la fonction "acquérir" dans la chaîne d'information.</dd>
+          </div>
+          
+          <div class="glossary-term">
+            <dt>Actionneur</dt>
+            <dd>Dispositif qui transforme l'énergie fournie en travail utile ou en mouvement (moteur, vérin, résistance chauffante). Il fait partie de la fonction "convertir" dans la chaîne d'énergie.</dd>
+          </div>
+          
+          <div class="glossary-term">
+            <dt>Interface Homme-Machine (IHM)</dt>
+            <dd>Ensemble des dispositifs permettant à un utilisateur d'interagir avec un système (écran, boutons, voyants). Elle fait partie de la fonction "communiquer" dans la chaîne d'information.</dd>
+          </div>
+          
+          <div class="glossary-term">
+            <dt>Microcontrôleur</dt>
+            <dd>Circuit intégré qui comprend un processeur, de la mémoire et des périphériques d'entrée/sortie. Il est au cœur de la fonction "traiter" dans la chaîne d'information.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="conclusion" class="fade-in">
+      <h2><i class="fas fa-flag-checkered"></i> Conclusion</h2>
+      <p>La compréhension des chaînes d'énergie et d'information est essentielle pour aborder les objets techniques modernes. Ces concepts permettent d'expliquer comment les systèmes automatisés et connectés fonctionnent de manière autonome. La maîtrise de ces notions est cruciale pour réussir l'épreuve de technologie au Diplôme National du Brevet (DNB).</p>
+      
+      <p class="important">Les systèmes techniques modernes intègrent de plus en plus d'intelligence avec des chaînes d'information sophistiquées qui permettent d'optimiser l'usage de l'énergie et d'offrir des fonctionnalités avancées.</p>
+      
+      <button onclick="toggleInfo('summary')"><i class="fas fa-list-ul"></i> Résumé des points essentiels</button>
+      
+      <div id="summary" class="info-box">
+        <h3>Points clés à retenir :</h3>
+        <ul>
+          <li>La <strong>chaîne d'énergie</strong> comprend quatre fonctions : alimenter, distribuer, convertir et transmettre.</li>
+          <li>La <strong>chaîne d'information</strong> comprend trois fonctions : acquérir, traiter et communiquer.</li>
+          <li>Les deux chaînes sont complémentaires : la chaîne d'information pilote la chaîne d'énergie.</li>
+          <li>Chaque système technique possède ces deux chaînes, qu'il soit simple ou complexe.</li>
+          <li>Les capteurs sont à l'interface entre le monde physique et la chaîne d'information.</li>
+          <li>Les actionneurs sont à l'interface entre la chaîne d'énergie et le monde physique.</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      <p>Les Chaînes d'Énergie et d'Information - annéecollège</p>
+    </footer>
+  </main>
+
+  <script>
+    // Effet de fade-in lors du scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Afficher/masquer les boîtes d'information
+    function toggleInfo(id) {
+      const infoBox = document.getElementById(id);
+      if (infoBox.style.display === "block") {
+        infoBox.style.display = "none";
+      } else {
+        infoBox.style.display = "block";
+      }
+    }
+
+    // Mettre en surbrillance les boîtes du schéma
+    function highlightBox(box) {
+      const boxes = document.querySelectorAll('.box');
+      boxes.forEach(b => b.classList.remove('highlight'));
+      box.classList.add('highlight');
+      
+      // Afficher une infobulle si disponible
+      if (box.dataset.tooltip) {
+        alert(box.dataset.tooltip);
+      }
+    }
+
+    // Gestion du quiz
+    let selectedOptions = {
+      1: null,
+      2: null,
+      3: null
+    };
+
+    function selectOption(option, questionNumber) {
+      // Retirer la sélection de toutes les options de cette question
+      const options = option.parentElement.querySelectorAll('.quiz-option');
+      options.forEach(opt => opt.classList.remove('selected'));
+      
+      // Sélectionner l'option cliquée
+      option.classList.add('selected');
+      
+      // Enregistrer l'option sélectionnée
+      selectedOptions[questionNumber] = option.textContent;
+    }
+
+    function checkAnswer(questionNumber) {
+      const resultElement = document.getElementById(`quiz-result-${questionNumber}`);
+      
+      // Vérifier si une option a été sélectionnée
+      if (!selectedOptions[questionNumber]) {
+        resultElement.textContent = "Veuillez sélectionner une réponse.";
+        resultElement.className = "quiz-result incorrect";
+        resultElement.style.display = "block";
+        return;
+      }
+      
+      // Définir les réponses correctes
+      const correctAnswers = {
+        1: "Les capteurs infrarouges",
+        2: "Transformer et distribuer l'énergie pour réaliser une action",
+        3: "Acquérir les signaux électriques du cœur"
+      };
+      
+      // Vérifier la réponse
+      if (selectedOptions[questionNumber] === correctAnswers[questionNumber]) {
+        resultElement.innerHTML = "<i class='fas fa-check-circle'></i> Correct ! Bravo !";
+        resultElement.className = "quiz-result correct";
+      } else {
+        resultElement.innerHTML = "<i class='fas fa-times-circle'></i> Incorrect. La bonne réponse est : " + correctAnswers[questionNumber];
+        resultElement.className = "quiz-result incorrect";
+      }
+      
+      resultElement.style.display = "block";
+    }
+
+    // Navigation active
+    document.addEventListener('DOMContentLoaded', function() {
+      const navLinks = document.querySelectorAll('.nav-link');
+      
+      // Fonction pour vérifier quelle section est visible
+      function checkActiveSection() {
+        const scrollPosition = window.scrollY;
+        
+        document.querySelectorAll('section').forEach(section => {
+          const sectionTop = section.offsetTop - 100;
+          const sectionHeight = section.offsetHeight;
+          const sectionId = section.getAttribute('id');
+          
+          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            navLinks.forEach(navLink => {
+              navLink.classList.remove('active');
+              if (navLink.getAttribute('href') === `#${sectionId}`) {
+                navLink.classList.add('active');
+              }
+            });
+          }
+        });
+      }
+      
+      // Événements
+      window.addEventListener('scroll', checkActiveSection);
+      checkActiveSection(); // Vérification initiale
+      
+      // Smooth scroll pour les liens de navigation
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          
+          window.scrollTo({
+            top: targetElement.offsetTop - 70,
+            behavior: 'smooth'
+          });
+        });
+      });
+    });
+
+    // Thème clair/sombre
+    document.getElementById('themeToggle').addEventListener('click', function() {
+      const body = document.body;
+      const icon = this.querySelector('i');
+      
+      body.classList.toggle('dark-theme');
+      
+      if (body.classList.contains('dark-theme')) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+      } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+      }
+      
+      // Sauvegarde de la préférence
+      localStorage.setItem('darkMode', body.classList.contains('dark-theme'));
+    });
+
+    // Vérifier la préférence de thème enregistrée
+    document.addEventListener('DOMContentLoaded', function() {
+      const darkModeStored = localStorage.getItem('darkMode');
+      
+      if (darkModeStored === 'true') {
+        document.body.classList.add('dark-theme');
+        document.querySelector('.theme-toggle i').classList.remove('fa-moon');
+        document.querySelector('.theme-toggle i').classList.add('fa-sun');
+      }
+    });
+  </script>
+</body>
+</html>
