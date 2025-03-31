@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Fauteuils Électriques - Cours Complet</title>
+    <!-- Polices intégrées -->
+    <style>
+        /* Intégration des polices Montserrat et Open Sans */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap');
+        
+        /* CSS Variables */
+        :root {
+            --primary: #3498DB;        /* Bleu clair (accent principal) */
+            --secondary: #2ECC71;      /* Vert (pour les éléments secondaires) */
+            --dark: #2C3E50;           /* Bleu foncé (pour le texte et les fonds sombres) */
+            --light: #ECF0F1;          /* Gris clair (pour les fonds clairs) */
+            --accent: #E74C3C;         /* Rouge (pour les liens et les éléments interactifs) */
+            --white: #FFFFFF;          /* Blanc */
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Ombre légère */
+            --transition-speed: 0.3s;  /* Vitesse de transition standard */
+        }
+
+        /* Styles généraux */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--light), #f0f0f0);
+            color: var(--dark);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            color: var(--white);
+            padding: 30px 10px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            animation: fadeInDown 1s ease;
+        }
+
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        nav {
+            background: var(--secondary);
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            padding: 10px;
+            background: rgba(46, 204, 113, 0.95);
+            backdrop-filter: blur(5px);
+        }
+
+        nav a {
+            color: var(--dark);
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all var(--transition-speed) ease;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        nav a.active {
+            background: var(--dark);
+            color: var(--white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        section {
+            margin-bottom: 50px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            color: var(--dark);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--accent);
+            display: inline-block;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            color: var(--primary);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        p, ul {
+            font-size: 1rem;
+            margin: 15px 0;
+            line-height: 1.8;
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        /* Progress Tracking */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 5px;
+            background: transparent;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-indicator {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--dark);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .progress-indicator::before {
+            content: attr(data-progress) '%';
+            font-size: 0.9rem;
+        }
+
+        .progress-indicator::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border-radius: 50%;
+            border: 3px solid var(--secondary);
+            border-top-color: transparent;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Expandable Content */
+        .expandable-content {
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .expandable-trigger {
+            width: 100%;
+            padding: 15px;
+            background: var(--light);
+            border: none;
+            text-align: left;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .expandable-trigger:hover {
+            background: #e0e0e0;
+        }
+
+        .expandable-trigger i {
+            transition: transform 0.3s ease;
+        }
+
+        .expandable-trigger.active i {
+            transform: rotate(180deg);
+        }
+
+        .expandable-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            background: var(--white);
+        }
+
+        .expandable-body.active {
+            max-height: 1000px;
+            padding: 20px;
+        }
+
+        /* Image handling */
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .image-container:hover {
+            transform: scale(1.02);
+        }
+
+        .zoomable-image {
+            max-width: 100%;
+            height: auto;
+            cursor: zoom-in;
+            transition: all 0.3s ease;
+        }
+
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80vh;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: var(--white);
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--accent);
+        }
+
+        /* Interactive Diagrams */
+        .interactive-diagram {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .diagram-flow {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .diagram-item {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 120px;
+            max-width: 200px;
+        }
+
+        .diagram-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .diagram-item.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .diagram-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .diagram-item.active .diagram-icon {
+            color: var(--white);
+        }
+
+        .diagram-arrow {
+            font-size: 1.5rem;
+            color: var(--dark);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
+        }
+
+        .diagram-details {
+            margin-top: 20px;
+            padding: 15px;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .detail-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .detail-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            margin: 30px 0;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: var(--secondary);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-start;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-end;
+        }
+
+        .timeline-icon {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--dark);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .timeline-content {
+            width: 45%;
+            padding: 15px;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: var(--white);
+            transform: rotate(45deg);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            left: -10px;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: var(--shadow);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .comparison-table th {
+            background-color: var(--primary);
+            color: var(--white);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Feature Cards */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        /* Glossary */
+        .glossary-search {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .glossary-search input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid var(--light);
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .glossary-search input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);
+        }
+
+        .glossary-search i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--dark);
+        }
+
+        .glossary-list {
+            margin: 30px 0;
+        }
+
+        .glossary-item {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .glossary-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .glossary-term {
+            padding: 15px;
+            background: var(--light);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .glossary-term::after {
+            content: '+';
+            transition: transform 0.3s ease;
+        }
+
+        .glossary-term.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .glossary-term.active::after {
+            content: '-';
+            transform: rotate(180deg);
+        }
+
+        .glossary-definition {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            background: var(--white);
+            transition: all 0.5s ease;
+        }
+
+        .glossary-term.active + .glossary-definition {
+            padding: 15px;
+            max-height: 300px;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background-color: rgba(46, 204, 113, 0.1);
+            border-left: 4px solid var(--secondary);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s ease;
+        }
+
+        .highlight-box:hover {
+            transform: translateX(5px);
+            box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .highlight-box h3 {
+            display: flex;
+            align-items: center;
+            color: var(--secondary);
+            margin-top: 0;
+        }
+
+        .highlight-box h3 i {
+            margin-right: 10px;
+        }
+
+        /* Floating Navigation */
+        .floating-nav {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 99;
+        }
+
+        .toggle-nav {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--dark);
+            color: var(--white);
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toggle-nav:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .floating-menu {
+            position: absolute;
+            bottom: 60px;
+            right: 0;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            padding: 10px;
+            width: 200px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease, opacity 0.5s ease;
+            opacity: 0;
+        }
+
+        .floating-menu.active {
+            max-height: 400px;
+            padding: 15px;
+            opacity: 1;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: var(--dark);
+            border-radius: 5px;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background: var(--light);
+            color: var(--primary);
+        }
+
+        .nav-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Print Button */
+        .print-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--dark);
+            color: var(--white);
+            border: none;
+            border-radius: 30px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .print-button i {
+            margin-right: 10px;
+        }
+
+        .print-button:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            color: var(--white);
+            margin-top: 50px;
+            position: relative;
+        }
+
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+        }
+
+        /* Info Box (for backward compatibility) */
+        .info-box {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.3s ease;
+            background: #f9f9f9;
+            border-radius: 0 0 10px 10px;
+            padding: 0 15px;
+        }
+
+        .info-box.expanded {
+            max-height: 1000px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #e0e0e0;
+            border-top: none;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Media Queries */
+        @media print {
+            nav, .floating-nav, .progress-container, .print-button {
+                display: none !important;
+            }
+            
+            header, section, footer {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            
+            section {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            
+            .expandable-body {
+                max-height: none !important;
+                display: block !important;
+                padding: 20px !important;
+            }
+            
+            .glossary-definition {
+                max-height: none !important;
+                display: block !important;
+                padding: 15px !important;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                justify-content: flex-start;
+                padding-left: 80px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                justify-content: flex-start;
+            }
+            
+            .timeline-icon {
+                left: 30px;
+            }
+            
+            .timeline-content {
+                width: 100%;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content::after,
+            .timeline-item:nth-child(even) .timeline-content::after {
+                left: -10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+            }
+            
+            p, ul, table {
+                font-size: 0.95rem;
+            }
+            
+            nav {
+                overflow-x: auto;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 5px;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .diagram-flow {
+                flex-direction: column;
+            }
+            
+            .diagram-item {
+                width: 100%;
+                max-width: none;
+            }
+            
+            .timeline-content {
+                padding: 10px;
+            }
+            
+            .floating-nav {
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .progress-indicator {
+                margin-top: 15px;
+                width: 50px;
+                height: 50px;
+            }
+            
+            .image-container {
+                margin: 15px 0;
+            }
+            
+            .glossary-term {
+                padding: 10px;
+            }
+            
+            .expandable-trigger {
+                padding: 12px;
+            }
+            
+            .floating-menu {
+                width: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="floating-nav" id="floatingNav">
+        <button id="toggleNav" class="toggle-nav">☰</button>
+        <div class="floating-menu">
+            <a href="#introduction" class="nav-item">📖 Intro</a>
+            <a href="#fonctionnement" class="nav-item">⚙️ Fonctionnement</a>
+            <a href="#cycle-vie" class="nav-item">♻️ Cycle</a>
+            <a href="#energie-materiaux" class="nav-item">⚡ Énergie</a>
+            <a href="#information-fonctionnement" class="nav-item">📊 Info</a>
+            <a href="#programmation" class="nav-item">📱 Programmation</a>
+            <a href="#developpement-durable" class="nav-item">🌱 Durable</a>
+            <a href="#perspectives" class="nav-item">🔮 Perspectives</a>
+            <a href="#glossaire" class="nav-item">📚 Glossaire</a>
+        </div>
+    </div>
+
+    <header>
+        <h1>🌍 Les Fauteuils Électriques : Une Solution Révolutionnaire pour la Mobilité 🚀</h1>
+    </header>
+    
+    <nav id="mainNav">
+        <a href="#introduction" class="nav-link">📖 Introduction</a>
+        <a href="#fonctionnement" class="nav-link">⚙️ Fonctionnement Général</a>
+        <a href="#cycle-vie" class="nav-link">♻️ Cycle de Vie</a>
+        <a href="#energie-materiaux" class="nav-link">⚡ Énergie & Matériaux</a>
+        <a href="#information-fonctionnement" class="nav-link">📊 Chaînes d'Information</a>
+        <a href="#programmation" class="nav-link">📱 Programmation</a>
+        <a href="#developpement-durable" class="nav-link">🌱 Développement Durable</a>
+        <a href="#perspectives" class="nav-link">🔮 Perspectives</a>
+        <a href="#glossaire" class="nav-link">📚 Glossaire</a>
+    </nav>
+    
+    <div class="container">
+        <button id="printButton" class="print-button">
+            🖨️ Version imprimable
+        </button>
+
+        <!-- Section Introduction -->
+        <section id="introduction" class="section-content" data-section="introduction">
+            <div class="section-header">
+                <h2>📖 Introduction</h2>
+                <div class="progress-indicator" data-progress="0"></div>
+            </div>
+            <p><em>"Un fauteuil électrique n'est pas seulement un moyen de transport, mais une passerelle vers l'autonomie et la liberté."</em></p>
+            <div class="image-container">
+                <img src="https://images.unsplash.com/photo-1615506313305-e61daaa8cdcb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                     alt="Fauteuil électrique moderne" 
+                     class="zoomable-image">
+            </div>
+            <p>Les fauteuils électriques sont des dispositifs conçus pour offrir une mobilité indépendante aux personnes ayant des difficultés à se déplacer. Ils combinent ingéniosité technologique et ergonomie pour améliorer la qualité de vie de leurs utilisateurs. En permettant une autonomie accrue, ces dispositifs réduisent les contraintes physiques et sociales associées à la mobilité réduite.</p>
+            <div class="image-container">
+                <img src="https://images.unsplash.com/photo-1706700735230-a9e32ac6e0c1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                     alt="Modèle innovant de fauteuil électrique" 
+                     class="zoomable-image">
+            </div>
+            <div class="expandable-content">
+                <button class="expandable-trigger">
+                    <span>Découvrir l'histoire des fauteuils électriques</span>
+                    <i>▼</i>
+                </button>
+                <div class="expandable-body">
+                    <h3>Histoire des fauteuils électriques</h3>
+                    <p>Les premiers fauteuils roulants manuels remontent au Moyen Âge, mais ce n'est qu'au XXe siècle que les versions motorisées ont vu le jour. En 1953, Herbert Everest et Harry Jennings ont inventé le premier fauteuil roulant pliable, qui est rapidement devenu un standard dans le domaine médical. Avec l'avènement des batteries rechargeables dans les années 1960, les fauteuils électriques ont commencé à gagner en popularité. Aujourd'hui, ils intègrent des technologies avancées telles que la connectivité Bluetooth, les systèmes de navigation GPS et les commandes vocales.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Fonctionnement -->
+        <section id="fonctionnement" class="section-content" data-section="fonctionnement">
+            <div class="section-header">
+                <h2>⚙️ Fonctionnement Général</h2>
+                <div class="progress-indicator" data-progress="0"></div>
+            </div>
+            <p>Le fonctionnement d'un fauteuil électrique repose sur une interaction fluide entre plusieurs composants essentiels :</p>
+            <p>Lorsque l'utilisateur active une commande, généralement sous forme de joystick ou d'une interface tactile, cette action est traduite en signaux électriques. Ces signaux sont ensuite interprétés par un contrôleur électronique, qui ajuste la vitesse et la direction du mouvement. Le contrôleur gère également l'alimentation fournie par la batterie, garantissant une distribution optimale de l'énergie vers les moteurs. Ces derniers transforment l'énergie électrique en mouvement mécanique, faisant tourner les roues du fauteuil.</p>
+            
+            <div class="expandable-content">
+                <button class="expandable-trigger">
+                    <span>Explorer les composants essentiels</span>
+                    <i>▼</i>
+                </button>
+                <div class="expandable-body">
+                    <h3>Composants essentiels</h3>
+                    <p>Un fauteuil électrique est composé de plusieurs éléments cruciaux :</p>
+                    <ul>
+                        <li><strong>Batterie :</strong> L'élément central du système, souvent une batterie lithium-ion, qui stocke l'énergie nécessaire pour alimenter les moteurs. Sa capacité détermine l'autonomie du fauteuil.</li>
+                        <li><strong>Moteurs :</strong> Situés près des roues motrices, ils convertissent l'énergie électrique en mouvement mécanique. Les moteurs modernes sont conçus pour être silencieux et efficaces.</li>
+                        <li><strong>Contrôleur :</strong> Le "cerveau" du fauteuil, qui interprète les commandes de l'utilisateur et ajuste la puissance envoyée aux moteurs.</li>
+                        <li><strong>Interface utilisateur :</strong> Généralement un joystick, mais aussi des systèmes de contrôle par souffle, mouvements de tête ou commandes vocales pour les utilisateurs ayant une mobilité très limitée.</li>
+                        <li><strong>Châssis :</strong> La structure qui soutient le siège et tous les composants, conçue pour être à la fois robuste et légère.</li>
+                        <li><strong>Siège et système de positionnement :</strong> Éléments ergonomiques ajustables pour un confort optimal et la prévention des problèmes posturaux.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="interactive-diagram">
+                <h3>Chaîne de fonctionnement d'un fauteuil électrique</h3>
+                <div class="diagram-flow">
+                    <div class="diagram-item" id="commandeItem">
+                        <div class="diagram-icon">👆</div>
+                        <div class="diagram-text">Commande utilisateur</div>
+                    </div>
+                    <div class="diagram-arrow">➡️</div>
+                    <div class="diagram-item" id="controleurItem">
+                        <div class="diagram-icon">🧠</div>
+                        <div class="diagram-text">Contrôleur électronique</div>
+                    </div>
+                    <div class="diagram-arrow">➡️</div>
+                    <div class="diagram-item" id="batterieItem">
+                        <div class="diagram-icon">🔋</div>
+                        <div class="diagram-text">Batterie</div>
+                    </div>
+                    <div class="diagram-arrow">➡️</div>
+                    <div class="diagram-item" id="moteurItem">
+                        <div class="diagram-icon">⚙️</div>
+                        <div class="diagram-text">Moteurs</div>
+                    </div>
+                    <div class="diagram-arrow">➡️</div>
+                    <div class="diagram-item" id="mouvementItem">
+                        <div class="diagram-icon">♿</div>
+                        <div class="diagram-text">Mouvement</div>
+                    </div>
+                </div>
+                <div class="diagram-details">
+                    <p>Cliquez sur un élément pour plus d'informations</p>
+                    <div class="detail-content" id="commandeDetail">
+                        <h4>Commande utilisateur</h4>
+                        <p>L'interface principale (joystick, boutons, écran tactile, etc.) permettant à l'utilisateur de contrôler le fauteuil. Les systèmes modernes offrent différentes options adaptées aux capacités physiques de l'utilisateur.</p>
+                    </div>
+                    <div class="detail-content" id="controleurDetail">
+                        <h4>Contrôleur électronique</h4>
+                        <p>Circuit intégré sophistiqué qui traduit les signaux de commande en instructions pour les moteurs. Il régule également la vitesse, gère la sécurité et optimise la consommation d'énergie.</p>
+                    </div>
+                    <div class="detail-content" id="batterieDetail">
+                        <h4>Batterie</h4>
+                        <p>Source d'énergie, généralement lithium-ion ou gel-acide. Les batteries modernes offrent une meilleure densité énergétique, permettant une autonomie accrue tout en réduisant le poids du fauteuil.</p>
+                    </div>
+                    <div class="detail-content" id="moteurDetail">
+                        <h4>Moteurs</h4>
+                        <p>Convertissent l'énergie électrique en mouvement mécanique. Les fauteuils utilisent généralement des moteurs à courant continu pour leur fiabilité et leur contrôle précis.</p>
+                    </div>
+                    <div class="detail-content" id="mouvementDetail">
+                        <h4>Mouvement</h4>
+                        <p>Résultat final de la chaîne énergétique, permettant à l'utilisateur de se déplacer librement dans son environnement avec précision et sécurité.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Cycle de Vie -->
+        <section id="cycle-vie" class="section-content" data-section="cycle-vie">
+            <div class="section-header">
+                <h2>♻️ Cycle de Vie</h2>
+                <div class="progress-indicator" data-progress="0"></div>
+            </div>
+            <p>Le cycle de vie d'un fauteuil électrique comprend plusieurs étapes, de sa conception jusqu'à son recyclage :</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon">📏</div>
+                    <div class="timeline-content">
+                        <h3>Conception et Design</h3>
+                        <p>Intégration des besoins des utilisateurs, des avancées technologiques et des considérations ergonomiques</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">🏭</div>
+                    <div class="timeline-content">
+                        <h3>Fabrication</h3>
+                        <p>Production des composants et assemblage selon des normes strictes de qualité et de sécurité</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">🚚</div>
+                    <div class="timeline-content">
+                        <h3>Distribution</h3>
+                        <p>Transport vers les distributeurs et personnalisation selon les besoins spécifiques des utilisateurs</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">👤</div>
+                    <div class="timeline-content">
+                        <h3>Utilisation</h3>
+                        <p>Phase principale du cycle de vie, durant laquelle l'entretien régulier est crucial pour maintenir les performances</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">🔧</div>
+                    <div class="timeline-content">
+                        <h3>Maintenance</h3>
+                        <p>Entretien préventif et réparations pour prolonger la durée de vie du fauteuil</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">♻️</div>
+                    <div class="timeline-content">
+                        <h3>Fin de vie et recyclage</h3>
+                        <p>Démontage et recyclage des composants, avec une attention particulière pour les batteries et l'électronique</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable-content">
+                <button class="expandable-trigger">
+                    <span>S'informer sur le recyclage responsable</span>
+                    <i>▼</i>
+                </button>
+                <div class="expandable-body">
+                    <h3>Recyclage des fauteuils électriques</h3>
+                    <p>Le recyclage des fauteuils électriques est une étape cruciale pour minimiser leur impact environnemental. Les batteries lithium-ion sont démantelées pour extraire des métaux précieux, tandis que les composants en plastique et en métal sont triés pour être recyclés. Certaines pièces mécaniques peuvent être réutilisées dans d'autres dispositifs médicaux, réduisant ainsi le gaspillage. Les fabricants investissent également dans des programmes de reprise pour encourager les utilisateurs à recycler leurs anciens fauteuils.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Énergie et Matériaux -->
+        <section id="energie-materiaux" class="section-content" data-section="energie-materiaux">
+            <div class="section-header">
+                <h2>⚡ Énergie & Matériaux</h2>
+                <div class="progress-indicator" data-progress="0"></div>
+            </div>
+            <p>L'efficacité énergétique et le choix des matériaux sont des aspects fondamentaux des fauteuils électriques modernes :</p>
+            
+            <div class="expandable-content">
+                <button class="expandable-trigger">
+                    <span>Explorer les matériaux innovants</span>
+                    <i>▼</i>
+                </button>
+                <div class="expandable-body">
+                    <h3>Matériaux innovants et durables</h3>
+                    <p>Des recherches sont en cours pour intégrer des matériaux biosourcés dans la fabrication des fauteuils électriques. Par exemple, certains prototypes utilisent des composites à base de fibres naturelles, comme le chanvre ou le lin, pour réduire l'empreinte carbone. De plus, des polymères recyclés sont explorés pour fabriquer des composants comme les poignées ou les revêtements.</p>
+                </div>
+            </div>
+
+            <div class="card-container">
+                <div class="feature-card">
+                    <div class="card-icon">🔋</div>
+                    <h3>Batterie</h3>
+                    <p>Les batteries lithium-ion sont privilégiées pour leur densité énergétique élevée et leur poids réduit. Elles offrent une autonomie pouvant aller jusqu'à 40 km par charge, selon le modèle.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">🔨</div>
+                    <h3>Châssis</h3>
+                    <p>Fabriqué en aluminium ou en acier léger, le châssis combine légèreté et résistance. Ces matériaux permettent de supporter le poids de l'utilisateur tout en facilitant le transport.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">⚙️</div>
+                    <h3>Pneus</h3>
+                    <p>Les pneus pneumatiques offrent une meilleure absorption des chocs, mais nécessitent un entretien régulier. Les pneus en caoutchouc plein sont plus résistants aux crevaisons.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">🔌</div>
+                    <h3>Accessoires</h3>
+                    <p>De nombreux fauteuils incluent des supports pour smartphones, des coussins ergonomiques, ou encore des systèmes de freinage régénératif qui récupèrent l'énergie.</p>
+                </div>
+            </div>
+
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type de Batterie</th>
+                            <th>Autonomie</th>
+                            <th>Poids</th>
+                            <th>Durée de Vie</th>
+                            <th>Temps de Charge</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Lithium-ion</td>
+                            <td>30-40 km</td>
+                            <td>Léger</td>
+                            <td>800-1000 cycles</td>
+                            <td>3-4 heures</td>
+                        </tr>
+                        <tr>
+                            <td>Plomb-acide</td>
+                            <td>15-25 km</td>
+                            <td>Lourd</td>
+                            <td>300-500 cycles</td>
+                            <td>8-10 heures</td>
+                        </tr>
+                        <tr>
+                            <td>Gel</td>
+                            <td>20-30 km</td>
+                            <td>Moyen</td>
+                            <td>500-600 cycles</td>
+                            <td>6-8 heures</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section Chaînes d'Information -->
+        <section id="information-fonctionnement" class="section-content" data-section="information-fonctionnement">
+            <div class="section-header">
+                <h2>📊 Chaînes d'Information et de Fonctionnement</h2>
+                <div class="progress-indicator" data-progress="0"></div>
+            </div>
+            <p>Le fonctionnement d'un fauteuil électrique repose sur une interaction étroite entre les chaînes d'information et d'énergie :</p>
+
+            <div class="interactive-diagram">
+                <h3>Chaînes d'Information et d'Énergie</h3>
+                <div class="diagram-flow">
+                    <div class="diagram-item">
+                        <div class="diagram-icon">🎮</div>
+                        <div class="diagram-text">Commande utilisateur (Source)</div>
+                    </div>
+                    <div class="diagram-arrow">➡️</div>
+                    <div class="diagram-item">
+                        <div class="diagram-icon">🧠</div>
+                        <div class="diagram-text">Contrôleur (Interprétation)</div>
+                    </div>
+                    <div class="diagram-arrow">➡️</div>
+                    <div class="diagram-item">
+                        <div class="diagram-icon">🔋</div>
+                        <div class="diagram-text">Batterie (Alimentation)</div>
+                    </div>
+                    <div class="diagram-arrow">➡️</div>
+                    <div class="diagram-item">
+                        <div class="diagram-icon">⚙️</div>
+                        <div class="diagram-text">Moteurs (Propulsion)</div>
+                    </div>
+                    <div class="diagram-arrow">➡️</div>
+                    <div class="diagram-item">
+                        <div class="diagram-icon">♿</div>
+                        <div class="diagram-text">Roues (Mouvement)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3>💡 À Savoir</h3>
+                <p>La chaîne d'information traduit les intentions de l'utilisateur en actions spécifiques, tandis que la chaîne d'énergie fournit la puissance nécessaire pour exécuter ces actions. Ce système sophistiqué permet une interaction fluide entre l'utilisateur et son fauteuil électrique.</p>
+            </div>
+        </section>
+
+        <!-- Section Programmation -->
+        <section id="programmation" class="section-content" data-section="programmation">
+            <div class="section-header">
+                <h2>📱 Programmation Informatique</h2>
+                <div class="progress-indicator" data-progress="0"></div>
+            </div>
+            <p>La programmation joue un rôle essentiel dans le fonctionnement avancé des fauteuils électriques modernes. Elle permet de gérer :</p>
+
+            <div class="card-container">
+                <div class="feature-card">
+                    <div class="card-icon">👁️</div>
+                    <h3>Surveillance</h3>
+                    <p>Des capteurs mesurent en temps réel la vitesse, la direction et les obstacles environnants. Ces données sont analysées pour ajuster automatiquement le comportement du fauteuil.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Gestion de l'énergie</h3>
+                    <p>Des algorithmes sophistiqués optimisent l'utilisation de la batterie, prédisant l'autonomie restante et ajustant la consommation en fonction des besoins.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">🛋️</div>
+                    <h3>Confort</h3>
+                    <p>Des interfaces utilisateur permettent de personnaliser les paramètres du fauteuil, comme la sensibilité du joystick ou des modes de conduite spécifiques.</p>
+                </div>
+            </div>
+
+            <div class="expandable-content">
+                <button class="expandable-trigger">
+                    <span>Explorer les technologies de programmation</span>
+                    <i>▼</i>
+                </button>
+                <div class="expandable-body">
+                    <h3>Technologies de programmation appliquées</h3>
+                    <p>Les fauteuils électriques modernes intègrent des microcontrôleurs programmables qui exécutent des algorithmes complexes pour optimiser le fonctionnement. Certains modèles utilisent même des techniques d'intelligence artificielle pour ajuster dynamiquement leurs paramètres en fonction de l'environnement et des habitudes de l'utilisateur. Des applications mobiles dédiées permettent également de configurer à distance de nombreuses fonctionnalités du fauteuil.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Développement Durable -->
+        <section id="developpement-durable" class="section-content" data-section="developpement-durable">
+            <div class="section-header">
+                <h2>🌱 Développement Durable</h2>
+                <div class="progress-indicator" data-progress="0"></div>
+            </div>
+            <p>Les fauteuils électriques s'inscrivent dans une démarche de développement durable grâce à plusieurs aspects :</p>
+
+            <div class="card-container">
+                <div class="feature-card">
+                    <div class="card-icon">⚖️</div>
+                    <h3>Réduction des inégalités</h3>
+                    <p>En offrant une mobilité autonome, ils favorisent l'inclusion sociale et professionnelle des personnes en situation de handicap.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">🌿</div>
+                    <h3>Impact environnemental</h3>
+                    <p>Les fauteuils électriques modernes intègrent des matériaux recyclables et des technologies économes en énergie, réduisant ainsi leur empreinte écologique.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">♿</div>
+                    <h3>Accessibilité universelle</h3>
+                    <p>Certains modèles incluent des fonctionnalités comme l'escalade de marches ou la montée de trottoirs, rendant les infrastructures plus inclusives.</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3>💡 Impact Social</h3>
+                <p>L'amélioration de la mobilité individuelle contribue à créer une société plus inclusive, où chacun peut participer pleinement à la vie sociale et professionnelle. Cela représente un aspect fondamental du développement durable qui vise à ne laisser personne de côté.</p>
+            </div>
+        </section>
+
+        <!-- Section Perspectives -->
+        <section id="perspectives" class="section-content" data-section="perspectives">
+            <div class="section-header">
+                <h2>🔮 Perspectives</h2>
+                <div class="progress-indicator" data-progress="0"></div>
+            </div>
+
+            <div class="expandable-content">
+                <button class="expandable-trigger">
+                    <span>Innovations futures</span>
+                    <i>▼</i>
+                </button>
+                <div class="expandable-body">
+                    <div class="card-container">
+                        <div class="feature-card">
+                            <div class="card-icon">🤖</div>
+                            <h3>Fauteuils autonomes</h3>
+                            <p>Inspirés des véhicules autonomes, ces fauteuils intègrent des capteurs et des algorithmes d'intelligence artificielle pour naviguer sans intervention humaine.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="card-icon">📶</div>
+                            <h3>Connectivité IoT</h3>
+                            <p>Les fauteuils pourraient être intégrés dans des écosystèmes intelligents, communiquant avec des objets connectés comme les portes automatiques ou les ascenseurs.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="card-icon">🧬</div>
+                            <h3>Technologies hybrides</h3>
+                            <p>Combinaisons de fauteuils électriques avec des dispositifs comme des exosquelettes pour offrir une assistance supplémentaire aux membres inférieurs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable-content">
+                <button class="expandable-trigger">
+                    <span>Défis à relever</span>
+                    <i>▼</i>
+                </button>
+                <div class="expandable-body">
+                    <div class="card-container">
+                        <div class="feature-card">
+                            <div class="card-icon">💶</div>
+                            <h3>Coût</h3>
+                            <p>Rendre les fauteuils électriques plus abordables pour les particuliers et les institutions, notamment grâce à des subventions ou des crédits d'impôt.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="card-icon">♻️</div>
+                            <h3>Durabilité</h3>
+                            <p>Améliorer la durabilité des composants, notamment des batteries, pour prolonger la durée de vie des fauteuils et réduire leur impact environnemental.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="card-icon">👥</div>
+                            <h3>Acceptation sociale</h3>
+                            <p>Sensibiliser le public aux avantages des fauteuils électriques et surmonter les préjugés liés à leur utilisation pour une meilleure inclusion.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Glossaire -->
+        <section id="glossaire" class="section-content" data-section="glossaire">
+            <div class="section-header">
+                <h2>📚 Glossaire Interactif</h2>
+                <div class="progress-indicator" data-progress="0"></div>
+            </div>
+            <p>Consultez les définitions détaillées des termes techniques :</p>
+            
+            <div class="glossary-search">
+                <input type="text" id="glossarySearch" placeholder="Rechercher un terme...">
+                <i>🔍</i>
+            </div>
+            
+            <div class="glossary-list">
+                <div class="glossary-item">
+                    <div class="glossary-term">Autonomie</div>
+                    <div class="glossary-definition">
+                        <p>Capacité d'un fauteuil électrique à parcourir une certaine distance avec une seule charge de batterie. L'autonomie dépend de facteurs comme la capacité de la batterie, le poids de l'utilisateur et les conditions d'utilisation.</p>
+                    </div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Batterie (Lithium-ion)</div>
+                    <div class="glossary-definition">
+                        <p>Type de batterie rechargeable utilisée dans les fauteuils électriques. Elle est appréciée pour sa densité énergétique élevée, son poids réduit et sa longue durée de vie.</p>
+                    </div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Contrôleur</div>
+                    <div class="glossary-definition">
+                        <p>Dispositif électronique qui interprète les commandes de l'utilisateur et gère la distribution de l'énergie aux moteurs. Il agit comme le "cerveau" du fauteuil électrique.</p>
+                    </div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Joystick</div>
+                    <div class="glossary-definition">
+                        <p>Interface principale pour contrôler la direction et la vitesse d'un fauteuil électrique. Certains modèles incluent des commandes alternatives pour les utilisateurs ayant des limitations motrices.</p>
+                    </div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Châssis</div>
+                    <div class="glossary-definition">
+                        <p>Structure principale du fauteuil, généralement fabriquée en aluminium ou en acier léger. Elle supporte tous les composants tout en assurant légèreté et résistance.</p>
+                    </div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Freinage régénératif</div>
+                    <div class="glossary-definition">
+                        <p>Système qui récupère une partie de l'énergie cinétique lors du freinage pour la réinjecter dans la batterie, augmentant ainsi l'autonomie du fauteuil.</p>
+                    </div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Moteur électrique</div>
+                    <div class="glossary-definition">
+                        <p>Dispositif qui transforme l'énergie électrique fournie par la batterie en énergie mécanique, propulsant ainsi les roues du fauteuil.</p>
+                    </div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Pneumatique</div>
+                    <div class="glossary-definition">
+                        <p>Type de pneu contenant de l'air, offrant une meilleure absorption des chocs mais nécessitant un entretien régulier.</p>
+                    </div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Accessibilité universelle</div>
+                    <div class="glossary-definition">
+                        <p>Concept visant à rendre les infrastructures et les dispositifs accessibles à tous, y compris aux personnes en situation de handicap.</p>
+                    </div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Intelligence artificielle</div>
+                    <div class="glossary-definition">
+                        <p>Technologie permettant aux fauteuils électriques de prendre des décisions autonomes, comme éviter les obstacles ou suivre un itinéraire prédéfini.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>© Les Fauteuils Électriques : Une Solution Révolutionnaire pour la Mobilité</p>
+        <p>Dernière mise à jour : Mars 2025</p>
+    </footer>
+
+    <!-- Image Modal -->
+    <div class="image-modal" id="imageModal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const mainNav = document.getElementById('mainNav');
+            const progressBar = document.getElementById('progressBar');
+            const sections = document.querySelectorAll('.section-content');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const floatingNav = document.getElementById('floatingNav');
+            const toggleNav = document.getElementById('toggleNav');
+            const floatingMenu = document.querySelector('.floating-menu');
+            const expandableTriggers = document.querySelectorAll('.expandable-trigger');
+            const glossaryTerms = document.querySelectorAll('.glossary-term');
+            const zoomableImages = document.querySelectorAll('.zoomable-image');
+            const imageModal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const closeModal = document.querySelector('.close-modal');
+            const printButton = document.getElementById('printButton');
+            const glossarySearch = document.getElementById('glossarySearch');
+            const glossaryItems = document.querySelectorAll('.glossary-item');
+            const diagramItems = document.querySelectorAll('.diagram-item');
+            
+            // Track section visibility
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // Update active nav link
+                        const sectionId = entry.target.getAttribute('id');
+                        updateActiveNavLink(sectionId);
+                        
+                        // Update section progress
+                        trackSectionProgress(entry.target);
+                        
+                        // Store progress in localStorage
+                        saveProgress(sectionId);
+                    }
+                });
+            }, { threshold: 0.2 });
+            
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+            
+            // Scroll progress bar
+            window.addEventListener('scroll', () => {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrollPercentage = (scrollTop / scrollHeight) * 100;
+                
+                progressBar.style.width = scrollPercentage + '%';
+                
+                // Make nav sticky with animation
+                if (scrollTop > 100) {
+                    mainNav.classList.add('scrolled');
+                } else {
+                    mainNav.classList.remove('scrolled');
+                }
+            });
+            
+            // Toggle floating navigation
+            toggleNav.addEventListener('click', () => {
+                floatingMenu.classList.toggle('active');
+            });
+            
+            // Close floating menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!floatingNav.contains(e.target)) {
+                    floatingMenu.classList.remove('active');
+                }
+            });
+            
+            // Expandable content sections
+            expandableTriggers.forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    trigger.classList.toggle('active');
+                    const body = trigger.nextElementSibling;
+                    
+                    if (trigger.classList.contains('active')) {
+                        body.classList.add('active');
+                    } else {
+                        body.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Interactive glossary
+            glossaryTerms.forEach(term => {
+                term.addEventListener('click', () => {
+                    // First close any open terms
+                    glossaryTerms.forEach(t => {
+                        if (t !== term && t.classList.contains('active')) {
+                            t.classList.remove('active');
+                        }
+                    });
+                    
+                    term.classList.toggle('active');
+                });
+            });
+            
+            // Glossary search functionality
+            if (glossarySearch) {
+                glossarySearch.addEventListener('input', () => {
+                    const searchValue = glossarySearch.value.toLowerCase();
+                    
+                    glossaryItems.forEach(item => {
+                        const term = item.querySelector('.glossary-term').textContent.toLowerCase();
+                        const definition = item.querySelector('.glossary-definition').textContent.toLowerCase();
+                        
+                        if (term.includes(searchValue) || definition.includes(searchValue)) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            }
+            
+            // Image zoom functionality
+            zoomableImages.forEach(img => {
+                img.addEventListener('click', () => {
+                    imageModal.style.display = 'block';
+                    modalImage.src = img.src;
+                });
+            });
+            
+            closeModal.addEventListener('click', () => {
+                imageModal.style.display = 'none';
+            });
+            
+            // Close modal on click outside image
+            imageModal.addEventListener('click', (e) => {
+                if (e.target === imageModal) {
+                    imageModal.style.display = 'none';
+                }
+            });
+            
+            // Print functionality
+            printButton.addEventListener('click', () => {
+                window.print();
+            });
+            
+            // Interactive diagrams
+            diagramItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const itemId = item.getAttribute('id');
+                    const detailId = itemId.replace('Item', 'Detail');
+                    const detailElement = document.getElementById(detailId);
+                    
+                    // Hide all details first
+                    document.querySelectorAll('.detail-content').forEach(detail => {
+                        detail.classList.remove('active');
+                    });
+                    
+                    // Remove active class from all items
+                    diagramItems.forEach(di => {
+                        di.classList.remove('active');
+                    });
+                    
+                    // Show the selected detail and mark item as active
+                    if (detailElement) {
+                        detailElement.classList.add('active');
+                        item.classList.add('active');
+                    }
+                });
+            });
+            
+            // Load saved progress
+            loadSavedProgress();
+            
+            // Helper Functions
+            function updateActiveNavLink(sectionId) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${sectionId}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            function trackSectionProgress(sectionElement) {
+                // Calculate how much of the section has been viewed
+                const sectionRect = sectionElement.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+                
+                let visiblePercentage = 0;
+                
+                if (sectionRect.top <= 0 && sectionRect.bottom >= viewportHeight) {
+                    // Section covers the entire viewport
+                    visiblePercentage = 100;
+                } else if (sectionRect.top >= 0 && sectionRect.bottom <= viewportHeight) {
+                    // Section is completely visible
+                    visiblePercentage = 100;
+                } else if (sectionRect.top < 0 && sectionRect.bottom > 0) {
+                    // Top part of section is scrolled out of view
+                    visiblePercentage = Math.round((sectionRect.bottom / sectionElement.offsetHeight) * 100);
+                } else if (sectionRect.top < viewportHeight && sectionRect.bottom > viewportHeight) {
+                    // Bottom part of section is below viewport
+                    visiblePercentage = Math.round(((viewportHeight - sectionRect.top) / sectionElement.offsetHeight) * 100);
+                }
+                
+                // Ensure percentage is between 0 and 100
+                visiblePercentage = Math.max(0, Math.min(100, visiblePercentage));
+                
+                // Update progress indicator
+                const progressIndicator = sectionElement.querySelector('.progress-indicator');
+                if (progressIndicator) {
+                    progressIndicator.setAttribute('data-progress', visiblePercentage);
+                }
+            }
+            
+            function saveProgress(sectionId) {
+                const progressData = JSON.parse(localStorage.getItem('courseProgress')) || {};
+                progressData[sectionId] = true;
+                localStorage.setItem('courseProgress', JSON.stringify(progressData));
+            }
+            
+            function loadSavedProgress() {
+                const progressData = JSON.parse(localStorage.getItem('courseProgress')) || {};
+                
+                // Mark completed sections
+                Object.keys(progressData).forEach(sectionId => {
+                    const section = document.getElementById(sectionId);
+                    if (section) {
+                        const progressIndicator = section.querySelector('.progress-indicator');
+                        if (progressIndicator) {
+                            progressIndicator.setAttribute('data-progress', '100');
+                        }
+                    }
+                });
+            }
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close floating menu if open
+                    floatingMenu.classList.remove('active');
+                });
+            });
+            
+            // Initialize the page - show the first section
+            if (sections.length > 0) {
+                sections[0].classList.add('visible');
+            }
+
+            // Backward compatibility for old info-box elements
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('interactive-btn')) {
+                    const targetId = e.target.getAttribute('onclick').match(/toggleContent\('(.+?)'\)/)[1];
+                    toggleContent(targetId);
+                }
+            });
+
+            // Function for backward compatibility
+            window.toggleContent = function(id) {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.classList.toggle('expanded');
+                }
+            };
+
+            window.toggleGlossaryTerm = function(element) {
+                element.classList.toggle('active');
+            };
+        });
+    </script>
+</body>
+</html>
