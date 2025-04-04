@@ -1,0 +1,4271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De la Vie Planctonique aux Technologies Innovantes : Un Parcours Éducatif des Océans</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opendyslexic@1.0.3/dist/opendyslexic/opendyslexic.css"
+        integrity="sha256-eUZ4zDs4uiDhexZ4aN+a5h3VrXr1WmZR/TbZPCbRmv8=" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --deep-blue: #1a3a6b;
+            --ocean-blue: #2a6bb1;
+            --light-blue: #88c1f2;
+            --sky-blue: #d4e6f7;
+            --dark-gray: #333333;
+            --medium-gray: #666666;
+            --light-gray: #e0e0e0;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body.dyslexic-font * {
+            font-family: 'OpenDyslexic', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+            letter-spacing: 0.5px;
+            line-height: 1.5;
+            word-spacing: 1px;
+        }
+
+        body {
+            background-color: var(--sky-blue);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+        
+        /* Style pour les boutons audio */
+        .audio-button {
+            display: inline-block;
+            background-color: #2a6bb1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .audio-button:hover {
+            background-color: #1a3a6b;
+        }
+
+        .audio-button.playing {
+            background-color: #cc0000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, rgba(0, 20, 40, 0.8), rgba(0, 60, 100, 0.8)), 
+                        url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-position: center;
+            background-size: cover;
+            color: var(--white);
+            padding: 80px 20px;
+            text-align: center;
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 15px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            animation: fadeInDown 1.2s ease;
+            color: #ffffff; /* Blanc pour meilleur contraste */
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+            font-weight: 800;
+            position: relative;
+            z-index: 2; /* Au-dessus des vagues */
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1.2s ease 0.3s both;
+            color: #ffffff; /* Blanc pour meilleur contraste */
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 1.0);
+            font-weight: 600;
+            background-color: rgba(63, 81, 181, 0.75); /* Bleu indigo */
+            padding: 15px 30px;
+            border-radius: 15px;
+            display: inline-block;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            line-height: 1.6;
+        }
+
+
+        .wave-animation {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23ffffff" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%23ffffff" opacity=".3"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23ffffff" opacity=".25"/></svg>');
+            background-size: cover;
+            animation: wave 12s linear infinite;
+            z-index: 1;
+            pointer-events: none; /* Pour que les clics passent à travers */
+        }
+
+        @keyframes wave {
+            0% { background-position-x: 0; }
+            100% { background-position-x: 1200px; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chapter {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chapter:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .chapter::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--ocean-blue), var(--light-blue));
+        }
+
+        .chapter h2 {
+            color: var(--deep-blue);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .chapter h2::before {
+            content: "";
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: var(--ocean-blue);
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .chapter h3 {
+            color: var(--ocean-blue);
+            margin: 25px 0 15px;
+            font-size: 1.4rem;
+            border-bottom: 2px solid var(--light-blue);
+            padding-bottom: 8px;
+        }
+
+        .chapter p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .chapter ul, .chapter ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .chapter li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .chapter li::before {
+            content: "•";
+            color: var(--ocean-blue);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .highlight-box {
+            background-color: var(--light-blue);
+            border-left: 5px solid var(--ocean-blue);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 25px 0;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from {
+                box-shadow: 0 0 0 0 rgba(42, 107, 177, 0.4);
+            }
+            to {
+                box-shadow: 0 0 0 10px rgba(42, 107, 177, 0);
+            }
+        }
+
+        .highlight-box h4 {
+            color: var(--deep-blue);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        /* Styles pour les contrôles audio */
+        .audio-btn {
+            background-color: var(--ocean-blue);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            font-size: 14px;
+            cursor: pointer;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            vertical-align: middle;
+        }
+        
+        .audio-btn:hover {
+            background-color: var(--deep-blue);
+            transform: scale(1.1);
+        }
+        
+        .audio-btn.playing {
+            background-color: #e74c3c;
+            animation: pulse-light 1.5s infinite;
+        }
+        
+        @keyframes pulse-light {
+            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+        }
+        
+        body.dark-mode .audio-btn {
+            background-color: #3498db;
+            color: #fff;
+        }
+        
+        body.dark-mode .audio-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        body.dark-mode .audio-btn.playing {
+            background-color: #c0392b;
+        }
+
+        .image-container {
+            margin: 25px 0;
+            text-align: center;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-container img {
+            max-width: 100%;
+            border-radius: 10px;
+            transition: transform 0.5s ease;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.03);
+        }
+
+        .image-caption {
+            margin-top: 10px;
+            font-style: italic;
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+        }
+
+        .interactive-element {
+            background-color: var(--white);
+            border: 2px solid var(--light-blue);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 51, 102, 0.08);
+        }
+
+        .interactive-element:hover {
+            background-color: var(--sky-blue);
+            border-color: var(--ocean-blue);
+        }
+
+        .interactive-element h4 {
+            color: var(--deep-blue);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .interactive-element .content {
+            display: none;
+            margin-top: 15px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .interactive-element.active {
+            background-color: var(--sky-blue);
+            border-color: var(--ocean-blue);
+        }
+
+        .interactive-element.active .content {
+            display: block;
+        }
+
+        .interactive-element .toggle-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .interactive-element.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .quiz-container {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .quiz-question {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .quiz-question:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .quiz-question h4 {
+            color: var(--deep-blue);
+            margin-bottom: 15px;
+        }
+
+        .quiz-option {
+            display: block;
+            margin-bottom: 12px;
+            padding: 12px 18px;
+            background-color: var(--light-gray);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 51, 102, 0.08);
+            border-left: 4px solid transparent;
+        }
+
+        .quiz-option:hover {
+            background-color: var(--light-blue);
+            color: var(--white);
+            border-left: 4px solid var(--ocean-blue);
+            transform: translateX(5px);
+        }
+
+        .quiz-option.correct {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .quiz-option.incorrect {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .quiz-feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-container {
+            margin: 30px 0;
+        }
+
+        .tab-buttons {
+            display: flex;
+            border-bottom: 2px solid var(--light-blue);
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            background-color: var(--light-gray);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            color: var(--medium-gray);
+            border-radius: 8px 8px 0 0;
+            margin-right: 5px;
+        }
+
+        .tab-button:hover {
+            background-color: var(--light-blue);
+            color: var(--white);
+        }
+
+        .tab-button.active {
+            background-color: var(--ocean-blue);
+            color: var(--white);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background-color: var(--white);
+            border-radius: 0 8px 8px 8px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        footer {
+            background-color: var(--deep-blue);
+            color: var(--white);
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            border-radius: 20px 20px 0 0;
+        }
+
+        footer p {
+            margin-bottom: 15px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--light-blue);
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+            }
+            
+            .chapter {
+                padding: 20px;
+            }
+            
+            .tab-buttons {
+                flex-wrap: wrap;
+            }
+            
+            .tab-button {
+                margin-bottom: 5px;
+            }
+        }
+
+        /* Animation for floating elements */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Timeline styling */
+        .timeline {
+            position: relative;
+            max-width: 100%;
+            margin: 30px auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--ocean-blue);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: var(--white);
+            border: 4px solid var(--ocean-blue);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            left: 50%;
+        }
+
+        .left::after {
+            right: -12px;
+        }
+
+        .right::after {
+            left: -12px;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-content h4 {
+            color: var(--ocean-blue);
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item::after {
+                left: 18px;
+            }
+
+            .right {
+                left: 0%;
+            }
+        }
+
+        /* Game CSS */
+        .game-container {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            min-height: 300px;
+            position: relative;
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .game-header h3 {
+            color: var(--deep-blue);
+            margin: 0;
+        }
+
+        .game-score {
+            font-weight: bold;
+            color: var(--ocean-blue);
+        }
+
+        .game-board {
+            border: 2px solid var(--ocean-blue);
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 200px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .drag-drop-game .draggable {
+            padding: 10px 15px;
+            background-color: var(--light-blue);
+            border-radius: 5px;
+            cursor: grab;
+            user-select: none;
+            transition: all 0.3s ease;
+        }
+
+        .drag-drop-game .draggable:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .drag-drop-game .droppable {
+            min-width: 150px;
+            min-height: 50px;
+            border: 2px dashed var(--medium-gray);
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .drag-drop-game .droppable.hover {
+            background-color: var(--sky-blue);
+            border-color: var(--ocean-blue);
+        }
+
+        .drag-drop-game .dragged {
+            opacity: 0.5;
+        }
+
+        .drag-drop-game .dropped {
+            border-style: solid;
+            background-color: var(--sky-blue);
+        }
+
+        .memory-game {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 100%;
+            margin: 20px auto;
+        }
+        
+        .memory-game .card {
+            width: 100px;
+            height: 100px;
+            perspective: 1000px;
+            margin: 5px auto;
+            cursor: pointer;
+        }
+
+        .memory-game .card-inner {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .memory-game .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .memory-game .card-front, .memory-game .card-back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .memory-game .card-front {
+            background-color: var(--ocean-blue);
+            transform: rotateY(180deg);
+            color: var(--white);
+            font-size: 24px;
+        }
+
+        .memory-game .card-back {
+            background-color: var(--light-gray);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M30,20 Q45,5 60,20 T90,20 L90,80 Q75,95 60,80 T30,80 L30,20" fill="%232a6bb1" stroke="%23ffffff" stroke-width="2"/></svg>');
+            background-size: cover;
+        }
+
+        .game-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .game-button {
+            padding: 10px 20px;
+            background-color: var(--ocean-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .game-button:hover {
+            background-color: var(--deep-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Level selector */
+        .level-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .level-button {
+            padding: 8px 15px;
+            margin: 0 5px;
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .level-button:hover {
+            background-color: var(--light-blue);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .level-button.active {
+            background-color: var(--ocean-blue);
+            color: white;
+            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Game modal */
+        .game-modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            z-index: 100;
+            min-width: 250px;
+            animation: modal-appear 0.5s ease-out;
+        }
+        
+        @keyframes modal-appear {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        /* Interactive Ocean Map - New Version */
+        .ocean-explorer {
+            position: relative;
+            width: 100%;
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            margin: 30px 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .ocean-tabs {
+            display: flex;
+            background-color: var(--ocean-blue);
+            border-radius: 15px 15px 0 0;
+            overflow-x: auto;
+            scrollbar-width: none; /* Firefox */
+        }
+        
+        .ocean-tabs::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Edge */
+        }
+        
+        .ocean-tab {
+            padding: 15px 25px;
+            color: var(--white);
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            display: flex;
+            align-items: center;
+        }
+        
+        .ocean-tab.active {
+            background-color: var(--deep-blue);
+            border-bottom: 3px solid var(--white);
+        }
+        
+        .ocean-tab:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .ocean-tab-icon {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        
+        .ocean-content {
+            display: flex;
+            height: 400px;
+            position: relative;
+        }
+        
+        .ocean-visualization {
+            flex: 1;
+            position: relative;
+            background-color: var(--light-blue);
+            overflow: hidden;
+        }
+        
+        .ocean-info-panel {
+            width: 300px;
+            background-color: var(--white);
+            padding: 20px;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            z-index: 10;
+        }
+        
+        .ocean-info-panel h3 {
+            color: var(--deep-blue);
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--light-blue);
+            padding-bottom: 8px;
+        }
+        
+        .ocean-info-panel p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .ocean-feature-list {
+            margin-top: 20px;
+        }
+        
+        .ocean-feature {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: var(--sky-blue);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .ocean-feature:hover {
+            background-color: var(--light-blue);
+            color: var(--white);
+            transform: translateX(5px);
+        }
+        
+        .ocean-feature.active {
+            background-color: var(--ocean-blue);
+            color: var(--white);
+        }
+        
+        .ocean-animation-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .animated-creature {
+            position: absolute;
+            transition: all 15s linear;
+            z-index: 2;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
+        }
+        
+        .ocean-section-visual {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .ocean-section-visual.active {
+            opacity: 1;
+        }
+
+        /* Ocean Cleanup Game */
+        .ocean-cleanup-game {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(180deg, #88c1f2 0%, #297fc4 50%, #124776 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.2);
+        }
+        
+        .ocean-surface {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: linear-gradient(180deg, rgba(173, 216, 230, 0.7) 0%, rgba(135, 206, 235, 0.3) 100%);
+            z-index: 10;
+            pointer-events: none;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+        
+        .ocean-floor {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100"><path d="M0,50 C150,0 350,100 500,50 C650,0 850,100 1000,50 L1000,100 L0,100 Z" fill="%23d2b48c" /></svg>');
+            background-size: cover;
+            z-index: 3;
+        }
+        
+        .current {
+            position: absolute;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(90deg, rgba(173, 216, 230, 0) 0%, rgba(173, 216, 230, 0.2) 50%, rgba(173, 216, 230, 0) 100%);
+            animation: current-flow 8s infinite linear;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes current-flow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .trash-item {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.3));
+            animation: trash-float 6s infinite alternate ease-in-out;
+        }
+
+        .trash-item:hover {
+            transform: scale(1.2);
+            filter: brightness(1.2) drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.5));
+        }
+
+        .trash-item.collected {
+            animation: collect 0.7s forwards cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+        
+        .trash-item.large {
+            width: 70px;
+            height: 70px;
+            font-size: 1.5em;
+        }
+        
+        .trash-item.small {
+            width: 35px;
+            height: 35px;
+            font-size: 0.8em;
+        }
+
+        @keyframes trash-float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(10px, 5px) rotate(5deg); }
+            66% { transform: translate(-5px, 8px) rotate(-3deg); }
+            100% { transform: translate(5px, -5px) rotate(2deg); }
+        }
+
+        @keyframes collect {
+            0% { transform: scale(1); opacity: 1; }
+            30% { transform: scale(1.3); opacity: 0.8; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        .animal {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: 6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.3));
+            animation: float-animal 15s infinite alternate ease-in-out;
+        }
+        
+        .animal.swimming {
+            animation: swim-animal 20s infinite linear;
+        }
+
+        @keyframes float-animal {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(30px, 15px) rotate(5deg); }
+            50% { transform: translate(10px, -15px) rotate(-3deg); }
+            75% { transform: translate(-20px, 10px) rotate(2deg); }
+            100% { transform: translate(-10px, -20px) rotate(-2deg); }
+        }
+        
+        @keyframes swim-animal {
+            0% { left: -10%; }
+            100% { left: 110%; }
+        }
+
+        .bubbles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+            bottom: -20px;
+            pointer-events: none;
+            box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.9);
+        }
+        
+        .bubble.large {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .bubble.medium {
+            width: 12px;
+            height: 12px;
+        }
+        
+        .bubble.small {
+            width: 6px;
+            height: 6px;
+        }
+
+        @keyframes bubble-rise {
+            0% { bottom: -20px; opacity: 0.4; transform: translateX(0); }
+            20% { opacity: 0.8; transform: translateX(10px); }
+            40% { transform: translateX(-10px); }
+            60% { transform: translateX(5px); }
+            80% { opacity: 0.8; transform: translateX(-5px); }
+            100% { bottom: 120%; opacity: 0; transform: translateX(0); }
+        }
+        
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .game-level {
+            background-color: var(--deep-blue);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .game-lives {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .life-icon {
+            color: #e74c3c;
+            font-size: 20px;
+        }
+        
+        .game-timer {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 11;
+        }
+        
+        .feedback-message {
+            position: absolute;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            pointer-events: none;
+            z-index: 10;
+            animation: feedback-float 1.5s forwards;
+        }
+        
+        @keyframes feedback-float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-50px); opacity: 0; }
+        }
+
+        /* Species Matching */
+        .species-matching-game {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .species-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .species-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .species-image {
+            width: 100%;
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .species-info {
+            padding: 15px;
+        }
+
+        .species-name {
+            font-weight: bold;
+            color: var(--deep-blue);
+            margin-bottom: 5px;
+        }
+
+        .species-habitat {
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Activités de recherche */
+        .research-activity {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .research-activity h3 {
+            color: var(--deep-blue);
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--light-blue);
+            padding-bottom: 8px;
+        }
+
+        .research-activity p {
+            margin-bottom: 15px;
+        }
+
+        .research-activity ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .research-activity li {
+            margin-bottom: 10px;
+        }
+
+        .research-resources {
+            background-color: var(--sky-blue);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .research-resources h4 {
+            color: var(--deep-blue);
+            margin-bottom: 10px;
+        }
+
+        .research-resources a {
+            color: var(--ocean-blue);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .research-resources a:hover {
+            color: var(--deep-blue);
+            text-decoration: underline;
+        }
+
+        /* Matching Exercise */
+        .matching-exercise {
+            margin: 20px 0;
+        }
+
+        .matching-pairs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .matching-item {
+            background-color: var(--light-gray);
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: grab;
+            user-select: none;
+            transition: all 0.3s ease;
+        }
+
+        .matching-item:hover {
+            background-color: var(--light-blue);
+            color: var(--white);
+        }
+
+        .matching-item.selected {
+            background-color: var(--ocean-blue);
+            color: var(--white);
+        }
+
+        .matching-item.matched {
+            background-color: #4caf50;
+            color: white;
+            cursor: default;
+        }
+
+        .matching-feedback {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+
+        .matching-feedback.correct {
+            display: block;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+        }
+
+        .matching-feedback.incorrect {
+            display: block;
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+        }
+
+        /* Navigation */
+        .nav-menu {
+            background-color: var(--white);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            overflow-x: auto;
+            padding: 15px;
+            scroll-behavior: smooth;
+        }
+
+        .nav-item {
+            flex: 0 0 auto;
+            margin-right: 15px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 8px 15px;
+            color: var(--deep-blue);
+            text-decoration: none;
+            background-color: var(--light-gray);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            background-color: var(--light-blue);
+            color: var(--white);
+        }
+
+        .nav-link.active {
+            background-color: var(--ocean-blue);
+            color: var(--white);
+        }
+
+        /* Progress Tracker */
+        .progress-tracker {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .progress-header h3 {
+            color: var(--deep-blue);
+            margin: 0;
+        }
+
+        .progress-percentage {
+            font-weight: bold;
+            color: var(--ocean-blue);
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: var(--light-gray);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--ocean-blue), var(--light-blue));
+            border-radius: 5px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .progress-sections {
+            margin-top: 15px;
+        }
+
+        .progress-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .progress-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .section-name {
+            color: var(--medium-gray);
+        }
+
+        .section-status {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+        }
+
+        .section-status.completed {
+            background-color: #4caf50;
+        }
+
+        .section-status.in-progress {
+            background: linear-gradient(90deg, #4caf50 50%, var(--light-gray) 50%);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>De la Vie Planctonique aux Technologies Innovantes : Un Parcours Éducatif des Océans</h1>
+        <p>Découvrez les écosystèmes marins, le rôle essentiel du plancton et les solutions pour préserver nos océans</p>
+        <button id="dark-mode-toggle" class="dark-mode-btn" aria-label="Basculer en mode sombre">
+            <span class="mode-icon light-mode-icon">🌞</span>
+            <span class="mode-icon dark-mode-icon">🌙</span>
+        </button>
+        <button id="dyslexic-font-toggle" class="dyslexic-font-btn" aria-label="Basculer la police dyslexique">
+            Police Dys
+        </button>
+        <div class="wave-animation"></div>
+    </header>
+
+    <div class="container">
+
+
+        <div class="nav-menu">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#introduction" class="nav-link active">Introduction</a></li>
+                <li class="nav-item"><a href="#ecosystemes" class="nav-link">Écosystèmes marins</a></li>
+                <li class="nav-item"><a href="#defis" class="nav-link">Défis environnementaux</a></li>
+                <li class="nav-item"><a href="#innovations" class="nav-link">Innovations technologiques</a></li>
+                <li class="nav-item"><a href="#zone-interactives" class="nav-link">Zone interactive</a></li>
+                <li class="nav-item"><a href="#quiz" class="nav-link">Quiz</a></li>
+                <li class="nav-item"><a href="#activites" class="nav-link">Activités</a></li>
+            </ul>
+        </div>
+
+        <div id="introduction" class="chapter">
+            <h2>Introduction</h2>
+            <p>Les océans couvrent plus de 70% de la surface de notre planète et jouent un rôle essentiel dans la régulation du climat, la production d'oxygène et le maintien de la biodiversité. Cependant, ils font face à de nombreux défis causés par les activités humaines.</p>
+            
+            <div class="image-container floating">
+                <img src="https://images.unsplash.com/photo-1694629555192-b248d606a73a?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Océan et pollution plastique" style="max-width: 90%;">
+                <p class="image-caption">Les océans sont menacés par la pollution plastique et d'autres activités humaines</p>
+            </div>
+
+            <h3>L'importance des océans</h3>
+            <p>Les océans sont essentiels à la survie de notre planète et de ses habitants pour plusieurs raisons :</p>
+            <ul>
+                <li>Ils produisent plus de 50% de l'oxygène que nous respirons grâce au phytoplancton</li>
+                <li>Ils absorbent environ 30% du dioxyde de carbone produit par les activités humaines</li>
+                <li>Ils régulent le climat mondial en transportant la chaleur des régions équatoriales vers les pôles</li>
+                <li>Ils abritent une biodiversité exceptionnelle avec plus d'un million d'espèces animales et végétales</li>
+                <li>Ils fournissent une source de nourriture pour plus de 3 milliards de personnes</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>Le saviez-vous ?</h4>
+                <p>Les océans contiennent 97% de l'eau de notre planète et représentent 99% de l'espace habitable sur Terre en volume. Pourtant, moins de 5% des océans ont été explorés en détail par les humains !</p>
+            </div>
+
+            <h3>Les défis actuels</h3>
+            <p>Malgré leur importance cruciale, les océans sont confrontés à de nombreux défis qui menacent leur équilibre et leur santé :</p>
+            <ul>
+                <li>La pollution plastique et chimique</li>
+                <li>Le réchauffement climatique et l'acidification des océans</li>
+                <li>La surpêche et la destruction des habitats marins</li>
+                <li>L'élévation du niveau de la mer</li>
+                <li>Les espèces invasives</li>
+            </ul>
+
+            <p>Dans ce cours, nous explorerons ces défis en détail et découvrirons les solutions technologiques innovantes qui sont développées pour protéger nos océans et assurer leur avenir.</p>
+
+            <div class="interactive-element">
+                <h4>Explorez les profondeurs des océans <span class="toggle-icon">▼</span></h4>
+                <div class="content">
+                    <p>Les océans sont divisés en plusieurs zones en fonction de leur profondeur :</p>
+                    <ul>
+                        <li><strong>Zone épipélagique (0-200m)</strong> : C'est la zone où la lumière pénètre, permettant la photosynthèse. On y trouve la plus grande diversité d'espèces marines.</li>
+                        <li><strong>Zone mésopélagique (200-1000m)</strong> : Aussi appelée "zone crépusculaire", où la lumière est faible. De nombreuses espèces y remontent la nuit pour se nourrir.</li>
+                        <li><strong>Zone bathypélagique (1000-4000m)</strong> : Zone d'obscurité totale, où vivent des créatures bioluminescentes fascinantes.</li>
+                        <li><strong>Zone abyssopélagique (4000-6000m)</strong> : Pression extrême et températures froides. Des écosystèmes uniques s'y développent autour des sources hydrothermales.</li>
+                        <li><strong>Zone hadopélagique (au-delà de 6000m)</strong> : Les fosses océaniques les plus profondes, comme la fosse des Mariannes (11 000m).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="ecosystemes" class="chapter">
+            <h2>Écosystèmes marins</h2>
+            <p>Les océans abritent une variété incroyable d'écosystèmes, chacun avec ses propres caractéristiques et sa biodiversité unique. Ces écosystèmes sont interconnectés et contribuent ensemble à l'équilibre de notre planète.</p>
+
+            <div class="image-container floating">
+                <img src="https://images.unsplash.com/photo-1572594417697-0764e4e7ee1e?q=80&w=2274&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Récif corallien" style="max-width: 90%;">
+                <p class="image-caption">Les récifs coralliens sont parmi les écosystèmes les plus riches en biodiversité sur Terre</p>
+            </div>
+
+            <h3>Les récifs coralliens</h3>
+            <p>Souvent appelés "forêts tropicales des mers", les récifs coralliens couvrent moins de 1% des fonds marins mais abritent près de 25% de toutes les espèces marines.</p>
+            <ul>
+                <li>Ils sont formés par des colonies de minuscules animaux appelés polypes coralliens</li>
+                <li>Ils offrent un habitat à plus de 4 000 espèces de poissons et des milliers d'autres organismes</li>
+                <li>Ils protègent les côtes contre l'érosion et les tempêtes</li>
+                <li>Ils sont très sensibles au réchauffement des océans et à l'acidification</li>
+            </ul>
+
+            <h3>Les forêts de kelp</h3>
+            <p>Les forêts de kelp sont des écosystèmes dominés par de grandes algues brunes appelées kelp, qui peuvent croître jusqu'à 60 cm par jour dans des conditions optimales.</p>
+            <ul>
+                <li>Elles servent de nurserie et d'abri pour de nombreuses espèces marines</li>
+                <li>Elles réduisent l'érosion côtière en atténuant la force des vagues</li>
+                <li>Elles absorbent de grandes quantités de CO2, aidant à lutter contre le changement climatique</li>
+                <li>Elles sont menacées par le réchauffement des océans et la surpopulation d'oursins</li>
+            </ul>
+
+            <h3>Les prairies sous-marines</h3>
+            <p>Les prairies sous-marines sont composées de plantes à fleurs (angiospermes) qui se sont adaptées à la vie sous-marine.</p>
+            <ul>
+                <li>Elles stockent le carbone jusqu'à 35 fois plus rapidement que les forêts tropicales</li>
+                <li>Elles stabilisent les sédiments marins et améliorent la qualité de l'eau</li>
+                <li>Elles servent de nurserie pour de nombreuses espèces commerciales importantes</li>
+                <li>Elles sont en déclin dans le monde entier en raison du développement côtier et de la pollution</li>
+            </ul>
+
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="tab1">Mangroves</button>
+                    <button class="tab-button" data-tab="tab2">Zones pélagiques</button>
+                    <button class="tab-button" data-tab="tab3">Sources hydrothermales</button>
+                </div>
+                <div id="tab1" class="tab-content active">
+                    <h4>Les mangroves</h4>
+                    <p>Les mangroves sont des forêts côtières qui poussent dans les zones intertidales des régions tropicales et subtropicales.</p>
+                    <ul>
+                        <li>Elles protègent les côtes contre l'érosion et les tempêtes</li>
+                        <li>Elles séquestrent jusqu'à quatre fois plus de carbone que les forêts terrestres</li>
+                        <li>Elles filtrent les polluants et améliorent la qualité de l'eau</li>
+                        <li>Elles sont menacées par l'aquaculture, le développement côtier et la montée du niveau de la mer</li>
+                    </ul>
+                </div>
+                <div id="tab2" class="tab-content">
+                    <h4>Les zones pélagiques</h4>
+                    <p>Les zones pélagiques représentent la colonne d'eau des océans ouverts, loin des côtes et des fonds marins.</p>
+                    <ul>
+                        <li>Elles abritent une grande diversité d'organismes, du plancton microscopique aux plus grands animaux de la planète comme les baleines</li>
+                        <li>Le phytoplancton qui y vit produit plus de la moitié de l'oxygène atmosphérique</li>
+                        <li>Elles sont affectées par le réchauffement climatique, l'acidification et la pollution</li>
+                    </ul>
+                </div>
+                <div id="tab3" class="tab-content">
+                    <h4>Les sources hydrothermales</h4>
+                    <p>Les sources hydrothermales sont des fissures dans le fond marin d'où s'échappe de l'eau géothermiquement chauffée.</p>
+                    <ul>
+                        <li>Elles soutiennent des écosystèmes uniques basés sur la chimiosynthèse plutôt que la photosynthèse</li>
+                        <li>Elles abritent des espèces extrêmophiles qui peuvent survivre dans des conditions extrêmes</li>
+                        <li>Leur découverte a révolutionné notre compréhension de l'origine de la vie sur Terre</li>
+                        <li>Elles sont menacées par l'exploitation minière des fonds marins</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Le saviez-vous ?</h4>
+                <p>Le phytoplancton, composé de minuscules organismes photosynthétiques flottant dans les océans, est responsable de la production de 50-85% de l'oxygène sur Terre. Chaque souffle que nous prenons dépend en grande partie de ces organismes microscopiques !</p>
+            </div>
+
+            <!-- Début de la section sur le plancton -->
+            <h3>Le monde du plancton</h3>
+            <p>Le plancton, bien que souvent invisible à l'œil nu, constitue le fondement même de presque toutes les chaînes alimentaires marines. Ces organismes microscopiques jouent un rôle crucial dans l'équilibre de nos océans et de notre planète entière.</p>
+
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="phytoplankton">Phytoplancton</button>
+                    <button class="tab-button" data-tab="zooplankton">Zooplancton</button>
+                </div>
+                
+                <div id="phytoplankton" class="tab-content active">
+                    <div class="image-container floating">
+                        <img src="https://images.unsplash.com/photo-1721041872585-704368ab898f?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Phytoplancton" style="max-width: 90%;">
+                        <p class="image-caption">Le phytoplancton forme la base des écosystèmes marins et produit une grande partie de l'oxygène terrestre</p>
+                    </div>
+                    <h4>Qu'est-ce que le phytoplancton ?</h4>
+                    <p>Le phytoplancton comprend des organismes microscopiques capables de photosynthèse, comme les diatomées, les dinoflagellés et les cyanobactéries. Ces minuscules "plantes" marines constituent la base de presque toutes les chaînes alimentaires océaniques.</p>
+                    <p>Bien que microscopiques individuellement, ces organismes peuvent former des colonies visibles depuis l'espace lorsqu'ils prolifèrent, colorant les océans en vert, rouge ou turquoise.</p>
+                    
+                    <h4>Importance écologique du phytoplancton</h4>
+                    <ul>
+                        <li>Production d'oxygène : Le phytoplancton produit environ 50-85% de l'oxygène atmosphérique de notre planète, soit davantage que toutes les forêts terrestres réunies.</li>
+                        <li>Régulation climatique : En absorbant le CO2 atmosphérique, il joue un rôle crucial dans la régulation du climat mondial.</li>
+                        <li>Base alimentaire : Il sert de nourriture au zooplancton et, par extension, à presque tous les animaux marins directement ou indirectement.</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <h4>Le saviez-vous ?</h4>
+                        <p>Une seule goutte d'eau de mer peut contenir des milliers d'individus de phytoplancton. Malgré leur taille microscopique, ces organismes ont un impact planétaire sur la chimie de l'atmosphère et des océans.</p>
+                    </div>
+                </div>
+                
+                <div id="zooplankton" class="tab-content">
+                    <div class="image-container floating">
+                        <img src="https://images.unsplash.com/photo-1606858426196-8b11ccef37f3?q=80&w=2535&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Zooplancton" style="max-width: 90%;">
+                        <p class="image-caption">Le zooplancton est composé d'une variété impressionnante d'organismes marins microscopiques</p>
+                    </div>
+                    <h4>Qu'est-ce que le zooplancton ?</h4>
+                    <p>Le zooplancton comprend une variété impressionnante d'animaux microscopiques, comme les copépodes, le krill, les larves de poissons et d'autres invertébrés marins. Contrairement au phytoplancton, ces organismes ne peuvent pas produire leur propre nourriture et doivent se nourrir d'autres organismes.</p>
+                    <p>Certaines espèces de zooplancton, comme le krill, forment d'immenses essaims pesant plusieurs tonnes, qui nourrissent les plus grands animaux de la planète, notamment les baleines à fanons.</p>
+                    
+                    <h4>Importance écologique du zooplancton</h4>
+                    <ul>
+                        <li>Maillon essentiel : Il constitue le lien critique entre le phytoplancton et les animaux marins de plus grande taille.</li>
+                        <li>Migration verticale : Beaucoup d'espèces de zooplancton effectuent des migrations quotidiennes entre les profondeurs (jour) et la surface (nuit), contribuant ainsi au transport vertical de nutriments.</li>
+                        <li>Biodiversité : Le zooplancton présente une diversité exceptionnelle de formes et d'adaptations, témoignant de millions d'années d'évolution.</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <h4>Le saviez-vous ?</h4>
+                        <p>La plus grande migration animale quotidienne sur Terre n'est pas visible à l'œil nu. Chaque nuit, des trillions d'organismes zooplanctoniques montent vers la surface des océans pour se nourrir avant de redescendre dans les profondeurs à l'aube pour échapper aux prédateurs.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="image-container floating">
+                <img src="https://img.freepik.com/vecteurs-libre/icones-luminescentes-couleur-plancton-definies-style-cartoon-fond-noir-illustration-isole_1284-28747.jpg?t=st=1743707606~exp=1743711206~hmac=f03e85d3b71eceeffce0a85b55d13e462ce0a5e54b75bea56bb455e33fc723d4&w=900" alt="Différents types de plancton" style="max-width: 90%;">
+                <p class="image-caption">Diverses formes et types de plancton présents dans nos océans</p>
+            </div>
+            
+            <div class="highlight-box">
+                <h4>Menaces pour le plancton</h4>
+                <p>Le plancton fait face à plusieurs menaces :
+                <ul>
+                    <li>L'acidification des océans affecte particulièrement les organismes planctoniques à coquille calcaire</li>
+                    <li>Le réchauffement climatique modifie la distribution et l'abondance du plancton</li>
+                    <li>Les microplastiques et polluants chimiques sont ingérés par le plancton et entrent ainsi dans la chaîne alimentaire</li>
+                </ul>
+                </p>
+            </div>
+            <!-- Fin de la section sur le plancton -->
+        </div>
+
+        <div id="defis" class="chapter">
+            <h2>Défis environnementaux</h2>
+            <p>Les océans font face à des défis environnementaux sans précédent, principalement causés par les activités humaines. Comprendre ces menaces est essentiel pour développer des solutions efficaces.</p>
+
+            <div class="image-container floating">
+                <img src="https://images.unsplash.com/photo-1719754522908-7c7e65da1cfb?q=80&w=2274&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Pollution plastique dans l'océan" style="max-width: 90%;">
+                <p class="image-caption">La pollution plastique est l'un des plus grands défis pour nos océans</p>
+            </div>
+
+            <h3>La pollution plastique</h3>
+            <p>Chaque année, environ 8 millions de tonnes de plastique finissent dans les océans, causant des dommages immenses aux écosystèmes marins.</p>
+            <ul>
+                <li>Les microplastiques (particules < 5mm) sont ingérés par les organismes marins et peuvent entrer dans la chaîne alimentaire</li>
+                <li>Les macroplastiques causent l'étranglement, l'étouffement et la noyade de nombreuses espèces marines</li>
+                <li>Le "7e continent" ou "Grande plaque de déchets du Pacifique" est une zone d'accumulation de déchets plastiques couvrant plus de 1,6 million de km²</li>
+                <li>Le plastique peut mettre jusqu'à 1000 ans pour se décomposer dans l'environnement marin</li>
+            </ul>
+
+            <h3>Le réchauffement des océans</h3>
+            <p>Les océans ont absorbé plus de 90% de la chaleur excédentaire générée par les activités humaines depuis 1970.</p>
+            <ul>
+                <li>Le réchauffement des océans provoque le blanchissement des coraux, un phénomène où les coraux expulsent les algues symbiotiques qui leur fournissent nourriture et couleur</li>
+                <li>Il modifie la distribution des espèces marines, certaines se déplaçant vers les pôles à la recherche d'eaux plus froides</li>
+                <li>Il réduit la quantité d'oxygène dissous dans l'eau, créant des "zones mortes" où peu d'organismes peuvent survivre</li>
+                <li>Il contribue à l'intensification des tempêtes et ouragans</li>
+            </ul>
+
+            <h3>L'acidification des océans</h3>
+            <p>L'acidification des océans est causée par l'absorption du CO2 atmosphérique, qui réagit avec l'eau pour former de l'acide carbonique.</p>
+            <ul>
+                <li>Le pH des océans a diminué d'environ 0,1 unité depuis le début de l'ère industrielle, ce qui représente une augmentation de 30% de l'acidité</li>
+                <li>Elle affecte la capacité des organismes marins à former des coquilles et des squelettes en carbonate de calcium</li>
+                <li>Elle perturbe les systèmes sensoriels de certaines espèces de poissons, affectant leur comportement</li>
+                <li>Si les émissions de CO2 continuent au rythme actuel, l'acidité des océans pourrait augmenter de 150% d'ici 2100</li>
+            </ul>
+
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4>1950-1970</h4>
+                        <p>Début de la production de masse de plastiques à usage unique. Premières observations de débris plastiques dans les océans.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h4>1980-1990</h4>
+                        <p>Premiers rapports sur le blanchissement massif des coraux. Découverte des "zones mortes" océaniques liées aux pollutions agricoles.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4>1997</h4>
+                        <p>Découverte de la "Grande plaque de déchets du Pacifique" par Charles Moore.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h4>2016-2017</h4>
+                        <p>Plus grand événement mondial de blanchissement des coraux jamais enregistré, affectant 75% des récifs.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4>2020-Présent</h4>
+                        <p>Accélération des politiques de réduction du plastique à usage unique. Développement de technologies de nettoyage des océans.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>La surpêche</h3>
+            <p>La surpêche se produit lorsque les poissons sont capturés plus rapidement qu'ils ne peuvent se reproduire. Selon la FAO, environ 33% des stocks de poissons dans le monde sont surexploités.</p>
+            <ul>
+                <li>Elle menace la sécurité alimentaire de millions de personnes qui dépendent des produits de la mer comme source principale de protéines</li>
+                <li>Elle perturbe les chaînes alimentaires marines et peut provoquer des effets en cascade dans les écosystèmes</li>
+                <li>Les méthodes de pêche destructrices comme le chalutage de fond endommagent les habitats marins</li>
+                <li>Les prises accessoires (captures non ciblées) représentent jusqu'à 40% des prises mondiales et sont souvent rejetées mortes à la mer</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>Le saviez-vous ?</h4>
+                <p>Si les tendances actuelles se poursuivent, il pourrait y avoir plus de plastique que de poissons dans les océans (en poids) d'ici 2050, selon un rapport de la Fondation Ellen MacArthur.</p>
+            </div>
+        </div>
+
+        <div id="innovations" class="chapter">
+            <h2>Innovations technologiques</h2>
+            <p>Face aux défis environnementaux qui menacent nos océans, des solutions technologiques innovantes sont développées pour aider à protéger et restaurer les écosystèmes marins.</p>
+
+            <div class="image-container floating">
+                <img src="https://plus.unsplash.com/premium_photo-1661962314230-482335d7aebf?q=80&w=2342&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Technologies de protection des océans" style="max-width: 90%; border-radius: 12px; box-shadow: 0 8px 20px rgba(0, 51, 102, 0.15);">
+                <p class="image-caption">Les innovations technologiques sont essentielles pour la préservation des écosystèmes marins</p>
+            </div>
+
+            <h3>Systèmes de nettoyage des océans</h3>
+            <p>Plusieurs technologies ont été développées pour collecter les déchets plastiques dans les océans :</p>
+            <ul>
+                <li><strong>The Ocean Cleanup</strong> : Un système de barrières flottantes qui concentre les plastiques pour faciliter leur collecte</li>
+                <li><strong>Seabin Project</strong> : Des "poubelles marines" qui filtrent l'eau en continu pour capturer les déchets, microplastiques et même les huiles</li>
+                <li><strong>Mr. Trash Wheel</strong> : Une roue à aubes alimentée par l'énergie solaire qui collecte les déchets dans les ports et les rivières</li>
+                <li><strong>Robots aquatiques</strong> : Des robots autonomes qui identifient et collectent les déchets en utilisant l'intelligence artificielle</li>
+            </ul>
+
+            <h3>Surveillance et cartographie des océans</h3>
+            <p>Des technologies avancées permettent de mieux comprendre et surveiller la santé des océans :</p>
+            <ul>
+                <li><strong>Drones sous-marins</strong> : Des véhicules autonomes qui peuvent cartographier les fonds marins et collecter des données</li>
+                <li><strong>Satellites océanographiques</strong> : Surveillent la température, les courants, la couleur et la hauteur des océans</li>
+                <li><strong>Réseaux de capteurs flottants</strong> : Fournissent des données en temps réel sur divers paramètres océaniques</li>
+                <li><strong>ADN environnemental (eDNA)</strong> : Permet d'identifier les espèces présentes dans un environnement à partir de simples échantillons d'eau</li>
+            </ul>
+
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="tech1">Récifs artificiels</button>
+                    <button class="tab-button" data-tab="tech2">Aquaculture durable</button>
+                    <button class="tab-button" data-tab="tech3">Énergies marines</button>
+                </div>
+                <div id="tech1" class="tab-content active">
+                    <h4>Récifs artificiels imprimés en 3D</h4>
+                    <p>Des structures imprimées en 3D sont conçues pour imiter les caractéristiques des récifs coralliens naturels :</p>
+                    <ul>
+                        <li>Elles sont fabriquées à partir de matériaux respectueux de l'environnement comme le sable calcaire ou les céramiques</li>
+                        <li>Leur conception complexe offre des habitats adaptés à différentes espèces marines</li>
+                        <li>Elles peuvent être personnalisées pour des conditions locales spécifiques</li>
+                        <li>Des projets comme Reef Design Lab ont déjà déployé des récifs artificiels dans plusieurs pays</li>
+                    </ul>
+                </div>
+                <div id="tech2" class="tab-content">
+                    <h4>Aquaculture durable</h4>
+                    <p>De nouvelles méthodes d'aquaculture visent à réduire l'impact environnemental de la production de fruits de mer :</p>
+                    <ul>
+                        <li><strong>Aquaculture multitrophique intégrée</strong> : Combine différentes espèces qui se nourrissent à différents niveaux trophiques pour créer un système plus équilibré</li>
+                        <li><strong>Aquaculture offshore</strong> : Installations situées en pleine mer pour réduire la pollution côtière</li>
+                        <li><strong>Culture d'algues</strong> : Produit des aliments nutritifs tout en absorbant le CO2 et l'azote excédentaire</li>
+                        <li><strong>Systèmes de recirculation</strong> : Réduisent la consommation d'eau et les rejets de déchets</li>
+                    </ul>
+                </div>
+                <div id="tech3" class="tab-content">
+                    <h4>Énergies marines renouvelables</h4>
+                    <p>L'océan offre un potentiel immense pour la production d'énergie renouvelable :</p>
+                    <ul>
+                        <li><strong>Énergie des vagues</strong> : Convertit l'énergie cinétique des vagues en électricité</li>
+                        <li><strong>Énergie marémotrice</strong> : Exploite les mouvements des marées pour générer de l'électricité</li>
+                        <li><strong>Énergie thermique des mers</strong> : Utilise la différence de température entre les eaux de surface et les eaux profondes</li>
+                        <li><strong>Éoliennes offshore</strong> : Profitent des vents plus constants et plus forts en mer</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Plastiques biodégradables et alternatives</h3>
+            <p>Pour réduire la pollution plastique à sa source, des alternatives innovantes sont développées :</p>
+            <ul>
+                <li><strong>Plastiques biodégradables marins</strong> : Conçus pour se décomposer naturellement dans l'environnement marin</li>
+                <li><strong>Matériaux à base d'algues</strong> : Peuvent remplacer les emballages plastiques traditionnels</li>
+                <li><strong>Bioplastiques</strong> : Fabriqués à partir de ressources renouvelables comme l'amidon de maïs ou la canne à sucre</li>
+                <li><strong>Emballages comestibles</strong> : Élimine complètement le besoin de gestion des déchets</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>Le saviez-vous ?</h4>
+                <p>La "ferme marine verticale" est un concept innovant qui combine l'aquaculture, la culture d'algues et l'énergie renouvelable dans une structure flottante. Ces fermes pourraient produire des aliments de manière durable tout en absorbant le CO2 et en fournissant des habitats pour la vie marine.</p>
+            </div>
+        </div>
+
+        <div id="zone-interactives" class="chapter">
+            <h2>Zone interactive</h2>
+            <p>Explorez les océans de manière interactive grâce à ces outils éducatifs et amusants.</p>
+
+            <h3>Carte interactive des océans</h3>
+            <div class="ocean-explorer">
+                <div class="ocean-tabs">
+                    <div class="ocean-tab active" data-section="surface">
+                        <span class="ocean-tab-icon">🌊</span> Surface
+                    </div>
+                    <div class="ocean-tab" data-section="middle">
+                        <span class="ocean-tab-icon">🐬</span> Zone Médiane
+                    </div>
+                    <div class="ocean-tab" data-section="deep">
+                        <span class="ocean-tab-icon">🦑</span> Zone Abyssale
+                    </div>
+                    <div class="ocean-tab" data-section="hotspots">
+                        <span class="ocean-tab-icon">⚠️</span> Zones Critiques
+                    </div>
+                    <div class="ocean-tab" data-section="currents">
+                        <span class="ocean-tab-icon">↻</span> Courants Marins
+                    </div>
+                </div>
+                
+                <div class="ocean-content">
+                    <div class="ocean-visualization">
+                        <!-- Fond d'océan pour chaque section -->
+                        <div class="ocean-section-visual active" id="surface-visual" style="background-color: #3498db;">
+                            <!-- Vagues en CSS plutôt qu'en SVG -->
+                            <div style="position: absolute; top: 20%; left: 0; width: 100%; height: 30px; background-color: rgba(41, 128, 185, 0.5); border-radius: 50% 50% 0 0;"></div>
+                            <div style="position: absolute; top: 35%; left: 0; width: 100%; height: 40px; background-color: rgba(41, 128, 185, 0.4); border-radius: 50% 50% 0 0;"></div>
+                            <div style="position: absolute; top: 50%; left: 0; width: 100%; height: 50px; background-color: rgba(41, 128, 185, 0.3); border-radius: 50% 50% 0 0;"></div>
+                        </div>
+                        
+                        <div class="ocean-section-visual" id="middle-visual" style="background-color: #2980b9;">
+                            <!-- Vagues en CSS plutôt qu'en SVG -->
+                            <div style="position: absolute; top: 10%; left: 0; width: 100%; height: 40px; background-color: rgba(31, 97, 141, 0.5); border-radius: 50% 50% 0 0;"></div>
+                            <div style="position: absolute; top: 30%; left: 0; width: 100%; height: 60px; background-color: rgba(31, 97, 141, 0.4); border-radius: 50% 50% 0 0;"></div>
+                            <div style="position: absolute; top: 50%; left: 0; width: 100%; height: 80px; background-color: rgba(31, 97, 141, 0.3); border-radius: 50% 50% 0 0;"></div>
+                        </div>
+                        
+                        <div class="ocean-section-visual" id="deep-visual" style="background-color: #1a5276;">
+                            <!-- Vagues en CSS plutôt qu'en SVG -->
+                            <div style="position: absolute; top: 15%; left: 0; width: 100%; height: 50px; background-color: rgba(21, 67, 96, 0.5); border-radius: 50% 50% 0 0;"></div>
+                            <div style="position: absolute; top: 35%; left: 0; width: 100%; height: 70px; background-color: rgba(21, 67, 96, 0.4); border-radius: 50% 50% 0 0;"></div>
+                            <div style="position: absolute; top: 60%; left: 0; width: 100%; height: 90px; background-color: rgba(21, 67, 96, 0.3); border-radius: 50% 50% 0 0;"></div>
+                        </div>
+                        
+                        <div class="ocean-section-visual" id="hotspots-visual" style="background-color: #3498db;">
+                            <!-- Points de danger en CSS plutôt qu'en SVG -->
+                            <div style="position: absolute; top: 20%; left: 15%; width: 30px; height: 30px; background-color: #e74c3c; border-radius: 50%; opacity: 0.8;"></div>
+                            <div style="position: absolute; top: 40%; left: 70%; width: 40px; height: 40px; background-color: #e74c3c; border-radius: 50%; opacity: 0.8;"></div>
+                            <div style="position: absolute; top: 60%; left: 40%; width: 35px; height: 35px; background-color: #e74c3c; border-radius: 50%; opacity: 0.8;"></div>
+                            <div style="position: absolute; top: 80%; left: 20%; width: 25px; height: 25px; background-color: #e74c3c; border-radius: 50%; opacity: 0.8;"></div>
+                            <div style="position: absolute; top: 10%; left: 80%; width: 20px; height: 20px; background-color: #e74c3c; border-radius: 50%; opacity: 0.8;"></div>
+                        </div>
+                        
+                        <div class="ocean-section-visual" id="currents-visual" style="background-color: #3498db;">
+                            <!-- Courants en CSS plutôt qu'en SVG -->
+                            <div style="position: absolute; top: 20%; left: 0; width: 100%; height: 5px; background-color: rgba(255, 255, 255, 0.6); transform: rotate(2deg);"></div>
+                            <div style="position: absolute; top: 40%; left: 0; width: 100%; height: 5px; background-color: rgba(255, 255, 255, 0.6); transform: rotate(-1deg);"></div>
+                            <div style="position: absolute; top: 60%; left: 0; width: 100%; height: 5px; background-color: rgba(255, 255, 255, 0.6); transform: rotate(1deg);"></div>
+                            <div style="position: absolute; top: 80%; left: 0; width: 100%; height: 5px; background-color: rgba(255, 255, 255, 0.6); transform: rotate(-2deg);"></div>
+                        </div>
+                        
+                        <div class="ocean-animation-layer" id="animation-layer">
+                            <!-- Les éléments animés seront ajoutés ici par JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="ocean-info-panel">
+                        <div class="ocean-info" id="surface-info">
+                            <h3>Zone de Surface</h3>
+                            <p>La zone épipélagique ou zone de surface s'étend jusqu'à 200 mètres de profondeur. C'est la zone la plus riche en biodiversité grâce à la lumière du soleil qui permet la photosynthèse.</p>
+                            
+                            <div class="ocean-feature-list">
+                                <div class="ocean-feature" data-feature="coral">Récifs coralliens</div>
+                                <div class="ocean-feature" data-feature="plankton">Plancton et microorganismes</div>
+                                <div class="ocean-feature" data-feature="coastal">Écosystèmes côtiers</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ocean-info" id="middle-info" style="display: none;">
+                            <h3>Zone Médiane</h3>
+                            <p>La zone mésopélagique (200-1000m) est aussi appelée zone crépusculaire. La lumière y est faible, et on y trouve des espèces adaptées à ces conditions particulières.</p>
+                            
+                            <div class="ocean-feature-list">
+                                <div class="ocean-feature" data-feature="migration">Migration verticale</div>
+                                <div class="ocean-feature" data-feature="bioluminescence">Bioluminescence</div>
+                                <div class="ocean-feature" data-feature="predators">Prédateurs de moyenne profondeur</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ocean-info" id="deep-info" style="display: none;">
+                            <h3>Zone Abyssale</h3>
+                            <p>Au-delà de 1000m, ces zones profondes représentent plus de 80% de l'habitat océanique. Obscurité totale, pression extrême et températures froides caractérisent cet environnement.</p>
+                            
+                            <div class="ocean-feature-list">
+                                <div class="ocean-feature" data-feature="trench">Fosses océaniques</div>
+                                <div class="ocean-feature" data-feature="vents">Sources hydrothermales</div>
+                                <div class="ocean-feature" data-feature="deep-creatures">Créatures abyssales</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ocean-info" id="hotspots-info" style="display: none;">
+                            <h3>Zones Critiques</h3>
+                            <p>Certaines zones des océans sont particulièrement menacées ou présentent des caractéristiques uniques qui nécessitent notre attention.</p>
+                            
+                            <div class="ocean-feature-list">
+                                <div class="ocean-feature" data-feature="great-barrier">Grande Barrière de Corail</div>
+                                <div class="ocean-feature" data-feature="garbage-patch">Grande plaque de déchets du Pacifique</div>
+                                <div class="ocean-feature" data-feature="dead-zones">Zones mortes</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ocean-info" id="currents-info" style="display: none;">
+                            <h3>Courants Marins</h3>
+                            <p>Les courants océaniques sont essentiels pour réguler le climat global, redistribuer la chaleur et les nutriments, et faciliter la vie marine.</p>
+                            
+                            <div class="ocean-feature-list">
+                                <div class="ocean-feature" data-feature="gulf-stream">Gulf Stream</div>
+                                <div class="ocean-feature" data-feature="global-conveyor">Circulation thermohaline</div>
+                                <div class="ocean-feature" data-feature="el-nino">El Niño et La Niña</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Nettoyage de l'océan - Jeu interactif</h3>
+            <div class="game-container">
+                <div class="game-header">
+                    <h3>Nettoyons l'océan</h3>
+                    <div class="game-score">Score: <span id="cleanup-score">0</span></div>
+                </div>
+                <p>Cliquez sur les déchets pour les collecter. Attention à ne pas cliquer sur les animaux marins !</p>
+                <div class="image-container floating" style="margin-bottom: 15px;">
+                    <img src="https://images.unsplash.com/photo-1719754519931-0e5763a44d36?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Pollution plastique dans l'océan" style="max-width: 90%; border-radius: 12px; box-shadow: 0 8px 20px rgba(0, 51, 102, 0.15);">
+                    <p class="image-caption">La pollution plastique représente une grave menace pour les océans et la vie marine</p>
+                </div>
+                <div class="level-selector">
+                    <button class="level-button" data-level="facile">Facile</button>
+                    <button class="level-button active" data-level="moyen">Moyen</button>
+                    <button class="level-button" data-level="difficile">Difficile</button>
+                </div>
+                <div class="game-info">
+                    <div class="game-level">Niveau: <span id="current-level">Moyen</span></div>
+                    <div class="game-lives">Vies: <span id="lives-count">3</span> <span class="life-icon">❤️</span></div>
+                </div>
+                <div class="ocean-cleanup-game" id="ocean-cleanup">
+                    <div class="ocean-surface"></div>
+                    <div class="ocean-floor"></div>
+                    <div class="current"></div>
+                    <div class="game-timer" id="game-timer">60</div>
+                    <div class="bubbles" id="bubbles-container"></div>
+                </div>
+                <div class="game-buttons">
+                    <button class="game-button" id="start-cleanup">Commencer</button>
+                    <button class="game-button" id="reset-cleanup">Recommencer</button>
+                </div>
+            </div>
+
+            <h3>Quiz interactif sur les animaux marins</h3>
+            <div class="game-container">
+                <div class="game-header">
+                    <h3>Quiz des espèces marines</h3>
+                    <div class="game-score">Score: <span id="species-score">0</span>/5</div>
+                </div>
+                <div id="species-game">
+                    <div id="species-question">
+                        <p>Identifiez cette espèce marine et son habitat :</p>
+                        <div class="image-container">
+                            <img id="species-image" src="https://images.unsplash.com/photo-1580603474920-aa3332b2c40f?q=80&w=2515&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Espèce marine" style="max-width: 90%; border-radius: 12px; box-shadow: 0 8px 20px rgba(0, 51, 102, 0.15);">
+                        </div>
+                    </div>
+                    <div id="species-options">
+                        <div class="quiz-option" data-correct="false">Requin-baleine - Eau profonde</div>
+                        <div class="quiz-option" data-correct="true">Tortue de mer - Récifs coralliens</div>
+                        <div class="quiz-option" data-correct="false">Mérou - Mangroves</div>
+                        <div class="quiz-option" data-correct="false">Dauphin - Zone pélagique</div>
+                    </div>
+                    <div id="species-feedback" class="quiz-feedback"></div>
+                </div>
+                <div class="game-buttons">
+                    <button class="game-button" id="next-species" style="display: none;">Question suivante</button>
+                </div>
+            </div>
+
+            <h3>Jeu des paires - La chaîne alimentaire marine</h3>
+            <div class="game-container">
+                <div class="game-header">
+                    <h3>Chaîne alimentaire marine</h3>
+                    <div class="game-score">Paires trouvées: <span id="pairs-found">0</span>/6</div>
+                </div>
+                <p>Retrouvez les paires prédateur-proie pour comprendre la chaîne alimentaire marine.</p>
+                <div class="image-container floating" style="margin-bottom: 15px;">
+                    <img src="https://plus.unsplash.com/premium_photo-1664297954507-186bbacccd73?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Chaîne alimentaire marine" style="max-width: 90%; border-radius: 12px; box-shadow: 0 8px 20px rgba(0, 51, 102, 0.15);">
+                    <p class="image-caption">La chaîne alimentaire marine est un système complexe d'interactions entre différentes espèces</p>
+                </div>
+                <div class="memory-game" id="memory-game"></div>
+                <div class="game-buttons">
+                    <button class="game-button" id="start-memory">Commencer</button>
+                    <button class="game-button" id="reset-memory">Recommencer</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="quiz" class="chapter">
+            <h2>Quiz</h2>
+            <p>Testez vos connaissances sur les océans avec ces questions interactives.</p>
+            
+            <div class="image-container floating">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2346&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Quiz sur les océans" style="max-width: 90%; border-radius: 12px; box-shadow: 0 8px 20px rgba(0, 51, 102, 0.15);">
+                <p class="image-caption">Mettez à l'épreuve vos connaissances sur les océans et leurs écosystèmes</p>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-question">
+                    <h4>Question 1: Quel pourcentage de la surface de la Terre est couvert par les océans ?</h4>
+                    <div class="quiz-option" data-correct="false">50%</div>
+                    <div class="quiz-option" data-correct="true">70%</div>
+                    <div class="quiz-option" data-correct="false">60%</div>
+                    <div class="quiz-option" data-correct="false">80%</div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>Question 2: Quel est le plus grand océan du monde ?</h4>
+                    <div class="quiz-option" data-correct="false">Océan Atlantique</div>
+                    <div class="quiz-option" data-correct="false">Océan Indien</div>
+                    <div class="quiz-option" data-correct="true">Océan Pacifique</div>
+                    <div class="quiz-option" data-correct="false">Océan Arctique</div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>Question 3: Quelle est la principale cause de l'acidification des océans ?</h4>
+                    <div class="quiz-option" data-correct="false">Les déversements de produits chimiques</div>
+                    <div class="quiz-option" data-correct="false">Les déchets plastiques</div>
+                    <div class="quiz-option" data-correct="true">L'absorption du CO2 atmosphérique</div>
+                    <div class="quiz-option" data-correct="false">Le réchauffement de l'eau</div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>Question 4: Quelle proportion d'oxygène atmosphérique est produite par les organismes marins ?</h4>
+                    <div class="quiz-option" data-correct="false">Environ 20%</div>
+                    <div class="quiz-option" data-correct="false">Environ 30%</div>
+                    <div class="quiz-option" data-correct="true">Environ 50-85%</div>
+                    <div class="quiz-option" data-correct="false">Moins de 10%</div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>Question 5: Quel écosystème marin est souvent appelé "forêt tropicale des mers" en raison de sa biodiversité ?</h4>
+                    <div class="quiz-option" data-correct="true">Récifs coralliens</div>
+                    <div class="quiz-option" data-correct="false">Mangroves</div>
+                    <div class="quiz-option" data-correct="false">Forêts de kelp</div>
+                    <div class="quiz-option" data-correct="false">Prairies sous-marines</div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>Question 6: Quel est le rôle principal du plancton dans la chaîne alimentaire marine ?</h4>
+                    <div class="quiz-option" data-correct="true">Il constitue la base de presque toutes les chaînes alimentaires marines</div>
+                    <div class="quiz-option" data-correct="false">Il se nourrit principalement des grands poissons</div>
+                    <div class="quiz-option" data-correct="false">Il aide seulement à la décomposition des matières organiques</div>
+                    <div class="quiz-option" data-correct="false">Il n'a aucun rôle dans la chaîne alimentaire</div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>Question 7: Quel pourcentage approximatif de l'oxygène terrestre est produit par le phytoplancton ?</h4>
+                    <div class="quiz-option" data-correct="false">Environ 10-20%</div>
+                    <div class="quiz-option" data-correct="false">Environ 30-40%</div>
+                    <div class="quiz-option" data-correct="true">Environ 50-85%</div>
+                    <div class="quiz-option" data-correct="false">Moins de 5%</div>
+                    <div class="quiz-feedback"></div>
+                </div>
+            </div>
+
+            <div class="matching-exercise">
+                <h3>Exercice d'appariement : Reliez les menaces aux écosystèmes les plus affectés</h3>
+                <div class="matching-pairs">
+                    <div class="matching-item" data-id="1">Réchauffement des océans</div>
+                    <div class="matching-item" data-id="2">Déforestation côtière</div>
+                    <div class="matching-item" data-id="3">Chalutage de fond</div>
+                    <div class="matching-item" data-id="4">Runoff agricole</div>
+                    <div class="matching-item" data-id="5">Extraction de pétrole</div>
+                    
+                    <div class="matching-item" data-match="1">Récifs coralliens</div>
+                    <div class="matching-item" data-match="2">Mangroves</div>
+                    <div class="matching-item" data-match="3">Fonds marins</div>
+                    <div class="matching-item" data-match="4">Zones côtières (création de zones mortes)</div>
+                    <div class="matching-item" data-match="5">Habitat des oiseaux marins</div>
+                </div>
+                <div class="matching-feedback"></div>
+            </div>
+        </div>
+
+        <div id="activites" class="chapter">
+            <h2>Activités de recherche</h2>
+            <p>Approfondissez vos connaissances sur les océans avec ces activités de recherche guidées.</p>
+
+            <div class="research-activity">
+                <h3>Activité 1 : Enquête sur la pollution plastique locale</h3>
+                <p>Menez une enquête sur la pollution plastique dans votre région et son impact potentiel sur les océans.</p>
+                <ol>
+                    <li>Choisissez un site local (plage, rivière, lac ou même un parc) pour votre étude.</li>
+                    <li>Documentez les types de déchets plastiques que vous trouvez (prenez des photos).</li>
+                    <li>Recherchez comment ces déchets pourraient atteindre l'océan depuis votre emplacement.</li>
+                    <li>Proposez des solutions locales pour réduire cette pollution.</li>
+                    <li>Créez une présentation ou une affiche pour partager vos découvertes.</li>
+                </ol>
+                <div class="research-resources">
+                    <h4>Ressources utiles :</h4>
+                    <a href="https://www.nationalgeographic.org/projects/plastic/" target="_blank">National Geographic - Projet Plastique</a>
+                    <a href="https://oceanconservancy.org/trash-free-seas/" target="_blank">Ocean Conservancy - Trash Free Seas</a>
+                    <a href="https://www.surfrider.org/" target="_blank">Surfrider Foundation</a>
+                </div>
+            </div>
+
+            <div class="research-activity">
+                <h3>Activité 2 : Explorer les solutions technologiques</h3>
+                <p>Recherchez et évaluez une solution technologique innovante conçue pour protéger les océans.</p>
+
+                <ol>
+                    <li>Choisissez une technologie parmi les catégories suivantes :
+                        <ul>
+                            <li>Systèmes de nettoyage des océans</li>
+                            <li>Alternatives au plastique</li>
+                            <li>Aquaculture durable</li>
+                            <li>Surveillance des océans</li>
+                            <li>Récifs artificiels</li>
+                            <li>Énergies marines renouvelables</li>
+                        </ul>
+                    </li>
+                    <li>Recherchez comment cette technologie fonctionne et qui l'a développée.</li>
+                    <li>Évaluez son efficacité, ses avantages et ses limites.</li>
+                    <li>Explorez comment elle pourrait être améliorée ou adaptée à d'autres contextes.</li>
+                    <li>Proposez votre propre amélioration ou idée inspirée par cette technologie.</li>
+                </ol>
+                <div class="research-resources">
+                    <h4>Ressources utiles :</h4>
+                    <a href="https://theoceancleanup.com/" target="_blank">The Ocean Cleanup</a>
+                    <a href="https://www.worldoceannetwork.org/" target="_blank">Réseau Mondial des Océans</a>
+                </div>
+            </div>
+
+            <div class="research-activity">
+                <h3>Activité 3 : Carnet d'observation des espèces marines</h3>
+                <p>Créez un carnet d'observation numérique sur une espèce marine menacée de votre choix.</p>
+
+                <ol>
+                    <li>Choisissez une espèce marine menacée qui vous intéresse.</li>
+                    <li>Recherchez ses caractéristiques, son habitat, son alimentation et son comportement.</li>
+                    <li>Identifiez les menaces principales pour cette espèce.</li>
+                    <li>Documentez les efforts de conservation existants.</li>
+                    <li>Créez un carnet d'observation illustré (numérique ou physique) qui partage ces informations de manière créative.</li>
+                </ol>
+                <div class="research-resources">
+                    <h4>Ressources utiles :</h4>
+                    <a href="https://www.iucnredlist.org/" target="_blank">Liste Rouge UICN des Espèces Menacées</a>
+                    <a href="https://oceana.org/marine-life/" target="_blank">Oceana - Base de données sur la vie marine</a>
+                    <a href="https://www.fisheries.noaa.gov/species-directory" target="_blank">NOAA Fisheries - Répertoire des espèces</a>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-container">
+                <div class="footer-text">
+                    <p style="font-size: 1.2em; font-weight: 600; margin-bottom: 15px;">&copy; 2025 De la Vie Planctonique aux Technologies Innovantes : Un Parcours Éducatif des Océans.</p>
+                    <p>Travail réalisé avec la participation des élèves de la classe de 4e2 du Collège de Montesoro, inspiré par l'exposition :</p>
+                    <p style="font-size: 1.2em; font-weight: 600; margin-top: 10px;">"Océan : une plongée insolite", présentée par la Casa di e Scenze de Bastia.</p>
+                </div>
+                <div class="footer-logo">
+                    <img src="https://casadiescenze.bastia.corsica/wp-content/uploads/sites/3/2022/06/casa-di-scenze.jpg" alt="Logo Casa di e Scenze" style="max-width: 150px; border-radius: 8px;">
+                </div>
+            </div>
+        </footer>
+        
+        <style>
+            .footer-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 20px;
+                padding: 0 20px;
+            }
+            
+            .footer-text {
+                flex: 1;
+                min-width: 300px;
+                text-align: left;
+            }
+            
+            .footer-logo {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+            }
+            
+            @media (max-width: 768px) {
+                .footer-container {
+                    flex-direction: column;
+                }
+                
+                .footer-text {
+                    text-align: center;
+                }
+                
+                .footer-logo {
+                    justify-content: center;
+                }
+            }
+            
+            /* Mode sombre styles */
+            .dark-mode-btn {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                background-color: rgba(0, 51, 102, 0.7);
+                color: white;
+                border: none;
+                border-radius: 50%;
+                width: 44px;
+                height: 44px;
+                cursor: pointer;
+                font-size: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+                transition: all 0.3s ease;
+                z-index: 100;
+            }
+            
+            /* Bouton police dyslexique */
+            .dyslexic-font-btn {
+                position: absolute;
+                top: 20px;
+                right: 75px;
+                background-color: rgba(0, 51, 102, 0.7);
+                color: white;
+                border: none;
+                border-radius: 10px;
+                padding: 8px 12px;
+                cursor: pointer;
+                font-size: 14px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+                transition: all 0.3s ease;
+                z-index: 100;
+            }
+            
+            .dark-mode-btn:hover, .dyslexic-font-btn:hover {
+                background-color: rgba(0, 51, 102, 0.9);
+                transform: scale(1.05);
+            }
+            
+            /* État actif du bouton police dyslexique */
+            .dyslexic-font-btn.active {
+                background-color: #3498db;
+                box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+            }
+            
+            .mode-icon {
+                position: absolute;
+                transition: opacity 0.3s ease;
+            }
+            
+            .light-mode-icon {
+                opacity: 1;
+            }
+            
+            .dark-mode-icon {
+                opacity: 0;
+            }
+            
+            body.dark-mode {
+                background-color: #121212;
+                color: #e0e0e0;
+            }
+            
+            body.dark-mode .dark-mode-icon {
+                opacity: 1;
+            }
+            
+            body.dark-mode .light-mode-icon {
+                opacity: 0;
+            }
+            
+            body.dark-mode header {
+                background-color: #0d2b45;
+            }
+            
+            body.dark-mode .nav-menu {
+                background-color: #1a3b5d;
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            }
+            
+            body.dark-mode .nav-link {
+                color: #ffffff;
+                background-color: #2c3e50;
+                margin: 3px;
+                border-radius: 5px;
+                font-weight: bold;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            }
+            
+            body.dark-mode .nav-link:hover,
+            body.dark-mode .nav-link.active {
+                background-color: #3498db;
+                color: #ffffff;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            }
+            
+            body.dark-mode .chapter {
+                background-color: #1a1a1a;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            }
+            
+            body.dark-mode h2,
+            body.dark-mode h3,
+            body.dark-mode h4 {
+                color: #81d4fa;
+            }
+            
+            body.dark-mode .highlight-box {
+                background-color: #2c3e50;
+                border-color: #3498db;
+                color: #e0e0e0;
+            }
+            
+            body.dark-mode .tab-container {
+                background-color: #1a1a1a;
+                border-color: #333;
+            }
+            
+            body.dark-mode .tab-button {
+                background-color: #2c3e50;
+                color: #e0e0e0;
+                border-color: #333;
+            }
+            
+            body.dark-mode .tab-button.active {
+                background-color: #3498db;
+                color: white;
+            }
+            
+            body.dark-mode .tab-content {
+                background-color: #1a1a1a;
+                border-color: #333;
+                color: #e0e0e0;
+            }
+            
+            body.dark-mode .quiz-option {
+                background-color: #2c3e50;
+                color: #e0e0e0;
+                border-color: #416788;
+            }
+            
+            body.dark-mode .quiz-option:hover {
+                background-color: #34495e;
+            }
+            
+            body.dark-mode .quiz-option.correct {
+                background-color: #1b5e20;
+            }
+            
+            body.dark-mode .quiz-option.incorrect {
+                background-color: #b71c1c;
+            }
+            
+            body.dark-mode .matching-item {
+                background-color: #2c3e50;
+                color: #e0e0e0;
+                border-color: #416788;
+            }
+            
+            body.dark-mode .matching-exercise {
+                background-color: #1a1a1a;
+                border-color: #333;
+                color: #e0e0e0;
+            }
+            
+            body.dark-mode .matching-pairs {
+                background-color: #1a1a1a;
+                border-color: #333;
+            }
+            
+            body.dark-mode footer {
+                background-color: #0d2b45;
+            }
+            
+            body.dark-mode .interactive-element {
+                background-color: #1a1a1a;
+                border-color: #333;
+                color: #e0e0e0;
+            }
+            
+            body.dark-mode .interactive-element h4 {
+                background-color: #2c3e50;
+                color: #e0e0e0;
+            }
+            
+            body.dark-mode .interactive-element .content {
+                background-color: #1a1a1a;
+                border-color: #333;
+                color: #e0e0e0;
+            }
+            
+            body.dark-mode .image-caption {
+                color: #bbb;
+                background-color: rgba(26, 26, 26, 0.85);
+            }
+            
+            body.dark-mode .research-activity {
+                background-color: #1a1a1a;
+                border-color: #333;
+                color: #e0e0e0;
+            }
+            
+            body.dark-mode .research-resources {
+                background-color: #2c3e50;
+                border-color: #416788;
+            }
+            
+            body.dark-mode .research-resources a {
+                color: #64b5f6;
+            }
+            
+            body.dark-mode img {
+                filter: brightness(0.9);
+            }
+            
+            body.dark-mode .quiz-container {
+                background-color: #1a1a1a;
+                border-color: #333;
+            }
+            
+            body.dark-mode .quiz-question {
+                background-color: #1a1a1a;
+                border-color: #333;
+                color: #e0e0e0;
+            }
+            
+            body.dark-mode .quiz-feedback {
+                border: 1px solid #333;
+            }
+            
+            body.dark-mode .quiz-feedback.correct {
+                background-color: #1b5e20 !important;
+                color: #e0e0e0 !important;
+                border-color: #2e7d32 !important;
+            }
+            
+            body.dark-mode .quiz-feedback.incorrect {
+                background-color: #b71c1c !important;
+                color: #e0e0e0 !important;
+                border-color: #c62828 !important;
+            }
+            
+            body.dark-mode .ocean-explorer {
+                background-color: #1a1a1a;
+                border-color: #333;
+            }
+            
+            body.dark-mode .ocean-tabs {
+                background-color: #1a3b5d;
+                border-color: #333;
+            }
+            
+            body.dark-mode .ocean-tab {
+                background-color: #2c3e50;
+                color: #e0e0e0;
+                border-color: #333;
+            }
+            
+            body.dark-mode .ocean-tab.active {
+                background-color: #3498db;
+                color: white;
+            }
+            
+            body.dark-mode .ocean-content {
+                background-color: #1a1a1a;
+                border-color: #333;
+            }
+            
+            body.dark-mode .ocean-visualization {
+                background-color: #1a1a1a;
+                border-color: #333;
+            }
+            
+            body.dark-mode .ocean-info {
+                background-color: #1a1a1a;
+                color: #e0e0e0;
+            }
+            
+            body.dark-mode .timeline {
+                background-color: #1a1a1a;
+                border-color: #333;
+            }
+            
+            body.dark-mode .timeline-item .timeline-content {
+                background-color: #2c3e50;
+                border-color: #416788;
+                color: #e0e0e0;
+            }
+            
+            body.dark-mode .ocean-game-container {
+                background-color: #1a1a1a;
+                border-color: #333;
+            }
+            
+            body.dark-mode .floating {
+                background-color: #1a1a1a;
+            }
+            
+            /* Styles spécifiques pour les cadres de jeux en mode sombre */
+            body.dark-mode .game-container {
+                background-color: #1a1a1a;
+                border-color: #333;
+                color: #e0e0e0;
+            }
+            
+            body.dark-mode .game-header {
+                background-color: #2c3e50;
+                color: #e0e0e0;
+                border-color: #416788;
+            }
+            
+            body.dark-mode .game-score {
+                color: #81d4fa;
+            }
+            
+            body.dark-mode .game-controls button,
+            body.dark-mode .food-chain-container button,
+            body.dark-mode .species-quiz button {
+                background-color: #2c3e50;
+                color: #e0e0e0;
+                border-color: #416788;
+            }
+            
+            body.dark-mode .game-controls button:hover,
+            body.dark-mode .food-chain-container button:hover,
+            body.dark-mode .species-quiz button:hover {
+                background-color: #3498db;
+            }
+            
+            body.dark-mode .nav-item {
+                background-color: transparent;
+                margin: 0 3px;
+            }
+        </style>
+    </div>
+
+    <script>
+        // Navigation active state
+        // Fonctionnalité de synthèse vocale
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+        window.activeAudioButton = null;
+
+        // Fonction pour lire le texte
+        function readText(text, button) {
+            // Arrêter la lecture en cours si elle existe
+            if (currentUtterance) {
+                speechSynthesis.cancel();
+                if (window.activeAudioButton) {
+                    window.activeAudioButton.classList.remove('playing');
+                    window.activeAudioButton.innerHTML = '🔊';
+                }
+            }
+            
+            // Si on clique sur le même bouton qui lit déjà, arrêter la lecture
+            if (button === window.activeAudioButton) {
+                window.activeAudioButton = null;
+                currentUtterance = null;
+                return;
+            }
+            
+            // Préparer la nouvelle lecture
+            const utterance = new SpeechSynthesisUtterance(text);
+            
+            // Détecter la langue et définir la voix appropriée
+            utterance.lang = 'fr-FR';
+            
+            // Essayer de trouver une voix française
+            const voices = speechSynthesis.getVoices();
+            const frenchVoice = voices.find(voice => voice.lang.includes('fr'));
+            if (frenchVoice) {
+                utterance.voice = frenchVoice;
+            }
+            
+            // Ajuster les paramètres de la voix
+            utterance.pitch = 1;
+            utterance.rate = 1; // Vitesse normale
+            utterance.volume = 1;
+            
+            // Gestionnaires d'événements
+            utterance.onstart = function() {
+                button.classList.add('playing');
+                button.innerHTML = '⏸️';
+                window.activeAudioButton = button;
+            };
+            
+            utterance.onend = function() {
+                button.classList.remove('playing');
+                button.innerHTML = '🔊';
+                window.activeAudioButton = null;
+                currentUtterance = null;
+            };
+            
+            utterance.onerror = function() {
+                button.classList.remove('playing');
+                button.innerHTML = '🔊';
+                window.activeAudioButton = null;
+                currentUtterance = null;
+                console.error('Erreur de synthèse vocale');
+            };
+            
+            // Lancer la lecture
+            speechSynthesis.speak(utterance);
+            currentUtterance = utterance;
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialiser la fonctionnalité de la synthèse vocale
+            function initializeAudioButtons() {
+                // Sélectionner tous les éléments qui devraient avoir un bouton audio
+                const audioSections = document.querySelectorAll('.highlight-box, .chapter > p, .chapter > ul, .tab-content p, .tab-content ul');
+                
+                // Ajouter des boutons de lecture à chaque section
+                audioSections.forEach((section, index) => {
+                    // Ne pas ajouter de bouton audio aux éléments qui en ont déjà un
+                    if (section.querySelector('.audio-btn')) {
+                        return;
+                    }
+                    
+                    // Éviter d'ajouter des boutons audio aux éléments imbriqués dans d'autres sections audio
+                    let parent = section.parentElement;
+                    while (parent && !parent.classList.contains('chapter')) {
+                        if (parent.classList.contains('tab-content') || parent.classList.contains('highlight-box')) {
+                            return;
+                        }
+                        parent = parent.parentElement;
+                    }
+                    
+                    // Créer le bouton audio
+                    const audioBtn = document.createElement('button');
+                    audioBtn.className = 'audio-btn';
+                    audioBtn.innerHTML = '🔊';
+                    audioBtn.setAttribute('aria-label', 'Lire le texte');
+                    audioBtn.setAttribute('type', 'button');
+                    audioBtn.dataset.audioId = `audio-section-${index}`;
+                    
+                    // Pour les titres et les éléments avec titres
+                    if (section.querySelector('h2, h3, h4')) {
+                        const heading = section.querySelector('h2, h3, h4');
+                        heading.appendChild(audioBtn);
+                        
+                        // Configurer le gestionnaire d'événements pour lire le contenu
+                        audioBtn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            e.stopPropagation(); // Important pour les éléments interactifs
+                            
+                            // Obtenir tout le texte de la section
+                            let textToRead = '';
+                            if (section.classList.contains('highlight-box')) {
+                                textToRead = section.textContent.trim();
+                            } else if (section.classList.contains('tab-content')) {
+                                // Pour les onglets, lire le titre et le contenu de l'onglet actif
+                                textToRead = heading.textContent.trim() + '. ' + section.textContent.trim();
+                            } else {
+                                // Pour les sections de chapitre standard
+                                textToRead = heading.textContent.trim() + '. ' + section.textContent.trim();
+                            }
+                            
+                            // Nettoyer le texte en supprimant le texte du bouton audio
+                            textToRead = textToRead.replace('🔊', '').replace('⏸️', '').trim();
+                            
+                            // Lire le texte
+                            readText(textToRead, this);
+                        });
+                    } else {
+                        // Pour les paragraphes et listes sans titre
+                        // Ajouter le bouton au début du paragraphe ou de la liste
+                        section.insertBefore(audioBtn, section.firstChild);
+                        
+                        // Configurer le gestionnaire d'événements
+                        audioBtn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            
+                            // Obtenir le texte à lire
+                            let textToRead = section.textContent.trim();
+                            textToRead = textToRead.replace('🔊', '').replace('⏸️', '').trim();
+                            
+                            // Lire le texte
+                            readText(textToRead, this);
+                        });
+                    }
+                });
+            }
+            
+            // Mode sombre Toggle
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            
+            // Vérifie si le mode sombre était activé précédemment
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            
+            // Applique le mode sombre si nécessaire
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+            }
+            
+            // Fonction pour basculer le mode sombre
+            darkModeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                
+                // Stocke la préférence de l'utilisateur
+                const isDarkModeNow = document.body.classList.contains('dark-mode');
+                localStorage.setItem('darkMode', isDarkModeNow);
+            });
+            
+            // Police dyslexique toggle
+            const dyslexicFontToggle = document.getElementById('dyslexic-font-toggle');
+            
+            // Vérifie si la police dyslexique était activée précédemment
+            const isDyslexicFont = localStorage.getItem('dyslexicFont') === 'true';
+            
+            // Applique la police dyslexique si nécessaire
+            if (isDyslexicFont) {
+                document.body.classList.add('dyslexic-font');
+                dyslexicFontToggle.classList.add('active');
+            }
+            
+            // Fonction pour basculer la police dyslexique
+            dyslexicFontToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dyslexic-font');
+                this.classList.toggle('active');
+                
+                // Stocke la préférence de l'utilisateur
+                const isDyslexicFontNow = document.body.classList.contains('dyslexic-font');
+                localStorage.setItem('dyslexicFont', isDyslexicFontNow);
+                
+                // Annonce vocale pour les utilisateurs de lecteurs d'écran
+                const annonce = document.createElement('div');
+                annonce.setAttribute('aria-live', 'polite');
+                annonce.setAttribute('role', 'status');
+                annonce.style.position = 'absolute';
+                annonce.style.clip = 'rect(0 0 0 0)';
+                annonce.style.overflow = 'hidden';
+                annonce.style.height = '1px';
+                annonce.style.width = '1px';
+                annonce.textContent = isDyslexicFontNow ? 
+                    'Police pour dyslexie activée' : 'Police standard activée';
+                document.body.appendChild(annonce);
+                
+                // Supprimer l'annonce après qu'elle ait été lue
+                setTimeout(() => {
+                    document.body.removeChild(annonce);
+                }, 3000);
+            });
+            // Interactive elements toggle
+            const interactiveElements = document.querySelectorAll('.interactive-element');
+            interactiveElements.forEach(element => {
+                element.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            });
+
+            // Tabs functionality
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons and tabs
+                    document.querySelectorAll('.tab-button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    document.querySelectorAll('.tab-content').forEach(tab => {
+                        tab.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked button and corresponding tab
+                    this.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // Quiz functionality
+            const quizOptions = document.querySelectorAll('.quiz-option');
+            quizOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionContainer = this.parentNode;
+                    const options = questionContainer.querySelectorAll('.quiz-option');
+                    const feedback = questionContainer.querySelector('.quiz-feedback');
+                    
+                    // If already answered, do nothing
+                    if (Array.from(options).some(opt => opt.classList.contains('correct') || opt.classList.contains('incorrect'))) {
+                        return;
+                    }
+                    
+                    const isCorrect = this.getAttribute('data-correct') === 'true';
+                    
+                    options.forEach(opt => {
+                        if (opt.getAttribute('data-correct') === 'true') {
+                            opt.classList.add('correct');
+                        } else if (opt === this && !isCorrect) {
+                            opt.classList.add('incorrect');
+                        }
+                    });
+                    
+                    if (isCorrect) {
+                        feedback.textContent = "Correct ! Bonne réponse.";
+                        feedback.style.backgroundColor = "#e8f5e9";
+                        feedback.style.color = "#2e7d32";
+                        feedback.style.border = "1px solid #a5d6a7";
+                    } else {
+                        feedback.textContent = "Incorrect. Essayez encore !";
+                        feedback.style.backgroundColor = "#ffebee";
+                        feedback.style.color = "#c62828";
+                        feedback.style.border = "1px solid #ef9a9a";
+                    }
+                    
+                    feedback.classList.add('show');
+                    
+                    // Update progress
+                    updateProgress();
+                });
+            });
+
+            // Matching exercise functionality
+            const matchingItems = document.querySelectorAll('.matching-item');
+            let selectedItem = null;
+            
+            // Définition des correspondances correctes
+            const correctMatches = {
+                "1": "1", // Réchauffement des océans -> Récifs coralliens
+                "2": "2", // Déforestation côtière -> Mangroves
+                "3": "3", // Chalutage de fond -> Fonds marins
+                "4": "4", // Runoff agricole -> Zones côtières (création de zones mortes)
+                "5": "5"  // Extraction de pétrole -> Habitat des oiseaux marins
+            };
+            
+            matchingItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    if (this.classList.contains('matched')) {
+                        return;
+                    }
+                    
+                    if (selectedItem === null) {
+                        // First selection
+                        this.classList.add('selected');
+                        selectedItem = this;
+                    } else {
+                        // Second selection - check if it's a match
+                        const firstId = selectedItem.getAttribute('data-id');
+                        const matchId = this.getAttribute('data-match');
+                        const firstMatchId = selectedItem.getAttribute('data-match');
+                        const secondId = this.getAttribute('data-id');
+                        
+                        // Vérification des correspondances correctes
+                        let isMatch = false;
+                        
+                        if (firstId && matchId) {
+                            isMatch = correctMatches[firstId] === matchId;
+                        } else if (firstMatchId && secondId) {
+                            isMatch = correctMatches[secondId] === firstMatchId;
+                        }
+                        
+                        const feedbackEl = document.querySelector('.matching-feedback');
+                        
+                        if (isMatch) {
+                            // It's a match!
+                            selectedItem.classList.add('matched');
+                            this.classList.add('matched');
+                            
+                            feedbackEl.textContent = "Bonne association !";
+                            feedbackEl.classList.add('correct');
+                            feedbackEl.classList.remove('incorrect');
+                            
+                            // Check if all are matched
+                            const allMatched = Array.from(matchingItems).every(item => 
+                                item.classList.contains('matched'));
+                            
+                            if (allMatched) {
+                                feedbackEl.textContent = "Félicitations ! Vous avez complété l'exercice d'appariement.";
+                            }
+                        } else {
+                            // Not a match
+                            feedbackEl.textContent = "Ce n'est pas la bonne association. Essayez encore !";
+                            feedbackEl.classList.add('incorrect');
+                            feedbackEl.classList.remove('correct');
+                        }
+                        
+                        // Reset selection
+                        selectedItem.classList.remove('selected');
+                        selectedItem = null;
+                    }
+                });
+            });
+
+            // Ocean Explorer Interactive
+            const oceanTabs = document.querySelectorAll('.ocean-tab');
+            const oceanVisuals = document.querySelectorAll('.ocean-section-visual');
+            const oceanInfoPanels = document.querySelectorAll('.ocean-info');
+            const animationLayer = document.getElementById('animation-layer');
+            const oceanFeatures = document.querySelectorAll('.ocean-feature');
+            
+            // Animations for different ocean zones
+            const creatures = {
+                surface: [
+                    { emoji: '🐬', startPos: { x: -50, y: 100 }, endPos: { x: '100%', y: 150 } },
+                    { emoji: '🐠', startPos: { x: '100%', y: 80 }, endPos: { x: -50, y: 100 } },
+                    { emoji: '🦈', startPos: { x: -80, y: 200 }, endPos: { x: '100%', y: 250 } },
+                    { emoji: '🐙', startPos: { x: '50%', y: 300 }, endPos: { x: '20%', y: 350 } },
+                    { emoji: '🐢', startPos: { x: '100%', y: 180 }, endPos: { x: '30%', y: 150 } }
+                ],
+                middle: [
+                    { emoji: '🦑', startPos: { x: -50, y: 150 }, endPos: { x: '100%', y: 200 } },
+                    { emoji: '🐡', startPos: { x: '100%', y: 120 }, endPos: { x: -50, y: 150 } },
+                    { emoji: '🦐', startPos: { x: '40%', y: 250 }, endPos: { x: '60%', y: 300 } },
+                    { emoji: '🐳', startPos: { x: -100, y: 100 }, endPos: { x: '100%', y: 80 } }
+                ],
+                deep: [
+                    { emoji: '🦀', startPos: { x: '10%', y: 350 }, endPos: { x: '30%', y: 350 } },
+                    { emoji: '🐌', startPos: { x: '80%', y: 320 }, endPos: { x: '60%', y: 320 } },
+                    { emoji: '🦑', startPos: { x: '20%', y: 200 }, endPos: { x: '40%', y: 250 } },
+                    { emoji: '🐋', startPos: { x: -150, y: 120 }, endPos: { x: '100%', y: 100 } }
+                ],
+                hotspots: [
+                    { emoji: '🧪', startPos: { x: '20%', y: 150 }, endPos: { x: '40%', y: 200 } },
+                    { emoji: '🗑️', startPos: { x: '70%', y: 100 }, endPos: { x: '50%', y: 150 } },
+                    { emoji: '🚢', startPos: { x: '10%', y: 80 }, endPos: { x: '30%', y: 80 } },
+                    { emoji: '🏭', startPos: { x: '90%', y: 50 }, endPos: { x: '70%', y: 50 } }
+                ],
+                currents: [
+                    { emoji: '🌊', startPos: { x: '10%', y: 100 }, endPos: { x: '80%', y: 120 } },
+                    { emoji: '💧', startPos: { x: '90%', y: 200 }, endPos: { x: '20%', y: 220 } },
+                    { emoji: '❄️', startPos: { x: '30%', y: 300 }, endPos: { x: '70%', y: 280 } },
+                    { emoji: '🧊', startPos: { x: '50%', y: 80 }, endPos: { x: '20%', y: 100 } }
+                ]
+            };
+            
+            // Feature info
+            const featureInfo = {
+                // Surface zone
+                coral: "Les récifs coralliens abritent près de 25% de toutes les espèces marines tout en occupant moins de 1% des fonds marins. La Grande Barrière de Corail est le plus grand système de récifs au monde.",
+                plankton: "Le plancton est composé de minuscules organismes qui forment la base de presque toutes les chaînes alimentaires marines. Le phytoplancton produit plus de la moitié de l'oxygène que nous respirons.",
+                coastal: "Les écosystèmes côtiers incluent les mangroves, les herbiers marins et les marais salants. Ils protègent les côtes, filtrent les polluants et servent de nurseries pour de nombreuses espèces.",
+                
+                // Middle zone
+                migration: "La migration verticale quotidienne est le plus grand mouvement de biomasse sur Terre. Des millions d'organismes montent vers la surface la nuit pour se nourrir et redescendent en profondeur le jour pour éviter les prédateurs.",
+                bioluminescence: "Plus de 90% des créatures vivant dans la zone mésopélagique peuvent produire leur propre lumière. Elles utilisent cette capacité pour attirer des proies, communiquer ou se camoufler.",
+                predators: "Cette zone abrite des prédateurs spécialisés comme le poisson-hachette, le poisson-lanterne et certains calmars. Ils ont souvent de grands yeux sensibles à la lumière et des dents impressionnantes.",
+                
+                // Deep zone
+                trench: "La fosse des Mariannes atteint 11 034 mètres de profondeur. La pression y est plus de 1000 fois supérieure à celle du niveau de la mer, et pourtant des formes de vie y prospèrent.",
+                vents: "Les sources hydrothermales expulsent de l'eau chaude riche en minéraux. Des écosystèmes uniques se développent autour d'elles, basés non pas sur la photosynthèse mais sur la chimiosynthèse bactérienne.",
+                "deep-creatures": "Les créatures abyssales ont développé des adaptations fascinantes : bioluminescence, organes sensoriels spécialisés, corps gélatineux résistant à la pression, et métabolismes extrêmement lents.",
+                
+                // Hotspots
+                "great-barrier": "La Grande Barrière de Corail a perdu plus de 50% de ses coraux depuis 1995 principalement à cause du blanchissement dû au réchauffement des océans. Des efforts de restauration sont en cours pour sauver cet écosystème vital.",
+                "garbage-patch": "Le Great Pacific Garbage Patch est une zone d'accumulation de déchets plastiques grande comme trois fois la France. Elle contient environ 1,8 trillion de morceaux de plastique, pesant 80 000 tonnes.",
+                "dead-zones": "Plus de 400 zones mortes existent dans les océans du monde. Ces zones à faible teneur en oxygène sont principalement causées par la pollution agricole et les eaux usées qui stimulent la croissance excessive d'algues.",
+                
+                // Currents
+                "gulf-stream": "Le Gulf Stream transporte l'équivalent de 100 fois le débit de l'Amazone. Il permet à l'Europe occidentale d'avoir un climat plus doux qu'à des latitudes similaires en Amérique du Nord.",
+                "global-conveyor": "La circulation thermohaline, ou 'tapis roulant océanique', est un système global de courants qui redistribue la chaleur autour de la planète. Un tour complet peut prendre jusqu'à 1000 ans.",
+                "el-nino": "Les phénomènes El Niño et La Niña sont des variations cycliques de température dans l'océan Pacifique qui influencent le climat mondial, provoquant sécheresses, inondations et températures extrêmes dans différentes régions."
+            };
+            
+            // Tab switching
+            oceanTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const section = tab.getAttribute('data-section');
+                    
+                    // Update active tab
+                    oceanTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Update visible content
+                    oceanVisuals.forEach(visual => visual.classList.remove('active'));
+                    document.getElementById(`${section}-visual`).classList.add('active');
+                    
+                    // Update info panel
+                    oceanInfoPanels.forEach(panel => panel.style.display = 'none');
+                    document.getElementById(`${section}-info`).style.display = 'block';
+                    
+                    // Clear previous animations
+                    animationLayer.innerHTML = '';
+                    
+                    // Add new creatures for this section
+                    if (creatures[section]) {
+                        creatures[section].forEach(creature => {
+                            createAnimatedCreature(creature, section);
+                        });
+                    }
+                });
+            });
+            
+            // Create and animate creatures
+            function createAnimatedCreature(creature, section) {
+                const creatureEl = document.createElement('div');
+                creatureEl.className = 'animated-creature';
+                creatureEl.textContent = creature.emoji;
+                creatureEl.style.fontSize = '3.5rem'; // Taille augmentée pour meilleure visibilité
+                creatureEl.style.left = typeof creature.startPos.x === 'string' ? creature.startPos.x : `${creature.startPos.x}px`;
+                creatureEl.style.top = typeof creature.startPos.y === 'string' ? creature.startPos.y : `${creature.startPos.y}px`;
+                
+                animationLayer.appendChild(creatureEl);
+                
+                // Animate after a slight delay to ensure the transition works
+                setTimeout(() => {
+                    creatureEl.style.left = typeof creature.endPos.x === 'string' ? creature.endPos.x : `${creature.endPos.x}px`;
+                    creatureEl.style.top = typeof creature.endPos.y === 'string' ? creature.endPos.y : `${creature.endPos.y}px`;
+                }, 100);
+                
+                // Remove and re-add for continuous animation
+                setTimeout(() => {
+                    creatureEl.remove();
+                    if (document.querySelector(`.ocean-tab[data-section="${section}"]`).classList.contains('active')) {
+                        createAnimatedCreature(creature, section);
+                    }
+                }, 30000); // Temps triplé pour des animations plus lentes et visibles
+            }
+            
+            // Feature clicking
+            oceanFeatures.forEach(feature => {
+                feature.addEventListener('click', () => {
+                    const featureId = feature.getAttribute('data-feature');
+                    
+                    // Update active feature
+                    oceanFeatures.forEach(f => f.classList.remove('active'));
+                    feature.classList.add('active');
+                    
+                    // Add info panel for this feature
+                    const info = featureInfo[featureId];
+                    if (info) {
+                        // Find the parent .ocean-info element
+                        const parentInfo = feature.closest('.ocean-info');
+                        
+                        // Remove any existing feature description
+                        const existingDesc = parentInfo.querySelector('.feature-description');
+                        if (existingDesc) {
+                            existingDesc.remove();
+                        }
+                        
+                        // Add new description
+                        const descElement = document.createElement('div');
+                        descElement.className = 'feature-description';
+                        descElement.style.marginTop = '15px';
+                        descElement.style.padding = '10px';
+                        descElement.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+                        descElement.style.borderRadius = '8px';
+                        descElement.style.borderLeft = '4px solid var(--ocean-blue)';
+                        descElement.innerHTML = `<p>${info}</p>`;
+                        
+                        // Append after the feature list
+                        const featureList = feature.closest('.ocean-feature-list');
+                        featureList.after(descElement);
+                    }
+                });
+            });
+            
+            // Initialize with surface tab active
+            document.querySelector('.ocean-tab[data-section="surface"]').click();
+
+            // Ocean Cleanup Game
+            const cleanupGame = document.getElementById('ocean-cleanup');
+            const startCleanupBtn = document.getElementById('start-cleanup');
+            const resetCleanupBtn = document.getElementById('reset-cleanup');
+            const scoreEl = document.getElementById('cleanup-score');
+            const bubblesContainer = document.getElementById('bubbles-container');
+            const livesEl = document.getElementById('lives-count');
+            const timerEl = document.getElementById('game-timer');
+            const currentLevelEl = document.getElementById('current-level');
+            const levelButtons = document.querySelectorAll('.level-button');
+            
+            let score = 0;
+            let lives = 3;
+            let gameStarted = false;
+            let gameTimer = null;
+            let timeLeft = 60;
+            let trashItems = [];
+            let animals = [];
+            let obstacles = [];
+            let gameLevel = 'moyen'; // facile, moyen, difficile
+            let gamePaused = false;
+            
+            // Level configuration
+            const levelConfig = {
+                facile: {
+                    trashCount: 8,
+                    animalCount: 3,
+                    obstacleCount: 0,
+                    timeLimit: 90,
+                    lives: 5,
+                    speed: 1,
+                    points: {
+                        small: 5,
+                        medium: 10,
+                        large: 15
+                    },
+                    penalty: 3
+                },
+                moyen: {
+                    trashCount: 12,
+                    animalCount: 5,
+                    obstacleCount: 2,
+                    timeLimit: 60,
+                    lives: 3,
+                    speed: 1.5,
+                    points: {
+                        small: 10,
+                        medium: 15,
+                        large: 20
+                    },
+                    penalty: 5
+                },
+                difficile: {
+                    trashCount: 18,
+                    animalCount: 7,
+                    obstacleCount: 4,
+                    timeLimit: 45,
+                    lives: 2,
+                    speed: 2,
+                    points: {
+                        small: 15,
+                        medium: 20,
+                        large: 30
+                    },
+                    penalty: 10
+                }
+            };
+            
+            // Initialize level selector
+            levelButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (gameStarted) return; // Can't change level during game
+                    
+                    // Update active button
+                    levelButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    // Set game level
+                    gameLevel = button.dataset.level;
+                    currentLevelEl.textContent = gameLevel.charAt(0).toUpperCase() + gameLevel.slice(1);
+                    
+                    // Update lives display
+                    lives = levelConfig[gameLevel].lives;
+                    livesEl.textContent = lives;
+                    
+                    // Update timer display
+                    timeLeft = levelConfig[gameLevel].timeLimit;
+                    timerEl.textContent = timeLeft;
+                });
+            });
+            
+            function startCleanupGame() {
+                if (gameStarted) return;
+                
+                // Initialize game state
+                gameStarted = true;
+                gamePaused = false;
+                score = 0;
+                scoreEl.textContent = score;
+                lives = levelConfig[gameLevel].lives;
+                livesEl.textContent = lives;
+                timeLeft = levelConfig[gameLevel].timeLimit;
+                timerEl.textContent = timeLeft;
+                
+                // Clear existing elements
+                cleanupGame.querySelectorAll('.trash-item, .animal, .obstacle, .coral, .current, .feedback-message, .game-modal').forEach(item => item.remove());
+                trashItems = [];
+                animals = [];
+                obstacles = [];
+                
+                // Add ocean elements
+                if (!cleanupGame.querySelector('.ocean-surface')) {
+                    const oceanSurface = document.createElement('div');
+                    oceanSurface.classList.add('ocean-surface');
+                    cleanupGame.appendChild(oceanSurface);
+                }
+                
+                if (!cleanupGame.querySelector('.ocean-floor')) {
+                    const oceanFloor = document.createElement('div');
+                    oceanFloor.classList.add('ocean-floor');
+                    cleanupGame.appendChild(oceanFloor);
+                }
+                
+                // Add currents
+                for (let i = 0; i < 3; i++) {
+                    const current = document.createElement('div');
+                    current.classList.add('current');
+                    current.style.top = (20 + (i * 30)) + '%';
+                    current.style.animationDuration = (8 - i) + 's';
+                    current.style.animationDirection = i % 2 === 0 ? 'normal' : 'reverse';
+                    cleanupGame.appendChild(current);
+                }
+                
+                // Add decorative corals
+                for (let i = 0; i < 4; i++) {
+                    const coral = document.createElement('div');
+                    coral.classList.add('coral');
+                    coral.style.position = 'absolute';
+                    coral.style.bottom = '0';
+                    coral.style.left = (10 + (i * 25)) + '%';
+                    coral.style.zIndex = '4';
+                    
+                    // Random coral color
+                    const colors = ['#FF6F61', '#F2A466', '#588BAE', '#96C9DC', '#6B5B95'];
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    coral.innerHTML = `<svg viewBox="0 0 100 150" width="70" height="90" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50,20 C30,40 10,80 30,120 C50,100 70,130 90,100 C70,70 60,40 50,20" fill="${color}" />
+                    </svg>`;
+                    
+                    cleanupGame.appendChild(coral);
+                }
+                
+                // Generate game elements
+                generateTrashItems(levelConfig[gameLevel].trashCount);
+                generateAnimals(levelConfig[gameLevel].animalCount);
+                generateObstacles(levelConfig[gameLevel].obstacleCount);
+                generateBubbles(30);
+                
+                // Start timer
+                startTimer();
+            }
+            
+            function startTimer() {
+                // Clear any existing timer
+                if (gameTimer) clearInterval(gameTimer);
+                
+                gameTimer = setInterval(() => {
+                    if (gamePaused) return;
+                    
+                    timeLeft--;
+                    timerEl.textContent = timeLeft;
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(gameTimer);
+                        endGame(false);
+                    }
+                    
+                    // Add new trash items periodically in difficult mode
+                    if (gameLevel === 'difficile' && timeLeft % 10 === 0) {
+                        generateTrashItems(2);
+                    }
+                    
+                    // Move animals in medium and difficult modes
+                    if (gameLevel !== 'facile' && timeLeft % 5 === 0) {
+                        moveAnimals();
+                    }
+                }, 1000);
+            }
+            
+            function moveAnimals() {
+                animals.forEach(animal => {
+                    // Skip animals with swimming class (they already have movement)
+                    if (animal.classList.contains('swimming')) return;
+                    
+                    // Random new position
+                    const newTop = Math.random() * 80 + 10;
+                    const newLeft = Math.random() * 80 + 10;
+                    
+                    // Animate movement
+                    animal.style.transition = 'top 3s ease, left 3s ease';
+                    animal.style.top = newTop + '%';
+                    animal.style.left = newLeft + '%';
+                });
+            }
+            
+            function generateTrashItems(count) {
+                const trashTypes = [
+                    { type: 'bottle', emoji: '🍾', size: 'medium', points: levelConfig[gameLevel].points.medium },
+                    { type: 'bag', emoji: '👜', size: 'medium', points: levelConfig[gameLevel].points.medium },
+                    { type: 'can', emoji: '🥫', size: 'small', points: levelConfig[gameLevel].points.small },
+                    { type: 'straw', emoji: '🥤', size: 'small', points: levelConfig[gameLevel].points.small },
+                    { type: 'container', emoji: '📦', size: 'large', points: levelConfig[gameLevel].points.large },
+                    { type: 'tire', emoji: '🛞', size: 'large', points: levelConfig[gameLevel].points.large },
+                    { type: 'net', emoji: '🥅', size: 'large', points: levelConfig[gameLevel].points.large }
+                ];
+                
+                for (let i = 0; i < count; i++) {
+                    const trashInfo = trashTypes[Math.floor(Math.random() * trashTypes.length)];
+                    const trash = document.createElement('div');
+                    trash.classList.add('trash-item');
+                    trash.classList.add(trashInfo.size);
+                    
+                    trash.dataset.type = trashInfo.type;
+                    trash.dataset.points = trashInfo.points;
+                    
+                    // Set trash icon
+                    trash.innerHTML = `<span style="font-size: 30px;">${trashInfo.emoji}</span>`;
+                    
+                    // Position randomly but not too close to the edges
+                    trash.style.top = Math.random() * 70 + 15 + '%';
+                    trash.style.left = Math.random() * 70 + 15 + '%';
+                    
+                    // Adjust animation duration based on level
+                    trash.style.animationDuration = (6 / levelConfig[gameLevel].speed) + 's';
+                    
+                    // Add click handler
+                    trash.addEventListener('click', collectTrash);
+                    
+                    cleanupGame.appendChild(trash);
+                    trashItems.push(trash);
+                }
+            }
+            
+            function generateObstacles(count) {
+                const obstacleTypes = [
+                    { type: 'rock', emoji: '🪨' },
+                    { type: 'coral', emoji: '🪸' }
+                ];
+                
+                for (let i = 0; i < count; i++) {
+                    const obstacleInfo = obstacleTypes[Math.floor(Math.random() * obstacleTypes.length)];
+                    const obstacle = document.createElement('div');
+                    obstacle.classList.add('obstacle');
+                    obstacle.style.position = 'absolute';
+                    obstacle.style.width = '70px';
+                    obstacle.style.height = '70px';
+                    obstacle.style.zIndex = '4';
+                    obstacle.style.display = 'flex';
+                    obstacle.style.justifyContent = 'center';
+                    obstacle.style.alignItems = 'center';
+                    
+                    obstacle.dataset.type = obstacleInfo.type;
+                    
+                    // Set obstacle icon
+                    obstacle.innerHTML = `<span style="font-size: 50px;">${obstacleInfo.emoji}</span>`;
+                    
+                    // Position randomly
+                    obstacle.style.top = Math.random() * 60 + 20 + '%';
+                    obstacle.style.left = Math.random() * 80 + 10 + '%';
+                    
+                    cleanupGame.appendChild(obstacle);
+                    obstacles.push(obstacle);
+                }
+            }
+            
+            function generateAnimals(count) {
+                const animalTypes = [
+                    { type: 'fish', emoji: '🐠', swimming: Math.random() > 0.7 },
+                    { type: 'turtle', emoji: '🐢', swimming: Math.random() > 0.8 },
+                    { type: 'dolphin', emoji: '🐬', swimming: Math.random() > 0.5 },
+                    { type: 'whale', emoji: '🐋', swimming: Math.random() > 0.9 },
+                    { type: 'crab', emoji: '🦀', swimming: false },
+                    { type: 'octopus', emoji: '🐙', swimming: Math.random() > 0.7 },
+                    { type: 'shark', emoji: '🦈', swimming: Math.random() > 0.3 }
+                ];
+                
+                for (let i = 0; i < count; i++) {
+                    const animalInfo = animalTypes[Math.floor(Math.random() * animalTypes.length)];
+                    const animal = document.createElement('div');
+                    animal.classList.add('animal');
+                    
+                    if (animalInfo.swimming) {
+                        animal.classList.add('swimming');
+                    }
+                    
+                    animal.dataset.type = animalInfo.type;
+                    
+                    // Set animal icon
+                    animal.innerHTML = `<span style="font-size: 40px;">${animalInfo.emoji}</span>`;
+                    
+                    if (animalInfo.swimming) {
+                        // Swimming animals move horizontally
+                        animal.style.top = Math.random() * 60 + 20 + '%';
+                        // Animation will handle horizontal position
+                        
+                        // Adjust animation speed based on level
+                        animal.style.animationDuration = (20 / levelConfig[gameLevel].speed) + 's';
+                    } else {
+                        // Static animals have fixed positions
+                        animal.style.top = Math.random() * 70 + 15 + '%';
+                        animal.style.left = Math.random() * 70 + 15 + '%';
+                    }
+                    
+                    // Add click handler
+                    animal.addEventListener('click', clickAnimal);
+                    
+                    cleanupGame.appendChild(animal);
+                    animals.push(animal);
+                    
+                    // Only animate non-swimming animals (swimming ones use CSS animation)
+                    if (!animalInfo.swimming) {
+                        animateAnimal(animal);
+                    }
+                }
+            }
+            
+            function generateBubbles(count) {
+                bubblesContainer.innerHTML = '';
+                
+                for (let i = 0; i < count; i++) {
+                    const bubble = document.createElement('div');
+                    bubble.classList.add('bubble');
+                    
+                    // Random size
+                    const sizeClass = Math.random() < 0.2 ? 'large' : (Math.random() < 0.6 ? 'medium' : 'small');
+                    bubble.classList.add(sizeClass);
+                    
+                    // Random position
+                    bubble.style.left = Math.random() * 100 + '%';
+                    
+                    // Random delay and duration
+                    const delay = Math.random() * 8;
+                    const duration = Math.random() * 5 + 8;
+                    bubble.style.animation = `bubble-rise ${duration}s linear ${delay}s infinite`;
+                    
+                    bubblesContainer.appendChild(bubble);
+                }
+            }
+            
+            function collectTrash() {
+                if (!gameStarted || gamePaused) return;
+                
+                this.classList.add('collected');
+                
+                // Get points from data attribute
+                const points = parseInt(this.dataset.points, 10) || 10;
+                score += points;
+                scoreEl.textContent = score;
+                
+                // Show points feedback
+                showFeedback(`+${points}`, this, '#4caf50');
+                
+                // Remove event listener
+                this.removeEventListener('click', collectTrash);
+                
+                // Remove from array after animation
+                setTimeout(() => {
+                    const index = trashItems.indexOf(this);
+                    if (index > -1) {
+                        trashItems.splice(index, 1);
+                    }
+                    this.remove();
+                    
+                    // Check if all trash is collected
+                    if (trashItems.length === 0) {
+                        endGame(true);
+                    }
+                }, 700);
+            }
+            
+            function clickAnimal() {
+                if (!gameStarted || gamePaused) return;
+                
+                // Penalize for clicking on animals
+                const penalty = levelConfig[gameLevel].penalty;
+                score = Math.max(0, score - penalty);
+                scoreEl.textContent = score;
+                
+                // Visual feedback
+                this.style.filter = 'hue-rotate(90deg)';
+                
+                // Show penalty feedback
+                showFeedback(`-${penalty}`, this, '#f44336');
+                
+                // Lose a life
+                lives--;
+                livesEl.textContent = lives;
+                
+                // Check if game over
+                if (lives <= 0) {
+                    endGame(false);
+                    return;
+                }
+                
+                setTimeout(() => {
+                    this.style.filter = '';
+                }, 300);
+            }
+            
+            function showFeedback(text, element, color) {
+                const feedback = document.createElement('div');
+                feedback.classList.add('feedback-message');
+                feedback.textContent = text;
+                feedback.style.color = color;
+                
+                // Position feedback near the element
+                const rect = element.getBoundingClientRect();
+                const gameRect = cleanupGame.getBoundingClientRect();
+                
+                feedback.style.top = (rect.top - gameRect.top) + 'px';
+                feedback.style.left = (rect.left - gameRect.left + rect.width/2) + 'px';
+                
+                cleanupGame.appendChild(feedback);
+                
+                // Remove after animation completes
+                setTimeout(() => {
+                    feedback.remove();
+                }, 1500);
+            }
+            
+            function endGame(isWin) {
+                // Stop the timer
+                clearInterval(gameTimer);
+                gameStarted = false;
+                gamePaused = true;
+                
+                // Create modal
+                const modal = document.createElement('div');
+                modal.classList.add('game-modal');
+                modal.style.position = 'absolute';
+                modal.style.top = '50%';
+                modal.style.left = '50%';
+                modal.style.transform = 'translate(-50%, -50%)';
+                modal.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+                modal.style.padding = '20px';
+                modal.style.borderRadius = '10px';
+                modal.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
+                modal.style.textAlign = 'center';
+                modal.style.zIndex = '100';
+                
+                if (isWin) {
+                    modal.innerHTML = `
+                        <h4 style="color: #4caf50; margin-top: 0;">Bravo !</h4>
+                        <p>Vous avez nettoyé l'océan et obtenu ${score} points !</p>
+                        <button class="game-button" id="close-modal" style="background-color: #4caf50;">OK</button>
+                    `;
+                } else {
+                    modal.innerHTML = `
+                        <h4 style="color: #f44336; margin-top: 0;">Partie terminée</h4>
+                        <p>Score final : ${score} points</p>
+                        <button class="game-button" id="close-modal">OK</button>
+                    `;
+                }
+                
+                cleanupGame.appendChild(modal);
+                
+                // Add event listener to close button
+                document.getElementById('close-modal').addEventListener('click', () => {
+                    modal.remove();
+                    resetGame();
+                });
+            }
+            
+            function resetGame() {
+                gameStarted = false;
+                gamePaused = false;
+                trashItems = [];
+                animals = [];
+                obstacles = [];
+                score = 0;
+                scoreEl.textContent = score;
+                
+                // Reset lives and timer display
+                lives = levelConfig[gameLevel].lives;
+                livesEl.textContent = lives;
+                timeLeft = levelConfig[gameLevel].timeLimit;
+                timerEl.textContent = timeLeft;
+                
+                // Clear timer
+                if (gameTimer) clearInterval(gameTimer);
+                
+                // Remove all game elements
+                cleanupGame.querySelectorAll('.trash-item, .animal, .obstacle, .feedback-message, .game-modal, .coral, .current').forEach(item => item.remove());
+                bubblesContainer.innerHTML = '';
+            }
+            
+            function animateAnimal(animal) {
+                const type = animal.dataset.type;
+                let distance, duration;
+                
+                switch(type) {
+                    case 'fish':
+                        // Fish move horizontally
+                        distance = Math.random() * 30 + 10;
+                        duration = Math.random() * 3 + 2;
+                        animal.style.animation = `fishSwim ${duration}s ease-in-out infinite alternate`;
+                        animal.style.animationDelay = Math.random() * 2 + 's';
+                        break;
+                    case 'turtle':
+                        // Turtles move slowly
+                        distance = Math.random() * 20 + 5;
+                        duration = Math.random() * 5 + 8;
+                        animal.style.animation = `turtleSwim ${duration}s linear infinite`;
+                        animal.style.animationDelay = Math.random() * 3 + 's';
+                        break;
+                    case 'dolphin':
+                        // Dolphins jump
+                        distance = Math.random() * 40 + 20;
+                        duration = Math.random() * 4 + 3;
+                        animal.style.animation = `dolphinJump ${duration}s ease-in-out infinite`;
+                        animal.style.animationDelay = Math.random() * 2 + 's';
+                        break;
+                    default:
+                        // Default swimming animation
+                        distance = Math.random() * 25 + 10;
+                        duration = Math.random() * 4 + 3;
+                        animal.style.animation = `swim ${duration}s ease-in-out infinite alternate`;
+                        animal.style.animationDelay = Math.random() * 2 + 's';
+                }
+                
+                // Define keyframes dynamically
+                const styleSheet = document.styleSheets[0];
+                
+                if (!document.querySelector(`@keyframes fishSwim`)) {
+                    styleSheet.insertRule(`
+                        @keyframes fishSwim {
+                            0% { transform: translateX(0) rotate(0deg); }
+                            50% { transform: translateX(${distance}px) rotate(5deg); }
+                            100% { transform: translateX(-${distance}px) rotate(-5deg); }
+                        }
+                    `, styleSheet.cssRules.length);
+                }
+                
+                if (!document.querySelector(`@keyframes turtleSwim`)) {
+                    styleSheet.insertRule(`
+                        @keyframes turtleSwim {
+                            0% { transform: translate(0, 0); }
+                            25% { transform: translate(${distance}px, ${distance/2}px); }
+                            50% { transform: translate(0, ${distance}px); }
+                            75% { transform: translate(-${distance}px, ${distance/2}px); }
+                            100% { transform: translate(0, 0); }
+                        }
+                    `, styleSheet.cssRules.length);
+                }
+                
+                if (!document.querySelector(`@keyframes dolphinJump`)) {
+                    styleSheet.insertRule(`
+                        @keyframes dolphinJump {
+                            0% { transform: translate(0, 0) rotate(0deg); }
+                            25% { transform: translate(${distance/2}px, -${distance}px) rotate(15deg); }
+                            50% { transform: translate(${distance}px, 0) rotate(0deg); }
+                            75% { transform: translate(${distance/2}px, -${distance}px) rotate(-15deg); }
+                            100% { transform: translate(0, 0) rotate(0deg); }
+                        }
+                    `, styleSheet.cssRules.length);
+                }
+                
+                if (!document.querySelector(`@keyframes swim`)) {
+                    styleSheet.insertRule(`
+                        @keyframes swim {
+                            0% { transform: translate(0, 0); }
+                            50% { transform: translate(${distance/2}px, ${distance/2}px); }
+                            100% { transform: translate(${distance}px, -${distance/2}px); }
+                        }
+                    `, styleSheet.cssRules.length);
+                }
+                
+                if (!document.querySelector(`@keyframes shake`)) {
+                    styleSheet.insertRule(`
+                        @keyframes shake {
+                            0% { transform: translate(0, 0); }
+                            10% { transform: translate(-5px, 0); }
+                            20% { transform: translate(5px, 0); }
+                            30% { transform: translate(-5px, 0); }
+                            40% { transform: translate(5px, 0); }
+                            50% { transform: translate(-5px, 0); }
+                            60% { transform: translate(5px, 0); }
+                            70% { transform: translate(-5px, 0); }
+                            80% { transform: translate(5px, 0); }
+                            90% { transform: translate(-5px, 0); }
+                            100% { transform: translate(0, 0); }
+                        }
+                    `, styleSheet.cssRules.length);
+                }
+            }
+            
+            startCleanupBtn.addEventListener('click', startCleanupGame);
+            resetCleanupBtn.addEventListener('click', startCleanupGame);
+
+            // Species Quiz
+            const speciesOptions = document.querySelectorAll('#species-options .quiz-option');
+            const nextSpeciesBtn = document.getElementById('next-species');
+            const speciesFeedback = document.getElementById('species-feedback');
+            const speciesScore = document.getElementById('species-score');
+            
+            let currentQuestion = 0;
+            let speciesQuestions = [
+                {
+                    image: "https://plus.unsplash.com/premium_photo-1664303935648-9920c7dc9307?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    options: [
+                        { text: "Requin-baleine - Eau profonde", correct: false },
+                        { text: "Tortue de mer - Récifs coralliens", correct: true },
+                        { text: "Mérou - Mangroves", correct: false },
+                        { text: "Dauphin - Zone pélagique", correct: false }
+                    ]
+                },
+                {
+                    image: "https://plus.unsplash.com/premium_photo-1673561556364-ba874a4876eb?q=80&w=2342&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    options: [
+                        { text: "Méduse - Zone pélagique", correct: true },
+                        { text: "Anémone - Récifs coralliens", correct: false },
+                        { text: "Pieuvre - Fonds rocheux", correct: false },
+                        { text: "Corail - Récifs", correct: false }
+                    ]
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1709494335621-f05358303a63?q=80&w=2342&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    options: [
+                        { text: "Requin tigre - Récifs coralliens", correct: false },
+                        { text: "Grand requin blanc - Eaux côtières", correct: false },
+                        { text: "Requin-marteau - Zones pélagiques", correct: true },
+                        { text: "Requin-baleine - Eaux tropicales", correct: false }
+                    ]
+                },
+                {
+                    image: "https://plus.unsplash.com/premium_photo-1661882273401-7d01bcf23fbf?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    options: [
+                        { text: "Phoque - Eaux arctiques", correct: false },
+                        { text: "Otarie - Côtes rocheuses", correct: true },
+                        { text: "Morse - Banquise", correct: false },
+                        { text: "Lamantin - Estuaires", correct: false }
+                    ]
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1595503240812-7286dafaddc1?q=80&w=2400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    options: [
+                        { text: "Poisson-clown - Récifs coralliens", correct: true },
+                        { text: "Poisson-papillon - Eaux profondes", correct: false },
+                        { text: "Poisson-coffre - Herbiers marins", correct: false },
+                        { text: "Poisson-lion - Mangroves", correct: false }
+                    ]
+                }
+            ];
+            
+            speciesOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // If already answered, do nothing
+                    if (nextSpeciesBtn.style.display === 'block') return;
+                    
+                    const isCorrect = this.getAttribute('data-correct') === 'true';
+                    
+                    speciesOptions.forEach(opt => {
+                        if (opt.getAttribute('data-correct') === 'true') {
+                            opt.classList.add('correct');
+                        } else if (opt === this && !isCorrect) {
+                            opt.classList.add('incorrect');
+                        }
+                    });
+                    
+                    if (isCorrect) {
+                        speciesFeedback.textContent = "Correct ! Vous connaissez bien cette espèce.";
+                        speciesFeedback.style.backgroundColor = "#e8f5e9";
+                        speciesFeedback.style.color = "#2e7d32";
+                        speciesFeedback.style.border = "1px solid #a5d6a7";
+                        currentQuestion++;
+                        speciesScore.textContent = currentQuestion;
+                    } else {
+                        speciesFeedback.textContent = "Incorrect. Essayez d'en apprendre plus sur cette espèce !";
+                        speciesFeedback.style.backgroundColor = "#ffebee";
+                        speciesFeedback.style.color = "#c62828";
+                        speciesFeedback.style.border = "1px solid #ef9a9a";
+                    }
+                    
+                    speciesFeedback.classList.add('show');
+                    nextSpeciesBtn.style.display = 'block';
+                    
+                    // Update progress
+                    updateProgress();
+                });
+            });
+            
+            nextSpeciesBtn.addEventListener('click', function() {
+                if (currentQuestion >= speciesQuestions.length) {
+                    // Quiz completed
+                    document.getElementById('species-question').innerHTML = `
+                        <h3>Quiz terminé !</h3>
+                        <p>Vous avez identifié ${currentQuestion} espèces sur ${speciesQuestions.length}.</p>
+                        <p>Félicitations pour vos connaissances sur la vie marine !</p>
+                    `;
+                    document.getElementById('species-options').style.display = 'none';
+                    speciesFeedback.style.display = 'none';
+                    this.style.display = 'none';
+                    return;
+                }
+                
+                // Load next question
+                const question = speciesQuestions[currentQuestion];
+                document.getElementById('species-image').src = question.image;
+                
+                // Reset options
+                speciesOptions.forEach((option, i) => {
+                    option.textContent = question.options[i].text;
+                    option.setAttribute('data-correct', question.options[i].correct);
+                    option.classList.remove('correct', 'incorrect');
+                });
+                
+                // Hide feedback and next button
+                speciesFeedback.classList.remove('show');
+                this.style.display = 'none';
+            });
+
+            // Memory Game
+            const memoryGame = document.getElementById('memory-game');
+            const startMemoryBtn = document.getElementById('start-memory');
+            const resetMemoryBtn = document.getElementById('reset-memory');
+            const pairsFoundEl = document.getElementById('pairs-found');
+            
+            let cards = [];
+            let flippedCards = [];
+            let matchedPairs = 0;
+            
+            const cardPairs = [
+                { id: 1, name: 'Requin', emoji: '🦈', pair: 'Poisson', pairEmoji: '🐟' },
+                { id: 2, name: 'Orque', emoji: '🐋', pair: 'Phoque', pairEmoji: '🦭' },
+                { id: 3, name: 'Pélican', emoji: '🦢', pair: 'Petit poisson', pairEmoji: '🐠' },
+                { id: 4, name: 'Loutre', emoji: '🦦', pair: 'Oursin', pairEmoji: '🌟' },
+                { id: 5, name: 'Pieuvre', emoji: '🐙', pair: 'Crabe', pairEmoji: '🦀' },
+                { id: 6, name: 'Humain', emoji: '👨‍🌾', pair: 'Poissons multiples', pairEmoji: '🎣' }
+            ];
+            
+            function startMemoryGame() {
+                memoryGame.innerHTML = '';
+                cards = [];
+                flippedCards = [];
+                matchedPairs = 0;
+                pairsFoundEl.textContent = matchedPairs;
+                
+                // Create array with all cards (pairs)
+                let allCards = [];
+                cardPairs.forEach(pair => {
+                    allCards.push({
+                        id: pair.id,
+                        name: pair.name,
+                        emoji: pair.emoji,
+                        pairId: pair.id
+                    });
+                    allCards.push({
+                        id: pair.id + 100,
+                        name: pair.pair,
+                        emoji: pair.pairEmoji,
+                        pairId: pair.id
+                    });
+                });
+                
+                // Shuffle cards
+                allCards = shuffleArray(allCards);
+                
+                // Create cards in DOM
+                allCards.forEach(card => {
+                    const cardElement = document.createElement('div');
+                    cardElement.classList.add('card');
+                    cardElement.dataset.id = card.id;
+                    cardElement.dataset.pairId = card.pairId;
+                    
+                    cardElement.innerHTML = `
+                        <div class="card-inner">
+                            <div class="card-front">${card.emoji}<span style="font-size: 12px; display: block;">${card.name}</span></div>
+                            <div class="card-back"></div>
+                        </div>
+                    `;
+                    
+                    cardElement.addEventListener('click', flipCard);
+                    memoryGame.appendChild(cardElement);
+                    cards.push(cardElement);
+                });
+            }
+            
+            function flipCard() {
+                // If already flipped or matched, do nothing
+                if (this.classList.contains('flipped') || flippedCards.length >= 2) return;
+                
+                // Flip the card
+                this.classList.add('flipped');
+                flippedCards.push(this);
+                
+                // If two cards are flipped, check for match
+                if (flippedCards.length === 2) {
+                    const card1 = flippedCards[0];
+                    const card2 = flippedCards[1];
+                    
+                    if (card1.dataset.pairId === card2.dataset.pairId) {
+                        // Match!
+                        setTimeout(() => {
+                            card1.classList.add('matched');
+                            card2.classList.add('matched');
+                            flippedCards = [];
+                            matchedPairs++;
+                            pairsFoundEl.textContent = matchedPairs;
+                            
+                            // Check if game completed
+                            if (matchedPairs === cardPairs.length) {
+                                alert('Félicitations ! Vous avez trouvé toutes les paires prédateur-proie !');
+                            }
+                            
+                            // Update progress
+                            updateProgress();
+                        }, 1000);
+                    } else {
+                        // No match, flip back
+                        setTimeout(() => {
+                            card1.classList.remove('flipped');
+                            card2.classList.remove('flipped');
+                            flippedCards = [];
+                        }, 1500);
+                    }
+                }
+            }
+            
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+            
+            startMemoryBtn.addEventListener('click', startMemoryGame);
+            resetMemoryBtn.addEventListener('click', startMemoryGame);
+
+            // Progress tracking
+            function updateProgress() {
+                let totalSections = 5;
+                let completedSections = 0;
+                
+                // Check introduction section
+                if (document.getElementById('introduction').querySelectorAll('.interactive-element.active').length > 0) {
+                    document.querySelector('.progress-sections .progress-section:nth-child(1) .section-status').classList.add('completed');
+                    completedSections++;
+                }
+                
+                // Check ecosystem section
+                if (document.querySelector('.tab-content.active')) {
+                    document.querySelector('.progress-sections .progress-section:nth-child(2) .section-status').classList.add('completed');
+                    completedSections++;
+                }
+                
+                // Check challenges section
+                if (document.getElementById('defis').querySelector('.highlight-box')) {
+                    document.querySelector('.progress-sections .progress-section:nth-child(3) .section-status').classList.add('completed');
+                    completedSections++;
+                }
+                
+                // Check innovations section
+                if (document.querySelector('#innovations .tab-content.active')) {
+                    document.querySelector('.progress-sections .progress-section:nth-child(4) .section-status').classList.add('completed');
+                    completedSections++;
+                }
+                
+                // Check quiz section
+                let quizCompleted = 0;
+                const quizQuestions = document.querySelectorAll('.quiz-question');
+                quizQuestions.forEach(question => {
+                    if (question.querySelector('.quiz-option.correct')) {
+                        quizCompleted++;
+                    }
+                });
+                
+                if (quizCompleted > 0) {
+                    document.querySelector('.progress-sections .progress-section:nth-child(5) .section-status').classList.add('in-progress');
+                    if (quizCompleted === quizQuestions.length) {
+                        document.querySelector('.progress-sections .progress-section:nth-child(5) .section-status').classList.remove('in-progress');
+                        document.querySelector('.progress-sections .progress-section:nth-child(5) .section-status').classList.add('completed');
+                        completedSections++;
+                    }
+                }
+                
+                // Update progress percentage
+                const percentage = Math.round((completedSections / totalSections) * 100);
+                document.querySelector('.progress-percentage').textContent = percentage + '%';
+                document.querySelector('.progress-fill').style.width = percentage + '%';
+            }
+            
+            // Initial progress check
+            updateProgress();
+
+            // Nav links active state
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('div[id]');
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= (sectionTop - 300)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+            
+            // Initialiser les boutons audio
+            // Attendre un peu pour s'assurer que tous les composants sont chargés
+            setTimeout(initializeAudioButtons, 500);
+            
+            // Réinitialiser les boutons audio après les changements d'onglets
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Attendre que le contenu de l'onglet soit visible
+                    setTimeout(initializeAudioButtons, 100);
+                });
+            });
+            
+            // Réinitialiser quand des éléments interactifs sont affichés
+            interactiveElements.forEach(element => {
+                element.addEventListener('click', function() {
+                    // Attendre que le contenu soit affiché
+                    setTimeout(initializeAudioButtons, 100);
+                });
+            });
+        });
+    </script>
+    <script>
+        // FONCTIONNALITÉ DE LECTURE AUDIO - Compatible avec Chrome
+        document.addEventListener("DOMContentLoaded", function() {
+            // Variables pour le contrôle audio
+            let currentlyPlaying = null;
+            // Réutiliser la variable activeAudioButton déjà définie plus haut
+            let activeAudioButton = window.activeAudioButton || null;
+            
+            // Fonction pour ajouter des boutons audio aux sections éducatives
+            function addAudioButtons() {
+                // Sélectionner uniquement les titres des sections éducatives
+                const educationSections = [
+                    {selector: ".chapter:nth-of-type(1) h2", section: "intro"},
+                    {selector: ".chapter:nth-of-type(2) h2", section: "ecosystems"},
+                    {selector: ".chapter:nth-of-type(2) h3:nth-of-type(1)", section: "coral"},
+                    {selector: ".chapter:nth-of-type(3) h2", section: "plankton"},
+                    {selector: ".chapter:nth-of-type(4) h2", section: "tech"},
+                    {selector: ".chapter:nth-of-type(4) h3:nth-of-type(1)", section: "cleanup"},
+                    {selector: "#innovations h3:nth-of-type(1)", section: "ocean-cleanup"},
+                    {selector: "#innovations h3:nth-of-type(2)", section: "ocean-surveillance"}
+                ];
+                
+                educationSections.forEach(section => {
+                    const element = document.querySelector(section.selector);
+                    if (element) {
+                        // Créer le bouton audio
+                        const audioButton = document.createElement("button");
+                        audioButton.className = "audio-button";
+                        audioButton.innerHTML = "🔊 Écouter cette section";
+                        audioButton.dataset.section = section.section;
+                        
+                        // Insérer le bouton après le titre
+                        element.insertAdjacentElement("afterend", audioButton);
+                        
+                        // Ajouter un gestionnaire d évènements pour le clic
+                        audioButton.addEventListener("click", function() {
+                            // Collecter le texte à lire
+                            let textToRead = "";
+                            
+                            // Trouver le parent approprié (chapitre ou section innovations)
+                            let parent = this.closest(".chapter");
+                            if (!parent) {
+                                // Si ce n'est pas dans un chapitre, essayer avec la section des innovations
+                                parent = this.closest("#innovations");
+                            }
+                            
+                            if (parent) {
+                                // Récupérer le titre
+                                const title = document.querySelector(section.selector);
+                                if (title) {
+                                    textToRead = title.textContent + ". ";
+                                    
+                                    // Récupérer les paragraphes associés
+                                    // Pour les innovations, on peut avoir besoin de cibler les paragraphes différemment
+                                    let paragraphs;
+                                    if (section.section.includes("ocean-")) {
+                                        // Pour les sections d'innovations, récupérer uniquement les paragraphes proches du titre
+                                        const nextTitle = title.nextElementSibling;
+                                        if (nextTitle && nextTitle.tagName === 'P') {
+                                            textToRead += nextTitle.textContent + " ";
+                                        }
+                                        
+                                        // Si une liste à puces suit, lire aussi son contenu
+                                        const ulElement = parent.querySelector(`${section.selector} + p + ul`);
+                                        if (ulElement) {
+                                            const items = ulElement.querySelectorAll('li');
+                                            items.forEach(item => {
+                                                textToRead += item.textContent + ". ";
+                                            });
+                                        }
+                                    } else {
+                                        // Pour les autres sections, récupérer tous les paragraphes
+                                        paragraphs = parent.querySelectorAll("p");
+                                        paragraphs.forEach(p => {
+                                            textToRead += p.textContent + " ";
+                                        });
+                                    }
+                                }
+                            }
+                            
+                            speakText(textToRead, this);
+                        });
+                    }
+                });
+            }
+            
+            // Fonction pour lire le texte
+            function speakText(text, button) {
+                if (!("speechSynthesis" in window)) {
+                    alert("Votre navigateur ne supporte pas la synthèse vocale.");
+                    return;
+                }
+                
+                // Vérifier si le texte est vide
+                if (!text || text.trim() === "") {
+                    alert("Aucun contenu à lire dans cette section.");
+                    return;
+                }
+                
+                // Arrêter l audio en cours si nécessaire
+                if (currentlyPlaying) {
+                    window.speechSynthesis.cancel();
+                    
+                    // Vérification sécurisée des propriétés
+                    if (currentlyPlaying && currentlyPlaying.classList) {
+                        try {
+                            currentlyPlaying.textContent = "🔊 Écouter cette section";
+                            currentlyPlaying.classList.remove("playing");
+                        } catch (e) {
+                            console.log("Erreur lors de la réinitialisation du bouton audio précédent:", e);
+                        }
+                    }
+                    
+                    if (currentlyPlaying === button) {
+                        currentlyPlaying = null;
+                        return;
+                    }
+                }
+                
+                // Créer un nouvel objet de synthèse vocale
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = "fr-FR";
+                
+                // Gérer les états du bouton
+                utterance.onstart = function() {
+                    button.textContent = "⏸️ Pause";
+                    button.classList.add("playing");
+                    currentlyPlaying = button;
+                };
+                
+                utterance.onend = function() {
+                    button.textContent = "🔊 Écouter cette section";
+                    button.classList.remove("playing");
+                    currentlyPlaying = null;
+                };
+                
+                // Commencer la lecture
+                window.speechSynthesis.speak(utterance);
+            }
+            
+            // Ajouter les boutons audio
+            setTimeout(addAudioButtons, 500);
+        });
+    </script>
+</body>
+</html>
