@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cours Complet - Technologies du Futur</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Styles spécifiques pour le cours complet */
+    .tab-menu {
+      display: flex;
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+    }
+    
+    .tab-btn {
+      flex: 1;
+      padding: 1rem;
+      text-align: center;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: var(--font-title);
+      font-weight: 600;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .tab-btn::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+    
+    .tab-btn.active {
+      color: var(--primary);
+    }
+    
+    .tab-btn.active::after {
+      transform: scaleX(1);
+    }
+    
+    .tab-content {
+      display: none;
+      background-color: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      animation: fadeIn 0.5s ease;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    .tab-content h2 {
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Couleurs spécifiques pour chaque technologie */
+    .tab-btn[data-tab="eolienne"] {
+      color: var(--primary);
+    }
+    
+    .tab-btn[data-tab="fauteuil"] {
+      color: var(--secondary);
+    }
+    
+    .tab-btn[data-tab="montre"] {
+      color: var(--tertiary);
+    }
+    
+    .tab-btn.active[data-tab="eolienne"]::after {
+      background: linear-gradient(to right, var(--primary), var(--primary-light));
+    }
+    
+    .tab-btn.active[data-tab="fauteuil"]::after {
+      background: linear-gradient(to right, var(--secondary), var(--secondary-light));
+    }
+    
+    .tab-btn.active[data-tab="montre"]::after {
+      background: linear-gradient(to right, var(--tertiary), var(--tertiary-light));
+    }
+    
+    /* Mode sombre pour l'interface à onglets */
+    .dark-mode .tab-menu, 
+    .dark-mode .tab-content {
+      background-color: #1e1e1e;
+    }
+    
+    .dark-mode .tab-btn {
+      color: #ddd;
+    }
+    
+    .dark-mode .tab-btn.active[data-tab="eolienne"] {
+      color: var(--primary-light);
+    }
+    
+    .dark-mode .tab-btn.active[data-tab="fauteuil"] {
+      color: var(--secondary-light);
+    }
+    
+    .dark-mode .tab-btn.active[data-tab="montre"] {
+      color: var(--tertiary-light);
+    }
+    
+    /* Barre de progression globale */
+    .global-progress-container {
+      background-color: rgba(255, 255, 255, 0.2);
+      height: 6px;
+      border-radius: 3px;
+      margin: 1.5rem 0;
+      position: relative;
+    }
+    
+    .global-progress-bar {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      width: 0;
+      transition: width 0.5s ease;
+    }
+    
+    .progress-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Les Technologies du Futur</h1>
+    <p>Un cours complet sur les éoliennes, les fauteuils électriques et les montres connectées</p>
+    
+    <div class="global-progress-container">
+      <div class="global-progress-bar" id="globalProgressBar"></div>
+    </div>
+    <div class="progress-stats">
+      <span>Progression: <span id="progressPercent">0%</span></span>
+      <span>Temps estimé: <span id="timeRemaining">30 min</span></span>
+    </div>
+  </header>
+
+  <nav>
+    <div class="logo">
+      <a href="index.html"><i class="fas fa-home"></i> Accueil</a>
+    </div>
+    <div class="nav-links">
+      <a href="#overview" class="nav-link active">Vue d'ensemble</a>
+      <a href="#technologies" class="nav-link">Technologies</a>
+      <a href="#comparison" class="nav-link">Comparaison</a>
+      <a href="#quiz" class="nav-link">Quiz</a>
+    </div>
+    <div class="theme-toggle">
+      <i class="fas fa-moon"></i>
+    </div>
+  </nav>
+
+  <div class="container">
+    <section id="overview" class="section-content animate-on-scroll">
+      <div class="section-header">
+        <h2>Vue d'ensemble des technologies</h2>
+      </div>
+      <p>Ce cours combine trois technologies innovantes qui transforment notre quotidien de différentes manières. Chacune répond à des besoins spécifiques tout en partageant des principes technologiques communs.</p>
+      
+      <div class="feature-card">
+        <h3>Points communs</h3>
+        <ul>
+          <li>Ces trois technologies intègrent des <strong>systèmes électroniques avancés</strong></li>
+          <li>Elles utilisent toutes une <strong>chaîne d'énergie</strong> pour transformer une source d'énergie primaire</li>
+          <li>Elles comportent une <strong>chaîne d'information</strong> pour traiter et réagir aux données</li>
+          <li>Leur développement a été rendu possible par la <strong>miniaturisation des composants</strong></li>
+          <li>Elles ont un <strong>impact environnemental</strong> qu'il est important d'étudier</li>
+        </ul>
+      </div>
+      
+      <div class="highlight">
+        <p>Pour chaque technologie, nous explorerons :</p>
+        <ol>
+          <li>Son principe de fonctionnement</li>
+          <li>Son cycle de vie</li>
+          <li>Les matériaux et énergies utilisés</li>
+          <li>Ses chaînes d'énergie et d'information</li>
+          <li>Son impact environnemental et social</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="technologies" class="section-content animate-on-scroll">
+      <div class="section-header">
+        <h2>Exploration des technologies</h2>
+      </div>
+      
+      <div class="tab-menu">
+        <button class="tab-btn active" data-tab="eolienne">
+          <i class="fas fa-wind"></i> Éoliennes
+        </button>
+        <button class="tab-btn" data-tab="fauteuil">
+          <i class="fas fa-wheelchair"></i> Fauteuils Électriques
+        </button>
+        <button class="tab-btn" data-tab="montre">
+          <i class="fas fa-watch"></i> Montres Connectées
+        </button>
+      </div>
+      
+      <div id="eolienneContent" class="tab-content active">
+        <h2>Les Éoliennes Domestiques</h2>
+        <p>Les éoliennes domestiques transforment l'énergie du vent en électricité pour les particuliers, offrant une solution d'énergie renouvelable à l'échelle locale.</p>
+        
+        <div class="card-container">
+          <div class="feature-card">
+            <div class="card-icon">
+              <i class="fas fa-bolt"></i>
+            </div>
+            <h3>Génération d'énergie</h3>
+            <p>Une éolienne domestique peut produire de 400W à 20kW selon sa taille, contribuant significativement à l'alimentation électrique d'un foyer.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="card-icon">
+              <i class="fas fa-leaf"></i>
+            </div>
+            <h3>Impact environnemental</h3>
+            <p>Énergie propre et renouvelable qui réduit la dépendance aux combustibles fossiles et diminue l'empreinte carbone d'un foyer.</p>
+          </div>
+        </div>
+        
+        <a href="sections/eolienne.html" class="card-button" style="background: linear-gradient(135deg, var(--primary), var(--primary-light)); display: inline-block; margin-top: 1rem;">
+          Explorer en détail
+          <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+        </a>
+      </div>
+      
+      <div id="fauteuilContent" class="tab-content">
+        <h2>Les Fauteuils Électriques</h2>
+        <p>Les fauteuils électriques offrent une mobilité autonome aux personnes à mobilité réduite, intégrant des technologies avancées pour une meilleure qualité de vie.</p>
+        
+        <div class="card-container">
+          <div class="feature-card">
+            <div class="card-icon">
+              <i class="fas fa-tachometer-alt"></i>
+            </div>
+            <h3>Performance</h3>
+            <p>Avec une autonomie de 15 à 40 km et une vitesse pouvant atteindre 10 km/h, ces fauteuils permettent une mobilité quotidienne confortable.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="card-icon">
+              <i class="fas fa-microchip"></i>
+            </div>
+            <h3>Technologie</h3>
+            <p>Des systèmes informatisés contrôlent la direction, la vitesse et adaptent le comportement du fauteuil au terrain et aux besoins de l'utilisateur.</p>
+          </div>
+        </div>
+        
+        <a href="sections/fauteuil.html" class="card-button" style="background: linear-gradient(135deg, var(--secondary), var(--secondary-light)); display: inline-block; margin-top: 1rem;">
+          Explorer en détail
+          <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+        </a>
+      </div>
+      
+      <div id="montreContent" class="tab-content">
+        <h2>Les Montres Connectées</h2>
+        <p>Les montres connectées sont des ordinateurs miniatures portés au poignet, offrant des fonctionnalités de communication, de suivi de santé et bien plus encore.</p>
+        
+        <div class="card-container">
+          <div class="feature-card">
+            <div class="card-icon">
+              <i class="fas fa-heartbeat"></i>
+            </div>
+            <h3>Santé et bien-être</h3>
+            <p>Ces appareils intègrent de nombreux capteurs qui surveillent votre activité physique, votre sommeil et certains paramètres de santé importants.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="card-icon">
+              <i class="fas fa-mobile-alt"></i>
+            </div>
+            <h3>Connectivité</h3>
+            <p>En se synchronisant avec votre smartphone, la montre connectée vous permet de rester informé et connecté sans avoir à sortir votre téléphone.</p>
+          </div>
+        </div>
+        
+        <a href="sections/montre.html" class="card-button" style="background: linear-gradient(135deg, var(--tertiary), var(--tertiary-light)); display: inline-block; margin-top: 1rem;">
+          Explorer en détail
+          <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+        </a>
+      </div>
+    </section>
+
+    <section id="comparison" class="section-content animate-on-scroll">
+      <div class="section-header">
+        <h2>Comparaison des technologies</h2>
+      </div>
+      <p>Bien que ces trois technologies semblent très différentes, elles partagent plusieurs caractéristiques communes et répondent chacune à des défis spécifiques de notre société moderne.</p>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Caractéristique</th>
+            <th>Éoliennes</th>
+            <th>Fauteuils Électriques</th>
+            <th>Montres Connectées</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Fonction principale</td>
+            <td>Production d'énergie</td>
+            <td>Mobilité autonome</td>
+            <td>Connectivité et suivi</td>
+          </tr>
+          <tr>
+            <td>Source d'énergie</td>
+            <td>Vent (renouvelable)</td>
+            <td>Batterie électrique</td>
+            <td>Batterie rechargeable</td>
+          </tr>
+          <tr>
+            <td>Chaîne d'information</td>
+            <td>Capteurs de vent, orientation</td>
+            <td>Contrôle de mouvement, navigation</td>
+            <td>Capteurs multiples, traitement de données</td>
+          </tr>
+          <tr>
+            <td>Impact social</td>
+            <td>Énergies propres, autonomie énergétique</td>
+            <td>Inclusion, accessibilité, autonomie</td>
+            <td>Santé connectée, productivité</td>
+          </tr>
+          <tr>
+            <td>Défis environnementaux</td>
+            <td>Matériaux composites, recyclage</td>
+            <td>Batteries, composants électroniques</td>
+            <td>Miniaturisation, obsolescence</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="floating-nav">
+      <div class="float-button dark-toggle" onclick="toggleDarkMode()" title="Mode sombre">
+        <i class="fas fa-moon"></i>
+      </div>
+      <div class="float-button home-button" onclick="window.location.href='index.html'" title="Accueil">
+        <i class="fas fa-home"></i>
+      </div>
+    </div>
+
+    <button class="back-to-top" id="backToTop">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+  </div>
+
+  <footer>
+    <p>© 2024 - Application Éducative Autonome - Technologie Interactive</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Gestion des onglets
+    function setupTabs() {
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const tabContents = document.querySelectorAll('.tab-content');
+      
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          // Supprime la classe active de tous les boutons
+          tabBtns.forEach(b => b.classList.remove('active'));
+          
+          // Ajoute la classe active au bouton cliqué
+          this.classList.add('active');
+          
+          // Cache tous les contenus
+          tabContents.forEach(content => content.classList.remove('active'));
+          
+          // Affiche le contenu correspondant
+          const tabId = this.getAttribute('data-tab') + 'Content';
+          document.getElementById(tabId).classList.add('active');
+        });
+      });
+    }
+    
+    // Simulation de progression
+    function updateGlobalProgress() {
+      // Pour démonstration, on simule une progression
+      let progress = 15; // 15% initial
+      const progressBar = document.getElementById('globalProgressBar');
+      const progressPercent = document.getElementById('progressPercent');
+      const timeRemaining = document.getElementById('timeRemaining');
+      
+      // Mise à jour initiale
+      progressBar.style.width = progress + '%';
+      progressPercent.textContent = progress + '%';
+      
+      // Simulation d'une progression au fil du temps
+      const interval = setInterval(() => {
+        if (progress < 40) { // On limite à 40% pour cette démonstration
+          progress += 1;
+          progressBar.style.width = progress + '%';
+          progressPercent.textContent = progress + '%';
+          
+          // Ajustement du temps restant
+          const remaining = Math.round(30 * (100 - progress) / 100);
+          timeRemaining.textContent = remaining + ' min';
+        } else {
+          clearInterval(interval);
+        }
+      }, 3000); // Mise à jour toutes les 3 secondes
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      setupTabs();
+      updateGlobalProgress();
+      
+      // Navigation active sur défilement
+      window.addEventListener('scroll', function() {
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        let current = '';
+        
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          
+          if (window.pageYOffset >= sectionTop - 200) {
+            current = section.getAttribute('id');
+          }
+        });
+        
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href').substring(1) === current) {
+            link.classList.add('active');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
