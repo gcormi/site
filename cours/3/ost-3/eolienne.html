@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Les Éoliennes Domestiques - Cours Interactif</title>
+  <!-- Polices et icônes externes -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    /* Styles spécifiques à l'éolienne */
+    :root {
+      --eolienne-primary: #4361ee;
+      --eolienne-secondary: #4895ef;
+      --eolienne-accent: #3a0ca3;
+    }
+    
+    .eolienne-bg {
+      background: linear-gradient(135deg, rgba(67, 97, 238, 0.1), rgba(72, 149, 239, 0.1));
+    }
+    
+    .glossary-term {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--eolienne-primary), var(--eolienne-secondary));
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 0.2rem 0.1rem;
+      font-size: 0.9rem;
+    }
+    
+    .glossary-term:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+    }
+    
+    .info-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 15px;
+      max-width: 600px;
+      width: 90%;
+      position: relative;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      transform: scale(0.8);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .info-modal.active {
+      display: flex;
+    }
+    
+    .info-modal.active .modal-content {
+      transform: scale(1);
+      opacity: 1;
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--gray);
+      transition: color 0.3s ease;
+    }
+    
+    .modal-close:hover {
+      color: var(--danger);
+    }
+    
+    .energy-chain, .info-chain {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background-color: #f8f8f8;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .chain-diagram {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .chain-element {
+      padding: 1rem;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      flex: 1;
+      min-width: 180px;
+      max-width: 200px;
+      text-align: center;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .chain-element:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .chain-element::after {
+      content: '→';
+      position: absolute;
+      right: -1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.5rem;
+      color: var(--gray);
+    }
+    
+    .chain-element:last-child::after {
+      content: '';
+    }
+    
+    .chain-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--eolienne-primary);
+    }
+    
+    /* Mode sombre spécifique */
+    .dark-mode .chain-element {
+      background-color: #333;
+      color: #fff;
+    }
+    
+    .dark-mode .energy-chain, .dark-mode .info-chain {
+      background-color: #2a2a2a;
+    }
+    
+    .dark-mode .glossary-term {
+      box-shadow: 0 3px 10px rgba(67, 97, 238, 0.5);
+    }
+    
+    /* Fenêtre modale pour les images */
+    .image-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .image-modal.active {
+      display: flex;
+    }
+    
+    .image-modal-content {
+      max-width: 90%;
+      max-height: 90%;
+      position: relative;
+    }
+    
+    .zoom-image {
+      max-width: 100%;
+      max-height: 90vh;
+      display: block;
+      border-radius: 5px;
+      border: 5px solid white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .image-close {
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      background-color: white;
+      color: var(--dark);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+    
+    .image-close:hover {
+      transform: scale(1.1);
+      background-color: var(--danger);
+      color: white;
+    }
+    
+    /* Boutons de navigation flottants */
+    .floating-nav {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 90;
+    }
+    
+    .float-button {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .dark-toggle {
+      background: linear-gradient(135deg, #2c3e50, #34495e);
+    }
+    
+    .home-button {
+      background: linear-gradient(135deg, var(--eolienne-primary), var(--eolienne-secondary));
+    }
+    
+    .float-button:hover {
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Animation pour l'éolienne */
+    .eolienne-animation {
+      width: 200px;
+      height: 200px;
+      margin: 2rem auto;
+      position: relative;
+    }
+    
+    .eolienne-mat {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 10px;
+      height: 120px;
+      background-color: #666;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+    
+    .eolienne-nacelle {
+      position: absolute;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 15px;
+      background-color: #444;
+      border-radius: 3px;
+    }
+    
+    .eolienne-rotor {
+      position: absolute;
+      top: 87px;
+      left: calc(50% + 15px);
+      width: 6px;
+      height: 6px;
+      background-color: #222;
+      border-radius: 50%;
+      z-index: 2;
+    }
+    
+    .eolienne-pale {
+      position: absolute;
+      top: 90px;
+      left: calc(50% + 18px);
+      width: 80px;
+      height: 8px;
+      background-color: #ddd;
+      transform-origin: 0 0;
+      border-radius: 4px;
+      animation: rotationPales 6s linear infinite;
+    }
+    
+    .eolienne-pale:nth-child(1) {
+      transform: rotate(0deg);
+    }
+    
+    .eolienne-pale:nth-child(2) {
+      transform: rotate(120deg);
+    }
+    
+    .eolienne-pale:nth-child(3) {
+      transform: rotate(240deg);
+    }
+    
+    @keyframes rotationPales {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body class="eolienne-bg">
+  <header>
+    <h1><i class="fas fa-wind"></i> Les Éoliennes Domestiques : L'Énergie du Vent à la Maison</h1>
+    <p>Une exploration interactive des principes technologiques et du fonctionnement des éoliennes domestiques</p>
+  </header>
+
+  <nav>
+    <div class="logo">
+      <a href="../index.html"><i class="fas fa-home"></i> Accueil</a>
+    </div>
+    <div class="nav-links">
+      <a href="#introduction" class="nav-link active">Introduction</a>
+      <a href="#fonctionnement" class="nav-link">Fonctionnement</a>
+      <a href="#cycle-vie" class="nav-link">Cycle de Vie</a>
+      <a href="#materiaux" class="nav-link">Matériaux</a>
+      <a href="#energie" class="nav-link">Chaîne d'Énergie</a>
+      <a href="#information" class="nav-link">Chaîne d'Information</a>
+      <a href="#impact" class="nav-link">Impact</a>
+      <a href="#glossaire" class="nav-link">Glossaire</a>
+    </div>
+    <div class="theme-toggle">
+      <i class="fas fa-moon"></i>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Section Introduction -->
+    <section id="introduction" class="section-content animate-on-scroll">
+      <div class="section-header">
+        <h2>Introduction</h2>
+      </div>
+      <p>Les éoliennes domestiques représentent une solution innovante pour produire de l'électricité à partir d'une ressource renouvelable et gratuite : le vent. Contrairement aux installations industrielles de grande envergure, ces éoliennes sont conçues pour une utilisation à l'échelle d'une maison ou d'une petite exploitation.</p>
+
+      <div class="eolienne-animation">
+        <div class="eolienne-mat"></div>
+        <div class="eolienne-nacelle"></div>
+        <div class="eolienne-rotor"></div>
+        <div class="eolienne-pale"></div>
+        <div class="eolienne-pale"></div>
+        <div class="eolienne-pale"></div>
+      </div>
+
+      <div class="highlight">
+        <p><strong>Pourquoi s'intéresser aux éoliennes domestiques ?</strong></p>
+        <ul>
+          <li>
+            <span class="glossary-term" onclick="showInfoModal('Énergie renouvelable', 'Source d\'énergie dont le renouvellement naturel est assez rapide pour qu\'elle puisse être considérée comme inépuisable à l\'échelle du temps humain. Le vent est une ressource renouvelable car il est constamment généré par les différences de température et de pression atmosphérique.')">Énergie renouvelable</span> 
+            : Elles permettent de produire de l'électricité sans consommer de ressources fossiles et sans émettre de gaz à effet de serre.
+          </li>
+          <li>
+            <span class="glossary-term" onclick="showInfoModal('Autonomie énergétique', 'Capacité d\'un foyer ou d\'une communauté à produire l\'énergie nécessaire à ses besoins sans dépendre (ou en dépendant moins) des réseaux de distribution d\'électricité traditionnels. Les éoliennes domestiques contribuent à cette autonomie.')">Autonomie énergétique</span> 
+            : Elles participent à l'indépendance énergétique des foyers en complétant ou remplaçant partiellement l'approvisionnement du réseau.
+          </li>
+          <li>
+            <span class="glossary-term" onclick="showInfoModal('Innovation technologique', 'Les éoliennes domestiques bénéficient d\'avancées constantes : matériaux composites plus légers et résistants, systèmes électroniques de contrôle plus efficaces, nouvelles conceptions aérodynamiques, et solutions de stockage d\'énergie améliorées.')">Innovation technologique</span> 
+            : Leur développement stimule la recherche dans les matériaux, l'aérodynamique et les systèmes de stockage d'énergie.
+          </li>
+        </ul>
+      </div>
+
+      <div class="expandable-content">
+        <button class="expandable-trigger">
+          <span>Histoire et évolution des éoliennes</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="expandable-body">
+          <h3>Du moulin à vent à l'éolienne moderne</h3>
+          <p>L'utilisation du vent comme source d'énergie remonte à plusieurs millénaires :</p>
+          <ul>
+            <li><strong>Antiquité</strong> : Premiers bateaux à voile et moulins à vent simples</li>
+            <li><strong>Moyen Âge</strong> : Perfectionnement des moulins à vent pour moudre le grain et pomper l'eau</li>
+            <li><strong>1887</strong> : Première éolienne produisant de l'électricité, créée par James Blyth en Écosse</li>
+            <li><strong>1930-1950</strong> : Petites éoliennes pour électrifier les zones rurales</li>
+            <li><strong>1970</strong> : Regain d'intérêt suite aux crises pétrolières</li>
+            <li><strong>1990-2000</strong> : Développement des technologies modernes</li>
+            <li><strong>2000-aujourd'hui</strong> : Miniaturisation et optimisation pour usage domestique</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Fonctionnement -->
+    <section id="fonctionnement" class="section-content animate-on-scroll">
+      <div class="section-header">
+        <h2>Fonctionnement des Éoliennes Domestiques</h2>
+      </div>
+      <p>L'éolienne domestique est un système élégant qui transforme l'énergie cinétique du vent en électricité utilisable. Son fonctionnement repose sur plusieurs principes physiques et composants essentiels :</p>
+
+      <div class="feature-card">
+        <div class="card-icon">
+          <i class="fas fa-fan"></i>
+        </div>
+        <h3>Captation de l'énergie éolienne</h3>
+        <p>Le rotor, composé de <span class="glossary-term" onclick="showInfoModal('Pales aérodynamiques', 'Les pales d\'éolienne domestique sont généralement au nombre de 3 et conçues selon des principes aérodynamiques similaires aux ailes d\'avion. Leur forme particulière crée une différence de pression entre leurs faces qui génère une force de rotation.')">pales aérodynamiques</span>, capte l'énergie cinétique du vent. La forme des pales est conçue pour maximiser cette captation et transformer le mouvement linéaire de l'air en mouvement rotatif.</p>
+      </div>
+
+      <div class="card-container">
+        <div class="feature-card">
+          <div class="card-icon">
+            <i class="fas fa-cog"></i>
+          </div>
+          <h3>Conversion mécanique</h3>
+          <p>La rotation des pales entraîne un arbre mécanique relié à un <span class="glossary-term" onclick="showInfoModal('Générateur électrique', 'Le générateur d\'une éolienne domestique est généralement un alternateur à aimants permanents qui convertit l\'énergie mécanique en électricité. Ces alternateurs sont choisis pour leur efficacité, leur fiabilité et leur capacité à produire de l\'électricité même à faible vitesse de rotation.')">générateur électrique</span>. Cette énergie mécanique de rotation est la première transformation de l'énergie du vent.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3>Production électrique</h3>
+          <p>Le générateur transforme l'énergie mécanique en <span class="glossary-term" onclick="showInfoModal('Courant électrique', 'Les éoliennes domestiques produisent généralement un courant alternatif qui est ensuite converti en courant continu pour être stocké dans des batteries, puis reconverti en courant alternatif compatible avec les appareils domestiques (230V, 50Hz en Europe).')">courant électrique</span>. Dans les systèmes domestiques, cette électricité est souvent stockée dans des batteries avant d'être utilisée.</p>
+        </div>
+      </div>
+
+      <div class="card-container">
+        <div class="feature-card">
+          <div class="card-icon">
+            <i class="fas fa-microchip"></i>
+          </div>
+          <h3>Régulation et contrôle</h3>
+          <p>Un <span class="glossary-term" onclick="showInfoModal('Contrôleur de charge', 'Dispositif électronique qui régule la charge des batteries et protège le système contre les surcharges ou les décharges profondes. Il peut également inclure des fonctions de suivi de production et d\'optimisation du rendement.')">contrôleur électronique</span> gère la production d'électricité et la sécurité du système. Il adapte le fonctionnement selon la vitesse du vent et assure la protection contre les survitesses.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon">
+            <i class="fas fa-battery-full"></i>
+          </div>
+          <h3>Stockage et utilisation</h3>
+          <p>L'électricité produite peut être stockée dans des <span class="glossary-term" onclick="showInfoModal('Systèmes de stockage', 'Les éoliennes domestiques utilisent généralement des batteries au plomb-acide ou lithium-ion pour stocker l\'énergie, mais de nouvelles solutions émergent comme les batteries à flux, le stockage par hydrogène ou les volants d\'inertie.')">batteries</span> ou directement injectée dans le réseau domestique via un onduleur qui convertit le courant en 230V compatible avec les appareils ménagers.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Cycle de Vie -->
+    <section id="cycle-vie" class="section-content animate-on-scroll">
+      <div class="section-header">
+        <h2>Cycle de Vie de l'Éolienne Domestique</h2>
+      </div>
+      <p>Comme tout produit technologique, l'éolienne domestique possède un cycle de vie complet, de sa conception à son recyclage. Chaque étape a des implications environnementales, sociales et économiques :</p>
+
+      <div class="card-container">
+        <div class="feature-card">
+          <div class="card-icon">
+            <i class="fas fa-drafting-compass"></i>
+          </div>
+          <h3>Conception et R&D</h3>
+          <p>Phase initiale où les ingénieurs conçoivent l'éolienne en optimisant son rendement, sa durabilité et en minimisant son impact environnemental.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon">
+            <i class="fas fa-mining-drill"></i>
+          </div>
+          <h3>Extraction des matières premières</h3>
+          <p>Extraction des matériaux nécessaires : métaux pour la structure et le générateur, matériaux composites pour les pales, et minéraux pour les composants électroniques.</p>
+        </div>
+      </div>
+
+      <div class="card-container">
+        <div class="feature-card">
+          <div class="card-icon">
+            <i class="fas fa-industry"></i>
+          </div>
+          <h3>Fabrication</h3>
+          <p>Production des différents composants et assemblage final. Cette étape consomme de l'énergie et peut générer des déchets et des émissions.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon">
+            <i class="fas fa-truck"></i>
+          </div>
+          <h3>Transport et installation</h3>
+          <p>Distribution du produit fini et installation sur site, incluant la préparation du terrain, l'érection de la structure et le raccordement électrique.</p>
+        </div>
+      </div>
+
+      <div class="card-container">
+        <div class="feature-card">
+          <div class="card-icon">
+            <i class="fas fa-tools"></i>
+          </div>
+          <h3>Utilisation et maintenance</h3>
+          <p>Phase la plus longue (15 à 25 ans), durant laquelle l'éolienne produit de l'électricité et nécessite un entretien périodique pour assurer son bon fonctionnement.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon">
+            <i class="fas fa-recycle"></i>
+          </div>
+          <h3>Fin de vie et recyclage</h3>
+          <p>Démantèlement et recyclage des matériaux récupérables. Les métaux sont facilement recyclables, tandis que les matériaux composites posent encore des défis technologiques.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Matériaux -->
+    <section id="materiaux" class="section-content animate-on-scroll">
+      <div class="section-header">
+        <h2>Matériaux et Énergies Utilisés</h2>
+      </div>
+      <p>Les matériaux utilisés dans la fabrication des éoliennes domestiques sont sélectionnés pour leur légèreté, leur résistance et leur durabilité face aux éléments. Voici les principaux matériaux et leurs caractéristiques :</p>
+
+      <div class="card-container">
+        <div class="feature-card">
+          <div class="card-icon">
+            <i class="fas fa-feather-alt"></i>
+          </div>
+          <h3>Pales</h3>
+          <p>Généralement fabriquées en <span class="glossary-term" onclick="showInfoModal('Matériaux composites', 'Matériaux formés par l\'assemblage d\'au moins deux composants non miscibles dont les propriétés se complètent. Les pales d\'éolienne utilisent souvent des fibres de verre ou de carbone dans une matrice de résine époxy ou polyester.')">matériaux composites</span> comme la fibre de verre ou de carbone dans une matrice de résine époxy. Ces matériaux offrent un excellent rapport résistance/poids et peuvent supporter des contraintes mécaniques importantes.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon">
+            <i class="fas fa-tower-cell"></i>
+          </div>
+          <h3>Mât et structure</h3>
+          <p>Principalement en <span class="glossary-term" onclick="showInfoModal('Acier galvanisé', 'L\'acier utilisé pour les mâts d\'éolienne est souvent galvanisé (recouvert d\'une couche de zinc) pour résister à la corrosion. Les petites éoliennes domestiques peuvent également utiliser des alliages d\'aluminium pour réduire le poids.')">acier galvanisé</span> ou en aluminium pour les modèles légers. La structure doit être suffisamment robuste pour résister aux vents forts et aux intempéries tout en supportant le poids du rotor et de la nacelle.</p>
+        </div>
+      </div>
+
+      <div class="card-container">
+        <div class="feature-card">
+          <div class="card-icon">
+            <i class="fas fa-cog"></i>
+          </div>
+          <h3>Générateur et composants mécaniques</h3>
+          <p>Le générateur contient des <span class="glossary-term" onclick="showInfoModal('Aimants permanents', 'Les éoliennes domestiques utilisent souvent des générateurs à aimants permanents, composés de terres rares comme le néodyme. Ces aimants permettent de produire de l\'électricité à des vitesses de rotation relativement faibles.')">aimants permanents</span> (terres rares) et du cuivre pour les bobinages. Les roulements, engrenages et autres composants mécaniques sont fabriqués en acier de précision pour assurer longevité et fiabilité.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon">
+            <i class="fas fa-microchip"></i>
+          </div>
+          <h3>Électronique et contrôle</h3>
+          <p>Les circuits imprimés, composants électroniques et systèmes de contrôle contiennent divers métaux et matériaux synthétiques : cuivre, or, argent, silicium, et différents <span class="glossary-term" onclick="showInfoModal('Plastiques techniques', 'Polymères conçus pour des applications spécifiques qui exigent des propriétés mécaniques, thermiques ou électriques particulières. Ils sont utilisés pour les boîtiers et éléments d\'isolation des composants électroniques.')">plastiques techniques</span>.</p>
+        </div>
+      </div>
+
+      <div class="highlight">
+        <h3>Considérations environnementales</h3>
+        <p>Si les éoliennes produisent une énergie propre, la fabrication de leurs composants a un impact environnemental qu'il convient de considérer :</p>
+        <ul>
+          <li>L'extraction des <strong>terres rares</strong> pour les aimants peut être polluante</li>
+          <li>Les <strong>matériaux composites</strong> des pales sont difficiles à recycler</li>
+          <li>La <strong>production d'acier</strong> est énergivore et génère des émissions de CO₂</li>
+          <li>Le <strong>bilan carbone</strong> d'une éolienne est généralement compensé après 6 à 12 mois de fonctionnement</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Section Chaîne d'Énergie -->
+    <section id="energie" class="section-content animate-on-scroll">
+      <div class="section-header">
+        <h2>Chaîne d'Énergie</h2>
+      </div>
+      <p>La chaîne d'énergie d'une éolienne domestique représente la séquence de transformations qui permet de convertir l'énergie du vent en électricité utilisable. C'est le cœur du fonctionnement de ce système.</p>
+
+      <div class="energy-chain">
+        <h3>Transformations énergétiques</h3>
+        <div class="chain-diagram">
+          <div class="chain-element" data-description="Le vent est généré par les différences de pression atmosphérique causées par le réchauffement inégal de la surface terrestre par le soleil. Il constitue une source d'énergie renouvelable et inépuisable.">
+            <div class="chain-icon">
+              <i class="fas fa-wind"></i>
+            </div>
+            <h4>Énergie éolienne</h4>
+            <p>Énergie cinétique du vent</p>
+          </div>
+
+          <div class="chain-element" data-description="Les pales captent l'énergie du vent grâce à leur profil aérodynamique. Elles transforment le mouvement linéaire de l'air en mouvement de rotation, selon le même principe que les ailes d'avion.">
+            <div class="chain-icon">
+              <i class="fas fa-fan"></i>
+            </div>
+            <h4>Énergie mécanique</h4>
+            <p>Rotation des pales</p>
+          </div>
+
+          <div class="chain-element" data-description="Le générateur utilise le principe d'induction électromagnétique : le mouvement d'un conducteur dans un champ magnétique génère un courant électrique. Les aimants permanents créent le champ magnétique tandis que les bobines de cuivre constituent le conducteur.">
+            <div class="chain-icon">
+              <i class="fas fa-plug"></i>
+            </div>
+            <h4>Énergie électrique</h4>
+            <p>Production de courant</p>
+          </div>
+
+          <div class="chain-element" data-description="Le régulateur et le convertisseur adaptent le courant produit pour qu'il soit compatible avec les besoins de l'utilisateur. Il peut s'agir de charger des batteries (courant continu) ou d'alimenter directement des appareils (courant alternatif 230V).">
+            <div class="chain-icon">
+              <i class="fas fa-bolt"></i>
+            </div>
+            <h4>Énergie utile</h4>
+            <p>Électricité utilisable</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="expandable-content">
+        <button class="expandable-trigger">
+          <span>Détails des pertes énergétiques</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="expandable-body">
+          <h3>Rendement et pertes</h3>
+          <p>À chaque étape de la chaîne énergétique, une partie de l'énergie est perdue :</p>
+          <ul>
+            <li><strong>Limite de Betz</strong> : Théoriquement, une éolienne ne peut récupérer que 59,3% de l'énergie cinétique du vent</li>
+            <li><strong>Pertes aérodynamiques</strong> : Les turbulences et frottements de l'air réduisent l'efficacité des pales (10-20% de pertes)</li>
+            <li><strong>Pertes mécaniques</strong> : Frottements dans les roulements et transmissions (5-10% de pertes)</li>
+            <li><strong>Pertes électriques</strong> : Résistance des bobinages et conversion électrique (10-15% de pertes)</li>
+            <li><strong>Pertes de stockage</strong> : Si l'énergie est stockée dans des batteries (10-20% de pertes)</li>
+          </ul>
+          <p>Au final, le rendement global d'une éolienne domestique bien conçue se situe généralement entre 25% et 40% de l'énergie théoriquement disponible dans le vent.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Chaîne d'Information -->
+    <section id="information" class="section-content animate-on-scroll">
+      <div class="section-header">
+        <h2>Chaîne d'Information</h2>
+      </div>
+      <p>La chaîne d'information d'une éolienne domestique est le système qui permet de mesurer, traiter et réagir aux conditions extérieures pour optimiser le fonctionnement et assurer la sécurité de l'installation.</p>
+
+      <div class="info-chain">
+        <h3>Circuit de contrôle</h3>
+        <div class="chain-diagram">
+          <div class="chain-element" data-description="Les éoliennes sont équipées de divers capteurs : anémomètre (vitesse du vent), girouette (direction), tachymètre (vitesse de rotation), capteurs de vibrations, de température et de tension électrique. Ils transforment des grandeurs physiques en signaux électriques.">
+            <div class="chain-icon">
+              <i class="fas fa-search"></i>
+            </div>
+            <h4>Acquisition</h4>
+            <p>Capteurs et mesures</p>
+          </div>
+
+          <div class="chain-element" data-description="Le signal brut des capteurs est filtré et amplifié pour éliminer les parasites. Les données sont ensuite converties en valeurs numériques que le microcontrôleur peut interpréter. Cette étape assure la fiabilité des informations.">
+            <div class="chain-icon">
+              <i class="fas fa-exchange-alt"></i>
+            </div>
+            <h4>Traitement</h4>
+            <p>Conversion et analyse</p>
+          </div>
+
+          <div class="chain-element" data-description="Le microcontrôleur compare les valeurs mesurées avec des seuils prédéfinis et détermine les actions à entreprendre selon des algorithmes programmés. Il peut estimer la production, détecter des anomalies ou anticiper des problèmes.">
+            <div class="chain-icon">
+              <i class="fas fa-microchip"></i>
+            </div>
+            <h4>Décision</h4>
+            <p>Algorithmes de contrôle</p>
+          </div>
+
+          <div class="chain-element" data-description="Des actionneurs exécutent les décisions : orientation de la nacelle pour faire face au vent, changement d'angle des pales, frein mécanique en cas de vents trop forts, ou déconnexion du réseau en cas de problème électrique.">
+            <div class="chain-icon">
+              <i class="fas fa-cogs"></i>
+            </div>
+            <h4>Action</h4>
+            <p>Ajustements et sécurité</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-container">
+        <div class="feature-card">
+          <div class="card-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>Sécurité et protection</h3>
+          <p>La chaîne d'information intègre plusieurs systèmes de sécurité : limitation de la vitesse de rotation en cas de vents forts, mise en drapeau des pales, freinage automatique en cas de dysfonctionnement, et déconnexion en cas de surtension.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Suivi et optimisation</h3>
+          <p>Les modèles récents permettent un suivi à distance via smartphone ou ordinateur. L'utilisateur peut consulter la production en temps réel, l'historique de fonctionnement et recevoir des alertes en cas de problème.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Impact -->
+    <section id="impact" class="section-content animate-on-scroll">
+      <div class="section-header">
+        <h2>Impact Environnemental et Social</h2>
+      </div>
+      <p>Les éoliennes domestiques s'inscrivent dans la transition énergétique et ont des impacts variés sur l'environnement et la société :</p>
+
+      <div class="card-container">
+        <div class="feature-card">
+          <div class="card-icon">
+            <i class="fas fa-leaf"></i>
+          </div>
+          <h3>Bénéfices environnementaux</h3>
+          <ul>
+            <li>Production d'électricité sans émission de CO₂ ni polluants atmosphériques</li>
+            <li>Réduction de la dépendance aux combustibles fossiles</li>
+            <li>Faible empreinte au sol et impact limité sur la biodiversité locale</li>
+            <li>Retour sur investissement énergétique rapide (6-12 mois)</li>
+          </ul>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <h3>Défis environnementaux</h3>
+          <ul>
+            <li>Matériaux composites des pales difficiles à recycler en fin de vie</li>
+            <li>Extraction des terres rares pour les aimants parfois polluante</li>
+            <li>Impact visuel et sonore potentiel dans certains environnements</li>
+            <li>Nécessité d'une filière de recyclage adaptée</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card-container">
+        <div class="feature-card">
+          <div class="card-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>Impacts sociaux positifs</h3>
+          <ul>
+            <li>Autonomie énergétique accrue pour les propriétaires</li>
+            <li>Réduction des factures d'électricité à long terme</li>
+            <li>Sensibilisation aux enjeux énergétiques et développement durable</li>
+            <li>Création d'emplois dans les secteurs de la fabrication et de l'installation</li>
+          </ul>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon">
+            <i class="fas fa-balance-scale"></i>
+          </div>
+          <h3>Considérations économiques</h3>
+          <ul>
+            <li>Investissement initial conséquent (3 000 à 20 000 € selon la puissance)</li>
+            <li>Période d'amortissement de 7 à 15 ans selon les conditions</li>
+            <li>Variabilité de la production selon les conditions météorologiques</li>
+            <li>Problématiques d'intégration au réseau électrique existant</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="highlight">
+        <h3>Bilan global</h3>
+        <p>Malgré leurs limites, les éoliennes domestiques représentent une solution tangible pour la transition énergétique à l'échelle individuelle. Leur impact environnemental global est largement positif sur leur cycle de vie complet, surtout dans les zones bien exposées aux vents. Les innovations technologiques et l'amélioration des filières de recyclage devraient encore renforcer ce bilan dans les années à venir.</p>
+      </div>
+    </section>
+
+    <!-- Section Glossaire -->
+    <section id="glossaire" class="section-content animate-on-scroll">
+      <div class="section-header">
+        <h2>Glossaire Technique</h2>
+      </div>
+      <p>Ce glossaire regroupe les principaux termes techniques liés aux éoliennes domestiques pour faciliter la compréhension des concepts clés :</p>
+
+      <div style="column-count: 2; column-gap: 2rem;">
+        <div class="glossary-item">
+          <span class="glossary-term" onclick="showInfoModal('Aérodynamique', 'Science qui étudie les mouvements de l\'air et ses interactions avec les corps en mouvement. L\'aérodynamique est fondamentale dans la conception des pales d\'éolienne pour maximiser la captation de l\'énergie du vent.')">Aérodynamique</span>
+          <p>Science qui étudie les interactions entre l'air et les objets, essentielle pour la conception des pales.</p>
+        </div>
+
+        <div class="glossary-item">
+          <span class="glossary-term" onclick="showInfoModal('Alternateur', 'Machine électrique qui convertit l\'énergie mécanique en énergie électrique sous forme de courant alternatif. Dans les éoliennes domestiques, on utilise généralement des alternateurs à aimants permanents.')">Alternateur</span>
+          <p>Dispositif qui convertit l'énergie mécanique en énergie électrique sous forme de courant alternatif.</p>
+        </div>
+
+        <div class="glossary-item">
+          <span class="glossary-term" onclick="showInfoModal('Anémomètre', 'Instrument qui mesure la vitesse du vent. Sur une éolienne, l\'anémomètre permet d\'ajuster le fonctionnement selon les conditions et d\'activer les systèmes de protection en cas de vents trop forts.')">Anémomètre</span>
+          <p>Instrument qui mesure la vitesse du vent pour optimiser le fonctionnement de l'éolienne.</p>
+        </div>
+
+        <div class="glossary-item">
+          <span class="glossary-term" onclick="showInfoModal('Angle de calage', 'Angle formé entre la corde d\'une pale (ligne droite reliant le bord d\'attaque au bord de fuite) et le plan de rotation. Cet angle peut être fixe ou ajustable pour optimiser le rendement selon la vitesse du vent.')">Angle de calage</span>
+          <p>Angle entre le profil d'une pale et le plan de rotation, optimisé pour la captation du vent.</p>
+        </div>
+
+        <div class="glossary-item">
+          <span class="glossary-term" onclick="showInfoModal('Courant alternatif', 'Type de courant électrique dont le sens varie périodiquement dans le temps. Le courant alternatif est produit naturellement par les alternateurs et est utilisé dans les réseaux de distribution électrique (230V, 50Hz en Europe).')">Courant alternatif</span>
+          <p>Courant électrique dont la direction change périodiquement, utilisé dans le réseau domestique.</p>
+        </div>
+
+        <div class="glossary-item">
+          <span class="glossary-term" onclick="showInfoModal('Courant continu', 'Courant électrique de direction constante. Les batteries stockent et fournissent du courant continu. Un onduleur est nécessaire pour convertir ce courant continu en courant alternatif compatible avec les appareils ménagers.')">Courant continu</span>
+          <p>Courant électrique de direction constante, utilisé dans les batteries et certains circuits.</p>
+        </div>
+
+        <div class="glossary-item">
+          <span class="glossary-term" onclick="showInfoModal('Limite de Betz', 'Loi physique établie par Albert Betz en 1919 qui démontre qu\'une éolienne ne peut théoriquement pas convertir plus de 59,3% de l\'énergie cinétique du vent en énergie mécanique. C\'est une limite théorique fondamentale.')">Limite de Betz</span>
+          <p>Limite théorique maximale (59,3%) de l'énergie du vent qu'une éolienne peut récupérer.</p>
+        </div>
+
+        <div class="glossary-item">
+          <span class="glossary-term" onclick="showInfoModal('Nacelle', 'Boîtier situé au sommet du mât d\'une éolienne qui contient tous les composants mécaniques et électriques : générateur, multiplicateur éventuel, systèmes de contrôle et d\'orientation.')">Nacelle</span>
+          <p>Structure au sommet du mât contenant le générateur et les systèmes de contrôle.</p>
+        </div>
+
+        <div class="glossary-item">
+          <span class="glossary-term" onclick="showInfoModal('Onduleur', 'Dispositif électronique qui convertit le courant continu (DC) provenant des batteries ou directement du générateur en courant alternatif (AC) compatible avec les appareils électriques standard.')">Onduleur</span>
+          <p>Dispositif qui convertit le courant continu en courant alternatif pour les appareils domestiques.</p>
+        </div>
+
+        <div class="glossary-item">
+          <span class="glossary-term" onclick="showInfoModal('Profil aérodynamique', 'Forme donnée aux pales d\'éolienne, similaire à celle d\'une aile d\'avion, conçue pour générer une force de rotation optimale lorsque le vent la traverse. Ce profil est le résultat de calculs et modélisations complexes.')">Profil aérodynamique</span>
+          <p>Forme optimisée des pales pour maximiser la captation de l'énergie du vent.</p>
+        </div>
+
+        <div class="glossary-item">
+          <span class="glossary-term" onclick="showInfoModal('Rotor', 'Ensemble constitué des pales et du moyeu (pièce centrale) d\'une éolienne. C\'est la partie qui tourne sous l\'effet du vent et transforme son énergie cinétique en mouvement de rotation.')">Rotor</span>
+          <p>Ensemble des pales et du moyeu qui tourne pour capturer l'énergie du vent.</p>
+        </div>
+
+        <div class="glossary-item">
+          <span class="glossary-term" onclick="showInfoModal('Système autonome', 'Installation éolienne non raccordée au réseau électrique public, généralement équipée de batteries pour stocker l\'énergie produite. Ces systèmes sont particulièrement adaptés aux sites isolés.')">Système autonome</span>
+          <p>Installation non connectée au réseau électrique, fonctionnant avec des batteries de stockage.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fenêtres modales -->
+    <div class="info-modal" id="infoModal">
+      <div class="modal-content">
+        <span class="modal-close" onclick="closeInfoModal()">&times;</span>
+        <h3 id="modalTitle">Titre</h3>
+        <p id="modalContent">Contenu...</p>
+      </div>
+    </div>
+
+    <div class="image-modal" id="imageModal">
+      <div class="image-modal-content">
+        <span class="image-close" onclick="closeImageModal()">&times;</span>
+        <img id="zoomImage" class="zoom-image" src="" alt="Image agrandie">
+      </div>
+    </div>
+  </div>
+
+  <div class="floating-nav">
+    <div class="float-button dark-toggle" onclick="toggleDarkMode()" title="Mode sombre">
+      <i class="fas fa-moon"></i>
+    </div>
+    <div class="float-button home-button" onclick="window.location.href='../index.html'" title="Accueil">
+      <i class="fas fa-home"></i>
+    </div>
+  </div>
+
+  <button class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <footer>
+    <p>© 2024 - Application Éducative Autonome - Technologie Interactive</p>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    // Fonctions spécifiques à cette page
+    document.addEventListener('DOMContentLoaded', function() {
+      // Vous pouvez ajouter ici des scripts spécifiques à la page des éoliennes
+      
+      // Animation de l'éolienne - ajuster la vitesse en fonction du "vent"
+      function animateWindTurbine() {
+        const pales = document.querySelectorAll('.eolienne-pale');
+        // Simuler des variations de vitesse du vent
+        const windSpeed = Math.random() * 3 + 3; // Entre 3 et 6 secondes par rotation
+        
+        pales.forEach(pale => {
+          pale.style.animationDuration = windSpeed + 's';
+        });
+        
+        // Changer la vitesse périodiquement
+        setTimeout(animateWindTurbine, 5000);
+      }
+      
+      animateWindTurbine();
+      
+      // Ces fonctions sont incluses ici en cas d'absence du fichier main.js
+      // Fonction pour gérer l'affichage des informations dans une fenêtre modale
+      window.showInfoModal = function(title, content) {
+        document.getElementById('modalTitle').textContent = title;
+        document.getElementById('modalContent').textContent = content;
+        document.getElementById('infoModal').classList.add('active');
+      }
+
+      window.closeInfoModal = function() {
+        document.getElementById('infoModal').classList.remove('active');
+      }
+
+      // Fonction pour gérer l'affichage des images dans une fenêtre modale
+      window.showImageModal = function(imageSrc) {
+        document.getElementById('zoomImage').src = imageSrc;
+        document.getElementById('imageModal').classList.add('active');
+      }
+
+      window.closeImageModal = function() {
+        document.getElementById('imageModal').classList.remove('active');
+      }
+
+      // Fonction pour basculer le mode sombre
+      window.toggleDarkMode = function() {
+        document.body.classList.toggle('dark-mode');
+        
+        // Sauvegarde de la préférence
+        if(document.body.classList.contains('dark-mode')) {
+          localStorage.setItem('darkMode', 'enabled');
+          document.querySelector('.dark-toggle i').classList.replace('fa-moon', 'fa-sun');
+        } else {
+          localStorage.setItem('darkMode', 'disabled');
+          document.querySelector('.dark-toggle i').classList.replace('fa-sun', 'fa-moon');
+        }
+      }
+    });
+  </script>
+</body>
+</html>
