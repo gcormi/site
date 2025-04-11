@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technologie : Le réseau Wifi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        accent: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, rgba(2,132,199,0.1) 0%, rgba(15,23,42,0.1) 100%);
+        }
+        .wave-shape {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+        .wave-shape svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 150px;
+        }
+        .wave-shape .shape-fill {
+            fill: #FFFFFF;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-wifi text-accent-500 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-secondary-800">Réseau Wifi</span>
+                    </div>
+                </div>
+                <div class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
+                    <a href="#fonctionnement" class="text-secondary-600 hover:text-accent-500 px-3 py-2 text-sm font-medium">Fonctionnement</a>
+                    <a href="#adresses-ip" class="text-secondary-600 hover:text-accent-500 px-3 py-2 text-sm font-medium">Adresses IP</a>
+                    <a href="#cycle-de-vie" class="text-secondary-600 hover:text-accent-500 px-3 py-2 text-sm font-medium">Cycle de vie</a>
+                    <a href="#energie" class="text-secondary-600 hover:text-accent-500 px-3 py-2 text-sm font-medium">Énergie</a>
+                    <a href="#materiaux" class="text-secondary-600 hover:text-accent-500 px-3 py-2 text-sm font-medium">Matériaux</a>
+                </div>
+                <div class="-mr-2 flex items-center md:hidden">
+                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-secondary-400 hover:text-secondary-500 hover:bg-secondary-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent-500">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="#fonctionnement" class="block px-3 py-2 text-base font-medium text-secondary-600 hover:text-accent-500 hover:bg-secondary-50">Fonctionnement</a>
+                <a href="#adresses-ip" class="block px-3 py-2 text-base font-medium text-secondary-600 hover:text-accent-500 hover:bg-secondary-50">Adresses IP</a>
+                <a href="#cycle-de-vie" class="block px-3 py-2 text-base font-medium text-secondary-600 hover:text-accent-500 hover:bg-secondary-50">Cycle de vie</a>
+                <a href="#energie" class="block px-3 py-2 text-base font-medium text-secondary-600 hover:text-accent-500 hover:bg-secondary-50">Énergie</a>
+                <a href="#materiaux" class="block px-3 py-2 text-base font-medium text-secondary-600 hover:text-accent-500 hover:bg-secondary-50">Matériaux</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative gradient-bg overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+                <div class="pt-10 sm:pt-16 lg:pt-8 lg:pb-14 lg:overflow-hidden">
+                    <div class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                        <div class="sm:text-center lg:text-left">
+                            <h1 class="text-4xl tracking-tight font-extrabold text-secondary-900 sm:text-5xl md:text-6xl">
+                                <span class="block">Comprendre le</span>
+                                <span class="block text-accent-500">réseau Wifi</span>
+                            </h1>
+                            <p class="mt-3 text-base text-secondary-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                                Une exploration approfondie de la technologie sans fil qui connecte notre monde.
+                            </p>
+                            <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                                <div class="rounded-md shadow">
+                                    <a href="#fonctionnement" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-accent-500 hover:bg-accent-600 md:py-4 md:text-lg md:px-10">
+                                        Commencer
+                                    </a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+            <div class="h-56 w-full sm:h-72 md:h-96 lg:w-full lg:h-full relative">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="animate-float">
+                        <img class="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96" src="https://cdn-icons-png.flaticon.com/512/2285/2285547.png" alt="Wifi illustration">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wave-shape">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Fonctionnement Wifi Section -->
+            <div id="fonctionnement" class="lg:grid lg:grid-cols-3 lg:gap-8 mb-20">
+                <div class="lg:col-span-1 mb-8 lg:mb-0">
+                    <div class="px-4 sm:px-0">
+                        <h2 class="text-3xl font-extrabold text-secondary-900">1. Fonctionnement détaillé d'un réseau Wifi</h2>
+                        <p class="mt-4 text-lg text-secondary-500">
+                            Comment les ondes invisibles connectent nos appareils au monde numérique.
+                        </p>
+                        <div class="mt-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-accent-500 rounded-md p-2">
+                                    <i class="fas fa-broadcast-tower text-white text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-sm font-medium text-secondary-900">Fréquences</h4>
+                                    <p class="text-sm text-secondary-500">2.4 GHz ou 5 GHz</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center mt-4">
+                                <div class="flex-shrink-0 bg-accent-500 rounded-md p-2">
+                                    <i class="fas fa-server text-white text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-sm font-medium text-secondary-900">Protocoles</h4>
+                                    <p class="text-sm text-secondary-500">TCP/IP standardisés</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-2">
+                    <div class="bg-secondary-50 rounded-lg shadow-lg overflow-hidden">
+                        <div class="px-6 py-8 sm:p-10">
+                            <div class="prose prose-lg text-secondary-600">
+                                <p>Le réseau Wifi est une technologie de communication sans fil qui permet à plusieurs appareils numériques de se connecter entre eux, ainsi qu'à Internet, sans utiliser de câbles. Cette connexion repose sur la transmission d'ondes électromagnétiques dans la bande des radiofréquences, généralement autour de 2,4 GHz ou 5 GHz.</p>
+                                
+                                <p class="mt-4">Ces ondes sont produites par un appareil central appelé routeur Wifi ou point d'accès, qui fait le lien entre les équipements connectés (ordinateurs, smartphones, objets connectés) et l'extérieur (Internet). Le routeur joue un rôle de chef d'orchestre du réseau local.</p>
+                                
+                                <div class="mt-6 bg-white p-4 rounded-lg border border-secondary-200">
+                                    <h4 class="text-lg font-medium text-secondary-900 mb-2">Fonctions avancées du routeur</h4>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Attribution d'adresses IP locales</li>
+                                        <li>Filtrage de contenu</li>
+                                        <li>Priorisation du trafic (QoS - Quality of Service)</li>
+                                        <li>Gestion des utilisateurs connectés</li>
+                                    </ul>
+                                </div>
+                                
+                                <p class="mt-6">Il attribue une adresse IP locale à chaque appareil et assure que les données numériques envoyées ou reçues soient correctement transmises, sans collision ni perte. Ce système repose sur un ensemble de protocoles de communication normalisés, tels que TCP/IP, qui organisent l'échange des données en petits paquets, identifiés, numérotés et acheminés vers leur destination.</p>
+                                
+                                <p class="mt-4">Un routeur Wifi peut aussi assurer d'autres fonctions comme le filtrage de contenu, la priorisation du trafic (QoS - Quality of Service), ou encore la gestion des utilisateurs connectés. Tous ces échanges sont invisibles à l'œil nu mais fondamentaux pour garantir un fonctionnement fluide et sécurisé du réseau.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Adresses IP Section -->
+            <div id="adresses-ip" class="lg:grid lg:grid-cols-3 lg:gap-8 mb-20">
+                <div class="lg:col-span-1 mb-8 lg:mb-0">
+                    <div class="px-4 sm:px-0">
+                        <h2 class="text-3xl font-extrabold text-secondary-900">2. Le rôle et le fonctionnement des adresses IP</h2>
+                        <p class="mt-4 text-lg text-secondary-500">
+                            Les identifiants numériques qui guident les données vers leur destination.
+                        </p>
+                        <div class="mt-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-primary-500 rounded-md p-2">
+                                    <i class="fas fa-globe text-white text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-sm font-medium text-secondary-900">IP Publique</h4>
+                                    <p class="text-sm text-secondary-500">Visible sur Internet</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center mt-4">
+                                <div class="flex-shrink-0 bg-primary-500 rounded-md p-2">
+                                    <i class="fas fa-home text-white text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-sm font-medium text-secondary-900">IP Privée</h4>
+                                    <p class="text-sm text-secondary-500">Réseau local</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-2">
+                    <div class="bg-secondary-50 rounded-lg shadow-lg overflow-hidden">
+                        <div class="px-6 py-8 sm:p-10">
+                            <div class="prose prose-lg text-secondary-600">
+                                <p>L'adresse IP (Internet Protocol) est un identifiant numérique attribué à chaque appareil connecté à un réseau informatique. Elle fonctionne comme une adresse postale : elle permet d'identifier où envoyer les données et de s'assurer qu'elles arrivent au bon destinataire.</p>
+                                
+                                <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="bg-white p-4 rounded-lg border border-secondary-200">
+                                        <h4 class="text-lg font-medium text-secondary-900 mb-2">Adresse IP publique</h4>
+                                        <p class="text-secondary-600">Attribuée par le fournisseur d'accès à Internet (FAI) au routeur domestique, visible depuis l'extérieur.</p>
+                                        <div class="mt-3 bg-primary-50 p-3 rounded">
+                                            <p class="font-mono text-primary-700">Exemple: 82.65.145.203</p>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-lg border border-secondary-200">
+                                        <h4 class="text-lg font-medium text-secondary-900 mb-2">Adresse IP privée</h4>
+                                        <p class="text-secondary-600">Attribuée par le routeur à chaque appareil au sein du réseau local (LAN).</p>
+                                        <div class="mt-3 bg-primary-50 p-3 rounded">
+                                            <p class="font-mono text-primary-700">Exemple: 192.168.1.2</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h3 class="mt-8 text-xl font-bold text-secondary-900">Exemple de réseau domestique</h3>
+                                <p class="mt-2">Imaginons un réseau domestique classique. Le routeur possède l'adresse publique 82.65.145.203, visible sur Internet. À l'intérieur du réseau, il attribue les adresses privées suivantes :</p>
+                                
+                                <div class="mt-4 bg-white p-4 rounded-lg border border-secondary-200">
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                        <div>
+                                            <p class="font-medium text-secondary-900">Ordinateur</p>
+                                            <p class="font-mono text-primary-600">192.168.1.2</p>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-secondary-900">Smartphone</p>
+                                            <p class="font-mono text-primary-600">192.168.1.3</p>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-secondary-900">Imprimante</p>
+                                            <p class="font-mono text-primary-600">192.168.1.4</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <p class="mt-6">Ainsi, lorsque le smartphone souhaite charger une page web, il envoie la requête au routeur. Celui-ci note que c'est l'appareil 192.168.1.3 qui en est à l'origine, relaie la demande vers Internet via son adresse publique, puis redistribue la réponse au bon appareil en interne.</p>
+                                
+                                <h3 class="mt-8 text-xl font-bold text-secondary-900">Classes d'adresses privées</h3>
+                                <p class="mt-2">Les adresses IP privées sont normées selon des plages spécifiques. Par exemple :</p>
+                                
+                                <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div class="bg-white p-4 rounded-lg border border-secondary-200">
+                                        <p class="font-medium text-secondary-900">Réseaux domestiques</p>
+                                        <p class="font-mono text-primary-600">192.168.x.x</p>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-lg border border-secondary-200">
+                                        <p class="font-medium text-secondary-900">Grandes entreprises</p>
+                                        <p class="font-mono text-primary-600">10.x.x.x</p>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-lg border border-secondary-200">
+                                        <p class="font-medium text-secondary-900">Réseaux intermédiaires</p>
+                                        <p class="font-mono text-primary-600">172.16.x.x à 172.31.x.x</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cycle de vie Section -->
+            <div id="cycle-de-vie" class="lg:grid lg:grid-cols-3 lg:gap-8 mb-20">
+                <div class="lg:col-span-1 mb-8 lg:mb-0">
+                    <div class="px-4 sm:px-0">
+                        <h2 class="text-3xl font-extrabold text-secondary-900">3. Cycle de vie d'un réseau Wifi</h2>
+                        <p class="mt-4 text-lg text-secondary-500">
+                            Du bureau d'étude au recyclage, le parcours des équipements Wifi.
+                        </p>
+                        <div class="mt-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-accent-500 rounded-md p-2">
+                                    <i class="fas fa-industry text-white text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-sm font-medium text-secondary-900">Fabrication</h4>
+                                    <p class="text-sm text-secondary-500">Asie principalement</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center mt-4">
+                                <div class="flex-shrink-0 bg-accent-500 rounded-md p-2">
+                                    <i class="fas fa-recycle text-white text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-sm font-medium text-secondary-900">Fin de vie</h4>
+                                    <p class="text-sm text-secondary-500">Problème environnemental</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-2">
+                    <div class="bg-secondary-50 rounded-lg shadow-lg overflow-hidden">
+                        <div class="px-6 py-8 sm:p-10">
+                            <div class="prose prose-lg text-secondary-600">
+                                <p>Un réseau Wifi, bien qu'immatériel dans son apparence, repose sur des équipements matériels concrets, dont le cycle de vie suit plusieurs étapes.</p>
+                                
+                                <div class="mt-8 space-y-8">
+                                    <!-- Conception -->
+                                    <div class="flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white">
+                                                <i class="fas fa-pencil-ruler"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-4">
+                                            <h4 class="text-lg font-medium text-secondary-900">Conception technique</h4>
+                                            <p class="mt-2 text-secondary-600">
+                                                Débute dans les bureaux d'étude où ingénieurs et informaticiens élaborent les schémas électroniques, définissent les normes de compatibilité (Wifi 5, Wifi 6, etc.) et testent les performances.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Fabrication -->
+                                    <div class="flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white">
+                                                <i class="fas fa-industry"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-4">
+                                            <h4 class="text-lg font-medium text-secondary-900">Fabrication</h4>
+                                            <p class="mt-2 text-secondary-600">
+                                                Les composants nécessaires sont ensuite fabriqués dans des usines spécialisées, souvent situées en Asie, puis assemblés pour donner naissance aux produits finis (routeurs, cartes Wifi...).
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Distribution -->
+                                    <div class="flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white">
+                                                <i class="fas fa-truck"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-4">
+                                            <h4 class="text-lg font-medium text-secondary-900">Distribution et installation</h4>
+                                            <p class="mt-2 text-secondary-600">
+                                                Une fois distribués, ces équipements sont installés chez les utilisateurs, qui les configurent pour une utilisation quotidienne.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Utilisation -->
+                                    <div class="flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white">
+                                                <i class="fas fa-sync-alt"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-4">
+                                            <h4 class="text-lg font-medium text-secondary-900">Utilisation et maintenance</h4>
+                                            <p class="mt-2 text-secondary-600">
+                                                Durant cette phase d'utilisation, les appareils nécessitent une maintenance logicielle régulière (mises à jour de sécurité, reconfiguration, changement de mot de passe).
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Fin de vie -->
+                                    <div class="flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-4">
+                                            <h4 class="text-lg font-medium text-secondary-900">Fin de vie</h4>
+                                            <p class="mt-2 text-secondary-600">
+                                                Enfin, lorsque l'appareil devient obsolète, tombe en panne ou n'est plus conforme aux nouvelles normes, il entre dans une phase de fin de vie. Il peut alors être soit recyclé, soit stocké inutilement, soit jeté, ce qui pose un problème environnemental majeur.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Besoins énergétiques Section -->
+            <div id="energie" class="lg:grid lg:grid-cols-3 lg:gap-8 mb-20">
+                <div class="lg:col-span-1 mb-8 lg:mb-0">
+                    <div class="px-4 sm:px-0">
+                        <h2 class="text-3xl font-extrabold text-secondary-900">4. Les besoins énergétiques d'un réseau Wifi</h2>
+                        <p class="mt-4 text-lg text-secondary-500">
+                            La consommation électrique invisible de notre connectivité.
+                        </p>
+                        <div class="mt-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-accent-500 rounded-md p-2">
+                                    <i class="fas fa-bolt text-white text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-sm font-medium text-secondary-900">Consommation</h4>
+                                    <p class="text-sm text-secondary-500">6 à 12 watts</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center mt-4">
+                                <div class="flex-shrink-0 bg-accent-500 rounded-md p-2">
+                                    <i class="fas fa-chart-line text-white text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-sm font-medium text-secondary-900">Annuelle</h4>
+                                    <p class="text-sm text-secondary-500">80 à 100 kWh</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-2">
+                    <div class="bg-secondary-50 rounded-lg shadow-lg overflow-hidden">
+                        <div class="px-6 py-8 sm:p-10">
+                            <div class="prose prose-lg text-secondary-600">
+                                <p>La technologie Wifi repose entièrement sur l'énergie électrique, aussi bien pour le fonctionnement des routeurs que pour celui des appareils connectés.</p>
+                                
+                                <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="bg-white p-4 rounded-lg border border-secondary-200">
+                                        <h4 class="text-lg font-medium text-secondary-900">Routeurs</h4>
+                                        <p class="mt-2 text-secondary-600">Le routeur reste souvent allumé en permanence, ce qui entraîne une consommation continue, bien que relativement faible.</p>
+                                        <div class="mt-4 bg-accent-50 p-3 rounded">
+                                            <p class="font-medium text-accent-800">Consommation moyenne : 6 à 12 watts</p>
+                                            <p class="mt-1 text-sm text-accent-700">Sur une année, cela représente environ 80 à 100 kWh, soit autant qu'un petit électroménager.</p>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-lg border border-secondary-200">
+                                        <h4 class="text-lg font-medium text-secondary-900">Appareils mobiles</h4>
+                                        <p class="mt-2 text-secondary-600">Les appareils mobiles comme les smartphones et les tablettes utilisent également de l'énergie pour maintenir la connexion Wifi active.</p>
+                                        <div class="mt-4 bg-accent-50 p-3 rounded">
+                                            <p class="font-medium text-accent-800">Moins énergivore que les réseaux mobiles</p>
+                                            <p class="mt-1 text-sm text-accent-700">La consommation est inférieure à celle des réseaux 4G ou 5G.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h3 class="mt-8 text-xl font-bold text-secondary-900">Chaîne d'énergie dans le fonctionnement du Wifi</h3>
+                                <p class="mt-2">Le routeur Wifi fonctionne grâce à une chaîne d'énergie complète, qui commence à la prise électrique et se termine par l'émission des ondes.</p>
+                                
+                                <div class="mt-6 space-y-4">
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 bg-primary-100 rounded-full p-2">
+                                            <span class="text-primary-800 font-bold">1</span>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-secondary-900 font-medium">Source</p>
+                                            <p class="mt-1 text-secondary-600">le courant électrique domestique (230 V) alimente l'appareil.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 bg-primary-100 rounded-full p-2">
+                                            <span class="text-primary-800 font-bold">2</span>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-secondary-900 font-medium">Conversion</p>
+                                            <p class="mt-1 text-secondary-600">le bloc d'alimentation transforme cette tension élevée en une tension adaptée (souvent 12 V).</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 bg-primary-100 rounded-full p-2">
+                                            <span class="text-primary-800 font-bold">3</span>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-secondary-900 font-medium">Distribution</p>
+                                            <p class="mt-1 text-secondary-600">cette énergie est distribuée à l'ensemble des composants électroniques du routeur.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 bg-primary-100 rounded-full p-2">
+                                            <span class="text-primary-800 font-bold">4</span>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-secondary-900 font-medium">Action finale</p>
+                                            <p class="mt-1 text-secondary-600">activation des antennes qui émettent les ondes radio nécessaires à la communication Wifi.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Matériaux Section -->
+            <div id="materiaux" class="lg:grid lg:grid-cols-3 lg:gap-8">
+                <div class="lg:col-span-1 mb-8 lg:mb-0">
+                    <div class="px-4 sm:px-0">
+                        <h2 class="text-3xl font-extrabold text-secondary-900">5. Les matériaux d'un réseau Wifi</h2>
+                        <p class="mt-4 text-lg text-secondary-500">
+                            La réalité matérielle derrière la connectivité sans fil.
+                        </p>
+                        <div class="mt-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-accent-500 rounded-md p-2">
+                                    <i class="fas fa-microchip text-white text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-sm font-medium text-secondary-900">Composants</h4>
+                                    <p class="text-sm text-secondary-500">Électroniques complexes</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center mt-4">
+                                <div class="flex-shrink-0 bg-accent-500 rounded-md p-2">
+                                    <i class="fas fa-leaf text-white text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-sm font-medium text-secondary-900">Ressources</h4>
+                                    <p class="text-sm text-secondary-500">Non renouvelables</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-2">
+                    <div class="bg-secondary-50 rounded-lg shadow-lg overflow-hidden">
+                        <div class="px-6 py-8 sm:p-10">
+                            <div class="prose prose-lg text-secondary-600">
+                                <p>Même si l'on parle souvent du Wifi comme d'un "réseau invisible", ses infrastructures matérielles sont bien réelles. Les routeurs et équipements associés sont constitués de matériaux variés, souvent extraits de ressources naturelles non renouvelables.</p>
+                                
+                                <h3 class="mt-8 text-xl font-bold text-secondary-900">Matériaux courants</h3>
+                                
+                                <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    <div class="bg-white p-4 rounded-lg border border-secondary-200">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 bg-primary-100 rounded-md p-2">
+                                                <i class="fas fa-cube text-primary-600"></i>
+                                            </div>
+                                            <div class="ml-3">
+                                                <p class="text-sm font-medium text-secondary-900">Plastiques</p>
+                                                <p class="text-sm text-secondary-500">ABS, polycarbonate (boîtiers)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-lg border border-secondary-200">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 bg-primary-100 rounded-md p-2">
+                                                <i class="fas fa-bolt text-primary-600"></i>
+                                            </div>
+                                            <div class="ml-3">
+                                                <p class="text-sm font-medium text-secondary-900">Métaux</p>
+                                                <p class="text-sm text-secondary-500">Cuivre (fils, antennes), aluminium, étain (soudure), or (connecteurs)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-lg border border-secondary-200">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 bg-primary-100 rounded-md p-2">
+                                                <i class="fas fa-atom text-primary-600"></i>
+                                            </div>
+                                            <div class="ml-3">
+                                                <p class="text-sm font-medium text-secondary-900">Composants électroniques</p>
+                                                <p class="text-sm text-secondary-500">Silicium (puces), céramique (résistances), terres rares</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h3 class="mt-8 text-xl font-bold text-secondary-900">Impact environnemental</h3>
+                                <p class="mt-2">L'extraction et le traitement de ces matériaux ont un impact environnemental significatif :</p>
+                                
+                                <div class="mt-4 space-y-3">
+                                    <div class="flex">
+                                        <div class="flex-shrink-0 text-accent-500">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-sm text-secondary-600">Consommation d'énergie et émissions de CO2 lors de la fabrication</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex">
+                                        <div class="flex-shrink-0 text-accent-500">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-sm text-secondary-600">Épuisement des ressources non renouvelables</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex">
+                                        <div class="flex-shrink-0 text-accent-500">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-sm text-secondary-600">Problèmes de recyclage en fin de vie</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex">
+                                        <div class="flex-shrink-0 text-accent-500">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-sm text-secondary-600">Pollution liée à l'extraction des terres rares</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-6 bg-accent-50 border-l-4 border-accent-500 p-4">
+                                    <div class="flex">
+                                        <div class="flex-shrink-0">
+                                            <i class="fas fa-lightbulb text-accent-500"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-sm text-accent-800">
+                                                <span class="font-medium">Bon à savoir :</span> Certains fabricants commencent à développer des routeurs plus écologiques, avec des matériaux recyclés et une meilleure efficacité énergétique.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    
+<div class="text-center my-12">
+  <button onclick="openPopup()" class="px-8 py-4 bg-gradient-to-r from-blue-600 to-orange-500 text-white text-xl font-semibold rounded-full shadow-lg hover:scale-105 transition-transform">
+    📘 Lancer les exercices interactifs
+  </button>
+</div>
+
+<footer class="bg-secondary-800 text-white text-sm py-4">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-medium mb-4">À propos</h3>
+                    <p class="text-secondary-300">Ce site présente les aspects techniques et environnementaux des réseaux Wifi dans un format accessible à tous.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-medium mb-4">Sections</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#fonctionnement" class="text-secondary-300 hover:text-white">Fonctionnement</a></li>
+                        <li><a href="#adresses-ip" class="text-secondary-300 hover:text-white">Adresses IP</a></li>
+                        <li><a href="#cycle-de-vie" class="text-secondary-300 hover:text-white">Cycle de vie</a></li>
+                        <li><a href="#energie" class="text-secondary-300 hover:text-white">Besoins énergétiques</a></li>
+                        <li><a href="#materiaux" class="text-secondary-300 hover:text-white">Matériaux</a></li>
+                    </ul>
+                </div>
+                
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-secondary-700">
+                <p class="text-center text-secondary-400 text-sm">
+                    &copy; 2025 Technologie Wifi
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                menu.classList.add('block');
+            } else {
+                menu.classList.remove('block');
+                menu.classList.add('hidden');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenu.classList.remove('block');
+                    }
+                    
+                    // Scroll to target
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+
+<div id="popup" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center hidden">
+  <div class="bg-white w-full max-w-6xl max-h-[90vh] overflow-y-auto p-6 rounded-lg shadow-lg relative">
+    <button onclick="closePopup()" class="absolute top-4 right-4 px-3 py-1 bg-red-500 text-white rounded">Fermer</button>
+    
+  <div class="max-w-5xl mx-auto">
+    <h1 class="text-3xl font-bold text-blue-800 text-center mb-10">Exercices Interactifs - Réseau Wifi</h1>
+<section class="mt-12"><h2 class="text-2xl font-bold text-orange-600 mb-4">Fonctionnement</h2><div class="mb-4"><p class="font-semibold mb-2">Quel est le rôle principal d’un routeur Wifi ?</p>
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Fonctionnement_q1" value="0" class="mr-2"> Fournir du courant
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Fonctionnement_q1" value="1" class="mr-2"> Connecter les appareils
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Fonctionnement_q1" value="2" class="mr-2"> Afficher des sites
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Fonctionnement_q1" value="3" class="mr-2"> Stocker les mots de passe
+            </label>
+            </div><div class="mb-4"><p class="font-semibold mb-2">À quoi servent les protocoles TCP/IP ?</p>
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Fonctionnement_q2" value="0" class="mr-2"> Créer des sites web
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Fonctionnement_q2" value="1" class="mr-2"> Sécuriser le réseau
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Fonctionnement_q2" value="2" class="mr-2"> Organiser la transmission des données
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Fonctionnement_q2" value="3" class="mr-2"> Donner un nom aux appareils
+            </label>
+            </div><div class="mt-6"><p class="font-semibold mb-2">Associez chaque fréquence à sa caractéristique.</p><div class="grid grid-cols-2 gap-4"><div class="draggable" draggable="true" id="Fonctionnement_drag0">2.4 GHz</div><div class="draggable" draggable="true" id="Fonctionnement_drag1">5 GHz</div><div class="draggable" draggable="true" id="Fonctionnement_drag2">Routeur</div><div class="droppable" data-match="Fonctionnement_drag0">Portée longue, débit plus faible</div><div class="droppable" data-match="Fonctionnement_drag1">Portée courte, débit élevé</div><div class="droppable" data-match="Fonctionnement_drag2">Gère les connexions réseau</div></div><button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Vérifier les résultats</button></div></section><section class="mt-12"><h2 class="text-2xl font-bold text-orange-600 mb-4">Cycle de vie</h2><div class="mb-4"><p class="font-semibold mb-2">Quelle est la première étape du cycle de vie ?</p>
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Cycle de vie_q1" value="0" class="mr-2"> Utilisation
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Cycle de vie_q1" value="1" class="mr-2"> Conception
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Cycle de vie_q1" value="2" class="mr-2"> Transport
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Cycle de vie_q1" value="3" class="mr-2"> Mise à jour
+            </label>
+            </div><div class="mb-4"><p class="font-semibold mb-2">Pourquoi le recyclage est-il important ?</p>
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Cycle de vie_q2" value="0" class="mr-2"> C’est obligatoire
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Cycle de vie_q2" value="1" class="mr-2"> Pour réduire les déchets électroniques
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Cycle de vie_q2" value="2" class="mr-2"> Pour accélérer le réseau
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Cycle de vie_q2" value="3" class="mr-2"> Pour faire joli
+            </label>
+            </div><div class="mt-6"><p class="font-semibold mb-2">Associez chaque étape à sa description.</p><div class="grid grid-cols-2 gap-4"><div class="draggable" draggable="true" id="Cycle de vie_drag0">Conception</div><div class="draggable" draggable="true" id="Cycle de vie_drag1">Fabrication</div><div class="draggable" draggable="true" id="Cycle de vie_drag2">Fin de vie</div><div class="droppable" data-match="Cycle de vie_drag0">Élaboration des schémas</div><div class="droppable" data-match="Cycle de vie_drag1">Assemblage des composants</div><div class="droppable" data-match="Cycle de vie_drag2">Recyclage ou mise en décharge</div></div><button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Vérifier les résultats</button></div></section><section class="mt-12"><h2 class="text-2xl font-bold text-orange-600 mb-4">Énergie</h2><div class="mb-4"><p class="font-semibold mb-2">Combien consomme un routeur Wifi en moyenne ?</p>
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Énergie_q1" value="0" class="mr-2"> 100 W
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Énergie_q1" value="1" class="mr-2"> 20 W
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Énergie_q1" value="2" class="mr-2"> 6 à 12 W
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Énergie_q1" value="3" class="mr-2"> 1 W
+            </label>
+            </div><div class="mb-4"><p class="font-semibold mb-2">Pourquoi privilégier le Wifi à la 4G ?</p>
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Énergie_q2" value="0" class="mr-2"> Parce que c’est plus cher
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Énergie_q2" value="1" class="mr-2"> Car c’est moins énergivore
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Énergie_q2" value="2" class="mr-2"> Parce que c’est lent
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Énergie_q2" value="3" class="mr-2"> Parce que c’est nouveau
+            </label>
+            </div><div class="mt-6"><p class="font-semibold mb-2">Associez l’appareil à sa consommation moyenne.</p><div class="grid grid-cols-2 gap-4"><div class="draggable" draggable="true" id="Énergie_drag0">Routeur</div><div class="draggable" draggable="true" id="Énergie_drag1">Smartphone</div><div class="draggable" draggable="true" id="Énergie_drag2">Tablette</div><div class="droppable" data-match="Énergie_drag0">6 à 12 W</div><div class="droppable" data-match="Énergie_drag1">1 à 3 W</div><div class="droppable" data-match="Énergie_drag2">3 à 6 W</div></div><button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Vérifier les résultats</button></div></section><section class="mt-12"><h2 class="text-2xl font-bold text-orange-600 mb-4">Matériaux</h2><div class="mb-4"><p class="font-semibold mb-2">Quel matériau est utilisé pour les connecteurs ?</p>
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Matériaux_q1" value="0" class="mr-2"> Verre
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Matériaux_q1" value="1" class="mr-2"> Caoutchouc
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Matériaux_q1" value="2" class="mr-2"> Or
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Matériaux_q1" value="3" class="mr-2"> Plomb
+            </label>
+            </div><div class="mb-4"><p class="font-semibold mb-2">Quel est un impact de l’extraction des terres rares ?</p>
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Matériaux_q2" value="0" class="mr-2"> Pollution
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Matériaux_q2" value="1" class="mr-2"> Gain de vitesse
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Matériaux_q2" value="2" class="mr-2"> Sécurité
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Matériaux_q2" value="3" class="mr-2"> Stabilité
+            </label>
+            </div><div class="mt-6"><p class="font-semibold mb-2">Associez chaque composant à son matériau.</p><div class="grid grid-cols-2 gap-4"><div class="draggable" draggable="true" id="Matériaux_drag0">Boîtier</div><div class="draggable" draggable="true" id="Matériaux_drag1">Connecteurs</div><div class="draggable" draggable="true" id="Matériaux_drag2">Carte électronique</div><div class="droppable" data-match="Matériaux_drag0">Plastique</div><div class="droppable" data-match="Matériaux_drag1">Or</div><div class="droppable" data-match="Matériaux_drag2">Silicium</div></div><button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Vérifier les résultats</button></div></section><section class="mt-12"><h2 class="text-2xl font-bold text-orange-600 mb-4">Adresses IP</h2><div class="mb-4"><p class="font-semibold mb-2">Quelle est la différence entre IP publique et privée ?</p>
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Adresses IP_q1" value="0" class="mr-2"> Aucune
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Adresses IP_q1" value="1" class="mr-2"> La publique est locale
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Adresses IP_q1" value="2" class="mr-2"> La privée est interne
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Adresses IP_q1" value="3" class="mr-2"> La publique est invisible
+            </label>
+            </div><div class="mb-4"><p class="font-semibold mb-2">Quelle adresse appartient à un réseau local ?</p>
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Adresses IP_q2" value="0" class="mr-2"> 10.1.1.1
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Adresses IP_q2" value="1" class="mr-2"> 172.34.22.5
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Adresses IP_q2" value="2" class="mr-2"> 192.168.1.10
+            </label>
+            
+            <label class="block bg-gray-100 hover:bg-gray-200 p-2 rounded mb-1 cursor-pointer">
+              <input type="radio" name="Adresses IP_q2" value="3" class="mr-2"> 8.8.8.8
+            </label>
+            </div><div class="mt-6"><p class="font-semibold mb-2">Associez l’adresse IP à son type.</p><div class="grid grid-cols-2 gap-4"><div class="draggable" draggable="true" id="Adresses IP_drag0">192.168.1.10</div><div class="draggable" draggable="true" id="Adresses IP_drag1">10.0.0.5</div><div class="draggable" draggable="true" id="Adresses IP_drag2">82.145.32.56</div><div class="droppable" data-match="Adresses IP_drag0">IP privée</div><div class="droppable" data-match="Adresses IP_drag1">IP privée</div><div class="droppable" data-match="Adresses IP_drag2">IP publique</div></div><button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Vérifier les résultats</button></div><div class="mt-8"><p class="font-semibold mb-2">Attribuez des adresses IP privées à ces appareils dans le réseau 192.168.0.0/24.</p><input type="text" class="w-full border p-2 rounded mb-2" placeholder="Ordinateur : 192.168.0.?"><input type="text" class="w-full border p-2 rounded mb-2" placeholder="Tablette : 192.168.0.?"><input type="text" class="w-full border p-2 rounded mb-2" placeholder="Imprimante : 192.168.0.?"></div></section>
+  <div class="text-center mt-12">
+    <button onclick="window.location.href='#'" class="px-6 py-3 bg-orange-500 text-white text-lg font-semibold rounded hover:bg-orange-600">Retour au cours</button>
+  </div>
+</div>
+
+<script>
+  const draggables = document.querySelectorAll(".draggable");
+  const droppables = document.querySelectorAll(".droppable");
+
+  draggables.forEach(el => {
+    el.addEventListener("dragstart", e => {
+      e.dataTransfer.setData("text/plain", e.target.id);
+    });
+  });
+
+  droppables.forEach(el => {
+    el.addEventListener("dragover", e => {
+      e.preventDefault();
+      el.classList.add("hovered");
+    });
+
+    el.addEventListener("dragleave", () => {
+      el.classList.remove("hovered");
+    });
+
+    el.addEventListener("drop", e => {
+      e.preventDefault();
+      el.classList.remove("hovered");
+      const draggedId = e.dataTransfer.getData("text/plain");
+      const draggedEl = document.getElementById(draggedId);
+      if (draggedEl) {
+        el.innerHTML = draggedEl.innerHTML;
+        el.setAttribute("data-dropped", draggedId);
+      }
+    });
+  });
+
+  const buttons = document.querySelectorAll("button");
+
+  buttons.forEach(button => {
+    if (button.textContent.includes("Vérifier")) {
+      button.addEventListener("click", () => {
+        const section = button.closest("section");
+        const droppables = section.querySelectorAll(".droppable");
+        droppables.forEach(drop => {
+          const expected = drop.getAttribute("data-match");
+          const actual = drop.getAttribute("data-dropped");
+          drop.classList.remove("bg-green-100", "text-green-800", "bg-red-100", "text-red-800");
+          if (expected === actual) {
+            drop.classList.add("bg-green-100", "text-green-800", "font-semibold");
+          } else {
+            drop.classList.add("bg-red-100", "text-red-800", "font-semibold");
+          }
+        });
+      });
+    }
+  });
+
+  // Quiz feedback
+  document.querySelectorAll("input[type='radio']").forEach(radio => {
+    radio.addEventListener("change", () => {
+      const name = radio.name;
+      const selected = document.querySelector(`input[name='${name}']:checked`);
+      const parentLabels = document.querySelectorAll(`input[name='${name}']`);
+      parentLabels.forEach(input => {
+        input.parentElement.classList.remove("bg-green-200", "text-green-800", "bg-red-200", "text-red-800", "font-semibold");
+      });
+      if (selected) {
+        const correctAnswerIndex = name.includes("Fonctionnement_q1") ? 1 :
+                                   name.includes("Fonctionnement_q2") ? 2 :
+                                   name.includes("Cycle de vie_q1") ? 1 :
+                                   name.includes("Cycle de vie_q2") ? 1 :
+                                   name.includes("Énergie_q1") ? 2 :
+                                   name.includes("Énergie_q2") ? 1 :
+                                   name.includes("Matériaux_q1") ? 2 :
+                                   name.includes("Matériaux_q2") ? 0 :
+                                   name.includes("Adresses IP_q1") ? 2 :
+                                   name.includes("Adresses IP_q2") ? 2 : -1;
+
+        const isCorrect = parseInt(selected.value) === correctAnswerIndex;
+        selected.parentElement.classList.add(isCorrect ? "bg-green-200" : "bg-red-200");
+        selected.parentElement.classList.add(isCorrect ? "text-green-800" : "text-red-800", "font-semibold");
+      }
+    });
+  });
+
+  // IP exercise validation
+  const ipInputs = document.querySelectorAll("input[placeholder^='Ordinateur'], input[placeholder^='Tablette'], input[placeholder^='Imprimante']");
+  const ipCheckButton = document.createElement("button");
+  ipCheckButton.textContent = "Vérifier les adresses IP";
+  ipCheckButton.className = "mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700";
+  ipInputs[ipInputs.length - 1].parentElement.appendChild(ipCheckButton);
+
+  ipCheckButton.addEventListener("click", () => {
+    const ipRegex = /^192\.168\.0\.(\d{1,2}|1\d{2}|2[0-4]\d|25[0-4])$/;
+    ipInputs.forEach(input => {
+      input.classList.remove("bg-red-100", "bg-green-100", "text-red-800", "text-green-800");
+      if (ipRegex.test(input.value.trim())) {
+        input.classList.add("bg-green-100", "text-green-800");
+      } else {
+        input.classList.add("bg-red-100", "text-red-800");
+      }
+    });
+  });
+</script>
+
+  </div>
+</div>
+<script>
+  function openPopup() {
+    document.getElementById("popup").classList.remove("hidden");
+  }
+  function closePopup() {
+    document.getElementById("popup").classList.add("hidden");
+  }
+</script>
+
+</body>
+</html>
