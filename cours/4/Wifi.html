@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours Technologie : Le réseau Wifi - Approfondi</title>
+    <style>
+        /* --- Styles Généraux --- */
+        :root {
+            --color-primary-start: #4CAF50; /* Vert */
+            --color-primary-end: #2196F3; /* Bleu */
+            --color-secondary: #f4f4f4; /* Gris très clair */
+            --color-border: #ccc;
+            --color-text: #333;
+            --color-light-text: #fff;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7; /* Légèrement augmenté pour lisibilité académique */
+            color: var(--color-text);
+            background-color: #eef2f7;
+            padding: 20px;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 20px auto;
+            background-color: var(--color-light-text);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 15px;
+            color: var(--color-primary-end);
+        }
+        h1 {
+            text-align: center;
+            padding: 25px 20px;
+            background: linear-gradient(to right, var(--color-primary-start), var(--color-primary-end));
+            color: var(--color-light-text);
+            margin: 0 0 0 0; /* Collé en haut */
+            border-bottom: 5px solid rgba(0,0,0,0.1);
+        }
+        h2 {
+             border-bottom: 2px solid var(--color-primary-start);
+             padding-bottom: 8px;
+             margin-top: 30px; /* Plus d'espace avant H2 */
+             font-size: 1.6em;
+        }
+        h3 {
+            color: var(--color-primary-start);
+            margin-top: 25px;
+            font-size: 1.3em;
+        }
+
+        p, ul, ol {
+            margin-bottom: 18px; /* Plus d'espace entre paragraphes */
+        }
+
+        ul, ol {
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        code {
+            background-color: var(--color-secondary);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+            color: #d63384;
+            font-size: 0.95em;
+        }
+
+        strong { /* Moins dominant que les termes cliquables */
+            font-weight: 600;
+            color: #444;
+        }
+
+        /* --- Système d'onglets - Style Bouton --- */
+        .tabs-nav {
+            display: flex;
+            background-color: #e9ecef; /* Fond légèrement plus foncé pour la barre */
+            padding: 10px 5px 0 5px; /* Espace autour des boutons */
+            flex-wrap: wrap;
+            gap: 5px; /* Espace entre les boutons */
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .tab-link {
+            padding: 12px 20px;
+            cursor: pointer;
+            border: 1px solid var(--color-border); /* Bordure de bouton */
+            background-color: var(--color-light-text); /* Fond blanc */
+            font-size: 0.95em;
+            color: var(--color-text);
+            transition: background-color var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed), box-shadow var(--transition-speed), transform var(--transition-speed);
+            border-radius: var(--border-radius) var(--border-radius) 0 0; /* Coins arrondis en haut */
+            flex-grow: 1;
+            text-align: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            margin-bottom: -1px; /* Pour chevaucher la bordure inférieure de la nav */
+            position: relative;
+            z-index: 1;
+        }
+
+        .tab-link:hover {
+            background-color: var(--color-secondary);
+            border-color: #adb5bd;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+            z-index: 2;
+        }
+
+        .tab-link.active {
+            color: var(--color-light-text);
+            font-weight: bold;
+            background: linear-gradient(to right, var(--color-primary-start), var(--color-primary-end)); /* Dégradé pour l'actif */
+            border-color: var(--color-primary-end);
+            border-bottom-color: transparent; /* Cache la bordure inférieure quand actif */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transform: translateY(0); /* Annule le hover */
+            z-index: 3; /* Au-dessus des autres */
+        }
+
+        .tab-content {
+            padding: 30px; /* Plus de padding */
+            border: 1px solid var(--color-border);
+            border-top: none;
+            background-color: var(--color-light-text);
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            position: relative;
+            z-index: 0; /* Derrière les onglets */
+            margin-top: -1px; /* Pour coller à la nav */
+        }
+
+        .tab-pane {
+            display: none;
+            animation: fadeIn var(--transition-speed) ease-in-out;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Boutons --- */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 0.95em;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            color: var(--color-light-text);
+            background: linear-gradient(to right, var(--color-primary-start), var(--color-primary-end));
+            border: none;
+            border-radius: var(--border-radius);
+            transition: opacity var(--transition-speed), transform var(--transition-speed), box-shadow var(--transition-speed);
+            margin-top: 10px;
+            margin-right: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .btn:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.15); }
+        .btn:active { transform: translateY(0); box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .btn-info { background: linear-gradient(to right, #6c757d, #495057); font-size: 0.85em; padding: 6px 12px; }
+        .btn-info:hover { opacity: 0.85; }
+
+        /* --- Fenêtres Modales --- */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.6); animation: fadeInModal 0.4s ease-out; align-items: center; justify-content: center; }
+        .modal-content { background-color: var(--color-light-text); padding: 30px; border: 1px solid var(--color-border); width: 85%; max-width: 900px; border-radius: var(--border-radius); box-shadow: var(--box-shadow); position: relative; animation: slideInModal 0.4s ease-out; max-height: 85vh; overflow-y: auto; }
+        #info-modal .modal-content { max-width: 650px; max-height: 75vh; } /* Légèrement plus grande pour info */
+        #info-modal h2 { margin-top: 0; color: var(--color-primary-start); }
+        .close-button { color: #aaa; position: absolute; top: 15px; right: 25px; font-size: 28px; font-weight: bold; cursor: pointer; transition: color var(--transition-speed); z-index: 1001; }
+        .close-button:hover, .close-button:focus { color: #555; text-decoration: none; }
+        @keyframes fadeInModal { from { background-color: rgba(0, 0, 0, 0); } to { background-color: rgba(0, 0, 0, 0.6); } }
+        @keyframes slideInModal { from { transform: translateY(-50px) scale(0.95); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+
+        /* --- Styles des Exercices (inchangés) --- */
+        .exercise-section { margin-bottom: 30px; padding: 20px; border: 1px solid var(--color-border); border-radius: var(--border-radius); background-color: var(--color-secondary); }
+        .exercise-section h3 { margin-top: 0; margin-bottom: 15px; border-bottom: 1px solid var(--color-primary-start); padding-bottom: 8px; }
+        /* ... (copier les styles Quiz, Association, Pendu, Memory depuis la version précédente) ... */
+         .quiz-question { margin-bottom: 20px; } .quiz-question p { font-weight: bold; margin-bottom: 10px; } .quiz-options label { display: block; margin-bottom: 8px; cursor: pointer; padding: 5px; border-radius: 4px; transition: background-color var(--transition-speed); } .quiz-options label:hover { background-color: #ddd; } .quiz-options input[type="radio"] { margin-right: 10px; } .quiz-feedback { margin-top: 10px; font-weight: bold; } .correct { color: green; } .incorrect { color: red; }
+         .association-container { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; } .association-column { flex: 1; min-width: 200px; padding: 15px; border: 1px dashed var(--color-border); border-radius: var(--border-radius); } .association-item { padding: 10px; margin-bottom: 10px; background-color: var(--color-light-text); border: 1px solid var(--color-border); border-radius: 4px; cursor: pointer; transition: background-color var(--transition-speed), transform var(--transition-speed); } .association-item:hover { background-color: #e9e9e9; transform: scale(1.02); } .association-item.selected { background: linear-gradient(to right, var(--color-primary-start), var(--color-primary-end)); color: var(--color-light-text); font-weight: bold; } .association-feedback { margin-top: 15px; font-weight: bold; text-align: center; }
+         .hangman-word { font-size: 2em; letter-spacing: 10px; margin-bottom: 20px; text-align: center; font-family: 'Courier New', Courier, monospace; } .hangman-letters { text-align: center; margin-bottom: 20px; } .hangman-letters button { font-size: 1em; margin: 3px; padding: 8px 12px; cursor: pointer; border-radius: 4px; border: 1px solid var(--color-border); background-color: var(--color-light-text); transition: background-color var(--transition-speed); min-width: 40px; } .hangman-letters button:hover { background-color: #e0e0e0; } .hangman-letters button:disabled { background-color: #ccc; color: #888; cursor: not-allowed; } .hangman-status { text-align: center; font-weight: bold; margin-bottom: 10px; } .hangman-drawing { font-family: 'Courier New', Courier, monospace; white-space: pre; text-align: center; margin-bottom: 10px; line-height: 1.2; font-size: 1.1em; color: var(--color-primary-end); }
+         .memory-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 400px; margin: 0 auto 20px auto; } .memory-card { aspect-ratio: 1 / 1; background: linear-gradient(to bottom right, var(--color-primary-start), var(--color-primary-end)); border-radius: var(--border-radius); display: flex; justify-content: center; align-items: center; font-size: 2em; color: var(--color-light-text); cursor: pointer; perspective: 1000px; transition: transform 0.6s; transform-style: preserve-3d; } .memory-card .card-content { display: none; transform: rotateY(180deg); position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; background-color: var(--color-secondary); color: var(--color-text); border-radius: var(--border-radius); } .memory-card .card-cover { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; background: linear-gradient(to bottom right, var(--color-primary-start), var(--color-primary-end)); border-radius: var(--border-radius); } .memory-card.flipped { transform: rotateY(180deg); } .memory-card.flipped .card-content { display: flex; } .memory-card.matched { cursor: default; opacity: 0.6; background: #a0a0a0; transform: scale(0.95); } .memory-card.matched .card-cover { background: #a0a0a0; } .memory-status { text-align: center; font-weight: bold; margin-bottom: 10px; }
+
+        /* --- Style pour les images de contenu --- */
+        .content-image { display: block; max-width: 70%; /* Un peu moins large */ height: auto; margin: 30px auto; border: 1px solid var(--color-border); border-radius: var(--border-radius); box-shadow: var(--box-shadow); }
+
+        /* --- Style pour les termes cliquables --- */
+        .clickable-term {
+            color: var(--color-primary-start);
+            font-weight: 600; /* Moins gras que bold */
+            cursor: pointer;
+            text-decoration: none; /* Pas de soulignement par défaut */
+            border-bottom: 1px dotted var(--color-primary-start); /* Soulignement pointillé */
+            position: relative;
+            transition: color var(--transition-speed), border-color var(--transition-speed);
+        }
+        .clickable-term:hover {
+            color: var(--color-primary-end);
+            border-bottom-color: var(--color-primary-end);
+        }
+
+        /* --- Style pour l'info-bulle (Tooltip) --- */
+        #tooltip-popup { position: absolute; background-color: rgba(50, 50, 50, 0.9); color: var(--color-light-text); padding: 12px 18px; border-radius: var(--border-radius); font-size: 0.9em; max-width: 320px; z-index: 1100; display: none; box-shadow: 0 3px 7px rgba(0,0,0,0.3); pointer-events: none; white-space: normal; animation: fadeInTooltip 0.2s ease-out; line-height: 1.5; }
+        @keyframes fadeInTooltip { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- Responsive --- */
+         @media (max-width: 992px) {
+             .tab-link { flex-basis: calc(33.33% - 10px); } /* 3 par ligne */
+         }
+         @media (max-width: 768px) {
+            .tab-link { flex-basis: calc(50% - 10px); } /* 2 par ligne */
+            .association-container { flex-direction: column; }
+            .modal-content { width: 95%; margin: 5% auto; max-height: 90vh; }
+            .memory-grid { max-width: 90%; }
+            h1 { font-size: 1.8em; }
+            .content-image { max-width: 85%; }
+         }
+         @media (max-width: 480px) {
+             body { padding: 10px; }
+             .container { margin: 10px auto; }
+             h1 { font-size: 1.5em; padding: 20px 15px; }
+             .tab-link { flex-basis: 100%; font-size: 0.9em; padding: 10px 15px;} /* 1 par ligne */
+             .tab-content { padding: 20px; }
+             .btn { padding: 12px 15px; font-size: 0.9em; width: 100%; margin-right: 0; margin-bottom: 10px; }
+             .modal-content { padding: 20px; }
+             .close-button { top: 10px; right: 15px; font-size: 24px; }
+             .memory-grid { grid-template-columns: repeat(4, 1fr); gap: 5px; }
+             .memory-card { font-size: 1.5em; }
+             .hangman-letters button { padding: 6px 8px; min-width: 35px; }
+             #tooltip-popup { max-width: 85vw; }
+             .content-image { max-width: 95%; }
+         }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Cours Approfondi : Technologie du Réseau Wifi</h1>
+
+        <!-- Navigation par Onglets (Style Bouton) -->
+        <nav class="tabs-nav">
+            <button class="tab-link active" data-tab="fonctionnement">Fonctionnement</button>
+            <button class="tab-link" data-tab="adresses-ip">Adressage IP</button>
+            <button class="tab-link" data-tab="cycle-vie">Cycle de Vie</button>
+            <button class="tab-link" data-tab="besoins-energetiques">Énergie</button>
+            <button class="tab-link" data-tab="materiaux">Matériaux</button>
+            <button class="tab-link" data-tab="chaine-energie">Chaîne Énergétique</button>
+        </nav>
+
+        <!-- Contenu des Onglets -->
+        <div class="tab-content">
+            <!-- Onglet 1: Fonctionnement -->
+            <div id="fonctionnement" class="tab-pane active">
+                <h2>1. Principes Fondamentaux du Fonctionnement Wifi</h2>
+                <p>Le Wifi, acronyme de <strong>Wireless Fidelity</strong>, désigne un ensemble de protocoles de communication sans fil régis par les normes du groupe <span class="clickable-term" data-definition="Famille de normes techniques pour les réseaux locaux sans fil (WLAN), définies par l'IEEE. Exemples : 802.11b, 802.11g, 802.11n (Wifi 4), 802.11ac (Wifi 5), 802.11ax (Wifi 6/6E), 802.11be (Wifi 7).">IEEE 802.11</span>. Il permet l'interconnexion d'appareils numériques au sein d'un réseau local (WLAN - Wireless Local Area Network) et leur accès à un réseau étendu comme Internet, sans nécessiter de liaison filaire.</p>
+
+                <!-- EMPLACEMENT IMAGE 1 : Illustration fonctionnement Wifi (ex: routeur émettant des ondes vers appareils) -->
+                <img src="https://cdn.pixabay.com/photo/2019/12/05/11/18/computer-4674870_1280.png" alt="Schéma illustrant un routeur Wifi connectant divers appareils" class="content-image" id="img-placeholder-1">
+                <!-- Pour remplacer : trouvez cette ligne et changez src="#" par le chemin de votre image -->
+
+                <p>La transmission des données s'effectue par <span class="clickable-term" data-definition="Ondes générées par l'oscillation de champs électriques et magnétiques, se propageant dans l'espace à la vitesse de la lumière. Elles transportent de l'énergie et de l'information (ex: ondes radio, lumière visible, rayons X).">ondes électromagnétiques</span>, spécifiquement des ondes radio, dans des bandes de fréquences libres d'utilisation (ISM - Industrial, Scientific and Medical) : principalement <strong>2,4 GHz</strong> et <strong>5 GHz</strong>. La bande des 6 GHz est également exploitée par les normes plus récentes (Wifi 6E, Wifi 7). Chaque bande est subdivisée en plusieurs <span class="clickable-term" data-definition="Sous-partie d'une bande de fréquence utilisée pour une transmission spécifique. Choisir un canal peu encombré améliore les performances et réduit les interférences avec les réseaux voisins.">canaux</span> pour limiter les <span class="clickable-term" data-definition="Perturbation d'un signal radio par d'autres signaux sur la même fréquence ou des fréquences proches (autres réseaux Wifi, Bluetooth, micro-ondes...). Peut causer des ralentissements ou des pertes de connexion.">interférences</span>.</p>
+
+                <h3>Le Rôle Central du Point d'Accès</h3>
+                <p>L'élément central d'un réseau Wifi est le <strong>point d'accès</strong> (AP - Access Point), souvent intégré dans un <span class="clickable-term" data-definition="Appareil combinant les fonctions de point d'accès Wifi, de commutateur réseau (switch) et de routeur (gestion des adresses IP, connexion à Internet via NAT).">routeur Wifi</span> domestique. Il agit comme un pont entre le réseau filaire (connexion Internet via modem ADSL, fibre, câble) et les appareils sans fil (clients Wifi).</p>
+                <p>Ses fonctions essentielles incluent :</p>
+                <ul>
+                    <li><strong>Diffusion du SSID :</strong> Annonce du nom du réseau pour permettre aux clients de le détecter.</li>
+                    <li><strong>Authentification et Sécurité :</strong> Vérification des droits d'accès (via mot de passe) et chiffrement des communications. Les protocoles ont évolué : du vulnérable <span class="clickable-term" data-definition="Wired Equivalent Privacy : Ancien protocole de sécurité Wifi (1999), aujourd'hui considéré comme obsolète et très facile à pirater. À ne plus utiliser.">WEP</span> aux robustes <span class="clickable-term" data-definition="Wi-Fi Protected Access 2/3 : Protocoles de sécurité modernes utilisant un chiffrement fort (AES) pour protéger les données transitant sur le réseau Wifi. WPA3 offre des améliorations par rapport à WPA2.">WPA2/WPA3</span> utilisant le chiffrement AES.</li>
+                    <li><strong>Gestion des connexions :</strong> Attribution des ressources radio et coordination des transmissions pour éviter les collisions (mécanisme CSMA/CA).</li>
+                    <li><strong>Intégration au réseau :</strong> Liaison avec le réseau local filaire et routage vers Internet.</li>
+                </ul>
+                 <p>Les technologies comme <span class="clickable-term" data-definition="Multiple-Input Multiple-Output : Technique utilisant plusieurs antennes pour émettre et recevoir plusieurs flux de données simultanément, augmentant ainsi le débit et la fiabilité de la connexion Wifi.">MIMO</span> (Multiple-Input Multiple-Output) et OFDMA (dans Wifi 6/7) améliorent significativement les débits et l'efficacité, surtout dans les environnements denses.</p>
+                 <button class="btn btn-info" data-topic="wifi-standards">Normes Wifi</button>
+            </div>
+
+            <!-- Onglet 2: Adresses IP -->
+            <div id="adresses-ip" class="tab-pane">
+                <h2>2. Adressage IP : Identification et Routage sur les Réseaux</h2>
+                <p>L'adresse IP (Internet Protocol) constitue un identifiant numérique unique assigné à chaque interface réseau d'un appareil connecté. Elle est indispensable au fonctionnement d'Internet et des réseaux locaux, car elle permet l'identification de l'expéditeur et du destinataire pour l'acheminement (routage) des <span class="clickable-term" data-definition="Unité de données transmise sur un réseau. Les informations sont découpées en paquets contenant les données utiles et des en-têtes avec les adresses source/destination, numéros de séquence, etc.">paquets de données</span>.</p>
+
+                <!-- EMPLACEMENT IMAGE 2 : Illustration IP Publique vs Privée (ex: maison avec IP privée, routeur avec IP publique vers nuage internet) -->
+                <img src="https://cdn.pixabay.com/photo/2013/07/13/11/34/wifi-158401_1280.png" alt="Diagramme montrant la distinction entre adresses IP publiques et privées via un routeur" class="content-image" id="img-placeholder-2">
+                <!-- Pour remplacer : trouvez cette ligne et changez src="#" par le chemin de votre image -->
+
+                <h3>Distinction Fondamentale : IP Publique vs IP Privée</h3>
+                <ul>
+                    <li><strong>Adresse IP Publique :</strong> Attribuée par le Fournisseur d'Accès Internet (FAI) à l'interface externe du routeur (ou box). Elle est unique au niveau mondial (à un instant donné) et permet à l'ensemble du réseau local d'être visible et joignable depuis Internet.</li>
+                    <li><strong>Adresse IP Privée :</strong> Utilisée exclusivement au sein d'un réseau local (LAN). Le routeur, via son serveur <span class="clickable-term" data-definition="Dynamic Host Configuration Protocol : Protocole permettant l'attribution automatique et temporaire ('bail') d'adresses IP privées et de paramètres réseau (passerelle, DNS) aux appareils clients.">DHCP</span>, attribue une adresse unique de cette catégorie à chaque appareil connecté (PC, smartphone...). Ces adresses (ex: <code>192.168.1.x</code>) ne sont pas routables sur Internet. Le <span class="clickable-term" data-definition="Durée pendant laquelle une adresse IP attribuée par DHCP est réservée à un appareil spécifique. À l'expiration, l'appareil doit renouveler son bail ou obtenir une nouvelle adresse.">bail DHCP</span> définit la durée de validité de l'adresse attribuée.</li>
+                </ul>
+
+                <h3>Mécanisme de Traduction d'Adresses (NAT)</h3>
+                <p>Pour permettre aux multiples appareils d'un réseau local d'accéder à Internet avec une seule adresse IP publique, le routeur met en œuvre le <span class="clickable-term" data-definition="Network Address Translation : Processus effectué par le routeur qui modifie les en-têtes des paquets IP pour remplacer l'adresse IP privée source par l'IP publique du routeur (et inversement pour les réponses).">NAT</span> (Network Address Translation). Il maintient une table de correspondance pour savoir à quel appareil interne renvoyer les réponses provenant d'Internet.</p>
+                <button class="btn btn-info" data-topic="nat">Détails NAT</button>
+
+                <h3>Plages Privées et Subnetting</h3>
+                <p>Les plages d'adresses IP privées (<code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, <code>192.168.0.0/16</code>) sont standardisées (RFC 1918). Le <span class="clickable-term" data-definition="Opération consistant à diviser un grand réseau IP en plusieurs sous-réseaux plus petits. Permet une meilleure organisation, sécurité et gestion du trafic. Le masque de sous-réseau définit la taille de ces divisions.">subnetting</span> (découpage en sous-réseaux), défini par le masque de sous-réseau (ex: <code>255.255.255.0</code>), permet de structurer le réseau local.</p>
+
+                <h3>Transition vers IPv6</h3>
+                <p>Face à l'<span class="clickable-term" data-definition="Situation où la quasi-totalité des 4,3 milliards d'adresses IPv4 uniques ont été allouées, rendant difficile l'attribution de nouvelles adresses publiques et nécessitant des solutions comme le NAT et la transition vers IPv6.">épuisement des adresses IPv4</span> (codées sur 32 bits), le protocole IPv6 (128 bits, notation hexadécimale) a été introduit. Il offre un espace d'adressage quasi illimité, rendant le NAT moins indispensable et facilitant la connectivité directe. La coexistence des deux protocoles est gérée par des mécanismes comme le <span class="clickable-term" data-definition="Technique permettant à un appareil ou un réseau de fonctionner simultanément avec IPv4 et IPv6, facilitant la transition progressive vers IPv6.">Dual-Stack</span>.</p>
+                <p>Le <span class="clickable-term" data-definition="Domain Name System : Système hiérarchique distribué qui traduit les noms de domaine lisibles par l'homme (ex: www.google.com) en adresses IP numériques compréhensibles par les machines.">DNS</span> (Domain Name System) reste crucial pour traduire les noms de domaine en adresses IP (v4 ou v6).</p>
+            </div>
+
+            <!-- Onglet 3: Cycle de Vie -->
+            <div id="cycle-vie" class="tab-pane">
+                <h2>3. Analyse du Cycle de Vie des Équipements Wifi</h2>
+                <p>Les dispositifs matériels constituant un réseau Wifi (routeurs, points d'accès, cartes réseau) suivent un cycle de vie complexe, de la conception à la fin de vie, avec des implications économiques, sociales et environnementales significatives.</p>
+
+                 <!-- EMPLACEMENT IMAGE 3 : Illustration Cycle de vie (ex: Conception -> Fabrication -> Usage -> Fin de vie/Recyclage) -->
+                <img src="https://cdn.pixabay.com/photo/2021/11/11/23/17/connection-6787481_1280.png
+" alt="Infographie représentant les étapes du cycle de vie d'un produit électronique" class="content-image" id="img-placeholder-3">
+                <!-- Pour remplacer : trouvez cette ligne et changez src="#" par le chemin de votre image -->
+
+                <ol>
+                    <li><strong>Conception et R&D :</strong> Phase initiale impliquant ingénierie matérielle et logicielle, choix des composants, définition des spécifications (respect des normes 802.11), prototypage et tests. L'<span class="clickable-term" data-definition="Approche de conception visant à minimiser l'impact environnemental d'un produit tout au long de son cycle de vie (choix des matériaux, consommation d'énergie, facilité de réparation et de recyclage).">éco-conception</span> est un enjeu croissant à ce stade.</li>
+                    <li><strong>Fabrication :</strong> Extraction des <span class="clickable-term" data-definition="Matières premières présentes en quantité limitée sur Terre et dont le renouvellement est extrêmement lent à l'échelle humaine (ex: pétrole pour les plastiques, métaux).">ressources non renouvelables</span>, production des composants (semi-conducteurs, PCB, plastiques...), assemblage en usine (souvent délocalisée). Cette phase est gourmande en énergie et en eau, et peut impliquer des conditions de travail difficiles.</li>
+                    <li><strong>Distribution :</strong> Logistique complexe incluant emballage, transport international (forte empreinte carbone) et commercialisation.</li>
+                    <li><strong>Utilisation :</strong> Phase la plus longue, caractérisée par la consommation électrique et la nécessité de maintenance logicielle. Les mises à jour du <span class="clickable-term" data-definition="Micrologiciel intégré à l'appareil, essentiel à son fonctionnement. Les mises à jour corrigent des bugs, améliorent les performances et, crucialement, comblent les failles de sécurité. L'arrêt des mises à jour signe souvent l'obsolescence logicielle.">firmware</span> sont cruciales pour la sécurité et la longévité fonctionnelle.</li>
+                    <li><strong>Fin de Vie :</strong> L'appareil devient obsolète (technologiquement dépassé, non supporté par les mises à jour, panne irréparable). L'<span class="clickable-term" data-definition="Stratégie visant à réduire volontairement la durée de vie ou d'utilisation d'un produit pour en accélérer le remplacement. Peut être technique (pièces fragiles) ou logicielle (arrêt des mises à jour).">obsolescence programmée</span> est parfois suspectée. Les options sont :
+                        <ul>
+                            <li>Réemploi (don, vente d'occasion).</li>
+                            <li>Réparation (souvent limitée par la conception).</li>
+                            <li>Recyclage via la filière <span class="clickable-term" data-definition="Déchets d'Équipements Électriques et Électroniques : Filière réglementée de collecte et traitement spécifique pour les appareils électroniques usagés, visant la dépollution et la récupération des matériaux valorisables.">DEEE</span> (D3E).</li>
+                            <li>Stockage ou mise au rebut incorrecte (source de pollution).</li>
+                        </ul>
+                    </li>
+                </ol>
+                 <button class="btn btn-info" data-topic="deee">Enjeux du DEEE</button>
+                 <p>La gestion responsable de la fin de vie est essentielle pour limiter le gaspillage des ressources et la pollution environnementale due aux composants électroniques.</p>
+            </div>
+
+            <!-- Onglet 4: Besoins Énergétiques -->
+            <div id="besoins-energetiques" class="tab-pane">
+                <h2>4. Consommation Énergétique des Réseaux Wifi</h2>
+                <p>Le fonctionnement des réseaux sans fil Wifi repose intégralement sur l'apport continu d'énergie électrique, tant pour les équipements d'infrastructure (routeurs, points d'accès) que pour les terminaux clients (ordinateurs, smartphones, objets connectés).</p>
+
+                <h3>Consommation des Points d'Accès et Routeurs</h3>
+                <p>Les routeurs Wifi domestiques et les points d'accès professionnels sont fréquemment laissés sous tension en permanence. Leur consommation individuelle, bien que modérée, devient significative à l'échelle globale et sur la durée.</p>
+                <ul>
+                    <li>La puissance instantanée typique d'un routeur domestique varie de <strong>5 à 15 <span class="clickable-term" data-definition="Unité de mesure de la puissance électrique (symbole W). Représente la quantité d'énergie consommée ou produite par unité de temps (1 Watt = 1 Joule par seconde).">Watts (W)</span></strong>, selon le modèle, la charge du réseau et les fonctionnalités activées. Les modèles plus performants (Wifi 6/7, multi-bandes) tendent à consommer davantage.</li>
+                    <li>Une consommation moyenne de 10 W en continu représente <strong>87,6 <span class="clickable-term" data-definition="Kilowattheure (symbole kWh) : Unité de mesure de l'énergie, couramment utilisée pour la facturation électrique. Correspond à la consommation d'un appareil de 1000 Watts pendant une heure (1 kWh = 3,6 millions de Joules).">kilowattheures (kWh)</span></strong> par an, un poste non négligeable sur la facture énergétique d'un foyer.</li>
+                    <li>Des fonctionnalités d'<span class="clickable-term" data-definition="Ensemble des techniques et réglages visant à réduire la consommation d'énergie d'un appareil (ex: mise en veille automatique, planification horaire, réduction de la puissance d'émission).">économie d'énergie</span> existent (planification horaire, réduction de la puissance d'émission, mode <span class="clickable-term" data-definition="État de faible consommation où l'appareil reste connecté mais réduit son activité au minimum en l'absence de trafic. Permet une réactivation rapide.">veille réseau</span>), mais leur adoption reste limitée.</li>
+                    <li>L'alimentation via <span class="clickable-term" data-definition="Power over Ethernet : Technologie permettant d'alimenter électriquement des appareils réseau (points d'accès Wifi, caméras IP...) via le même câble Ethernet qui transporte les données, simplifiant l'installation.">PoE</span> (Power over Ethernet) est courante pour les AP professionnels, impliquant des considérations d'efficacité au niveau du switch PoE.</li>
+                </ul>
+
+                <h3>Consommation des Appareils Clients</h3>
+                <p>Les terminaux connectés (smartphones, tablettes, laptops) allouent une partie de leur énergie au maintien de la liaison Wifi. L'<span class="clickable-term" data-definition="Capacité d'un appareil ou système à fournir un service donné en utilisant le moins d'énergie possible. S'exprime souvent par un rendement (énergie utile / énergie consommée).">efficacité énergétique</span> des puces Wifi s'est améliorée, mais la consommation dépend fortement de l'usage (veille, navigation légère, streaming vidéo, téléchargement).</p>
+                <p>Comparativement aux réseaux cellulaires (4G/5G), le Wifi est souvent plus économe en énergie pour le terminal, notamment en raison de la proximité du point d'accès et de protocoles de veille optimisés pour cet usage.</p>
+            </div>
+
+            <!-- Onglet 5: Matériaux -->
+            <div id="materiaux" class="tab-pane">
+                <h2>5. Composition Matérielle des Infrastructures Wifi</h2>
+                <p>Malgré leur nature "immatérielle" perçue, les réseaux Wifi s'appuient sur des équipements physiques complexes, constitués d'une grande diversité de matériaux dont l'extraction, la transformation et l'assemblage ont des impacts environnementaux et sociaux notables.</p>
+
+                <!-- EMPLACEMENT IMAGE 4 : Illustration Matériaux (ex: photo de composants : pcb, puces, plastique, cuivre) -->
+                <img src="https://cdn.pixabay.com/photo/2015/05/25/05/27/network-782707_1280.png" alt="Vue éclatée d'un routeur montrant ses différents composants internes" class="content-image" id="img-placeholder-4">
+                <!-- Pour remplacer : trouvez cette ligne et changez src="#" par le chemin de votre image -->
+
+                <p>Les principaux constituants d'un routeur ou d'une carte Wifi incluent :</p>
+                <ul>
+                    <li><strong>Boîtiers et Structures :</strong> Majoritairement en matières plastiques (ABS, PC), dérivés pétrochimiques. L'aluminium est parfois utilisé pour la dissipation thermique ou la structure.</li>
+                    <li><strong>Cartes de Circuits Imprimés (<span class="clickable-term" data-definition="Printed Circuit Board : Plaque isolante (souvent en résine époxy et fibre de verre) sur laquelle sont gravées des pistes conductrices en cuivre, reliant les différents composants électroniques soudés dessus.">PCB</span>) :</strong> Substrat isolant (FR-4) recouvert de fines couches de cuivre formant les connexions.</li>
+                    <li><strong>Composants Électroniques Actifs :</strong>
+                        <ul>
+                            <li>Circuits Intégrés (Puces) : Cœur du traitement (CPU, chip Wifi, mémoire), fabriqués à partir de <span class="clickable-term" data-definition="Élément chimique semi-conducteur, principal matériau de base de l'industrie électronique moderne. Extrait du sable (silice), il est purifié et transformé en 'wafers' sur lesquels sont gravés les transistors.">silicium</span> ultra-pur.</li>
+                            <li>Transistors, diodes : Également à base de semi-conducteurs.</li>
+                        </ul>
+                    </li>
+                     <li><strong>Composants Passifs :</strong> Résistances (céramique, carbone), condensateurs (céramique, tantale, aluminium), inductances (cuivre, ferrite).</li>
+                     <li><strong>Connectique :</strong> Contacts en alliages de cuivre, souvent plaqués or pour la conductivité et la résistance à la corrosion (ports Ethernet, USB). Laiton pour les connecteurs d'antenne.</li>
+                     <li><strong>Soudure :</strong> Alliages à base d'étain (souvent sans plomb aujourd'hui : SAC - Tin-Silver-Copper).</li>
+                     <li><strong>Métaux Stratégiques et Critiques :</strong> Outre le cuivre et l'or, on trouve de l'argent, du palladium (condensateurs, contacts), du tantale (condensateurs, souvent classé comme <span class="clickable-term" data-definition="Tantale, étain (Tin), tungstène, or (Gold) - et leurs dérivés. Minerais dont l'exploitation et le commerce peuvent financer des conflits armés, notamment en République Démocratique du Congo. Leur traçabilité est un enjeu majeur.">minerai de conflit</span>), et potentiellement des <span class="clickable-term" data-definition="Groupe de 17 métaux aux propriétés chimiques similaires (ex: néodyme, dysprosium), essentiels dans de nombreuses technologies (aimants, batteries, catalyseurs). Leur extraction est concentrée dans peu de pays et peut être polluante.">terres rares</span> en infimes quantités pour certaines propriétés magnétiques.</li>
+                </ul>
+                <p>La complexité de ces assemblages rend la <span class="clickable-term" data-definition="Capacité d'un produit ou d'un matériau à être effectivement collecté, traité et réintégré dans la production de nouveaux biens après sa fin de vie. Dépend de la conception, des technologies de tri et de recyclage disponibles.">recyclabilité</span> difficile, soulignant l'importance de la collecte sélective (DEEE) et de la recherche sur des procédés de récupération plus efficaces.</p>
+            </div>
+
+            <!-- Onglet 6: Chaîne d'Énergie -->
+            <div id="chaine-energie" class="tab-pane">
+                <h2>6. La Chaîne de Conversion Énergétique du Wifi</h2>
+                <p>Le processus permettant à un routeur Wifi de transformer l'énergie électrique du secteur en ondes radio transportant des données implique plusieurs étapes de conversion et de transfert d'énergie, chacune associée à des pertes inévitables.</p>
+
+                <!-- EMPLACEMENT IMAGE 5 : SCHEMA CHAINE ENERGIE -->
+                <img src="https://diy7ta1tt6jst.cloudfront.net/prod/okulus/9663a3d8-adef-4a4c-8ce8-493274eac2d0" alt="Schéma illustrant les étapes de conversion d'énergie dans un routeur Wifi" class="content-image" id="img-placeholder-5">
+                <!-- Pour remplacer : trouvez cette ligne et changez src="#" par le chemin de votre image (VOTRE SCHEMA ICI) -->
+
+                <ol>
+                    <li><strong>Source Primaire (Réseau Électrique) :</strong> L'énergie provient du réseau de distribution sous forme de <span class="clickable-term" data-definition="Type de courant électrique où le sens du déplacement des électrons s'inverse périodiquement (ex: 50 Hz en Europe). C'est la forme distribuée par les réseaux électriques domestiques (ex: 230V).">Courant Alternatif (AC)</span> à une tension élevée (ex: 230V).</li>
+                    <li><strong>Conversion AC/DC et Abaissement de Tension :</strong> Le bloc d'alimentation (externe ou interne) effectue une double conversion cruciale :
+                        <ul>
+                            <li>Redressement : Transformation du courant alternatif en <span class="clickable-term" data-definition="Type de courant électrique où les électrons circulent toujours dans le même sens. C'est la forme utilisée par la majorité des composants électroniques (ex: 5V, 12V).">Courant Continu (DC)</span>.</li>
+                            <li>Abaissement : Réduction de la tension à un niveau compatible avec l'électronique (ex: 12V, 9V ou 5V).</li>
+                        </ul>
+                        Cette étape n'est pas parfaite, une partie de l'énergie est dissipée sous forme de chaleur (pertes de conversion). Le <span class="clickable-term" data-definition="Rapport entre l'énergie utile fournie en sortie et l'énergie totale consommée en entrée. Exprimé en pourcentage (%). Un bon adaptateur secteur a un rendement > 80-85%.">rendement énergétique</span> de l'adaptateur est un facteur clé.
+                    </li>
+                    <li><strong>Régulation et Distribution Interne :</strong> La tension DC basse est ensuite ajustée très précisément par des régulateurs de tension internes pour alimenter les différents circuits (processeur à ~1.2V, mémoire à ~1.8V, puce Wifi à ~3.3V...). Chaque régulation entraîne également des pertes thermiques (<span class="clickable-term" data-definition="Phénomène physique par lequel le passage d'un courant électrique dans un conducteur produit de la chaleur. C'est la principale source de pertes d'énergie dans les composants électroniques.">Effet Joule</span>).</li>
+                    <li><strong>Consommation des Composants Actifs :</strong> L'énergie électrique est consommée par le processeur pour exécuter le logiciel, par la mémoire pour stocker les données, et par la puce radio pour traiter les signaux Wifi (modulation/démodulation). Cette activité génère de la chaleur.</li>
+                    <li><strong>Amplification et Émission Radio :</strong> Le signal Wifi généré par la puce est amplifié par des amplificateurs de puissance avant d'être envoyé aux antennes. C'est souvent l'étape la plus gourmande en énergie spécifique à la fonction radio.</li>
+                    <li><strong>Conversion Finale en Ondes :</strong> Les antennes convertissent l'énergie électrique du signal radio amplifié en <span class="clickable-term" data-definition="Forme d'énergie qui se propage dans l'espace sous forme d'ondes combinant des champs électriques et magnétiques oscillants. Le spectre électromagnétique inclut les ondes radio, micro-ondes, infrarouges, lumière visible, UV, rayons X et gamma.">ondes électromagnétiques</span> qui se propagent dans l'environnement pour atteindre les appareils clients. L'efficacité de cette conversion dépend de la conception des antennes.</li>
+                </ol>
+                <p>L'optimisation de chaque étape de cette chaîne est essentielle pour améliorer l'efficacité énergétique globale des équipements Wifi.</p>
+            </div>
+        </div>
+
+        <!-- Bouton pour ouvrir la modale d'exercices -->
+        <div style="text-align: center; padding: 25px 20px;">
+            <button id="open-exercise-modal" class="btn">Tester mes connaissances ! (Exercices)</button>
+        </div>
+
+    </div> <!-- Fin .container -->
+
+
+    <!-- Modale Exercices -->
+    <div id="exercise-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-exercise-modal">&times;</span>
+            <h2>Exercices Interactifs sur le Wifi</h2>
+            <!-- Contenu des exercices (Quiz, Association, Pendu, Memory) -->
+            <!-- ... (copier le contenu HTML des sections d'exercices depuis la version précédente) ... -->
+             <div class="exercise-section" id="quiz-section"><h3>Quiz (4 Questions)</h3><div id="quiz-container"></div><button id="submit-quiz" class="btn">Vérifier mes réponses (Quiz)</button><div id="quiz-results" style="margin-top: 15px;"></div></div>
+             <div class="exercise-section" id="association-section"><h3>Association (4 Paires)</h3><p>Cliquez sur un terme puis sur sa définition correspondante.</p><div id="association-container" class="association-container"><div id="association-terms" class="association-column"><h4>Termes</h4></div><div id="association-definitions" class="association-column"><h4>Définitions</h4></div></div><div id="association-feedback" class="association-feedback"></div><button id="check-association" class="btn">Vérifier mes associations</button><button id="reset-association" class="btn" style="background: #aaa; margin-left: 10px;">Réinitialiser</button></div>
+             <div class="exercise-section" id="hangman-section"><h3>Jeu du Pendu (3 Mots)</h3><div id="hangman-game-1"><h4>Pendu 1/3</h4><div class="hangman-drawing" id="hangman-drawing-1"></div><div class="hangman-word" id="hangman-word-1"></div><div class="hangman-letters" id="hangman-letters-1"></div><div class="hangman-status" id="hangman-status-1"></div><button class="btn hangman-new-game" data-game="1" style="display: none;">Mot Suivant</button></div><div id="hangman-game-2" style="display:none;"><h4>Pendu 2/3</h4><div class="hangman-drawing" id="hangman-drawing-2"></div><div class="hangman-word" id="hangman-word-2"></div><div class="hangman-letters" id="hangman-letters-2"></div><div class="hangman-status" id="hangman-status-2"></div><button class="btn hangman-new-game" data-game="2" style="display: none;">Mot Suivant</button></div><div id="hangman-game-3" style="display:none;"><h4>Pendu 3/3</h4><div class="hangman-drawing" id="hangman-drawing-3"></div><div class="hangman-word" id="hangman-word-3"></div><div class="hangman-letters" id="hangman-letters-3"></div><div class="hangman-status" id="hangman-status-3"></div><button class="btn hangman-reset-all" style="display: none; background: #aaa;">Recommencer le Pendu</button></div></div>
+             <div class="exercise-section" id="memory-section"><h3>Jeu de Memory (2 Grilles de 8 paires)</h3><div id="memory-game-1"><h4>Memory 1/2</h4><div class="memory-status" id="memory-status-1">Tentatives : 0 | Paires trouvées : 0/8</div><div class="memory-grid" id="memory-grid-1"></div><button class="btn memory-reset" data-game="1" style="background: #aaa;">Réinitialiser Grille 1</button></div><hr style="margin: 25px 0;"><div id="memory-game-2"><h4>Memory 2/2</h4><div class="memory-status" id="memory-status-2">Tentatives : 0 | Paires trouvées : 0/8</div><div class="memory-grid" id="memory-grid-2"></div><button class="btn memory-reset" data-game="2" style="background: #aaa;">Réinitialiser Grille 2</button></div></div>
+        </div>
+    </div>
+
+    <!-- Modale Informations -->
+    <div id="info-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-info-modal">&times;</span>
+            <h2 id="info-modal-title">Information</h2>
+            <div id="info-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Tooltip -->
+    <div id="tooltip-popup"></div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Gestion des Onglets ---
+            const tabLinks = document.querySelectorAll('.tab-link');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+            const tabsNav = document.querySelector('.tabs-nav');
+            tabsNav.addEventListener('click', (e) => {
+                if (e.target.classList.contains('tab-link')) {
+                    const tabId = e.target.getAttribute('data-tab');
+                    tabLinks.forEach(link => link.classList.remove('active'));
+                    tabPanes.forEach(pane => pane.classList.remove('active'));
+                    e.target.classList.add('active');
+                    const activePane = document.getElementById(tabId);
+                    if (activePane) activePane.classList.add('active');
+                }
+            });
+
+            // --- Gestion Modale Exercices ---
+            const exerciseModal = document.getElementById('exercise-modal');
+            const openExerciseModalBtn = document.getElementById('open-exercise-modal');
+            const closeExerciseModalBtn = document.getElementById('close-exercise-modal');
+            let exercisesInitialized = false;
+            openExerciseModalBtn.addEventListener('click', () => {
+                exerciseModal.style.display = 'flex';
+                if (!exercisesInitialized) { initializeAllExercises(); exercisesInitialized = true; }
+            });
+            closeExerciseModalBtn.addEventListener('click', () => { exerciseModal.style.display = 'none'; });
+
+            // --- Gestion Modale Informations ---
+            const infoModal = document.getElementById('info-modal');
+            const closeInfoModalBtn = document.getElementById('close-info-modal');
+            const infoModalTitle = document.getElementById('info-modal-title');
+            const infoModalBody = document.getElementById('info-modal-body');
+            const infoButtons = document.querySelectorAll('.btn-info');
+            const infoContent = { // Contenu pour les boutons d'information
+                dhcp: { title: "DHCP (Dynamic Host Configuration Protocol)", text: "Protocole réseau dont le rôle est d'assurer la configuration automatique des paramètres IP d'une station, notamment en lui assignant automatiquement une adresse IP et un masque de sous-réseau. Le routeur contient généralement un serveur DHCP pour le réseau local." },
+                tcpip: { title: "Suite des Protocoles Internet (TCP/IP)", text: "Ensemble de protocoles de communication fondamentaux sur lesquels repose Internet. <strong>IP (Internet Protocol)</strong> gère l'adressage et le routage des paquets. <strong>TCP (Transmission Control Protocol)</strong> assure une transmission fiable, ordonnée et vérifiée des données entre deux applications." },
+                nat: { title: "NAT (Network Address Translation)", text: "Mécanisme utilisé principalement par les routeurs pour permettre aux appareils d'un réseau privé (avec des adresses IP privées non uniques globalement) de communiquer avec l'extérieur (Internet) en utilisant une seule adresse IP publique. Il 'traduit' les adresses sources et/ou destinations des paquets IP lorsqu'ils traversent le routeur." },
+                ipv6: { title: "IPv6 (Internet Protocol version 6)", text: "Successeur d'IPv4, conçu pour résoudre le problème de l'épuisement des adresses IPv4. Il utilise des adresses de 128 bits (contre 32 pour IPv4), offrant un espace d'adressage astronomique. Sa notation est hexadécimale, séparée par des deux-points (ex: 2001:0db8::1)." },
+                deee: { title: "DEEE / D3E (Déchets d'Équipements Électriques et Électroniques)", text: "Catégorie de déchets constituée des équipements fonctionnant grâce à des courants électriques ou des champs électromagnétiques. Leur collecte et traitement sont encadrés par des réglementations spécifiques (ex: directive européenne DEEE) visant à prévenir la pollution due aux substances dangereuses qu'ils contiennent et à favoriser la réutilisation et le recyclage des matériaux." },
+                'wifi-standards': { title: "Normes Wifi (IEEE 802.11)", text: "La famille de normes IEEE 802.11 définit les spécifications techniques des réseaux locaux sans fil (WLAN). Chaque révision (802.11b, g, n, ac, ax, be...) apporte des améliorations en termes de débit, portée, efficacité spectrale et fonctionnalités. Les appellations commerciales (Wifi 4, 5, 6, 6E, 7) simplifient l'identification de ces normes pour le grand public." }
+                // Ajoutez d'autres sujets ici
+            };
+            infoButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const topic = button.getAttribute('data-topic');
+                    const content = infoContent[topic];
+                    if (content) {
+                        infoModalTitle.textContent = content.title;
+                        infoModalBody.innerHTML = `<p>${content.text.replace(/\n/g, '</p><p>')}</p>`; // Gère les sauts de ligne éventuels
+                        infoModal.style.display = 'flex';
+                    }
+                });
+            });
+            closeInfoModalBtn.addEventListener('click', () => { infoModal.style.display = 'none'; });
+
+            // --- Gestion Tooltip ---
+            const tooltipPopup = document.getElementById('tooltip-popup');
+            document.querySelectorAll('.clickable-term').forEach(term => {
+                term.addEventListener('mouseenter', (e) => { // mouseenter est souvent préférable à mouseover
+                    const definition = term.getAttribute('data-definition');
+                    if (!definition) return;
+                    tooltipPopup.textContent = definition;
+                    tooltipPopup.style.display = 'block';
+                    positionTooltip(e);
+                });
+                 term.addEventListener('mousemove', positionTooltip); // Met à jour si on bouge sur le terme
+                term.addEventListener('mouseleave', () => { tooltipPopup.style.display = 'none'; });
+            });
+
+            function positionTooltip(e) {
+                 if (tooltipPopup.style.display !== 'block') return;
+                 const scrollX = window.scrollX || window.pageXOffset;
+                 const scrollY = window.scrollY || window.pageYOffset;
+                 const tooltipRect = tooltipPopup.getBoundingClientRect();
+                 let top = e.clientY + 15 + scrollY;
+                 let left = e.clientX + 10 + scrollX;
+
+                 // Empêcher de sortir de la fenêtre visible
+                 if (left + tooltipRect.width > window.innerWidth + scrollX) {
+                     left = e.clientX - tooltipRect.width - 10 + scrollX; // Passer à gauche
+                 }
+                 if (top + tooltipRect.height > window.innerHeight + scrollY) {
+                     top = e.clientY - tooltipRect.height - 15 + scrollY; // Passer au-dessus
+                 }
+                 if (left < scrollX) left = scrollX + 5; // Eviter bord gauche
+                 if (top < scrollY) top = scrollY + 5; // Eviter bord haut
+
+                 tooltipPopup.style.top = `${top}px`;
+                 tooltipPopup.style.left = `${left}px`;
+            }
+
+
+            // --- Fermeture Modales (clic extérieur) ---
+            window.addEventListener('click', (e) => {
+                if (e.target === exerciseModal) exerciseModal.style.display = 'none';
+                if (e.target === infoModal) infoModal.style.display = 'none';
+            });
+
+            // --- Initialisation Exercices ---
+            function initializeAllExercises() {
+                setupQuiz();
+                setupAssociation();
+                setupHangman(1);
+                setupMemoryGame(1);
+                setupMemoryGame(2);
+            }
+
+            // --- Logique des Exercices (Quiz, Association, Pendu, Memory) ---
+            // ... (COPIER COLLER INTÉGRALEMENT LE CODE JS DES EXERCICES DE LA VERSION PRÉCÉDENTE ICI) ...
+            // --- Logique du Quiz (copiée) ---
+            const quizData = [ { question: "Quelle norme IEEE régit les protocoles Wifi ?", options: ["IEEE 802.3", "IEEE 802.11", "IEEE 1394", "IEEE 802.15"], answer: "IEEE 802.11" }, { question: "Quel mécanisme permet à plusieurs appareils d'utiliser une seule IP publique ?", options: ["DHCP", "DNS", "NAT", "WEP"], answer: "NAT" }, { question: "Quelle plage d'adresses IP privées est la plus courante pour les réseaux domestiques ?", options: ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16", "224.0.0.0/4"], answer: "192.168.0.0/16" }, { question: "Quel protocole de sécurité Wifi est considéré comme obsolète et non sécurisé ?", options: ["WPA3", "WPA2", "WEP", "AES"], answer: "WEP" } ];
+            const quizContainer = document.getElementById('quiz-container'); const submitQuizBtn = document.getElementById('submit-quiz'); const quizResults = document.getElementById('quiz-results');
+            function setupQuiz() { quizContainer.innerHTML = ''; quizData.forEach((q, index) => { const questionDiv = document.createElement('div'); questionDiv.classList.add('quiz-question'); questionDiv.innerHTML = `<p>${index + 1}. ${q.question}</p>`; const optionsDiv = document.createElement('div'); optionsDiv.classList.add('quiz-options'); q.options.forEach(option => { const label = document.createElement('label'); label.innerHTML = ` <input type="radio" name="q${index}" value="${option}"> ${option} `; optionsDiv.appendChild(label); }); questionDiv.appendChild(optionsDiv); const feedbackDiv = document.createElement('div'); feedbackDiv.id = `q${index}-feedback`; feedbackDiv.classList.add('quiz-feedback'); questionDiv.appendChild(feedbackDiv); quizContainer.appendChild(questionDiv); }); }
+            submitQuizBtn.addEventListener('click', () => { let score = 0; quizData.forEach((q, index) => { const feedbackEl = document.getElementById(`q${index}-feedback`); const selectedOption = quizContainer.querySelector(`input[name="q${index}"]:checked`); if (selectedOption) { if (selectedOption.value === q.answer) { score++; feedbackEl.textContent = "Correct !"; feedbackEl.className = 'quiz-feedback correct'; } else { feedbackEl.textContent = `Incorrect. La bonne réponse était : ${q.answer}`; feedbackEl.className = 'quiz-feedback incorrect'; } } else { feedbackEl.textContent = "Veuillez sélectionner une réponse."; feedbackEl.className = 'quiz-feedback incorrect'; } }); quizResults.textContent = `Votre score : ${score} / ${quizData.length}`; });
+            // --- Logique d'Association (copiée) ---
+            const associationData = [ { term: "IEEE 802.11ax", definition: "Norme technique correspondant au Wifi 6." }, { term: "DHCP", definition: "Protocole d'attribution automatique d'adresses IP." }, { term: "Firmware", definition: "Logiciel interne essentiel au fonctionnement d'un appareil." }, { term: "kWh", definition: "Unité de mesure de l'énergie électrique facturée." } ];
+            const termsContainer = document.getElementById('association-terms'); const definitionsContainer = document.getElementById('association-definitions'); const checkAssociationBtn = document.getElementById('check-association'); const resetAssociationBtn = document.getElementById('reset-association'); const associationFeedback = document.getElementById('association-feedback'); let selectedTerm = null; let selectedDefinition = null; let associations = {};
+            function shuffleArray(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
+            function setupAssociation() { termsContainer.innerHTML = '<h4>Termes</h4>'; definitionsContainer.innerHTML = '<h4>Définitions</h4>'; associationFeedback.textContent = ''; selectedTerm = null; selectedDefinition = null; associations = {}; const terms = associationData.map((item, index) => ({ id: `term-${index}`, text: item.term, pairId: index })); const definitions = associationData.map((item, index) => ({ id: `def-${index}`, text: item.definition, pairId: index })); shuffleArray(terms); shuffleArray(definitions); terms.forEach(item => { const div = document.createElement('div'); div.classList.add('association-item'); div.textContent = item.text; div.dataset.id = item.id; div.dataset.pairId = item.pairId; div.addEventListener('click', handleAssociationClick); termsContainer.appendChild(div); }); definitions.forEach(item => { const div = document.createElement('div'); div.classList.add('association-item'); div.textContent = item.text; div.dataset.id = item.id; div.dataset.pairId = item.pairId; div.addEventListener('click', handleAssociationClick); definitionsContainer.appendChild(div); }); }
+            function handleAssociationClick(e) { const clickedItem = e.target; const container = clickedItem.parentElement; if (clickedItem.classList.contains('selected')) { clickedItem.classList.remove('selected'); if (container.id === 'association-terms') selectedTerm = null; else selectedDefinition = null; return; } if (container.id === 'association-terms') { if (selectedTerm) selectedTerm.classList.remove('selected'); selectedTerm = clickedItem; selectedTerm.classList.add('selected'); } else { if (selectedDefinition) selectedDefinition.classList.remove('selected'); selectedDefinition = clickedItem; selectedDefinition.classList.add('selected'); } if (selectedTerm && selectedDefinition) { const termId = selectedTerm.dataset.id; const defId = selectedDefinition.dataset.id; selectedTerm.style.border = '2px solid var(--color-primary-end)'; selectedDefinition.style.border = '2px solid var(--color-primary-end)'; associations[termId] = defId; selectedTerm.classList.remove('selected'); selectedDefinition.classList.remove('selected'); selectedTerm = null; selectedDefinition = null; } associationFeedback.textContent = ''; }
+            checkAssociationBtn.addEventListener('click', () => { let correctCount = 0; const totalPairs = associationData.length; const allTermItems = termsContainer.querySelectorAll('.association-item'); const allDefItems = definitionsContainer.querySelectorAll('.association-item'); allTermItems.forEach(item => item.style.border = '1px solid var(--color-border)'); allDefItems.forEach(item => item.style.border = '1px solid var(--color-border)'); for (const termId in associations) { const defId = associations[termId]; const termElement = termsContainer.querySelector(`[data-id="${termId}"]`); const defElement = definitionsContainer.querySelector(`[data-id="${defId}"]`); if (termElement && defElement) { if (termElement.dataset.pairId === defElement.dataset.pairId) { correctCount++; termElement.style.border = '2px solid green'; defElement.style.border = '2px solid green'; } else { termElement.style.border = '2px solid red'; defElement.style.border = '2px solid red'; } } } if (Object.keys(associations).length < totalPairs) { associationFeedback.textContent = `Veuillez associer toutes les paires. ${correctCount} / ${totalPairs} correctes pour l'instant.`; associationFeedback.style.color = 'orange'; } else if (correctCount === totalPairs) { associationFeedback.textContent = `Félicitations ! Toutes les ${totalPairs} associations sont correctes !`; associationFeedback.style.color = 'green'; } else { associationFeedback.textContent = `Résultat : ${correctCount} / ${totalPairs} associations correctes.`; associationFeedback.style.color = 'red'; } });
+            resetAssociationBtn.addEventListener('click', setupAssociation);
+            // --- Logique du Pendu (copiée) ---
+            const hangmanWords = ["WIFI", "ROUTEUR", "PROTOCOLE", "FREQUENCE", "SECURITE", "ANTENNE", "ADRESSEIP", "PAQUET", "CLIENT", "SERVEUR"]; let hangmanGames = {};
+            const hangmanDrawings = [ `\n  +---+\n  |   |\n      |\n      |\n      |\n      |\n=========\n`, `\n  +---+\n  |   |\n  O   |\n      |\n      |\n      |\n=========\n`, `\n  +---+\n  |   |\n  O   |\n  |   |\n      |\n      |\n=========\n`, `\n  +---+\n  |   |\n  O   |\n /|   |\n      |\n      |\n=========\n`, `\n  +---+\n  |   |\n  O   |\n /|\\  |\n      |\n      |\n=========\n`, `\n  +---+\n  |   |\n  O   |\n /|\\  |\n /    |\n      |\n=========\n`, `\n  +---+\n  |   |\n  O   |\n /|\\  |\n / \\  |\n      |\n=========\n PERDU!\n` ];
+            function setupHangman(gameIndex) { const wordList = shuffleArray([...hangmanWords]); const wordToGuess = wordList[gameIndex - 1].toUpperCase(); if (!wordToGuess) return; hangmanGames[gameIndex] = { word: wordToGuess, guessedLetters: new Set(), wrongGuesses: 0, maxWrongGuesses: 6, gameOver: false }; const game = hangmanGames[gameIndex]; const wordContainer = document.getElementById(`hangman-word-${gameIndex}`); const lettersContainer = document.getElementById(`hangman-letters-${gameIndex}`); const statusContainer = document.getElementById(`hangman-status-${gameIndex}`); const drawingContainer = document.getElementById(`hangman-drawing-${gameIndex}`); const newGameBtn = document.querySelector(`.hangman-new-game[data-game="${gameIndex}"]`); const resetAllBtn = document.querySelector('.hangman-reset-all'); wordContainer.textContent = game.word.split('').map(letter => '_').join(''); lettersContainer.innerHTML = ''; 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(letter => { const button = document.createElement('button'); button.textContent = letter; button.addEventListener('click', () => handleHangmanGuess(gameIndex, letter)); lettersContainer.appendChild(button); }); statusContainer.textContent = `Erreurs : 0 / ${game.maxWrongGuesses}`; statusContainer.style.color = 'inherit'; drawingContainer.textContent = hangmanDrawings[0]; if(newGameBtn) newGameBtn.style.display = 'none'; if(resetAllBtn) resetAllBtn.style.display = 'none'; document.getElementById(`hangman-game-${gameIndex}`).style.display = 'block'; }
+            function handleHangmanGuess(gameIndex, letter) { const game = hangmanGames[gameIndex]; if (game.gameOver) return; const letterButton = Array.from(document.querySelectorAll(`#hangman-letters-${gameIndex} button`)).find(btn => btn.textContent === letter); if (letterButton) letterButton.disabled = true; if (!game.guessedLetters.has(letter)) { game.guessedLetters.add(letter); if (game.word.includes(letter)) { updateHangmanWordDisplay(gameIndex); checkHangmanWin(gameIndex); } else { game.wrongGuesses++; updateHangmanStatus(gameIndex); checkHangmanLoss(gameIndex); } } }
+            function updateHangmanWordDisplay(gameIndex) { const game = hangmanGames[gameIndex]; const wordContainer = document.getElementById(`hangman-word-${gameIndex}`); wordContainer.textContent = game.word.split('').map(letter => (game.guessedLetters.has(letter) ? letter : '_')).join(''); }
+            function updateHangmanStatus(gameIndex) { const game = hangmanGames[gameIndex]; const statusContainer = document.getElementById(`hangman-status-${gameIndex}`); const drawingContainer = document.getElementById(`hangman-drawing-${gameIndex}`); statusContainer.textContent = `Erreurs : ${game.wrongGuesses} / ${game.maxWrongGuesses}`; drawingContainer.textContent = hangmanDrawings[game.wrongGuesses] || hangmanDrawings[game.maxWrongGuesses]; }
+            function checkHangmanWin(gameIndex) { const game = hangmanGames[gameIndex]; const wordContainer = document.getElementById(`hangman-word-${gameIndex}`); if (wordContainer.textContent === game.word) { game.gameOver = true; document.getElementById(`hangman-status-${gameIndex}`).textContent = "Gagné !"; document.getElementById(`hangman-status-${gameIndex}`).style.color = 'green'; showNextHangmanButton(gameIndex); } }
+            function checkHangmanLoss(gameIndex) { const game = hangmanGames[gameIndex]; if (game.wrongGuesses >= game.maxWrongGuesses) { game.gameOver = true; document.getElementById(`hangman-status-${gameIndex}`).textContent = `Perdu ! Le mot était : ${game.word}`; document.getElementById(`hangman-status-${gameIndex}`).style.color = 'red'; document.getElementById(`hangman-drawing-${gameIndex}`).textContent = hangmanDrawings[game.maxWrongGuesses]; showNextHangmanButton(gameIndex); } }
+            function showNextHangmanButton(currentGameIndex) { const lettersContainer = document.getElementById(`hangman-letters-${currentGameIndex}`); lettersContainer.querySelectorAll('button').forEach(btn => btn.disabled = true); const nextGameIndex = currentGameIndex + 1; if (nextGameIndex <= 3) { const nextBtn = document.querySelector(`.hangman-new-game[data-game="${currentGameIndex}"]`); if (nextBtn) nextBtn.style.display = 'inline-block'; } else { const resetAllBtn = document.querySelector('.hangman-reset-all'); if (resetAllBtn) resetAllBtn.style.display = 'inline-block'; } }
+            document.querySelectorAll('.hangman-new-game').forEach(button => { button.addEventListener('click', (e) => { const currentGameIndex = parseInt(e.target.dataset.game, 10); const nextGameIndex = currentGameIndex + 1; document.getElementById(`hangman-game-${currentGameIndex}`).style.display = 'none'; if (nextGameIndex <= 3) { setupHangman(nextGameIndex); } }); });
+            const resetAllHangmanBtn = document.querySelector('.hangman-reset-all'); if (resetAllHangmanBtn) { resetAllHangmanBtn.addEventListener('click', () => { document.getElementById(`hangman-game-3`).style.display = 'none'; setupHangman(1); }); }
+            // --- Logique du Memory (copiée) ---
+            const memorySymbols = ['📱', '💻', '📡', '🔒', '🔑', '🌐', '💡', '⚙️', '💾', '🖱️', '🔌', '🔋']; // 12 symboles pour 2x8 paires
+            let memoryGames = {};
+            function setupMemoryGame(gameIndex) { const gridContainer = document.getElementById(`memory-grid-${gameIndex}`); const statusContainer = document.getElementById(`memory-status-${gameIndex}`); gridContainer.innerHTML = ''; statusContainer.textContent = `Tentatives : 0 | Paires trouvées : 0/8`; const gameSymbols = shuffleArray([...memorySymbols]).slice(0, 8); const cards = shuffleArray([...gameSymbols, ...gameSymbols]); memoryGames[gameIndex] = { cards: cards, flippedCards: [], matchedPairs: 0, attempts: 0, busy: false, symbols: gameSymbols }; cards.forEach((symbol, index) => { const card = document.createElement('div'); card.classList.add('memory-card'); card.dataset.index = index; card.dataset.symbol = symbol; card.innerHTML = ` <div class="card-cover">?</div> <div class="card-content">${symbol}</div> `; card.addEventListener('click', () => handleMemoryCardClick(gameIndex, card)); gridContainer.appendChild(card); }); }
+            function handleMemoryCardClick(gameIndex, card) { const game = memoryGames[gameIndex]; if (game.busy || card.classList.contains('flipped') || card.classList.contains('matched')) { return; } game.busy = true; card.classList.add('flipped'); game.flippedCards.push(card); if (game.flippedCards.length === 2) { game.attempts++; updateMemoryStatus(gameIndex); checkForMemoryMatch(gameIndex); } else { game.busy = false; } }
+            function checkForMemoryMatch(gameIndex) { const game = memoryGames[gameIndex]; const [card1, card2] = game.flippedCards; if (card1.dataset.symbol === card2.dataset.symbol) { card1.classList.add('matched'); card2.classList.add('matched'); game.matchedPairs++; updateMemoryStatus(gameIndex); game.flippedCards = []; if (game.matchedPairs === game.symbols.length) { document.getElementById(`memory-status-${gameIndex}`).textContent += " - Félicitations !"; game.busy = false; } else { game.busy = false; } } else { setTimeout(() => { card1.classList.remove('flipped'); card2.classList.remove('flipped'); game.flippedCards = []; game.busy = false; }, 1000); } }
+            function updateMemoryStatus(gameIndex) { const game = memoryGames[gameIndex]; const statusContainer = document.getElementById(`memory-status-${gameIndex}`); statusContainer.textContent = `Tentatives : ${game.attempts} | Paires trouvées : ${game.matchedPairs}/${game.symbols.length}`; }
+            document.querySelectorAll('.memory-reset').forEach(button => { button.addEventListener('click', (e) => { const gameIndex = parseInt(e.target.dataset.game, 10); setupMemoryGame(gameIndex); }); });
+
+
+        }); // Fin DOMContentLoaded
+    </script>
+
+</body>
+</html>
