@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objets Domestiques Technologiques - Nouveau Design</title>
+    <style>
+        /* --- Variables de Couleur --- */
+        :root {
+            /* Couleurs Originales (Conservées pour la Modale) */
+            --color-primary: #8a2be2; /* Mauve */
+            --color-secondary: #4682b4; /* Bleu acier */
+            --color-accent: #9370db; /* Mauve moyen */
+            --color-light-gray: #f0f0f0;
+            --color-medium-gray: #dcdcdc;
+            --color-dark-gray: #333;
+            --color-white: #ffffff;
+            --color-success: #28a745;
+            --color-danger: #dc3545;
+            --color-warning: #ffc107;
+            --gradient-bg: linear-gradient(135deg, var(--color-secondary), var(--color-primary)); /* Gradient original */
+
+            /* NOUVEAU Thème de Couleurs (Bleu -> Rouge) pour la page principale */
+            --theme-blue: #3a7bd5;       /* Bleu vif */
+            --theme-purple: #8e44ad;     /* Violet */
+            --theme-red: #e74c3c;        /* Rouge doux */
+            --theme-gradient: linear-gradient(135deg, var(--theme-blue), var(--theme-purple), var(--theme-red));
+            --theme-frame-color: #cccccc; /* Gris clair pour les cadres */
+            --theme-text-color: #2c3e50;  /* Gris-bleu foncé pour le texte */
+            --theme-bg-color: #ffffff;
+            --theme-light-bg: #f8f9fa;   /* Gris très clair pour fonds subtils */
+            --theme-hover-bg: #e9ecef;   /* Gris clair pour survol */
+
+            /* Police */
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* --- Réinitialisation et Styles Globaux --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.7; /* Légèrement augmenté pour l'aération */
+            color: var(--theme-text-color);
+            background-color: var(--theme-light-bg); /* Fond général très clair */
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto; /* Marge augmentée */
+            padding: 0; /* Padding géré par les éléments internes */
+            background-color: var(--theme-bg-color);
+            border-radius: 10px; /* Arrondi plus doux */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Ombre plus prononcée */
+            border: 1px solid var(--theme-frame-color); /* Cadre gris autour du conteneur */
+            overflow: hidden; /* Pour que le h1 ne dépasse pas les coins arrondis */
+        }
+
+        /* --- Titres --- */
+        h1, h2, h3 {
+            margin-bottom: 1.2rem; /* Espacement cohérent */
+        }
+
+        h1 {
+            font-size: 2.8rem; /* Légèrement plus grand */
+            text-align: center;
+            background: var(--theme-gradient); /* Nouveau gradient */
+            color: var(--color-white);
+            padding: 25px 15px; /* Plus de padding */
+            margin-bottom: 0; /* Coller aux onglets */
+            font-weight: 600;
+        }
+
+        /* Styles pour les paragraphes sous le H1 */
+         .container > p {
+            padding: 0 25px; /* Ajouter du padding horizontal */
+            margin-top: 10px;
+            text-align: center;
+            color: #555; /* Couleur adoucie */
+         }
+         .container > p:last-of-type { /* Pour la date */
+             font-size: 0.9em;
+             margin-bottom: 20px;
+             color: #777;
+         }
+
+
+        h2 {
+            font-size: 2rem; /* Taille ajustée */
+            color: var(--theme-blue); /* Couleur thème */
+            border-bottom: 3px solid var(--theme-purple); /* Bordure thème */
+            padding-bottom: 0.6rem;
+            margin-top: 2.5rem; /* Plus d'espace avant section */
+            font-weight: 600;
+        }
+
+        h3 {
+            font-size: 1.6rem; /* Taille ajustée */
+            color: var(--theme-purple); /* Couleur thème */
+            margin-top: 2rem;
+            font-weight: 500;
+        }
+
+        /* --- Contenu Général --- */
+        p, ul, ol, blockquote, table {
+            margin-bottom: 1.2rem;
+        }
+
+        ul, ol {
+            padding-left: 25px; /* Padding ajusté */
+        }
+
+        li {
+            margin-bottom: 0.6rem;
+        }
+
+        blockquote {
+            border-left: 5px solid var(--theme-purple); /* Bordure thème */
+            padding: 15px 20px; /* Padding ajusté */
+            font-style: italic;
+            color: #444; /* Texte plus foncé */
+            background-color: var(--theme-light-bg); /* Fond thème */
+            border-radius: 5px; /* Coins arrondis */
+            margin-left: 0; /* Pas de marge à gauche par défaut */
+            margin-right: 0;
+        }
+
+        /* --- Système d'Onglets --- */
+        .tabs {
+            display: flex;
+            background-color: var(--theme-light-bg); /* Fond thème */
+            /* border-radius: 0 0 8px 8px; */ /* Plus d'arrondi ici, géré par container */
+            overflow: hidden;
+            margin-bottom: 0; /* Coller au contenu */
+            border-top: 1px solid var(--theme-frame-color); /* Ligne de séparation */
+            border-bottom: 1px solid var(--theme-frame-color);
+            align-items: stretch;
+        }
+
+        .tab-button {
+            flex-grow: 1;
+            padding: 18px 20px; /* Padding augmenté */
+            cursor: pointer;
+            border: none;
+            border-right: 1px solid var(--theme-frame-color); /* Séparateur vertical */
+            background-color: transparent; /* Fond transparent */
+            font-size: 1.1rem;
+            font-weight: 500; /* Moins gras */
+            color: var(--theme-blue); /* Couleur thème */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-align: center;
+            border-bottom: 4px solid transparent; /* Bordure inactive plus épaisse */
+            margin-bottom: -1px; /* Compenser la bordure du .tabs */
+        }
+        .tab-button:last-child {
+            border-right: none; /* Pas de bordure pour le dernier */
+        }
+
+        .tab-button:hover {
+            background-color: var(--theme-hover-bg); /* Fond survol thème */
+            color: var(--theme-purple); /* Couleur survol thème */
+        }
+
+        .tab-button.active {
+            background-color: var(--theme-bg-color); /* Fond blanc */
+            color: var(--theme-red); /* Couleur active thème */
+            border-bottom: 4px solid var(--theme-red); /* Bordure active thème */
+            font-weight: 600; /* Plus gras si actif */
+        }
+
+        /* --- Bouton Exercices dans la barre d'onglets (utilise couleurs originales) --- */
+        #open-exercise-modal-top {
+            flex-grow: 0;
+            flex-shrink: 0;
+            padding: 10px 20px;
+            margin: auto 10px; /* Centrer verticalement et marge horizontale */
+            background: var(--gradient-bg); /* Gradient original */
+            color: var(--color-white);
+            border: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            height: fit-content; /* Ajuster la hauteur */
+        }
+
+        #open-exercise-modal-top:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* --- Contenu des Onglets --- */
+        .tab-content {
+            padding: 30px; /* Padding général pour le contenu */
+        }
+
+        .tab-panel {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+            /* border: 1px solid var(--theme-frame-color); */ /* Cadre déjà sur le container */
+            padding: 0; /* Padding géré par .tab-content */
+            /* background-color: var(--theme-bg-color); */ /* Fond déjà blanc */
+            /* box-shadow: none; */ /* Ombre déjà sur le container */
+            /* margin-top: 0; */
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* --- Menu Déroulant de Navigation Rapide --- */
+        .section-nav {
+            position: relative;
+            margin-bottom: 2rem; /* Espace augmenté */
+            display: inline-block;
+        }
+
+        .section-nav-toggle {
+            background-color: var(--theme-blue); /* Couleur thème */
+            color: var(--color-white);
+            padding: 12px 18px; /* Padding ajusté */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem; /* Taille ajustée */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .section-nav-toggle:hover {
+            background-color: var(--theme-purple); /* Couleur thème survol */
+            transform: translateY(-1px);
+        }
+
+        .section-nav-dropdown {
+            display: none;
+            position: absolute;
+            background-color: var(--theme-bg-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            border-radius: 5px;
+            padding: 10px 0;
+            min-width: 220px; /* Largeur ajustée */
+            z-index: 10;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid var(--theme-frame-color); /* Cadre gris */
+        }
+
+        .section-nav-dropdown a {
+            display: block;
+            padding: 10px 20px; /* Padding ajusté */
+            color: var(--theme-text-color);
+            text-decoration: none;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            font-size: 0.95rem;
+        }
+
+        .section-nav-dropdown a:hover {
+            background-color: var(--theme-hover-bg); /* Fond survol thème */
+            color: var(--theme-red); /* Couleur survol thème */
+        }
+
+        .section-nav-dropdown.show {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        /* --- Styles Spécifiques au Contenu --- */
+        .intro-text {
+            font-size: 1.15rem; /* Taille ajustée */
+            margin-bottom: 1.8rem; /* Espace augmenté */
+            color: #495057; /* Couleur adoucie */
+        }
+
+        .component-list li {
+            background-color: var(--theme-light-bg); /* Fond thème */
+            padding: 12px 15px; /* Padding ajusté */
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--theme-frame-color); /* Cadre gris */
+            border-left: 4px solid var(--theme-blue); /* Bordure gauche thème */
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+         .component-list li:hover {
+             transform: translateX(3px);
+             box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+         }
+
+        .energy-chain, .info-chain {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            background-color: var(--theme-light-bg); /* Fond thème */
+            padding: 20px; /* Padding augmenté */
+            border-radius: 8px;
+            margin-bottom: 1.5rem; /* Espace augmenté */
+            text-align: center;
+            border: 1px solid var(--theme-frame-color); /* Cadre gris */
+        }
+
+        .energy-chain span, .info-chain span {
+            font-weight: 500; /* Moins gras */
+            margin: 8px 12px; /* Espacement ajusté */
+            padding: 10px 15px; /* Padding ajusté */
+            background-color: var(--theme-bg-color);
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            border: 1px solid #e0e0e0; /* Bordure très légère */
+        }
+
+        .energy-chain .arrow, .info-chain .arrow {
+            font-size: 1.8rem; /* Flèche plus grande */
+            color: var(--theme-purple); /* Couleur thème */
+            margin: 5px 8px;
+        }
+
+        .cycle-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.2rem; /* Espace ajusté */
+            padding: 15px; /* Padding augmenté */
+            border: 1px solid var(--theme-frame-color); /* Cadre gris */
+            border-radius: 8px; /* Arrondi plus doux */
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            background-color: var(--theme-bg-color); /* Fond blanc */
+        }
+        .cycle-step:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(0,0,0,0.1); /* Ombre plus prononcée au survol */
+        }
+
+        .cycle-step .icon {
+            font-size: 2rem; /* Icône plus grande */
+            margin-right: 20px; /* Espace augmenté */
+            color: var(--theme-blue); /* Couleur thème */
+            min-width: 45px;
+            text-align: center;
+        }
+
+        /* --- Styles du Glossaire --- */
+        .glossary-item .glossary-term-button {
+            display: block;
+            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+        }
+
+        .glossary-term-button {
+            background: none;
+            border: none;
+            padding: 5px 0; /* Ajouter padding vertical */
+            margin: 0;
+            font: inherit;
+            color: var(--theme-text-color);
+            text-align: left;
+            width: 100%;
+            cursor: pointer;
+            border-bottom: 1px dashed var(--theme-purple); /* Trait thème */
+            transition: color 0.2s ease, background-color 0.2s ease;
+            font-weight: 600; /* Plus gras */
+            display: block;
+            margin-bottom: 0.3rem;
+            font-size: 1.15rem; /* Taille ajustée */
+            line-height: inherit;
+        }
+
+        .glossary-term-button:hover,
+        .glossary-term-button:focus {
+            color: var(--theme-red); /* Couleur survol thème */
+            background-color: var(--theme-light-bg); /* Fond survol thème */
+            outline: none;
+            border-bottom-style: solid; /* Trait plein au survol */
+        }
+
+        .glossary-item.active .glossary-term-button {
+             color: var(--theme-red);
+             border-bottom-color: transparent;
+        }
+
+        .glossary-definition {
+            display: none;
+            background-color: var(--theme-light-bg); /* Fond thème */
+            padding: 15px; /* Padding augmenté */
+            margin-top: 8px; /* Espace ajusté */
+            border-radius: 5px;
+            border: 1px solid var(--theme-frame-color); /* Cadre gris */
+            border-left: 4px solid var(--theme-red); /* Bordure thème */
+            animation: fadeIn 0.4s ease;
+            font-size: 0.95rem; /* Taille ajustée */
+        }
+        .glossary-item.active .glossary-definition {
+            display: block;
+        }
+        .glossary-item {
+            margin-bottom: 1.5rem; /* Espace augmenté */
+        }
+
+        /* --- Tableaux --- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem; /* Espace augmenté */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Ombre ajustée */
+            border: 1px solid var(--theme-frame-color); /* Cadre gris */
+            border-radius: 5px; /* Coins arrondis */
+            overflow: hidden; /* Pour les coins arrondis */
+        }
+
+        th, td {
+            border: none; /* Supprimer bordures internes par défaut */
+            border-bottom: 1px solid var(--theme-frame-color); /* Ligne horizontale */
+            padding: 12px 15px; /* Padding ajusté */
+            text-align: left;
+        }
+         td {
+             border-right: 1px solid var(--theme-frame-color); /* Ligne verticale */
+         }
+         td:last-child {
+             border-right: none;
+         }
+         tr:last-child td {
+             border-bottom: none; /* Pas de bordure en bas pour la dernière ligne */
+         }
+
+
+        th {
+            background-color: var(--theme-blue); /* Fond thème */
+            color: var(--color-white);
+            font-weight: 600; /* Plus gras */
+            border-bottom-width: 2px; /* Bordure plus épaisse sous l'en-tête */
+            border-bottom-color: var(--theme-purple);
+        }
+
+        tr {
+             transition: background-color 0.2s ease;
+        }
+        tr:nth-child(even) {
+            background-color: var(--theme-light-bg); /* Fond thème alterné */
+        }
+
+        tr:hover {
+            background-color: var(--theme-hover-bg); /* Fond survol thème */
+        }
+
+        /* --- Galerie d'Images --- */
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px; /* Espace augmenté */
+            margin: 2rem 0; /* Marge augmentée */
+        }
+
+        .image-gallery img {
+            max-width: 48%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Ombre ajustée */
+            object-fit: cover;
+            border: 1px solid var(--theme-frame-color); /* Cadre gris */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+         .image-gallery img:hover {
+             transform: scale(1.03); /* Effet zoom léger */
+             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+         }
+
+        /* --- Bouton Exercices (en bas - utilise couleurs originales) --- */
+        .exercise-button-container {
+            text-align: center;
+            margin-top: 40px; /* Espace augmenté */
+            padding: 20px 0; /* Padding vertical */
+            background-color: var(--theme-light-bg); /* Fond thème */
+            border-top: 1px solid var(--theme-frame-color); /* Ligne de séparation */
+            margin-left: -30px; /* Compenser padding .tab-content */
+            margin-right: -30px;
+            margin-bottom: -30px; /* Compenser padding .tab-content */
+            border-radius: 0 0 10px 10px; /* Arrondi bas */
+        }
+
+        #open-exercise-modal-bottom {
+            background: var(--gradient-bg); /* Gradient original */
+            color: var(--color-white);
+            border: none;
+            padding: 15px 30px; /* Padding augmenté */
+            font-size: 1.15rem; /* Taille ajustée */
+            font-weight: bold;
+            border-radius: 30px; /* Plus arrondi */
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        #open-exercise-modal-bottom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- Fenêtre Modale (Popup) - NON MODIFIÉE --- */
+        /* Les styles de .modal-overlay, .modal-content, etc. restent inchangés */
+        /* et continuent d'utiliser les variables --color-* originales */
+        .modal-overlay {
+            display: none; /* Caché par défaut */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Fond semi-transparent */
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+        .modal-overlay.show { display: flex; }
+        .modal-content {
+            background-color: var(--color-white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px; /* Largeur max */
+            max-height: 90vh; /* Hauteur max */
+            overflow-y: auto; /* Scroll si contenu dépasse */
+            position: relative;
+            animation: slideDown 0.4s ease-out;
+        }
+        .modal-close-button {
+            position: absolute; top: 10px; right: 15px; background: none; border: none;
+            font-size: 1.8rem; font-weight: bold; color: var(--color-dark-gray); cursor: pointer; line-height: 1;
+        }
+        .modal-close-button:hover { color: var(--color-danger); }
+        .modal-content h2 { text-align: center; color: var(--color-primary); margin-bottom: 20px; }
+        /* --- Styles des Exercices dans la Modale - NON MODIFIÉS --- */
+        .exercise-selection { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid var(--color-medium-gray); }
+        .exercise-selection p { font-weight: bold; margin-bottom: 10px; }
+        .exercise-selection button {
+            background-color: var(--color-secondary); color: white; border: none; padding: 8px 12px;
+            margin: 4px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease; font-size: 0.9rem;
+        }
+        .exercise-selection button:hover { background-color: var(--color-primary); }
+        .exercise-selection button.active-exercise { background-color: var(--color-primary); font-weight: bold; }
+        .exercise-container { display: none; margin-top: 20px; padding: 15px; border: 1px solid var(--color-medium-gray); border-radius: 5px; }
+        .exercise-container.active { display: block; animation: fadeIn 0.5s ease; }
+        /* Styles Quiz */
+        #quiz-game { }
+        .quiz-question { font-weight: bold; margin-bottom: 15px; }
+        .quiz-options button {
+            display: block; width: 100%; text-align: left; padding: 10px; margin-bottom: 8px;
+            border: 1px solid var(--color-medium-gray); border-radius: 4px; background-color: var(--color-light-gray);
+            cursor: pointer; transition: background-color 0.2s ease;
+        }
+        .quiz-options button:hover:not(:disabled) { background-color: var(--color-accent); color: white; }
+        .quiz-options button.correct { background-color: var(--color-success); color: white; border-color: var(--color-success); }
+        .quiz-options button.incorrect { background-color: var(--color-danger); color: white; border-color: var(--color-danger); }
+        .quiz-options button:disabled { cursor: not-allowed; opacity: 0.7; }
+        .quiz-feedback { margin-top: 15px; font-weight: bold; min-height: 25px; }
+        .quiz-navigation { margin-top: 20px; text-align: right; }
+        .quiz-navigation button { background-color: var(--color-secondary); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
+        .quiz-navigation button:disabled { background-color: var(--color-medium-gray); cursor: not-allowed; }
+        .quiz-score { font-weight: bold; text-align: center; font-size: 1.2rem; margin-top: 20px; }
+        /* Styles Association */
+        #association-game { }
+        .association-columns { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 20px; }
+        .association-column { flex: 1; border: 1px solid var(--color-medium-gray); padding: 10px; border-radius: 5px; background-color: var(--color-light-gray); }
+        .association-column h4 { text-align: center; margin-bottom: 10px; color: var(--color-secondary); }
+        .association-item {
+            padding: 8px; margin-bottom: 8px; border: 1px solid var(--color-dark-gray); border-radius: 4px;
+            background-color: var(--color-white); cursor: pointer; transition: background-color 0.2s ease, border-color 0.2s ease; position: relative;
+        }
+        .association-item:hover { background-color: #e9e9e9; }
+        .association-item.selected { background-color: var(--color-warning); border-color: var(--color-warning); font-weight: bold; }
+        .association-item.correct::after, .association-item.incorrect::after {
+            content: ''; position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; border-radius: 50%;
+        }
+        .association-item.correct::after { content: '✔'; color: var(--color-success); }
+        .association-item.incorrect::after { content: '✖'; color: var(--color-danger); }
+        .association-controls { text-align: center; }
+        .association-controls button { background-color: var(--color-success); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 1rem; }
+        .association-controls button:disabled { background-color: var(--color-medium-gray); cursor: not-allowed; }
+        .association-feedback { text-align: center; font-weight: bold; margin-top: 15px; min-height: 25px; }
+        /* Styles Pendu */
+        .hangman-word { font-size: 2rem; letter-spacing: 8px; text-align: center; margin-bottom: 20px; font-family: monospace; }
+        .hangman-alphabet { text-align: center; margin-bottom: 20px; }
+        .hangman-alphabet button {
+            font-size: 1rem; width: 35px; height: 35px; margin: 3px; cursor: pointer; border: 1px solid var(--color-medium-gray);
+            border-radius: 4px; background-color: var(--color-light-gray); transition: background-color 0.2s ease;
+        }
+        .hangman-alphabet button:hover:not(:disabled) { background-color: var(--color-accent); color: white; }
+        .hangman-alphabet button:disabled { background-color: var(--color-medium-gray); cursor: not-allowed; opacity: 0.6; }
+        .hangman-feedback { text-align: center; font-weight: bold; min-height: 25px; margin-top: 15px; }
+        .hangman-feedback.win { color: var(--color-success); }
+        .hangman-feedback.lose { color: var(--color-danger); }
+        .hangman-attempts { text-align: center; font-size: 0.9em; color: #666; }
+        /* Styles Memory */
+        .memory-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; perspective: 1000px; }
+        .memory-card {
+            background-color: transparent; height: 100px; border: 1px solid var(--color-medium-gray); border-radius: 5px; cursor: pointer;
+            position: relative; transform-style: preserve-3d; transition: transform 0.6s; font-size: 0.9em; display: flex;
+            justify-content: center; align-items: center; text-align: center; padding: 5px;
+        }
+        .memory-card.flipped, .memory-card.matched { transform: rotateY(180deg); }
+        .memory-card .card-face {
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex;
+            justify-content: center; align-items: center; padding: 5px; border-radius: 5px;
+        }
+        .card-front { background: var(--gradient-bg); color: white; font-size: 2rem; }
+        .card-back { background-color: var(--color-light-gray); color: var(--color-dark-gray); transform: rotateY(180deg); }
+        .memory-card.matched .card-back { background-color: #c8e6c9; border: 2px solid var(--color-success); }
+        .memory-feedback { text-align: center; font-weight: bold; margin-top: 15px; min-height: 25px; }
+        .memory-feedback.win { color: var(--color-success); }
+        /* --- FIN Styles Modale --- */
+
+
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Responsivité Simple --- */
+         @media (max-width: 992px) {
+             #open-exercise-modal-top { font-size: 0.8rem; padding: 8px 12px; }
+             h1 { font-size: 2.4rem; }
+             h2 { font-size: 1.8rem; }
+             h3 { font-size: 1.4rem; }
+        }
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { margin: 15px auto; border-radius: 8px; }
+            h1 { font-size: 2rem; padding: 20px 10px; }
+            h2 { font-size: 1.6rem; }
+            h3 { font-size: 1.3rem; }
+            .tabs { flex-wrap: wrap; }
+            .tab-button {
+                flex-basis: 33%; /* 3 boutons par ligne env. */
+                border-bottom: 1px solid var(--theme-frame-color); /* Ajouter bordure bas sur petit écran */
+                border-right: none; /* Enlever bordure droite */
+                border-left: 1px solid var(--theme-frame-color); /* Ajouter bordure gauche */
+            }
+             .tab-button:first-child { border-left: none; }
+             .tab-button.active { border-bottom-color: var(--theme-red); /* Garder la couleur active */ }
+
+            #open-exercise-modal-top {
+                flex-basis: 100%;
+                margin: 10px auto; /* Centrer */
+                order: 4;
+                display: block; /* Assurer qu'il prend la largeur */
+                width: calc(100% - 20px); /* Largeur moins les marges */
+            }
+            .tab-content { padding: 20px; }
+            .energy-chain, .info-chain { flex-direction: column; align-items: stretch; } /* Aligner stretch */
+            .energy-chain .arrow, .info-chain .arrow { transform: rotate(90deg); margin: 15px auto; } /* Centrer flèche */
+            .image-gallery img { max-width: 90%; } /* Image prend plus de largeur */
+            .cycle-step { flex-direction: column; text-align: center; } /* Icône au-dessus */
+            .cycle-step .icon { margin-right: 0; margin-bottom: 10px; }
+            .exercise-button-container { margin-left: -20px; margin-right: -20px; margin-bottom: -20px; }
+
+            /* Styles Modale Responsivité (Inchangés) */
+            .modal-content { width: 95%; padding: 20px; }
+            .memory-grid { grid-template-columns: repeat(3, 1fr); }
+            .memory-card { height: 80px; font-size: 0.8em;}
+            .association-columns { flex-direction: column; }
+        }
+         @media (max-width: 480px) {
+             h1 { font-size: 1.8rem; }
+             h2 { font-size: 1.4rem; }
+             h3 { font-size: 1.2rem; }
+             .tab-button { flex-basis: 100%; border-left: none; border-right: none; } /* Un bouton par ligne */
+             .section-nav-toggle { font-size: 0.9rem; padding: 10px 15px; }
+             .image-gallery img { max-width: 100%; }
+             .component-list li, .cycle-step, .energy-chain, .info-chain, blockquote { padding: 12px; }
+             table, th, td { font-size: 0.9rem; padding: 8px 10px; }
+             .exercise-button-container { padding: 15px 0; }
+             #open-exercise-modal-bottom { font-size: 1rem; padding: 12px 25px; }
+
+             /* Styles Modale Responsivité (Inchangés) */
+             .memory-grid { grid-template-columns: repeat(2, 1fr); }
+             .hangman-alphabet button { width: 30px; height: 30px; font-size: 0.9rem; margin: 2px;}
+             .hangman-word { font-size: 1.5rem; letter-spacing: 5px;}
+             .quiz-options button { font-size: 0.9rem; padding: 8px;}
+             .association-item { font-size: 0.9rem; }
+         }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Objets Domestiques Technologiques</h1>
+        <p>Ce document regroupe les connaissances sur trois objets technologiques domestiques : les éoliennes domestiques, les fauteuils électriques et les montres connectées. Chaque section présente les caractéristiques techniques, le fonctionnement, les matériaux utilisés, et l'impact environnemental de ces technologies.</p>
+        <p>Document généré le : avril 2025</p>
+
+        <!-- Onglets de Navigation Principale + Bouton Exercices -->
+        <nav class="tabs">
+            <button class="tab-button active" data-tab="eoliennes">Éoliennes Domestiques</button>
+            <button class="tab-button" data-tab="fauteuils">Fauteuils Électriques</button>
+            <button class="tab-button" data-tab="montres">Montres Connectées</button>
+            <!-- Bouton Exercices (utilise couleurs originales) -->
+            <button id="open-exercise-modal-top">🚀 Exercices</button>
+        </nav>
+
+        <!-- Contenu des Onglets -->
+        <div class="tab-content">
+
+            <!-- == Section Éoliennes Domestiques == -->
+            <div id="eoliennes" class="tab-panel active">
+                 <div class="section-nav">
+                    <button class="section-nav-toggle">Navigation Rapide (Éoliennes) ▼</button>
+                    <div class="section-nav-dropdown">
+                        <a href="#eoliennes-intro">📖 Introduction</a>
+                        <a href="#eoliennes-fonctionnement">⚙️ Fonctionnement Général</a>
+                        <a href="#eoliennes-cycle-vie">♻️ Cycle de Vie</a>
+                        <a href="#eoliennes-energie-materiaux">⚡ Énergie & Matériaux</a>
+                        <a href="#eoliennes-chaines">📊 Chaînes d'Information/Fonctionnement</a>
+                        <a href="#eoliennes-programmation">📱 Programmation et Contrôle</a>
+                        <a href="#eoliennes-durable">🌱 Développement Durable</a>
+                        <a href="#eoliennes-perspectives">🔮 Perspectives</a>
+                        <a href="#eoliennes-glossaire">📚 Glossaire</a>
+                    </div>
+                </div>
+
+                <section id="eoliennes-intro">
+                    <h2>📖 Introduction</h2>
+                    <blockquote>"Le vent est une ressource inépuisable qui peut transformer notre manière de produire de l'énergie."</blockquote>
+                    <p class="intro-text">Les éoliennes domestiques sont des dispositifs qui permettent de produire de l'électricité à partir du vent. Elles sont de plus en plus utilisées dans les maisons pour réduire la consommation d'énergie provenant des centrales électriques traditionnelles. Ces éoliennes offrent une solution durable et écologique pour répondre aux besoins croissants en énergie tout en minimisant l'impact environnemental.</p>
+
+                    <!-- IMAGE GALLERY START -->
+                    <div class="image-gallery">
+                        <img src="https://images.unsplash.com/photo-1562519990-50eb51e282b2?q=80&w=2232&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Éolienne domestique installée sur un toit" width="300" height="200">
+                        <img src="https://images.unsplash.com/photo-1451847251646-8a6c0dd1510c?q=80&w=2232&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Plusieurs petites éoliennes dans un jardin" width="300" height="200">
+                    </div>
+                    <!-- IMAGE GALLERY END -->
+
+                    <h3>Histoire des éoliennes</h3>
+                    <p>Les premières éoliennes remontent à l'Antiquité, où elles étaient utilisées pour moudre du grain ou pomper de l'eau. Au Moyen Âge, elles ont été adoptées en Europe pour diverses tâches agricoles. Au XXe siècle, les éoliennes ont évolué pour produire de l'électricité, notamment avec les modèles modernes comme ceux développés par Poul La Cour au Danemark. Aujourd'hui, les éoliennes domestiques représentent une avancée technologique majeure, permettant aux particuliers de produire leur propre électricité de manière durable.</p>
+                </section>
+
+                <section id="eoliennes-fonctionnement">
+                    <h2>⚙️ Fonctionnement Général</h2>
+                    <p>Le fonctionnement d'une éolienne domestique repose sur une interaction précise entre plusieurs composants. Voici comment elle transforme l'énergie cinétique du vent en énergie électrique :</p>
+                    <p>Lorsque le vent souffle, il fait tourner les pales de l'éolienne. Ces pales, conçues pour être aérodynamiques, captent l'énergie cinétique du vent et la transforment en mouvement mécanique. Ce mouvement est ensuite transmis à un générateur, qui convertit l'énergie mécanique en énergie électrique. L'électricité produite peut être immédiatement utilisée pour alimenter les appareils domestiques ou stockée dans une batterie pour une utilisation ultérieure.</p>
+                    <h3>Composants essentiels</h3>
+                    <ul class="component-list">
+                        <li><strong>Pales :</strong> Conçues pour maximiser la capture de l'énergie cinétique du vent. Leur forme et leur taille sont optimisées pour garantir un rendement optimal.</li>
+                        <li><strong>Générateur :</strong> Convertit le mouvement mécanique des pales en énergie électrique. Il s'agit souvent d'un générateur à aimants permanents pour une efficacité accrue.</li>
+                        <li><strong>Batterie :</strong> Stocke l'énergie produite pour une utilisation ultérieure, surtout lorsque la production dépasse la consommation immédiate.</li>
+                        <li><strong>Contrôleur :</strong> Régule la production d'électricité et protège la batterie contre les surcharges.</li>
+                        <li><strong>Onduleur :</strong> Convertit le courant continu en courant alternatif, compatible avec les appareils électroménagers.</li>
+                        <li><strong>Mât :</strong> Élève l'éolienne à une hauteur où le vent est plus fort et constant, augmentant ainsi son rendement.</li>
+                    </ul>
+                    <h3>Chaîne de transformation d'énergie</h3>
+                    <div class="energy-chain">
+                        <span>Énergie du vent</span>
+                        <span class="arrow">➡️</span>
+                        <span>Rotation des pales</span>
+                        <span class="arrow">➡️</span>
+                        <span>Générateur</span>
+                        <span class="arrow">➡️</span>
+                        <span>Électricité</span>
+                    </div>
+                </section>
+
+                <section id="eoliennes-cycle-vie">
+                    <h2>♻️ Cycle de Vie</h2>
+                    <p>Le cycle de vie d'une éolienne domestique, de sa conception à sa fin de vie, est un processus complexe impliquant plusieurs étapes interconnectées :</p>
+                    <div class="cycle-step">
+                        <span class="icon">📏</span>
+                        <div><strong>Conception :</strong> Analyse des besoins énergétiques, création de prototypes, optimisation des matériaux et des performances.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">🏭</span>
+                        <div><strong>Fabrication :</strong> Production des composants, assemblage final avec soin pour garantir un fonctionnement optimal et durable.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">🚚</span>
+                        <div><strong>Installation :</strong> Transport jusqu'au site, montage sur le mât, connexion au réseau électrique et tests de fonctionnement.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">⚡</span>
+                        <div><strong>Utilisation :</strong> Production continue d'électricité, maintenance régulière, optimisation des performances selon les conditions.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">♻️</span>
+                        <div><strong>Fin de vie :</strong> Démontage, recyclage des composants et récupération des matériaux précieux pour minimiser l'impact environnemental.</div>
+                    </div>
+                    <h3>Recyclage des éoliennes</h3>
+                    <p>Le recyclage des éoliennes est une étape cruciale pour minimiser leur impact environnemental. Les pales en composite, bien que difficiles à recycler, peuvent être broyées et réutilisées dans des applications comme les panneaux de construction. Les batteries au lithium-ion sont démantelées pour récupérer des métaux précieux comme le lithium et le cobalt. Enfin, les matériaux métalliques sont fondus et réutilisés dans de nouvelles productions.</p>
+                </section>
+
+                <section id="eoliennes-energie-materiaux">
+                    <h2>⚡ Énergie & Matériaux Spécifiques</h2>
+                    <p>Le choix des matériaux et de la source d'énergie est crucial pour les performances et la durabilité des éoliennes domestiques :</p>
+                    <h3>Matériaux clés</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Composant</th>
+                                <th>Matériau Principal</th>
+                                <th>Caractéristiques</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Pales</td>
+                                <td>Composites (fibre de verre/carbone)</td>
+                                <td>Légèreté, résistance, aérodynamisme</td>
+                            </tr>
+                            <tr>
+                                <td>Générateur</td>
+                                <td>Cuivre, Acier, Aimants (Néodyme)</td>
+                                <td>Conductivité, magnétisme, durabilité</td>
+                            </tr>
+                             <tr>
+                                <td>Mât</td>
+                                <td>Acier galvanisé, Aluminium</td>
+                                <td>Résistance à la corrosion, robustesse</td>
+                            </tr>
+                             <tr>
+                                <td>Batterie</td>
+                                <td>Lithium-ion</td>
+                                <td>Densité énergétique, durée de vie</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>L'efficacité d'une éolienne dépend de plusieurs facteurs :</p>
+                    <ul>
+                        <li><strong>Vitesse du vent :</strong> Une éolienne domestique commence généralement à produire à partir de 3-4 m/s et atteint sa production maximale à environ 12-15 m/s.</li>
+                        <li><strong>Coefficient de puissance :</strong> Ce coefficient (Cp) mesure la capacité de l'éolienne à convertir l'énergie du vent en électricité. La limite théorique maximale (limite de Betz) est de 59,3%, mais les éoliennes modernes atteignent généralement 35-45%.</li>
+                        <li><strong>Orientation :</strong> Les systèmes d'orientation automatique permettent à l'éolienne de faire face au vent, maximisant ainsi sa production.</li>
+                        <li><strong>Maintenance :</strong> Un entretien régulier est essentiel pour maintenir les performances optimales et prolonger la durée de vie de l'installation.</li>
+                    </ul>
+                </section>
+
+                <section id="eoliennes-chaines">
+                    <h2>📊 Chaînes d'Information et de Fonctionnement</h2>
+                    <p>Les éoliennes domestiques modernes intègrent des systèmes sophistiqués de gestion de l'information pour optimiser leur fonctionnement :</p>
+                    <h3>Chaîne d'information d'une éolienne</h3>
+                     <div class="info-chain">
+                        <span>Capteurs</span>
+                        <span class="arrow">➡️</span>
+                        <span>Unité de contrôle</span>
+                        <span class="arrow">➡️</span>
+                        <span>Actionneurs</span>
+                        <span class="arrow">➡️</span>
+                        <span>Système de surveillance</span>
+                    </div>
+                    <h3>Capteurs principaux et Contrôle</h3>
+                    <p>Les éoliennes domestiques modernes sont équipées de systèmes de contrôle sophistiqués qui optimisent leur fonctionnement :</p>
+                    <ul>
+                        <li><strong>Contrôle d'orientation :</strong> Système motorisé qui oriente l'éolienne face au vent en fonction des données de la girouette.</li>
+                        <li><strong>Régulation de vitesse :</strong> Mécanismes qui ajustent la vitesse de rotation des pales en fonction de la force du vent pour maximiser l'efficacité et protéger l'installation en cas de vents forts.</li>
+                        <li><strong>Gestion de charge :</strong> Système qui régule la charge des batteries et la distribution de l'électricité produite.</li>
+                        <li><strong>Surveillance à distance :</strong> Interface permettant de suivre les performances de l'éolienne en temps réel via une application mobile ou un ordinateur.</li>
+                    </ul>
+                </section>
+
+                <section id="eoliennes-programmation">
+                    <h2>📱 Programmation et Contrôle</h2>
+                     <p>Les systèmes informatiques et les algorithmes jouent un rôle crucial dans l'optimisation des performances des éoliennes domestiques :</p>
+                     <div class="cycle-step">
+                        <span class="icon">🧠</span>
+                        <div><strong>Algorithmes prédictifs :</strong> Anticipent les conditions météorologiques pour optimiser la production d'énergie et protéger l'installation.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">📊</span>
+                        <div><strong>Analyse de données :</strong> Traite les informations des capteurs pour diagnostiquer les problèmes et optimiser le rendement.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">📱</span>
+                        <div><strong>Applications mobiles :</strong> Permettent de surveiller et contrôler l'éolienne à distance via smartphone ou tablette.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">🔄</span>
+                        <div><strong>Mise à jour logicielle :</strong> Améliore régulièrement les performances via des mises à jour over-the-air.</div>
+                    </div>
+                    <p>Les éoliennes domestiques de dernière génération intègrent des technologies d'intelligence artificielle et d'Internet des objets (IoT) :</p>
+                    <ul>
+                        <li><strong>Apprentissage automatique :</strong> Analyse les données historiques de production pour optimiser les performances en fonction des conditions spécifiques du site.</li>
+                        <li><strong>Maintenance prédictive :</strong> Détecte les signes précurseurs de défaillance avant qu'une panne ne survienne, réduisant ainsi les coûts de maintenance.</li>
+                        <li><strong>Intégration domotique :</strong> Connecte l'éolienne aux autres systèmes de la maison intelligente pour une gestion énergétique globale.</li>
+                        <li><strong>Agrégation de données :</strong> Partage des informations anonymisées avec d'autres installations pour améliorer les algorithmes et les performances globales.</li>
+                    </ul>
+                </section>
+
+                <section id="eoliennes-durable">
+                    <h2>🌱 Développement Durable</h2>
+                    <p>Les éoliennes domestiques sont une solution clé pour la transition énergétique et le développement durable :</p>
+                    <h3>Avantages environnementaux</h3>
+                    <ul>
+                        <li>Réduction des émissions de gaz à effet de serre.</li>
+                        <li>Utilisation d'une source d'énergie renouvelable et inépuisable.</li>
+                        <li>Diminution de la dépendance aux énergies fossiles.</li>
+                    </ul>
+                    <h3>Impact socio-économique</h3>
+                    <p>Au-delà des bénéfices environnementaux, les éoliennes domestiques ont un impact positif sur l'économie et la société :</p>
+                    <ul>
+                        <li><strong>Indépendance énergétique :</strong> Réduit la dépendance aux fournisseurs d'énergie et aux fluctuations des prix du marché.</li>
+                        <li><strong>Création d'emplois :</strong> Stimule l'économie locale à travers la fabrication, l'installation et la maintenance.</li>
+                        <li><strong>Sensibilisation :</strong> Favorise une prise de conscience des enjeux énergétiques et environnementaux.</li>
+                        <li><strong>Résilience :</strong> Contribue à la stabilité du réseau électrique et permet l'autosuffisance en cas de coupure.</li>
+                    </ul>
+                </section>
+
+                <section id="eoliennes-perspectives">
+                    <h2>🔮 Perspectives</h2>
+                    <p>Le domaine des éoliennes domestiques connaît une évolution rapide, avec plusieurs tendances prometteuses pour l'avenir :</p>
+                     <div class="cycle-step">
+                        <span class="icon">🔋</span>
+                        <div><strong>Stockage avancé :</strong> Nouvelles technologies de batteries offrant une plus grande capacité et une durée de vie prolongée.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">🔄</span>
+                        <div><strong>Systèmes hybrides :</strong> Combinaison d'éoliennes avec des panneaux solaires pour une production complémentaire.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">🤖</span>
+                        <div><strong>Automatisation :</strong> Systèmes entièrement autonomes s'adaptant aux conditions météorologiques en temps réel.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">🌱</span>
+                        <div><strong>Matériaux biosourcés :</strong> Pales et composants fabriqués à partir de matériaux renouvelables et biodégradables.</div>
+                    </div>
+                    <h3>Défis à relever</h3>
+                    <p>Malgré leurs nombreux avantages, les éoliennes domestiques font face à plusieurs défis :</p>
+                    <ul>
+                        <li><strong>Coût initial :</strong> L'investissement de départ reste élevé, malgré la baisse des prix ces dernières années.</li>
+                        <li><strong>Intégration esthétique :</strong> Trouver des solutions qui s'intègrent harmonieusement dans le paysage urbain et rural.</li>
+                        <li><strong>Réglementations :</strong> Naviguer dans les contraintes administratives et les autorisations nécessaires pour l'installation.</li>
+                        <li><strong>Intermittence :</strong> Développer des systèmes de stockage plus efficaces pour pallier la variabilité du vent.</li>
+                        <li><strong>Bruit et vibrations :</strong> Réduire encore les nuisances sonores et les vibrations, surtout en milieu urbain dense.</li>
+                    </ul>
+                </section>
+
+                <section id="eoliennes-glossaire">
+                    <h2>📚 Glossaire</h2>
+                    <p>Consultez les définitions des termes techniques relatifs aux éoliennes domestiques (cliquez sur le terme pour voir la définition) :</p>
+                    <div class="glossary-item">
+                        <button class="glossary-term-button">🔍 Anémomètre</button>
+                        <div class="glossary-definition">Appareil utilisé pour mesurer la vitesse du vent. Dans une éolienne, il fournit des données cruciales pour ajuster le fonctionnement et protéger l'installation en cas de vents forts.</div>
+                    </div>
+                    <div class="glossary-item">
+                        <button class="glossary-term-button">Énergie cinétique</button>
+                        <div class="glossary-definition">Énergie que possède un corps en mouvement. Dans le cas d'une éolienne, il s'agit de l'énergie du vent qui est convertie en mouvement mécanique puis en électricité.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">Générateur à aimants permanents</button>
+                        <div class="glossary-definition">Type de générateur électrique utilisant des aimants permanents au lieu d'électro-aimants. Il offre un meilleur rendement à basse vitesse et nécessite moins d'entretien, ce qui en fait un choix idéal pour les éoliennes domestiques.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">Limite de Betz</button>
+                        <div class="glossary-definition">Loi physique établie par Albert Betz en 1919 qui stipule qu'une éolienne ne peut convertir plus de 59,3% de l'énergie cinétique du vent en énergie mécanique. Cette limite théorique s'applique à toutes les turbines éoliennes.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">Matériaux composites</button>
+                        <div class="glossary-definition">Matériaux constitués d'au moins deux composants non miscibles, comme la fibre de verre ou de carbone imprégnée de résine. Ils sont utilisés pour les pales d'éoliennes en raison de leur légèreté et de leur résistance.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">Onduleur</button>
+                        <div class="glossary-definition">Dispositif électronique qui convertit le courant continu (DC) produit par l'éolienne en courant alternatif (AC) utilisable dans les maisons. Il synchronise également la production avec le réseau électrique si l'installation y est connectée.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">Système de freinage</button>
+                        <div class="glossary-definition">Mécanisme de sécurité qui permet d'arrêter la rotation des pales en cas de vents trop forts ou lors des opérations de maintenance. Il peut être mécanique, électrique ou aérodynamique.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">Éoliennes à axe vertical</button>
+                        <div class="glossary-definition">Type d'éolienne dont l'axe de rotation est perpendiculaire au sol. Contrairement aux éoliennes classiques à axe horizontal, elles fonctionnent quel que soit la direction du vent et sont plus adaptées aux environnements urbains.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">Éoliennes flottantes</button>
+                        <div class="glossary-definition">Éoliennes installées en mer, non fixées au fond marin mais ancrées sur des plateformes flottantes. Bien que principalement utilisées pour les projets industriels, cette technologie inspire de nouvelles approches pour les applications domestiques près des côtes.</div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- == Section Fauteuils Électriques == -->
+            <div id="fauteuils" class="tab-panel">
+                 <div class="section-nav">
+                    <button class="section-nav-toggle">Navigation Rapide (Fauteuils) ▼</button>
+                    <div class="section-nav-dropdown">
+                        <a href="#fauteuils-intro">📖 Introduction</a>
+                        <a href="#fauteuils-fonctionnement">⚙️ Fonctionnement Général</a>
+                        <a href="#fauteuils-cycle-vie">♻️ Cycle de Vie</a>
+                        <a href="#fauteuils-energie-materiaux">⚡ Énergie & Matériaux</a>
+                        <a href="#fauteuils-chaines">📊 Chaînes d'Information/Fonctionnement</a>
+                        <a href="#fauteuils-programmation">📱 Programmation Informatique</a>
+                        <a href="#fauteuils-durable">🌱 Développement Durable</a>
+                        <a href="#fauteuils-perspectives">🔮 Perspectives</a>
+                        <a href="#fauteuils-glossaire">📚 Glossaire Interactif</a>
+                    </div>
+                </div>
+
+                <section id="fauteuils-intro">
+                    <h2>📖 Introduction</h2>
+                     <blockquote>"Un fauteuil électrique n'est pas seulement un moyen de transport, mais une passerelle vers l'autonomie et la liberté."</blockquote>
+                    <p class="intro-text">Les fauteuils électriques sont des dispositifs conçus pour offrir une mobilité indépendante aux personnes ayant des difficultés à se déplacer. Ils combinent ingéniosité technologique et ergonomie pour améliorer la qualité de vie de leurs utilisateurs. En permettant une autonomie accrue, ces dispositifs réduisent les contraintes physiques et sociales associées à la mobilité réduite.</p>
+
+                    <!-- IMAGE GALLERY START -->
+                    <div class="image-gallery">
+                        <img src="https://images.unsplash.com/photo-1615506313305-e61daaa8cdcb?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Personne utilisant un fauteuil roulant électrique moderne" width="300" height="200">
+                        <img src="https://images.unsplash.com/photo-1706700728179-1b4c5078971c?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Gros plan sur le joystick de commande d'un fauteuil électrique" width="300" height="200">
+                    </div>
+                    <!-- IMAGE GALLERY END -->
+
+                    <h3>Histoire des fauteuils électriques</h3>
+                    <p>Les premiers fauteuils roulants manuels remontent au Moyen Âge, mais ce n'est qu'au XXe siècle que les versions motorisées ont vu le jour. En 1953, Herbert Everest et Harry Jennings ont inventé le premier fauteuil roulant pliable, qui est rapidement devenu un standard dans le domaine médical. Avec l'avènement des batteries rechargeables dans les années 1960, les fauteuils électriques ont commencé à gagner en popularité. Aujourd'hui, ils intègrent des technologies avancées telles que la connectivité Bluetooth, les systèmes de navigation GPS et les commandes vocales.</p>
+                </section>
+
+                <section id="fauteuils-fonctionnement">
+                    <h2>⚙️ Fonctionnement Général</h2>
+                    <p>Le fonctionnement d'un fauteuil électrique repose sur une interaction fluide entre plusieurs composants essentiels :</p>
+                    <p>Lorsque l'utilisateur active une commande, généralement sous forme de joystick ou d'une interface tactile, cette action est traduite en signaux électriques. Ces signaux sont ensuite interprétés par un contrôleur électronique, qui ajuste la vitesse et la direction du mouvement. Le contrôleur gère également l'alimentation fournie par la batterie, garantissant une distribution optimale de l'énergie vers les moteurs. Ces derniers transforment l'énergie électrique en mouvement mécanique, faisant tourner les roues du fauteuil.</p>
+                    <h3>Composants essentiels</h3>
+                    <ul class="component-list">
+                        <li><strong>Batterie :</strong> L'élément central du système, souvent une batterie lithium-ion, qui stocke l'énergie nécessaire pour alimenter les moteurs. Sa capacité détermine l'autonomie du fauteuil.</li>
+                        <li><strong>Moteurs :</strong> Situés près des roues motrices, ils convertissent l'énergie électrique en mouvement mécanique. Les moteurs modernes sont conçus pour être silencieux et efficaces.</li>
+                        <li><strong>Contrôleur :</strong> Le "cerveau" du fauteuil, qui interprète les commandes de l'utilisateur et ajuste la puissance envoyée aux moteurs.</li>
+                        <li><strong>Interface utilisateur :</strong> Généralement un joystick, mais aussi des systèmes de contrôle par souffle, mouvements de tête ou commandes vocales pour les utilisateurs ayant une mobilité très limitée.</li>
+                        <li><strong>Châssis :</strong> La structure qui soutient le siège et tous les composants, conçue pour être à la fois robuste et légère.</li>
+                        <li><strong>Siège et système de positionnement :</strong> Éléments ergonomiques ajustables pour un confort optimal et la prévention des problèmes posturaux.</li>
+                    </ul>
+                    <h3>Chaîne de fonctionnement d'un fauteuil électrique</h3>
+                    <div class="info-chain interactive-chain">
+                        <span data-info="L'interface principale (joystick, boutons, écran tactile, etc.) permettant à l'utilisateur de contrôler le fauteuil. Les systèmes modernes offrent différentes options adaptées aux capacités physiques de l'utilisateur.">👆 Commande utilisateur</span>
+                        <span class="arrow">➡️</span>
+                        <span data-info="Circuit intégré sophistiqué qui traduit les signaux de commande en instructions pour les moteurs. Il régule également la vitesse, gère la sécurité et optimise la consommation d'énergie.">🧠 Contrôleur électronique</span>
+                        <span class="arrow">➡️</span>
+                        <span data-info="Source d'énergie, généralement lithium-ion ou gel-acide. Les batteries modernes offrent une meilleure densité énergétique, permettant une autonomie accrue tout en réduisant le poids du fauteuil.">🔋 Batterie</span>
+                        <span class="arrow">➡️</span>
+                        <span data-info="Convertissent l'énergie électrique en mouvement mécanique. Les fauteuils utilisent généralement des moteurs à courant continu pour leur fiabilité et leur contrôle précis.">⚙️ Moteurs</span>
+                        <span class="arrow">➡️</span>
+                        <span data-info="Résultat final de la chaîne énergétique, permettant à l'utilisateur de se déplacer librement dans son environnement avec précision et sécurité.">♿ Mouvement</span>
+                    </div>
+                    <p style="text-align: center; font-size: 0.9em; color: #666; margin-top: 5px;"><i>Cliquez sur un élément pour plus d'informations (fonctionnalité à ajouter avec JS si besoin)</i></p>
+                </section>
+
+                 <section id="fauteuils-cycle-vie">
+                    <h2>♻️ Cycle de Vie</h2>
+                    <p>Le cycle de vie d'un fauteuil électrique comprend plusieurs étapes, de sa conception jusqu'à son recyclage :</p>
+                    <div class="cycle-step">
+                        <span class="icon">📏</span>
+                        <div><strong>Conception et Design :</strong> Intégration des besoins des utilisateurs, des avancées technologiques et des considérations ergonomiques.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">🏭</span>
+                        <div><strong>Fabrication :</strong> Production des composants et assemblage selon des normes strictes de qualité et de sécurité.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">🚚</span>
+                        <div><strong>Distribution :</strong> Transport vers les distributeurs et personnalisation selon les besoins spécifiques des utilisateurs.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">👤</span>
+                        <div><strong>Utilisation :</strong> Phase principale du cycle de vie, durant laquelle l'entretien régulier est crucial pour maintenir les performances.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">🔧</span>
+                        <div><strong>Maintenance :</strong> Entretien préventif et réparations pour prolonger la durée de vie du fauteuil.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">♻️</span>
+                        <div><strong>Fin de vie et recyclage :</strong> Démontage et recyclage des composants, avec une attention particulière pour les batteries et l'électronique.</div>
+                    </div>
+                    <h3>Recyclage des fauteuils électriques</h3>
+                    <p>Le recyclage des fauteuils électriques est une étape cruciale pour minimiser leur impact environnemental. Les batteries lithium-ion sont démantelées pour extraire des métaux précieux, tandis que les composants en plastique et en métal sont triés pour être recyclés. Certaines pièces mécaniques peuvent être réutilisées dans d'autres dispositifs médicaux, réduisant ainsi le gaspillage. Les fabricants investissent également dans des programmes de reprise pour encourager les utilisateurs à recycler leurs anciens fauteuils.</p>
+                </section>
+
+                <section id="fauteuils-energie-materiaux">
+                    <h2>⚡ Énergie & Matériaux</h2>
+                    <p>L'efficacité énergétique et le choix des matériaux sont des aspects fondamentaux des fauteuils électriques modernes :</p>
+                    <h3>Matériaux innovants et durables</h3>
+                    <p>Des recherches sont en cours pour intégrer des matériaux biosourcés dans la fabrication des fauteuils électriques. Par exemple, certains prototypes utilisent des composites à base de fibres naturelles, comme le chanvre ou le lin, pour réduire l'empreinte carbone. De plus, des polymères recyclés sont explorés pour fabriquer des composants comme les poignées ou les revêtements.</p>
+                    <ul class="component-list">
+                        <li><strong>🔋 Batterie :</strong> Les batteries lithium-ion sont privilégiées pour leur densité énergétique élevée et leur poids réduit. Elles offrent une autonomie pouvant aller jusqu'à 40 km par charge, selon le modèle.</li>
+                        <li><strong>🔨 Châssis :</strong> Fabriqué en aluminium ou en acier léger, le châssis combine légèreté et résistance. Ces matériaux permettent de supporter le poids de l'utilisateur tout en facilitant le transport.</li>
+                        <li><strong>⚙️ Pneus :</strong> Les pneus pneumatiques offrent une meilleure absorption des chocs, mais nécessitent un entretien régulier. Les pneus en caoutchouc plein sont plus résistants aux crevaisons.</li>
+                        <li><strong>🔌 Accessoires :</strong> De nombreux fauteuils incluent des supports pour smartphones, des coussins ergonomiques, ou encore des systèmes de freinage régénératif qui récupèrent l'énergie.</li>
+                    </ul>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Matériau</th>
+                                <th>Utilisation Principale</th>
+                                <th>Avantages</th>
+                                <th>Inconvénients/Défis</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Aluminium (alliages)</td>
+                                <td>Châssis, structure</td>
+                                <td>Légèreté, résistance à la corrosion</td>
+                                <td>Coût plus élevé que l'acier</td>
+                            </tr>
+                            <tr>
+                                <td>Acier</td>
+                                <td>Châssis (modèles robustes)</td>
+                                <td>Grande résistance, coût modéré</td>
+                                <td>Poids plus élevé, potentiel de corrosion</td>
+                            </tr>
+                            <tr>
+                                <td>Plastiques (ABS, Polypropylène)</td>
+                                <td>Carénages, repose-pieds, accoudoirs</td>
+                                <td>Légèreté, moulage facile, coût</td>
+                                <td>Moins durable que le métal, recyclage variable</td>
+                            </tr>
+                             <tr>
+                                <td>Lithium-ion</td>
+                                <td>Batteries</td>
+                                <td>Haute densité énergétique, légèreté</td>
+                                <td>Coût, gestion fin de vie (recyclage)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section id="fauteuils-chaines">
+                    <h2>📊 Chaînes d'Information et de Fonctionnement</h2>
+                    <p>Le fonctionnement d'un fauteuil électrique repose sur une interaction étroite entre les chaînes d'information et d'énergie :</p>
+                    <h3>Chaînes d'Information et d'Énergie</h3>
+                    <div class="info-chain">
+                        <span>🎮 Commande utilisateur (Source)</span>
+                        <span class="arrow">➡️</span>
+                        <span>🧠 Contrôleur (Interprétation)</span>
+                        <span class="arrow">➡️</span>
+                        <span>🔋 Batterie (Alimentation)</span>
+                        <span class="arrow">➡️</span>
+                        <span>⚙️ Moteurs (Propulsion)</span>
+                        <span class="arrow">➡️</span>
+                        <span>♿ Roues (Mouvement)</span>
+                    </div>
+                    <blockquote style="border-left-color: var(--theme-blue);"> <!-- Changement couleur bordure -->
+                        <strong>💡 À Savoir :</strong> La chaîne d'information traduit les intentions de l'utilisateur en actions spécifiques, tandis que la chaîne d'énergie fournit la puissance nécessaire pour exécuter ces actions. Ce système sophistiqué permet une interaction fluide entre l'utilisateur et son fauteuil électrique.
+                    </blockquote>
+                </section>
+
+                <section id="fauteuils-programmation">
+                    <h2>📱 Programmation Informatique</h2>
+                    <p>La programmation joue un rôle essentiel dans le fonctionnement avancé des fauteuils électriques modernes. Elle permet de gérer :</p>
+                     <div class="cycle-step">
+                        <span class="icon">👁️</span>
+                        <div><strong>Surveillance :</strong> Des capteurs mesurent en temps réel la vitesse, la direction et les obstacles environnants. Ces données sont analysées pour ajuster automatiquement le comportement du fauteuil.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">⚡</span>
+                        <div><strong>Gestion de l'énergie :</strong> Des algorithmes sophistiqués optimisent l'utilisation de la batterie, prédisant l'autonomie restante et ajustant la consommation en fonction des besoins.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">🛋️</span>
+                        <div><strong>Confort :</strong> Des interfaces utilisateur permettent de personnaliser les paramètres du fauteuil, comme la sensibilité du joystick ou des modes de conduite spécifiques.</div>
+                    </div>
+                    <h3>Technologies de programmation appliquées</h3>
+                    <p>Les fauteuils électriques modernes intègrent des microcontrôleurs programmables qui exécutent des algorithmes complexes pour optimiser le fonctionnement. Certains modèles utilisent même des techniques d'intelligence artificielle pour ajuster dynamiquement leurs paramètres en fonction de l'environnement et des habitudes de l'utilisateur. Des applications mobiles dédiées permettent également de configurer à distance de nombreuses fonctionnalités du fauteuil.</p>
+                </section>
+
+                <section id="fauteuils-durable">
+                    <h2>🌱 Développement Durable</h2>
+                    <p>Les fauteuils électriques s'inscrivent dans une démarche de développement durable grâce à plusieurs aspects :</p>
+                     <div class="cycle-step">
+                        <span class="icon">⚖️</span>
+                        <div><strong>Réduction des inégalités :</strong> En offrant une mobilité autonome, ils favorisent l'inclusion sociale et professionnelle des personnes en situation de handicap.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">🌿</span>
+                        <div><strong>Impact environnemental :</strong> Les fauteuils électriques modernes intègrent des matériaux recyclables et des technologies économes en énergie, réduisant ainsi leur empreinte écologique.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">♿</span>
+                        <div><strong>Accessibilité universelle :</strong> Certains modèles incluent des fonctionnalités comme l'escalade de marches ou la montée de trottoirs, rendant les infrastructures plus inclusives.</div>
+                    </div>
+                    <h3>💡 Impact Social</h3>
+                    <p>L'amélioration de la mobilité individuelle contribue à créer une société plus inclusive, où chacun peut participer pleinement à la vie sociale et professionnelle. Cela représente un aspect fondamental du développement durable qui vise à ne laisser personne de côté.</p>
+                </section>
+
+                <section id="fauteuils-perspectives">
+                    <h2>🔮 Perspectives</h2>
+                     <div class="cycle-step">
+                        <span class="icon">🤖</span>
+                        <div><strong>Fauteuils autonomes :</strong> Inspirés des véhicules autonomes, ces fauteuils intègrent des capteurs et des algorithmes d'intelligence artificielle pour naviguer sans intervention humaine.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">📶</span>
+                        <div><strong>Connectivité IoT :</strong> Les fauteuils pourraient être intégrés dans des écosystèmes intelligents, communiquant avec des objets connectés comme les portes automatiques ou les ascenseurs.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">🧬</span>
+                        <div><strong>Technologies hybrides :</strong> Combinaisons de fauteuils électriques avec des dispositifs comme des exosquelettes pour offrir une assistance supplémentaire aux membres inférieurs.</div>
+                    </div>
+                    <h3>Défis</h3>
+                     <div class="cycle-step">
+                        <span class="icon">💶</span>
+                        <div><strong>Coût :</strong> Rendre les fauteuils électriques plus abordables pour les particuliers et les institutions, notamment grâce à des subventions ou des crédits d'impôt.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">♻️</span>
+                        <div><strong>Durabilité :</strong> Améliorer la durabilité des composants, notamment des batteries, pour prolonger la durée de vie des fauteuils et réduire leur impact environnemental.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">👥</span>
+                        <div><strong>Acceptation sociale :</strong> Sensibiliser le public aux avantages des fauteuils électriques et surmonter les préjugés liés à leur utilisation pour une meilleure inclusion.</div>
+                    </div>
+                </section>
+
+                <section id="fauteuils-glossaire">
+                    <h2>📚 Glossaire Interactif</h2>
+                    <p>Consultez les définitions détaillées des termes techniques (cliquez sur le terme pour voir la définition) :</p>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">🔍 Autonomie</button>
+                        <div class="glossary-definition">Capacité d'un fauteuil électrique à parcourir une certaine distance avec une seule charge de batterie. L'autonomie dépend de facteurs comme la capacité de la batterie, le poids de l'utilisateur et les conditions d'utilisation.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">Batterie (Lithium-ion)</button>
+                        <div class="glossary-definition">Type de batterie rechargeable utilisée dans les fauteuils électriques. Elle est appréciée pour sa densité énergétique élevée, son poids réduit et sa longue durée de vie.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">Contrôleur</button>
+                        <div class="glossary-definition">Dispositif électronique qui interprète les commandes de l'utilisateur et gère la distribution de l'énergie aux moteurs. Il agit comme le "cerveau" du fauteuil électrique.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">Joystick</button>
+                        <div class="glossary-definition">Interface principale pour contrôler la direction et la vitesse d'un fauteuil électrique. Certains modèles incluent des commandes alternatives pour les utilisateurs ayant des limitations motrices.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">Châssis</button>
+                        <div class="glossary-definition">Structure principale du fauteuil, généralement fabriquée en aluminium ou en acier léger. Elle supporte tous les composants tout en assurant légèreté et résistance.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">Freinage régénératif</button>
+                        <div class="glossary-definition">Système qui récupère une partie de l'énergie cinétique lors du freinage pour la réinjecter dans la batterie, augmentant ainsi l'autonomie du fauteuil.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">Moteur électrique</button>
+                        <div class="glossary-definition">Dispositif qui transforme l'énergie électrique fournie par la batterie en énergie mécanique, propulsant ainsi les roues du fauteuil.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">Pneumatique</button>
+                        <div class="glossary-definition">Type de pneu contenant de l'air, offrant une meilleure absorption des chocs mais nécessitant un entretien régulier.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">Accessibilité universelle</button>
+                        <div class="glossary-definition">Concept visant à rendre les infrastructures et les dispositifs accessibles à tous, y compris aux personnes en situation de handicap.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">Intelligence artificielle</button>
+                        <div class="glossary-definition">Technologie permettant aux fauteuils électriques de prendre des décisions autonomes, comme éviter les obstacles ou suivre un itinéraire prédéfini.</div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- == Section Montres Connectées == -->
+            <div id="montres" class="tab-panel">
+                 <div class="section-nav">
+                    <button class="section-nav-toggle">Navigation Rapide (Montres) ▼</button>
+                    <div class="section-nav-dropdown">
+                        <a href="#montres-intro">📖 Introduction</a>
+                        <a href="#montres-fonctionnement">⚙️ Fonctionnement</a>
+                        <a href="#montres-cycle-vie">♻️ Cycle de Vie</a>
+                        <a href="#montres-materiaux-energies">💎 Matériaux & Énergies</a>
+                        <a href="#montres-chaine-energie">⚡ Chaîne d'Énergie</a>
+                        <a href="#montres-chaine-info">📊 Chaîne d'Information</a>
+                        <a href="#montres-numerique">📱 Aspects Numériques</a>
+                        <a href="#montres-perspectives">🔮 Perspectives & Innovations</a>
+                        <a href="#montres-glossaire">📚 Glossaire Interactif</a>
+                        <a href="#montres-reflexion">🤔 Réflexion & Enjeux</a>
+                    </div>
+                </div>
+
+                <section id="montres-intro">
+                    <h2>📖 Introduction</h2>
+                    <p class="intro-text">La montre connectée, bien plus qu'un simple gadget, est un concentré de technologie portable qui a révolutionné notre manière d'interagir avec le monde numérique. Elle combine les fonctions d'une montre traditionnelle avec des capacités informatiques avancées, offrant une expérience utilisateur riche et personnalisée.</p>
+
+                    <!-- IMAGE GALLERY START -->
+                    <div class="image-gallery">
+                        <img src="https://images.unsplash.com/photo-1649572621956-992d63097cb0?q=80&w=2235&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Personne consultant une montre connectée pendant une activité sportive" width="300" height="200">
+                        <img src="https://images.unsplash.com/photo-1718309602791-8f3cc83840b7?q=80&w=2274&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Gros plan sur l'écran d'une montre connectée affichant des données de santé" width="300" height="200">
+                    </div>
+                    <!-- IMAGE GALLERY END -->
+
+                    <h3>Pourquoi étudier les montres connectées ?</h3>
+                    <ul>
+                        <li><strong>Suivi de la santé:</strong> Les montres connectées peuvent surveiller votre fréquence cardiaque, votre niveau d'activité et même votre sommeil, fournissant des données précieuses pour améliorer votre bien-être.
+                            <blockquote>Les montres connectées utilisent des capteurs sophistiqués pour collecter des données physiologiques, qui peuvent être analysées pour détecter des anomalies et adopter un mode de vie plus sain. Certaines montres peuvent même effectuer des ECG ou mesurer la saturation en oxygène.</blockquote>
+                        </li>
+                        <li><strong>Connectivité:</strong> Restez connecté à vos notifications, appels et applications préférées directement depuis votre poignet, sans avoir à sortir constamment votre téléphone.
+                             <blockquote>Grâce à la connectivité Bluetooth et Wi-Fi, les montres connectées peuvent recevoir des notifications, passer des appels, envoyer des messages et même effectuer des paiements sans contact.</blockquote>
+                        </li>
+                        <li><strong>Innovation technologique:</strong> Les montres connectées sont à la pointe de l'innovation en matière de technologie portable, intégrant des capteurs avancés, des écrans haute résolution et des logiciels sophistiqués.
+                             <blockquote>Les fabricants de montres connectées investissent massivement dans la recherche et le développement pour proposer des fonctionnalités toujours plus innovantes, comme la réalité augmentée, la commande gestuelle et l'intelligence artificielle.</blockquote>
+                        </li>
+                    </ul>
+                    <h3>Un peu d'histoire :</h3>
+                    <p>Les premières montres connectées remontent aux années 1970, avec des modèles comme la Pulsar Calculator Watch. Cependant, c'est au XXIe siècle qu'elles ont vraiment décollé, avec des modèles comme la Pebble (2013) et l'Apple Watch (2015). La Seiko Data 2000 (1983) est souvent considérée comme l'une des premières montres avec des capacités de stockage et de connectivité.</p>
+                </section>
+
+                <section id="montres-fonctionnement">
+                    <h2>⚙️ Fonctionnement de la Montre Connectée</h2>
+                    <p>La montre connectée est un écosystème complexe de composants électroniques, de capteurs et de logiciels qui fonctionnent en synergie pour offrir une multitude de fonctionnalités. Voici un aperçu de son fonctionnement :</p>
+                    <ul class="component-list">
+                        <li><strong>Affichage de l'Heure :</strong> Grâce à un écran numérique (LCD, OLED ou AMOLED).
+                            <blockquote>Les écrans LCD (Liquid Crystal Display) sont économiques et consomment peu d'énergie, mais offrent un contraste et une luminosité limités. Les écrans OLED (Organic Light Emitting Diode) offrent un contraste élevé, des couleurs vives et une faible consommation d'énergie. Les écrans AMOLED (Active Matrix OLED) sont une variante des écrans OLED, offrant une meilleure réactivité et une plus grande efficacité énergétique.</blockquote>
+                        </li>
+                        <li><strong>Suivi d'Activité :</strong> Intègre des capteurs optiques pour mesurer les pas, la fréquence cardiaque, etc.
+                             <blockquote>Les capteurs optiques utilisent des LED (Light Emitting Diode) et des photodiodes pour mesurer le flux sanguin à travers la peau. En analysant les variations de la lumière réfléchie, ils peuvent déterminer la fréquence cardiaque, la saturation en oxygène et d'autres paramètres physiologiques.</blockquote>
+                        </li>
+                        <li><strong>Notifications :</strong> Reçoit des notifications via Bluetooth.
+                             <blockquote>Le Bluetooth est une technologie de communication sans fil à courte portée qui permet de connecter la montre à un smartphone ou à d'autres appareils compatibles. Il permet d'échanger des données, comme les notifications, les appels, les messages et les informations de suivi d'activité.</blockquote>
+                        </li>
+                        <li><strong>Interactions :</strong> Permet d'interagir avec d'autres appareils ou applications via des commandes tactiles, vocales ou gestuelles.</li>
+                    </ul>
+                    <h3>Exemple concret :</h3>
+                    <p>Lorsque vous recevez un appel sur votre smartphone, la montre connectée vibre et affiche le nom de l'appelant. Vous pouvez alors décrocher directement depuis votre montre.</p>
+                     <div class="cycle-step">
+                        <span class="icon">📱</span>
+                        <div><strong>Interface Utilisateur :</strong> Les montres connectées modernes proposent des interfaces tactiles intuitives, parfois complétées par des boutons physiques et des commandes vocales.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">🔋</span>
+                        <div><strong>Batterie et Autonomie :</strong> Les batteries lithium-ion offrent une autonomie allant de quelques heures à plusieurs jours, selon les fonctionnalités utilisées.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">📡</span>
+                        <div><strong>Connectivité :</strong> Bluetooth, Wi-Fi, NFC et même 4G/5G pour certains modèles permettent une communication constante avec d'autres appareils.</div>
+                    </div>
+                </section>
+
+                <section id="montres-cycle-vie">
+                    <h2>♻️ Cycle de Vie de la Montre Connectée</h2>
+                    <p>Le cycle de vie d'une montre connectée est un processus complexe qui comprend plusieurs étapes, de la conception à la fin de vie. Il est important de prendre en compte les impacts environnementaux et sociaux à chaque étape :</p>
+                    <ol>
+                        <li><strong>Conception :</strong> Choix des matériaux, conception du produit, emballage.</li>
+                        <li><strong>Fabrication :</strong> Extraction des matières premières, production des composants, assemblage.</li>
+                        <li><strong>Distribution :</strong> Transport du produit vers les points de vente.</li>
+                        <li><strong>Utilisation :</strong> Exploitation des fonctionnalités de la montre, mises à jour logicielles.</li>
+                        <li><strong>Obsolescence :</strong> Fin du support logiciel ou évolution technologique qui rendent la montre obsolète.</li>
+                        <li><strong>Fin de vie :</strong> Collecte, recyclage ou élimination des déchets.</li>
+                    </ol>
+                    <h3>Exemple concret :</h3>
+                    <p>L'extraction du cobalt, un métal essentiel pour les batteries, est souvent associée à des conditions de travail difficiles dans les mines artisanales de République démocratique du Congo. Des initiatives visent à améliorer la traçabilité et les conditions d'extraction.</p>
+                    <h3>Enjeux environnementaux :</h3>
+                    <ul>
+                        <li>Consommation de ressources rares (terres rares, métaux précieux)</li>
+                        <li>Empreinte carbone liée à la production et au transport</li>
+                        <li>Gestion des déchets électroniques en fin de vie</li>
+                        <li>Consommation énergétique pendant l'utilisation</li>
+                    </ul>
+                </section>
+
+                <section id="montres-materiaux-energies">
+                    <h2>💎 Matériaux et Énergies Utilisés</h2>
+                    <p>La fabrication d'une montre connectée nécessite de nombreux matériaux, dont certains sont rares et précieux. Voici les principaux composants et matériaux utilisés :</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Composant</th>
+                                <th>Matériaux Principaux</th>
+                                <th>Rôle / Importance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Boîtier</td>
+                                <td>Aluminium, Acier inoxydable, Titane, Céramique, Plastique</td>
+                                <td>Protection des composants internes, Esthétique</td>
+                            </tr>
+                            <tr>
+                                <td>Écran</td>
+                                <td>Verre (Gorilla Glass, Saphir), Plastique</td>
+                                <td>Affichage, Interface tactile, Résistance aux rayures</td>
+                            </tr>
+                            <tr>
+                                <td>Batterie</td>
+                                <td>Lithium-ion / Lithium-polymère, Cobalt, Graphite</td>
+                                <td>Stockage de l'énergie</td>
+                            </tr>
+                            <tr>
+                                <td>Circuit imprimé (PCB)</td>
+                                <td>Cuivre, Silicium, Or (traces), Étain (soudures), Résines</td>
+                                <td>Support et connexion des composants électroniques</td>
+                            </tr>
+                             <tr>
+                                <td>Capteurs</td>
+                                <td>Silicium, Métaux divers, Plastiques</td>
+                                <td>Mesure (cardiaque, mouvement, GPS...)</td>
+                            </tr>
+                             <tr>
+                                <td>Bracelet</td>
+                                <td>Silicone, Cuir, Métal, Tissu, Nylon</td>
+                                <td>Fixation au poignet, Confort, Style</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>L'extraction des terres rares nécessaire à la fabrication des composants électroniques a un impact environnemental considérable :</p>
+                    <ul>
+                        <li>Consommation importante d'eau et d'énergie</li>
+                        <li>Pollution des sols et des nappes phréatiques</li>
+                        <li>Émission de gaz à effet de serre</li>
+                    </ul>
+                    <p>Des initiatives sont en cours pour développer des méthodes d'extraction plus propres et pour recycler les matériaux issus d'appareils en fin de vie.</p>
+                </section>
+
+                <section id="montres-chaine-energie">
+                    <h2>⚡ Chaîne d'Énergie</h2>
+                    <p>La chaîne d'énergie d'une montre connectée comprend plusieurs éléments qui travaillent ensemble pour fournir l'énergie nécessaire au fonctionnement de l'appareil.</p>
+                     <div class="energy-chain">
+                        <span>🔋 Source (Batterie Li-ion/Li-Po)</span>
+                        <span class="arrow">➡️</span>
+                        <span>🔌 Alimentation (Recharge)</span>
+                        <span class="arrow">➡️</span>
+                        <span>⚙️ Distribution (Circuit de gestion)</span>
+                        <span class="arrow">➡️</span>
+                        <span>💻 Consommation (Composants)</span>
+                    </div>
+                    <p>Les montres connectées intègrent plusieurs stratégies pour optimiser leur consommation d'énergie :</p>
+                    <ul>
+                        <li><strong>Mode basse consommation :</strong> Désactive certaines fonctionnalités pour prolonger l'autonomie.</li>
+                        <li><strong>Écrans à rafraîchissement variable :</strong> Adaptent leur taux de rafraîchissement selon les besoins.</li>
+                        <li><strong>Gestion intelligente des capteurs :</strong> Activés uniquement lorsque nécessaire.</li>
+                        <li><strong>Optimisation logicielle :</strong> Algorithmes conçus pour minimiser la consommation.</li>
+                    </ul>
+                </section>
+
+                <section id="montres-chaine-info">
+                    <h2>📊 Chaîne d'Information</h2>
+                    <p>La chaîne d'information d'une montre connectée permet de collecter, traiter et communiquer des données, offrant ainsi une expérience utilisateur riche et interactive.</p>
+                    <p>La chaîne d'information comprend :</p>
+                    <ul>
+                        <li><strong>Acquisition de données :</strong> Capteurs (accéléromètre, gyroscope, cardiofréquencemètre, etc.)</li>
+                        <li><strong>Traitement des données :</strong> Microcontrôleur, algorithmes d'analyse</li>
+                        <li><strong>Communication :</strong> Bluetooth, Wi-Fi, NFC</li>
+                        <li><strong>Interface utilisateur :</strong> Écran tactile, boutons physiques, retour haptique</li>
+                    </ul>
+                     <table>
+                        <thead>
+                            <tr>
+                                <th>Étape</th>
+                                <th>Composants / Technologies</th>
+                                <th>Fonction</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Acquisition</td>
+                                <td>Capteurs (optique, accéléromètre, GPS, micro...)</td>
+                                <td>Collecter les données de l'environnement et de l'utilisateur</td>
+                            </tr>
+                            <tr>
+                                <td>Traitement</td>
+                                <td>Microcontrôleur (CPU), Mémoire (RAM/Stockage), Algorithmes</td>
+                                <td>Analyser les données, exécuter les applications</td>
+                            </tr>
+                            <tr>
+                                <td>Stockage</td>
+                                <td>Mémoire Flash</td>
+                                <td>Conserver les données, applications, système d'exploitation</td>
+                            </tr>
+                            <tr>
+                                <td>Communication</td>
+                                <td>Bluetooth, Wi-Fi, NFC, (Cellulaire)</td>
+                                <td>Échanger des données avec le smartphone, le cloud, d'autres appareils</td>
+                            </tr>
+                            <tr>
+                                <td>Restitution / Interface</td>
+                                <td>Écran (tactile), Vibreur (haptique), Haut-parleur</td>
+                                <td>Afficher les informations, notifier l'utilisateur, permettre l'interaction</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section id="montres-numerique">
+                    <h2>📱 Aspects Numériques</h2>
+                    <p>Les montres connectées sont des dispositifs numériques avancés qui intègrent des logiciels sophistiqués pour offrir une expérience utilisateur optimale.</p>
+                     <div class="cycle-step">
+                        <span class="icon">📊</span>
+                        <div><strong>Systèmes d'exploitation :</strong> watchOS (Apple), Wear OS (Google), Tizen (Samsung).</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">📲</span>
+                        <div><strong>Applications :</strong> Santé, fitness, navigation, météo, musique, paiement.</div>
+                    </div>
+                     <div class="cycle-step">
+                        <span class="icon">🔒</span>
+                        <div><strong>Sécurité des données :</strong> Chiffrement, authentification, gestion des permissions.</div>
+                    </div>
+                    <p>Les montres connectées modernes utilisent des algorithmes avancés et des technologies d'intelligence artificielle pour améliorer leur fonctionnement :</p>
+                    <ul>
+                        <li><strong>Apprentissage automatique :</strong> Analyse des habitudes pour des suggestions personnalisées.</li>
+                        <li><strong>Traitement du signal :</strong> Filtrage des données des capteurs pour plus de précision.</li>
+                        <li><strong>Reconnaissance vocale :</strong> Commandes via assistants virtuels (Siri, Google Assistant).</li>
+                        <li><strong>Analyse prédictive :</strong> Anticipation des besoins utilisateur, comme la notification de se lever après une longue période d'inactivité.</li>
+                    </ul>
+                </section>
+
+                <section id="montres-perspectives">
+                    <h2>🔮 Perspectives et Innovations Futures</h2>
+                    <p>Le domaine des montres connectées est en constante évolution, avec de nombreuses innovations à l'horizon. Voici quelques tendances et développements futurs :</p>
+                    <h3>Innovations à venir :</h3>
+                    <ul>
+                        <li><strong>Autonomie énergétique :</strong> Batteries à plus longue durée de vie, recharge solaire ou par mouvement.</li>
+                        <li><strong>Santé avancée :</strong> Mesure de la glycémie sans piqûre, détection précoce de maladies.</li>
+                        <li><strong>Écrans flexibles :</strong> Montres à écrans enroulables ou extensibles.</li>
+                        <li><strong>Intelligence artificielle intégrée :</strong> Assistant personnel plus autonome et contextuel.</li>
+                        <li><strong>Réalité augmentée :</strong> Projection d'informations dans l'environnement réel.</li>
+                    </ul>
+                    <h3>Défis à relever :</h3>
+                    <p>Malgré les avancées prometteuses, plusieurs défis restent à relever :</p>
+                    <ul>
+                        <li><strong>Autonomie :</strong> Les batteries actuelles offrent une autonomie limitée, surtout avec des fonctionnalités avancées.</li>
+                        <li><strong>Précision des capteurs :</strong> Améliorer la fiabilité des mesures de santé.</li>
+                        <li><strong>Éthique et vie privée :</strong> Protéger les données sensibles collectées par ces appareils.</li>
+                        <li><strong>Durabilité :</strong> Réduire l'impact environnemental tout au long du cycle de vie.</li>
+                        <li><strong>Accessibilité :</strong> Rendre ces technologies accessibles à tous, y compris aux personnes âgées ou en situation de handicap.</li>
+                    </ul>
+                </section>
+
+                <section id="montres-glossaire">
+                    <h2>📚 Glossaire Interactif</h2>
+                    <p>Consultez les définitions des termes techniques relatifs aux montres connectées (cliquez sur le terme pour voir la définition) :</p>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">🔍 Accéléromètre</button>
+                        <div class="glossary-definition">Capteur qui mesure l'accélération linéaire, permettant de détecter les mouvements de la montre. Il est utilisé pour compter les pas, suivre l'activité physique et détecter les gestes.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">Bluetooth</button>
+                        <div class="glossary-definition">Technologie sans fil permettant la connexion entre la montre et un smartphone ou d'autres appareils compatibles. Elle permet d'échanger des données comme les notifications, les appels et les messages.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">Capteur optique</button>
+                        <div class="glossary-definition">Dispositif utilisant des LED et des photodiodes pour mesurer la fréquence cardiaque et d'autres paramètres physiologiques en analysant les variations de la lumière réfléchie par la peau.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">AMOLED</button>
+                        <div class="glossary-definition">Active Matrix Organic Light Emitting Diode - Type d'écran utilisant une matrice active pour contrôler chaque pixel, offrant des couleurs vives, un contraste élevé et une faible consommation d'énergie.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">GPS</button>
+                        <div class="glossary-definition">Système de positionnement par satellites qui permet de déterminer la position géographique de la montre, utilisé pour le suivi des itinéraires, la navigation et les activités de plein air.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">mAh</button>
+                        <div class="glossary-definition">Milliampère-heure - Unité de mesure de la capacité d'une batterie. Plus cette valeur est élevée, plus l'autonomie potentielle de la montre est importante.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">NFC</button>
+                        <div class="glossary-definition">Near Field Communication - Technologie permettant la communication sans fil à très courte distance, utilisée notamment pour les paiements sans contact.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">Gyroscope</button>
+                        <div class="glossary-definition">Capteur qui mesure la vitesse angulaire, permettant de détecter la rotation de la montre. Il améliore la précision de la détection des mouvements et permet des interactions basées sur les gestes.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">watchOS</button>
+                        <div class="glossary-definition">Système d'exploitation développé par Apple pour ses montres connectées Apple Watch. Il est étroitement intégré à l'écosystème iOS.</div>
+                    </div>
+                     <div class="glossary-item">
+                        <button class="glossary-term-button">Wear OS</button>
+                        <div class="glossary-definition">Système d'exploitation développé par Google pour les montres connectées. Anciennement appelé Android Wear, il est compatible avec les appareils Android et iOS.</div>
+                    </div>
+                </section>
+
+                <section id="montres-reflexion">
+                    <h2>🤔 Réflexion et Enjeux Sociétaux</h2>
+                    <p>Les montres connectées soulèvent de nombreuses questions éthiques et sociétales qu'il est important d'aborder :</p>
+                    <h3>Protection des données personnelles</h3>
+                    <p>Les montres connectées collectent une quantité considérable de données personnelles, notamment sur la santé, la localisation et les habitudes. Ces données soulèvent des questions importantes :</p>
+                    <ul>
+                        <li>Qui a accès à ces données et comment sont-elles protégées ?</li>
+                        <li>Comment sont-elles utilisées par les fabricants et les développeurs d'applications ?</li>
+                        <li>Quel est le niveau de contrôle de l'utilisateur sur ses propres données ?</li>
+                    </ul>
+                    <p>Des réglementations comme le RGPD en Europe visent à protéger ces données, mais les défis restent nombreux.</p>
+                    <h3>Fracture numérique et inclusion</h3>
+                    <p>Les montres connectées, comme de nombreuses technologies, peuvent créer ou renforcer des inégalités :</p>
+                    <ul>
+                        <li>Coût élevé limitant l'accès aux personnes avec des revenus modestes</li>
+                        <li>Interfaces parfois complexes pour les personnes âgées ou peu familières avec la technologie</li>
+                        <li>Accessibilité limitée pour les personnes en situation de handicap</li>
+                    </ul>
+                    <p>Des efforts sont nécessaires pour rendre ces technologies plus inclusives et accessibles à tous.</p>
+                    <h3>Impact psychologique et social</h3>
+                    <p>L'utilisation des montres connectées peut influencer notre comportement et notre bien-être psychologique :</p>
+                    <ul>
+                        <li>Dépendance potentielle aux notifications et à la connectivité permanente</li>
+                        <li>Anxiété liée au suivi constant des performances (nombre de pas, qualité du sommeil)</li>
+                        <li>Modification des interactions sociales par l'utilisation d'un appareil au poignet</li>
+                    </ul>
+                    <p>Il est important de trouver un équilibre dans l'utilisation de ces technologies pour qu'elles améliorent réellement notre qualité de vie sans créer de nouvelles problématiques.</p>
+                </section>
+            </div>
+
+        </div> <!-- Fin de tab-content -->
+
+        <!-- Bouton pour ouvrir la modale d'exercices (en bas - utilise couleurs originales) -->
+        <div class="exercise-button-container">
+            <button id="open-exercise-modal-bottom">🚀 Lancer les Exercices (Bas)</button>
+        </div>
+
+    </div> <!-- Fin de container -->
+
+    <!-- Fenêtre Modale (Popup) pour les Exercices (CODE INCHANGÉ) -->
+    <div id="exercise-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="close-exercise-modal" class="modal-close-button">&times;</button>
+            <h2>Exercices Interactifs</h2>
+
+            <div class="exercise-selection">
+                <p>Choisissez un exercice :</p>
+                <div><small>Quiz :</small>
+                    <button class="exercise-selector" data-exercise="quiz-eol">Éoliennes</button>
+                    <button class="exercise-selector" data-exercise="quiz-fau">Fauteuils</button>
+                    <button class="exercise-selector" data-exercise="quiz-mon">Montres</button>
+                </div>
+                 <div style="margin-top: 10px;"><small>Association :</small>
+                    <button class="exercise-selector" data-exercise="assoc-eol">Éoliennes</button>
+                    <button class="exercise-selector" data-exercise="assoc-fau">Fauteuils</button>
+                    <button class="exercise-selector" data-exercise="assoc-mon">Montres</button>
+                </div>
+                 <div style="margin-top: 10px;"><small>Pendu :</small>
+                    <button class="exercise-selector" data-exercise="hangman-eol1">Éolienne 1</button>
+                    <button class="exercise-selector" data-exercise="hangman-eol2">Éolienne 2</button>
+                    <button class="exercise-selector" data-exercise="hangman-fau1">Fauteuil 1</button>
+                    <button class="exercise-selector" data-exercise="hangman-fau2">Fauteuil 2</button>
+                    <button class="exercise-selector" data-exercise="hangman-mon1">Montre 1</button>
+                    <button class="exercise-selector" data-exercise="hangman-mon2">Montre 2</button>
+                </div>
+                 <div style="margin-top: 10px;"><small>Memory :</small>
+                    <button class="exercise-selector" data-exercise="memory-eol">Éoliennes</button>
+                    <button class="exercise-selector" data-exercise="memory-fau">Fauteuils</button>
+                    <button class="exercise-selector" data-exercise="memory-mon">Montres</button>
+                </div>
+            </div>
+
+            <div class="exercise-area">
+                <div id="quiz-game" class="exercise-container">
+                    <h3 id="quiz-title">Quiz</h3>
+                    <div id="quiz-question" class="quiz-question"></div>
+                    <div id="quiz-options" class="quiz-options"></div>
+                    <div id="quiz-feedback" class="quiz-feedback"></div>
+                    <div id="quiz-navigation" class="quiz-navigation">
+                        <span id="quiz-progress"></span>
+                        <button id="quiz-next-btn" style="display: none;">Question Suivante</button>
+                    </div>
+                    <div id="quiz-score" class="quiz-score" style="display: none;"></div>
+                </div>
+                <div id="association-game" class="exercise-container">
+                    <h3 id="association-title">Jeu d'Association</h3>
+                    <p>Cliquez sur un terme puis sur sa définition correspondante.</p>
+                    <div id="association-columns" class="association-columns">
+                        <div id="association-col-terms" class="association-column"><h4>Termes</h4></div>
+                        <div id="association-col-defs" class="association-column"><h4>Définitions</h4></div>
+                    </div>
+                    <div id="association-feedback" class="association-feedback"></div>
+                    <div class="association-controls">
+                        <button id="association-check-btn">Vérifier mes associations</button>
+                    </div>
+                </div>
+                <div id="hangman-game" class="exercise-container">
+                    <h3 id="hangman-title">Jeu du Pendu</h3>
+                    <div id="hangman-word" class="hangman-word"></div>
+                    <div id="hangman-attempts" class="hangman-attempts">Tentatives restantes : <span></span></div>
+                    <div id="hangman-feedback" class="hangman-feedback"></div>
+                    <div id="hangman-alphabet" class="hangman-alphabet"></div>
+                </div>
+                <div id="memory-game" class="exercise-container">
+                     <h3 id="memory-title">Jeu de Memory</h3>
+                     <div id="memory-feedback" class="memory-feedback">Tentatives : <span>0</span></div>
+                     <div id="memory-grid" class="memory-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript (INCHANGÉ) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Sélecteurs DOM (début) ---
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabPanels = document.querySelectorAll('.tab-panel');
+            const sectionNavToggles = document.querySelectorAll('.section-nav-toggle');
+            const glossaryTermButtons = document.querySelectorAll('.glossary-term-button');
+            const openModalButtonTop = document.getElementById('open-exercise-modal-top');
+            const openModalButtonBottom = document.getElementById('open-exercise-modal-bottom');
+            const closeModalButton = document.getElementById('close-exercise-modal');
+            const exerciseModal = document.getElementById('exercise-modal');
+            const exerciseSelectors = document.querySelectorAll('.exercise-selector');
+            const exerciseContainers = document.querySelectorAll('.exercise-container');
+            const interactiveChainItems = document.querySelectorAll('.interactive-chain span[data-info]');
+
+            // --- Gestion des Onglets ---
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.getAttribute('data-tab');
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabPanels.forEach(panel => panel.classList.remove('active'));
+                    button.classList.add('active');
+                    const targetPanel = document.getElementById(targetTab);
+                    if(targetPanel) targetPanel.classList.add('active');
+                });
+            });
+
+            // --- Gestion des Menus Déroulants de Navigation Rapide ---
+            sectionNavToggles.forEach(toggle => {
+                toggle.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    const dropdown = toggle.nextElementSibling;
+                    // Fermer les autres menus ouverts
+                    document.querySelectorAll('.section-nav-dropdown.show').forEach(openDropdown => {
+                        if (openDropdown !== dropdown) openDropdown.classList.remove('show');
+                    });
+                    // Ouvrir/Fermer le menu cliqué
+                    if(dropdown) dropdown.classList.toggle('show');
+                });
+            });
+            // Fermer les menus si on clique ailleurs
+            document.addEventListener('click', (event) => {
+                document.querySelectorAll('.section-nav-dropdown.show').forEach(dropdown => {
+                    // Vérifier si le clic est en dehors du menu ET de son bouton
+                    if (!dropdown.contains(event.target) && !dropdown.previousElementSibling.contains(event.target)) {
+                         dropdown.classList.remove('show');
+                    }
+                });
+            });
+            // Fermer le menu quand on clique sur un lien dedans
+            document.querySelectorAll('.section-nav-dropdown a').forEach(link => {
+                link.addEventListener('click', () => {
+                    const dropdown = link.closest('.section-nav-dropdown');
+                    if(dropdown) dropdown.classList.remove('show');
+                });
+            });
+
+            // --- Gestion du Glossaire Interactif ---
+            glossaryTermButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const item = button.closest('.glossary-item');
+                    if(item) item.classList.toggle('active');
+                });
+            });
+
+             // --- Interactivité pour la chaîne de fonctionnement du fauteuil ---
+            interactiveChainItems.forEach(item => {
+                item.style.cursor = 'help';
+                item.addEventListener('click', () => {
+                    const info = item.getAttribute('data-info');
+                    if (info) {
+                        alert(info); // Simple alerte, peut être remplacé par une tooltip plus élégante
+                    }
+                });
+            });
+
+            // --- Gestion de la Modale d'Exercices (INCHANGÉ) ---
+            function openExerciseModal() {
+                 if(exerciseModal) exerciseModal.classList.add('show');
+                 hideAllExercises(); // Assure qu'aucun exercice n'est affiché à l'ouverture
+            }
+            function closeExerciseModal() {
+                 if(exerciseModal) exerciseModal.classList.remove('show');
+            }
+            if (openModalButtonTop) openModalButtonTop.addEventListener('click', openExerciseModal);
+            if (openModalButtonBottom) openModalButtonBottom.addEventListener('click', openExerciseModal);
+            if (closeModalButton) closeModalButton.addEventListener('click', closeExerciseModal);
+            // Fermer en cliquant en dehors de la modale
+            if (exerciseModal) {
+                exerciseModal.addEventListener('click', (event) => {
+                    if (event.target === exerciseModal) closeExerciseModal();
+                });
+            }
+
+            // --- Sélection des Exercices (INCHANGÉ) ---
+            function hideAllExercises() {
+                exerciseContainers.forEach(container => container.classList.remove('active'));
+                exerciseSelectors.forEach(btn => btn.classList.remove('active-exercise'));
+            }
+
+            exerciseSelectors.forEach(button => {
+                button.addEventListener('click', () => {
+                    hideAllExercises();
+                    button.classList.add('active-exercise');
+                    const exerciseId = button.getAttribute('data-exercise');
+                    let targetContainer = null;
+
+                    if (exerciseId.startsWith('quiz')) {
+                        targetContainer = document.getElementById('quiz-game');
+                        startQuizGame(exerciseId);
+                    } else if (exerciseId.startsWith('assoc')) {
+                         targetContainer = document.getElementById('association-game');
+                         startAssociationGame(exerciseId);
+                    } else if (exerciseId.startsWith('hangman')) {
+                        targetContainer = document.getElementById('hangman-game');
+                        startHangmanGame(exerciseId);
+                    } else if (exerciseId.startsWith('memory')) {
+                        targetContainer = document.getElementById('memory-game');
+                        startMemoryGame(exerciseId);
+                    }
+
+                    if(targetContainer) targetContainer.classList.add('active');
+                });
+            });
+
+            // --- Données des Exercices (INCHANGÉ) ---
+            const quizData = {
+                'quiz-eol': [ { q: "Quelle est la limite théorique d'efficacité de conversion d'énergie du vent par une éolienne ?", o: ["Loi de Joule", "Limite de Betz", "Principe de Carnot", "Théorème de Thevenin"], a: 1 }, { q: "Quel composant convertit le courant continu (DC) produit par l'éolienne en courant alternatif (AC) utilisable à la maison ?", o: ["Générateur", "Batterie", "Onduleur", "Anémomètre"], a: 2 }, { q: "Quel type de générateur est souvent utilisé dans les éoliennes domestiques pour son efficacité à basse vitesse ?", o: ["Générateur asynchrone", "Générateur synchrone", "Générateur à aimants permanents", "Alternateur de voiture"], a: 2 }, { q: "À quoi sert principalement un anémomètre sur une éolienne ?", o: ["Mesurer la production électrique", "Orienter les pales", "Mesurer la vitesse du vent", "Freiner l'éolienne"], a: 2 }, ],
+                'quiz-fau': [ { q: "Quel est le 'cerveau' du fauteuil électrique, interprétant les commandes utilisateur ?", o: ["Batterie", "Moteur", "Joystick", "Contrôleur"], a: 3 }, { q: "Quel type de batterie est le plus couramment utilisé dans les fauteuils électriques modernes pour sa densité énergétique ?", o: ["Plomb-acide", "Nickel-Cadmium", "Lithium-ion", "Alcaline"], a: 2 }, { q: "Qu'est-ce que le freinage régénératif permet de faire ?", o: ["Arrêter le fauteuil plus vite", "Récupérer de l'énergie pour la batterie", "Rendre le fauteuil plus léger", "Améliorer le confort"], a: 1 }, { q: "Lequel de ces éléments N'EST PAS une interface utilisateur courante pour un fauteuil électrique ?", o: ["Joystick", "Commande par souffle", "Pédale d'accélérateur", "Commande par mouvement de tête"], a: 2 }, ],
+                'quiz-mon': [ { q: "Quelle technologie permet principalement le paiement sans contact avec une montre connectée ?", o: ["Bluetooth", "Wi-Fi", "GPS", "NFC"], a: 3 }, { q: "Quel capteur est utilisé pour mesurer le nombre de pas effectués ?", o: ["Gyroscope", "Cardiofréquencemètre", "Accéléromètre", "Baromètre"], a: 2 }, { q: "Quel type d'écran offre généralement le meilleur contraste et des noirs profonds ?", o: ["LCD", "OLED/AMOLED", "E-Ink", "Plasma"], a: 1 }, { q: "Comment une montre connectée reçoit-elle le plus souvent les notifications d'un smartphone ?", o: ["Wi-Fi Direct", "NFC", "Infrarouge", "Bluetooth"], a: 3 }, ]
+            };
+            const associationData = {
+                'assoc-eol': [ { term: "Anémomètre", def: "Mesure vitesse vent" }, { term: "Générateur", def: "Produit électricité" }, { term: "Onduleur", def: "DC vers AC" }, { term: "Pales", def: "Captent vent" }, { term: "Mât", def: "Support en hauteur" }, { term: "Batterie", def: "Stocke énergie" }, { term: "Freinage", def: "Sécurité vent fort" }, { term: "Composite", def: "Matériau des pales" } ],
+                'assoc-fau': [ { term: "Joystick", def: "Contrôle direction" }, { term: "Contrôleur", def: "Gère moteurs" }, { term: "Châssis", def: "Structure" }, { term: "Lithium-ion", def: "Type batterie" }, { term: "Moteur", def: "Propulse roues" }, { term: "Régénératif", def: "Récupère énergie" }, { term: "Ergonomie", def: "Confort/Posture" }, { term: "Autonomie", def: "Distance/charge" } ],
+                'assoc-mon': [ { term: "AMOLED", def: "Type écran" }, { term: "NFC", def: "Paiement" }, { term: "Accéléromètre", def: "Mesure pas" }, { term: "Gyroscope", def: "Détecte rotation" }, { term: "Bluetooth", def: "Connexion smartphone" }, { term: "GPS", def: "Localisation" }, { term: "Cardio", def: "Rythme cardiaque" }, { term: "mAh", def: "Capacité batterie" } ]
+            };
+            const hangmanWords = { 'hangman-eol1': "AERODYNAMIQUE", 'hangman-eol2': "ONDULEUR", 'hangman-fau1': "ERGONOMIE", 'hangman-fau2': "AUTONOMIE", 'hangman-mon1': "BLUETOOTH", 'hangman-mon2': "CAPTEUR" };
+            const memoryPairsData = {
+                'memory-eol': [ { term: "Anémomètre", def: "Mesure vitesse vent" }, { term: "Générateur", def: "Convertit énergie mécanique" }, { term: "Limite de Betz", def: "Efficacité max théorique" }, { term: "Pales", def: "Captent énergie vent" }, { term: "Mât", def: "Élève l'éolienne" }, { term: "Courant Continu", def: "Produit par générateur" }, { term: "Courant Alternatif", def: "Utilisé par appareils" }, { term: "Recyclage", def: "Traitement fin de vie" } ],
+                'memory-fau': [ { term: "Joystick", def: "Commande direction/vitesse" }, { term: "Contrôleur", def: "Cerveau du fauteuil" }, { term: "Châssis", def: "Structure portante" }, { term: "Lithium-ion", def: "Type de batterie" }, { term: "Moteur", def: "Transforme électricité" }, { term: "Régénératif", def: "Récupère énergie freinage" }, { term: "Accessibilité", def: "Pour tous utilisateurs" }, { term: "Pneumatique", def: "Type de pneu (air)" } ],
+                'memory-mon': [ { term: "AMOLED", def: "Type d'écran vif" }, { term: "NFC", def: "Paiement sans contact" }, { term: "Accéléromètre", def: "Détecte mouvement" }, { term: "Gyroscope", def: "Détecte rotation" }, { term: "watchOS", def: "OS Apple Watch" }, { term: "Wear OS", def: "OS Google Montres" }, { term: "Cardio", def: "Mesure rythme cardiaque" }, { term: "GPS", def: "Localisation satellite" } ]
+            };
+
+            // --- Logique du Jeu de Quiz (INCHANGÉ) ---
+            const quizTitle = document.getElementById('quiz-title');
+            const quizQuestionEl = document.getElementById('quiz-question');
+            const quizOptionsEl = document.getElementById('quiz-options');
+            const quizFeedbackEl = document.getElementById('quiz-feedback');
+            const quizProgressEl = document.getElementById('quiz-progress');
+            const quizNextBtn = document.getElementById('quiz-next-btn');
+            const quizScoreEl = document.getElementById('quiz-score');
+            let currentQuizData = []; let currentQuestionIndex = 0; let score = 0;
+            function startQuizGame(gameId) {
+                currentQuizData = quizData[gameId] || []; if (currentQuizData.length === 0) return;
+                currentQuestionIndex = 0; score = 0;
+                if(quizScoreEl) quizScoreEl.style.display = 'none';
+                if(quizNextBtn) quizNextBtn.style.display = 'none';
+                if(quizFeedbackEl) quizFeedbackEl.textContent = '';
+                const titleMap = { 'quiz-eol': "Quiz Éoliennes", 'quiz-fau': "Quiz Fauteuils", 'quiz-mon': "Quiz Montres" };
+                if(quizTitle) quizTitle.textContent = titleMap[gameId] || "Quiz";
+                displayQuizQuestion();
+            }
+            function displayQuizQuestion() {
+                if(!quizQuestionEl || !quizOptionsEl || !quizFeedbackEl || !quizProgressEl) return;
+                const questionData = currentQuizData[currentQuestionIndex];
+                quizQuestionEl.textContent = questionData.q; quizOptionsEl.innerHTML = ''; quizFeedbackEl.textContent = '';
+                if(quizNextBtn) quizNextBtn.style.display = 'none';
+                quizProgressEl.textContent = `Question ${currentQuestionIndex + 1} / ${currentQuizData.length}`;
+                questionData.o.forEach((option, index) => {
+                    const button = document.createElement('button'); button.textContent = option;
+                    button.addEventListener('click', () => handleQuizAnswer(index, questionData.a));
+                    quizOptionsEl.appendChild(button);
+                });
+            }
+            function handleQuizAnswer(selectedIndex, correctIndex) {
+                if(!quizOptionsEl || !quizFeedbackEl) return;
+                const buttons = quizOptionsEl.querySelectorAll('button');
+                buttons.forEach(btn => btn.disabled = true);
+                if (selectedIndex === correctIndex) {
+                    buttons[selectedIndex].classList.add('correct'); quizFeedbackEl.textContent = "Bonne réponse !";
+                    quizFeedbackEl.style.color = 'var(--color-success)'; score++;
+                } else {
+                    buttons[selectedIndex].classList.add('incorrect'); buttons[correctIndex].classList.add('correct');
+                    quizFeedbackEl.textContent = "Mauvaise réponse."; quizFeedbackEl.style.color = 'var(--color-danger)';
+                }
+                if (currentQuestionIndex < currentQuizData.length - 1) { if(quizNextBtn) quizNextBtn.style.display = 'inline-block'; }
+                else { showQuizScore(); }
+            }
+            if(quizNextBtn) quizNextBtn.addEventListener('click', () => { currentQuestionIndex++; displayQuizQuestion(); });
+            function showQuizScore() {
+                if(!quizQuestionEl || !quizOptionsEl || !quizFeedbackEl || !quizProgressEl || !quizScoreEl || !quizNextBtn) return;
+                quizQuestionEl.textContent = ''; quizOptionsEl.innerHTML = ''; quizFeedbackEl.textContent = '';
+                quizProgressEl.textContent = ''; quizNextBtn.style.display = 'none';
+                quizScoreEl.textContent = `Quiz terminé ! Votre score : ${score} / ${currentQuizData.length}`;
+                quizScoreEl.style.display = 'block';
+            }
+
+            // --- Logique du Jeu d'Association (INCHANGÉ) ---
+            const assocTitle = document.getElementById('association-title');
+            const assocColTerms = document.getElementById('association-col-terms');
+            const assocColDefs = document.getElementById('association-col-defs');
+            const assocCheckBtn = document.getElementById('association-check-btn');
+            const assocFeedbackEl = document.getElementById('association-feedback');
+            let currentAssocData = []; let selectedTerm = null; let selectedDef = null; let associationsMade = {};
+            function shuffleArray(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
+            function startAssociationGame(gameId) {
+                currentAssocData = associationData[gameId] || []; if (currentAssocData.length === 0 || !assocColTerms || !assocColDefs || !assocFeedbackEl || !assocCheckBtn) return;
+                const titleMap = { 'assoc-eol': "Association Éoliennes", 'assoc-fau': "Association Fauteuils", 'assoc-mon': "Association Montres" };
+                if(assocTitle) assocTitle.textContent = titleMap[gameId] || "Jeu d'Association";
+                assocColTerms.innerHTML = '<h4>Termes</h4>'; assocColDefs.innerHTML = '<h4>Définitions</h4>';
+                assocFeedbackEl.textContent = ''; assocCheckBtn.disabled = false; selectedTerm = null; selectedDef = null; associationsMade = {};
+                let terms = currentAssocData.map((pair, index) => ({ id: index, text: pair.term }));
+                let defs = currentAssocData.map((pair, index) => ({ id: index, text: pair.def }));
+                terms = shuffleArray(terms); defs = shuffleArray(defs);
+                terms.forEach(item => displayAssociationItem(item, assocColTerms, 'term'));
+                defs.forEach(item => displayAssociationItem(item, assocColDefs, 'def'));
+                assocCheckBtn.textContent = "Vérifier mes associations";
+            }
+            function displayAssociationItem(itemData, columnElement, type) {
+                const itemDiv = document.createElement('div'); itemDiv.classList.add('association-item');
+                itemDiv.textContent = itemData.text; itemDiv.dataset.id = itemData.id; itemDiv.dataset.type = type;
+                itemDiv.addEventListener('click', handleAssociationSelection); columnElement.appendChild(itemDiv);
+            }
+            function handleAssociationSelection(event) {
+                 if (!assocCheckBtn || assocCheckBtn.disabled) return;
+                const clickedItem = event.target; const type = clickedItem.dataset.type; const id = clickedItem.dataset.id;
+                if (type === 'term') { if (selectedTerm) selectedTerm.classList.remove('selected'); selectedTerm = clickedItem; selectedTerm.classList.add('selected'); }
+                else if (type === 'def') { if (selectedDef) selectedDef.classList.remove('selected'); selectedDef = clickedItem; selectedDef.classList.add('selected'); }
+            }
+            if(assocCheckBtn) assocCheckBtn.addEventListener('click', () => {
+                if(!assocFeedbackEl || !assocColTerms || !assocColDefs) return;
+                let correctCount = 0; const totalPairs = currentAssocData.length;
+                const allTermItems = assocColTerms.querySelectorAll('.association-item');
+                const allDefItems = assocColDefs.querySelectorAll('.association-item');
+                // Simplifié: vérifie seulement la paire sélectionnée au moment du clic
+                if (selectedTerm && selectedDef) {
+                     if (selectedTerm.dataset.id === selectedDef.dataset.id) { selectedTerm.classList.add('correct'); selectedDef.classList.add('correct'); correctCount++; }
+                     else { selectedTerm.classList.add('incorrect'); selectedDef.classList.add('incorrect'); }
+                     selectedTerm.classList.remove('selected'); selectedDef.classList.remove('selected'); selectedTerm = null; selectedDef = null;
+                     assocFeedbackEl.textContent = `Vérification effectuée.`; // Message simple
+                     // Pour une vérification complète, il faudrait une logique plus complexe ici
+                } else { assocFeedbackEl.textContent = "Veuillez sélectionner un terme ET une définition avant de vérifier."; return; }
+                assocCheckBtn.disabled = true; assocCheckBtn.textContent = "Vérifié";
+                allTermItems.forEach(item => item.removeEventListener('click', handleAssociationSelection)); // Désactiver clics
+                allDefItems.forEach(item => item.removeEventListener('click', handleAssociationSelection));
+            });
+
+            // --- Logique du Jeu du Pendu (INCHANGÉ) ---
+            const hangmanWordDisplay = document.getElementById('hangman-word');
+            const hangmanAlphabetContainer = document.getElementById('hangman-alphabet');
+            const hangmanFeedback = document.getElementById('hangman-feedback');
+            const hangmanAttemptsDisplay = document.getElementById('hangman-attempts')?.querySelector('span');
+            const hangmanTitle = document.getElementById('hangman-title');
+            let currentHangmanWord = ''; let guessedLetters = []; let wrongAttempts = 0; const maxWrongAttempts = 7;
+            function startHangmanGame(gameId) {
+                 currentHangmanWord = hangmanWords[gameId]?.toUpperCase() || ""; if (!currentHangmanWord) return;
+                guessedLetters = []; wrongAttempts = 0;
+                if(hangmanFeedback) { hangmanFeedback.textContent = ''; hangmanFeedback.className = 'hangman-feedback'; }
+                if(hangmanAttemptsDisplay) hangmanAttemptsDisplay.textContent = maxWrongAttempts;
+                const titleMap = { 'hangman-eol1': "Pendu Éolienne 1", 'hangman-eol2': "Pendu Éolienne 2", 'hangman-fau1': "Pendu Fauteuil 1", 'hangman-fau2': "Pendu Fauteuil 2", 'hangman-mon1': "Pendu Montre 1", 'hangman-mon2': "Pendu Montre 2" };
+                if(hangmanTitle) hangmanTitle.textContent = titleMap[gameId] || "Jeu du Pendu";
+                renderHangmanWord(); renderAlphabet();
+            }
+            function renderHangmanWord() {
+                 if(!hangmanWordDisplay) return; let display = '';
+                for (const letter of currentHangmanWord) { display += (guessedLetters.includes(letter) || letter === ' ' || letter === '-') ? letter : '_'; }
+                hangmanWordDisplay.textContent = display;
+            }
+            function renderAlphabet() {
+                 if(!hangmanAlphabetContainer) return; hangmanAlphabetContainer.innerHTML = '';
+                const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                for (const letter of alphabet) { const button = document.createElement('button'); button.textContent = letter; button.addEventListener('click', () => handleGuess(letter)); hangmanAlphabetContainer.appendChild(button); }
+            }
+            function handleGuess(letter) {
+                if (!currentHangmanWord || !hangmanWordDisplay || !hangmanAlphabetContainer || guessedLetters.includes(letter) || wrongAttempts >= maxWrongAttempts || !hangmanWordDisplay.textContent.includes('_')) return;
+                guessedLetters.push(letter);
+                const letterButton = Array.from(hangmanAlphabetContainer.children).find(btn => btn.textContent === letter); if (letterButton) letterButton.disabled = true;
+                if (currentHangmanWord.includes(letter)) { renderHangmanWord(); checkWin(); }
+                else { wrongAttempts++; if(hangmanAttemptsDisplay) hangmanAttemptsDisplay.textContent = maxWrongAttempts - wrongAttempts; if(hangmanFeedback) hangmanFeedback.textContent = `Lettre '${letter}' incorrecte.`; checkLoss(); }
+            }
+            function checkWin() { if (hangmanWordDisplay && !hangmanWordDisplay.textContent.includes('_')) { if(hangmanFeedback) { hangmanFeedback.textContent = "Gagné ! Bravo !"; hangmanFeedback.classList.add('win'); } disableAlphabet(); } }
+            function checkLoss() { if (wrongAttempts >= maxWrongAttempts) { if(hangmanFeedback) { hangmanFeedback.textContent = `Perdu ! Le mot était : ${currentHangmanWord}`; hangmanFeedback.classList.add('lose'); } if(hangmanWordDisplay) hangmanWordDisplay.textContent = currentHangmanWord; disableAlphabet(); } }
+            function disableAlphabet() { if(hangmanAlphabetContainer) { hangmanAlphabetContainer.querySelectorAll('button').forEach(btn => btn.disabled = true); } }
+
+            // --- Logique du Jeu de Memory (INCHANGÉ) ---
+            const memoryGrid = document.getElementById('memory-grid');
+            const memoryFeedbackContainer = document.getElementById('memory-feedback');
+            const memoryTitle = document.getElementById('memory-title');
+            let memoryCards = []; let flippedCards = []; let matchedPairs = 0; let memoryAttempts = 0; let lockBoard = false;
+            function startMemoryGame(gameId) {
+                 const pairs = memoryPairsData[gameId]; if (!pairs || !memoryGrid || !memoryFeedbackContainer) return;
+                const titleMap = { 'memory-eol': "Memory Éoliennes", 'memory-fau': "Memory Fauteuils", 'memory-mon': "Memory Montres" };
+                if(memoryTitle) memoryTitle.textContent = titleMap[gameId] || "Jeu de Memory";
+                memoryGrid.innerHTML = ''; matchedPairs = 0; memoryAttempts = 0;
+                memoryFeedbackContainer.textContent = 'Tentatives : '; const span = document.createElement('span'); span.textContent = '0'; memoryFeedbackContainer.appendChild(span);
+                memoryFeedbackContainer.classList.remove('win');
+                let cardData = []; pairs.forEach((pair, index) => { cardData.push({ id: index, content: pair.term }); cardData.push({ id: index, content: pair.def }); });
+                cardData.sort(() => 0.5 - Math.random());
+                memoryCards = cardData.map(data => createMemoryCard(data)); memoryCards.forEach(card => memoryGrid.appendChild(card));
+            }
+            function createMemoryCard(data) {
+                 const card = document.createElement('div'); card.classList.add('memory-card'); card.dataset.id = data.id;
+                card.innerHTML = `<div class="card-face card-front">?</div><div class="card-face card-back">${data.content}</div>`;
+                card.addEventListener('click', handleCardFlip); return card;
+            }
+            function handleCardFlip() {
+                 if (lockBoard || this.classList.contains('flipped') || this.classList.contains('matched')) return;
+                this.classList.add('flipped'); flippedCards.push(this);
+                if (flippedCards.length === 2) {
+                    memoryAttempts++; const currentFeedbackSpan = memoryFeedbackContainer?.querySelector('span'); if(currentFeedbackSpan) currentFeedbackSpan.textContent = memoryAttempts;
+                    lockBoard = true; checkForMatch();
+                }
+            }
+            function checkForMatch() { const [card1, card2] = flippedCards; const isMatch = card1.dataset.id === card2.dataset.id; if (isMatch) { disableCards(); } else { unflipCards(); } }
+            function disableCards() { flippedCards.forEach(card => { card.classList.remove('flipped'); card.classList.add('matched'); card.removeEventListener('click', handleCardFlip); }); matchedPairs++; resetBoard(); checkMemoryWin(); }
+            function unflipCards() { setTimeout(() => { flippedCards.forEach(card => card.classList.remove('flipped')); resetBoard(); }, 1000); }
+            function resetBoard() { [flippedCards, lockBoard] = [[], false]; }
+            function checkMemoryWin() { if (matchedPairs === 8 && memoryFeedbackContainer) { setTimeout(() => { memoryFeedbackContainer.textContent = `Gagné en ${memoryAttempts} tentatives !`; memoryFeedbackContainer.classList.add('win'); }, 500); } }
+
+        });
+    </script>
+
+</body>
+</html>
