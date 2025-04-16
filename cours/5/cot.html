@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De l'Idée à l'Action : La Conception des Objets Techniques</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Définition des variables de couleur */
+        :root {
+            --primary-color: #006064;
+            --secondary-color: #00838f;
+            --background-light: #e0f2f1;
+            --background-gradient-end: #b0e0e6;
+            --background-header-footer: rgba(34, 136, 149, 0,7); /* Poweder blue semi-transparent */
+            --background-main: rgba(255, 255, 255, 0.4); /* Légèrement plus opaque */
+            --background-section: rgba(255, 255, 255, 0.85); /* Légèrement plus opaque */
+            --border-color: #006064;
+            --border-highlight: #81d4fa; /* Light Sky Blue */
+            --text-color: #006064;
+            --modal-background: #fefefe;
+            --modal-overlay: rgba(0,0,0,0.5);
+            --menu-circle-bg: rgba(176, 224, 230, 0.8);
+            --menu-circle-hover-bg: rgba(135, 206, 235, 0.9); /* Sky blue semi-transparent */
+            --menu-circle-active-bg: rgba(0, 139, 182, 1); /* Deep Sky Blue */
+            --menu-circle-active-text: white;
+            --image-placeholder-bg: #b0e0e6;
+        }
+
+        /* Classe utilitaire pour cacher des éléments */
+        .is-hidden {
+            display: none !important; /* Important pour surcharger d'autres display */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-light); /* Couleur de fond de base */
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            /* Le dégradé reste sur le body */
+            background-image: linear-gradient(to bottom, var(--background-light), var(--background-gradient-end));
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative; /* Nécessaire pour positionner le pseudo-élément */
+            z-index: 0; /* Assure que le contenu est au-dessus du pseudo-élément */
+        }
+
+        /* --- FILIGRANE --- */
+        body::before {
+            content: ""; /* Obligatoire pour un pseudo-élément */
+            position: fixed; /* Couvre tout le viewport et reste fixe */
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /* Utilisation de votre image Unsplash */
+            background-image: url('https://plus.unsplash.com/premium_photo-1661763849785-40c260848a31?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-repeat: no-repeat; /* Ne pas répéter une photo */
+            background-size: cover;       /* Couvrir tout l'arrière-plan */
+            background-position: center center; /* Centrer l'image */
+            opacity: 0.3
+; /* Opacité ajustée - AJUSTEZ SI BESOIN (ex: 0.08, 0.12) */
+            z-index: -1; /* Place le pseudo-élément DERRIÈRE le contenu du body */
+        }
+        /* --- FIN FILIGRANE --- */
+
+
+        header, footer, main, .modal-content {
+            position: relative; /* Assure qu'ils restent au-dessus du pseudo-élément body::before */
+            z-index: 1; /* Explicitement au-dessus du z-index: -1 */
+        }
+
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--background-header-footer);
+            border-bottom: 2px solid var(--border-color);
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+        header h1 {
+            color: var(--primary-color);
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        header p {
+            color: var(--primary-color);
+            font-size: 1.1em;
+        }
+        main {
+            padding: 20px;
+            width: 90%;
+            max-width: 1000px;
+            background-color: var(--background-main); /* Fond légèrement plus opaque */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        #menu-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .menu-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--menu-circle-bg);
+            color: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            position: relative;
+            user-select: none;
+        }
+
+        .menu-circle:hover {
+            background-color: var(--menu-circle-hover-bg);
+            transform: scale(1.05);
+        }
+
+        .menu-circle.active {
+            background-color: var(--menu-circle-active-bg);
+            color: var(--menu-circle-active-text);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+            border-color: var(--menu-circle-active-bg);
+        }
+
+        #content-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+
+        main section {
+            margin-bottom: 30px;
+            width: 100%;
+            box-sizing: border-box;
+            background-color: var(--background-section); /* Fond de section légèrement plus opaque */
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        main section:last-child {
+             margin-bottom: 0;
+        }
+
+        main section h2 {
+            color: var(--primary-color);
+            font-size: 1.5em;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--border-highlight);
+            padding-bottom: 5px;
+            text-align: left;
+        }
+        main section p {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+        main section ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+        main section ul li {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: var(--background-header-footer);
+            color: var(--primary-color);
+            width: 100%;
+            border-top: 2px solid var(--border-color);
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 0.9em;
+            box-sizing: border-box;
+            margin-top: auto;
+        }
+        .important-word {
+            color: var(--secondary-color);
+            font-weight: bold;
+            cursor: pointer;
+            border-bottom: 1px dashed var(--secondary-color);
+            transition: color 0.2s ease, border-bottom-color 0.2s ease;
+        }
+        .important-word:hover,
+        .important-word:focus {
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--primary-color);
+            outline: 1px dotted var(--primary-color);
+            outline-offset: 2px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: var(--modal-overlay);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.is-visible {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--modal-background);
+            padding: 30px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: auto;
+            min-height: 150px;
+            min-width: 280px;
+            max-height: 80vh;
+        }
+        .close-button {
+            color: #aaa;
+            font-size: 32px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0 5px;
+             transition: color 0.2s ease;
+             user-select: none;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #555;
+            text-decoration: none;
+            outline: none;
+        }
+
+        #modal-title, #exercices-modal-title {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            padding-right: 30px;
+        }
+
+        #exercices-modal-content {
+            margin-top: 20px;
+        }
+        #exercices-modal-content h3 { /* Style pour les titres d'exercices */
+            margin-top: 25px;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+         #exercices-modal-content h3:first-of-type {
+             margin-top: 0; /* Pas de marge avant le premier titre */
+         }
+         #exercices-modal-content h4 { /* Style pour les sous-titres (Associations, Memory) */
+             margin-top: 20px;
+             margin-bottom: 10px;
+             color: var(--primary-color);
+             font-size: 1.1em;
+         }
+
+
+        #exercices-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+         #exercices-buttons button {
+            padding: 10px 15px;
+            background-color: var(--menu-circle-bg);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 0.9em;
+         }
+         #exercices-buttons button:hover,
+         #exercices-buttons button.active {
+             background-color: var(--menu-circle-active-bg);
+             color: var(--menu-circle-active-text);
+             border-color: var(--menu-circle-active-bg);
+         }
+
+        #exercise-feedback {
+            margin-top: 15px;
+            font-weight: bold;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            border-left: 4px solid var(--secondary-color);
+            line-height: 1.4;
+        }
+
+        #validate-exercise-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1em;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+         #validate-exercise-button:hover {
+             background-color: var(--primary-color);
+         }
+
+
+        /* --- Styles spécifiques aux exercices --- */
+
+        /* Quiz */
+        .quiz-exercise { margin-bottom: 20px; }
+        .quiz-exercise p { font-weight: bold; margin-bottom: 8px; }
+        .quiz-options label { display: block; margin-bottom: 5px; cursor: pointer; padding: 3px 0; }
+        .quiz-options input[type="radio"] { margin-right: 8px; vertical-align: middle; }
+
+        /* Association */
+        .association-group { margin-bottom: 20px; }
+        .association-group div { margin-bottom: 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 5px;}
+        .association-group label { display: inline-block; width: 150px; font-weight: bold; flex-shrink: 0;}
+        .association-group select { padding: 5px; min-width: 200px; flex-grow: 1; border: 1px solid #ccc; border-radius: 3px;}
+
+        /* Memory Game */
+        .memory-game {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+            margin-bottom: 20px; /* Espace après le jeu */
+            perspective: 1000px;
+        }
+        .memory-card {
+            background-color: var(--menu-circle-hover-bg);
+            border: 1px solid var(--primary-color);
+            border-radius: 5px;
+            aspect-ratio: 1 / 1;
+            min-height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9em;
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            color: var(--primary-color);
+            user-select: none;
+            padding: 5px;
+            text-align: center;
+            overflow-wrap: break-word; /* Pour couper les mots longs dans les cartes */
+            word-wrap: break-word;
+            hyphens: auto;
+        }
+        .memory-card .card-face {
+             position: absolute;
+             width: 100%;
+             height: 100%;
+             backface-visibility: hidden;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             border-radius: 5px;
+             box-sizing: border-box;
+             padding: 5px;
+        }
+         .memory-card .card-front {
+             background-color: var(--menu-circle-hover-bg);
+             font-size: 2em;
+         }
+         .memory-card .card-back {
+             background-color: var(--background-section);
+             transform: rotateY(180deg);
+             color: var(--primary-color);
+         }
+
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+        }
+        .memory-card.matched {
+            cursor: default;
+            opacity: 0.9;
+            transform: rotateY(180deg) scale(0.95);
+            background-color: lightgreen;
+            border-color: darkgreen;
+        }
+         .memory-card.matched .card-back {
+             background-color: lightgreen;
+         }
+
+
+        /* Pendu */
+        .pendu-container {
+            margin-top: 15px;
+            margin-bottom: 20px; /* Espace après le jeu */
+            text-align: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+         .pendu-container p:first-of-type { /* Description du mot */
+             font-style: italic;
+             color: #555;
+             margin-bottom: 10px;
+         }
+        .pendu-mot {
+            font-size: 1.8em;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            font-family: monospace;
+            color: var(--primary-color);
+            min-height: 30px;
+            word-break: break-all; /* Pour les mots longs */
+            line-height: 1.2;
+        }
+        .pendu-input { margin-bottom: 15px; }
+        .pendu-input input {
+            padding: 8px;
+            margin-right: 5px;
+            width: 50px;
+            text-align: center;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .pendu-input button {
+            padding: 9px 15px;
+            cursor: pointer;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        .pendu-input button:hover {
+            background-color: var(--primary-color);
+        }
+        .pendu-input button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .pendu-result, .pendu-lettres-proposees, .pendu-guesses-left, .pendu-message-fin {
+            margin-top: 10px;
+            font-size: 1em;
+            min-height: 1.2em;
+        }
+        .pendu-lettres-proposees { color: #555; word-wrap: break-word; }
+        .pendu-guesses-left { font-weight: bold; }
+        .pendu-message-fin { font-weight: bold; }
+        .pendu-message-fin.win { color: green; }
+        .pendu-message-fin.lose { color: red; }
+
+        /* Style spécifique pour les boutons rejouer du pendu */
+        .pendu-container button[id$="-rejouer"] {
+             margin-top: 10px;
+             padding: 8px 12px;
+             cursor: pointer;
+             background-color: #eee;
+             border: 1px solid #ccc;
+             border-radius: 3px;
+        }
+         .pendu-container button[id$="-rejouer"]:hover {
+             background-color: #ddd;
+         }
+
+
+        /* Styles pour le dessin du pendu (optionnel, à faire en SVG/Canvas) */
+        .pendu-dessin {
+            height: 150px;
+            width: 150px;
+            border: 1px solid #ccc;
+            margin: 15px auto;
+            position: relative;
+            /* Ajoutez ici les éléments SVG ou autres pour le dessin */
+        }
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>De l'Idée à l'Action : La Conception des Objets Techniques</h1>
+        <p>Ce cours explore le processus de création des objets techniques, de l'identification du besoin à la réalisation d'un prototype fonctionnel.</p>
+    </header>
+
+    <main>
+         <div id="menu-container">
+            <!-- Le premier cercle aura la classe 'active' au chargement -->
+            <div class="menu-circle active" data-section="besoin">Besoin</div>
+            <div class="menu-circle" data-section="solution">Solution</div>
+            <div class="menu-circle" data-section="materiaux">Matériaux</div>
+            <div class="menu-circle" data-section="programme">Programme</div>
+            <div class="menu-circle" data-section="conclusion">Conclusion</div>
+            <div class="menu-circle" data-section="exercices">Exercices Interactifs</div>
+        </div>
+
+        <div id="content-container">
+            <!-- La première section est visible par défaut (pas de classe is-hidden) -->
+            <section id="besoin-section">
+                <h2>1. Identifier et Formaliser le Besoin : Le Point de Départ de la Création</h2>
+                <p>Tout <span class="important-word" data-term="objet technique" tabindex="0">objet technique</span> naît d'un <span class="important-word" data-term="besoin" tabindex="0">besoin</span>. Ce besoin peut être évident, comme celui de s'asseoir, ou plus spécifique, comme celui de conserver des aliments au frais. Identifier précisément ce besoin est la première étape essentielle.</p>
+                <p>Une fois le besoin identifié, il est crucial de le formaliser à travers un <span class="important-word" data-term="Cahier des Charges (CdC)" tabindex="0">Cahier des Charges (CdC)</span>. Ce document agit comme un guide pour la conception. Il détaille les <span class="important-word" data-term="fonctions" tabindex="0">fonctions</span> attendues de l'objet et les <span class="important-word" data-term="contraintes" tabindex="0">contraintes</span> à respecter lors de sa création.</p>
+                <ul>
+                    <li><strong>Fonction Principale :</strong> La raison d'être de l'objet.</li>
+                    <li><strong>Fonctions Secondaires :</strong> Les rôles additionnels que l'objet peut remplir.</li>
+                    <li><strong>Contraintes :</strong> Les limites à ne pas dépasser (matériaux, dimensions, coût, esthétique, ergonomie, environnement).</li>
+                </ul>
+                <p><strong>Le Saviez-Vous ?</strong> Le premier Cahier des Charges formel a été établi au 16ème siècle par Léonard de Vinci pour la construction des écluses du canal de Milan !</p>
+            </section>
+
+            <!-- Les autres sections sont cachées par défaut -->
+            <section id="solution-section" class="is-hidden">
+                <h2>2. Imaginer et Représenter la Solution : Du Croquis à la CAO</h2>
+                <p>Une fois le besoin et les contraintes définis, l'étape suivante est d'imaginer des solutions techniques et de les représenter visuellement.</p>
+                <ul>
+                    <li><strong>Le Croquis :</strong> Un dessin rapide à main levée pour explorer des idées.</li>
+                    <li><strong>Le Schéma :</strong> Une représentation simplifiée qui utilise des symboles pour illustrer le fonctionnement d'un système.</li>
+                    <li><strong>Les Vues d'un Objet :</strong> Représentations précises (vue de face, de dessus, de profil) pour communiquer la forme et la taille.</li>
+                    <li><span class="important-word" data-term="La Conception Assistée par Ordinateur (CAO)" tabindex="0">La Conception Assistée par Ordinateur (CAO)</span> : Utilisation de logiciels pour créer des modèles numériques d'objets en 2D ou 3D.</li>
+                </ul>
+                <p><strong>L'Avènement de la Conception 3D :</strong> La conception 3D permet de créer une représentation virtuelle complète de l'objet, facilitant la visualisation, la détection des problèmes, la communication et la préparation pour la fabrication avancée.</p>
+                <p><strong>Tinkercad : Votre Porte d'Entrée dans le Monde de la 3D</strong></p>
+                <p>L'utilisation de Tinkercad vous a familiarisés avec les bases de la modélisation 3D :</p>
+                <ul>
+                    <li>Manipuler des formes primitives.</li>
+                    <li>Combiner des formes.</li>
+                    <li>Visualiser un objet sous différents angles.</li>
+                    <li>Exporter vos créations.</li>
+                </ul>
+                <p><strong>Au-delà de la Visualisation : Les Avantages de la CAO 3D</strong></p>
+                <p>La CAO 3D offre de nombreux avantages :</p>
+                <ul>
+                    <li>Mesures Précises.</li>
+                    <li>Assemblage Virtuel.</li>
+                    <li>Simulation (pour les logiciels plus avancés).</li>
+                    <li>Documentation Technique.</li>
+                </ul>
+            </section>
+
+            <section id="materiaux-section" class="is-hidden">
+                <h2>3. Choisir les Matériaux et les Techniques de Fabrication et d'Assemblage</h2>
+                <p>Le choix des <span class="important-word" data-term="matériaux" tabindex="0">matériaux</span> est crucial car leurs propriétés influencent directement les performances et la durabilité de l'objet.</p>
+                <p><strong>Diversité des Matériaux :</strong></p>
+                <ul>
+                    <li>Les Métaux.</li>
+                    <li>Les Plastiques.</li>
+                    <li>Les Bois.</li>
+                    <li>Les Matériaux Composites.</li>
+                </ul>
+                <p><span class="important-word" data-term="fabrication" tabindex="0">La fabrication</span> consiste à donner forme aux matériaux bruts. Différentes techniques existent :</p>
+                 <ul>
+                    <li>La Découpe.</li>
+                    <li>Le Perçage.</li>
+                    <li>Le Pliage.</li>
+                    <li>Le Moulage.</li>
+                    <li>L'Impression 3D (Fabrication Additive).</li>
+                </ul>
+                <p><span class="important-word" data-term="assemblage" tabindex="0">L'assemblage</span> consiste à réunir les différentes parties fabriquées pour former l'objet final. Les techniques d'assemblage varient en fonction des matériaux et des contraintes :</p>
+                <ul>
+                    <li>Le Vissage.</li>
+                    <li>Le Collage.</li>
+                    <li>L'Emboîtement.</li>
+                    <li>Le Soudage.</li>
+                </ul>
+            </section>
+
+            <section id="programme-section" class="is-hidden">
+                <h2>4. Rendre l'Objet Interactif : Introduction au Programme</h2>
+                <p>De plus en plus d'objets techniques intègrent de l'électronique et de la <span class="important-word" data-term="programme" tabindex="0">programmation</span> pour interagir avec leur environnement.</p>
+                <ul>
+                    <li><strong>Programmer :</strong> Donner une série d'instructions logiques à une machine.</li>
+                    <li><strong>La Programmation Visuelle :</strong> Apprendre à programmer avec des blocs graphiques (ex: Scratch, Blockly).</li>
+                    <li>Les <span class="important-word" data-term="Capteurs" tabindex="0">Capteurs</span> : Dispositifs qui permettent à un système de "sentir" son environnement.</li>
+                    <li>Les <span class="important-word" data-term="Actionneurs" tabindex="0">Actionneurs</span> : Dispositifs qui permettent à un système d'agir sur son environnement.</li>
+                    <li>Les Cartes Microcontrôleurs : De petites cartes électroniques programmables qui servent de "cerveau" à de nombreux systèmes interactifs. Exemples courants : Arduino, micro:bit.</li>
+                </ul>
+                <p><strong>Exemples Concrets de Systèmes Programmables Simples :</strong></p>
+                <ul>
+                    <li>Un robot simple.</li>
+                    <li>Un système d'éclairage automatique.</li>
+                    <li>Un distributeur automatique de friandises.</li>
+                    <li>Un instrument de musique électronique simple.</li>
+                </ul>
+                <p><strong>Le Saviez-Vous ?</strong> Le premier programmeur de l'histoire était une femme, Ada Lovelace, au 19ème siècle ! Elle a écrit un algorithme pour une machine conçue par Charles Babbage.</p>
+            </section>
+
+            <section id="conclusion-section" class="is-hidden">
+                <h2>Conclusion : Un Cycle Continu d'Innovation</h2>
+                <p>La conception, la fabrication et la programmation d'objets techniques sont des domaines interconnectés et en constante évolution. Comprendre les principes fondamentaux de chaque étape permet non seulement d'analyser les objets existants mais aussi de développer l'esprit créatif et les compétences nécessaires pour imaginer et réaliser les technologies de demain.</p>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 Conception et Fabrication d'Objets Techniques. Collège de Montesoro.</p>
+    </footer>
+
+    <!-- Modal pour les définitions -->
+    <div id="definition-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="definition-close" title="Fermer">&times;</span>
+            <h2 id="modal-title">Titre de la définition</h2>
+            <p id="modal-definition">Définition du mot important.</p>
+        </div>
+    </div>
+
+    <!-- Modal pour les exercices -->
+    <div id="exercices-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="exercices-close" title="Fermer">&times;</span>
+            <h2 id="exercices-modal-title">Exercices Interactifs</h2>
+            <!-- Boutons pour choisir le type d'exercice -->
+            <div id="exercices-buttons">
+                 <button data-exercise="besoin">Besoin</button>
+                 <button data-exercise="solution">Solution</button>
+                 <button data-exercise="materiaux">Matériaux</button>
+                 <button data-exercise="programme">Programme</button>
+            </div>
+            <!-- Conteneur pour le contenu de l'exercice -->
+            <div id="exercices-modal-content">
+                <p>Choisissez une section ci-dessus pour commencer les exercices.</p>
+            </div>
+             <!-- Zone pour afficher les résultats/feedback -->
+             <div id="exercise-feedback" class="is-hidden"></div>
+             <!-- Bouton de validation (caché initialement) -->
+             <button id="validate-exercise-button" class="is-hidden">Valider mes réponses</button>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const importantWords = document.querySelectorAll('.important-word');
+        const definitionModal = document.getElementById('definition-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDefinition = document.getElementById('modal-definition');
+        const definitionCloseButton = document.getElementById('definition-close');
+
+        const menuCircles = document.querySelectorAll('.menu-circle');
+        const contentContainer = document.getElementById('content-container');
+        const sections = contentContainer.querySelectorAll('section'); // Sections dans le conteneur de contenu
+
+        const exercicesModal = document.getElementById('exercices-modal');
+        const exercicesCloseButton = document.getElementById('exercices-close');
+        const exercicesButtonsContainer = document.getElementById('exercices-buttons');
+        const exercicesButtons = exercicesButtonsContainer.querySelectorAll('button');
+        const exercicesModalContent = document.getElementById('exercices-modal-content');
+        const exerciseFeedback = document.getElementById('exercise-feedback');
+        const validateExerciseButton = document.getElementById('validate-exercise-button');
+
+        let currentExerciseType = null; // Pour savoir quel exercice valider
+
+        // --- Data ---
+        const definitions = {
+            "objet technique": "Un objet créé par l'homme pour répondre à un besoin spécifique. Il se distingue d'un objet naturel par sa transformation et sa finalité.",
+            "besoin": "Une nécessité ou un désir que l'homme cherche à satisfaire. Les objets techniques sont souvent créés pour répondre à des besoins.",
+            "Cahier des Charges (CdC)": "Un document qui spécifie en détail les besoins, les fonctions et les contraintes d'un projet de conception. Il sert de référence tout au long du processus de création.",
+            "fonctions": "Rôles ou actions qu'un objet technique doit accomplir. On distingue la fonction principale (raison d'être) et les fonctions secondaires (rôles additionnels).",
+            "contraintes": "Limites ou exigences à respecter lors de la conception d'un objet technique. Elles peuvent être liées aux matériaux, aux dimensions, au coût, à l'esthétique, à l'ergonomie ou à l'environnement.",
+            "La Conception Assistée par Ordinateur (CAO)": "L'utilisation de logiciels informatiques pour créer, modifier, analyser et optimiser la conception d'un objet technique.",
+            "matériaux": "Substances utilisées pour fabriquer un objet technique. Leurs propriétés influencent les performances et la durabilité de l'objet.",
+            "fabrication": "Ensemble des techniques et des procédés utilisés pour transformer des matières premières en un produit fini.",
+            "assemblage": "Opération qui consiste à réunir différentes parties fabriquées pour constituer l'objet technique final.",
+            "programme": "Action de concevoir, écrire et tester une séquence d'instructions (programme) qu'une machine peut exécuter pour accomplir une tâche.",
+            "Capteurs": "Dispositifs qui permettent à un système de \"sentir\" son environnement en mesurant des grandeurs physiques (lumière, température, distance, mouvement, son, contact).",
+            "Actionneurs": "Dispositifs qui permettent à un système d'agir sur son environnement en produisant un mouvement, de la lumière, un son, etc."
+        };
+
+        // --- Helper Functions ---
+
+        // Fonction générique pour ouvrir un modal
+        function openModal(modalElement) {
+            if (modalElement) {
+                modalElement.classList.add('is-visible');
+                const closeButton = modalElement.querySelector('.close-button');
+                if (closeButton) {
+                    setTimeout(() => closeButton.focus(), 50);
+                }
+            }
+        }
+
+        // Fonction générique pour fermer un modal
+        function closeModal(modalElement) {
+            if (modalElement) {
+                modalElement.classList.remove('is-visible');
+            }
+        }
+
+        // Afficher la définition
+        function showDefinition(wordElement) {
+            const term = wordElement.getAttribute('data-term') || wordElement.textContent;
+            const definition = definitions[term];
+            if (definition) {
+                modalTitle.textContent = wordElement.textContent;
+                modalDefinition.textContent = definition;
+                openModal(definitionModal);
+            } else {
+                console.warn(`Définition non trouvée pour : ${term}`);
+            }
+        }
+
+        // Afficher la section correspondante
+        function showSection(sectionId) {
+             sections.forEach(section => {
+                if (section.id === sectionId) {
+                    section.classList.remove('is-hidden');
+                } else {
+                    section.classList.add('is-hidden');
+                }
+            });
+        }
+
+        // Mélanger un tableau (pour les associations et memory)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Générer les options pour un select d'association
+        function generateAssociationOptions(optionsData, correctValue) {
+            let optionsHTML = `<option value="">-- Choisissez --</option>`;
+            const shuffledOptions = shuffleArray([...optionsData]); // Copie et mélange
+            shuffledOptions.forEach(option => {
+                // Stocker la valeur correcte dans l'attribut data-correct pour la vérification
+                const isCorrect = option.value === correctValue;
+                optionsHTML += `<option value="${option.value}" ${isCorrect ? 'data-correct="true"' : ''}>${option.text}</option>`;
+            });
+            return optionsHTML;
+        }
+
+        // Fonction pour mélanger les enfants d'un élément DOM (pour Quiz)
+        function shuffleChildren(parentElement) {
+            const children = Array.from(parentElement.children);
+            // Retirer les <br> temporairement s'il y en a
+            const labels = children.filter(el => el.tagName === 'LABEL');
+            const others = children.filter(el => el.tagName !== 'LABEL'); // Garder les <br> ou autres
+
+            // Mélanger uniquement les labels
+            shuffleArray(labels); // Utilise la fonction shuffleArray existante
+
+            // Vider le parent
+            parentElement.innerHTML = '';
+
+            // Réinsérer les éléments mélangés, en remettant des <br> si nécessaire
+            labels.forEach((label, index) => {
+                parentElement.appendChild(label);
+                // Ajouter un <br> après chaque label sauf le dernier
+                 if (index < labels.length -1) {
+                     parentElement.appendChild(document.createElement('br'));
+                 }
+            });
+             // Réinsérer les autres éléments (si jamais il y en avait)
+             others.forEach(el => parentElement.appendChild(el));
+        }
+
+
+        // --- Exercise Loading Functions ---
+
+        function loadBesoinExercises() {
+            console.log("Chargement des exercices 'Besoin'");
+            currentExerciseType = 'besoin'; // Important: définir le type actuel
+            exercicesModalContent.innerHTML = `
+                <h3>Quiz</h3>
+                <div class="quiz-exercise" data-quiz-index="0">
+                    <p>1. Pourquoi est-il important d'identifier et de formaliser le besoin avant de créer un objet technique ?</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="besoin-quiz-0" value="a"> Pour choisir les couleurs de l'objet</label>
+                        <label><input type="radio" name="besoin-quiz-0" value="b" data-correct="true"> Pour définir les fonctions et les contraintes à respecter lors de la conception</label>
+                        <label><input type="radio" name="besoin-quiz-0" value="c"> Pour savoir qui va acheter l'objet</label>
+                        <label><input type="radio" name="besoin-quiz-0" value="d"> Pour fixer le prix de vente</label>
+                    </div>
+                </div>
+                <div class="quiz-exercise" data-quiz-index="1">
+                    <p>2. Qu'est-ce qu'un Cahier des Charges (CdC) ?</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="besoin-quiz-1" value="a"> Un document qui décrit uniquement le coût de fabrication</label>
+                        <label><input type="radio" name="besoin-quiz-1" value="b" data-correct="true"> Un guide qui détaille les fonctions attendues et les contraintes de l'objet</label>
+                        <label><input type="radio" name="besoin-quiz-1" value="c"> Un catalogue de produits finis</label>
+                        <label><input type="radio" name="besoin-quiz-1" value="d"> Un manuel d'utilisation</label>
+                    </div>
+                </div>
+                 <div class="quiz-exercise" data-quiz-index="2">
+                    <p>3. Quelle est la fonction principale d'un parapluie (implicite dans le contexte) ?</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="besoin-quiz-2" value="a"> Décorer la maison</label>
+                        <label><input type="radio" name="besoin-quiz-2" value="b" data-correct="true"> Protéger de la pluie</label>
+                        <label><input type="radio" name="besoin-quiz-2" value="c"> Servir de canne</label>
+                        <label><input type="radio" name="besoin-quiz-2" value="d"> Ouvrir des boîtes</label>
+                    </div>
+                </div>
+                <hr>
+
+                <h3>Associations</h3>
+                <h4>Association 1 : Objet et Fonction Principale</h4>
+                <div class="association-group" data-assoc-group="0">
+                    <div><label>Parapluie :</label> <select data-term="parapluie">${generateAssociationOptions([ {value: 'pluie', text: 'Protéger de la pluie'}, {value: 'boites', text: 'Ouvrir des boîtes'}, {value: 'conserver', text: 'Conserver des aliments'}, {value: 'asseoir', text: 'S\'asseoir'} ], 'pluie')}</select></div>
+                    <div><label>Ouvre-boîte :</label> <select data-term="ouvre-boite">${generateAssociationOptions([ {value: 'pluie', text: 'Protéger de la pluie'}, {value: 'boites', text: 'Ouvrir des boîtes'}, {value: 'conserver', text: 'Conserver des aliments'}, {value: 'asseoir', text: 'S\'asseoir'} ], 'boites')}</select></div>
+                    <div><label>Réfrigérateur :</label> <select data-term="refrigerateur">${generateAssociationOptions([ {value: 'pluie', text: 'Protéger de la pluie'}, {value: 'boites', text: 'Ouvrir des boîtes'}, {value: 'conserver', text: 'Conserver des aliments'}, {value: 'asseoir', text: 'S\'asseoir'} ], 'conserver')}</select></div>
+                    <div><label>Chaise :</label> <select data-term="chaise">${generateAssociationOptions([ {value: 'pluie', text: 'Protéger de la pluie'}, {value: 'boites', text: 'Ouvrir des boîtes'}, {value: 'conserver', text: 'Conserver des aliments'}, {value: 'asseoir', text: 'S\'asseoir'} ], 'asseoir')}</select></div>
+                </div>
+                <h4>Association 2 : Contrainte et Exemple</h4>
+                 <div class="association-group" data-assoc-group="1">
+                    <div><label>Matériaux :</label> <select data-term="materiaux">${generateAssociationOptions([ {value: 'toxique', text: 'Jouet non toxique'}, {value: 'poche', text: 'Tient dans une poche'}, {value: 'budget', text: 'Respecter un budget'}, {value: 'style', text: 'Style attrayant'} ], 'toxique')}</select></div>
+                    <div><label>Dimensions :</label> <select data-term="dimensions">${generateAssociationOptions([ {value: 'toxique', text: 'Jouet non toxique'}, {value: 'poche', text: 'Tient dans une poche'}, {value: 'budget', text: 'Respecter un budget'}, {value: 'style', text: 'Style attrayant'} ], 'poche')}</select></div>
+                    <div><label>Coût :</label> <select data-term="cout">${generateAssociationOptions([ {value: 'toxique', text: 'Jouet non toxique'}, {value: 'poche', text: 'Tient dans une poche'}, {value: 'budget', text: 'Respecter un budget'}, {value: 'style', text: 'Style attrayant'} ], 'budget')}</select></div>
+                    <div><label>Esthétique :</label> <select data-term="esthetique">${generateAssociationOptions([ {value: 'toxique', text: 'Jouet non toxique'}, {value: 'poche', text: 'Tient dans une poche'}, {value: 'budget', text: 'Respecter un budget'}, {value: 'style', text: 'Style attrayant'} ], 'style')}</select></div>
+                </div>
+                 <h4>Association 3 : Fonction Secondaire et Objet</h4>
+                 <div class="association-group" data-assoc-group="2">
+                    <div><label>Protéger du soleil :</label> <select data-term="soleil">${generateAssociationOptions([ {value: 'parapluie', text: 'Parapluie'}, {value: 'ouvre-boite', text: 'Ouvre-boîte'}, {value: 'chaise', text: 'Chaise'}, {value: 'refrigerateur', text: 'Réfrigérateur'} ], 'parapluie')}</select></div>
+                    <div><label>Décapsuleur intégré :</label> <select data-term="decapsuleur">${generateAssociationOptions([ {value: 'parapluie', text: 'Parapluie'}, {value: 'ouvre-boite', text: 'Ouvre-boîte'}, {value: 'chaise', text: 'Chaise'}, {value: 'refrigerateur', text: 'Réfrigérateur'} ], 'ouvre-boite')}</select></div>
+                    <div><label>Servir de banc :</label> <select data-term="banc">${generateAssociationOptions([ {value: 'parapluie', text: 'Parapluie'}, {value: 'ouvre-boite', text: 'Ouvre-boîte'}, {value: 'chaise', text: 'Chaise'}, {value: 'refrigerateur', text: 'Réfrigérateur'} ], 'chaise')}</select></div>
+                    <div><label>Rafraîchir boissons :</label> <select data-term="boissons">${generateAssociationOptions([ {value: 'parapluie', text: 'Parapluie'}, {value: 'ouvre-boite', text: 'Ouvre-boîte'}, {value: 'chaise', text: 'Chaise'}, {value: 'refrigerateur', text: 'Réfrigérateur'} ], 'refrigerateur')}</select></div>
+                </div>
+                <hr>
+
+                <h3>Pendu</h3>
+                <div class="pendu-container" data-pendu-index="0">
+                    <p>Mot 1 : Document clé de la conception (16 lettres)</p>
+                    <div class="pendu-mot" id="besoin-pendu-0-mot"></div>
+                    <div class="pendu-input"><input type="text" id="besoin-pendu-0-input" maxlength="1" autocomplete="off"><button id="besoin-pendu-0-button">Deviner</button></div>
+                    <div class="pendu-result" id="besoin-pendu-0-result"></div><div class="pendu-lettres-proposees" id="besoin-pendu-0-lettres"></div><div class="pendu-guesses-left" id="besoin-pendu-0-guesses"></div><div class="pendu-message-fin" id="besoin-pendu-0-message"></div><button id="besoin-pendu-0-rejouer" class="is-hidden">Rejouer</button>
+                </div>
+                 <div class="pendu-container" data-pendu-index="1">
+                    <p>Mot 2 : Limite à respecter (10 lettres)</p>
+                    <div class="pendu-mot" id="besoin-pendu-1-mot"></div>
+                    <div class="pendu-input"><input type="text" id="besoin-pendu-1-input" maxlength="1" autocomplete="off"><button id="besoin-pendu-1-button">Deviner</button></div>
+                    <div class="pendu-result" id="besoin-pendu-1-result"></div><div class="pendu-lettres-proposees" id="besoin-pendu-1-lettres"></div><div class="pendu-guesses-left" id="besoin-pendu-1-guesses"></div><div class="pendu-message-fin" id="besoin-pendu-1-message"></div><button id="besoin-pendu-1-rejouer" class="is-hidden">Rejouer</button>
+                </div>
+                 <div class="pendu-container" data-pendu-index="2">
+                    <p>Mot 3 : Relatif aux fonctions (13 lettres)</p>
+                    <div class="pendu-mot" id="besoin-pendu-2-mot"></div>
+                    <div class="pendu-input"><input type="text" id="besoin-pendu-2-input" maxlength="1" autocomplete="off"><button id="besoin-pendu-2-button">Deviner</button></div>
+                    <div class="pendu-result" id="besoin-pendu-2-result"></div><div class="pendu-lettres-proposees" id="besoin-pendu-2-lettres"></div><div class="pendu-guesses-left" id="besoin-pendu-2-guesses"></div><div class="pendu-message-fin" id="besoin-pendu-2-message"></div><button id="besoin-pendu-2-rejouer" class="is-hidden">Rejouer</button>
+                </div>
+                <hr>
+
+                <h3>Memory Games</h3>
+                <h4>Memory 1 : Mots et Définitions</h4>
+                <div class="memory-game" id="besoin-memory-0-game"></div>
+                <h4>Memory 2 : Objets et Contraintes</h4>
+                <div class="memory-game" id="besoin-memory-1-game"></div>
+            `;
+
+            // Initialisation des jeux
+            initPendu('besoin', 0, "CAHIERDESCHARGES");
+            initPendu('besoin', 1, "CONTRAINTE");
+            initPendu('besoin', 2, "FONCTIONNELLE");
+
+            const memory1Pairs = [
+                { term: "Besoin", definition: "Motivation création" },
+                { term: "Fonction principale", definition: "Raison d'être" },
+                { term: "Fonction secondaire", definition: "Rôle additionnel" },
+                { term: "Contrainte", definition: "Limite conception" },
+                { term: "Matériaux", definition: "Composition objet" },
+                { term: "Dimensions", definition: "Taille / volume" },
+                { term: "Coût", definition: "Budget max" },
+                { term: "Esthétique", definition: "Apparence / style" }
+            ];
+             const memory2Pairs = [
+                { term: "Jouet enfant", definition: "Matériaux non toxiques" },
+                { term: "Pont", definition: "Résistant intempéries" },
+                { term: "Étagère", definition: "Dimensions adaptées" },
+                { term: "Téléphone", definition: "Tient dans poche" },
+                { term: "Vêtement", definition: "Style attrayant" },
+                { term: "Outil", definition: "Ergonomie" },
+                { term: "Emballage", definition: "Recyclable" },
+                { term: "Appareil élec.", definition: "Faible conso. énergie" }
+            ];
+            createMemoryGame('besoin', 0, memory1Pairs);
+            createMemoryGame('besoin', 1, memory2Pairs);
+
+            // --- Mélange des options Quiz ---
+            const quizOptionGroups = exercicesModalContent.querySelectorAll('.quiz-options');
+            quizOptionGroups.forEach(group => {
+                shuffleChildren(group);
+            });
+            // --- FIN Mélange ---
+
+            // Afficher le bouton de validation et cacher le feedback
+            validateExerciseButton.classList.remove('is-hidden');
+            exerciseFeedback.classList.add('is-hidden');
+            exerciseFeedback.textContent = '';
+        }
+
+        function loadSolutionExercises() {
+            console.log("Chargement des exercices 'Solution'");
+            currentExerciseType = 'solution'; // Définir le type actuel
+            exercicesModalContent.innerHTML = `
+                <h3>Quiz</h3>
+                <div class="quiz-exercise" data-quiz-index="0">
+                    <p>1. Quel outil permet de créer des modèles 3D en manipulant des formes primitives ?</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="solution-quiz-0" value="a"> Le croquis manuel</label>
+                        <label><input type="radio" name="solution-quiz-0" value="b" data-correct="true"> La CAO (ex : Tinkercad)</label>
+                        <label><input type="radio" name="solution-quiz-0" value="c"> Le schéma électrique</label>
+                        <label><input type="radio" name="solution-quiz-0" value="d"> Le moulage</label>
+                    </div>
+                </div>
+                <div class="quiz-exercise" data-quiz-index="1">
+                    <p>2. Quelle vue technique montre un objet "vu d'en haut" ?</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="solution-quiz-1" value="a"> Vue de face</label>
+                        <label><input type="radio" name="solution-quiz-1" value="b"> Vue de profil</label>
+                        <label><input type="radio" name="solution-quiz-1" value="c" data-correct="true"> Vue de dessus</label>
+                        <label><input type="radio" name="solution-quiz-1" value="d"> Vue en perspective</label>
+                    </div>
+                </div>
+                 <div class="quiz-exercise" data-quiz-index="2">
+                    <p>3. Quel avantage principal offre la CAO 3D avant la fabrication physique ?</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="solution-quiz-2" value="a"> Choisir les matériaux</label>
+                        <label><input type="radio" name="solution-quiz-2" value="b" data-correct="true"> Détecter des problèmes d'assemblage</label>
+                        <label><input type="radio" name="solution-quiz-2" value="c"> Calculer le coût de production</label>
+                        <label><input type="radio" name="solution-quiz-2" value="d"> Dessiner des croquis rapides</label>
+                    </div>
+                </div>
+                <hr>
+
+                <h3>Associations</h3>
+                <h4>Association 1 : Outil et Utilisation</h4>
+                <div class="association-group" data-assoc-group="0">
+                    <div><label>Croquis :</label> <select data-term="croquis">${generateAssociationOptions([ {value: 'idees', text: 'Explorer idées de formes'}, {value: 'circuit', text: 'Illustrer circuit électrique'}, {value: 'cote', text: 'Représenter objet de côté'}, {value: 'modeliser', text: 'Modéliser en 3D'} ], 'idees')}</select></div>
+                    <div><label>Schéma :</label> <select data-term="schema">${generateAssociationOptions([ {value: 'idees', text: 'Explorer idées de formes'}, {value: 'circuit', text: 'Illustrer circuit électrique'}, {value: 'cote', text: 'Représenter objet de côté'}, {value: 'modeliser', text: 'Modéliser en 3D'} ], 'circuit')}</select></div>
+                    <div><label>Vue de profil :</label> <select data-term="profil">${generateAssociationOptions([ {value: 'idees', text: 'Explorer idées de formes'}, {value: 'circuit', text: 'Illustrer circuit électrique'}, {value: 'cote', text: 'Représenter objet de côté'}, {value: 'modeliser', text: 'Modéliser en 3D'} ], 'cote')}</select></div>
+                    <div><label>Tinkercad :</label> <select data-term="tinkercad">${generateAssociationOptions([ {value: 'idees', text: 'Explorer idées de formes'}, {value: 'circuit', text: 'Illustrer circuit électrique'}, {value: 'cote', text: 'Représenter objet de côté'}, {value: 'modeliser', text: 'Modéliser en 3D'} ], 'modeliser')}</select></div>
+                </div>
+                <h4>Association 2 : Fonction CAO et Bénéfice</h4>
+                 <div class="association-group" data-assoc-group="1">
+                    <div><label>Visualisation 3D :</label> <select data-term="visu3d">${generateAssociationOptions([ {value: 'angles', text: 'Examiner sous tous les angles'}, {value: 'emboitement', text: 'Vérifier emboîtement pièces'}, {value: 'impression', text: 'Préparer impression 3D'}, {value: 'fonctionnement', text: 'Garantir bon fonctionnement'} ], 'angles')}</select></div>
+                    <div><label>Assemblage virtuel :</label> <select data-term="assemVirtuel">${generateAssociationOptions([ {value: 'angles', text: 'Examiner sous tous les angles'}, {value: 'emboitement', text: 'Vérifier emboîtement pièces'}, {value: 'impression', text: 'Préparer impression 3D'}, {value: 'fonctionnement', text: 'Garantir bon fonctionnement'} ], 'emboitement')}</select></div>
+                    <div><label>Exporter STL :</label> <select data-term="stl">${generateAssociationOptions([ {value: 'angles', text: 'Examiner sous tous les angles'}, {value: 'emboitement', text: 'Vérifier emboîtement pièces'}, {value: 'impression', text: 'Préparer impression 3D'}, {value: 'fonctionnement', text: 'Garantir bon fonctionnement'} ], 'impression')}</select></div>
+                    <div><label>Mesures précises :</label> <select data-term="mesures">${generateAssociationOptions([ {value: 'angles', text: 'Examiner sous tous les angles'}, {value: 'emboitement', text: 'Vérifier emboîtement pièces'}, {value: 'impression', text: 'Préparer impression 3D'}, {value: 'fonctionnement', text: 'Garantir bon fonctionnement'} ], 'fonctionnement')}</select></div>
+                </div>
+                 <h4>Association 3 : Tinkercad et Manipulation</h4>
+                 <div class="association-group" data-assoc-group="2">
+                    <div><label>Ajouter formes :</label> <select data-term="addFormes">${generateAssociationOptions([ {value: 'primitives', text: 'Cubes, cylindres, sphères'}, {value: 'complexes', text: 'Créer formes complexes'}, {value: 'angle', text: 'Changer angle de vue'}, {value: 'fichier', text: 'Générer fichier imprimante'} ], 'primitives')}</select></div>
+                    <div><label>Combiner éléments :</label> <select data-term="combiner">${generateAssociationOptions([ {value: 'primitives', text: 'Cubes, cylindres, sphères'}, {value: 'complexes', text: 'Créer formes complexes'}, {value: 'angle', text: 'Changer angle de vue'}, {value: 'fichier', text: 'Générer fichier imprimante'} ], 'complexes')}</select></div>
+                    <div><label>Faire pivoter :</label> <select data-term="pivoter">${generateAssociationOptions([ {value: 'primitives', text: 'Cubes, cylindres, sphères'}, {value: 'complexes', text: 'Créer formes complexes'}, {value: 'angle', text: 'Changer angle de vue'}, {value: 'fichier', text: 'Générer fichier imprimante'} ], 'angle')}</select></div>
+                    <div><label>Exporter :</label> <select data-term="exporter">${generateAssociationOptions([ {value: 'primitives', text: 'Cubes, cylindres, sphères'}, {value: 'complexes', text: 'Créer formes complexes'}, {value: 'angle', text: 'Changer angle de vue'}, {value: 'fichier', text: 'Générer fichier imprimante'} ], 'fichier')}</select></div>
+                </div>
+                <hr>
+
+                <h3>Pendu</h3>
+                <div class="pendu-container" data-pendu-index="0">
+                    <p>Mot 1 : Conception par Ordinateur en 3D (5 lettres)</p>
+                    <div class="pendu-mot" id="solution-pendu-0-mot"></div>
+                    <div class="pendu-input"><input type="text" id="solution-pendu-0-input" maxlength="1" autocomplete="off"><button id="solution-pendu-0-button">Deviner</button></div>
+                    <div class="pendu-result" id="solution-pendu-0-result"></div><div class="pendu-lettres-proposees" id="solution-pendu-0-lettres"></div><div class="pendu-guesses-left" id="solution-pendu-0-guesses"></div><div class="pendu-message-fin" id="solution-pendu-0-message"></div><button id="solution-pendu-0-rejouer" class="is-hidden">Rejouer</button>
+                </div>
+                 <div class="pendu-container" data-pendu-index="1">
+                    <p>Mot 2 : Logiciel de modélisation 3D en ligne (9 lettres)</p>
+                    <div class="pendu-mot" id="solution-pendu-1-mot"></div>
+                    <div class="pendu-input"><input type="text" id="solution-pendu-1-input" maxlength="1" autocomplete="off"><button id="solution-pendu-1-button">Deviner</button></div>
+                    <div class="pendu-result" id="solution-pendu-1-result"></div><div class="pendu-lettres-proposees" id="solution-pendu-1-lettres"></div><div class="pendu-guesses-left" id="solution-pendu-1-guesses"></div><div class="pendu-message-fin" id="solution-pendu-1-message"></div><button id="solution-pendu-1-rejouer" class="is-hidden">Rejouer</button>
+                </div>
+                 <div class="pendu-container" data-pendu-index="2">
+                    <p>Mot 3 : Vérification de l'emboîtement des pièces (10 lettres)</p>
+                    <div class="pendu-mot" id="solution-pendu-2-mot"></div>
+                    <div class="pendu-input"><input type="text" id="solution-pendu-2-input" maxlength="1" autocomplete="off"><button id="solution-pendu-2-button">Deviner</button></div>
+                    <div class="pendu-result" id="solution-pendu-2-result"></div><div class="pendu-lettres-proposees" id="solution-pendu-2-lettres"></div><div class="pendu-guesses-left" id="solution-pendu-2-guesses"></div><div class="pendu-message-fin" id="solution-pendu-2-message"></div><button id="solution-pendu-2-rejouer" class="is-hidden">Rejouer</button>
+                </div>
+                <hr>
+
+                <h3>Memory Games</h3>
+                <h4>Memory 1 : Concepts CAO</h4>
+                <div class="memory-game" id="solution-memory-0-game"></div>
+                <h4>Memory 2 : Étapes de Modélisation</h4>
+                <div class="memory-game" id="solution-memory-1-game"></div>
+            `;
+
+            // Initialisation des jeux
+            initPendu('solution', 0, "CAO3D");
+            initPendu('solution', 1, "TINKERCAD");
+            initPendu('solution', 2, "ASSEMBLAGE");
+
+            const memory1PairsSol = [
+                { term: "Croquis", definition: "Dessin main levée" },
+                { term: "Schéma fonctionnel", definition: "Symboles système" },
+                { term: "Vue de face", definition: "Représentation frontale" },
+                { term: "CAO 3D", definition: "Modélisation volume" },
+                { term: "Tinkercad", definition: "Logiciel débutants" },
+                { term: "Formes primitives", definition: "Cubes, cylindres..." },
+                { term: "Exporter STL", definition: "Format impression 3D" },
+                { term: "Simulation", definition: "Tester contraintes" }
+            ];
+             const memory2PairsSol = [
+                { term: "Idée initiale", definition: "Croquis rapide" },
+                { term: "Formes de base", definition: "Ajouter cube/cylindre" },
+                { term: "Combinaison", definition: "Grouper/soustraire" },
+                { term: "Rotation 3D", definition: "Examiner angles" },
+                { term: "Détection erreur", definition: "Vérifier interférences" },
+                { term: "Documentation", definition: "Générer plans tech." },
+                { term: "Prototypage", definition: "Exporter imprimante 3D" },
+                { term: "Communication", definition: "Modèle partageable" }
+            ];
+            createMemoryGame('solution', 0, memory1PairsSol);
+            createMemoryGame('solution', 1, memory2PairsSol);
+
+            // --- Mélange des options Quiz ---
+            const quizOptionGroups = exercicesModalContent.querySelectorAll('.quiz-options');
+            quizOptionGroups.forEach(group => {
+                shuffleChildren(group);
+            });
+            // --- FIN Mélange ---
+
+            // Afficher le bouton de validation et cacher le feedback
+            validateExerciseButton.classList.remove('is-hidden');
+            exerciseFeedback.classList.add('is-hidden');
+            exerciseFeedback.textContent = '';
+        }
+
+        function loadMateriauxExercises() {
+            console.log("Chargement des exercices 'Matériaux'");
+            currentExerciseType = 'materiaux';
+            exercicesModalContent.innerHTML = `
+                <h3>Quiz</h3>
+                 <div class="quiz-exercise" data-quiz-index="0">
+                    <p>1. Pourquoi le choix des matériaux est-il crucial ?</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="materiaux-quiz-0" value="a"> Pour choisir la couleur</label>
+                        <label><input type="radio" name="materiaux-quiz-0" value="b" data-correct="true"> Parce que leurs propriétés influencent performance et durabilité</label>
+                        <label><input type="radio" name="materiaux-quiz-0" value="c"> Pour réduire le temps de fabrication</label>
+                        <label><input type="radio" name="materiaux-quiz-0" value="d"> Pour faciliter le transport</label>
+                    </div>
+                </div>
+                 <div class="quiz-exercise" data-quiz-index="1">
+                    <p>2. Quel matériau est léger pour les vélos de compétition ?</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="materiaux-quiz-1" value="a"> Fer</label>
+                        <label><input type="radio" name="materiaux-quiz-1" value="b" data-correct="true"> Fibre de carbone</label>
+                        <label><input type="radio" name="materiaux-quiz-1" value="c"> Chêne</label>
+                        <label><input type="radio" name="materiaux-quiz-1" value="d"> PVC</label>
+                    </div>
+                </div>
+                 <div class="quiz-exercise" data-quiz-index="2">
+                    <p>3. Quelle technique d'assemblage permet un démontage facile ?</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="materiaux-quiz-2" value="a"> Soudage</label>
+                        <label><input type="radio" name="materiaux-quiz-2" value="b"> Collage</label>
+                        <label><input type="radio" name="materiaux-quiz-2" value="c" data-correct="true"> Vissage</label>
+                        <label><input type="radio" name="materiaux-quiz-2" value="d"> Moulage</label>
+                    </div>
+                </div>
+                <hr>
+                <h3>Associations</h3>
+                <h4>Association 1 : Matériau et Propriété</h4>
+                <div class="association-group" data-assoc-group="0">
+                    <div><label>Aluminium :</label> <select data-term="aluminium">${generateAssociationOptions([ {value: 'leger', text: 'Légèreté'}, {value: 'corrosion', text: 'Résistance corrosion'}, {value: 'isolant', text: 'Isolation électrique'}, {value: 'solide', text: 'Solidité'} ], 'leger')}</select></div>
+                    <div><label>Acier inoxydable :</label> <select data-term="inox">${generateAssociationOptions([ {value: 'leger', text: 'Légèreté'}, {value: 'corrosion', text: 'Résistance corrosion'}, {value: 'isolant', text: 'Isolation électrique'}, {value: 'solide', text: 'Solidité'} ], 'corrosion')}</select></div>
+                    <div><label>PVC :</label> <select data-term="pvc">${generateAssociationOptions([ {value: 'leger', text: 'Légèreté'}, {value: 'corrosion', text: 'Résistance corrosion'}, {value: 'isolant', text: 'Isolation électrique'}, {value: 'solide', text: 'Solidité'} ], 'isolant')}</select></div>
+                    <div><label>Chêne :</label> <select data-term="chene">${generateAssociationOptions([ {value: 'leger', text: 'Légèreté'}, {value: 'corrosion', text: 'Résistance corrosion'}, {value: 'isolant', text: 'Isolation électrique'}, {value: 'solide', text: 'Solidité'} ], 'solide')}</select></div>
+                </div>
+                <h4>Association 2 : Technique Fabrication et Exemple</h4>
+                 <div class="association-group" data-assoc-group="1">
+                    <div><label>Découpe :</label> <select data-term="decoupe">${generateAssociationOptions([ {value: 'sciage', text: 'Sciage du bois'}, {value: 'trou', text: 'Faire un trou'}, {value: 'carton', text: 'Former carton'}, {value: 'bouteille', text: 'Fabriquer bouteille'} ], 'sciage')}</select></div>
+                    <div><label>Perçage :</label> <select data-term="percage">${generateAssociationOptions([ {value: 'sciage', text: 'Sciage du bois'}, {value: 'trou', text: 'Faire un trou'}, {value: 'carton', text: 'Former carton'}, {value: 'bouteille', text: 'Fabriquer bouteille'} ], 'trou')}</select></div>
+                    <div><label>Pliage :</label> <select data-term="pliage">${generateAssociationOptions([ {value: 'sciage', text: 'Sciage du bois'}, {value: 'trou', text: 'Faire un trou'}, {value: 'carton', text: 'Former carton'}, {value: 'bouteille', text: 'Fabriquer bouteille'} ], 'carton')}</select></div>
+                    <div><label>Moulage :</label> <select data-term="moulage">${generateAssociationOptions([ {value: 'sciage', text: 'Sciage du bois'}, {value: 'trou', text: 'Faire un trou'}, {value: 'carton', text: 'Former carton'}, {value: 'bouteille', text: 'Fabriquer bouteille'} ], 'bouteille')}</select></div>
+                </div>
+                 <h4>Association 3 : Technique Assemblage et Description</h4>
+                 <div class="association-group" data-assoc-group="2">
+                    <div><label>Vissage :</label> <select data-term="vissage">${generateAssociationOptions([ {value: 'demontable', text: 'Fixation démontable'}, {value: 'adhesif', text: 'Fixation adhésive'}, {value: 'imbriquer', text: 'Pièces imbriquées'}, {value: 'fusion', text: 'Fusion matériaux'} ], 'demontable')}</select></div>
+                    <div><label>Collage :</label> <select data-term="collage">${generateAssociationOptions([ {value: 'demontable', text: 'Fixation démontable'}, {value: 'adhesif', text: 'Fixation adhésive'}, {value: 'imbriquer', text: 'Pièces imbriquées'}, {value: 'fusion', text: 'Fusion matériaux'} ], 'adhesif')}</select></div>
+                    <div><label>Emboîtement :</label> <select data-term="emboitement">${generateAssociationOptions([ {value: 'demontable', text: 'Fixation démontable'}, {value: 'adhesif', text: 'Fixation adhésive'}, {value: 'imbriquer', text: 'Pièces imbriquées'}, {value: 'fusion', text: 'Fusion matériaux'} ], 'imbriquer')}</select></div>
+                    <div><label>Soudage :</label> <select data-term="soudage">${generateAssociationOptions([ {value: 'demontable', text: 'Fixation démontable'}, {value: 'adhesif', text: 'Fixation adhésive'}, {value: 'imbriquer', text: 'Pièces imbriquées'}, {value: 'fusion', text: 'Fusion matériaux'} ], 'fusion')}</select></div>
+                </div>
+                <hr>
+                <h3>Pendu</h3>
+                 <div class="pendu-container" data-pendu-index="0">
+                    <p>Mot 1 : Propriété électrique des métaux (12 lettres)</p>
+                    <div class="pendu-mot" id="materiaux-pendu-0-mot"></div>
+                    <div class="pendu-input"><input type="text" id="materiaux-pendu-0-input" maxlength="1" autocomplete="off"><button id="materiaux-pendu-0-button">Deviner</button></div>
+                    <div class="pendu-result" id="materiaux-pendu-0-result"></div><div class="pendu-lettres-proposees" id="materiaux-pendu-0-lettres"></div><div class="pendu-guesses-left" id="materiaux-pendu-0-guesses"></div><div class="pendu-message-fin" id="materiaux-pendu-0-message"></div><button id="materiaux-pendu-0-rejouer" class="is-hidden">Rejouer</button>
+                </div>
+                 <div class="pendu-container" data-pendu-index="1">
+                    <p>Mot 2 : Action de joindre des pièces (10 lettres)</p>
+                    <div class="pendu-mot" id="materiaux-pendu-1-mot"></div>
+                    <div class="pendu-input"><input type="text" id="materiaux-pendu-1-input" maxlength="1" autocomplete="off"><button id="materiaux-pendu-1-button">Deviner</button></div>
+                    <div class="pendu-result" id="materiaux-pendu-1-result"></div><div class="pendu-lettres-proposees" id="materiaux-pendu-1-lettres"></div><div class="pendu-guesses-left" id="materiaux-pendu-1-guesses"></div><div class="pendu-message-fin" id="materiaux-pendu-1-message"></div><button id="materiaux-pendu-1-rejouer" class="is-hidden">Rejouer</button>
+                </div>
+                 <div class="pendu-container" data-pendu-index="2">
+                    <p>Mot 3 : Capacité à supporter des forces (10 lettres)</p>
+                    <div class="pendu-mot" id="materiaux-pendu-2-mot"></div>
+                    <div class="pendu-input"><input type="text" id="materiaux-pendu-2-input" maxlength="1" autocomplete="off"><button id="materiaux-pendu-2-button">Deviner</button></div>
+                    <div class="pendu-result" id="materiaux-pendu-2-result"></div><div class="pendu-lettres-proposees" id="materiaux-pendu-2-lettres"></div><div class="pendu-guesses-left" id="materiaux-pendu-2-guesses"></div><div class="pendu-message-fin" id="materiaux-pendu-2-message"></div><button id="materiaux-pendu-2-rejouer" class="is-hidden">Rejouer</button>
+                </div>
+                <hr>
+                <h3>Memory Games</h3>
+                <h4>Memory 1 : Matériau et Utilisation</h4>
+                <div class="memory-game" id="materiaux-memory-0-game"></div>
+                <h4>Memory 2 : Technique et Description</h4>
+                <div class="memory-game" id="materiaux-memory-1-game"></div>
+            `;
+            // Initialisation des jeux
+            initPendu('materiaux', 0, "CONDUCTIVITE");
+            initPendu('materiaux', 1, "ASSEMBLAGE");
+            initPendu('materiaux', 2, "RESISTANCE");
+
+            const memory1PairsMat = [
+                { term: "Aluminium", definition: "Cadre vélo léger" },
+                { term: "Acier inox", definition: "Outils anti-corrosion" },
+                { term: "PVC", definition: "Tuyaux évacuation" },
+                { term: "PET", definition: "Bouteille d'eau" },
+                { term: "Chêne", definition: "Meuble solide" },
+                { term: "Sapin", definition: "Charpente" },
+                { term: "Fibre carbone", definition: "Vélo compétition" },
+                { term: "Fibre verre", definition: "Coque bateau" }
+            ];
+             const memory2PairsMat = [
+                { term: "Découpe", definition: "Séparer matériau" },
+                { term: "Perçage", definition: "Créer un trou" },
+                { term: "Pliage", definition: "Forme angulaire" },
+                { term: "Moulage", definition: "Remplir un moule" },
+                { term: "Impression 3D", definition: "Couche par couche" },
+                { term: "Vissage", definition: "Fixation démontable" },
+                { term: "Collage", definition: "Fixation adhésive" },
+                { term: "Soudage", definition: "Fusion métaux" }
+            ];
+            createMemoryGame('materiaux', 0, memory1PairsMat);
+            createMemoryGame('materiaux', 1, memory2PairsMat);
+
+            // --- Mélange des options Quiz ---
+            const quizOptionGroups = exercicesModalContent.querySelectorAll('.quiz-options');
+            quizOptionGroups.forEach(group => {
+                shuffleChildren(group);
+            });
+            // --- FIN Mélange ---
+
+            validateExerciseButton.classList.remove('is-hidden');
+            exerciseFeedback.classList.add('is-hidden');
+            exerciseFeedback.textContent = '';
+        }
+
+        function loadProgrammeExercises() {
+            console.log("Chargement des exercices 'Programme'");
+            currentExerciseType = 'programme';
+             exercicesModalContent.innerHTML = `
+                <h3>Quiz</h3>
+                 <div class="quiz-exercise" data-quiz-index="0">
+                    <p>1. Quel est le rôle principal d'un capteur ?</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="programme-quiz-0" value="a"> Produire du son</label>
+                        <label><input type="radio" name="programme-quiz-0" value="b" data-correct="true"> Mesurer des grandeurs physiques</label>
+                        <label><input type="radio" name="programme-quiz-0" value="c"> Exécuter des programmes</label>
+                        <label><input type="radio" name="programme-quiz-0" value="d"> Alimenter le système</label>
+                    </div>
+                </div>
+                 <div class="quiz-exercise" data-quiz-index="1">
+                    <p>2. Quelle plateforme utilise des blocs graphiques ?</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="programme-quiz-1" value="a"> Python</label>
+                        <label><input type="radio" name="programme-quiz-1" value="b" data-correct="true"> Blockly</label>
+                        <label><input type="radio" name="programme-quiz-1" value="c"> C++</label>
+                        <label><input type="radio" name="programme-quiz-1" value="d"> HTML</label>
+                    </div>
+                </div>
+                 <div class="quiz-exercise" data-quiz-index="2">
+                    <p>3. Quel composant est le "cerveau" du système ?</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="programme-quiz-2" value="a"> Capteur température</label>
+                        <label><input type="radio" name="programme-quiz-2" value="b" data-correct="true"> Carte microcontrôleur</label>
+                        <label><input type="radio" name="programme-quiz-2" value="c"> Buzzer</label>
+                        <label><input type="radio" name="programme-quiz-2" value="d"> Moteur électrique</label>
+                    </div>
+                </div>
+                <hr>
+                <h3>Associations</h3>
+                <h4>Association 1 : Composant et Fonction</h4>
+                 <div class="association-group" data-assoc-group="0">
+                    <div><label>Capteur lumière :</label> <select data-term="lumiere">${generateAssociationOptions([ {value: 'mesurer', text: 'Mesurer luminosité'}, {value: 'roues', text: 'Faire tourner roues'}, {value: 'executer', text: 'Exécuter programme'}, {value: 'emettre', text: 'Émettre lumière'} ], 'mesurer')}</select></div>
+                    <div><label>Moteur électrique :</label> <select data-term="moteur">${generateAssociationOptions([ {value: 'mesurer', text: 'Mesurer luminosité'}, {value: 'roues', text: 'Faire tourner roues'}, {value: 'executer', text: 'Exécuter programme'}, {value: 'emettre', text: 'Émettre lumière'} ], 'roues')}</select></div>
+                    <div><label>Carte micro:bit :</label> <select data-term="microbit">${generateAssociationOptions([ {value: 'mesurer', text: 'Mesurer luminosité'}, {value: 'roues', text: 'Faire tourner roues'}, {value: 'executer', text: 'Exécuter programme'}, {value: 'emettre', text: 'Émettre lumière'} ], 'executer')}</select></div>
+                    <div><label>LED :</label> <select data-term="led">${generateAssociationOptions([ {value: 'mesurer', text: 'Mesurer luminosité'}, {value: 'roues', text: 'Faire tourner roues'}, {value: 'executer', text: 'Exécuter programme'}, {value: 'emettre', text: 'Émettre lumière'} ], 'emettre')}</select></div>
+                </div>
+                <h4>Association 2 : Exemple et Système</h4>
+                 <div class="association-group" data-assoc-group="1">
+                    <div><label>Éviter obstacles :</label> <select data-term="obstacles">${generateAssociationOptions([ {value: 'robot', text: 'Robot simple'}, {value: 'eclairage', text: 'Éclairage auto'}, {value: 'distrib', text: 'Distributeur'}, {value: 'musique', text: 'Instrument musique'} ], 'robot')}</select></div>
+                    <div><label>Allumer LED :</label> <select data-term="allumer">${generateAssociationOptions([ {value: 'robot', text: 'Robot simple'}, {value: 'eclairage', text: 'Éclairage auto'}, {value: 'distrib', text: 'Distributeur'}, {value: 'musique', text: 'Instrument musique'} ], 'eclairage')}</select></div>
+                    <div><label>Libérer friandise :</label> <select data-term="friandise">${generateAssociationOptions([ {value: 'robot', text: 'Robot simple'}, {value: 'eclairage', text: 'Éclairage auto'}, {value: 'distrib', text: 'Distributeur'}, {value: 'musique', text: 'Instrument musique'} ], 'distrib')}</select></div>
+                    <div><label>Générer sons :</label> <select data-term="sons">${generateAssociationOptions([ {value: 'robot', text: 'Robot simple'}, {value: 'eclairage', text: 'Éclairage auto'}, {value: 'distrib', text: 'Distributeur'}, {value: 'musique', text: 'Instrument musique'} ], 'musique')}</select></div>
+                </div>
+                 <h4>Association 3 : Plateforme et Caractéristique</h4>
+                 <div class="association-group" data-assoc-group="2">
+                    <div><label>Scratch :</label> <select data-term="scratch">${generateAssociationOptions([ {value: 'blocs', text: 'Prog. visuelle blocs'}, {value: 'generation', text: 'Génération code'}, {value: 'polyvalent', text: 'Carte polyvalente'}, {value: 'integres', text: 'Capteurs intégrés'} ], 'blocs')}</select></div>
+                    <div><label>Blockly :</label> <select data-term="blockly">${generateAssociationOptions([ {value: 'blocs', text: 'Prog. visuelle blocs'}, {value: 'generation', text: 'Génération code'}, {value: 'polyvalent', text: 'Carte polyvalente'}, {value: 'integres', text: 'Capteurs intégrés'} ], 'generation')}</select></div>
+                    <div><label>Arduino :</label> <select data-term="arduino">${generateAssociationOptions([ {value: 'blocs', text: 'Prog. visuelle blocs'}, {value: 'generation', text: 'Génération code'}, {value: 'polyvalent', text: 'Carte polyvalente'}, {value: 'integres', text: 'Capteurs intégrés'} ], 'polyvalent')}</select></div>
+                    <div><label>micro:bit :</label> <select data-term="microbit_carac">${generateAssociationOptions([ {value: 'blocs', text: 'Prog. visuelle blocs'}, {value: 'generation', text: 'Génération code'}, {value: 'polyvalent', text: 'Carte polyvalente'}, {value: 'integres', text: 'Capteurs intégrés'} ], 'integres')}</select></div>
+                </div>
+                <hr>
+                <h3>Pendu</h3>
+                 <div class="pendu-container" data-pendu-index="0">
+                    <p>Mot 1 : Le "cerveau" programmable (15 lettres)</p>
+                    <div class="pendu-mot" id="programme-pendu-0-mot"></div>
+                    <div class="pendu-input"><input type="text" id="programme-pendu-0-input" maxlength="1" autocomplete="off"><button id="programme-pendu-0-button">Deviner</button></div>
+                    <div class="pendu-result" id="programme-pendu-0-result"></div><div class="pendu-lettres-proposees" id="programme-pendu-0-lettres"></div><div class="pendu-guesses-left" id="programme-pendu-0-guesses"></div><div class="pendu-message-fin" id="programme-pendu-0-message"></div><button id="programme-pendu-0-rejouer" class="is-hidden">Rejouer</button>
+                </div>
+                 <div class="pendu-container" data-pendu-index="1">
+                    <p>Mot 2 : Composant qui agit sur l'environnement (10 lettres)</p>
+                    <div class="pendu-mot" id="programme-pendu-1-mot"></div>
+                    <div class="pendu-input"><input type="text" id="programme-pendu-1-input" maxlength="1" autocomplete="off"><button id="programme-pendu-1-button">Deviner</button></div>
+                    <div class="pendu-result" id="programme-pendu-1-result"></div><div class="pendu-lettres-proposees" id="programme-pendu-1-lettres"></div><div class="pendu-guesses-left" id="programme-pendu-1-guesses"></div><div class="pendu-message-fin" id="programme-pendu-1-message"></div><button id="programme-pendu-1-rejouer" class="is-hidden">Rejouer</button>
+                </div>
+                 <div class="pendu-container" data-pendu-index="2">
+                    <p>Mot 3 : Écrire des instructions pour une machine (13 lettres)</p>
+                    <div class="pendu-mot" id="programme-pendu-2-mot"></div>
+                    <div class="pendu-input"><input type="text" id="programme-pendu-2-input" maxlength="1" autocomplete="off"><button id="programme-pendu-2-button">Deviner</button></div>
+                    <div class="pendu-result" id="programme-pendu-2-result"></div><div class="pendu-lettres-proposees" id="programme-pendu-2-lettres"></div><div class="pendu-guesses-left" id="programme-pendu-2-guesses"></div><div class="pendu-message-fin" id="programme-pendu-2-message"></div><button id="programme-pendu-2-rejouer" class="is-hidden">Rejouer</button>
+                </div>
+                <hr>
+                <h3>Memory Games</h3>
+                 <h4>Memory 1 : Terme et Définition</h4>
+                <div class="memory-game" id="programme-memory-0-game"></div>
+                <h4>Memory 2 : Système et Composants</h4>
+                <div class="memory-game" id="programme-memory-1-game"></div>
+            `;
+             // Initialisation des jeux
+            initPendu('programme', 0, "MICROCONTROLEUR");
+            initPendu('programme', 1, "ACTIONNEUR");
+            initPendu('programme', 2, "PROGRAMMATION");
+
+            const memory1PairsProg = [
+                { term: "Programmation", definition: "Donner instructions" },
+                { term: "Capteur", definition: "Mesurer physique" },
+                { term: "Actionneur", definition: "Produire action" },
+                { term: "micro:bit", definition: "Carte prog." },
+                { term: "Robot", definition: "Système autonome" },
+                { term: "Blockly", definition: "Prog. visuelle" },
+                { term: "Buzzer", definition: "Actionneur sonore" },
+                { term: "Capteur contact", definition: "Détecter pression" }
+            ];
+             const memory2PairsProg = [
+                { term: "Éclairage auto", definition: "Capteur lumière + LED" },
+                { term: "Distributeur", definition: "Capteur pièce + moteur" },
+                { term: "Instrument musique", definition: "Boutons + buzzer" },
+                { term: "Robot éviteur", definition: "Capteur distance + moteurs" },
+                { term: "Carte Arduino", definition: "Microcontrôleur + broches" },
+                { term: "micro:bit", definition: "Accéléromètre + boutons" },
+                { term: "Ventilateur", definition: "Moteur + pales" },
+                { term: "Alarme", definition: "Capteur mouvement + buzzer" }
+            ];
+            createMemoryGame('programme', 0, memory1PairsProg);
+            createMemoryGame('programme', 1, memory2PairsProg);
+
+            // --- Mélange des options Quiz ---
+            const quizOptionGroups = exercicesModalContent.querySelectorAll('.quiz-options');
+            quizOptionGroups.forEach(group => {
+                shuffleChildren(group);
+            });
+            // --- FIN Mélange ---
+
+            validateExerciseButton.classList.remove('is-hidden');
+            exerciseFeedback.classList.add('is-hidden');
+            exerciseFeedback.textContent = '';
+        }
+
+        // --- Exercise Checking Functions (Adaptées pour multi-jeux) ---
+
+        function checkQuiz(exerciseType) {
+            let score = 0;
+            let maxScore = 0;
+            // Sélectionne tous les conteneurs de quiz pour le type donné
+            const quizExercises = exercicesModalContent.querySelectorAll(`.quiz-exercise[data-quiz-index]`);
+            quizExercises.forEach(quizDiv => {
+                maxScore++;
+                const index = quizDiv.dataset.quizIndex;
+                // Trouve l'option correcte (celle avec data-correct="true")
+                const correctInput = quizDiv.querySelector(`input[name="${exerciseType}-quiz-${index}"][data-correct="true"]`);
+                // Trouve l'option sélectionnée par l'utilisateur
+                const selectedInput = quizDiv.querySelector(`input[name="${exerciseType}-quiz-${index}"]:checked`);
+
+                if (selectedInput && correctInput && selectedInput === correctInput) {
+                    score++;
+                }
+            });
+            console.log(`Score Quiz pour ${exerciseType}: ${score} / ${maxScore}`);
+            return { score: score, maxScore: maxScore };
+        }
+
+        function checkAssociation(exerciseType) {
+            let score = 0;
+            let maxScore = 0;
+            // Sélectionne tous les groupes d'association pour le type donné
+            const associationGroups = exercicesModalContent.querySelectorAll(`.association-group[data-assoc-group]`);
+            associationGroups.forEach(group => {
+                const selects = group.querySelectorAll('select[data-term]');
+                selects.forEach(select => {
+                    maxScore++;
+                    // La valeur correcte est stockée dans l'option qui a data-correct="true"
+                    const correctOption = select.querySelector('option[data-correct="true"]');
+                    if (correctOption && select.value === correctOption.value) {
+                        score++;
+                    }
+                });
+            });
+            console.log(`Score Association pour ${exerciseType}: ${score} / ${maxScore}`);
+            return { score: score, maxScore: maxScore };
+        }
+
+        // --- Pendu Game Logic (CORRIGÉ) ---
+        let penduState = {}; // Stocke l'état par type ET index: penduState['besoin-pendu-0'] = {...}
+
+        function initPendu(type, index, mot) {
+            const gameId = `${type}-pendu-${index}`; // ID unique pour ce jeu de pendu: ex: "besoin-pendu-0"
+            penduState[gameId] = {
+                motADeviner: mot.toUpperCase(),
+                motAffiche: "_".repeat(mot.length),
+                lettresProposees: [],
+                guessesLeft: 6,
+                partieGagnee: false,
+                partiePerdue: false
+            };
+
+            // Utiliser gameId COMPLET pour trouver les éléments spécifiques
+            const motElement = document.getElementById(`${gameId}-mot`);
+            const inputElement = document.getElementById(`${gameId}-input`);
+            const buttonElement = document.getElementById(`${gameId}-button`);
+            const resultElement = document.getElementById(`${gameId}-result`);
+            const lettresElement = document.getElementById(`${gameId}-lettres`);
+            const guessesElement = document.getElementById(`${gameId}-guesses`);
+            const messageElement = document.getElementById(`${gameId}-message`);
+            const rejouerButton = document.getElementById(`${gameId}-rejouer`);
+
+            // Vérifier si tous les éléments existent (important pour le débogage)
+            if (!motElement || !inputElement || !buttonElement || !resultElement || !lettresElement || !guessesElement || !messageElement || !rejouerButton) {
+                console.error(`Éléments manquants pour le jeu Pendu : ${gameId}`);
+                // Afficher quels éléments manquent spécifiquement
+                if (!motElement) console.error(`Manquant: #${gameId}-mot`);
+                if (!inputElement) console.error(`Manquant: #${gameId}-input`);
+                if (!buttonElement) console.error(`Manquant: #${gameId}-button`);
+                if (!resultElement) console.error(`Manquant: #${gameId}-result`);
+                if (!lettresElement) console.error(`Manquant: #${gameId}-lettres`);
+                if (!guessesElement) console.error(`Manquant: #${gameId}-guesses`);
+                if (!messageElement) console.error(`Manquant: #${gameId}-message`);
+                if (!rejouerButton) console.error(`Manquant: #${gameId}-rejouer`);
+                return; // Arrêter l'initialisation si des éléments manquent
+            }
+
+
+            function afficherMotPendu() {
+                const state = penduState[gameId];
+                if(!state) return; // Sécurité si le jeu a été détruit entre temps
+                motElement.textContent = state.motAffiche.split('').join(' ');
+                lettresElement.textContent = 'Lettres proposées : ' + state.lettresProposees.join(', ');
+                guessesElement.textContent = 'Essais restants : ' + state.guessesLeft;
+                messageElement.textContent = ''; messageElement.className = 'pendu-message-fin';
+                resultElement.textContent = '';
+            }
+
+            function deviner() {
+                 const state = penduState[gameId];
+                 // Récupérer les éléments à chaque tentative au cas où ils auraient été remplacés
+                 const currentInputElement = document.getElementById(`${gameId}-input`);
+                 const currentButtonElement = document.getElementById(`${gameId}-button`);
+                 const currentResultElement = document.getElementById(`${gameId}-result`);
+                 const currentMessageElement = document.getElementById(`${gameId}-message`);
+                 const currentMotElement = document.getElementById(`${gameId}-mot`);
+                 const currentRejouerButton = document.getElementById(`${gameId}-rejouer`);
+
+
+                 if (!state || state.partieGagnee || state.partiePerdue || !currentInputElement || !currentButtonElement) return;
+
+                 const lettre = currentInputElement.value.toUpperCase();
+                 currentInputElement.value = '';
+                 currentInputElement.focus();
+
+                 if (!lettre || lettre.length !== 1 || !/[A-Z]/.test(lettre)) {
+                     if (currentResultElement) currentResultElement.textContent = "Lettre invalide."; return;
+                 }
+                 if (state.lettresProposees.includes(lettre)) {
+                     if (currentResultElement) currentResultElement.textContent = "Lettre déjà proposée."; return;
+                 }
+
+                 state.lettresProposees.push(lettre);
+                 let lettreTrouvee = false;
+
+                 // Recalculer motAffiche basé sur toutes les lettres proposées
+                 let nouveauMotAffiche = '';
+                 for(let i=0; i<state.motADeviner.length; i++){
+                     if(state.lettresProposees.includes(state.motADeviner[i])){
+                         nouveauMotAffiche += state.motADeviner[i];
+                         if(state.motADeviner[i] === lettre) lettreTrouvee = true; // La lettre actuelle est dans le mot
+                     } else {
+                         nouveauMotAffiche += '_';
+                     }
+                 }
+                 state.motAffiche = nouveauMotAffiche;
+
+
+                 if (lettreTrouvee) {
+                     if (currentResultElement) currentResultElement.textContent = "Bonne lettre !";
+                     if (!state.motAffiche.includes('_')) {
+                         state.partieGagnee = true;
+                         if (currentMessageElement) { currentMessageElement.textContent = "Gagné !"; currentMessageElement.classList.add('win'); }
+                         if (currentRejouerButton) currentRejouerButton.classList.remove('is-hidden');
+                         currentButtonElement.disabled = true; currentInputElement.disabled = true;
+                     }
+                 } else {
+                     if (currentResultElement) currentResultElement.textContent = "Mauvaise lettre !";
+                     state.guessesLeft--;
+                     if (state.guessesLeft <= 0) {
+                         state.partiePerdue = true;
+                         if (currentMessageElement) { currentMessageElement.textContent = `Perdu ! Mot: ${state.motADeviner}`; currentMessageElement.classList.add('lose'); }
+                         if (currentMotElement) currentMotElement.textContent = state.motADeviner.split('').join(' ');
+                         if (currentRejouerButton) currentRejouerButton.classList.remove('is-hidden');
+                         currentButtonElement.disabled = true; currentInputElement.disabled = true;
+                     }
+                 }
+                 afficherMotPendu(); // Mettre à jour l'affichage avec les éléments actuels
+            }
+
+            // --- Gestion des écouteurs d'événements ---
+            // Cloner pour supprimer les anciens écouteurs avant d'en ajouter de nouveaux
+            const newButton = buttonElement.cloneNode(true);
+            buttonElement.parentNode.replaceChild(newButton, buttonElement);
+            newButton.disabled = false; // S'assurer qu'il est actif
+            newButton.addEventListener('click', deviner);
+
+            const newInput = inputElement.cloneNode(true);
+            inputElement.parentNode.replaceChild(newInput, inputElement);
+            newInput.disabled = false; // S'assurer qu'il est actif
+            newInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') deviner(); });
+            setTimeout(() => newInput.focus(), 50); // Focus après un court délai
+
+            const newRejouer = rejouerButton.cloneNode(true);
+            rejouerButton.parentNode.replaceChild(newRejouer, rejouerButton);
+            newRejouer.classList.add('is-hidden'); // Cacher au début
+            newRejouer.addEventListener('click', () => initPendu(type, index, mot));
+            // --- Fin Gestion Écouteurs ---
+
+            afficherMotPendu(); // Affichage initial
+        }
+
+        function checkPendu(exerciseType) {
+            let score = 0;
+            let maxScore = 0;
+            const penduContainers = exercicesModalContent.querySelectorAll(`.pendu-container[data-pendu-index]`);
+            penduContainers.forEach(container => {
+                maxScore++;
+                const index = container.dataset.penduIndex;
+                const gameId = `${exerciseType}-pendu-${index}`; // Reconstruire l'ID du jeu
+                if (penduState[gameId]?.partieGagnee) {
+                    score++;
+                }
+            });
+            console.log(`Score Pendu pour ${exerciseType}: ${score} / ${maxScore}`);
+            return { score: score, maxScore: maxScore };
+        }
+
+
+        // --- Memory Game Logic (Adapté pour multi-jeux) ---
+        let memoryState = {}; // Stocke l'état par type ET index: memoryState['besoin-0'] = {...}
+
+        function createMemoryGame(type, index, pairsData) {
+            const gameId = `${type}-memory-${index}`;
+            const gameContainer = document.getElementById(`${gameId}-game`); // ID du conteneur: besoin-memory-0-game
+            if (!gameContainer) {
+                console.error(`Conteneur Memory Game non trouvé pour ${gameId}`);
+                return;
+            }
+
+            memoryState[gameId] = {
+                flippedCards: [],
+                pairsFound: 0,
+                lockBoard: false,
+                totalPairs: pairsData.length
+            };
+
+            gameContainer.innerHTML = ''; // Vider
+
+            const cards = [];
+            pairsData.forEach((pair, pairIndex) => {
+                cards.push({ id: pairIndex + 1, content: pair.term, type: 'term' });
+                cards.push({ id: pairIndex + 1, content: pair.definition, type: 'definition' });
+            });
+
+            shuffleArray(cards);
+
+            cards.forEach(cardData => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('memory-card');
+                cardElement.dataset.pairId = cardData.id;
+                cardElement.dataset.cardType = cardData.type;
+                cardElement.innerHTML = `<div class="card-face card-front">?</div><div class="card-face card-back">${cardData.content}</div>`;
+
+                // Utilisation d'une fonction nommée pour pouvoir la retirer si besoin
+                const handleCardClick = () => flipCard(gameId, cardElement); // Passer gameId
+                cardElement.addEventListener('click', handleCardClick);
+                cardElement._handleCardClick = handleCardClick;
+                gameContainer.appendChild(cardElement);
+            });
+        }
+
+        function flipCard(gameId, cardElement) { // Prend gameId
+            const state = memoryState[gameId];
+            if (!state || state.lockBoard || cardElement.classList.contains('flipped') || cardElement.classList.contains('matched')) {
+                return;
+            }
+            cardElement.classList.add('flipped');
+            state.flippedCards.push(cardElement);
+            if (state.flippedCards.length === 2) {
+                state.lockBoard = true;
+                setTimeout(() => checkForMatch(gameId), 800); // Passer gameId
+            }
+        }
+
+        function checkForMatch(gameId) { // Prend gameId
+            const state = memoryState[gameId];
+            if (!state || state.flippedCards.length !== 2) return;
+            const [card1, card2] = state.flippedCards;
+            const isMatch = card1.dataset.pairId === card2.dataset.pairId;
+            if (isMatch) disableCards(gameId, card1, card2); // Passer gameId
+            else unflipCards(gameId, card1, card2); // Passer gameId
+        }
+
+        function disableCards(gameId, card1, card2) { // Prend gameId
+            const state = memoryState[gameId];
+            if(!state) return; // Sécurité
+            card1.classList.add('matched');
+            card2.classList.add('matched');
+            if (card1._handleCardClick) card1.removeEventListener('click', card1._handleCardClick);
+            if (card2._handleCardClick) card2.removeEventListener('click', card2._handleCardClick);
+            state.pairsFound++;
+            resetBoard(gameId); // Passer gameId
+            if (state.pairsFound === state.totalPairs) {
+                 console.log(`Memory Game ${gameId} terminé !`);
+            }
+        }
+
+        function unflipCards(gameId, card1, card2) { // Prend gameId
+            setTimeout(() => {
+                // Vérifier si les cartes existent toujours et si le jeu est toujours le même
+                 const currentState = memoryState[gameId];
+                 if(currentState && card1 && card2 && !card1.classList.contains('matched') && !card2.classList.contains('matched')) {
+                    card1.classList.remove('flipped');
+                    card2.classList.remove('flipped');
+                 }
+                resetBoard(gameId); // Passer gameId
+            }, 1000);
+        }
+
+        function resetBoard(gameId) { // Prend gameId
+            const state = memoryState[gameId];
+            if (state) {
+                state.flippedCards = [];
+                state.lockBoard = false;
+            }
+        }
+
+         function checkMemoryGame(exerciseType) {
+            let score = 0;
+            let maxScore = 0;
+            const memoryContainers = exercicesModalContent.querySelectorAll(`.memory-game[id^="${exerciseType}-memory-"]`);
+            memoryContainers.forEach(container => {
+                const gameId = container.id.replace('-game', ''); // besoin-memory-0
+                const state = memoryState[gameId];
+                if (state) {
+                    score += state.pairsFound;
+                    maxScore += state.totalPairs;
+                }
+            });
+             console.log(`Score Memory pour ${exerciseType}: ${score} / ${maxScore}`);
+             return { score: score, maxScore: maxScore };
+         }
+
+
+        // --- Event Listeners ---
+
+        // Clic sur les mots importants
+        importantWords.forEach(word => {
+            word.addEventListener('click', () => showDefinition(word));
+            word.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    showDefinition(word);
+                }
+            });
+        });
+
+        // Fermeture du modal de définition
+        if (definitionCloseButton) {
+            definitionCloseButton.addEventListener('click', () => closeModal(definitionModal));
+        }
+
+        // Clic sur les cercles du menu
+        menuCircles.forEach(circle => {
+            circle.addEventListener('click', () => {
+                const sectionName = circle.getAttribute('data-section');
+                if (sectionName === 'exercices') {
+                    openModal(exercicesModal);
+                    exercicesModalContent.innerHTML = '<p>Choisissez une section ci-dessus pour commencer les exercices.</p>';
+                    exercicesButtons.forEach(btn => btn.classList.remove('active'));
+                    validateExerciseButton.classList.add('is-hidden');
+                    exerciseFeedback.classList.add('is-hidden');
+                    exerciseFeedback.textContent = '';
+                    currentExerciseType = null;
+                } else {
+                    menuCircles.forEach(c => c.classList.remove('active'));
+                    circle.classList.add('active');
+                    showSection(sectionName + '-section');
+                }
+            });
+        });
+
+        // Fermeture du modal d'exercices
+        if (exercicesCloseButton) {
+            exercicesCloseButton.addEventListener('click', () => closeModal(exercicesModal));
+        }
+
+        // Fermeture des modals (clic extérieur et Echap)
+        window.addEventListener('click', (event) => {
+            if (event.target === definitionModal) closeModal(definitionModal);
+            if (event.target === exercicesModal) closeModal(exercicesModal);
+        });
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                if (definitionModal.classList.contains('is-visible')) closeModal(definitionModal);
+                if (exercicesModal.classList.contains('is-visible')) closeModal(exercicesModal);
+            }
+        });
+
+        // Clic sur les boutons de type d'exercice
+        exercicesButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                exercicesButtons.forEach(b => b.classList.remove('active'));
+                button.classList.add('active');
+                const exerciseType = button.getAttribute('data-exercise');
+                // Charger le contenu (les fonctions load... gèrent maintenant currentExerciseType)
+                if (exerciseType === 'besoin') loadBesoinExercises();
+                else if (exerciseType === 'solution') loadSolutionExercises();
+                else if (exerciseType === 'materiaux') loadMateriauxExercises();
+                else if (exerciseType === 'programme') loadProgrammeExercises();
+            });
+        });
+
+        // Clic sur le bouton de validation
+        if (validateExerciseButton) {
+            validateExerciseButton.addEventListener('click', () => {
+                if (!currentExerciseType) return;
+
+                let totalScore = 0;
+                let totalMaxScore = 0;
+                let results = [];
+
+                // Appeler les fonctions de vérification adaptées
+                const quizResult = checkQuiz(currentExerciseType);
+                if (quizResult.maxScore > 0) { totalScore += quizResult.score; totalMaxScore += quizResult.maxScore; results.push(`Quiz: ${quizResult.score}/${quizResult.maxScore}`); }
+
+                const assocResult = checkAssociation(currentExerciseType);
+                 if (assocResult.maxScore > 0) { totalScore += assocResult.score; totalMaxScore += assocResult.maxScore; results.push(`Association: ${assocResult.score}/${assocResult.maxScore}`); }
+
+                 const memoryResult = checkMemoryGame(currentExerciseType);
+                 if (memoryResult.maxScore > 0) { totalScore += memoryResult.score; totalMaxScore += memoryResult.maxScore; results.push(`Memory: ${memoryResult.score}/${memoryResult.maxScore}`); }
+
+                 const penduResult = checkPendu(currentExerciseType);
+                 if (penduResult.maxScore > 0) { totalScore += penduResult.score; totalMaxScore += penduResult.maxScore; results.push(`Pendu: ${penduResult.score}/${penduResult.maxScore}`); }
+
+                // Afficher le feedback
+                if (exerciseFeedback) {
+                    exerciseFeedback.classList.remove('is-hidden');
+                    if (totalMaxScore > 0) {
+                        const percentage = Math.round((totalScore / totalMaxScore) * 100);
+                        exerciseFeedback.textContent = `Résultat (${currentExerciseType}) : ${totalScore} / ${totalMaxScore} (${percentage}%) | ${results.join(' ; ')}`;
+                    } else {
+                         exerciseFeedback.textContent = `Aucun exercice à valider pour ${currentExerciseType}.`;
+                    }
+                }
+                console.log(`Score total pour ${currentExerciseType}: ${totalScore} / ${totalMaxScore}`);
+            });
+        }
+
+
+        // --- Initialisation ---
+        // (Aucune action spécifique nécessaire au chargement initial)
+
+    </script>
+
+</body>
+</html>
