@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Réseaux Informatiques Expliqués - Grille Interactive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Thème Grille Interactive --- */
+        :root {
+            /* Palette "Jeunes" */
+            --cell-color-1: #29B6F6; /* Bleu Ciel */
+            --cell-color-2: #66BB6A; /* Vert Moyen */
+            --cell-color-3: #FFA726; /* Orange */
+            --cell-color-4: #26A69A; /* Turquoise */
+            --cell-color-5: #AB47BC; /* Violet */
+            --cell-color-6: #FF7043; /* Corail */
+            --cell-color-7: #5C6BC0; /* Indigo */
+            --cell-color-8-bg: #ECEFF1; /* Gris Très Clair */
+            /* Couleurs Interactions & Fallback (Utilisées dans le contenu copié) */
+            --color-primary-start: #4CAF50; /* Vert */
+            --color-primary-end: #2196F3; /* Bleu */
+            --color-start: #ff6b6b; /* Rouge Doux */
+            --color-mid1: #ffa07a;  /* Saumon Clair */
+            --color-mid2: #ffd700;  /* Or */
+            --color-mid3: #98fb98;  /* Vert Pâle */
+            --color-end: #66cdaa;   /* Vert d'eau Moyen */
+            --accent-color: var(--color-start); /* Couleur d'accentuation principale */
+            --color-accent-tooltip: #ff6b6b; /* Accent pour tooltip */
+            --color-tooltip-bg: #333; /* Fond Tooltip */
+            /* Couleurs Générales */
+            --color-secondary: #f4f4f4;
+            --color-border: #e0e0e0;
+            --color-text: #333;
+            --color-light-text: #ffffff; /* Texte clair (utilisé pour tooltip) */
+            --bg-color: #e8f0f8; /* Fond général légèrement bleuté */
+            --card-bg: #ffffff; /* Fond des cartes/conteneurs */
+            --border-radius: 10px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s;
+            /* Couleurs pour feedback exercices */
+            --color-correct: #66BB6A;
+            --color-incorrect: #EF5350;
+            --color-hint: #42A5F5; /* Bleu pour indice */
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            background-image: linear-gradient(rgba(232, 240, 248, 0.95), rgba(232, 240, 248, 0.95)),
+                              radial-gradient(circle at top left, rgba(0, 150, 255, 0.05) 0%, transparent 30%),
+                              radial-gradient(circle at bottom right, rgba(100, 200, 100, 0.05) 0%, transparent 40%);
+            padding: 20px;
+            color: var(--color-text);
+            line-height: 1.6;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main { flex-grow: 1; }
+        .grid-course-container { max-width: 1100px; margin: 20px auto; background-color: var(--card-bg); border-radius: var(--border-radius); padding: 30px 40px; box-shadow: var(--box-shadow); }
+        .grid-header { text-align: center; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); }
+        .grid-header h1 { font-size: 2.2em; color: var(--color-text); margin-bottom: 10px; font-weight: 700; }
+        .grid-header p { font-size: 1.1em; color: #555; max-width: 700px; margin: 0 auto; }
+        .grid-body { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; margin-bottom: 40px; }
+        .grid-cell { background-color: var(--cell-color-1); color: var(--color-light-text); border-radius: var(--border-radius); padding: 25px 20px; min-height: 180px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.08); transition: transform var(--transition-speed), box-shadow var(--transition-speed); cursor: pointer; position: relative; overflow: hidden; }
+        .grid-cell[data-section]:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.12); }
+        .cell-1 { background-color: var(--cell-color-1); } .cell-2 { background-color: var(--cell-color-2); } .cell-3 { background-color: var(--cell-color-3); } .cell-4 { background-color: var(--cell-color-4); } .cell-5 { background-color: var(--cell-color-5); } .cell-6 { background-color: var(--cell-color-6); } .cell-7 { background-color: var(--cell-color-7); }
+        .cell-8 { background-color: var(--cell-color-8-bg); color: var(--color-text); cursor: default; justify-content: center; }
+        .cell-8:hover { transform: none; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
+        .cell-icon { font-size: 2.5em; margin-bottom: 15px; line-height: 1; }
+        .cell-title h3 { font-size: 1.1em; font-weight: 600; margin: 0; }
+        .cell-8 h3 { margin-bottom: 20px; color: #555; }
+        .cell-8 .cell-buttons { display: flex; flex-direction: column; gap: 10px; width: 100%; align-items: center; }
+        .cell-buttons button { width: 90%; padding: 10px 15px; font-size: 0.9em; cursor: pointer; text-align: center; text-decoration: none; color: var(--color-light-text); border: none; border-radius: 20px; transition: opacity var(--transition-speed), transform var(--transition-speed), box-shadow var(--transition-speed); margin: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); font-family: 'Poppins', sans-serif; font-weight: 600; }
+        .cell-buttons button:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.15); }
+        .cell-buttons #open-exercise-modal { background: linear-gradient(to right, var(--color-primary-start), var(--color-primary-end)); }
+        .cell-buttons #open-homework-button { background: linear-gradient(135deg, #ffa07a, #ff6b6b); }
+
+        /* Styles pour contenu DANS #content-modal */
+        #content-modal .modal-content { max-width: 800px; }
+        #content-modal .modal-content h2 { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; margin-top: 0; margin-bottom: 20px; font-size: 1.8em; font-weight: 600; }
+        #content-modal .modal-content h3 { color: var(--color-mid1); margin-top: 25px; margin-bottom: 15px; font-size: 1.4em; }
+        #content-modal .modal-content h4 { color: var(--color-mid2); margin-top: 20px; margin-bottom: 10px; font-size: 1.2em; }
+        #content-modal .modal-content p, #content-modal .modal-content ul, #content-modal .modal-content ol { margin-bottom: 18px; font-size: 1em; line-height: 1.7; }
+        #content-modal .modal-content ul, #content-modal .modal-content ol { padding-left: 25px; }
+        #content-modal .modal-content li { margin-bottom: 10px; }
+        #content-modal .modal-content code { background-color: #eee; padding: 2px 6px; border-radius: 4px; font-family: 'Courier New', Courier, monospace; font-size: 0.95em; color: #c7254e; }
+        #content-modal .modal-content pre { background-color: #f5f5f5; border: 1px solid var(--border-color); border-radius: 5px; padding: 15px; overflow-x: auto; font-size: 0.9em; line-height: 1.5; }
+        #content-modal .modal-content pre code { background-color: transparent; padding: 0; color: var(--text-color); }
+        #content-modal .tooltip-trigger { border-bottom: 2px dotted var(--accent-color); cursor: help; font-weight: 600; color: var(--accent-color); transition: color 0.2s ease, border-bottom-color 0.2s ease; }
+        #content-modal .tooltip-trigger:hover { color: var(--color-mid1); border-bottom-color: var(--color-mid1); }
+        #content-modal .did-you-know { background-color: #fffacd; border-left: 5px solid var(--color-mid2); padding: 15px 20px; margin: 20px 0; border-radius: 5px; }
+        #content-modal .did-you-know p { margin: 0; }
+        #content-modal .did-you-know strong { color: var(--color-mid1); }
+        #content-modal .network-types { display: flex; gap: 20px; flex-wrap: wrap; }
+        #content-modal .network-card { flex: 1; min-width: 250px; padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); transition: box-shadow 0.3s ease, transform 0.3s ease; }
+        #content-modal .network-card:hover { box-shadow: 0 5px 15px var(--shadow-color); transform: scale(1.02); }
+        #content-modal .lan-card { border-left: 5px solid var(--color-mid3); }
+        #content-modal .wan-card { border-left: 5px solid var(--color-start); }
+        #content-modal .network-card h3 { margin-top: 0; font-size: 1.3em; }
+        #content-modal .and-table { width: auto; margin: 20px auto; border-collapse: collapse; text-align: center; }
+        #content-modal .and-table caption { font-weight: 600; margin-bottom: 10px; color: var(--color-mid1); font-size: 1.1em; }
+        #content-modal .and-table th, #content-modal .and-table td { border: 1px solid var(--border-color); padding: 8px 12px; }
+        #content-modal .and-table thead { background-color: #f0f0f0; }
+        #content-modal .answer-button, #content-modal .interactive-button { background: linear-gradient(135deg, var(--color-mid3), var(--color-end)); color: var(--color-text); border: none; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-family: 'Poppins', sans-serif; font-size: 0.9em; font-weight: 600; margin: 5px 0 5px 10px; transition: all 0.3s ease; box-shadow: 0 2px 4px var(--shadow-color); }
+        #content-modal .answer-button:hover, #content-modal .interactive-button:hover { transform: translateY(-2px); box-shadow: 0 4px 8px var(--shadow-color); filter: brightness(1.1); }
+        #content-modal .answer-box { background-color: #e0f8e0; border: 1px solid var(--color-end); border-radius: 5px; padding: 10px 15px; margin-top: 10px; font-style: italic; transition: opacity 0.3s ease; display: none; }
+
+        /* Modales (Générique) */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden; background-color: rgba(0, 0, 0, 0.6); animation: fadeInModal 0.4s ease-out; align-items: center; justify-content: center; }
+        .modal.active { display: flex; }
+        .modal-content { background-color: var(--card-bg); padding: 30px; border: 1px solid var(--border-color); width: 85%; border-radius: var(--border-radius); box-shadow: var(--box-shadow); position: relative; animation: slideInModal 0.4s ease-out; max-height: 85vh; overflow-y: auto; }
+        .close-button { color: #aaa; position: absolute; top: 10px; right: 20px; font-size: 28px; font-weight: bold; cursor: pointer; transition: color var(--transition-speed); z-index: 1001; } .close-button:hover { color: #555; }
+        @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } } @keyframes slideInModal { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        /* Tooltip Box */
+        .tooltip-box-style { display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: var(--color-tooltip-bg); color: var(--color-light-text); padding: 12px 18px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); z-index: 1001; max-width: 90%; width: auto; text-align: center; animation: fadeInTooltip 0.3s ease-out; }
+        .tooltip-box-style #tooltip-content { color: var(--color-light-text); background-color: transparent; }
+        .tooltip-box-style #close-tooltip { background-color: var(--color-accent-tooltip); color: var(--color-light-text); padding: 5px 10px; margin-left: 15px; border-radius: 5px; font-size: 0.8em; border: none; cursor: pointer;}
+        @keyframes fadeInTooltip { from { opacity: 0; transform: translateX(-50%) translateY(10px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+
+        /* --- Styles pour la Modale Exercices --- */
+        #exercise-modal .modal-content { max-width: 900px; }
+        #exercise-modal h2 { color: var(--color-primary-start); font-size: 1.6em; text-align: center; margin-bottom: 25px; }
+        .exercise-section { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px dashed var(--color-border); }
+        .exercise-section:last-child { border-bottom: none; margin-bottom: 0; }
+        .exercise-section h3 { color: var(--color-primary-end); font-size: 1.3em; margin-bottom: 15px; }
+
+        /* Styles Quiz */
+        .quiz-question { margin-bottom: 20px; }
+        .quiz-question p { font-weight: 600; margin-bottom: 10px; }
+        .quiz-options label { display: block; margin-bottom: 8px; cursor: pointer; padding: 5px; border-radius: 4px; transition: background-color 0.2s; }
+        .quiz-options label:hover { background-color: #f0f0f0; }
+        .quiz-options input[type="radio"] { margin-right: 8px; }
+        #quiz-results { margin-top: 15px; font-weight: bold; padding: 10px; border-radius: 5px; }
+        /* Styles pour feedback visuel du quiz */
+        .quiz-options label.correct-answer { background-color: #e0f8e0; border-left: 3px solid var(--color-correct); }
+        .quiz-options label.incorrect-answer { background-color: #ffe0e0; border-left: 3px solid var(--color-incorrect); }
+        #quiz-results.correct-answer { background-color: #e0f8e0; color: #388E3C; }
+        #quiz-results.incorrect-answer { background-color: #ffe0e0; color: var(--color-incorrect); }
+
+
+        /* Styles Association */
+        .matching-item { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; flex-wrap: wrap; }
+        .matching-item .term { font-weight: 600; min-width: 150px; padding: 5px 0; }
+        .matching-item select { padding: 8px; border-radius: 4px; border: 1px solid var(--color-border); flex-grow: 1; min-width: 200px; cursor: pointer;}
+        #matching-results { margin-top: 15px; font-weight: bold; padding: 10px; border-radius: 5px; }
+        /* Styles pour feedback visuel association */
+        .matching-item .term.correct-answer { color: var(--color-correct); }
+        .matching-item .term.incorrect-answer { color: var(--color-incorrect); text-decoration: line-through; }
+        #matching-results.correct-answer { background-color: #e0f8e0; color: #388E3C; }
+        #matching-results.incorrect-answer { background-color: #ffe0e0; color: var(--color-incorrect); }
+
+
+        /* Styles Pendu */
+        #hangman-container { text-align: center; }
+        #hangman-word { font-size: 1.8em; letter-spacing: 8px; margin: 20px 0; font-family: 'Courier New', Courier, monospace; background-color: #f8f8f8; padding: 10px; border-radius: 5px; border: 1px solid var(--color-border); display: inline-block; min-width: 200px; }
+        #hangman-guesses { margin-bottom: 15px; color: var(--color-incorrect); min-height: 1.2em; font-style: italic; }
+        #hangman-letters { margin-top: 15px; margin-bottom: 15px; }
+        #hangman-letters button {
+            background: var(--cell-color-1); color: var(--color-light-text); border: none;
+            border-radius: 5px; padding: 8px 10px; margin: 3px; cursor: pointer;
+            font-size: 1em; min-width: 35px; transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+        }
+        #hangman-letters button:hover { background-color: #1E88E5; transform: translateY(-1px); }
+        #hangman-letters button:active { transform: translateY(0px); }
+        #hangman-letters button:disabled { background-color: #90A4AE; cursor: not-allowed; opacity: 0.7; box-shadow: none; }
+        #hangman-status { margin-top: 15px; font-weight: bold; min-height: 1.2em; padding: 10px; border-radius: 5px; }
+        #hangman-status.correct-answer { background-color: #e0f8e0; color: #388E3C; }
+        #hangman-status.incorrect-answer { background-color: #ffe0e0; color: var(--color-incorrect); }
+        .hangman-attempts { margin-top: 10px; font-size: 0.9em; color: #555;}
+        /* Style pour l'indice */
+        #hangman-hint-display {
+            margin-top: 15px; padding: 10px; background-color: #e3f2fd; /* Bleu très clair */
+            border-left: 4px solid var(--color-hint); border-radius: 4px;
+            font-size: 0.95em; color: #1e88e5; /* Bleu foncé */
+            text-align: left; display: none; /* Caché par défaut */
+        }
+        #hangman-hint-btn {
+             background: linear-gradient(135deg, #90CAF9, #64B5F6); /* Bleu clair */
+             color: var(--color-text);
+             margin-left: 10px; /* Espace par rapport au bouton reset */
+        }
+         #hangman-hint-btn:disabled {
+             background: #B0BEC5; /* Gris clair */
+             opacity: 0.7;
+             cursor: not-allowed;
+         }
+
+        /* Boutons communs aux exercices */
+        .exercise-check-button, .exercise-reset-button, #hangman-hint-btn {
+             border: none; padding: 10px 18px; border-radius: 20px;
+             cursor: pointer; font-family: 'Poppins', sans-serif; font-size: 0.95em;
+             font-weight: 600; margin: 15px 5px 0 5px; transition: all 0.3s ease;
+             box-shadow: 0 2px 4px var(--shadow-color);
+        }
+        .exercise-check-button { background: linear-gradient(135deg, var(--color-mid3), var(--color-end)); color: var(--color-text); }
+        .exercise-reset-button { background: linear-gradient(135deg, #ffcc80, #ffab40); color: var(--color-text); } /* Orange doux */
+
+        .exercise-check-button:hover, .exercise-reset-button:hover, #hangman-hint-btn:hover:not(:disabled) {
+            transform: translateY(-2px); box-shadow: 0 4px 8px var(--shadow-color); filter: brightness(1.1);
+        }
+
+
+        /* Responsive */
+        @media (max-width: 992px) { .grid-body { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); } }
+        @media (max-width: 768px) { .grid-course-container { padding: 20px 15px; } .grid-header h1 { font-size: 1.8em; } .grid-header p { font-size: 1em; } .grid-body { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; } .grid-cell { min-height: 150px; padding: 15px 10px; } .cell-icon { font-size: 2em; } .cell-title h3 { font-size: 1em; } .modal-content { width: 95%; padding: 20px; } #content-modal .modal-content h2 {font-size: 1.6em;} #content-modal .network-types { flex-direction: column; } .tooltip-box-style { max-width: 90%; bottom: 10px; font-size: 0.9em; } .matching-item {flex-direction: column; align-items: flex-start;} }
+        @media (max-width: 480px) { body { padding: 10px; } .grid-body { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); } .grid-cell { min-height: 130px; } .cell-icon { font-size: 1.8em; } .cell-title h3 { font-size: 0.9em; } .cell-8 .cell-buttons button { width: 95%; font-size: 0.85em; } #hangman-letters button { min-width: 30px; padding: 6px 8px; font-size: 0.9em;} }
+
+    </style>
+</head>
+<body>
+    <main>
+        <div class="grid-course-container">
+            <div class="grid-header">
+                <h1>Les Réseaux Informatiques Expliqués</h1>
+                <p>Explorez les concepts clés des réseaux et de l'adressage IP</p>
+            </div>
+            <div class="grid-body">
+                <div class="grid-cell cell-1" data-section="intro">         <span class="cell-icon">👋</span> <div class="cell-title"><h3>Bienvenue</h3></div> </div>
+                <div class="grid-cell cell-2" data-section="objectifs">     <span class="cell-icon">🎯</span> <div class="cell-title"><h3>Objectifs</h3></div> </div>
+                <div class="grid-cell cell-3" data-section="what-is-network"><span class="cell-icon">🔗</span> <div class="cell-title"><h3>1. Qu'est-ce qu'un Réseau ?</h3></div> </div>
+                <div class="grid-cell cell-4" data-section="why-networks">    <span class="cell-icon">✨</span> <div class="cell-title"><h3>2. Importance</h3></div> </div>
+                <div class="grid-cell cell-5" data-section="lan-wan">         <span class="cell-icon">🏠/🌍</span> <div class="cell-title"><h3>3. Types (LAN/WAN)</h3></div> </div>
+                <div class="grid-cell cell-6" data-section="ip-addressing">   <span class="cell-icon">🆔</span> <div class="cell-title"><h3>4. Adressage IP</h3></div> </div>
+                <div class="grid-cell cell-7" data-section="binary-system"> <span class="cell-icon">0️⃣1️⃣</span> <div class="cell-title"><h3>5. Système Binaire</h3></div> </div>
+                <div class="grid-cell cell-1" data-section="subnet-mask">   <span class="cell-icon">🎭</span> <div class="cell-title"><h3>6. Masque & "ET"</h3></div> </div> <div class="grid-cell cell-2" data-section="conclusion">    <span class="cell-icon">🏁</span> <div class="cell-title"><h3>Synthèse</h3></div> </div> <div class="grid-cell cell-8">
+                    <span class="cell-icon">🎮</span>
+                    <div class="cell-title"><h3>Activités</h3></div>
+                    <div class="cell-buttons">
+                        <button id="open-exercise-modal">Tester mes connaissances !</button>
+                        <button id="open-homework-button">📝 Faire le devoir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <div id="original-course-content" style="display: none;">
+            <section id="intro" class="course-section"><h2>👋 Bonjour à tous !</h2><p>Aujourd'hui, nous allons plonger dans un monde que vous utilisez tous les jours sans même y penser : celui des <span class="tooltip-trigger" data-tooltip="Ensemble d'appareils (ordinateurs, téléphones...) connectés entre eux pour échanger des informations.">réseaux informatiques</span>. Que ce soit pour regarder une vidéo sur YouTube, envoyer un message à un ami, faire une recherche pour un exposé, ou même imprimer un document à l'école, vous utilisez un réseau. Comprendre comment cela fonctionne est une compétence essentielle dans notre monde numérique.</p><div class="did-you-know"><p><strong>Le Saviez-vous ?</strong> Le tout premier réseau informatique reliant plusieurs villes, appelé ARPANET, est l'ancêtre d'Internet et a été créé aux États-Unis à la fin des années 1960 !</p></div></section>
+            <section id="objectifs" class="course-section"><h2>🎯 Objectifs de ce cours :</h2><ul><li>Comprendre ce qu'est un réseau informatique et pourquoi c'est important.</li><li>Identifier les composants clés d'un réseau.</li><li>Différencier les principaux types de réseaux (<span class="tooltip-trigger" data-tooltip="Local Area Network : Réseau local, comme à la maison ou dans une salle de classe.">LAN</span> et <span class="tooltip-trigger" data-tooltip="Wide Area Network : Réseau étendu, qui couvre une grande zone géographique, comme Internet.">WAN</span>).</li><li>Comprendre le rôle crucial de l'<span class="tooltip-trigger" data-tooltip="Internet Protocol Address : L'adresse unique de chaque appareil sur un réseau, comme une adresse postale numérique.">adresse IP</span>.</li><li>Apprendre à lire et interpréter un <span class="tooltip-trigger" data-tooltip="Un plan qui organise comment les adresses IP sont attribuées dans un réseau pour éviter les doublons et faciliter la gestion.">plan d'adressage</span> simple.</li><li>Se familiariser avec le <span class="tooltip-trigger" data-tooltip="Système de numération utilisant seulement 0 et 1, le langage de base des ordinateurs.">système binaire</span>.</li><li>Comprendre le rôle du <span class="tooltip-trigger" data-tooltip="Complément de l'adresse IP qui aide à déterminer quelle partie de l'adresse identifie le réseau et quelle partie identifie l'appareil.">masque de sous-réseau</span> et de la fonction logique "<span class="tooltip-trigger" data-tooltip="Opération logique de base en informatique. Le résultat est VRAI (1) seulement si les deux éléments comparés sont VRAI (1).">ET</span>".</li></ul><p>Prenez le temps de lire attentivement chaque section. Des exemples concrets sont là pour vous aider à visualiser les concepts. N'hésitez pas à cliquer sur les mots soulignés pour avoir une définition rapide ! C'est parti !</p></section>
+            <section id="what-is-network" class="course-section"><h2>1. Qu'est-ce qu'un Réseau Informatique ? 🤔</h2><p><strong>Définition Fondamentale :</strong> Imaginez un réseau informatique comme une toile d'araignée invisible qui relie différents appareils électroniques entre eux. Ces appareils (ordinateurs, smartphones, tablettes, imprimantes, serveurs, consoles de jeux, etc.) peuvent ainsi "parler" entre eux, échanger des <span class="tooltip-trigger" data-tooltip="Informations numériques (texte, images, vidéos...) qui circulent sur le réseau.">données</span> et partager des outils (<span class="tooltip-trigger" data-tooltip="Éléments matériels (comme une imprimante) ou logiciels (comme un fichier partagé) accessibles via le réseau.">ressources</span>).</p><p><strong>Analogie Utile :</strong> Pensez au réseau routier. Les routes (les connexions réseau) relient les villes (les appareils). Les voitures et camions (les données) circulent sur ces routes pour transporter des personnes et des marchandises (informations et ressources) d'une ville à l'autre.</p><h3>Exemples Concrets Autour de Vous :</h3><ul><li><strong>À la Maison :</strong> Votre box Internet crée un réseau domestique. Votre ordinateur, votre téléphone, votre tablette, peut-être une console de jeux ou une télévision connectée, y sont tous reliés (souvent en <span class="tooltip-trigger" data-tooltip="Technologie de connexion réseau sans fil utilisant des ondes radio. Très pratique !">Wi-Fi</span>). Ils peuvent tous accéder à Internet via la box et parfois communiquer entre eux.</li><li><strong>Dans la Salle de Classe / Informatique :</strong> Les ordinateurs sont souvent connectés ensemble. Cela permet au professeur de partager des exercices, et à vous d'enregistrer votre travail dans un dossier commun ou d'utiliser une seule imprimante pour toute la classe.</li><li><strong>Au Collège/Lycée :</strong> Toutes les salles, les bureaux administratifs, la bibliothèque sont interconnectés pour former le réseau de l'établissement.</li><li><strong>Internet : Le Géant Mondial :</strong> C'est LE plus grand réseau qui existe ! Il connecte des milliards d'appareils partout sur la planète.</li></ul><h3>Vocabulaire Essentiel (Les Acteurs du Réseau) :</h3><ul><li><span class="tooltip-trigger" data-tooltip="L'ordinateur que tu utilises directement (PC, Mac...).">Poste de travail</span></li><li><span class="tooltip-trigger" data-tooltip="Un ordinateur puissant qui fournit des services (fichiers, sites web, authentification...) aux autres appareils du réseau. Il ne sert pas directement à un utilisateur.">Serveur</span></li><li><span class="tooltip-trigger" data-tooltip="L'appareil qui 'aiguille' les données entre différents réseaux (par exemple, entre ton réseau maison et Internet). Ta box Internet contient un routeur.">Routeur</span></li><li><span class="tooltip-trigger" data-tooltip="Appareil qui connecte plusieurs appareils au sein d'un MÊME réseau local (LAN). Il dirige les données vers le bon destinataire localement.">Switch (ou Commutateur)</span></li><li><span class="tooltip-trigger" data-tooltip="Le câble (souvent bleu, mais pas toujours !) qui relie physiquement les appareils au réseau. Connexion rapide et stable.">Câble réseau (Ethernet)</span></li><li><span class="tooltip-trigger" data-tooltip="Technologie de connexion réseau sans fil utilisant des ondes radio. Très pratique !">Wi-Fi</span></li></ul><button class="interactive-button" data-action="reflect">Petite Réflexion : Clique ici pour voir des exemples d'appareils connectés !</button></section>
+            <section id="why-networks" class="course-section"><h2>2. Pourquoi les Réseaux sont-ils si Importants ? ✨</h2><p>Les réseaux ne sont pas juste une prouesse technique, ils nous simplifient la vie et ouvrent des possibilités incroyables :</p><ul><li><strong>Partage Facile = Économies et Collaboration :</strong> Partager une imprimante pour toute la classe, accéder à des fichiers communs sur un serveur... C'est plus économique et pratique pour travailler ensemble !</li><li><strong>Communication Sans Frontières (ou presque !) :</strong> Emails, messageries (WhatsApp, Discord...), appels vidéo, réseaux sociaux... Tout cela fonctionne grâce aux réseaux !</li><li><strong>La Porte d'Entrée vers Internet :</strong> Pour surfer sur le web, regarder des vidéos, jouer en ligne... ton appareil doit être connecté à un réseau local, lui-même relié au gigantesque réseau mondial : Internet.</li></ul><div class="did-you-know"><p><strong>Le Saviez-vous ?</strong> Chaque seconde, des millions de Gigaoctets de données traversent Internet ! C'est comme si des milliards de livres étaient échangés en permanence.</p></div></section>
+            <section id="lan-wan" class="course-section"><h2>3. Les Différents Types de Réseaux (Les Échelles) 📏</h2><p>On classe souvent les réseaux selon leur taille géographique :</p><div class="network-types"><div class="network-card lan-card"><h3>LAN (Local Area Network - Réseau Local)</h3><p>Couvre une zone restreinte (maison, salle de classe, bâtiment).</p><p><strong>Exemples :</strong> Réseau domestique, réseau de la salle info.</p><p><strong>Connexions :</strong> Câbles Ethernet, Wi-Fi.</p><p><strong>Objectif :</strong> Partage local (imprimante, fichiers), accès partagé à Internet.</p></div><div class="network-card wan-card"><h3>WAN (Wide Area Network - Réseau Étendu)</h3><p>Couvre une grande zone géographique (ville, pays, monde).</p><p><strong>Exemples :</strong> Réseau d'une chaîne de magasins, Internet.</p><p><strong>Connexions :</strong> Fibre optique, satellite, lignes spécialisées...</p><p><strong>Objectif :</strong> Connecter des LAN distants, connecter des utilisateurs sur de longues distances.</p></div></div></section>
+            <section id="ip-addressing" class="course-section"><h2>4. L'Adressage IP : La Carte d'Identité Numérique 🆔</h2><p><strong>Qu'est-ce qu'une <span class="tooltip-trigger" data-tooltip="Internet Protocol Address : L'adresse unique de chaque appareil sur un réseau, comme une adresse postale numérique.">Adresse IP</span> ?</strong> Chaque appareil connecté (ordi, tel, imprimante réseau...) a une adresse IP unique sur le réseau, comme une adresse postale numérique. Sans elle, impossible de lui envoyer ou de recevoir des données !</p><p><strong>Structure d'une Adresse IP (Version 4 - IPv4) :</strong> La plus courante aujourd'hui. Elle ressemble à ça : <code>192.168.1.10</code></p><ul><li>Composée de <strong>quatre nombres</strong> (appelés <span class="tooltip-trigger" data-tooltip="Un groupe de 8 bits. Chaque nombre dans une adresse IPv4 est un octet.">octets</span>), séparés par des points.</li><li>Chacun de ces nombres est compris entre <strong>0 et 255</strong>.</li><li>Exemples valides : <code>10.0.0.1</code>, <code>172.16.30.88</code>, <code>8.8.8.8</code> (serveur DNS Google).</li><li>Exemple invalide : <code>192.168.1.256</code> (256 est trop grand !).</li></ul><div class="did-you-know"><p><strong>Le Saviez-vous ?</strong> On utilise de plus en plus les adresses IPv6 (beaucoup plus longues !) car on commence à manquer d'adresses IPv4 disponibles dans le monde à cause du nombre croissant d'appareils connectés.</p></div><h3>Le Plan d'Adressage : Organiser les Adresses 🗺️</h3><p>Dans un grand réseau (école, entreprise), on ne donne pas les adresses IP au hasard. On crée un <span class="tooltip-trigger" data-tooltip="Un plan qui organise comment les adresses IP sont attribuées dans un réseau pour éviter les doublons et faciliter la gestion.">plan d'adressage</span> logique pour :</p><ul><li>✅ Éviter les conflits (deux appareils avec la même IP = problème !).</li><li>🛠️ Simplifier la gestion et le dépannage.</li><li>🔒 Aider à organiser la sécurité.</li></ul><h4>Exemple Concret de Plan d'Adressage (Collège Verdi) :</h4><p>Structure : <code>COLLEGE . ZONE . SALLE . NUMERO_POSTE</code></p><ul><li>COLLEGE = <code>10</code></li><li>ZONE : RDC droite = <code>1</code>, RDC gauche = <code>2</code>, Étage droite = <code>10</code>, Étage gauche = <code>20</code></li><li>SALLE : Numéro de la salle dans la zone.</li><li>NUMERO_POSTE : Numéro de l'ordinateur dans la salle.</li></ul><p><strong>Comment lire <code>10.2.1.7</code> ?</strong> Collège Verdi (10) -&gt; Zone RDC gauche (2) -&gt; Salle N°1 -&gt; Poste N°7. On sait exactement où il est !</p><h4>Exercices d'Application (Plan Collège Verdi) :</h4><ol><li>Quelle serait l'adresse IP du poste N°15 dans la salle N°8 de l'étage de droite ? <button class="answer-button" data-answer="10.10.8.15 (Collège=10, Zone Etage droite=10, Salle=8, Poste=15)">Voir la réponse</button><div class="answer-box" style="display: none;"></div></li><li>Quelle serait l'adresse IP du poste N°3 dans la salle N°2 de l'étage de gauche ? <button class="answer-button" data-answer="10.20.2.3 (Collège=10, Zone Etage gauche=20, Salle=2, Poste=3)">Voir la réponse</button><div class="answer-box" style="display: none;"></div></li><li>Où se trouve l'appareil avec l'IP <code>10.1.5.12</code> ? <button class="answer-button" data-answer="Au RDC droite (Zone 1), dans la salle N°5, au poste N°12.">Voir la réponse</button><div class="answer-box" style="display: none;"></div></li></ol></section>
+            <section id="binary-system" class="course-section"><h2>5. Le Système Binaire : Le Langage Secret (0 et 1) 🤫</h2><p><strong>Introduction : Pourquoi 0 et 1 ?</strong> Les ordinateurs fonctionnent avec l'électricité : courant passe (1) ou ne passe pas (0). Le <span class="tooltip-trigger" data-tooltip="Système de numération utilisant seulement 0 et 1, le langage de base des ordinateurs.">système binaire</span> utilise juste ces deux chiffres. Tout ce que fait un ordi est basé sur des 0 et des 1 !</p><p><strong>Décimal vs. Binaire :</strong> Nous utilisons la base 10 (0-9). Les ordis utilisent la base 2 (0-1).</p><h3>Les Unités de Mesure de l'Information :</h3><ul><li><span class="tooltip-trigger" data-tooltip="Binary Digit : La plus petite unité d'info (un 0 ou un 1). Comme un interrupteur ON/OFF.">Bit</span></li><li><span class="tooltip-trigger" data-tooltip="Byte en anglais : Un groupe de 8 bits. Permet de représenter des caractères (lettres, chiffres...) ou des nombres plus grands.">Octet</span> (C'est pourquoi chaque partie d'une IPv4 est un octet !)</li></ul><h3>Comprendre les Puissances de 2 :</h3><p>Essentiel pour le binaire ! Chaque position d'un nombre binaire (lu de droite à gauche) représente une puissance de 2 :</p><pre><code>Position (Puissance de 2):  128   64   32   16    8    4    2    1
+Valeur (2^n):             2⁷   2⁶   2⁵   2⁴   2³   2²   2¹   2⁰</code></pre><h3>Conversion : Binaire -&gt; Décimal (Facile !)</h3><p>Additionnez les valeurs des positions où il y a un '1'.</p><p>Exemple : <code>01011010</code></p><pre><code>Position:  128  64  32  16   8   4   2   1
+Binaire :    0   1   0   1   1   0   1   0
+           ---------------------------------
+Calcul :     0 + 64 + 0 + 16 + 8 + 0 + 2 + 0 = 90</code></pre><p>Donc, <code>01011010</code> (binaire) = <code>90</code> (décimal).</p><h3>Conversion : Décimal -&gt; Binaire (Un peu plus de réflexion)</h3><p>Prenez votre nombre décimal. Trouvez la plus grande puissance de 2 plus petite ou égale. Mettez '1' à cette position, soustrayez la valeur. Répétez avec le reste pour les puissances suivantes.</p><p>Exemple : Convertir <code>25</code> en binaire (8 bits)</p><pre><code>Nombre = 25
+128 > 25 -> 0 | Reste 25
+ 64 > 25 -> 0 | Reste 25
+ 32 > 25 -> 0 | Reste 25
+ 16 <= 25 -> 1 | Reste 25-16=9
+  8 <= 9  -> 1 | Reste 9-8=1
+  4 > 1  -> 0 | Reste 1
+  2 > 1  -> 0 | Reste 1
+  1 <= 1  -> 1 | Reste 1-1=0
+Résultat : 00011001</code></pre><h3>Le Lien avec l'Adressage IP :</h3><p>Quand vous écrivez <code>192.168.1.10</code>, l'ordinateur voit : <code>11000000.10101000.00000001.00001010</code>. Chaque nombre est juste la traduction de 8 bits !</p><h4>Entraînez-vous !</h4><ul><li>Convertissez <code>10101010</code> (binaire) en décimal. <button class="answer-button" data-answer="170 (128 + 32 + 8 + 2)">Voir la réponse</button><div class="answer-box" style="display: none;"></div></li><li>Convertissez <code>100</code> (décimal) en binaire (8 bits). <button class="answer-button" data-answer="01100100 (64 + 32 + 4)">Voir la réponse</button><div class="answer-box" style="display: none;"></div></li></ul></section>
+            <section id="subnet-mask" class="course-section"><h2>6. La Fonction "ET" et les Masques de Sous-Réseau 🎭</h2><p><strong>La Fonction Logique "<span class="tooltip-trigger" data-tooltip="Opération logique de base en informatique. Le résultat est VRAI (1) seulement si les deux éléments comparés sont VRAI (1).">ET</span>" (AND) :</strong> Une opération simple sur les bits (0 ou 1). Le résultat est 1 UNIQUEMENT si les deux bits d'entrée sont 1.</p><table class="and-table"><caption>Table de Vérité du "ET"</caption><thead><tr><th>Entrée A</th><th>Entrée B</th><th>Sortie (A ET B)</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td></tr></tbody></table><h3>Le Masque de Sous-Réseau : Diviser pour Mieux Régner</h3><p>Comment un ordi sait si une autre IP est sur le même réseau local (voisin) ou sur un réseau distant (loin) ? Grâce au <span class="tooltip-trigger" data-tooltip="Complément de l'adresse IP qui aide à déterminer quelle partie de l'adresse identifie le réseau et quelle partie identifie l'appareil (hôte).">masque de sous-réseau</span> !</p><p>Il ressemble à une IP (ex: <code>255.255.255.0</code>) et sépare l'adresse IP en deux parties :</p><ul><li><strong>Partie Réseau :</strong> Identifie le réseau (la "rue"). Identique pour tous les appareils du même LAN.</li><li><strong>Partie Hôte :</strong> Identifie l'appareil spécifique dans ce réseau (le "numéro de maison").</li></ul><p>En binaire, le masque est une suite de '1' (pour la partie réseau) suivie d'une suite de '0' (pour la partie hôte). Ex: <code>255.255.255.0</code> = <code>11111111.11111111.11111111.00000000</code> (Les 3 premiers octets = réseau, le dernier = hôte).</p><h3>L'Opération "ET" pour Trouver l'Adresse Réseau :</h3><p>L'ordi fait un "ET" logique bit par bit entre l'Adresse IP et le Masque de sous-réseau. Le résultat est l'adresse du réseau.</p><p>Exemple : IP = <code>192.168.1.10</code>, Masque = <code>255.255.255.0</code></p><pre><code>  11000000.10101000.00000001.00001010  (IP: 192.168.1.10)
+ET 11111111.11111111.11111111.00000000  (Masque: 255.255.255.0)
+-----------------------------------------
+= 11000000.10101000.00000001.00000000  (Résultat)</code></pre><p>Résultat en décimal : <code>192.168.1.0</code>. C'est l'adresse du réseau ! Si un autre appareil a la même adresse réseau (ex: <code>192.168.1.20</code> avec le même masque), l'ordi sait qu'il est "voisin". Sinon, il doit passer par le <span class="tooltip-trigger" data-tooltip="L'appareil qui 'aiguille' les données vers d'autres réseaux.">routeur</span>.</p><div class="did-you-know"><p><strong>Le Saviez-vous ?</strong> Calculer l'adresse réseau avec l'opération "ET" est l'une des opérations les plus fondamentales que votre ordinateur ou smartphone fait des milliers de fois par jour sans que vous vous en rendiez compte !</p></div></section>
+            <section id="conclusion" class="course-section"><h2>🎉 Synthèse et Pour Aller Plus Loin</h2><p>Félicitations ! Tu as exploré les bases des réseaux et de l'IP.</p><h3>Ce qu'il faut retenir :</h3><ul><li>Un réseau connecte des appareils pour partager infos et ressources.</li><li>Composants clés : Poste de travail, Serveur, Routeur, Switch, Câbles, Wi-Fi.</li><li>Utilité : Partage, Communication, Accès Internet.</li><li>Types : LAN (local), WAN (étendu).</li><li>Adresse IP : Identifiant unique (IPv4 = 4 octets 0-255).</li><li>Plan d'adressage : Organisation logique des IP.</li><li>Binaire : Langage des ordis (0 et 1), basé sur les puissances de 2 (1 octet = 8 bits).</li><li>Masque de sous-réseau : Sépare l'IP (partie réseau / partie hôte).</li><li>Opération "ET" : Trouve l'adresse réseau (IP ET Masque).</li></ul><p>Ces connaissances sont super importantes. Le devoir qui suit te permettra de pratiquer tout ça. Assure-toi d'avoir bien compris chaque section.</p><p><strong>Bon travail et bonne préparation pour le devoir !</strong></p></section>
+        </div> </main>
+
+    <div id="content-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" title="Fermer">&times;</span>
+            <h2 id="content-modal-title">Titre de la Section</h2>
+            <div id="content-modal-body">
+                </div>
+        </div>
+    </div>
+
+    <div id="exercise-modal" class="modal">
+         <div class="modal-content">
+            <span class="close-button" title="Fermer">&times;</span>
+            <h2>Tester mes connaissances !</h2>
+            <div id="exercise-modal-body">
+                <div class="exercise-section" id="quiz-container">
+                    <div id="quiz-results"></div>
+                </div>
+                <div class="exercise-section" id="matching-container">
+                     <div id="matching-results"></div>
+                </div>
+                <div class="exercise-section" id="hangman-container">
+                    <h3>Jeu du Pendu (Termes Réseau)</h3>
+                    <div id="hangman-word">_ _ _ _ _ _</div>
+                    <div id="hangman-guesses">Lettres incorrectes : </div>
+                    <div id="hangman-letters">
+                        </div>
+                    <div id="hangman-attempts" class="hangman-attempts">Tentatives restantes : 6</div>
+                    <div id="hangman-status"></div>
+                    <div id="hangman-hint-display" style="display: none;"></div>
+                    <button id="hangman-hint-btn" class="exercise-reset-button" style="background: linear-gradient(135deg, #90CAF9, #64B5F6);">💡 Indice</button>
+                    <button id="hangman-reset-btn" class="exercise-reset-button">Nouveau Mot</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tooltip-box" class="tooltip-box-style" style="display: none;">
+        <span id="tooltip-content">Définition...</span>
+        <button id="close-tooltip">Fermer</button>
+    </div>
+
+
+    <script>
+        'use strict';
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("DOM chargé. Adaptation Grille Interactive + Contenu Original.");
+
+            // === Références DOM ===
+            const clickableGridCells = document.querySelectorAll('.grid-cell[data-section]');
+            const contentModal = document.getElementById('content-modal');
+            const exerciseModal = document.getElementById('exercise-modal');
+            const tooltipBox = document.getElementById('tooltip-box');
+            const contentModalTitle = document.getElementById('content-modal-title');
+            const contentModalBody = document.getElementById('content-modal-body');
+            const originalContentContainer = document.getElementById('original-course-content');
+            const openHomeworkButton = document.getElementById('open-homework-button');
+            const openExerciseModalBtn = document.getElementById('open-exercise-modal');
+            // Références spécifiques aux conteneurs d'exercices
+            const exerciseModalBody = document.getElementById('exercise-modal-body');
+            const quizContainer = document.getElementById('quiz-container');
+            const quizResults = document.getElementById('quiz-results');
+            const matchingContainer = document.getElementById('matching-container');
+            const matchingResults = document.getElementById('matching-results');
+            const hangmanContainer = document.getElementById('hangman-container');
+            // Éléments spécifiques au pendu (références directes car structure fixe maintenant)
+            const hangmanWordDisplay = document.getElementById('hangman-word');
+            const hangmanGuessesDisplay = document.getElementById('hangman-guesses');
+            const hangmanLettersContainer = document.getElementById('hangman-letters');
+            const hangmanStatus = document.getElementById('hangman-status');
+            const hangmanAttempts = document.getElementById('hangman-attempts');
+            const hangmanHintDisplay = document.getElementById('hangman-hint-display');
+            const hangmanHintButton = document.getElementById('hangman-hint-btn');
+            const hangmanResetButton = document.getElementById('hangman-reset-btn');
+
+
+             // Vérification initiale des éléments essentiels
+             // Simplifiée car la structure HTML du pendu est maintenant fixe
+             if (!contentModal || !tooltipBox || !originalContentContainer || !openHomeworkButton || !openExerciseModalBtn || !exerciseModal || !contentModalTitle || !contentModalBody || !exerciseModalBody || !quizContainer || !quizResults || !matchingContainer || !matchingResults || !hangmanContainer || !hangmanWordDisplay || !hangmanGuessesDisplay || !hangmanLettersContainer || !hangmanStatus || !hangmanAttempts || !hangmanHintDisplay || !hangmanHintButton || !hangmanResetButton) {
+                 console.error("ERREUR CRITIQUE : Éléments HTML de base manquants ! Vérifiez tous les IDs.");
+                 document.body.innerHTML = "<h1>Erreur critique lors du chargement de la page. Des éléments essentiels sont manquants.</h1>";
+                 return;
+             }
+             if (clickableGridCells.length === 0) {
+                 console.warn("Aucune cellule de grille cliquable trouvée (avec data-section). La navigation par grille ne fonctionnera pas.");
+             }
+
+
+            // === Fonctions Utilitaires ===
+            function openModal(modalElement) { if (modalElement) modalElement.classList.add('active'); }
+            function closeModal(modalElement) { if (modalElement) modalElement.classList.remove('active'); }
+            function closeAllModals() {
+                document.querySelectorAll('.modal.active').forEach(closeModal);
+                if (tooltipBox) tooltipBox.style.display = 'none';
+             }
+
+            // --- Initialisation Affichage ---
+            closeAllModals();
+
+            // === GESTION DES ÉVÉNEMENTS ===
+
+            // 1. Clic sur les Cellules Cliquables -> Ouvre Modale Contenu
+            clickableGridCells.forEach(cell => {
+                cell.addEventListener('click', (e) => {
+                    try {
+                        const sectionId = e.currentTarget.getAttribute('data-section');
+                        if (!sectionId) return;
+                        const originalSection = originalContentContainer?.querySelector(`.course-section#${sectionId}`);
+                        if (originalSection) {
+                            const sectionTitleElement = originalSection.querySelector('h2');
+                            contentModalTitle.textContent = sectionTitleElement ? sectionTitleElement.textContent.trim() : 'Détails';
+                            contentModalBody.innerHTML = originalSection.innerHTML;
+                            const copiedH2 = contentModalBody.querySelector('h2');
+                            if (copiedH2) copiedH2.style.display = 'none';
+                            contentModalBody.querySelectorAll('.answer-box').forEach(box => box.style.display = 'none');
+                            openModal(contentModal);
+                            const modalContentDiv = contentModal.querySelector('.modal-content');
+                            if (modalContentDiv) modalContentDiv.scrollTop = 0;
+                        } else {
+                             console.error(`Contenu pour section #${sectionId} introuvable.`);
+                             contentModalTitle.textContent = "Erreur";
+                             contentModalBody.innerHTML = `<p>Contenu non trouvé.</p>`;
+                             openModal(contentModal);
+                        }
+                    } catch(err) {
+                        console.error("Erreur clic cellule:", err);
+                         contentModalTitle.textContent = "Erreur";
+                         contentModalBody.innerHTML = `<p>Erreur chargement.</p>`;
+                         openModal(contentModal);
+                    }
+                });
+            });
+
+             // 2. Événements délégués sur Body (Tooltips, Réponses, Fermetures Modales)
+             document.body.addEventListener('click', function(event) {
+                 try {
+                     // a) Tooltips
+                     const tooltipTrigger = event.target.closest('.tooltip-trigger');
+                     if (tooltipTrigger && tooltipBox && !event.target.closest('#close-tooltip')) {
+                         event.stopPropagation();
+                         const tooltipContentEl = tooltipBox.querySelector('#tooltip-content');
+                         if(tooltipContentEl) tooltipContentEl.textContent = tooltipTrigger.getAttribute('data-tooltip') || "Définition non trouvée";
+                         tooltipBox.style.display = 'block';
+                         return;
+                     }
+                     // b) Bouton Fermer Tooltip
+                      const closeTooltipButton = event.target.closest('#close-tooltip');
+                      if (closeTooltipButton && tooltipBox) {
+                         tooltipBox.style.display = 'none';
+                         return;
+                     }
+                     // c) Boutons Réponse
+                     const answerButton = event.target.closest('.answer-button');
+                     if (answerButton) {
+                         const currentContentModal = document.querySelector('#content-modal.active');
+                         if (currentContentModal && currentContentModal.contains(answerButton)) {
+                             const answerText = answerButton.getAttribute('data-answer');
+                             let displayBox = answerButton.nextElementSibling; // Simplifié, assume qu'il est juste après
+                             if (!displayBox || !displayBox.classList.contains('answer-box')) {
+                                const parentLi = answerButton.closest('li');
+                                if(parentLi) displayBox = parentLi.querySelector('.answer-box');
+                             }
+                             if (displayBox) {
+                                 displayBox.textContent = `Réponse : ${answerText}`;
+                                 displayBox.style.display = 'block';
+                             } else { console.warn("Boîte réponse non trouvée pour:", answerButton); }
+                             return;
+                         }
+                     }
+                      // d) Boutons Interactifs
+                      const interactiveButton = event.target.closest('.interactive-button');
+                      if(interactiveButton) {
+                          const currentContentModal = document.querySelector('#content-modal.active');
+                          if (currentContentModal && currentContentModal.contains(interactiveButton)) {
+                              const action = interactiveButton.getAttribute('data-action');
+                              if (action === 'reflect') {
+                                  alert('Exemples d\'appareils connectés :\n\nChez moi : Téléphone (Wi-Fi), Ordinateur (Wi-Fi/Ethernet), Console (Ethernet).\n\nÀ l\'école : Poste de travail (Ethernet), Imprimante réseau (Ethernet), Serveur de fichiers (caché !).');
+                              }
+                              return;
+                          }
+                      }
+                     // e) Fermeture des Modales par clic sur la croix
+                     const closeButton = event.target.closest('.close-button');
+                     if(closeButton) {
+                         const modalToClose = closeButton.closest('.modal');
+                         if(modalToClose) closeModal(modalToClose);
+                         return;
+                     }
+                     // f) Fermeture des Modales par clic extérieur
+                     if (event.target.classList.contains('modal') && event.target.classList.contains('active')) {
+                         closeModal(event.target);
+                         return;
+                     }
+                     // g) Fermeture Tooltip par clic extérieur
+                      if (tooltipBox && tooltipBox.style.display === 'block') {
+                         if (!event.target.closest('.tooltip-trigger') && !tooltipBox.contains(event.target)) {
+                              tooltipBox.style.display = 'none';
+                         }
+                     }
+                 } catch (err) { console.error("Erreur dans le gestionnaire de clics délégué:", err); }
+             });
+
+             // Fermeture tooltip et modales avec la touche Echap
+             document.addEventListener('keydown', (event) => {
+                 if (event.key === 'Escape') {
+                    if (tooltipBox && tooltipBox.style.display === 'block') {
+                         tooltipBox.style.display = 'none';
+                    } else {
+                        const activeModals = document.querySelectorAll('.modal.active');
+                        if (activeModals.length > 0) { closeModal(activeModals[activeModals.length - 1]); }
+                    }
+                 }
+             });
+
+            // 3. Listener pour bouton "Tester mes connaissances" -> Ouvre Modale Exercices
+            if (openExerciseModalBtn) {
+                openExerciseModalBtn.addEventListener('click', () => {
+                    openModal(exerciseModal);
+                    const modalContentDiv = exerciseModal.querySelector('.modal-content');
+                    if(modalContentDiv) modalContentDiv.scrollTop = 0;
+                    setupExercises(); // Initialiser les exercices
+                });
+            }
+
+            // 4. Listener pour bouton "Faire le devoir" -> Ouvre Fenêtre Pop-up
+            if (openHomeworkButton) {
+                openHomeworkButton.addEventListener('click', () => {
+                    try {
+                        const windowWidth = 850; const windowHeight = 700;
+                        const left = (screen.width / 2) - (windowWidth / 2);
+                        const top = (screen.height / 2) - (windowHeight / 2);
+                        const windowFeatures = `width=${windowWidth},height=${windowHeight},top=${top},left=${left},resizable=yes,scrollbars=yes`;
+                        const homeworkWindow = window.open('', 'HomeworkWindow', windowFeatures);
+                        if (homeworkWindow) {
+                            const homeworkHTML = `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Devoir - Réseau et Adressage IP</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"><style>:root{--color-start:#ff6b6b;--color-mid1:#ffa07a;--color-mid2:#ffd700;--color-mid3:#98fb98;--color-end:#66cdaa;--text-color:#333;--light-text:#f8f8f8;--bg-color:#fff;--card-bg:#fdfdfd;--border-color:#e0e0e0;--shadow-color:rgba(0,0,0,.1);--accent-color:var(--color-start)}body{font-family:'Poppins',sans-serif;line-height:1.6;color:var(--text-color);background-color:var(--bg-color);margin:0;padding:25px}h2{color:var(--accent-color);margin-top:0;margin-bottom:25px;text-align:center;font-size:1.8em}h3{color:var(--color-mid1);margin-top:30px;margin-bottom:15px;font-size:1.4em;border-bottom:1px solid var(--border-color);padding-bottom:5px}hr{border:0;border-top:1px solid var(--border-color);margin:30px 0}label{display:block;margin-bottom:5px;font-weight:600;color:var(--text-color)}input[type=text],textarea{width:100%;padding:10px;margin-bottom:15px;border:1px solid var(--border-color);border-radius:5px;font-family:'Poppins',sans-serif;font-size:1em;box-sizing:border-box}input[type=text]:focus,textarea:focus{border-color:var(--color-mid3);outline:0;box-shadow:0 0 5px rgba(152,251,152,.5)}textarea{min-height:80px;resize:vertical}.radio-group label{display:inline-block;margin-right:15px;font-weight:400}.radio-group input[type=radio]{margin-right:5px;vertical-align:middle}table{width:100%;margin-bottom:20px;border-collapse:collapse}th,td{border:1px solid var(--border-color);padding:8px;text-align:center;vertical-align:middle}th{background-color:#f8f8f8;font-size:.85em;font-weight:400}td input[type=text]{margin-bottom:0;text-align:center;font-size:.9em}.and-table-input input{width:40px}.image-placeholder{border:1px solid var(--border-color);padding:10px;margin:20px 0;text-align:center;border-radius:5px;background-color:#fdfdfd}.action-button{background:linear-gradient(135deg,var(--color-mid3),var(--color-end));color:var(--text-color);border:none;padding:10px 18px;border-radius:20px;cursor:pointer;font-family:'Poppins',sans-serif;font-size:.95em;font-weight:600;margin:5px;transition:all .3s ease;box-shadow:0 2px 4px var(--shadow-color)}.action-button:hover{transform:translateY(-2px);box-shadow:0 4px 8px var(--shadow-color);filter:brightness(1.1)}#summary-container{margin-top:30px;padding-top:20px;border-top:2px solid var(--accent-color);display:none}#summary-content{background-color:#f9f9f9;border:1px solid var(--border-color);border-radius:8px;padding:20px;margin-top:10px;max-height:40vh;overflow-y:auto;white-space:pre-wrap;font-family:'Courier New',Courier,monospace;font-size:.9em;line-height:1.6}#copy-info{margin-top:10px;font-size:.9em;color:#555;text-align:center}#copy-button{display:block;margin:15px auto 0}.instructions{background-color:#eef;border-left:4px solid #99f;padding:10px 15px;margin-bottom:20px;border-radius:4px;font-size:.95em}</style></head><body><h2>Devoir : Réseau Informatique et Adressage IP</h2><div class="instructions"><p><strong>Instructions pour l'élève :</strong></p><ol><li>Répondez à toutes les questions ci-dessous en vous aidant du cours (visible dans l'autre fenêtre).</li><li>Bien relire le cours</li><li>Une fois terminé, cliquez sur le bouton "Générer le Récapitulatif" en bas.</li><li>Un résumé de vos réponses apparaîtra. Vous pouvez cliquer dedans pour corriger des fautes si besoin.</li><li>Cliquez sur "Copier le Récapitulatif" puis collez le texte dans votre document traitement de texte pour le rendre.</li></ol></div><form id="homework-form"><label for="student-name">Nom de l'élève :</label><input type="text" id="student-name" name="student-name" placeholder="Votre nom complet"><label for="student-class">Classe :</label><input type="text" id="student-class" name="student-class" placeholder="Votre classe"><label for="student-date">Date :</label><input type="text" id="student-date" name="student-date" placeholder="Date du jour"><hr><div class="image-placeholder"><img src="https://cdn.pixabay.com/photo/2016/03/31/23/20/communication-1297544_1280.png" alt="Communication Réseau" style="max-width: 90%; height: auto; display: block; margin: 10px auto; border-radius: 5px;"></div><h3>Exercice 1 : Plan d'Adressage du Collège Verdi</h3><p><strong>Rappel du Plan :</strong> <code>10.ZONE.SALLE.N°_POSTE</code> (Zones: RDC droite=1, RDC gauche=2, Etage droite=10, Etage gauche=20)</p><ol><li><label for="ex1-q1">Donnez un exemple d'adresse IP pour le poste N°5 dans la <strong>salle 6</strong> au premier <strong>étage droite</strong> :</label><input type="text" id="ex1-q1" name="ex1-q1" placeholder="Ex: 10.X.X.X"></li><li><label for="ex1-q2">Donnez un exemple d'adresse IP pour le poste N°8 dans la <strong>salle 7</strong> au premier <strong>étage droite</strong> :</label><input type="text" id="ex1-q2" name="ex1-q2" placeholder="Ex: 10.X.X.X"></li><li><label for="ex1-q3">Imaginez et écrivez une adresse IP pour le poste N°2 dans la <strong>salle 8</strong> au premier <strong>étage droite</strong> :</label><input type="text" id="ex1-q3" name="ex1-q3" placeholder="Ex: 10.X.X.X"></li><li><p>Problème avec l'ordinateur de la <strong>salle 1</strong> au <strong>RDC gauche</strong> (IP supposée : <code>10.1.2.10</code>).</p><label for="ex1-q4a">a) Quel est le problème dans l'adresse <code>10.1.2.10</code> par rapport au plan ?</label><textarea id="ex1-q4a" name="ex1-q4a" placeholder="Expliquez l'erreur ici..."></textarea><label for="ex1-q4b">b) Proposez une adresse IP correcte pour le poste N°10 de la salle 1 au RDC gauche :</label><input type="text" id="ex1-q4b" name="ex1-q4b" placeholder="Correction : 10.X.X.X"></li></ol><hr><h3>Exercice 2 : Analyse de Paquet et Conversion Binaire</h3><p>Infos du paquet : IP Émetteur = <code>122.20.7.5</code>, IP Destinataire = <code>10.20.4.11</code></p><ol><li><p>L'émetteur (<code>122.20.7.5</code>) fait-il partie du réseau du Collège Verdi (commençant par 10) ?</p><div class="radio-group"><label><input type="radio" name="ex2-q1" value="Vrai"> Vrai</label><label><input type="radio" name="ex2-q1" value="Faux"> Faux</label></div></li><li><label for="ex2-q2">Où se trouve l'ordinateur destinataire (<code>10.20.4.11</code>) ? (Zone, Salle, Poste)</label><input type="text" id="ex2-q2" name="ex2-q2" placeholder="Ex: Zone X, Salle Y, Poste Z"></li><li><label for="ex2-q3">Transformez l'IP de l'**émetteur** (<code>122.20.7.5</code>) en binaire :</label><input type="text" id="ex2-q3" name="ex2-q3" placeholder="Ex: xxxxxxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx"><p><small><i>(Vous pouvez utiliser le tableau du cours comme brouillon)</i></small></p></li><li><label for="ex2-q4">Transformez l'IP du **destinataire** (<code>10.20.4.11</code>) en binaire :</label><input type="text" id="ex2-q4" name="ex2-q4" placeholder="Ex: xxxxxxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx"><p><small><i>(Vous pouvez utiliser le tableau du cours comme brouillon)</i></small></p></li><div class="image-placeholder"><img src="https://cdn.pixabay.com/photo/2013/07/12/17/51/linked-152575_1280.png" alt="Illustration Connexions Réseau" style="max-width: 80%; height: auto; display: block; margin: 10px auto; border-radius: 5px;"></div><li><label for="ex2-q5-calc">Convertissez le nombre binaire <code>01000010</code> en décimal (nombre d'élèves de 6ème).</label><textarea id="ex2-q5-calc" name="ex2-q5-calc" placeholder="Montrez votre calcul ici..." rows="2"></textarea><label for="ex2-q5-result">Nombre d'élèves en 6ème :</label><input type="text" id="ex2-q5-result" name="ex2-q5-result" placeholder="Résultat décimal"></li></ol><hr><h3>Exercice 3 : Fonction Logique "ET" et Masque de Sous-Réseau</h3><ol><li><p>Complétez la table de vérité de la fonction logique **ET** :</p><table class="and-table-input"><thead><tr><th>Entrée A</th><th>Entrée B</th><th>Action (A ET B) ?</th></tr></thead><tbody><tr><td>0</td><td>0</td><td><input type="text" name="ex3-q1-r1" maxlength="1" placeholder="0/1"></td></tr><tr><td>0</td><td>1</td><td><input type="text" name="ex3-q1-r2" maxlength="1" placeholder="0/1"></td></tr><tr><td>1</td><td>0</td><td><input type="text" name="ex3-q1-r3" maxlength="1" placeholder="0/1"></td></tr><tr><td>1</td><td>1</td><td><input type="text" name="ex3-q1-r4" maxlength="1" placeholder="0/1"></td></tr></tbody></table></li><li><p>Trouvez l'Identification Réseau et Machine pour IP <code>192.168.9.45</code> et Masque <code>255.255.0.0</code>.</p><table><thead><tr><th></th><th>Décimal</th><th>Binaire (Résultat de IP ET Masque)</th></tr></thead><tbody><tr><td>**Adresse IP**</td><td><code>192.168.9.45</code></td><td><code>11000000.10101000.00001001.00101101</code></td></tr><tr><td>**Masque**</td><td><code>255.255.0.0</code></td><td><code>11111111.11111111.00000000.00000000</code></td></tr><tr><td><label for="ex3-q2-net-dec">**ID Réseau**</label></td><td><input type="text" id="ex3-q2-net-dec" name="ex3-q2-net-dec" placeholder="XXX.XXX.X.X"></td><td><code>11000000.10101000.00000000.00000000</code></td></tr><tr><td><label for="ex3-q2-host-dec">**ID Machine** (Partie Hôte)</label></td><td><input type="text" id="ex3-q2-host-dec" name="ex3-q2-host-dec" placeholder="X.X.XXX.XXX"></td><td><code>00000000.00000000.00001001.00101101</code></td></tr></tbody></table><p><small><i>Note: Pour l'ID Machine en décimal, indiquez la partie de l'adresse IP qui correspond aux '0' du masque.</i></small></p></li></ol><hr><div style="text-align: center; margin-top: 20px;"><button type="button" id="generate-summary-button" class="action-button">📄 Générer le Récapitulatif</button></div></form><div id="summary-container"><h3>Récapitulatif du Devoir (Modifiable)</h3><div id="summary-content" contenteditable="true"></div><button id="copy-button" class="action-button">Copier le Récapitulatif</button><p id="copy-info"></p></div><script>document.addEventListener('DOMContentLoaded',()=>{const form=document.getElementById('homework-form');const generateButton=document.getElementById('generate-summary-button');const summaryContainer=document.getElementById('summary-container');const summaryContentDiv=document.getElementById('summary-content');const copyButton=document.getElementById('copy-button');const copyInfo=document.getElementById('copy-info');generateButton.addEventListener('click',()=>{let summary="Récapitulatif du Devoir - Réseau et Adressage IP\\n";summary+="=================================================\\n\\n";const getVal=id=>form.elements[id]?.value.trim()||'Non répondu';const getRadioVal=name=>{const radio=form.querySelector(\`input[name="\${name}"]:checked\`);return radio?radio.value:'Non répondu'};summary+=\`Nom: \${getVal('student-name')}\\n\`;summary+=\`Classe: \${getVal('student-class')}\\n\`;summary+=\`Date: \${getVal('student-date')}\\n\\n\`;summary+="-------------------------------------------------\\n";summary+="Exercice 1 : Plan d'Adressage\\n";summary+="-----------------------------\\n";summary+=\`1. IP Poste 5, Salle 6, Etage Droite: \${getVal('ex1-q1')}\\n\`;summary+=\`2. IP Poste 8, Salle 7, Etage Droite: \${getVal('ex1-q2')}\\n\`;summary+=\`3. IP Poste 2, Salle 8, Etage Droite: \${getVal('ex1-q3')}\\n\`;summary+="4. Problème IP 10.1.2.10 (Salle 1, RDC Gauche):\\n";summary+=\`   a) Analyse du problème:\\n   \${getVal('ex1-q4a').replace(/\\n/g,'\\n   ')}\\n\`;summary+=\`   b) Correction proposée: \${getVal('ex1-q4b')}\\n\\n\`;summary+="-------------------------------------------------\\n";summary+="Exercice 2 : Analyse et Conversion\\n";summary+="----------------------------------\\n";summary+=\`1. Émetteur (122.20.7.5) dans réseau Verdi ? \${getRadioVal('ex2-q1')}\\n\`;summary+=\`2. Localisation Destinataire (10.20.4.11): \${getVal('ex2-q2')}\\n\`;summary+=\`3. IP Émetteur en binaire (122.20.7.5): \${getVal('ex2-q3')}\\n\`;summary+=\`4. IP Destinataire en binaire (10.20.4.11): \${getVal('ex2-q4')}\\n\`;summary+="5. Conversion 01000010 (Nb élèves 6ème):\\n";summary+=\`   Calcul:\\n   \${getVal('ex2-q5-calc').replace(/\\n/g,'\\n   ')}\\n\`;summary+=\`   Résultat: \${getVal('ex2-q5-result')}\\n\\n\`;summary+="-------------------------------------------------\\n";summary+="Exercice 3 : Fonction ET et Masque\\n";summary+="----------------------------------\\n";summary+="1. Table de vérité ET:\\n";summary+=\`   (0 ET 0) = \${getVal('ex3-q1-r1')}\\n\`;summary+=\`   (0 ET 1) = \${getVal('ex3-q1-r2')}\\n\`;summary+=\`   (1 ET 0) = \${getVal('ex3-q1-r3')}\\n\`;summary+=\`   (1 ET 1) = \${getVal('ex3-q1-r4')}\\n\`;summary+="2. Calcul ID Réseau/Machine (IP: 192.168.9.45, Masque: 255.255.0.0):\\n";summary+=\`   ID Réseau (Décimal): \${getVal('ex3-q2-net-dec')}\\n\`;summary+=\`   ID Machine (Décimal): \${getVal('ex3-q2-host-dec')}\\n\\n\`;summary+="=================================================\\n";summary+="Fin du récapitulatif.\\n";summaryContentDiv.textContent=summary;summaryContainer.style.display='block';copyInfo.textContent='';summaryContainer.scrollIntoView({behavior:'smooth',block:'end'})});copyButton.addEventListener('click',()=>{const textToCopy=summaryContentDiv.textContent;navigator.clipboard.writeText(textToCopy).then(()=>{copyInfo.textContent='Récapitulatif copié !';copyInfo.style.color='green'}).catch(err=>{copyInfo.textContent='Erreur copie. Sélectionnez et copiez manuellement (Ctrl+A, Ctrl+C).';copyInfo.style.color='red';console.error('Erreur de copie: ',err);try{const range=document.createRange();range.selectNodeContents(summaryContentDiv);const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range)}catch(e){console.error("Erreur sélection manuelle:",e)}})})})<\/script></body></html>`;
+
+                            homeworkWindow.document.open();
+                            homeworkWindow.document.write(homeworkHTML);
+                            homeworkWindow.document.close();
+                            homeworkWindow.focus();
+
+                        } else {
+                            alert("Impossible d'ouvrir la fenêtre du devoir. Vérifiez si votre navigateur bloque les popups pour ce site.");
+                        }
+                    } catch (error) {
+                        console.error("Erreur lors de l'ouverture de la fenêtre du devoir:", error);
+                        alert("Une erreur s'est produite lors de la tentative d'ouverture du devoir.");
+                    }
+                });
+            }
+
+            // === Logique des Exercices Interactifs ===
+            // Variable globale pour stocker l'indice du mot actuel du pendu
+            let currentHangmanHint = '';
+
+             function setupExercises() {
+                setupQuiz();
+                setupMatching();
+                setupHangman();             }
+
+            // --- Quiz ---
+            const quizData = [
+                { question: "Qu'est-ce qu'un LAN ?", options: ["Réseau Local", "Réseau Étendu", "Internet Mondial", "Un type de câble"], answer: "Réseau Local" },
+                { question: "Combien de nombres (octets) composent une adresse IPv4 standard ?", options: ["2", "4", "6", "8"], answer: "4" },
+                { question: "Quel est le nombre maximal pour chaque octet d'une adresse IPv4 ?", options: ["128", "255", "256", "1024"], answer: "255" },
+                { question: "Quelle est la base du système binaire utilisé par les ordinateurs ?", options: ["Base 2", "Base 8", "Base 10", "Base 16"], answer: "Base 2" },
+                { question: "Quel composant réseau connecte des appareils dans un MÊME réseau local ?", options: ["Routeur", "Modem", "Switch", "Serveur"], answer: "Switch" }
+            ];
+
+            function setupQuiz() {
+                if (!quizContainer || !quizResults) { console.error("Conteneur Quiz ou Résultats manquant."); return; }
+                quizContainer.innerHTML = '<h3>Quiz Rapide</h3>'; // Reset avec titre
+                quizData.forEach((q, index) => {
+                    const qDiv = document.createElement('div');
+                    qDiv.classList.add('quiz-question');
+                    qDiv.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
+                    const optionsDiv = document.createElement('div');
+                    optionsDiv.classList.add('quiz-options');
+                    const shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
+                    shuffledOptions.forEach(option => {
+                        optionsDiv.innerHTML += `<label><input type="radio" name="q${index}" value="${option}"> ${option}</label>`;
+                    });
+                    qDiv.appendChild(optionsDiv);
+                    quizContainer.appendChild(qDiv);
+                });
+                 if (!quizContainer.querySelector('#check-quiz-btn')) {
+                    const checkButton = document.createElement('button');
+                    checkButton.id = 'check-quiz-btn';
+                    checkButton.textContent = 'Vérifier le Quiz';
+                    checkButton.classList.add('exercise-check-button');
+                    quizContainer.appendChild(checkButton);
+                 }
+                 quizResults.innerHTML = '';
+                 quizResults.className = '';
+                 quizResults.style.backgroundColor = ''; // Reset background
+            }
+
+            function checkQuiz() {
+                if (!quizContainer || !quizResults) return;
+                let score = 0;
+                quizData.forEach((q, index) => {
+                    const selected = quizContainer.querySelector(`input[name="q${index}"]:checked`);
+                    const questionDiv = quizContainer.querySelectorAll('.quiz-question')[index];
+                    if (!questionDiv) return;
+                    const labels = questionDiv.querySelectorAll('label');
+
+                    labels.forEach(label => {
+                        label.classList.remove('correct-answer', 'incorrect-answer');
+                        label.style.backgroundColor = ''; // Reset background
+                        label.style.fontWeight = 'normal'; // Reset bold
+                        const input = label.querySelector('input');
+                        if (!input) return;
+
+                        // Marquer la bonne réponse (visuellement léger)
+                        if (input.value === q.answer) {
+                           // label.style.backgroundColor = '#e0f8e0'; // Optionnel: fond léger pour bonne réponse
+                        }
+
+                        // Si une réponse est sélectionnée
+                        if (selected && input === selected) {
+                            if (selected.value === q.answer) {
+                                label.classList.add('correct-answer'); // Texte vert
+                                label.style.backgroundColor = '#e0f8e0';
+                            } else {
+                                label.classList.add('incorrect-answer'); // Texte rouge
+                                label.style.backgroundColor = '#ffe0e0';
+                                // Trouver et marquer la bonne réponse quand l'utilisateur a faux
+                                const correctLabel = Array.from(labels).find(l => l.querySelector('input')?.value === q.answer);
+                                if(correctLabel) {
+                                    correctLabel.style.backgroundColor = '#e0f8e0'; // Marquer la bonne réponse
+                                    correctLabel.style.fontWeight = 'bold'; // La mettre en évidence
+                                }
+                            }
+                        } else if (input.value === q.answer && selected && selected.value !== q.answer) {
+                            // Si l'utilisateur a sélectionné une mauvaise réponse, on met quand même en évidence la bonne
+                             label.style.backgroundColor = '#e0f8e0';
+                             label.style.fontWeight = 'bold';
+                        }
+                    });
+
+                    if (selected && selected.value === q.answer) {
+                        score++;
+                    }
+                });
+                quizResults.textContent = `Votre score : ${score} / ${quizData.length}`;
+                quizResults.className = (score === quizData.length) ? 'correct-answer' : (score > 0 ? '' : 'incorrect-answer');
+                 quizResults.style.backgroundColor = quizResults.classList.contains('correct-answer') ? '#e0f8e0' : (quizResults.classList.contains('incorrect-answer') ? '#ffe0e0' : '');
+            }
+
+
+            // --- Association (Matching) ---
+             const matchingData = {
+                terms: ["Routeur", "Switch", "Adresse IP", "Masque de sous-réseau", "Octet"],
+                definitions: [
+                    "Aiguille les données entre différents réseaux.",
+                    "Connecte plusieurs appareils dans un même LAN.",
+                    "Identifiant unique d'un appareil sur le réseau.",
+                    "Sépare l'adresse IP en partie réseau et partie hôte.",
+                    "Groupe de 8 bits.",
+                    "Technologie sans fil.", // Distracteur
+                    "Le langage des ordinateurs (0 et 1)." // Distracteur
+                ]
+            };
+
+            function setupMatching() {
+                 if (!matchingContainer || !matchingResults) { console.error("Conteneur Matching ou Résultats manquant."); return; }
+                 matchingContainer.innerHTML = '<h3>Associez les Termes et Définitions</h3>'; // Reset avec titre
+                 const shuffledDefinitions = [...matchingData.definitions].sort(() => Math.random() - 0.5);
+
+                 matchingData.terms.forEach((term, index) => {
+                     const itemDiv = document.createElement('div');
+                     itemDiv.classList.add('matching-item');
+                     const termSpan = document.createElement('span');
+                     termSpan.classList.add('term');
+                     termSpan.textContent = `${term} :`;
+                     itemDiv.appendChild(termSpan);
+
+                     const select = document.createElement('select');
+                     select.id = `match-${index}`;
+                     const defaultOption = document.createElement('option');
+                     defaultOption.value = "";
+                     defaultOption.textContent = "-- Choisissez une définition --";
+                     select.appendChild(defaultOption);
+                     shuffledDefinitions.forEach(def => {
+                         const option = document.createElement('option');
+                         option.value = def;
+                         option.textContent = def;
+                         select.appendChild(option);
+                     });
+                     itemDiv.appendChild(select);
+                     matchingContainer.appendChild(itemDiv);
+                 });
+                  if (!matchingContainer.querySelector('#check-matching-btn')) {
+                    const checkButton = document.createElement('button');
+                    checkButton.id = 'check-matching-btn';
+                    checkButton.textContent = 'Vérifier les Associations';
+                    checkButton.classList.add('exercise-check-button');
+                    matchingContainer.appendChild(checkButton);
+                  }
+                  matchingResults.innerHTML = '';
+                  matchingResults.className = '';
+                  matchingResults.style.backgroundColor = ''; // Reset background
+            }
+
+             function checkMatching() {
+                if (!matchingContainer || !matchingResults) return;
+                let correctMatches = 0;
+                const correctAssociations = {
+                    "Routeur": "Aiguille les données entre différents réseaux.",
+                    "Switch": "Connecte plusieurs appareils dans un même LAN.",
+                    "Adresse IP": "Identifiant unique d'un appareil sur le réseau.",
+                    "Masque de sous-réseau": "Sépare l'adresse IP en partie réseau et partie hôte.",
+                    "Octet": "Groupe de 8 bits."
+                };
+
+                matchingData.terms.forEach((term, index) => {
+                    const select = document.getElementById(`match-${index}`);
+                    const termSpan = select.closest('.matching-item')?.querySelector('.term');
+                    if (!select || !termSpan) return;
+
+                    termSpan.classList.remove('correct-answer', 'incorrect-answer');
+                    termSpan.style.textDecoration = '';
+
+                    if (select.value === correctAssociations[term]) {
+                        correctMatches++;
+                        termSpan.classList.add('correct-answer');
+                    } else if (select.value !== "") {
+                        termSpan.classList.add('incorrect-answer');
+                        termSpan.style.textDecoration = 'line-through';
+                    }
+                });
+
+                matchingResults.textContent = `Associations correctes : ${correctMatches} / ${matchingData.terms.length}`;
+                 matchingResults.className = (correctMatches === matchingData.terms.length) ? 'correct-answer' : (correctMatches > 0 ? '' : 'incorrect-answer');
+                 matchingResults.style.backgroundColor = matchingResults.classList.contains('correct-answer') ? '#e0f8e0' : (matchingResults.classList.contains('incorrect-answer') ? '#ffe0e0' : '');
+            }
+
+
+            // --- Pendu (Hangman) ---
+            // Structure de données avec mots et indices
+            const hangmanWordList = [
+                { word: "RESEAU", hint: "Ensemble d'appareils connectés pour échanger des informations." },
+                { word: "OCTET", hint: "Groupe de 8 bits." },
+                { word: "BINAIRE", hint: "Système de numération utilisant seulement 0 et 1." },
+                { word: "ADRESSE", hint: "Identifiant unique d'un appareil (souvent IP)." },
+                { word: "MASQUE", hint: "Aide à déterminer la partie réseau et hôte d'une IP." },
+                { word: "ROUTEUR", hint: "Appareil qui connecte différents réseaux entre eux." },
+                { word: "SWITCH", hint: "Appareil qui connecte des appareils dans un même réseau local." },
+                { word: "PROTOCOLE", hint: "Ensemble de règles pour la communication (ex: TCP/IP)." },
+                { word: "INTERNET", hint: "Le plus grand réseau mondial." },
+                { word: "PAQUET", hint: "Petite unité de données transmise sur un réseau." },
+                { word: "SERVEUR", hint: "Ordinateur puissant qui fournit des services." },
+                { word: "CLIENT", hint: "Ordinateur ou appareil qui demande des services à un serveur." },
+                { word: "DONNEES", hint: "Informations numériques circulant sur le réseau." }
+            ];
+            let currentHangmanWordData = null; // Stockera {word, hint}
+            let hangmanWord = ''; // Le mot actuel en majuscules
+            let guessedWord = []; // Tableau pour l'affichage avec les underscores
+            let wrongGuesses = []; // Lettres incorrectes essayées
+            let remainingAttempts = 6; // Nombre de tentatives
+
+            // Refactorisation de setupHangman pour utiliser les éléments HTML fixes
+            function setupHangman() {
+                // Vérifier si les éléments existent (déjà fait au début du script)
+                if (!hangmanContainer || !hangmanWordDisplay || !hangmanGuessesDisplay || !hangmanLettersContainer || !hangmanStatus || !hangmanAttempts || !hangmanHintDisplay || !hangmanHintButton || !hangmanResetButton) {
+                     console.error("Éléments HTML manquants pour le jeu du Pendu lors du setup.");
+                     return;
+                }
+
+                // Choisir un mot et son indice
+                currentHangmanWordData = hangmanWordList[Math.floor(Math.random() * hangmanWordList.length)];
+                hangmanWord = currentHangmanWordData.word; // Le mot à deviner
+                currentHangmanHint = currentHangmanWordData.hint; // L'indice associé
+
+                // Initialiser l'état du jeu
+                guessedWord = Array(hangmanWord.length).fill('_');
+                wrongGuesses = [];
+                remainingAttempts = 6;
+
+                // Mettre à jour l'affichage initial
+                hangmanWordDisplay.textContent = guessedWord.join(' ');
+                hangmanGuessesDisplay.textContent = "Lettres incorrectes : ";
+                hangmanStatus.textContent = "";
+                hangmanStatus.className = '';
+                hangmanStatus.style.backgroundColor = '';
+                hangmanAttempts.textContent = `Tentatives restantes : ${remainingAttempts}`;
+                hangmanHintDisplay.textContent = ""; // Vider l'indice précédent
+                hangmanHintDisplay.style.display = "none"; // Cacher l'indice
+                hangmanHintButton.disabled = false; // Réactiver le bouton indice
+
+                // Générer ou réactiver les boutons de lettres
+                hangmanLettersContainer.innerHTML = ''; // Vider les anciens boutons
+                for (let i = 65; i <= 90; i++) { // A=65, Z=90
+                    const letter = String.fromCharCode(i);
+                    const button = document.createElement('button');
+                    button.textContent = letter;
+                    // Utiliser une closure pour capturer la lettre et le bouton corrects
+                    button.addEventListener('click', (event) => {
+                        // Passer 'letter' et 'event.target' (le bouton cliqué)
+                        handleGuess(letter, event.target);
+                    });
+                    hangmanLettersContainer.appendChild(button);
+                }
+            }
+
+            // Mise à jour de l'affichage (ne prend plus les éléments en paramètre)
+            function updateHangmanDisplay() {
+                 if(hangmanWordDisplay) hangmanWordDisplay.textContent = guessedWord.join(' ');
+                 if(hangmanGuessesDisplay) hangmanGuessesDisplay.textContent = `Lettres incorrectes : ${wrongGuesses.join(', ')}`;
+                 if(hangmanAttempts) hangmanAttempts.textContent = `Tentatives restantes : ${remainingAttempts}`;
+            }
+
+            // Gestion d'une lettre devinée
+            function handleGuess(letter, button) {
+                if (!hangmanWord || remainingAttempts <= 0 || guessedWord.join('') === hangmanWord) return;
+
+                button.disabled = true; // Désactiver le bouton cliqué
+
+                if (hangmanWord.includes(letter)) {
+                    // Bonne lettre
+                    for (let i = 0; i < hangmanWord.length; i++) {
+                        if (hangmanWord[i] === letter) {
+                            guessedWord[i] = letter;
+                        }
+                    }
+                } else {
+                    // Mauvaise lettre
+                    if (!wrongGuesses.includes(letter)) {
+                         wrongGuesses.push(letter);
+                         remainingAttempts--;
+                    }
+                }
+                updateHangmanDisplay();
+                checkGameStatus();
+            }
+
+            // Vérification de l'état du jeu (gagné/perdu)
+             function checkGameStatus() {
+                 if (guessedWord.join('') === hangmanWord) {
+                     hangmanStatus.textContent = "Gagné ! Le mot était : " + hangmanWord;
+                     hangmanStatus.className = 'correct-answer';
+                     hangmanStatus.style.backgroundColor = '#e0f8e0';
+                     disableAllLetterButtons();
+                     hangmanHintButton.disabled = true; // Désactiver aussi l'indice si gagné
+                 } else if (remainingAttempts <= 0) {
+                     hangmanStatus.textContent = "Perdu... Le mot était : " + hangmanWord;
+                     hangmanStatus.className = 'incorrect-answer';
+                     hangmanStatus.style.backgroundColor = '#ffe0e0';
+                     guessedWord = hangmanWord.split(''); // Révéler le mot
+                     updateHangmanDisplay();
+                     disableAllLetterButtons();
+                     hangmanHintButton.disabled = true; // Désactiver aussi l'indice si perdu
+                 }
+             }
+
+             // Désactivation de tous les boutons de lettres
+             function disableAllLetterButtons() {
+                 if(hangmanLettersContainer) {
+                    hangmanLettersContainer.querySelectorAll('button').forEach(btn => btn.disabled = true);
+                 }
+             }
+
+             // Gestion du clic sur le bouton Indice
+             if(hangmanHintButton) {
+                 hangmanHintButton.addEventListener('click', () => {
+                     if (currentHangmanHint && hangmanHintDisplay) {
+                         hangmanHintDisplay.textContent = `Indice : ${currentHangmanHint}`;
+                         hangmanHintDisplay.style.display = 'block';
+                         hangmanHintButton.disabled = true; // Désactiver après utilisation
+                     }
+                 });
+             }
+
+             // Gestion du clic sur le bouton Nouveau Mot
+             if(hangmanResetButton) {
+                hangmanResetButton.addEventListener('click', setupHangman); // Relance une partie
+             }
+
+
+            // --- Attacher les vérificateurs aux boutons Quiz et Association ---
+            if (exerciseModal) {
+                exerciseModal.addEventListener('click', function(event) {
+                    if (event.target.id === 'check-quiz-btn') {
+                        checkQuiz();
+                    } else if (event.target.id === 'check-matching-btn') {
+                        checkMatching();
+                    }
+                     // Les boutons du pendu (lettres, indice, reset) ont leurs propres listeners
+                });
+            }
+
+            console.log("Adaptation Grille Interactive + Contenu Original + Exercices terminée. Logique Pendu refactorisée et Indice ajouté.");
+
+        }); // Fin DOMContentLoaded
+    </script>
+
+</body>
+</html>
