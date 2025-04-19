@@ -22,37 +22,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const completionMessage = document.getElementById('completionMessage');
 
     // --- INITIALISATION ---
-
-    // Création animation binaire (si l'élément existe)
-    if (binaryBackground) {
-        createBinaryBackground();
-    }
-
-    // Chargement des questions du quiz
+    if (binaryBackground) createBinaryBackground();
     loadQuizQuestions();
-
-    // Ajout écouteurs d'événements menu + boutons
-    setupEventListeners();
-
-    // Gérer l'URL au chargement initial (avec hash)
+    setupEventListeners(); // Configure tous les écouteurs
     handleInitialHash();
-
-    // Mise à jour initiale UI
     updateProgress();
     updateScoreDisplays();
-
 
     // --- FONCTIONS ---
 
     function createBinaryBackground() {
-        // Optimisé pour créer moins d'éléments si besoin
-        const bitCount = Math.min(50, Math.floor(window.innerWidth / 30)); // Adapte le nombre à la largeur
+        const bitCount = Math.min(50, Math.floor(window.innerWidth / 30));
         for (let i = 0; i < bitCount; i++) {
             const bit = document.createElement('div');
             bit.textContent = Math.random() > 0.5 ? '1' : '0';
             bit.className = 'bit';
             bit.style.left = `${Math.random() * 100}%`;
-            bit.style.animationDuration = `${Math.random() * 8 + 6}s`; // Durée 6-14s
+            bit.style.animationDuration = `${Math.random() * 8 + 6}s`;
             bit.style.animationDelay = `${Math.random() * 6}s`;
             binaryBackground.appendChild(bit);
         }
@@ -64,25 +50,46 @@ document.addEventListener('DOMContentLoaded', function() {
             link.addEventListener('click', function(event) {
                 event.preventDefault();
                 const targetId = this.getAttribute('data-section');
-                showSection(targetId);
+                showSection(targetId); // Appel direct car dans le même scope
             });
         });
 
-         // Navigation par boutons Précédent/Suivant (délégation d'événements)
+        // Navigation par boutons Précédent/Suivant (délégation)
         document.querySelector('.container').addEventListener('click', function(event) {
-            if (event.target.classList.contains('nav-button') || event.target.closest('.nav-button')) {
-                event.preventDefault();
-                const button = event.target.closest('.nav-button');
-                const targetId = button.getAttribute('href').substring(1); // Prend l'ID de l'attribut href
-                showSection(targetId);
-            }
-             // Boutons de conversion, etc. pourraient être ajoutés ici par délégation aussi
+             const navButton = event.target.closest('.nav-button');
+             const actionButton = event.target.closest('.action-button'); // Gère aussi le bouton "Commencer"
+
+             if (navButton || actionButton) {
+                 event.preventDefault();
+                 const button = navButton || actionButton;
+                 // Pour les boutons nav, on prend href. Pour action-button, on prend href aussi
+                 // Si action-button n'a pas d'href (ce qui ne devrait pas arriver ici), on ne fait rien
+                 const href = button.getAttribute('href');
+                 if(href && href.startsWith('#')){
+                     const targetId = href.substring(1);
+                     showSection(targetId); // Appel direct
+                 }
+             }
         });
+
+        // --- MODIFIÉ/AJOUTÉ : Gestion des clics sur les tuiles (Délégation) ---
+        const tileGrid = document.querySelector('.tile-grid');
+        if (tileGrid) {
+            tileGrid.addEventListener('click', function(event) {
+                const clickedTile = event.target.closest('.tile-link[data-section]');
+                if (clickedTile) {
+                    const targetId = clickedTile.getAttribute('data-section');
+                    showSection(targetId); // Appel direct
+                }
+            });
+        }
+        // --- FIN DE LA MODIFICATION/AJOUT ---
+
 
         // Gestion hash URL
         window.addEventListener('hashchange', handleHashChange);
 
-        // Convertisseurs
+        // Convertisseurs (listeners directs car boutons uniques)
         const binToDecBtn = document.getElementById('binary-to-decimal-btn');
         const decToBinBtn = document.getElementById('decimal-to-binary-btn');
         const textToAsciiBtn = document.getElementById('text-to-ascii-btn');
@@ -93,299 +100,202 @@ document.addEventListener('DOMContentLoaded', function() {
         if(textToAsciiBtn) textToAsciiBtn.addEventListener('click', convertTextToAscii);
         if(asciiToTextBtn) asciiToTextBtn.addEventListener('click', convertAsciiToText);
 
-         // Boutons de difficulté du Quiz (délégation)
-        const difficultyContainer = document.querySelector('.difficulty-selection');
-        if(difficultyContainer) {
-            difficultyContainer.addEventListener('click', function(event){
-                if(event.target.classList.contains('difficulty-btn')){
-                    setQuizDifficulty(event.target.getAttribute('data-difficulty'));
-                }
-            });
-        }
-
-        // Bouton Valider Quiz (délégation car il est recréé)
-        const quizSection = document.getElementById('quiz-interactif');
-        if(quizSection){
-            quizSection.addEventListener('click', function(event){
-                if(event.target.id === 'validate-quiz-btn'){
-                    checkQuizAnswer();
-                }
-            });
-        }
-
-        // Boutons Vérifier Exercices (délégation)
-        const exercisesSection = document.getElementById('exercices-en-binaire');
-        if (exercisesSection) {
-            exercisesSection.addEventListener('click', function(event) {
-                if (event.target.tagName === 'BUTTON' && event.target.onclick) {
-                    // Extrait les arguments de l'attribut onclick (un peu fragile mais fonctionne pour ce cas)
-                    const onclickAttr = event.target.getAttribute('onclick');
-                    const match = onclickAttr.match(/verifyAnswer\((\d+),\s*'([^']*)',\s*(\d+)\)/);
-                    if (match) {
-                        verifyAnswer(parseInt(match[1]), match[2], parseInt(match[3]), event.target);
-                    }
-                }
-            });
-        }
-
-        // Bouton Recommencer (si le message de complétion est affiché)
-        const resetButton = completionMessage.querySelector('button');
-        if(resetButton) {
-            resetButton.onclick = resetProgress; // Attribue la fonction directement
-        }
+        // Note : Les boutons Exercices, Difficulté Quiz et Reset utilisent toujours 'onclick' dans le HTML.
+        // Les fonctions correspondantes (`verifyAnswer`, `setQuizDifficulty`, `resetProgress`, `checkQuizAnswer`)
+        // DOIVENT donc être attachées à l'objet global `window` (voir fin du script).
+        // Le bouton "Valider" du quiz (`checkQuizAnswer`) est géré différemment car il est recréé.
+        // Son listener est implicitement géré via l'attribut onclick généré dans displayCurrentQuestion.
     }
 
     function handleInitialHash() {
         const hash = window.location.hash.substring(1);
         if (hash && document.getElementById(hash)) {
-            // Retarde légèrement pour s'assurer que tout est bien chargé
-            setTimeout(() => {
-                 showSection(hash, true); // true pour indiquer chargement initial
-            }, 100);
+             // Assurons-nous que la section d'accueil n'est pas active si un hash est présent
+             const accueilSection = document.getElementById('accueil');
+             if(accueilSection) accueilSection.classList.remove('active');
+             // Afficher la section du hash
+            setTimeout(() => { showSection(hash, true); }, 100);
         } else {
-            showSection('accueil', true); // Affiche l'accueil par défaut
+            showSection('accueil', true);
         }
     }
 
     function handleHashChange() {
         const hash = window.location.hash.substring(1);
-        if (hash && document.getElementById(hash)) {
+        // Vérifier si la section correspondante est déjà active pour éviter re-scroll inutile
+        const targetSection = document.getElementById(hash);
+        if (hash && targetSection && !targetSection.classList.contains('active')) {
             showSection(hash);
+        } else if (!hash) {
+            // Si le hash est vide (clic sur lien accueil par ex.), aller à l'accueil
+             showSection('accueil');
         }
     }
 
     function showSection(sectionId, isInitialLoad = false) {
         let sectionFound = false;
         contentSections.forEach(section => {
-            if (section.id === sectionId) {
-                section.classList.add('active');
-                sectionFound = true;
-            } else {
-                section.classList.remove('active');
-            }
+            section.classList.toggle('active', section.id === sectionId);
+            if(section.id === sectionId) sectionFound = true;
         });
 
-        // Si la section demandée n'existe pas, afficher l'accueil
         if (!sectionFound && sectionId !== 'accueil') {
-            showSection('accueil');
-            return; // Sortir pour éviter les erreurs suivantes
-        }
+             // Si la section n'existe pas, redirige vers l'accueil ET nettoie le hash
+             if(!isInitialLoad) window.location.hash = '';
+             showSection('accueil');
+             return;
+         }
 
-        // Mise à jour des liens du menu
         menuLinks.forEach(link => {
             const linkSection = link.getAttribute('data-section');
-            if (linkSection === sectionId) {
-                link.classList.add('current');
-                // Marquer comme visité uniquement si ce n'est pas l'accueil
-                 if(sectionId !== 'accueil'){
-                     sectionVisits[sectionId] = true;
-                     link.classList.add('visited');
-                     // Ajouter l'icône check dynamiquement si pas déjà là
-                    if (!link.querySelector('.fa-check')) {
-                        const icon = document.createElement('i');
-                        icon.className = 'fas fa-check';
-                        link.appendChild(icon);
-                    }
+            const isCurrent = linkSection === sectionId;
+            link.classList.toggle('current', isCurrent);
+
+             if(isCurrent && sectionId !== 'accueil'){
+                 sectionVisits[sectionId] = true;
+                 link.classList.add('visited');
+                 if (!link.querySelector('.fa-check')) {
+                    const icon = document.createElement('i'); icon.className = 'fas fa-check'; link.appendChild(icon);
                  }
-            } else {
-                link.classList.remove('current');
-            }
-            // Assurer que l'icône est présente si visité, même si non courant
+             }
              if(sectionVisits[linkSection] && linkSection !== 'accueil' && !link.querySelector('.fa-check')){
-                 const icon = document.createElement('i');
-                 icon.className = 'fas fa-check';
-                 link.appendChild(icon);
+                 const icon = document.createElement('i'); icon.className = 'fas fa-check'; link.appendChild(icon);
                  link.classList.add('visited');
              }
         });
 
-        // Mettre à jour l'URL seulement si ce n'est pas le chargement initial (pour éviter boucle hashchange)
         if (!isInitialLoad && window.location.hash !== `#${sectionId}`) {
-             window.location.hash = sectionId;
+             // Utilise pushState pour changer l'URL sans scroll forcé, sauf si back/forward
+            // window.history.pushState(null, '', `#${sectionId}`); // Optionnel, peut causer d'autres pbs
+            window.location.hash = sectionId; // Simple et fiable
         }
 
-        // Scroll vers le haut (sauf si c'est juste un changement de hash sans changement de page)
-        if (!isInitialLoad) { // Optionnel: ne scroller que si la section change réellement
+        // Scroll seulement si ce n'est pas le chargement initial
+        if (!isInitialLoad) {
+            // Trouve l'élément header pour calculer sa hauteur si la nav est fixe (pas le cas ici)
+            // const headerHeight = document.querySelector('header')?.offsetHeight || 0;
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         updateProgress();
-        checkCompletion(); // Vérifier si le parcours est terminé
+        checkCompletion();
     }
 
     function updateProgress() {
         const visitedCount = Object.keys(sectionVisits).length;
-        // Exclure l'accueil du calcul de progression si on veut
-        const totalRelevantSections = totalNavLinks - 1; // Moins l'accueil
+        const totalRelevantSections = totalNavLinks > 0 ? totalNavLinks - 1 : 0; // Moins l'accueil
         const progressPercent = totalRelevantSections > 0 ? (visitedCount / totalRelevantSections) * 100 : 0;
-
-        if (progressBar) {
-            progressBar.style.width = `${Math.min(progressPercent, 100)}%`; // Plafonne à 100%
-        }
+        if (progressBar) progressBar.style.width = `${Math.min(progressPercent, 100)}%`;
     }
 
     function updateScoreDisplays() {
         const currentTotal = calculateTotalScore();
-        if (exerciseScoreDisplay) {
-            exerciseScoreDisplay.textContent = `${exerciseScore}`;
-        }
-        if (quizScoreDisplay) {
-            // Le score du quiz est mis à jour dans la logique du quiz
-        }
-        if (finalTotalScoreDisplay) {
-             finalTotalScoreDisplay.textContent = `${currentTotal}`;
-        }
-        // Mettre à jour aussi le score affiché dans le quiz si la section est active
-        const quizScoreSpan = document.getElementById('quizScoreDisplay');
-         if(quizScoreSpan) {
-             quizScoreSpan.textContent = `${currentTotal - exerciseScore} points`; // Affiche score quiz seul
-         }
+        if (exerciseScoreDisplay) exerciseScoreDisplay.textContent = `${exerciseScore}`;
+        // Mise à jour score quiz dans sa propre logique car dépend du niveau choisi
+         const quizScoreSpan = document.getElementById('quizScoreDisplay');
+         if(quizScoreSpan) quizScoreSpan.textContent = `${currentTotal - exerciseScore} points`;
+
+        if (finalTotalScoreDisplay) finalTotalScoreDisplay.textContent = `${currentTotal}`;
     }
 
-    function calculateTotalScore() {
-        // Le score total est la somme du score des exercices et du score du quiz (qui est dans totalScore - exerciseScore)
-        // Pour simplifier, on garde une seule variable `totalScore` globale mise à jour partout
-         return totalScore;
-    }
+    function calculateTotalScore() { return totalScore; }
 
-     function applyFeedback(element, isCorrect) {
+    function applyFeedback(element, isCorrect) {
          element.classList.add('visible');
-         if (isCorrect) {
-             element.classList.remove('incorrect-feedback');
-             element.classList.add('correct-feedback');
-             element.classList.remove('feedback-shake'); // Retire l'ancienne animation si présente
-             element.classList.add('feedback-pop');
-         } else {
-             element.classList.remove('correct-feedback');
-             element.classList.add('incorrect-feedback');
-             element.classList.remove('feedback-pop'); // Retire l'ancienne animation si présente
-             element.classList.add('feedback-shake');
-         }
-         // Retire les classes d'animation après un délai
-         setTimeout(() => {
-             element.classList.remove('feedback-shake', 'feedback-pop');
-         }, 500); // Durée de l'animation
+         element.classList.toggle('correct-feedback', isCorrect);
+         element.classList.toggle('incorrect-feedback', !isCorrect);
+         element.classList.remove('feedback-shake', 'feedback-pop'); // Retire anciennes anims
+         void element.offsetWidth; // Force reflow pour redémarrer l'animation
+         element.classList.add(isCorrect ? 'feedback-pop' : 'feedback-shake');
+         setTimeout(() => { element.classList.remove('feedback-shake', 'feedback-pop'); }, 500);
      }
 
-     // --- Logique des Convertisseurs ---
+     // --- Logique des Convertisseurs (inchangée) ---
      function convertBinaryToDecimal() {
          const binaryInput = document.getElementById('binary-input').value.trim();
          const binaryOutput = document.getElementById('binary-output');
-         if (!/^[01]+$/.test(binaryInput) || binaryInput.length === 0) {
-             binaryOutput.innerHTML = "<span class='converter-error'>Entrée invalide (0 ou 1 uniquement).</span>";
-             return;
-         }
+         if (!/^[01]+$/.test(binaryInput) || binaryInput.length === 0) { binaryOutput.innerHTML = "<span class='converter-error'>Entrée invalide (0 ou 1 uniquement).</span>"; return; }
          const decimal = parseInt(binaryInput, 2);
-         binaryOutput.innerHTML = `<i class="fas fa-check-circle" style="color: var(--accent-dark);"></i> ${binaryInput}<sub>(2)</sub> = <strong>${decimal}</strong><sub>(10)</sub>`;
+         binaryOutput.innerHTML = `<i class="fas fa-check-circle" style="color: var(--success-color);"></i> ${binaryInput}<sub>(2)</sub> = <strong>${decimal}</strong><sub>(10)</sub>`;
      }
-
      function convertDecimalToBinary() {
          const decimalInput = document.getElementById('decimal-input').value.trim();
          const decimalOutput = document.getElementById('decimal-output');
-         if (!/^\d+$/.test(decimalInput) || decimalInput.length === 0) {
-             decimalOutput.innerHTML = "<span class='converter-error'>Entrée invalide (entier positif requis).</span>";
-             return;
-         }
+         if (!/^\d+$/.test(decimalInput) || decimalInput.length === 0) { decimalOutput.innerHTML = "<span class='converter-error'>Entrée invalide (entier positif requis).</span>"; return; }
          const decimalValue = parseInt(decimalInput, 10);
-         if(decimalValue > 1000000) { // Ajoute une limite raisonnable
-              decimalOutput.innerHTML = "<span class='converter-error'>Nombre trop grand pour cet outil.</span>";
-             return;
-         }
+         if(decimalValue > 1000000) { decimalOutput.innerHTML = "<span class='converter-error'>Nombre trop grand.</span>"; return; }
          const binary = decimalValue.toString(2);
-         decimalOutput.innerHTML = `<i class="fas fa-check-circle" style="color: var(--accent-dark);"></i> ${decimalInput}<sub>(10)</sub> = <strong>${binary}</strong><sub>(2)</sub>`;
+         decimalOutput.innerHTML = `<i class="fas fa-check-circle" style="color: var(--success-color);"></i> ${decimalInput}<sub>(10)</sub> = <strong>${binary}</strong><sub>(2)</sub>`;
      }
-
     function convertTextToAscii() {
         const textInput = document.getElementById('text-input').value;
         const textOutput = document.getElementById('text-output');
-        if (textInput.length === 0) {
-            textOutput.innerHTML = "<span class='converter-error'>Veuillez entrer du texte.</span>";
-            return;
-        }
+        if (textInput.length === 0) { textOutput.innerHTML = "<span class='converter-error'>Veuillez entrer du texte.</span>"; return; }
         let asciiCodes = [];
-        for (let i = 0; i < textInput.length; i++) {
-            asciiCodes.push(textInput.charCodeAt(i));
-        }
-        textOutput.innerHTML = `<i class="fas fa-check-circle" style="color: var(--accent-dark);"></i> ${asciiCodes.join(' ')}`;
+        for (let i = 0; i < textInput.length; i++) { asciiCodes.push(textInput.charCodeAt(i)); }
+        textOutput.innerHTML = `<i class="fas fa-check-circle" style="color: var(--success-color);"></i> ${asciiCodes.join(' ')}`;
     }
-
     function convertAsciiToText() {
         const asciiInput = document.getElementById('ascii-input').value.trim();
         const asciiOutput = document.getElementById('ascii-output');
-        if (!/^(\d+\s*)+$/.test(asciiInput) && asciiInput !== '') {
-            asciiOutput.innerHTML = "<span class='converter-error'>Entrez des nombres (codes ASCII) séparés par des espaces.</span>";
-            return;
-        }
-         if (asciiInput === '') {
-             asciiOutput.innerHTML = ""; // Vide si l'entrée est vide
-             return;
-         }
+        if (!/^(\d+\s*)+$/.test(asciiInput) && asciiInput !== '') { asciiOutput.innerHTML = "<span class='converter-error'>Entrez des nombres séparés par des espaces.</span>"; return; }
+        if (asciiInput === '') { asciiOutput.innerHTML = ""; return; }
         try {
-            const codes = asciiInput.split(/\s+/).filter(code => code !== ''); // Filtre les espaces vides
-            let text = '';
-            let error = false;
+            const codes = asciiInput.split(/\s+/).filter(code => code !== '');
+            let text = '', error = false;
             for (let i = 0; i < codes.length; i++) {
                  const codeNum = parseInt(codes[i]);
-                 if(isNaN(codeNum) || codeNum < 0 || codeNum > 255) { // Validation plus stricte
-                     error = true;
-                     break;
-                 }
-                text += String.fromCharCode(codeNum);
+                 if(isNaN(codeNum) || codeNum < 0 || codeNum > 255) { error = true; break; }
+                 text += String.fromCharCode(codeNum);
             }
-             if(error) {
-                  asciiOutput.innerHTML = "<span class='converter-error'>Code(s) ASCII invalide(s) (0-255).</span>";
-             } else {
-                 asciiOutput.innerHTML = `<i class="fas fa-check-circle" style="color: var(--accent-dark);"></i> <strong>${text}</strong>`;
-             }
-        } catch (e) {
-            asciiOutput.innerHTML = "<span class='converter-error'>Erreur de conversion.</span>";
-        }
+             if(error) { asciiOutput.innerHTML = "<span class='converter-error'>Code(s) ASCII invalide(s) (0-255).</span>"; }
+             else { asciiOutput.innerHTML = `<i class="fas fa-check-circle" style="color: var(--success-color);"></i> <strong>${text}</strong>`; }
+        } catch (e) { asciiOutput.innerHTML = "<span class='converter-error'>Erreur de conversion.</span>"; }
     }
 
-    // --- Logique des Exercices ---
-    window.verifyAnswer = function(exerciseId, correctAnswer, points, buttonElement) {
+    // --- Logique des Exercices (verifyAnswer définie plus bas et exposée globalement) ---
+    function verifyAnswerInternal(exerciseId, correctAnswer, points, buttonElement) {
         const answerInput = document.getElementById(`answer-${exerciseId}`);
         const feedbackDiv = document.getElementById(`feedback-${exerciseId}`);
-        const userAnswer = answerInput.value.trim().toLowerCase(); // Ignore la casse
-        correctAnswer = correctAnswer.toLowerCase();
+        if (!answerInput || !feedbackDiv) return; // Sécurité
 
+        const userAnswer = answerInput.value.trim().toLowerCase();
+        correctAnswer = correctAnswer.toLowerCase();
         const alreadyAnsweredCorrectly = exercisePoints[exerciseId] > 0;
 
         if (userAnswer === correctAnswer) {
              feedbackDiv.textContent = "Correct !";
              applyFeedback(feedbackDiv, true);
-             answerInput.disabled = true; // Désactive l'input après bonne réponse
-            buttonElement.disabled = true; // Désactive le bouton
+             answerInput.disabled = true;
+            buttonElement.disabled = true;
             buttonElement.style.opacity = '0.6';
-             // Ajoute les points seulement si pas déjà répondu correctement
             if (!alreadyAnsweredCorrectly) {
                 exercisePoints[exerciseId] = points;
                 exerciseScore += points;
-                totalScore += points; // Met à jour le score global
+                totalScore += points;
                 updateScoreDisplays();
             }
         } else {
              feedbackDiv.textContent = `Incorrect. La bonne réponse était : ${correctAnswer}`;
              applyFeedback(feedbackDiv, false);
-             // Ne désactive pas, permet de réessayer (mais les points ne sont gagnés qu'à la première bonne réponse)
         }
     }
 
-    // --- Logique du Quiz ---
-     function loadQuizQuestions() {
-          // Définit les questions ici (au lieu de les mettre directement dans le HTML initial)
+
+    // --- Logique du Quiz (setQuizDifficulty, checkQuizAnswer définies plus bas et exposées globalement) ---
+    function loadQuizQuestions() {
          quizQuestions = {
              easy: [
                  { question: "Que signifie 'bit' ?", options: ["Binary Digit", "Binary Integer", "Basic Input"], correct: 0, points: 5 },
                  { question: "Combien y a-t-il de chiffres dans le système binaire ?", options: ["1", "2", "8", "10"], correct: 1, points: 5 },
                  { question: "Convertir 10 (décimal) en binaire :", options: ["1000", "1010", "0010", "1110"], correct: 1, points: 5 }
              ],
-             medium: [
+             medium: [ /* ... questions medium ... */
                   { question: "Combien d'octets dans un kilooctet (informatique) ?", options: ["1000", "1024", "8", "2048"], correct: 1, points: 10 },
                   { question: "Code ASCII (décimal) pour 'a' minuscule ?", options: ["65", "97", "48", "32"], correct: 1, points: 10 },
                   { question: "1100 ET 1010 = ?", options: ["1000", "1110", "0110", "1010"], correct: 0, points: 10 }
              ],
-             hard: [
+             hard: [ /* ... questions hard ... */
                  { question: "Combien de couleurs distinctes avec 4 bits ?", options: ["8", "16", "4", "24"], correct: 1, points: 15 },
                  { question: "1011 XOR 0110 = ?", options: ["1101", "1001", "0110", "1111"], correct: 0, points: 15 },
                  { question: "Convertir 42 (décimal) en binaire ?", options: ["101010", "110010", "101001", "100101"], correct: 0, points: 15 }
@@ -393,14 +303,12 @@ document.addEventListener('DOMContentLoaded', function() {
          };
      }
 
-    window.setQuizDifficulty = function(difficulty) {
+    function setQuizDifficultyInternal(difficulty) {
         currentQuizDifficulty = difficulty;
         currentQuestionIndex = 0;
-
         document.querySelectorAll('.difficulty-btn').forEach(btn => {
             btn.classList.toggle('active', btn.getAttribute('data-difficulty') === difficulty);
         });
-
         displayCurrentQuestion();
     }
 
@@ -410,56 +318,38 @@ document.addEventListener('DOMContentLoaded', function() {
             quizContainer.innerHTML = '<p class="placeholder-text"><i class="fas fa-arrow-up"></i> Sélectionnez un niveau ci-dessus.</p>';
             return;
         }
-
         const questions = quizQuestions[currentQuizDifficulty];
-
         if (currentQuestionIndex >= questions.length) {
-            quizContainer.innerHTML = `
-                <div class="quiz-complete">
-                    <h3><i class="fas fa-check-double"></i> Quiz ${getLevelName(currentQuizDifficulty)} Terminé !</h3>
-                    <p>Bravo ! Vous avez répondu à toutes les questions de ce niveau.</p>
-                    <button class="difficulty-btn" onclick="window.setQuizDifficulty('${currentQuizDifficulty}')">Recommencer ce niveau</button>
-                </div>`;
-             checkCompletion(); // Vérifie si tout est terminé
+             quizContainer.innerHTML = `<div class="quiz-complete"><h3><i class="fas fa-check-double"></i> Quiz ${getLevelName(currentQuizDifficulty)} Terminé !</h3><p>Bravo ! Vous avez répondu à toutes les questions de ce niveau.</p><button class="difficulty-btn" onclick="setQuizDifficulty('${currentQuizDifficulty}')">Recommencer ce niveau</button></div>`;
+             checkCompletion();
             return;
         }
 
         const currentQuestion = questions[currentQuestionIndex];
         let optionsHTML = '';
         currentQuestion.options.forEach((option, index) => {
-            optionsHTML += `
-                <div class="quiz-option">
-                    <input type="radio" id="option-${index}" name="quiz-answer" value="${index}">
-                    <label for="option-${index}">${option}</label>
-                </div>
-            `;
+            optionsHTML += `<div class="quiz-option"><input type="radio" id="option-${index}" name="quiz-answer" value="${index}"><label for="option-${index}">${option}</label></div>`;
         });
 
+        // Utilise onclick pour checkQuizAnswer car cette partie est regénérée
         quizContainer.innerHTML = `
             <h3>Question ${currentQuestionIndex + 1} / ${questions.length}</h3>
             <p class="question-text">${currentQuestion.question}</p>
-            <div class="options-container">
-                ${optionsHTML}
-            </div>
-            <button id="validate-quiz-btn"><i class="fas fa-check"></i> Valider</button>
+            <div class="options-container">${optionsHTML}</div>
+            <button onclick="checkQuizAnswer()"><i class="fas fa-check"></i> Valider</button>
             <div id="quiz-feedback" class="answer-feedback"></div>
         `;
-        quizContainer.classList.remove('quiz-complete'); // Assure que la classe est retirée
+        quizContainer.classList.remove('quiz-complete');
     }
 
     function getLevelName(difficulty) {
-        switch(difficulty) {
-            case 'easy': return 'Débutant';
-            case 'medium': return 'Intermédiaire';
-            case 'hard': return 'Expert';
-            default: return difficulty;
-        }
+        switch(difficulty) { case 'easy': return 'Débutant'; case 'medium': return 'Intermédiaire'; case 'hard': return 'Expert'; default: return difficulty; }
     }
 
-    window.checkQuizAnswer = function() {
+    function checkQuizAnswerInternal() {
         const selectedOption = document.querySelector('#quiz-container input[name="quiz-answer"]:checked');
         const feedbackDiv = document.getElementById('quiz-feedback');
-        const validateButton = document.getElementById('validate-quiz-btn');
+        const validateButton = feedbackDiv?.previousElementSibling; // Le bouton Valider
 
         if (!selectedOption) {
             feedbackDiv.textContent = "Veuillez sélectionner une réponse.";
@@ -467,50 +357,39 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-         // Désactiver les options et le bouton pendant la vérification
          document.querySelectorAll('#quiz-container input[name="quiz-answer"]').forEach(input => input.disabled = true);
-         if(validateButton) validateButton.disabled = true;
-
+         if(validateButton && validateButton.tagName === 'BUTTON') validateButton.disabled = true;
 
         const userAnswer = parseInt(selectedOption.value);
         const questionData = quizQuestions[currentQuizDifficulty][currentQuestionIndex];
         const correctAnswer = questionData.correct;
         const points = questionData.points;
 
-
         if (userAnswer === correctAnswer) {
             feedbackDiv.textContent = `Correct ! (+${points} points)`;
             applyFeedback(feedbackDiv, true);
             totalScore += points;
             updateScoreDisplays();
-
-            // Passer à la question suivante
-            setTimeout(() => {
-                currentQuestionIndex++;
-                displayCurrentQuestion();
-            }, 1200); // Délai plus court pour bonne réponse
-
+            setTimeout(() => { currentQuestionIndex++; displayCurrentQuestion(); }, 1200);
         } else {
             const correctAnswerText = questionData.options[correctAnswer];
              feedbackDiv.textContent = `Incorrect. La bonne réponse était : "${correctAnswerText}"`;
              applyFeedback(feedbackDiv, false);
-             // Réactiver pour permettre de réessayer la même question ? Ou passer à la suivante ?
-             // Pour l'instant, on passe à la suivante même si c'est faux après un délai
-             setTimeout(() => {
-                currentQuestionIndex++;
-                displayCurrentQuestion();
-            }, 2000); // Délai plus long pour mauvaise réponse
+             setTimeout(() => { currentQuestionIndex++; displayCurrentQuestion(); }, 2000);
         }
     }
 
-     // --- Complétion et Reset ---
-
+     // --- Complétion et Reset (resetProgress définie plus bas et exposée globalement) ---
      function checkCompletion() {
+         const totalRelevantSections = totalNavLinks > 0 ? totalNavLinks - 1 : 0; // Moins l'accueil
          const allSectionsVisited = Object.keys(sectionVisits).length >= totalRelevantSections;
-         // On pourrait ajouter une condition sur le score ou la réussite du quiz si nécessaire
-         if (allSectionsVisited && document.getElementById('quiz-interactif').classList.contains('active') && currentQuestionIndex >= quizQuestions[currentQuizDifficulty]?.length) {
+         // Condition de complétion: toutes sections visitées ET le quiz actif est terminé
+         const quizSectionActive = document.getElementById('quiz-interactif')?.classList.contains('active');
+         const quizFinishedForCurrentDifficulty = currentQuizDifficulty && currentQuestionIndex >= quizQuestions[currentQuizDifficulty]?.length;
+
+         if (allSectionsVisited && quizSectionActive && quizFinishedForCurrentDifficulty) {
              if(completionMessage) {
-                 updateScoreDisplays(); // Assure que le score final est à jour
+                 updateScoreDisplays();
                  completionMessage.style.display = 'block';
                  completionMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
              }
@@ -519,43 +398,35 @@ document.addEventListener('DOMContentLoaded', function() {
          }
      }
 
-    window.resetProgress = function() {
-        totalScore = 0;
-        exerciseScore = 0;
-        Object.keys(exercisePoints).forEach(key => exercisePoints[key] = 0); // Réinitialise points par exo
-        Object.keys(sectionVisits).forEach(key => delete sectionVisits[key]); // Réinitialise visites
-        currentQuizDifficulty = null;
-        currentQuestionIndex = 0;
+    function resetProgressInternal() {
+        totalScore = 0; exerciseScore = 0;
+        Object.keys(exercisePoints).forEach(key => exercisePoints[key] = 0);
+        Object.keys(sectionVisits).forEach(key => delete sectionVisits[key]);
+        currentQuizDifficulty = null; currentQuestionIndex = 0;
 
-         // Réinitialiser l'UI
-        document.querySelectorAll('.answer-feedback').forEach(fb => {
-            fb.textContent = '';
-            fb.className = 'answer-feedback'; // Retire classes correct/incorrect/visible
-        });
-        document.querySelectorAll('.question-container input[type="text"]').forEach(input => {
-             input.value = '';
-             input.disabled = false;
-        });
-        document.querySelectorAll('.question-container button').forEach(btn => {
-             btn.disabled = false;
-             btn.style.opacity = '1';
-        });
+        document.querySelectorAll('.answer-feedback').forEach(fb => { fb.textContent = ''; fb.className = 'answer-feedback'; });
+        document.querySelectorAll('.question-container input[type="text"]').forEach(input => { input.value = ''; input.disabled = false; });
+        document.querySelectorAll('.question-container button').forEach(btn => { btn.disabled = false; btn.style.opacity = '1'; });
         document.querySelectorAll('.difficulty-btn').forEach(btn => btn.classList.remove('active'));
-         if(document.getElementById('quiz-container')) {
-             document.getElementById('quiz-container').innerHTML = '<p class="placeholder-text"><i class="fas fa-info-circle"></i> Sélectionnez un niveau de difficulté pour commencer.</p>';
-         }
-         menuLinks.forEach(link => {
-             link.classList.remove('visited', 'current');
-             const icon = link.querySelector('.fa-check');
-             if(icon) icon.remove();
-         });
-         if(completionMessage) completionMessage.style.display = 'none';
+        if(document.getElementById('quiz-container')) document.getElementById('quiz-container').innerHTML = '<p class="placeholder-text"><i class="fas fa-info-circle"></i> Sélectionnez un niveau de difficulté pour commencer.</p>';
+        menuLinks.forEach(link => { link.classList.remove('visited', 'current'); const icon = link.querySelector('.fa-check'); if(icon) icon.remove(); });
+        if(completionMessage) completionMessage.style.display = 'none';
 
-         updateScoreDisplays();
-         updateProgress();
-         showSection('accueil', true); // Retour à l'accueil
-         window.location.hash = ''; // Nettoie le hash
+        updateScoreDisplays();
+        updateProgress();
+        // Ne pas nettoyer le hash ici pour permettre le rechargement sur une section spécifique si souhaité
+        showSection('accueil', true); // Retour à l'accueil visuellement
+         window.location.hash = ''; // Nettoie le hash pour repartir de zéro
     }
+
+
+    // --- Exposition Globale des Fonctions pour les `onclick` restants ---
+    // IMPORTANT: Attacher les fonctions qui sont appelées par des `onclick` dans le HTML à l'objet `window`.
+    // showSection n'est plus nécessaire ici car tous ses appels sont gérés par des listeners internes.
+    window.verifyAnswer = verifyAnswerInternal;
+    window.setQuizDifficulty = setQuizDifficultyInternal;
+    window.checkQuizAnswer = checkQuizAnswerInternal; // Nécessaire car le bouton est recréé avec onclick
+    window.resetProgress = resetProgressInternal;
 
 
 }); // Fin de DOMContentLoaded
