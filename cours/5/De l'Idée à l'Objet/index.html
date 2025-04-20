@@ -1,1 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours de Technologie : De l'Idée à l'Objet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+    <div class="container">
+        <header>
+            <div class="logo-placeholder">🚀</div>
+            <h1>De l'Idée à l'Objet</h1>
+            <p>Le voyage fascinant de la création d'un objet technique</p>
+        </header>
+
+        <div id="card-grid"> <div class="course-card" data-section="besoin" tabindex="0"> <span class="card-icon">❓</span> <span class="card-title">Le Besoin</span> <span class="card-status"></span> </div>
+             <div class="course-card" data-section="solution" tabindex="0"> <span class="card-icon">💡</span> <span class="card-title">La Solution</span> <span class="card-status"></span> </div>
+             <div class="course-card" data-section="materiaux" tabindex="0"> <span class="card-icon">🧱</span> <span class="card-title">Matériaux & Fabrication</span> <span class="card-status"></span> </div>
+             <div class="course-card" data-section="programme" tabindex="0"> <span class="card-icon">⚙️</span> <span class="card-title">Programmation</span> <span class="card-status"></span> </div>
+             <div class="course-card" data-section="conclusion" tabindex="0"> <span class="card-icon">🏁</span> <span class="card-title">Conclusion</span> <span class="card-status"></span> </div>
+             <div class="course-card" data-section="exercices" tabindex="0"> <span class="card-icon">🎮</span> <span class="card-title">Exercices Interactifs</span> <span class="card-status"></span> </div>
+        </div>
+
+        <div id="content-viewer"> <button class="back-button" id="back-to-grid">← Retour</button>
+
+            <div id="besoin-section" class="content-section">
+                 <h2>Partie 1 : Le Besoin – Pourquoi crée-t-on des objets ?</h2>
+                 <p>À la base de chaque <span class="important-word" data-term="objet-technique">objet technique</span>, il y a une raison : un <span class="important-word" data-term="besoin">besoin</span> à satisfaire ou un problème à résoudre.</p>
+                 <h3>Qu'est-ce qu'un Besoin ?</h3>
+                 <p>C'est un manque, une nécessité ou simplement une envie que l'on cherche à satisfaire.</p>
+                 <ul>
+                     <li><em>Exemple :</em> Le besoin de communiquer avec quelqu'un qui est loin -> Création du téléphone.</li>
+                     <li><em>Exemple :</em> Le besoin de transporter mes affaires pour aller au collège -> Création du sac à dos.</li>
+                     <li><em>Exemple :</em> Il pleut et j'ai besoin de rester au sec -> Création du parapluie.</li>
+                     <li><em>Exemple :</em> J'ai envie de m'amuser -> Création de la console de jeux.</li>
+                 </ul>
+                 <h3>La Fonction d'Usage : À quoi sert l'objet ?</h3>
+                 <p>C'est le service principal rendu par l'objet, sa raison d'être. Pour trouver la <span class="important-word" data-term="fonction-usage">fonction d'usage</span>, on peut se poser ces questions (c'est un peu comme la carte d'identité de l'objet !) :</p>
+                 <ul>
+                    <li>À qui l'objet rend-il service ? (L'utilisateur)</li>
+                    <li>Sur quoi agit-il ? (La matière d'œuvre)</li>
+                    <li>Dans quel but ? (La fonction d'usage)</li>
+                </ul>
+                 <svg class="diagram bete-a-cornes" viewBox="0 0 200 100" aria-labelledby="bac-title" role="img">
+                     <title id="bac-title">Diagramme Bête à Cornes simplifié</title>
+                     <defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--text-color)" /></marker></defs>
+                     <path d="M 50,70 Q 10,40 50,10" stroke="var(--text-color)" fill="none" stroke-width="1"/>
+                     <path d="M 150,70 Q 190,40 150,10" stroke="var(--text-color)" fill="none" stroke-width="1"/>
+                     <ellipse cx="100" cy="80" rx="45" ry="15" fill="var(--card-color-1)" stroke="var(--text-color)" stroke-width="1"/>
+                     <text x="100" y="83" text-anchor="middle" font-size="9">Produit/Objet</text>
+                     <text x="30" y="10" text-anchor="middle" font-size="8">À qui rend service?</text>
+                     <text x="30" y="75" text-anchor="middle" font-size="8">(Utilisateur)</text>
+                     <text x="170" y="10" text-anchor="middle" font-size="8">Sur quoi agit-il?</text>
+                     <text x="170" y="75" text-anchor="middle" font-size="8">(Matière d'oeuvre)</text>
+                     <line x1="50" y1="10" x2="150" y2="10" stroke="var(--text-color)" stroke-width="1"/>
+                     <line x1="100" y1="65" x2="100" y2="30" stroke="var(--text-color)" stroke-width="1" marker-end="url(#arrow)"/>
+                     <text x="100" y="25" text-anchor="middle" font-size="9">Dans quel but?</text>
+                     <text x="100" y="40" text-anchor="middle" font-size="8">(Fonction d'Usage)</text>
+                 </svg>
+                 <p><em>Exemple : La Trousse</em> -> Fonction d'usage: <strong>Ranger et transporter le matériel scolaire</strong>.</p>
+                 <p><em>Exemple : Le Casque Audio</em> -> Fonction d'usage: <strong>Permettre d'écouter du son individuellement</strong>.</p>
+                 <h3>Les Contraintes : Les Règles du Jeu</h3>
+                 <p>Ce sont les limites et exigences (<span class="important-word" data-term="contraintes">contraintes</span>) à respecter. Cliquez sur une contrainte pour un exemple :</p>
+                 <ul class="clickable-list">
+                     <li data-info="Ex: Un jouet pour bébé ne doit pas avoir de petites pièces détachables." tabindex="0"><b><i class="icon">🛡️</i> Sécurité</b></li>
+                     <li data-info="Ex: Le coût de fabrication ne doit pas dépasser 10€ par pièce." tabindex="0"><b><i class="icon">💰</i> Coût / Prix</b></li>
+                     <li data-info="Ex: La poignée de l'outil doit être confortable pour la main." tabindex="0"><b><i class="icon">✋</i> Ergonomie</b></li>
+                     <li data-info="Ex: La couleur du téléphone doit être choisie parmi 3 options." tabindex="0"><b><i class="icon">🎨</i> Esthétique</b></li>
+                     <li data-info="Ex: L'emballage doit être en carton recyclable." tabindex="0"><b><i class="icon">🌍</i> Environnement</b></li>
+                     <li data-info="Ex: Le téléphone doit tenir dans une poche de taille standard." tabindex="0"><b><i class="icon">📏</i> Dimensions / Poids</b></li>
+                     <li data-info="Ex: L'appareil électrique doit respecter la norme CE." tabindex="0"><b><i class="icon">⚖️</i> Réglementation</b></li>
+                 </ul>
+                 <p class="info-box" id="constraint-info-box">Cliquez sur un élément ci-dessus.</p>
+                 <h3>Le Cahier des Charges : La Recette de l'Objet</h3>
+                 <p>Le <span class="important-word" data-term="cahier-des-charges">Cahier des Charges Fonctionnel (CDCF)</span> est le document qui récapitule le besoin, la fonction d'usage et toutes les contraintes. C'est le guide du projet !</p>
+                 <div class="simple-cdcf-example">
+                     <h4>Exemple simplifié de CDCF (Trousse)</h4>
+                     <ul>
+                         <li><b>Fonction d'usage :</b> Ranger et transporter petit matériel scolaire.</li>
+                         <li><b>Contraintes :</b>
+                             <ul>
+                                 <li>Doit pouvoir contenir 10 stylos, 1 gomme, 1 règle 15cm.</li>
+                                 <li>Doit se fermer (zip, bouton...).</li>
+                                 <li>Matériau résistant à l'usure.</li>
+                                 <li>Prix de vente < 8€.</li>
+                                 <li>Esthétique : couleurs vives.</li>
+                             </ul>
+                         </li>
+                     </ul>
+                 </div>
+            </div>
+
+            <div id="solution-section" class="content-section">
+                 <h2>Partie 2 : La Solution – Comment imagine-t-on l'objet ?</h2>
+                 <p>Une fois qu'on sait *pourquoi* on crée l'objet (le besoin) et quelles sont les règles (les contraintes), il faut imaginer *comment* il sera. C'est l'étape de la recherche de solutions et de la représentation de l'objet.</p>
+                 <h3>Imaginer et Dessiner les Idées</h3>
+                 <p>Les inventeurs et designers ne trouvent pas la solution parfaite du premier coup ! Ils explorent souvent beaucoup d'idées différentes. Pour cela, ils utilisent différents types de dessins :</p>
+                 <div class="representation-comparison">
+                     <div class="rep-box">
+                         <h4><i class="icon">✏️</i> <span class="important-word" data-term="croquis">Croquis</span></h4>
+                         <div class="rep-visu sketch">~ Gribouillis ~</div>
+                         <p>Rapide, idées</p>
+                     </div>
+                      <div class="rep-box">
+                         <h4><i class="icon"> G</i> <span class="important-word" data-term="schema">Schéma</span></h4>
+                          <div class="rep-visu schema">📦➡️⚙️➡️💡</div>
+                         <p>Fonctionnement, symboles</p>
+                     </div>
+                      <div class="rep-box">
+                         <h4><i class="icon">📐</i> <span class="important-word" data-term="dessin-technique">Dessin Technique</span></h4>
+                          <div class="rep-visu tech-drawing">📏 Vues+Cotes 📏</div>
+                         <p>Précis, normes</p>
+                     </div>
+                 </div>
+                 <h3>L'Ordinateur à la Rescousse : DAO et CAO</h3>
+                 <p>La <b>DAO</b> (Dessin Assisté par Ordinateur - 2D) et la <b><span class="important-word" data-term="cao">CAO</span></b> (Conception Assistée par Ordinateur - modélisation 3D) sont très utilisées.</p>
+                 <p>La CAO 3D permet de créer un modèle virtuel, de faire des assemblages virtuels (vérifier que les pièces s'emboîtent), de modifier facilement et de préparer l'impression 3D.</p>
+                 <div class="simple-icon-placeholder">
+                     <i class="icon">🖥️</i> + <i class="icon">🧊</i>
+                     <p>(Ici, imaginez une capture d'écran d'un logiciel comme Tinkercad)</p>
+                 </div>
+            </div>
+
+             <div id="materiaux-section" class="content-section">
+                 <h2>Partie 3 : Les Matériaux et la Fabrication</h2>
+                 <p>Avec quoi et comment fabriquer l'objet ? Le choix est crucial !</p>
+                 <div class="materials-grid">
+                     <div class="mat-card">
+                         <h3><i class="icon">🌍</i> Choisir les Bons <span class="important-word" data-term="materiaux">Matériaux</span></h3>
+                         <p>Le choix dépend des <span class="important-word" data-term="proprietes">propriétés</span> (résistance, légèreté...).</p>
+                         <div class="material-families">
+                             <div><i class="icon">🔩</i> Métaux</div>
+                             <div><i class="icon">🧴</i> Plastiques</div>
+                             <div><i class="icon">🪵</i> Organiques</div>
+                             <div><i class="icon">🏺</i> Céramiques/Verres</div>
+                             <div><i class="icon">🧪</i> <span class="important-word" data-term="composites">Composites</span></div>
+                         </div>
+                         <p><em>Exemple :</em> Règle -> plastique (léger) ou métal (durable).</p>
+                     </div>
+                     <div class="fab-card">
+                         <h3><i class="icon">🛠️</i> Donner Forme : La <span class="important-word" data-term="fabrication">Fabrication</span></h3>
+                         <p>Les <span class="important-word" data-term="procedes-fabrication">procédés</span> pour transformer la matière :</p>
+                         <ul class="icon-list-vertical">
+                             <li><i class="icon">🔪</i> Enlèvement de matière (sciage, perçage...)</li>
+                             <li><i class="icon">💪</i> Déformation (pliage...)</li>
+                             <li><i class="icon">🏺</i> Moulage (injection...)</li>
+                             <li><i class="icon">🖨️</i> Fabrication Additive (Impression 3D)</li>
+                         </ul>
+                     </div>
+                     <div class="assem-card">
+                          <h3><i class="icon">🔗</i> Relier les Pièces : L'Assemblage</h3>
+                          <p>Comment joindre les différentes parties :</p>
+                         <ul class="icon-list-vertical">
+                             <li><i class="icon">🔧</i> Démontable (<span class="important-word" data-term="assemblage-vissage">Vissage</span>...)</li>
+                             <li><i class="icon">🔗</i> Permanent (<span class="important-word" data-term="assemblage-collage">Collage</span>, <span class="important-word" data-term="assemblage-soudage">Soudage</span>...)</li>
+                         </ul>
+                     </div>
+                 </div>
+                 <p class="visual-note"><em>Chaque choix impacte coût, durabilité, environnement...</em></p>
+             </div>
+
+            <div id="programme-section" class="content-section">
+                 <h2>Partie 4 : La Programmation – Rendre l'objet "intelligent" ?</h2>
+                 <p>Beaucoup d'objets modernes utilisent un <span class="important-word" data-term="programme">programme</span> informatique pour réagir ou communiquer.</p>
+                 <h3>L'<span class="important-word" data-term="algorithme">Algorithme</span> : la recette</h3>
+                 <p>C'est la suite d'instructions logiques. Exemple pour une lampe automatique :</p>
+                 <svg class="diagram flowchart-corrected enhanced" viewBox="0 0 220 240" aria-labelledby="fc-title" role="img">
+                     <title id="fc-title">Diagramme Lampe Automatique Corrigé et Amélioré</title>
+                     <defs> <marker id="arrowhead-large" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent-color)" /></marker> <style> .flow-box-enhanced { stroke: var(--text-color, #4A4A4A); stroke-width:1.5; fill: #fff; } .flow-text-enhanced { font-size: 9px; text-anchor: middle; fill: var(--text-color, #4A4A4A); font-family: var(--heading-font, 'Quicksand', sans-serif); font-weight: 500;} .flow-line-enhanced { stroke: var(--accent-color, #00796B); stroke-width:1.5; marker-end: url(#arrowhead-large); } .flow-label-enhanced { font-size: 8px; fill: #555; font-style: italic; font-family: var(--body-font, 'Lato', sans-serif);} </style> </defs>
+                     <rect x="75" y="10" width="70" height="25" rx="12.5" class="flow-box-enhanced" fill="var(--card-color-4, #ADD8E6)"/> <text x="110" y="26" class="flow-text-enhanced">Début</text>
+                     <path d="M85 45 h50 l-10 20 h-50 z" class="flow-box-enhanced" fill="var(--card-color-2, #F0E68C)"/> <text x="110" y="61" class="flow-text-enhanced">Lire Lumière</text>
+                     <path d="M110 80 l40 25 l-40 25 l-40 -25 Z" class="flow-box-enhanced" fill="var(--card-color-5, #FBC4AB)"/> <text x="110" y="108" class="flow-text-enhanced">Fait-il sombre?</text>
+                     <rect x="145" y="145" width="70" height="25" rx="5" class="flow-box-enhanced" fill="var(--card-color-3, #FFDAB9)"/> <text x="180" y="161" class="flow-text-enhanced">Allumer LED</text>
+                     <rect x="5" y="145" width="70" height="25" rx="5" class="flow-box-enhanced" fill="var(--card-color-3, #FFDAB9)"/> <text x="40" y="161" class="flow-text-enhanced">Éteindre LED</text>
+                     <rect x="75" y="205" width="70" height="25" rx="12.5" class="flow-box-enhanced" fill="var(--card-color-4, #ADD8E6)"/> <text x="110" y="221" class="flow-text-enhanced">Reboucler</text>
+                     <line x1="110" y1="35" x2="110" y2="45" class="flow-line-enhanced"/> <line x1="110" y1="65" x2="110" y2="80" class="flow-line-enhanced"/>
+                     <line x1="150" y1="105" x2="180" y2="145" class="flow-line-enhanced"/> <text x="170" y="130" class="flow-label-enhanced">Oui</text>
+                     <line x1="70" y1="105" x2="40" y2="145" class="flow-line-enhanced"/> <text x="50" y="130" class="flow-label-enhanced">Non</text>
+                     <line x1="40" y1="170" x2="40" y2="190" class="flow-line-enhanced"/> <line x1="180" y1="170" x2="180" y2="190" class="flow-line-enhanced"/>
+                     <line x1="40" y1="190" x2="100" y2="205" class="flow-line-enhanced"/> <line x1="180" y1="190" x2="120" y2="205" class="flow-line-enhanced"/>
+                     <path d="M 75 217 C 20 217, 20 57, 80 57" stroke="var(--accent-color, #00796B)" fill="none" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowhead-large)"/>
+                 </svg>
+                 <h3>Le Cerveau : <span class="important-word" data-term="microcontroleur">Microcontrôleur</span></h3>
+                 <p>Une mini-puce programmable (Ex: <i class="icon">💻</i> Arduino, Micro:bit).</p>
+                 <h3>Les Sens et Actions : <span class="important-word" data-term="capteurs">Capteurs</span> & <span class="important-word" data-term="actionneurs">Actionneurs</span></h3>
+                 <p>Les capteurs reçoivent des infos (Entrées), les actionneurs agissent (Sorties).</p>
+                 <svg class="diagram input-output enhanced" viewBox="0 0 300 70">
+                      <defs> <marker id="arrowhead-io" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent-color)" /></marker> </defs>
+                      <style> .io-box { stroke: var(--text-color, #4A4A4A); stroke-width:1.5; rx: 8px; } .io-text { font-size: 11px; text-anchor: middle; fill: var(--text-color, #4A4A4A); font-family: var(--heading-font, 'Quicksand', sans-serif);} .io-line { stroke: var(--accent-color, #00796B); stroke-width: 2.5; marker-end: url(#arrowhead-io); } </style>
+                      <rect x="10" y="20" width="80" height="30" class="io-box" fill="var(--card-color-4, #ADD8E6)"/> <text x="50" y="32" class="io-text">Capteur<tspan x="50" dy="1.2em">(Entrée)</tspan></text>
+                      <rect x="110" y="20" width="80" height="30" class="io-box" fill="var(--card-color-1, #E6E0F8)"/> <text x="150" y="32" class="io-text">Programme<tspan x="150" dy="1.2em">(Traitement)</tspan></text>
+                      <rect x="210" y="20" width="80" height="30" class="io-box" fill="var(--card-color-3, #FFDAB9)"/> <text x="250" y="32" class="io-text">Actionneur<tspan x="250" dy="1.2em">(Sortie)</tspan></text>
+                      <line x1="90" y1="35" x2="110" y2="35" class="io-line"/> <line x1="190" y1="35" x2="210" y2="35" class="io-line"/>
+                 </svg>
+                 <h3>Comment Programmer ?</h3>
+                 <p>Avec des langages visuels par blocs (Scratch, MakeCode...).</p>
+                 <div class="simple-code-block-example"> <div class="block condition">Si <span class="value">Lumière &lt; 50</span> Alors</div> <div class="block action indent">Allumer LED Bleue</div> <div class="block condition">Sinon</div> <div class="block action indent">Éteindre LED Bleue</div> </div>
+            </div>
+
+            <div id="conclusion-section" class="content-section">
+                 <h2>Conclusion : Le Cycle de Création</h2>
+                 <p>Les 4 étapes (Besoin -> Solution -> Matériaux/Fabrication -> Programme) forment souvent un cycle.</p>
+                 <p>On crée des <b>prototypes</b> pour tester et améliorer. C'est un processus <b>itératif</b> !</p>
+                 <svg class="diagram cycle-diagram enhanced" viewBox="-10 -10 120 120">
+                     <defs> <marker id="arrowhead-cycle" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent-color, #00796B)" /></marker> <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%"> <feDropShadow dx="1" dy="1" stdDeviation="1" flood-color="#000" flood-opacity="0.2"/> </filter> <style> .cycle-step text { font-size: 9px; font-weight: 500; font-family: var(--heading-font, 'Quicksand', sans-serif); fill: var(--text-color, #4A4A4A); text-anchor: middle; pointer-events: none; user-select: none;} .cycle-step circle { r: 11; stroke-width: 1; stroke: #aaa; filter: url(#shadow);} .cycle-arrow { fill: none; stroke: var(--accent-color, #00796B); stroke-width: 1.8; marker-end: url(#arrowhead-cycle); } </style> </defs>
+                     <circle cx="50" cy="50" r="45" fill="none" stroke="var(--border-color-light, #E0E0E0)" stroke-width="1.5" stroke-dasharray="6,4"/>
+                     <g transform="translate(50, 10)" class="cycle-step"> <circle fill="var(--card-color-1, #E6E0F8)"/><text y="3">Besoin</text></g>
+                     <g transform="translate(88, 35)" class="cycle-step"> <circle fill="var(--card-color-2, #F0E68C)"/><text y="3">Solution</text></g>
+                     <g transform="translate(80, 75)" class="cycle-step"> <circle fill="var(--card-color-3, #FFDAB9)"/><text y="3">Fabriquer</text></g>
+                     <g transform="translate(20, 75)" class="cycle-step"> <circle fill="var(--accent-color, #00796B)"/><text y="3" fill="#fff">Tester</text></g>
+                     <g transform="translate(12, 35)" class="cycle-step"> <circle fill="var(--card-color-4, #ADD8E6)"/><text y="3">Prog</text></g>
+                      <path d="M 65 15 A 42 42 0 0 1 85 30" class="cycle-arrow"/> <path d="M 90 45 A 42 42 0 0 1 85 70" class="cycle-arrow"/>
+                     <path d="M 70 83 A 42 42 0 0 1 30 83" class="cycle-arrow"/> <path d="M 15 70 A 42 42 0 0 1 10 40" class="cycle-arrow"/>
+                     <path d="M 18 30 A 42 42 0 0 1 35 15" class="cycle-arrow"/>
+                 </svg>
+                 <p>Maintenant, tu comprends mieux comment naissent les objets techniques !</p>
+            </div>
+
+             <div id="exercices-section" class="content-section">
+                 <h2><i class="icon">🎮</i> Exercices Interactifs</h2>
+                 <p>Choisis un thème pour commencer les exercices :</p>
+                 <div id="theme-buttons">
+                     <button class="theme-button" data-theme="besoin">Besoin</button>
+                     <button class="theme-button" data-theme="solution">Solution</button>
+                     <button class="theme-button" data-theme="materiaux">Matériaux</button>
+                     <button class="theme-button" data-theme="programme">Programme</button>
+                 </div>
+                 <hr class="exercise-divider">
+                 <div id="exercise-content-area"><p class="placeholder-text">Sélectionne un thème ci-dessus.</p></div>
+                 <hr class="exercise-divider">
+                 <div id="exercise-controls">
+                     <button id="validate-exercise-button" class="is-hidden">Valider mes réponses</button>
+                     <div id="exercise-feedback" class="is-hidden"></div>
+                 </div>
+             </div>
+
+        </div> <div id="definition-modal" class="modal">
+             <div class="modal-content">
+                 <span class="close-button" id="definition-close" title="Fermer">&times;</span>
+                 <h2 id="modal-title">Titre</h2>
+                 <p id="modal-definition">Définition.</p>
+             </div>
+         </div>
+
+    </div> <script src="script.js"></script>
+</body>
+</html>
