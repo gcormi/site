@@ -1,0 +1,155 @@
+/* --- Réinitialisation et Styles Généraux --- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #e0e0e0;
+    line-height: 1.7;
+    background-color: #111;
+}
+.main-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: url('fond.jpg') no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* --- Boîte Principale (Menu) --- */
+.content-box {
+    background-color: rgba(20, 25, 60, 0.75);
+    padding: 35px 45px;
+    border-radius: 12px;
+    max-width: 750px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+.content-box.hidden {
+    opacity: 0;
+    transform: scale(0.9);
+    pointer-events: none;
+}
+
+h1 { font-size: 2.4em; margin-bottom: 15px; color: #fff; font-weight: 600; }
+.instruction { font-size: 1.1em; margin-bottom: 35px; color: #c0c0c0; }
+
+/* MODIFIÉ ICI: Passage à 2 colonnes pour la grille */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 colonnes égales */
+    gap: 25px;
+    max-width: 450px; /* Ajuster si besoin pour centrer la grille */
+    margin-left: auto;  /* Centre la grille si max-width est défini */
+    margin-right: auto; /* Centre la grille si max-width est défini */
+}
+.category-item {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 20px 10px; background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 8px; color: #fff; transition: background-color 0.3s ease, transform 0.2s ease;
+    min-height: 130px; border: 1px solid rgba(255, 255, 255, 0.15); cursor: pointer;
+    pointer-events: auto;
+}
+/* Pas besoin de styler 'a.category-item' car il n'y en a plus */
+.category-item:hover { background-color: rgba(255, 255, 255, 0.20); transform: translateY(-5px) scale(1.03); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
+.category-item .icon { font-size: 2.8em; margin-bottom: 12px; color: #87CEFA; }
+.category-item .title { font-size: 1.05em; font-weight: 600; }
+footer { margin-top: 35px; padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.2); font-size: 0.9em; color: rgba(255, 255, 255, 0.6); }
+footer p { margin: 2px 0; }
+
+/* --- Sections de Contenu --- */
+.content-section {
+    display: none; position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    width: 90%; max-width: 800px;
+    max-height: 85vh; overflow-y: auto; background-color: rgba(30, 35, 70, 0.96);
+    padding: 30px 40px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e0e0e0; opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    z-index: 10;
+}
+.content-section.active { display: block; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+/* ... (styles internes des sections h2, h3, p, ul, etc. restent les mêmes) ... */
+.content-section h2 { color: #fff; font-size: 1.8em; margin-bottom: 20px; border-bottom: 2px solid #87CEFA; padding-bottom: 10px; display: inline-block; }
+.content-section h2 i { margin-right: 10px; }
+.content-section h3 { color: #fff; font-size: 1.4em; margin-top: 25px; margin-bottom: 10px; color: #9ACD32; }
+.content-section h3 i { margin-right: 8px; }
+.content-section p, .content-section ul { margin-bottom: 15px; }
+.content-section ul { list-style: none; padding-left: 20px; }
+.content-section ul li { position: relative; padding-left: 25px; margin-bottom: 8px; }
+.content-section ul li > i:first-child { position: absolute; left: 0; top: 4px; color: #87CEFA; width: 20px; text-align: center; }
+.content-section strong { color: #FFD700; }
+
+/* Bouton Retour */
+.back-button { position: absolute; top: 15px; right: 15px; background: rgba(255, 255, 255, 0.2); color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9em; transition: background-color 0.3s ease; z-index: 15; }
+.back-button:hover { background: rgba(255, 255, 255, 0.4); }
+.back-button i { margin-right: 5px; }
+
+/* Styles SVG */
+.svg-container { display: block; margin: 25px auto; max-width: 90%; padding: 10px; background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; }
+.svg-container-materiel { max-width: 300px; } .svg-container-fichiers { max-width: 400px; } .svg-container-internet { max-width: 120px; } .svg-container-securite { max-width: 150px; }
+.svg-container svg { display: block; width: 100%; height: auto; }
+
+/* Tooltip */
+.tooltip-trigger { cursor: help; border-bottom: 2px dotted #FFD700; color: #FFD700; font-weight: bold; transition: color 0.3s ease; }
+.tooltip-trigger:hover { color: #FFA500; }
+#tooltip-box { display: none; position: fixed; background-color: #2a2f4a; color: #e0e0e0; padding: 15px 20px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); max-width: 300px; font-size: 0.95em; line-height: 1.5; z-index: 110; opacity: 0; transition: opacity 0.3s ease; }
+#tooltip-box.visible { display: block; opacity: 1; }
+#tooltip-content { margin-bottom: 10px; }
+#tooltip-close { display: block; margin-top: 10px; padding: 5px 10px; background-color: rgba(255, 255, 255, 0.2); border: none; color: #fff; border-radius: 5px; cursor: pointer; width: 100%; transition: background-color 0.3s ease; }
+#tooltip-close:hover { background-color: rgba(255, 255, 255, 0.4); }
+#tooltip-close i { margin-right: 5px; }
+
+/* Styles Additionnels */
+/* ... (schema-like, component-section, etc. restent les mêmes) ... */
+.schema-like { border: 1px dashed rgba(255, 255, 255, 0.3); padding: 15px; margin-top: 15px; margin-bottom: 20px; border-radius: 5px; background-color: rgba(0, 0, 0, 0.1); }
+.component-section { margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+.icon-grid-small { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; text-align: center; font-size: 0.9em; }
+.icon-grid-small div i { display: block; font-size: 1.8em; margin-bottom: 5px; color: #87CEFA; }
+.warning-box { background-color: rgba(255, 165, 0, 0.15); border: 1px solid #FFA500; color: #FFA500; padding: 10px 15px; border-radius: 5px; margin: 15px 0; font-weight: bold; }
+.warning-box i { margin-right: 8px; }
+.simple-schema { font-family: monospace; text-align: left; padding-left: 20px; }
+.simple-schema ul { padding-left: 30px; margin-top: 5px;} .simple-schema li { padding-left: 15px; } .simple-schema i { margin-right: 5px; font-size: 0.9em;} .icon-large { font-size: 1.2em !important; }
+.did-you-know { background-color: rgba(154, 205, 50, 0.15); border-left: 4px solid #9ACD32; padding: 15px 20px; margin: 25px 0; border-radius: 5px; font-size: 0.95em; }
+.did-you-know h4 { color: #9ACD32; margin-bottom: 8px; font-size: 1.1em; } .did-you-know h4 i { margin-right: 8px; }
+.important-dates { background-color: rgba(135, 206, 250, 0.1); border-left: 4px solid #87CEFA; padding: 15px 20px; margin: 25px 0; border-radius: 5px; font-size: 0.95em; }
+.important-dates h4 { color: #87CEFA; margin-bottom: 8px; font-size: 1.1em; } .important-dates h4 i { margin-right: 8px; }
+.important-dates ul { list-style: none; padding-left: 5px; } .important-dates li { margin-bottom: 5px; padding-left: 0; }
+.important-dates li > i:first-child { position: static; margin-right: 6px; font-size: 0.9em; color: #87CEFA; width: auto; text-align: left; }
+.content-section p i.inline-icon, .content-section li i.inline-icon { margin: 0 3px; vertical-align: middle; font-size: 1.1em; color: #FFD700; }
+
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .content-box { padding: 25px 20px; max-width: 95%; }
+    h1 { font-size: 2em; }
+    .instruction { font-size: 1em; margin-bottom: 25px;}
+    /* La grille reste à 2 colonnes sur tablette */
+    .category-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; max-width: 400px; }
+    .category-item { min-height: 110px; }
+    .category-item .icon { font-size: 2.2em; }
+    .category-item .title { font-size: 0.95em; }
+    .content-section { padding: 25px; max-width: 95%; max-height: 80vh; }
+    .content-section h2 { font-size: 1.6em; }
+    .content-section h3 { font-size: 1.3em; }
+    .icon-grid-small { grid-template-columns: 1fr; }
+    .svg-container { max-width: 80%; }
+}
+@media (max-width: 480px) {
+     /* MODIFIÉ ICI: Passage à 2 colonnes aussi sur mobile pour 4 éléments */
+     .category-grid { grid-template-columns: repeat(2, 1fr); max-width: 90%; gap: 10px;}
+     .category-item { min-height: auto; padding: 15px; }
+     h1 { font-size: 1.8em; }
+     .content-section { padding: 20px;}
+     .content-section h2 { font-size: 1.4em; }
+     .content-section h3 { font-size: 1.2em; }
+     .back-button { padding: 6px 10px; font-size: 0.8em;}
+     #tooltip-box { max-width: 250px; }
+     .svg-container { max-width: 70%; }
+     .svg-container-fichiers { max-width: 90%; }
+}

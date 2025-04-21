@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercices Interactifs d'Informatique</title>
+    <link rel="stylesheet" href="exercices_standalone.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="exercise-page-container">
+        <header>
+            <h1><i class="fas fa-gamepad"></i> Exercices Interactifs d'Informatique</h1>
+            <p>Testez vos connaissances sur les bases de l'informatique à travers ces exercices ludiques. Chaque bonne réponse vous rapporte des points !</p>
+        </header>
+
+        <main>
+            <!-- Thème 1: Le Matériel -->
+            <section class="theme-section" id="theme-materiel">
+                <h2><i class="fas fa-laptop-code"></i> Thème : Le Matériel</h2>
+
+                <div class="exercise-block" id="materiel-qcm">
+                    <h3><i class="fas fa-tasks"></i> QCM (5 questions)</h3>
+                    <div class="qcm-content"></div>
+                    <button class="qcm-submit">Valider QCM Matériel</button>
+                    <div class="qcm-feedback feedback"></div>
+                </div>
+
+                <div class="exercise-block" id="materiel-assoc">
+                    <h3><i class="fas fa-link"></i> Association (3 paires)</h3>
+                    <p class="instructions">Cliquez sur un terme puis sur sa définition correspondante.</p>
+                    <div class="assoc-container">
+                        <div class="assoc-column" id="materiel-assoc-col1"></div>
+                        <div class="assoc-column" id="materiel-assoc-col2"></div>
+                    </div>
+                    <button class="assoc-submit">Valider Association Matériel</button>
+                    <div class="assoc-feedback feedback"></div>
+                </div>
+
+                <div class="exercise-block" id="materiel-pendu1">
+                    <h3><i class="fas fa-ghost"></i> Pendu 1</h3>
+                    <div class="pendu-area">
+                        <div class="pendu-help-button-container">
+                            <button class="pendu-help-button">Afficher l'indice</button>
+                        </div>
+                        <div class="pendu-help-text"></div>
+                        <div class="pendu-word"></div>
+                        <div class="pendu-letters"></div>
+                        <div class="pendu-attempts">Tentatives restantes : <span>5</span></div>
+                        <div class="pendu-feedback feedback"></div>
+                    </div>
+                </div>
+
+                 <div class="exercise-block" id="materiel-pendu2">
+                    <h3><i class="fas fa-ghost"></i> Pendu 2</h3>
+                    <div class="pendu-area">
+                        <div class="pendu-help-button-container">
+                            <button class="pendu-help-button">Afficher l'indice</button>
+                        </div>
+                        <div class="pendu-help-text"></div>
+                        <div class="pendu-word"></div>
+                        <div class="pendu-letters"></div>
+                        <div class="pendu-attempts">Tentatives restantes : <span>5</span></div>
+                        <div class="pendu-feedback feedback"></div>
+                    </div>
+                </div>
+
+                <div class="exercise-block" id="materiel-memory1">
+                    <h3><i class="fas fa-brain"></i> Memory 1 (8 paires)</h3>
+                    <div class="timer">Temps : <span class="time-value" id="timer-mat-1">0s</span></div>
+                    <div class="memory-grid"></div>
+                    <div class="memory-feedback feedback"></div>
+                </div>
+
+                 <div class="exercise-block" id="materiel-memory2">
+                    <h3><i class="fas fa-brain"></i> Memory 2 (8 paires)</h3>
+                    <div class="timer">Temps : <span class="time-value" id="timer-mat-2">0s</span></div>
+                    <div class="memory-grid"></div>
+                    <div class="memory-feedback feedback"></div>
+                </div>
+
+                <div class="theme-score">Score Matériel : <span id="score-materiel">0</span></div>
+            </section>
+
+            <!-- Thème 2: Fichiers et Dossiers -->
+            <section class="theme-section" id="theme-fichiers">
+                <h2><i class="fas fa-folder-open"></i> Thème : Fichiers et Dossiers</h2>
+
+                <div class="exercise-block" id="fichiers-qcm">
+                    <h3><i class="fas fa-tasks"></i> QCM (5 questions)</h3>
+                    <div class="qcm-content"></div>
+                    <button class="qcm-submit">Valider QCM Fichiers</button>
+                    <div class="qcm-feedback feedback"></div>
+                </div>
+
+                <div class="exercise-block" id="fichiers-assoc">
+                    <h3><i class="fas fa-link"></i> Association (3 paires)</h3>
+                     <p class="instructions">Cliquez sur un terme puis sur sa définition correspondante.</p>
+                    <div class="assoc-container">
+                        <div class="assoc-column" id="fichiers-assoc-col1"></div>
+                        <div class="assoc-column" id="fichiers-assoc-col2"></div>
+                    </div>
+                    <button class="assoc-submit">Valider Association Fichiers</button>
+                    <div class="assoc-feedback feedback"></div>
+                </div>
+
+                <div class="exercise-block" id="fichiers-pendu1">
+                    <h3><i class="fas fa-ghost"></i> Pendu 1</h3>
+                    <div class="pendu-area">
+                        <div class="pendu-help-button-container">
+                            <button class="pendu-help-button">Afficher l'indice</button>
+                        </div>
+                        <div class="pendu-help-text"></div>
+                        <div class="pendu-word"></div>
+                        <div class="pendu-letters"></div>
+                        <div class="pendu-attempts">Tentatives restantes : <span>5</span></div>
+                        <div class="pendu-feedback feedback"></div>
+                    </div>
+                </div>
+
+                 <div class="exercise-block" id="fichiers-pendu2">
+                    <h3><i class="fas fa-ghost"></i> Pendu 2</h3>
+                    <div class="pendu-area">
+                        <div class="pendu-help-button-container">
+                            <button class="pendu-help-button">Afficher l'indice</button>
+                        </div>
+                        <div class="pendu-help-text"></div>
+                        <div class="pendu-word"></div>
+                        <div class="pendu-letters"></div>
+                        <div class="pendu-attempts">Tentatives restantes : <span>5</span></div>
+                        <div class="pendu-feedback feedback"></div>
+                    </div>
+                </div>
+
+                <div class="exercise-block" id="fichiers-memory1">
+                    <h3><i class="fas fa-brain"></i> Memory 1 (8 paires)</h3>
+                    <div class="timer">Temps : <span class="time-value" id="timer-fic-1">0s</span></div>
+                    <div class="memory-grid"></div>
+                    <div class="memory-feedback feedback"></div>
+                </div>
+
+                 <div class="exercise-block" id="fichiers-memory2">
+                    <h3><i class="fas fa-brain"></i> Memory 2 (8 paires)</h3>
+                    <div class="timer">Temps : <span class="time-value" id="timer-fic-2">0s</span></div>
+                    <div class="memory-grid"></div>
+                    <div class="memory-feedback feedback"></div>
+                </div>
+
+                <div class="theme-score">Score Fichiers : <span id="score-fichiers">0</span></div>
+            </section>
+
+            <!-- Thème 3: Internet et Web -->
+            <section class="theme-section" id="theme-internet">
+                <h2><i class="fas fa-globe"></i> Thème : Internet et Web</h2>
+
+                 <div class="exercise-block" id="internet-qcm">
+                    <h3><i class="fas fa-tasks"></i> QCM (5 questions)</h3>
+                    <div class="qcm-content"></div>
+                    <button class="qcm-submit">Valider QCM Internet</button>
+                    <div class="qcm-feedback feedback"></div>
+                </div>
+
+                <div class="exercise-block" id="internet-assoc">
+                    <h3><i class="fas fa-link"></i> Association (3 paires)</h3>
+                     <p class="instructions">Cliquez sur un terme puis sur sa définition correspondante.</p>
+                    <div class="assoc-container">
+                        <div class="assoc-column" id="internet-assoc-col1"></div>
+                        <div class="assoc-column" id="internet-assoc-col2"></div>
+                    </div>
+                    <button class="assoc-submit">Valider Association Internet</button>
+                    <div class="assoc-feedback feedback"></div>
+                </div>
+
+                <div class="exercise-block" id="internet-pendu1">
+                    <h3><i class="fas fa-ghost"></i> Pendu 1</h3>
+                    <div class="pendu-area">
+                        <div class="pendu-help-button-container">
+                            <button class="pendu-help-button">Afficher l'indice</button>
+                        </div>
+                        <div class="pendu-help-text"></div>
+                        <div class="pendu-word"></div>
+                        <div class="pendu-letters"></div>
+                        <div class="pendu-attempts">Tentatives restantes : <span>5</span></div>
+                        <div class="pendu-feedback feedback"></div>
+                    </div>
+                </div>
+
+                 <div class="exercise-block" id="internet-pendu2">
+                    <h3><i class="fas fa-ghost"></i> Pendu 2</h3>
+                    <div class="pendu-area">
+                        <div class="pendu-help-button-container">
+                            <button class="pendu-help-button">Afficher l'indice</button>
+                        </div>
+                        <div class="pendu-help-text"></div>
+                        <div class="pendu-word"></div>
+                        <div class="pendu-letters"></div>
+                        <div class="pendu-attempts">Tentatives restantes : <span>5</span></div>
+                        <div class="pendu-feedback feedback"></div>
+                    </div>
+                </div>
+
+                <div class="exercise-block" id="internet-memory1">
+                    <h3><i class="fas fa-brain"></i> Memory 1 (8 paires)</h3>
+                    <div class="timer">Temps : <span class="time-value" id="timer-net-1">0s</span></div>
+                    <div class="memory-grid"></div>
+                    <div class="memory-feedback feedback"></div>
+                </div>
+
+                 <div class="exercise-block" id="internet-memory2">
+                    <h3><i class="fas fa-brain"></i> Memory 2 (8 paires)</h3>
+                    <div class="timer">Temps : <span class="time-value" id="timer-net-2">0s</span></div>
+                    <div class="memory-grid"></div>
+                    <div class="memory-feedback feedback"></div>
+                </div>
+
+                <div class="theme-score">Score Internet : <span id="score-internet">0</span></div>
+            </section>
+
+            <!-- Thème 4: Sécurité et Bonnes Pratiques -->
+            <section class="theme-section" id="theme-securite">
+                <h2><i class="fas fa-shield-alt"></i> Thème : Sécurité et Bonnes Pratiques</h2>
+
+                 <div class="exercise-block" id="securite-qcm">
+                    <h3><i class="fas fa-tasks"></i> QCM (5 questions)</h3>
+                    <div class="qcm-content"></div>
+                    <button class="qcm-submit">Valider QCM Sécurité</button>
+                    <div class="qcm-feedback feedback"></div>
+                </div>
+
+                <div class="exercise-block" id="securite-assoc">
+                    <h3><i class="fas fa-link"></i> Association (3 paires)</h3>
+                     <p class="instructions">Cliquez sur un terme puis sur sa définition correspondante.</p>
+                    <div class="assoc-container">
+                        <div class="assoc-column" id="securite-assoc-col1"></div>
+                        <div class="assoc-column" id="securite-assoc-col2"></div>
+                    </div>
+                    <button class="assoc-submit">Valider Association Sécurité</button>
+                    <div class="assoc-feedback feedback"></div>
+                </div>
+
+                <div class="exercise-block" id="securite-pendu1">
+                    <h3><i class="fas fa-ghost"></i> Pendu 1</h3>
+                    <div class="pendu-area">
+                        <div class="pendu-help-button-container">
+                            <button class="pendu-help-button">Afficher l'indice</button>
+                        </div>
+                        <div class="pendu-help-text"></div>
+                        <div class="pendu-word"></div>
+                        <div class="pendu-letters"></div>
+                        <div class="pendu-attempts">Tentatives restantes : <span>5</span></div>
+                        <div class="pendu-feedback feedback"></div>
+                    </div>
+                </div>
+
+                 <div class="exercise-block" id="securite-pendu2">
+                    <h3><i class="fas fa-ghost"></i> Pendu 2</h3>
+                    <div class="pendu-area">
+                        <div class="pendu-help-button-container">
+                            <button class="pendu-help-button">Afficher l'indice</button>
+                        </div>
+                        <div class="pendu-help-text"></div>
+                        <div class="pendu-word"></div>
+                        <div class="pendu-letters"></div>
+                        <div class="pendu-attempts">Tentatives restantes : <span>5</span></div>
+                        <div class="pendu-feedback feedback"></div>
+                    </div>
+                </div>
+
+                <div class="exercise-block" id="securite-memory1">
+                    <h3><i class="fas fa-brain"></i> Memory 1 (8 paires)</h3>
+                    <div class="timer">Temps : <span class="time-value" id="timer-sec-1">0s</span></div>
+                    <div class="memory-grid"></div>
+                    <div class="memory-feedback feedback"></div>
+                </div>
+
+                 <div class="exercise-block" id="securite-memory2">
+                    <h3><i class="fas fa-brain"></i> Memory 2 (8 paires)</h3>
+                    <div class="timer">Temps : <span class="time-value" id="timer-sec-2">0s</span></div>
+                    <div class="memory-grid"></div>
+                    <div class="memory-feedback feedback"></div>
+                </div>
+
+                <div class="theme-score">Score Sécurité : <span id="score-securite">0</span></div>
+            </section>
+        </main>
+
+        <footer>
+            <div id="total-score">Score Total : <span id="score-global">0</span></div>
+            <p>Règles de scoring : QCM = 1pt/question, Association = 1pt/paire, Pendu = 3pts/victoire, Memory = 1pt base + 1pt si &lt;90s + 1pt si &lt;60s (max 3pts).Score Maximum Total : 20 (QCM) + 12 (Association) + 24 (Pendu) + 24 (Memory) = 80 points.
+
+Un élève peut donc obtenir un score maximum de 80 points s'il réussit parfaitement tous les exercices, y compris en terminant les jeux de Memory dans les temps impartis pour le bonus maximum.</p>
+        </footer>
+    </div>
+
+    <script src="exercices_standalone.js"></script>
+</body>
+</html>
