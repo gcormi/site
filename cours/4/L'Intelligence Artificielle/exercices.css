@@ -1,0 +1,685 @@
+/* Global Styles & Variables */
+:root {
+    --color-primary: #2ecc71; /* Green */
+    --color-secondary: #27ae60; /* Darker Green */
+    --color-accent: #3498db; /* Blue */
+    --color-text: #ecf0f1; /* Light Gray/White */
+    --color-background-light: rgba(44, 62, 80, 0.88); /* Dark Blue Transparent */
+    --color-background-medium: rgba(52, 73, 94, 0.80); /* Slightly Lighter Dark Blue Transparent */
+    --color-shadow: rgba(0, 0, 0, 0.3);
+    --color-correct: #2ecc71;
+    --color-incorrect: #e74c3c;
+    --color-feedback-bg: rgba(0, 0, 0, 0.2);
+    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-dyslexia: 'Verdana', 'Geneva', sans-serif;
+    /* --font-dyslexia: 'OpenDyslexic', sans-serif; */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-main);
+    color: var(--color-text);
+    background-image: url('fond.webp'); /* Assurez-vous que fond.webp est accessible */
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    line-height: 1.6;
+    padding-bottom: 50px;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Header */
+header {
+    background-color: var(--color-primary);
+    color: white;
+    text-align: center;
+    padding: 1rem 1rem; /* Reduced padding */
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 5px var(--color-shadow);
+    position: relative;
+    transition: background-color 0.3s ease;
+    display: flex; /* Use flexbox for alignment */
+    align-items: center;
+    justify-content: space-between; /* Space out elements */
+}
+
+header h1 {
+    font-size: 1.8rem; /* Adjusted size */
+    font-weight: bold;
+    margin: 0; /* Remove default margins */
+    flex-grow: 1; /* Allow title to take space */
+    text-align: center; /* Center title */
+    padding-left: 60px; /* Make space for buttons on the left if needed, or adjust */
+    padding-right: 130px; /* Make space for buttons on the right */
+}
+
+header h1 i {
+    margin-right: 0.5em;
+    vertical-align: middle;
+}
+
+/* Score Display */
+.score-display {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Main Content Area */
+main {
+    max-width: 900px; /* Slightly narrower for exercises */
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Exercise Sections General Styling */
+.exercise-section {
+    padding: 1.5rem 2rem; /* Adjusted padding */
+    margin-bottom: 2rem;
+    background-color: var(--color-background-light);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px var(--color-shadow);
+    display: none; /* Hidden by default */
+    transition: background-color 0.3s ease;
+}
+
+.exercise-section.active-section {
+    display: block; /* Show active section */
+    animation: sectionFadeIn 0.5s ease-out forwards;
+}
+
+.exercise-section h2 {
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--color-secondary);
+    padding-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.exercise-section h2 i {
+    margin-right: 0.6em;
+    font-size: 0.9em;
+    color: var(--color-primary);
+    transition: color 0.3s ease;
+}
+
+.exercise-section p {
+    margin-bottom: 1rem;
+}
+
+/* Buttons */
+.nav-button, .check-button, .hint-button, .restart-button {
+    display: inline-block;
+    background-color: var(--color-accent);
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    margin-top: 1.5rem;
+    margin-right: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: var(--font-main);
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.nav-button i, .restart-button i { margin-left: 0.5em; }
+.hint-button i { margin-right: 0.3em; }
+
+.nav-button:hover, .check-button:hover, .hint-button:hover, .restart-button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.check-button { background-color: var(--color-secondary); }
+.check-button:hover { background-color: var(--color-primary); }
+
+.restart-button { background-color: var(--color-incorrect); }
+.restart-button:hover { background-color: #c0392b; }
+
+.hint-button { background-color: #f39c12; padding: 0.5rem 1rem; font-size: 0.9rem;}
+.hint-button:hover { background-color: #e67e22; }
+
+.hint-text {
+    margin-top: 0.5rem;
+    font-style: italic;
+    color: #bdc3c7;
+}
+
+/* Feedback Area */
+.feedback {
+    margin-top: 1.5rem;
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    background-color: var(--color-feedback-bg);
+    font-weight: bold;
+    display: none; /* Hidden initially */
+    transition: background-color 0.3s ease;
+}
+.feedback.correct { color: var(--color-correct); display: block; }
+.feedback.incorrect { color: var(--color-incorrect); display: block; }
+.feedback.info { color: var(--color-accent); display: block; }
+
+
+/* --- Quiz Styles --- */
+.quiz-question {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed rgba(236, 240, 241, 0.3);
+}
+.quiz-question p {
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+}
+.quiz-options {
+    list-style: none;
+    padding-left: 0;
+}
+.quiz-options li {
+    margin-bottom: 0.5rem;
+}
+.quiz-options label {
+    cursor: pointer;
+    display: block;
+    padding: 0.5rem 0.8rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+.quiz-options input[type="radio"] {
+    margin-right: 0.7em;
+    vertical-align: middle;
+}
+.quiz-options label:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.quiz-options input[type="radio"]:checked + span {
+    font-weight: bold;
+}
+/* Feedback styles for quiz options */
+.quiz-options li.correct-answer label {
+    background-color: rgba(46, 204, 113, 0.3);
+    border-left: 4px solid var(--color-correct);
+    font-weight: bold;
+}
+.quiz-options li.incorrect-selection label {
+    background-color: rgba(231, 76, 60, 0.3);
+    border-left: 4px solid var(--color-incorrect);
+    text-decoration: line-through;
+}
+.quiz-options input[type="radio"]:disabled + span {
+     color: #95a5a6; /* Grey out text when disabled */
+}
+.quiz-options input[type="radio"]:disabled {
+     cursor: not-allowed;
+}
+.quiz-options label.disabled {
+    cursor: not-allowed;
+    background-color: transparent !important; /* Remove hover effect */
+}
+
+
+/* --- Association Styles --- */
+.association-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+.association-column {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+.association-item {
+    background-color: var(--color-background-medium);
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    text-align: center;
+}
+.association-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.association-item.selected {
+    border-color: var(--color-accent);
+    background-color: rgba(52, 152, 219, 0.3);
+}
+.association-item.matched {
+    background-color: rgba(46, 204, 113, 0.3);
+    border-color: var(--color-correct);
+    cursor: default;
+    opacity: 0.7;
+}
+.association-item.incorrect-match {
+    animation: shake 0.5s ease-in-out;
+    border-color: var(--color-incorrect);
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+}
+
+
+/* --- Hangman Styles --- */
+#hangman-game {
+    text-align: center;
+}
+.word-display {
+    font-size: 2rem;
+    letter-spacing: 0.5em;
+    margin: 1rem 0;
+    font-family: monospace; /* Good for fixed width */
+    font-weight: bold;
+}
+.letter-buttons {
+    margin: 1.5rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+}
+.letter-buttons button {
+    background-color: var(--color-background-medium);
+    color: var(--color-text);
+    border: 1px solid var(--color-secondary);
+    border-radius: 5px;
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.letter-buttons button:hover:not(:disabled) {
+    background-color: var(--color-accent);
+    color: white;
+}
+.letter-buttons button:disabled {
+    background-color: #566573;
+    color: #95a5a6;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+
+/* --- Memory Game Styles --- */
+.memory-info {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    /* --- MODIFICATION START --- */
+    gap: 15px; /* Augmenté légèrement l'espacement */
+    max-width: 600px; /* Augmenté légèrement la largeur max si besoin */
+    /* --- MODIFICATION END --- */
+    margin: 1rem auto;
+    perspective: 1000px; /* For 3D flip effect */
+}
+.memory-card {
+    background-color: var(--color-accent);
+    /* --- MODIFICATION START --- */
+    height: 120px; /* Augmenté la hauteur */
+    /* --- MODIFICATION END --- */
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+.memory-card.is-flipped {
+    transform: rotateY(180deg);
+}
+.memory-card.is-matched {
+    cursor: default;
+    opacity: 0.5; /* Fade out matched cards */
+    background-color: var(--color-correct); /* Show success */
+}
+.memory-card .card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Hide back during flip */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+    border-radius: 8px;
+    /* --- MODIFICATION START --- */
+    font-size: 1rem; /* Augmenté si besoin */
+    /* --- MODIFICATION END --- */
+    overflow: hidden;
+}
+.card-face.card-front {
+    background-color: var(--color-accent);
+    color: white;
+}
+.card-face.card-front i { /* Optional: Icon on front */
+    font-size: 2.5rem;
+}
+.card-face.card-back {
+    background-color: var(--color-background-medium);
+    color: var(--color-text);
+    transform: rotateY(180deg);
+}
+
+
+/* --- Crossword Styles --- */
+.crossword-container {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+#crossword-grid-container {
+    flex-grow: 1;
+    min-width: 300px; /* Minimum width for the grid */
+}
+#crossword-clues {
+    width: 300px; /* Fixed width for clues */
+    flex-shrink: 0;
+}
+#crossword-clues h3 {
+    margin-bottom: 0.5rem;
+    color: var(--color-accent);
+}
+#crossword-clues-list {
+    list-style: none;
+    padding-left: 0;
+    font-size: 0.9rem;
+}
+#crossword-clues-list li {
+    margin-bottom: 0.5rem;
+}
+.crossword-grid {
+    border-collapse: collapse;
+    margin: 0 auto; /* Center the grid */
+}
+.crossword-grid td {
+    border: 1px solid #7f8c8d;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+    position: relative; /* For clue numbers */
+}
+.crossword-grid td.black {
+    background-color: #34495e;
+    border: none;
+}
+.crossword-grid input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    text-align: center;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    background-color: var(--color-background-medium);
+    color: var(--color-text);
+    padding: 0;
+}
+.crossword-grid input:focus {
+    outline: 2px solid var(--color-accent);
+    background-color: rgba(52, 152, 219, 0.2);
+}
+.crossword-grid input.correct {
+    background-color: rgba(46, 204, 113, 0.3);
+    color: var(--color-text);
+}
+.crossword-grid input.incorrect {
+    background-color: rgba(231, 76, 60, 0.3);
+    color: var(--color-text);
+}
+.clue-number {
+    position: absolute;
+    top: 1px;
+    left: 2px;
+    font-size: 0.6rem;
+    color: #bdc3c7;
+    pointer-events: none; /* Don't interfere with input focus */
+}
+
+
+/* --- Summary Styles --- */
+#summary-details {
+    background-color: var(--color-background-medium);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+#summary-details p {
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+}
+#summary-details hr {
+    border: none;
+    border-top: 1px solid var(--color-secondary);
+    margin: 1rem 0;
+}
+#summary-details strong {
+    color: var(--color-primary);
+    font-size: 1.3rem;
+}
+
+
+/* --- Toggle Buttons Styles --- */
+.toggle-button {
+    position: absolute;
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    width: 40px; /* Slightly smaller */
+    height: 40px;
+    font-size: 1rem; /* Adjusted */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    z-index: 100;
+}
+.toggle-button:hover { transform: translateY(-50%) scale(1.1); } /* Adjust hover transform */
+
+.dark-mode-button { right: 15px; }
+.dyslexia-button { right: 65px; } /* Position next to dark mode */
+
+.dyslexia-button.active {
+    background-color: var(--color-accent);
+    color: white;
+    border-color: var(--color-accent);
+}
+
+
+/* --- Dark Mode Styles --- */
+body.dark-mode {
+    --color-primary-dark: #27ae60;
+    --color-secondary-dark: #2ecc71;
+    --color-accent-dark: #5dade2;
+    --color-text-dark: #1a2530;
+    --color-background-light-dark: rgba(236, 240, 241, 0.92);
+    --color-background-medium-dark: rgba(241, 243, 244, 0.88);
+    --color-shadow-dark: rgba(0, 0, 0, 0.1);
+    --color-correct-dark: #27ae60;
+    --color-incorrect-dark: #c0392b;
+    --color-feedback-bg-dark: rgba(0, 0, 0, 0.05);
+
+    color: var(--color-text-dark);
+}
+
+body.dark-mode header { background-color: var(--color-primary-dark); box-shadow: 0 2px 5px var(--color-shadow-dark); }
+body.dark-mode .score-display { background-color: rgba(255, 255, 255, 0.3); color: var(--color-text-dark); }
+body.dark-mode .exercise-section { background-color: var(--color-background-light-dark); box-shadow: 0 4px 8px var(--color-shadow-dark); }
+body.dark-mode .exercise-section h2 { color: var(--color-primary-dark); border-bottom-color: var(--color-secondary-dark); }
+body.dark-mode .exercise-section h2 i { color: var(--color-primary-dark); }
+body.dark-mode .nav-button, body.dark-mode .check-button, body.dark-mode .hint-button, body.dark-mode .restart-button { background-color: var(--color-accent-dark); color: var(--color-text-dark); box-shadow: 0 2px 4px var(--color-shadow-dark); }
+body.dark-mode .nav-button:hover, body.dark-mode .check-button:hover, body.dark-mode .hint-button:hover, body.dark-mode .restart-button:hover { background-color: #85c1e9; box-shadow: 0 4px 8px var(--color-shadow-dark); }
+body.dark-mode .check-button { background-color: var(--color-secondary-dark); }
+body.dark-mode .check-button:hover { background-color: var(--color-primary-dark); }
+body.dark-mode .restart-button { background-color: var(--color-incorrect-dark); }
+body.dark-mode .restart-button:hover { background-color: #e74c3c; }
+body.dark-mode .hint-button { background-color: #f1c40f; }
+body.dark-mode .hint-button:hover { background-color: #f39c12; }
+body.dark-mode .feedback { background-color: var(--color-feedback-bg-dark); }
+body.dark-mode .feedback.correct { color: var(--color-correct-dark); }
+body.dark-mode .feedback.incorrect { color: var(--color-incorrect-dark); }
+body.dark-mode .feedback.info { color: var(--color-accent-dark); }
+body.dark-mode .quiz-options label:hover { background-color: rgba(0, 0, 0, 0.05); }
+body.dark-mode .quiz-options li.correct-answer label { background-color: rgba(39, 174, 96, 0.2); border-left-color: var(--color-correct-dark); }
+body.dark-mode .quiz-options li.incorrect-selection label { background-color: rgba(192, 57, 43, 0.2); border-left-color: var(--color-incorrect-dark); }
+body.dark-mode .quiz-options input[type="radio"]:disabled + span { color: #7f8c8d; }
+body.dark-mode .association-item { background-color: var(--color-background-medium-dark); border-color: transparent; }
+body.dark-mode .association-item:hover { background-color: rgba(0, 0, 0, 0.05); }
+body.dark-mode .association-item.selected { border-color: var(--color-accent-dark); background-color: rgba(93, 173, 226, 0.2); }
+body.dark-mode .association-item.matched { background-color: rgba(39, 174, 96, 0.2); border-color: var(--color-correct-dark); }
+body.dark-mode .association-item.incorrect-match { border-color: var(--color-incorrect-dark); }
+body.dark-mode .letter-buttons button { background-color: var(--color-background-medium-dark); color: var(--color-text-dark); border-color: #bdc3c7; }
+body.dark-mode .letter-buttons button:hover:not(:disabled) { background-color: var(--color-accent-dark); color: var(--color-text-dark); }
+body.dark-mode .letter-buttons button:disabled { background-color: #bdc3c7; color: #ecf0f1; }
+body.dark-mode .memory-card .card-face.card-front { background-color: var(--color-accent-dark); color: var(--color-text-dark); }
+body.dark-mode .memory-card .card-face.card-back { background-color: var(--color-background-medium-dark); color: var(--color-text-dark); }
+body.dark-mode .memory-card.is-matched { background-color: var(--color-correct-dark); }
+body.dark-mode .crossword-grid td { border-color: #bdc3c7; }
+body.dark-mode .crossword-grid td.black { background-color: #7f8c8d; }
+body.dark-mode .crossword-grid input { background-color: var(--color-background-medium-dark); color: var(--color-text-dark); }
+body.dark-mode .crossword-grid input:focus { outline-color: var(--color-accent-dark); background-color: rgba(93, 173, 226, 0.1); }
+body.dark-mode .crossword-grid input.correct { background-color: rgba(39, 174, 96, 0.2); }
+body.dark-mode .crossword-grid input.incorrect { background-color: rgba(192, 57, 43, 0.2); }
+body.dark-mode #crossword-clues h3 { color: var(--color-accent-dark); }
+body.dark-mode .clue-number { color: #7f8c8d; }
+body.dark-mode #summary-details { background-color: var(--color-background-medium-dark); }
+body.dark-mode #summary-details strong { color: var(--color-primary-dark); }
+body.dark-mode #summary-details hr { border-top-color: var(--color-secondary-dark); }
+body.dark-mode .toggle-button { background-color: rgba(0, 0, 0, 0.2); color: var(--color-text-dark); border-color: rgba(0, 0, 0, 0.3); }
+body.dark-mode .toggle-button:hover { background-color: rgba(0, 0, 0, 0.3); }
+body.dark-mode .dyslexia-button.active { background-color: var(--color-accent-dark); color: var(--color-text-dark); border-color: var(--color-accent-dark); }
+body.dark-mode .hint-text { color: #7f8c8d; }
+
+
+/* --- Dyslexia Mode Styles --- */
+body.dyslexia-mode {
+    /* Apply font to body for global effect, can be overridden */
+    font-family: var(--font-dyslexia);
+}
+body.dyslexia-mode .exercise-section p,
+body.dyslexia-mode .exercise-section li,
+body.dyslexia-mode .quiz-options label,
+body.dyslexia-mode .association-item,
+body.dyslexia-mode #modalInfo, /* If modal is used */
+body.dyslexia-mode #crossword-clues-list li,
+body.dyslexia-mode .hint-text,
+body.dyslexia-mode #summary-details p {
+    font-family: var(--font-dyslexia);
+    letter-spacing: 0.05em;
+    word-spacing: 0.15em;
+    line-height: 1.8;
+}
+/* Ensure buttons and specific elements keep standard font if needed */
+body.dyslexia-mode button,
+body.dyslexia-mode .word-display,
+body.dyslexia-mode .crossword-grid input,
+body.dyslexia-mode .score-display,
+body.dyslexia-mode .timer,
+body.dyslexia-mode .pairs-found,
+body.dyslexia-mode h1,
+body.dyslexia-mode h2,
+body.dyslexia-mode h3 {
+    font-family: var(--font-main); /* Keep original font for these */
+    letter-spacing: normal; /* Reset spacing */
+    word-spacing: normal;
+}
+/* Specific adjustments for dyslexia mode if needed */
+body.dyslexia-mode .word-display { letter-spacing: 0.3em; } /* Keep wider spacing for hangman */
+
+
+/* Animations (Keep as before) */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideDown { from { transform: translateY(-60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes slideUp { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-60px); opacity: 0; } }
+@keyframes sectionFadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes sectionFadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(30px); } }
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header { flex-wrap: wrap; padding-bottom: 0.5rem; } /* Allow wrapping */
+    header h1 { font-size: 1.5rem; padding-right: 110px; padding-left: 45px; text-align: center; width: 100%; order: 1; margin-bottom: 10px;} /* Title below buttons */
+    .score-display { position: static; order: 2; transform: none; margin: 0 auto 5px auto; width: fit-content;} /* Score below title */
+    .toggle-button { position: absolute; top: 10px; transform: none; } /* Keep buttons at top */
+    .dark-mode-button { right: 10px; }
+    .dyslexia-button { right: 60px; }
+
+    .association-container { flex-direction: column; }
+    .association-column { width: 100%; }
+    .crossword-container { flex-direction: column; }
+    #crossword-clues { width: 100%; margin-top: 1rem; }
+
+    /* --- MODIFICATION START --- */
+    .memory-grid {
+        max-width: 500px; /* Ajuste si besoin */
+        gap: 10px; /* Peut-être réduire un peu le gap ici */
+    }
+    .memory-card {
+        height: 110px; /* Ajuste la hauteur pour écrans moyens */
+    }
+    /* --- MODIFICATION END --- */
+}
+
+@media (max-width: 480px) {
+    header h1 { font-size: 1.3rem; padding-right: 90px; padding-left: 10px;}
+    .toggle-button { width: 35px; height: 35px; font-size: 0.9rem; top: 8px;}
+    .dark-mode-button { right: 8px; }
+    .dyslexia-button { right: 50px; }
+    .score-display { font-size: 0.8rem; padding: 4px 10px;}
+    .exercise-section { padding: 1rem 1.5rem; }
+    .nav-button, .check-button, .hint-button, .restart-button { font-size: 0.9rem; padding: 0.6rem 1.2rem; }
+
+    /* --- MODIFICATION START --- */
+    .memory-grid {
+        grid-template-columns: repeat(4, 1fr); /* Garder 4 colonnes si possible */
+        gap: 8px; /* Réduire encore le gap */
+    }
+    .memory-card {
+        height: 90px; /* Ajuste la hauteur pour petits écrans */
+    }
+    .memory-card .card-face {
+        font-size: 0.9rem; /* Réduire la police si ça ne rentre pas */
+    }
+    /* --- MODIFICATION END --- */
+
+    .crossword-grid td { width: 25px; height: 25px; }
+    .crossword-grid input { font-size: 1rem; }
+}
