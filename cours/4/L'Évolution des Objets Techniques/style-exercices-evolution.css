@@ -1,0 +1,314 @@
+/* ================================================== */
+/* == style-exercices-evolution.css                == */
+/* == Contient TOUS les styles (base + cours + exos) == */
+/* ================================================== */
+
+/* --- Variables de base --- */
+:root {
+    /* Palette de couleurs (Mode Clair par défaut) */
+    --color-bg-light: #f0f0f0;
+    --color-text-dark: #333;
+    --color-bottle-green: #0A3412;
+    --color-text-light: #e0e0e0;
+    --color-button-border: #a0d0b0;
+    --color-button-hover-bg: rgba(255, 255, 255, 0.2);
+    --color-button-hover-border: #fff;
+    --color-accent-orange: #ff8c00;
+    --color-glossary-term: var(--color-accent-orange);
+    --color-glossary-term-hover: #ffae42;
+    --color-content-bg-light: rgba(10, 52, 18, 0.7); /* Vert semi-transparent */
+    --color-content-border-light: var(--color-button-border);
+    --color-modal-bg-light: var(--color-bottle-green);
+
+    /* Variables pour le mode Dyslexie (Améliorées) */
+    --font-family-default: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-family-dyslexia: Arial, Verdana, sans-serif;
+    --letter-spacing-default: normal;
+    --letter-spacing-dyslexia: 0.05em;
+    --word-spacing-default: normal;
+    --word-spacing-dyslexia: 0.15em;
+    --line-height-default: 1.6;
+    --line-height-dyslexia: 1.8;
+    --color-bg-dyslexia: #fdfaf3; /* Fond crème très clair */
+    --color-text-dyslexia: #2b2821; /* Texte brun très foncé */
+    --color-content-bg-dyslexia: rgba(253, 250, 243, 0.9); /* Fond crème plus opaque */
+    --color-content-border-dyslexia: #7a6d5b; /* Bordure brun moyen plus douce */
+    --color-accent-dyslexia: #005a87; /* Bleu foncé pour accents */
+    --color-accent-hover-dyslexia: #003f5e;
+    --color-modal-bg-dyslexia: var(--color-bg-dyslexia);
+    --color-panel-bg-dyslexia: #e8e4da; /* Fond panneau droit plus clair */
+    --color-button-border-dyslexia: var(--color-accent-dyslexia);
+    --color-button-text-dyslexia: var(--color-text-dyslexia);
+
+    /* Transitions */
+    --transition-speed: 0.3s;
+}
+
+/* --- Styles Mode Sombre --- */
+body[data-theme="dark"] {
+    --color-bg-light: #121212;
+    --color-text-dark: #e0e0e0;
+    --color-bottle-green: #1a4d2e;
+    --color-text-light: #f0f0f0;
+    --color-button-border: #509060;
+    --color-button-hover-bg: rgba(255, 255, 255, 0.1);
+    --color-button-hover-border: #a0d0b0;
+    --color-accent-orange: #ff9a2a;
+    --color-glossary-term: var(--color-accent-orange);
+    --color-glossary-term-hover: #ffb86c;
+    --color-content-bg-light: rgba(10, 20, 12, 0.8);
+    --color-content-border-light: var(--color-button-border);
+    --color-modal-bg-light: #1f3d2a;
+}
+
+/* --- Styles Mode Dyslexie (Améliorés) --- */
+body[data-dyslexia="true"] {
+    font-family: var(--font-family-dyslexia);
+    letter-spacing: var(--letter-spacing-dyslexia);
+    word-spacing: var(--word-spacing-dyslexia);
+    line-height: var(--line-height-dyslexia);
+    background-color: var(--color-bg-dyslexia);
+    color: var(--color-text-dyslexia);
+
+    /* Redéfinition des variables pour ce mode */
+    --color-bottle-green: var(--color-panel-bg-dyslexia);
+    --color-text-light: var(--color-text-dyslexia); /* Texte clair devient sombre */
+    --color-button-border: var(--color-button-border-dyslexia);
+    --color-button-hover-bg: rgba(0, 90, 135, 0.1);
+    --color-button-hover-border: var(--color-accent-hover-dyslexia);
+    --color-accent-orange: var(--color-accent-dyslexia); /* Orange devient bleu */
+    --color-glossary-term: var(--color-accent-dyslexia);
+    --color-glossary-term-hover: var(--color-accent-hover-dyslexia);
+    --color-content-bg-light: var(--color-content-bg-dyslexia);
+    --color-content-border-light: var(--color-content-border-dyslexia);
+    --color-modal-bg-light: var(--color-modal-bg-dyslexia);
+}
+/* Panneau droit en mode Dys */
+body[data-dyslexia="true"] .right-panel {
+     color: var(--color-text-dyslexia);
+     background-color: var(--color-panel-bg-dyslexia);
+}
+body[data-dyslexia="true"] .right-panel h2,
+body[data-dyslexia="true"] .right-panel h3,
+body[data-dyslexia="true"] .right-panel p, /* Paragraphes aussi */
+body[data-dyslexia="true"] .right-panel a,
+body[data-dyslexia="true"] .accessibility-button {
+    color: var(--color-button-text-dyslexia); /* Utiliser la variable texte */
+    border-color: var(--color-button-border-dyslexia);
+}
+body[data-dyslexia="true"] .right-panel a:hover,
+body[data-dyslexia="true"] .accessibility-button:hover {
+    background-color: var(--color-button-hover-bg);
+    border-color: var(--color-button-hover-border);
+    color: #000; /* Texte noir au survol pour contraste */
+}
+/* Panneau gauche en mode Dys */
+body[data-dyslexia="true"] .left-panel { color: #fff; }
+body[data-dyslexia="true"] .left-panel::before { background-color: rgba(0, 0, 0, 0.6); }
+
+/* Conteneur de contenu en mode Dys */
+body[data-dyslexia="true"] .container-content {
+    color: var(--color-text-dyslexia); /* Assurer texte sombre */
+    background-color: var(--color-content-bg-dyslexia); /* Fond crème opaque */
+    border-color: var(--color-content-border-dyslexia);
+}
+body[data-dyslexia="true"] .container-content h2 { color: var(--color-text-dyslexia); border-bottom-color: var(--color-accent-dyslexia); }
+body[data-dyslexia="true"] .container-content h3 { color: var(--color-text-dyslexia); }
+body[data-dyslexia="true"] .container-content p { color: var(--color-text-dyslexia); } /* Assurer couleur paragraphe */
+body[data-dyslexia="true"] .container-content ul,
+body[data-dyslexia="true"] .container-content ol { color: var(--color-text-dyslexia); } /* Assurer couleur listes */
+
+/* Autres éléments en mode Dys */
+body[data-dyslexia="true"] .anecdote { background-color: rgba(0, 0, 0, 0.04); border-left-color: var(--color-accent-dyslexia); color: var(--color-text-dyslexia); }
+body[data-dyslexia="true"] .anecdote i { color: var(--color-accent-dyslexia); }
+body[data-dyslexia="true"] .content-icon, body[data-dyslexia="true"] .content-icon-inline { color: var(--color-accent-dyslexia); }
+body[data-dyslexia="true"] .back-to-top { color: var(--color-accent-dyslexia); border-color: var(--color-accent-dyslexia); }
+body[data-dyslexia="true"] .back-to-top:hover { background-color: var(--color-button-hover-bg); border-color: var(--color-accent-hover-dyslexia); color: #000; }
+body[data-dyslexia="true"] #score-display { background-color: rgba(0, 0, 0, 0.1); color: var(--color-text-dyslexia); }
+body[data-dyslexia="true"] .modal-content-evolution { color: var(--color-text-dyslexia); border-color: var(--color-content-border-dyslexia); background-color: var(--color-modal-bg-dyslexia); }
+body[data-dyslexia="true"] .modal-content-evolution h3, body[data-dyslexia="true"] .modal-content-evolution .close-button-evolution { color: var(--color-text-dyslexia); border-bottom-color: var(--color-accent-dyslexia); }
+body[data-dyslexia="true"] .modal-content-evolution .close-button-evolution:hover { color: #000; }
+
+
+/* --- Styles Généraux --- */
+body { margin: 0; font-family: var(--font-family-default); color: var(--color-text-dark); line-height: var(--line-height-default); letter-spacing: var(--letter-spacing-default); word-spacing: var(--word-spacing-default); overflow-x: hidden; background-color: var(--color-bg-light); transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease; }
+.main-content-wrapper { /* ... */ }
+
+/* --- Styles SECTION ACCUEIL --- */
+.accueil-section { display: flex; width: 100%; min-height: 100vh; }
+.left-panel { flex: 1; background-image: url('fond.jpg'); background-size: cover; background-position: center; color: #fff; display: flex; justify-content: center; align-items: center; text-align: center; padding: 40px; position: relative; z-index: 1; transition: color var(--transition-speed) ease; }
+.left-panel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); z-index: -1; transition: background-color var(--transition-speed) ease; }
+.right-panel { flex: 1; background-color: var(--color-bottle-green); color: var(--color-text-light); display: flex; justify-content: center; align-items: center; padding: 40px; text-align: center; transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease; }
+.panel-content { max-width: 450px; width: 100%; }
+.left-panel h1 { color: #fff; font-size: 2.8em; margin-bottom: 15px; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6); }
+.left-panel p { font-size: 1.2em; opacity: 0.95; }
+.right-panel h2 { color: var(--color-text-light); font-size: 2em; margin-bottom: 40px; transition: color var(--transition-speed) ease; }
+.icon-header { margin-right: 15px; opacity: 0.8; }
+
+/* --- Styles SECTIONS DE CONTENU / EXERCICES --- */
+.content-section { display: none; width: 100%; min-height: 100vh; background-image: url('fond.jpg'); background-size: cover; background-position: center; background-attachment: fixed; padding: 40px 0; opacity: 0; position: relative; z-index: 1; transition: color var(--transition-speed) ease; }
+.content-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.65); z-index: -1; transition: background-color var(--transition-speed) ease; }
+.container-content { max-width: 850px; margin: 20px auto; padding: 30px 40px; background-color: var(--color-content-bg-light); border: 2px solid var(--color-content-border-light); border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); color: var(--color-text-light); transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease, color var(--transition-speed) ease; }
+/* Styles H2, H3, P, etc. DANS .container-content */
+.container-content h2 { color: #fff; border-bottom: 2px solid var(--color-accent-orange); padding-bottom: 15px; margin-top: 0; margin-bottom: 30px; font-size: 1.8em; display: flex; align-items: center; transition: border-color var(--transition-speed) ease, color var(--transition-speed) ease; }
+.container-content h3 { color: var(--color-button-border); margin-top: 25px; margin-bottom: 15px; font-size: 1.4em; display: flex; align-items: center; transition: color var(--transition-speed) ease; }
+.container-content p { margin-bottom: 18px; text-align: justify; font-size: 1.05em; }
+.container-content ul, .container-content ol { margin-bottom: 18px; padding-left: 25px; }
+.container-content li { margin-bottom: 8px; }
+.content-icon { margin-right: 15px; font-size: 1.2em; color: var(--color-accent-orange); transition: color var(--transition-speed) ease; }
+.content-icon-inline { margin-right: 8px; font-size: 1.1em; color: var(--color-accent-orange); vertical-align: middle; transition: color var(--transition-speed) ease; }
+.anecdote { background-color: rgba(255, 255, 255, 0.1); border-left: 4px solid var(--color-accent-orange); padding: 15px; margin: 20px 0; border-radius: 4px; font-style: italic; transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease, color var(--transition-speed) ease; }
+body[data-theme="dark"] .anecdote { background-color: rgba(255, 255, 255, 0.05); }
+.anecdote i { margin-right: 8px; color: var(--color-accent-orange); transition: color var(--transition-speed) ease; }
+.back-to-top { display: inline-block; text-align: center; margin-bottom: 40px; font-size: 1em; color: var(--color-button-border); text-decoration: none; border: 1px solid var(--color-button-border); padding: 12px 20px; border-radius: 5px; transition: all var(--transition-speed) ease; }
+.back-to-top i { margin-right: 8px; }
+.back-to-top:hover { background-color: var(--color-button-hover-bg); border-color: var(--color-button-hover-border); color: #fff; transform: translateX(-5px); }
+
+/* --- Styles Spécifiques aux Exercices --- */
+.exercise-button { display: inline-block; background-color: var(--color-accent-orange); color: white; padding: 0.7rem 1.5rem; border-radius: 25px; text-decoration: none; margin-top: 1.5rem; margin-right: 0.5rem; border: none; cursor: pointer; font-size: 1rem; font-family: var(--font-family-default); transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+.exercise-button i { margin-left: 0.5em; }
+.exercise-button:hover { background-color: var(--color-glossary-term-hover); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+.check-button { background-color: var(--color-bottle-green); }
+.check-button:hover { background-color: #0F5120; }
+.restart-button { background-color: #c0392b; }
+.restart-button:hover { background-color: #a93226; }
+.hint-button { background-color: #f39c12; padding: 0.5rem 1rem; font-size: 0.9rem;}
+.hint-button:hover { background-color: #e67e22; }
+body[data-dyslexia="true"] .exercise-button { background-color: var(--color-accent-dyslexia); }
+body[data-dyslexia="true"] .exercise-button:hover { background-color: var(--color-accent-hover-dyslexia); }
+body[data-dyslexia="true"] .check-button { background-color: #5f7a6a; }
+body[data-dyslexia="true"] .check-button:hover { background-color: #4a6154; }
+
+.feedback { margin-top: 1.5rem; padding: 0.8rem 1rem; border-radius: 5px; background-color: rgba(0, 0, 0, 0.1); font-weight: bold; display: none; transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease; color: var(--color-text-light); }
+body[data-dyslexia="true"] .feedback { color: var(--color-text-dyslexia); background-color: rgba(0, 0, 0, 0.05); }
+.feedback.correct { color: #2ecc71; display: block; background-color: rgba(46, 204, 113, 0.1); }
+.feedback.incorrect { color: #e74c3c; display: block; background-color: rgba(231, 76, 60, 0.1); }
+.feedback.info { color: var(--color-button-border); display: block; }
+body[data-dyslexia="true"] .feedback.correct { color: #27ae60; background-color: rgba(39, 174, 96, 0.15); }
+body[data-dyslexia="true"] .feedback.incorrect { color: #c0392b; background-color: rgba(192, 57, 43, 0.15); }
+body[data-dyslexia="true"] .feedback.info { color: var(--color-accent-dyslexia); }
+
+/* Quiz */
+.quiz-question { margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px dashed rgba(236, 240, 241, 0.3); }
+body[data-dyslexia="true"] .quiz-question { border-bottom-color: rgba(0, 0, 0, 0.2); }
+.quiz-question p { font-weight: bold; margin-bottom: 0.8rem; }
+.quiz-options { list-style: none; padding-left: 0; }
+.quiz-options li { margin-bottom: 0.5rem; }
+.quiz-options label { cursor: pointer; display: block; padding: 0.5rem 0.8rem; border-radius: 4px; transition: background-color 0.2s ease; }
+.quiz-options input[type="radio"] { margin-right: 0.7em; vertical-align: middle; }
+.quiz-options label:hover { background-color: rgba(255, 255, 255, 0.08); }
+body[data-dyslexia="true"] .quiz-options label:hover { background-color: rgba(0, 0, 0, 0.04); }
+.quiz-options input[type="radio"]:checked + span { font-weight: bold; }
+.quiz-options li.correct-answer label { background-color: rgba(46, 204, 113, 0.2); border-left: 4px solid #2ecc71; font-weight: bold; }
+.quiz-options li.incorrect-selection label { background-color: rgba(231, 76, 60, 0.2); border-left: 4px solid #e74c3c; text-decoration: line-through; }
+body[data-dyslexia="true"] .quiz-options li.correct-answer label { background-color: rgba(39, 174, 96, 0.15); border-left-color: #27ae60; }
+body[data-dyslexia="true"] .quiz-options li.incorrect-selection label { background-color: rgba(192, 57, 43, 0.15); border-left-color: #c0392b; }
+.quiz-options input[type="radio"]:disabled + span { opacity: 0.7; }
+.quiz-options input[type="radio"]:disabled { cursor: not-allowed; }
+.quiz-options label.disabled { cursor: not-allowed; background-color: transparent !important; }
+
+/* Association */
+.association-container { display: flex; justify-content: space-between; gap: 1.5rem; margin-top: 1rem; flex-wrap: wrap; }
+.association-column { width: calc(50% - 0.75rem); min-width: 250px; display: flex; flex-direction: column; gap: 0.8rem; }
+.association-item { background-color: rgba(0, 0, 0, 0.15); padding: 0.8rem 1rem; border-radius: 5px; cursor: pointer; border: 2px solid transparent; transition: background-color 0.2s ease, border-color 0.2s ease; text-align: center; }
+.association-item:hover { background-color: rgba(255, 255, 255, 0.1); }
+.association-item.selected { border-color: var(--color-accent-orange); background-color: rgba(255, 140, 0, 0.15); }
+.association-item.matched { background-color: rgba(46, 204, 113, 0.2); border-color: #2ecc71; cursor: default; opacity: 0.7; }
+.association-item.incorrect-match { animation: shake 0.5s ease-in-out; border-color: #e74c3c; }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-5px); } }
+body[data-dyslexia="true"] .association-item { background-color: rgba(0, 0, 0, 0.05); }
+body[data-dyslexia="true"] .association-item:hover { background-color: rgba(0, 0, 0, 0.08); }
+body[data-dyslexia="true"] .association-item.selected { border-color: var(--color-accent-dyslexia); background-color: rgba(0, 90, 135, 0.1); }
+body[data-dyslexia="true"] .association-item.matched { background-color: rgba(39, 174, 96, 0.15); border-color: #27ae60; }
+body[data-dyslexia="true"] .association-item.incorrect-match { border-color: #c0392b; }
+
+/* Pendu */
+#hangman-game { text-align: center; }
+.word-display { font-size: 1.8rem; letter-spacing: 0.5em; margin: 1rem 0; font-family: monospace; font-weight: bold; color: var(--color-text-light); }
+body[data-dyslexia="true"] .word-display { color: var(--color-text-dyslexia); letter-spacing: 0.4em; }
+.letter-buttons { margin: 1.5rem 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
+.letter-buttons button { background-color: rgba(0, 0, 0, 0.15); color: var(--color-text-light); border: 1px solid var(--color-button-border); border-radius: 5px; width: 35px; height: 35px; font-size: 1rem; cursor: pointer; transition: background-color 0.2s ease, color 0.2s ease; font-family: var(--font-main); }
+.letter-buttons button:hover:not(:disabled) { background-color: var(--color-accent-orange); color: white; border-color: var(--color-accent-orange); }
+.letter-buttons button:disabled { background-color: rgba(0, 0, 0, 0.1); opacity: 0.6; cursor: not-allowed; }
+body[data-dyslexia="true"] .letter-buttons button { background-color: rgba(0, 0, 0, 0.05); color: var(--color-text-dyslexia); border-color: var(--color-accent-dyslexia); }
+body[data-dyslexia="true"] .letter-buttons button:hover:not(:disabled) { background-color: var(--color-accent-dyslexia); color: white; border-color: var(--color-accent-dyslexia); }
+body[data-dyslexia="true"] .letter-buttons button:disabled { background-color: rgba(0, 0, 0, 0.05); opacity: 0.6; }
+.hint-text { margin-top: 0.5rem; font-style: italic; color: var(--color-button-border); }
+body[data-dyslexia="true"] .hint-text { color: var(--color-accent-dyslexia); }
+
+/* Memory */
+.memory-info { text-align: center; margin-bottom: 1rem; font-size: 1.1rem; font-weight: bold; }
+.memory-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; max-width: 550px; margin: 1rem auto; perspective: 1000px; }
+.memory-card { background-color: var(--color-accent-orange); height: 110px; border-radius: 8px; cursor: pointer; position: relative; transform-style: preserve-3d; transition: transform 0.6s; box-shadow: 1px 1px 3px rgba(0,0,0,0.2); }
+.memory-card.is-flipped { transform: rotateY(180deg); }
+.memory-card.is-matched { cursor: default; opacity: 0.5; background-color: #2ecc71; }
+.memory-card .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; padding: 10px; text-align: center; border-radius: 8px; font-size: 0.95rem; overflow: hidden; }
+.card-face.card-front { background-color: var(--color-accent-orange); color: white; }
+.card-face.card-front i { font-size: 2.5rem; }
+.card-face.card-back { background-color: rgba(0, 0, 0, 0.2); color: var(--color-text-light); transform: rotateY(180deg); }
+body[data-dyslexia="true"] .memory-card .card-face.card-front { background-color: var(--color-accent-dyslexia); }
+body[data-dyslexia="true"] .memory-card .card-face.card-back { background-color: rgba(0, 0, 0, 0.08); color: var(--color-text-dyslexia); }
+body[data-dyslexia="true"] .memory-card.is-matched { background-color: #27ae60; }
+
+/* Mots Croisés */
+.crossword-container { display: flex; gap: 2rem; margin-top: 1rem; flex-wrap: wrap; }
+#crossword-grid-container { flex-grow: 1; min-width: 300px; overflow-x: auto; }
+#crossword-clues { width: 300px; flex-shrink: 0; }
+#crossword-clues h3 { margin-bottom: 0.5rem; color: var(--color-accent-orange); }
+#crossword-clues-list { list-style: none; padding-left: 0; font-size: 0.9rem; }
+#crossword-clues-list li { margin-bottom: 0.5rem; }
+.crossword-grid { border-collapse: collapse; margin: 0 auto; }
+.crossword-grid td { border: 1px solid var(--color-button-border); width: 30px; height: 30px; text-align: center; vertical-align: middle; position: relative; }
+.crossword-grid td.black { background-color: rgba(0, 0, 0, 0.3); border: none; }
+.crossword-grid input { width: 100%; height: 100%; border: none; text-align: center; font-size: 1.1rem; text-transform: uppercase; background-color: rgba(0, 0, 0, 0.1); color: var(--color-text-light); padding: 0; font-family: var(--font-main); }
+.crossword-grid input:focus { outline: 2px solid var(--color-accent-orange); background-color: rgba(255, 140, 0, 0.1); }
+.crossword-grid input.correct { background-color: rgba(46, 204, 113, 0.2); }
+.crossword-grid input.incorrect { background-color: rgba(231, 76, 60, 0.2); }
+.clue-number { position: absolute; top: 1px; left: 2px; font-size: 0.6rem; color: var(--color-button-border); pointer-events: none; }
+body[data-dyslexia="true"] #crossword-clues h3 { color: var(--color-accent-dyslexia); }
+body[data-dyslexia="true"] .crossword-grid td { border-color: var(--color-content-border-dyslexia); }
+body[data-dyslexia="true"] .crossword-grid td.black { background-color: rgba(0, 0, 0, 0.2); }
+body[data-dyslexia="true"] .crossword-grid input { background-color: rgba(0, 0, 0, 0.05); color: var(--color-text-dyslexia); }
+body[data-dyslexia="true"] .crossword-grid input:focus { outline-color: var(--color-accent-dyslexia); background-color: rgba(0, 90, 135, 0.1); }
+body[data-dyslexia="true"] .crossword-grid input.correct { background-color: rgba(39, 174, 96, 0.15); }
+body[data-dyslexia="true"] .crossword-grid input.incorrect { background-color: rgba(192, 57, 43, 0.15); }
+body[data-dyslexia="true"] .clue-number { color: var(--color-content-border-dyslexia); }
+
+/* Summary */
+#summary-details { background-color: rgba(0, 0, 0, 0.15); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; }
+#summary-details p { margin-bottom: 0.8rem; font-size: 1.1rem; }
+#summary-details strong { color: var(--color-accent-orange); font-size: 1.3rem; }
+body[data-dyslexia="true"] #summary-details { background-color: rgba(0, 0, 0, 0.05); }
+body[data-dyslexia="true"] #summary-details strong { color: var(--color-accent-dyslexia); }
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .accueil-section { flex-direction: column; height: auto; min-height: 100vh; }
+    .left-panel, .right-panel { flex: none; width: 100%; min-height: 40vh; padding: 30px; }
+    .right-panel { min-height: auto; padding-bottom: 40px; }
+    .left-panel h1 { font-size: 2.2em; }
+    .right-panel h2 { margin-top: 25px; margin-bottom: 25px; font-size: 1.8em; }
+    .accessibility-controls { margin-top: 30px; }
+    .accessibility-button { display: block; margin: 10px auto; width: 80%; text-align: center; }
+    .container-content { padding: 20px; margin: 15px; max-width: calc(100% - 30px); }
+    .container-content h2 { font-size: 1.6em; }
+    .container-content h3 { font-size: 1.3em; }
+    .content-section { background-attachment: scroll; }
+    /* Exos responsive */
+    .association-column { width: 100%; }
+    .crossword-container { flex-direction: column; }
+    #crossword-clues { width: 100%; margin-top: 1rem; }
+    .memory-grid { max-width: 90%; gap: 10px; }
+    .memory-card { height: 100px; }
+}
+@media (max-width: 480px) {
+    /* Exos responsive small */
+    .memory-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .memory-card { height: 80px; }
+    .memory-card .card-face { font-size: 0.8rem; }
+    .crossword-grid td { width: 25px; height: 25px; }
+    .crossword-grid input { font-size: 1rem; }
+    .exercise-button { font-size: 0.9rem; padding: 0.6rem 1.2rem; }
+}
+
+/* --- Fin --- */
