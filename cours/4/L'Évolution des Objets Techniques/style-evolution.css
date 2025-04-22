@@ -1,0 +1,618 @@
+/* --- Variables de base --- */
+:root {
+    /* Palette de couleurs (Mode Clair par défaut) */
+    --color-bg-light: #f0f0f0;
+    --color-text-dark: #333;
+    --color-bottle-green: #0A3412;
+    --color-text-light: #e0e0e0;
+    --color-button-border: #a0d0b0;
+    --color-button-hover-bg: rgba(255, 255, 255, 0.2);
+    --color-button-hover-border: #fff;
+    --color-accent-orange: #ff8c00;
+    --color-glossary-term: var(--color-accent-orange);
+    --color-glossary-term-hover: #ffae42;
+    /* === MODIFIÉ : Fond chapitre plus clair === */
+    --color-content-bg-light: rgba(10, 52, 18, 0.65); /* Vert semi-transparent plus léger */
+    --color-content-border-light: var(--color-button-border);
+    --color-modal-bg-light: var(--color-bottle-green);
+
+    /* Variables pour le mode Dyslexie */
+    --font-family-default: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-family-dyslexia: Arial, Verdana, sans-serif; /* Polices sans-serif claires */
+    --letter-spacing-default: normal;
+    --letter-spacing-dyslexia: 0.05em;
+    --word-spacing-default: normal;
+    --word-spacing-dyslexia: 0.15em; /* Légèrement augmenté */
+    --line-height-default: 1.6;
+    --line-height-dyslexia: 1.8;
+    /* === MODIFIÉ : Couleurs Dyslexie pour meilleure lisibilité === */
+    --color-bg-dyslexia: #f5f3ef; /* Fond crème très clair */
+    --color-text-dyslexia: #2c2a24; /* Texte brun très foncé */
+    --color-content-bg-dyslexia: rgba(245, 243, 239, 0.8); /* Fond crème semi-transparent */
+    --color-content-border-dyslexia: #8c7d6b; /* Bordure brun moyen */
+    --color-accent-dyslexia: #005a87; /* Bleu foncé pour les accents (liens, icônes) */
+    --color-accent-hover-dyslexia: #003f5e; /* Bleu plus foncé au survol */
+    --color-modal-bg-dyslexia: var(--color-bg-dyslexia); /* Fond modale crème */
+    --color-panel-bg-dyslexia: #e0dcd3; /* Fond panneau droit (menu) */
+
+    /* Transitions */
+    --transition-speed: 0.3s;
+}
+
+/* --- Styles Mode Sombre --- */
+body[data-theme="dark"] {
+    --color-bg-light: #121212;
+    --color-text-dark: #e0e0e0;
+    --color-bottle-green: #1a4d2e;
+    --color-text-light: #f0f0f0;
+    --color-button-border: #509060;
+    --color-button-hover-bg: rgba(255, 255, 255, 0.1);
+    --color-button-hover-border: #a0d0b0;
+    --color-accent-orange: #ff9a2a;
+    --color-glossary-term: var(--color-accent-orange);
+    --color-glossary-term-hover: #ffb86c;
+    /* === MODIFIÉ : Fond chapitre sombre (légèrement ajusté si besoin) === */
+    --color-content-bg-light: rgba(10, 20, 12, 0.75); /* Fond très sombre semi-transparent */
+    --color-content-border-light: var(--color-button-border);
+    --color-modal-bg-light: #1f3d2a;
+}
+
+/* --- Styles Mode Dyslexie --- */
+body[data-dyslexia="true"] {
+    font-family: var(--font-family-dyslexia);
+    letter-spacing: var(--letter-spacing-dyslexia);
+    word-spacing: var(--word-spacing-dyslexia);
+    line-height: var(--line-height-dyslexia);
+    background-color: var(--color-bg-dyslexia);
+    color: var(--color-text-dyslexia);
+
+    /* Ajustements spécifiques pour le mode Dyslexie */
+    --color-bottle-green: var(--color-panel-bg-dyslexia); /* Fond panneau droit */
+    --color-text-light: var(--color-text-dyslexia); /* Texte clair devient texte sombre */
+    --color-button-border: var(--color-accent-dyslexia); /* Bordure bleue */
+    --color-button-hover-bg: rgba(0, 90, 135, 0.1); /* Fond bleu très léger au survol */
+    --color-button-hover-border: var(--color-accent-hover-dyslexia); /* Bordure bleu foncé au survol */
+    --color-accent-orange: var(--color-accent-dyslexia); /* Orange devient bleu */
+    --color-glossary-term: var(--color-accent-dyslexia);
+    --color-glossary-term-hover: var(--color-accent-hover-dyslexia);
+    --color-content-bg-light: var(--color-content-bg-dyslexia);
+    --color-content-border-light: var(--color-content-border-dyslexia);
+    --color-modal-bg-light: var(--color-modal-bg-dyslexia);
+}
+/* Assurer que le texte dans la modale est sombre en mode Dys */
+body[data-dyslexia="true"] .modal-content-evolution {
+    color: var(--color-text-dyslexia);
+    border-color: var(--color-content-border-dyslexia);
+}
+body[data-dyslexia="true"] .modal-content-evolution h3,
+body[data-dyslexia="true"] .modal-content-evolution .close-button-evolution {
+    color: var(--color-text-dyslexia);
+    border-bottom-color: var(--color-accent-dyslexia); /* Ligne bleue sous titre modale */
+}
+body[data-dyslexia="true"] .modal-content-evolution .close-button-evolution:hover {
+    color: #000;
+}
+/* Assurer que le texte dans le panneau droit est sombre en mode Dys */
+body[data-dyslexia="true"] .right-panel {
+     color: var(--color-text-dyslexia);
+     background-color: var(--color-panel-bg-dyslexia); /* Fond panneau droit */
+}
+body[data-dyslexia="true"] .right-panel h2,
+body[data-dyslexia="true"] .right-panel h3,
+body[data-dyslexia="true"] .right-panel a,
+body[data-dyslexia="true"] .accessibility-button {
+    color: var(--color-text-dyslexia);
+    border-color: var(--color-button-border);
+}
+body[data-dyslexia="true"] .right-panel a:hover,
+body[data-dyslexia="true"] .accessibility-button:hover {
+    background-color: var(--color-button-hover-bg);
+    border-color: var(--color-button-hover-border);
+    color: #000;
+}
+/* Assurer que le texte sur l'image (panneau gauche) reste lisible en mode Dys */
+body[data-dyslexia="true"] .left-panel {
+    color: #fff; /* Garder le texte blanc sur l'image */
+}
+body[data-dyslexia="true"] .left-panel::before {
+    background-color: rgba(0, 0, 0, 0.6); /* Augmenter un peu le voile si nécessaire */
+}
+/* Anecdote en mode Dys */
+body[data-dyslexia="true"] .anecdote {
+    background-color: rgba(0, 0, 0, 0.04); /* Fond très léger sur crème */
+    border-left-color: var(--color-accent-dyslexia); /* Bordure bleue */
+    color: var(--color-text-dyslexia);
+}
+body[data-dyslexia="true"] .anecdote i {
+    color: var(--color-accent-dyslexia);
+}
+/* Icônes en mode Dys */
+body[data-dyslexia="true"] .content-icon,
+body[data-dyslexia="true"] .content-icon-inline {
+    color: var(--color-accent-dyslexia);
+}
+/* Titres H2 en mode Dys */
+body[data-dyslexia="true"] .content-section h2 {
+    color: var(--color-text-dyslexia);
+    border-bottom-color: var(--color-accent-dyslexia); /* Ligne bleue */
+}
+/* Titres H3 en mode Dys */
+body[data-dyslexia="true"] .content-section h3 {
+    color: var(--color-text-dyslexia); /* Texte normal pour H3 */
+}
+/* Lien retour en mode Dys */
+body[data-dyslexia="true"] .back-to-top {
+    color: var(--color-accent-dyslexia);
+    border-color: var(--color-accent-dyslexia);
+}
+body[data-dyslexia="true"] .back-to-top:hover {
+    background-color: var(--color-button-hover-bg);
+    border-color: var(--color-accent-hover-dyslexia);
+    color: #000;
+}
+
+
+/* --- Styles Généraux --- */
+body {
+    margin: 0;
+    font-family: var(--font-family-default);
+    color: var(--color-text-dark);
+    line-height: var(--line-height-default);
+    letter-spacing: var(--letter-spacing-default);
+    word-spacing: var(--word-spacing-default);
+    overflow-x: hidden;
+    background-color: var(--color-bg-light);
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+/* Wrapper principal */
+.main-content-wrapper {
+     /* ... */
+}
+
+
+/* --- Styles SECTION ACCUEIL --- */
+.accueil-section {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.left-panel {
+    flex: 1;
+    background-image: url('fond.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff; /* Texte toujours blanc sur l'image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+    position: relative;
+    z-index: 1;
+    transition: color var(--transition-speed) ease;
+}
+
+.left-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+    transition: background-color var(--transition-speed) ease;
+}
+
+.right-panel {
+    flex: 1;
+    background-color: var(--color-bottle-green);
+    color: var(--color-text-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    text-align: center;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+.panel-content {
+    max-width: 450px;
+    width: 100%;
+}
+
+.left-panel h1 {
+    color: #fff;
+    font-size: 2.8em;
+    margin-bottom: 15px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+}
+.left-panel p {
+     font-size: 1.2em;
+     opacity: 0.95;
+ }
+
+.right-panel h2 {
+    color: var(--color-text-light);
+    font-size: 2em;
+    margin-bottom: 40px;
+    transition: color var(--transition-speed) ease;
+}
+
+.icon-header {
+    margin-right: 15px;
+    opacity: 0.8;
+}
+
+.main-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-menu li {
+    margin-bottom: 18px;
+}
+
+.main-menu a {
+    display: block;
+    text-decoration: none;
+    color: var(--color-text-light);
+    border: 2px solid var(--color-button-border);
+    padding: 18px 25px;
+    border-radius: 8px;
+    transition: all var(--transition-speed) ease;
+    font-size: 1.15em;
+    font-weight: bold;
+    text-align: left;
+}
+
+.menu-icon {
+    margin-right: 12px;
+    width: 20px;
+    text-align: center;
+    opacity: 0.9;
+    transition: transform var(--transition-speed) ease;
+}
+
+.main-menu a:hover {
+    background-color: var(--color-button-hover-bg);
+    border-color: var(--color-button-hover-border);
+    color: #fff; /* Garder blanc au survol même en mode Dys */
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+/* Spécificité pour hover en mode Dys */
+body[data-dyslexia="true"] .main-menu a:hover {
+    color: #000; /* Texte noir au survol en mode Dys */
+}
+
+
+.main-menu a:hover .menu-icon {
+    transform: scale(1.2);
+}
+
+/* --- Styles Boutons Accessibilité --- */
+.accessibility-controls {
+    margin-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 20px;
+    transition: border-color var(--transition-speed) ease;
+}
+body[data-theme="dark"] .accessibility-controls {
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+body[data-dyslexia="true"] .accessibility-controls {
+    border-top-color: rgba(0, 0, 0, 0.1);
+}
+
+.accessibility-controls h3 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    color: var(--color-text-light);
+    transition: color var(--transition-speed) ease;
+}
+
+.accessibility-button {
+    display: inline-block;
+    background: none;
+    border: 1px solid var(--color-button-border);
+    color: var(--color-text-light);
+    padding: 8px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+}
+.accessibility-button:hover {
+    background-color: var(--color-button-hover-bg);
+    border-color: var(--color-button-hover-border);
+    color: #fff; /* Garder blanc au survol */
+}
+body[data-dyslexia="true"] .accessibility-button:hover {
+    color: #000; /* Texte noir au survol en mode Dys */
+}
+
+.accessibility-button i {
+    margin-right: 6px;
+}
+
+
+/* --- Styles SECTIONS DE CONTENU --- */
+
+.content-section {
+    display: none;
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('fond.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--color-text-light);
+    padding: 40px 0;
+    opacity: 0;
+    position: relative;
+    z-index: 1;
+    transition: color var(--transition-speed) ease;
+}
+
+.content-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+    z-index: -1;
+    transition: background-color var(--transition-speed) ease;
+}
+
+.container-content {
+     max-width: 850px;
+     margin: 20px auto;
+     padding: 30px 40px;
+     background-color: var(--color-content-bg-light);
+     border: 2px solid var(--color-content-border-light);
+     border-radius: 10px;
+     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+     color: var(--color-text-light);
+     transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+body[data-dyslexia="true"] .container-content {
+    color: var(--color-text-dyslexia);
+}
+
+
+.content-section h2 {
+    color: #fff; /* Titres toujours blancs pour contraste sur fond semi-transparent */
+    border-bottom: 2px solid var(--color-accent-orange);
+    padding-bottom: 15px;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 1.8em;
+    display: flex;
+    align-items: center;
+    transition: border-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+ .content-section h3 {
+     color: var(--color-button-border); /* Utilise la variable pour suivre le thème */
+     margin-top: 25px;
+     margin-bottom: 15px;
+     font-size: 1.4em;
+     display: flex;
+     align-items: center;
+     transition: color var(--transition-speed) ease;
+ }
+
+ .content-section p {
+     margin-bottom: 18px;
+     text-align: justify;
+     font-size: 1.05em;
+ }
+ .content-section ul,
+ .content-section ol {
+      margin-bottom: 18px;
+      padding-left: 25px;
+ }
+  .content-section li {
+       margin-bottom: 8px;
+  }
+
+.content-icon {
+    margin-right: 15px;
+    font-size: 1.2em;
+    color: var(--color-accent-orange);
+    transition: color var(--transition-speed) ease;
+}
+
+.content-icon-inline {
+    margin-right: 8px;
+    font-size: 1.1em;
+    color: var(--color-accent-orange);
+    vertical-align: middle;
+    transition: color var(--transition-speed) ease;
+}
+
+/* Style pour les anecdotes */
+.anecdote {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-left: 4px solid var(--color-accent-orange);
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 4px;
+    font-style: italic;
+    transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+body[data-theme="dark"] .anecdote {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Style lien 'Retour à l'accueil' */
+.back-to-top {
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 1em;
+    color: var(--color-button-border);
+    text-decoration: none;
+    border: 1px solid var(--color-button-border);
+    padding: 12px 20px;
+    border-radius: 5px;
+    transition: all var(--transition-speed) ease;
+}
+.back-to-top i {
+    margin-right: 8px;
+}
+ .back-to-top:hover {
+     background-color: var(--color-button-hover-bg);
+     border-color: var(--color-button-hover-border);
+     color: #fff;
+     transform: translateX(-5px);
+ }
+
+/* Style mots cliquables glossaire */
+.glossary-term-evolution {
+    color: var(--color-glossary-term);
+    text-decoration: none;
+    border-bottom: 2px dashed var(--color-glossary-term);
+    cursor: pointer;
+    font-weight: bold;
+    transition: color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+    padding-bottom: 1px;
+}
+
+.glossary-term-evolution:hover {
+    color: var(--color-glossary-term-hover);
+    border-color: var(--color-glossary-term-hover);
+}
+/* Style liste glossaire */
+.glossary-list li {
+    margin-bottom: 10px;
+}
+
+
+/* --- Styles Fenêtre Modale (glossaire) --- */
+.modal-evolution {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    justify-content: center;
+    align-items: center;
+    animation: modalFadeIn 0.4s ease-out forwards;
+    transition: background-color var(--transition-speed) ease;
+}
+body[data-theme="dark"] .modal-evolution {
+     background-color: rgba(0, 0, 0, 0.85);
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content-evolution {
+    background-color: var(--color-modal-bg-light);
+    color: var(--color-text-light);
+    margin: auto;
+    padding: 35px 45px;
+    border-radius: 10px;
+    max-width: 550px;
+    width: 90%;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    position: relative;
+    border: 1px solid var(--color-button-border);
+    animation: modalContentAppear 0.4s ease-out 0.1s forwards;
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+}
+
+@keyframes modalContentAppear {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+
+.close-button-evolution {
+    color: var(--color-button-border);
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color var(--transition-speed) ease, transform 0.2s ease-in-out;
+}
+
+.close-button-evolution:hover,
+.close-button-evolution:focus {
+    color: #fff;
+    transform: rotate(90deg);
+}
+
+.modal-content-evolution h3 {
+    color: var(--color-text-light);
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--color-accent-orange);
+    padding-bottom: 10px;
+    font-size: 1.5em;
+    transition: color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+}
+
+.modal-content-evolution p {
+    font-size: 1.1em;
+    line-height: var(--line-height-default);
+    transition: line-height var(--transition-speed) ease; /* Transition pour l'interligne */
+}
+
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .accueil-section {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .left-panel, .right-panel {
+        flex: none;
+        width: 100%;
+        min-height: 40vh;
+        padding: 30px;
+    }
+     .right-panel {
+         min-height: auto;
+         padding-bottom: 40px;
+     }
+
+    .left-panel h1 { font-size: 2.2em; }
+    .right-panel h2 { margin-top: 25px; margin-bottom: 25px; font-size: 1.8em; }
+
+    .accessibility-controls { margin-top: 30px; }
+    .accessibility-button { display: block; margin: 10px auto; width: 80%; text-align: center; }
+
+
+    .container-content {
+        padding: 20px;
+        margin: 15px;
+        max-width: calc(100% - 30px);
+    }
+    .modal-content-evolution {
+        padding: 25px;
+        max-width: 90%;
+    }
+    .main-menu a { padding: 15px 20px; font-size: 1.1em; }
+    .content-section h2 { font-size: 1.6em; }
+    .content-section h3 { font-size: 1.3em; }
+
+    .content-section {
+        background-attachment: scroll;
+    }
+}
