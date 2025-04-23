@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset='UTF-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu Arcade - Sauvez les océans</title>
+    <style>
+        /* Styles spécifiques au jeu */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #e0f7fa; /* Bleu ciel très clair */
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: #1a3a6b; /* Bleu profond */
+            margin-bottom: 5px;
+        }
+
+        p {
+            color: #2a6bb1; /* Bleu océan */
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        #arcadeGame {
+            border: 3px solid #2a6bb1; /* Bordure plus épaisse */
+            background: linear-gradient(to bottom, #88c1f2, #d4e6f7); /* Dégradé fond océan */
+            display: block;
+            margin: 15px auto;
+            max-width: 100%; /* Assurer la responsivité */
+            height: auto; /* Maintenir le ratio */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 8px; /* Coins arrondis */
+        }
+
+        .game-info {
+            display: flex;
+            justify-content: space-around; /* Mieux espacer */
+            width: 100%;
+            max-width: 800px; /* Limiter la largeur */
+            margin-bottom: 15px;
+            font-size: 1.3rem; /* Taille augmentée */
+            font-weight: bold;
+            color: #1a3a6b;
+        }
+
+        #scoreDisplay span, #timerDisplay span {
+            color: #ff7f50; /* Corail pour les chiffres */
+            min-width: 40px; /* Espace minimum */
+            display: inline-block; /* Pour le min-width */
+        }
+
+        #gameOver {
+            display: none; /* Caché par défaut */
+            font-size: 1.8rem; /* Plus grand */
+            color: #d32f2f; /* Rouge plus foncé */
+            margin-top: 20px;
+            font-weight: bold;
+            background-color: rgba(255, 255, 255, 0.8); /* Fond semi-transparent */
+            padding: 15px;
+            border-radius: 10px;
+        }
+         #gameOver span {
+             color: #1a3a6b; /* Score final en bleu */
+         }
+
+        .close-button {
+            padding: 12px 25px; /* Plus grand */
+            margin-top: 25px;
+            font-size: 1.1rem;
+            background: #2a6bb1;
+            color: white;
+            border: none;
+            border-radius: 8px; /* Coins plus arrondis */
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-button:hover {
+            background-color: #1a3a6b; /* Bleu plus foncé */
+            transform: translateY(-2px);
+        }
+
+        .close-button:active {
+            transform: translateY(0);
+        }
+
+        /* Responsivité simple */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem; }
+            p { font-size: 1rem; }
+            .game-info { font-size: 1rem; flex-direction: column; gap: 5px;}
+            #gameOver { font-size: 1.3rem; }
+            .close-button { font-size: 1rem; padding: 10px 20px;}
+        }
+
+    </style>
+</head>
+<body>
+    <h1>🎮 Sauvez les océans</h1>
+    <p>Utilisez les flèches ← → pour bouger, Espace pour tirer. Éliminez les déchets (🧴🛍️🥤), évitez les animaux marins (🐢🐠🦀🐬🦑) !</p>
+
+    <canvas id='arcadeGame' width='800' height='400'>
+        Votre navigateur ne supporte pas le Canvas HTML5.
+    </canvas>
+
+    <div class="game-info">
+        <div id='scoreDisplay'>Score : <span id='gameScore'>0</span></div>
+        <div id='timerDisplay'>Temps : <span id='gameTimer'>60</span> s</div>
+    </div>
+
+    <div id='gameOver'>⏱️ Fin du jeu ! Votre score final : <span id='finalScore'>0</span></div>
+
+    <button class="close-button" onclick='window.close()'>🔙 Fermer le jeu</button>
+
+    <script>
+        const canvas = document.getElementById('arcadeGame');
+        const ctx = canvas.getContext('2d');
+
+        // Éléments du DOM pour l'affichage
+        const scoreDisplay = document.getElementById('gameScore');
+        const timerDisplay = document.getElementById('gameTimer');
+        const gameOverDisplay = document.getElementById('gameOver');
+        const finalScoreDisplay = document.getElementById('finalScore');
+
+        // Variables du jeu
+        let score = 0;
+        let timeLeft = 60; // Temps initial en secondes
+        let gameRunning = true;
+        let projectiles = [];
+        let targets = [];
+        let keys = {};
+        let gameFrame = 0; // Compteur pour la fréquence d'apparition
+        let animationFrameId = null; // Pour arrêter l'animation
+        let timerIntervalId = null; // Pour arrêter le timer
+
+        // Configuration
+        const targetSpawnRate = 70; // Apparition toutes les X frames (plus bas = plus fréquent)
+        const pollutantChance = 0.65; // 65% de chance qu'une cible soit un polluant
+        const animalImages = ['🐢', '🐠', '🦀', '🐬', '🦑'];
+        const pollutantImages = ['🧴', '🛍️', '🥤', '🔩']; // Ajout d'un déchet
+        const player = {
+            x: canvas.width / 2 - 25, // Centré
+            y: canvas.height - 60, // Un peu plus haut
+            width: 50,
+            height: 50,
+            speed: 6,
+            emoji: '🚀' // Emoji pour le joueur
+        };
+        const projectileSpeed = 8;
+        const targetSpeed = 1.2; // Vitesse de descente des cibles
+
+        // --- Fonctions de Dessin ---
+
+        function drawPlayer() {
+            ctx.font = '40px sans-serif'; // Taille de l'emoji joueur
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(player.emoji, player.x + player.width / 2, player.y + player.height / 2);
+
+            // Optionnel: Dessiner une base sous le joueur
+            // ctx.fillStyle = '#555';
+            // ctx.fillRect(player.x, player.y + player.height - 10, player.width, 10);
+        }
+
+        function drawProjectile(p) {
+            ctx.fillStyle = '#ff4500'; // Orange-rouge
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 5, 0, Math.PI * 2); // Cercle pour projectile
+            ctx.fill();
+        }
+
+        function drawTarget(t) {
+            ctx.font = '32px sans-serif'; // Taille des emojis cibles
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(t.emoji, t.x, t.y);
+        }
+
+        // --- Logique du Jeu ---
+
+        function spawnTarget() {
+            const x = Math.random() * (canvas.width - 40) + 20; // Éviter les bords extrêmes
+            const y = -30; // Apparaît au-dessus du canvas
+            const isPollutant = Math.random() < pollutantChance;
+            const type = isPollutant ? 'pollutant' : 'animal';
+            const emoji = isPollutant
+                ? pollutantImages[Math.floor(Math.random() * pollutantImages.length)]
+                : animalImages[Math.floor(Math.random() * animalImages.length)];
+            const points = isPollutant ? 10 : -20; // Points positifs ou négatifs
+            targets.push({ x, y, radius: 20, type, emoji, points }); // Rayon de collision
+        }
+
+        function updateProjectiles() {
+            for (let i = projectiles.length - 1; i >= 0; i--) {
+                projectiles[i].y -= projectileSpeed;
+                if (projectiles[i].y < -10) { // Supprimer si hors écran
+                    projectiles.splice(i, 1);
+                } else {
+                    drawProjectile(projectiles[i]);
+                }
+            }
+        }
+
+        function updateTargets() {
+            for (let i = targets.length - 1; i >= 0; i--) {
+                const t = targets[i];
+                t.y += targetSpeed;
+
+                // Supprimer si hors écran (en bas)
+                if (t.y > canvas.height + t.radius) {
+                    targets.splice(i, 1);
+                    continue; // Passer à la cible suivante
+                }
+
+                // Vérifier collision avec projectiles
+                let hit = false;
+                for (let j = projectiles.length - 1; j >= 0; j--) {
+                    const p = projectiles[j];
+                    const dx = p.x - t.x;
+                    const dy = p.y - t.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < t.radius + 5) { // Collision détectée (5 = rayon projectile)
+                        score += t.points; // Ajouter/retirer points
+                        scoreDisplay.textContent = score;
+                        targets.splice(i, 1); // Supprimer cible
+                        projectiles.splice(j, 1); // Supprimer projectile
+                        hit = true;
+                        break; // Sortir de la boucle projectiles pour cette cible
+                    }
+                }
+
+                if (!hit) {
+                    drawTarget(t); // Dessiner seulement si pas touchée ce frame
+                }
+            }
+        }
+
+        function movePlayer() {
+            if (keys['ArrowLeft'] && player.x > 0) {
+                player.x -= player.speed;
+            }
+            if (keys['ArrowRight'] && player.x + player.width < canvas.width) {
+                player.x += player.speed;
+            }
+        }
+
+        function shootProjectile() {
+            // Ajouter un délai minimum entre les tirs (cooldown)
+            if (!player.lastShotTime || (Date.now() - player.lastShotTime > 250)) { // 250ms cooldown
+                 projectiles.push({ x: player.x + player.width / 2, y: player.y });
+                 player.lastShotTime = Date.now();
+            }
+        }
+
+        function gameLoop() {
+            if (!gameRunning) return; // Arrêter la boucle si le jeu est terminé
+
+            // Nettoyer le canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Mettre à jour et dessiner
+            movePlayer();
+            drawPlayer();
+            updateProjectiles();
+            updateTargets();
+
+            // Faire apparaître de nouvelles cibles
+            if (gameFrame % targetSpawnRate === 0) {
+                spawnTarget();
+            }
+
+            gameFrame++;
+            animationFrameId = requestAnimationFrame(gameLoop); // Boucle d'animation
+        }
+
+        function updateTimer() {
+            timerIntervalId = setInterval(() => {
+                timeLeft--;
+                timerDisplay.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        function endGame() {
+            gameRunning = false; // Arrêter la logique du jeu
+            clearInterval(timerIntervalId); // Arrêter le timer
+            cancelAnimationFrame(animationFrameId); // Arrêter la boucle d'animation
+            gameOverDisplay.style.display = 'block'; // Afficher message de fin
+            finalScoreDisplay.textContent = score; // Afficher score final
+        }
+
+        // --- Gestionnaires d'Événements ---
+
+        function handleKeyDown(e) {
+            keys[e.key] = true;
+            // Tirer avec Espace
+            if (e.key === ' ') {
+                e.preventDefault(); // Empêcher le défilement de la page
+                shootProjectile();
+            }
+        }
+
+        function handleKeyUp(e) {
+            keys[e.key] = false;
+        }
+
+        // --- Initialisation ---
+
+        function startGame() {
+            // Réinitialiser les variables si on rejoue
+            score = 0;
+            timeLeft = 60; // Remettre le temps initial
+            gameRunning = true;
+            projectiles = [];
+            targets = [];
+            keys = {};
+            gameFrame = 0;
+            player.x = canvas.width / 2 - 25; // Recentrer joueur
+            scoreDisplay.textContent = score;
+            timerDisplay.textContent = timeLeft;
+            gameOverDisplay.style.display = 'none'; // Cacher message fin de jeu
+
+            // (Ré)attacher les écouteurs
+            window.addEventListener('keydown', handleKeyDown);
+            window.addEventListener('keyup', handleKeyUp);
+            // Optionnel: Tirer au clic sur le canvas
+            // canvas.addEventListener('click', shootProjectile);
+
+            // Démarrer timer et boucle de jeu
+            updateTimer();
+            gameLoop();
+        }
+
+        // Lancer le jeu au chargement de la page
+        startGame();
+
+    </script>
+</body>
+</html>
