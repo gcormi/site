@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercices Interactifs - Énergies Propres</title>
+    <!-- CSS spécifique aux exercices -->
+    <link rel="stylesheet" href="exercices.css">
+    <!-- Font Awesome (pour les icônes) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Vidéo en arrière-plan -->
+    <video autoplay loop muted playsinline id="background-video">
+        <source src="video.mp4" type="video/mp4"> <!-- Assurez-vous que video.mp4 est accessible -->
+        Votre navigateur ne supporte pas les vidéos HTML5.
+    </video>
+    <!-- Superposition pour la lisibilité -->
+    <div class="video-overlay"></div>
+
+    <!-- Conteneur principal -->
+    <div class="main-content-wrapper">
+        <div class="exercise-page-container">
+            <header>
+                <h1><i class="fas fa-solar-panel"></i> Exercices Interactifs - Énergies Propres</h1>
+                <p>Testez vos connaissances sur les différentes formes d'énergies renouvelables.</p>
+            </header>
+
+            <main>
+                <!-- Thème 1: Énergie Solaire -->
+                <section class="theme-section" id="theme-solaire">
+                    <h2><i class="fas fa-sun"></i> Thème : Énergie Solaire</h2>
+
+                    <!-- QCM Solaire -->
+                    <div class="exercise-block" id="solaire-qcm">
+                        <h3><i class="fas fa-tasks"></i> QCM (3 questions)</h3>
+                        <div class="qcm-content"></div>
+                        <button class="qcm-submit">Valider QCM Solaire</button>
+                        <div class="qcm-feedback feedback"></div>
+                    </div>
+
+                    <!-- Association Solaire (8 paires) -->
+                    <div class="exercise-block" id="solaire-assoc">
+                        <h3><i class="fas fa-link"></i> Association (8 paires)</h3>
+                        <p class="instructions">Cliquez sur un terme puis sur sa définition correspondante.</p>
+                        <div class="assoc-container">
+                            <div class="assoc-column" id="solaire-assoc-col1"></div>
+                            <div class="assoc-column" id="solaire-assoc-col2"></div>
+                        </div>
+                        <div class="assoc-feedback feedback"></div>
+                    </div>
+
+                    <!-- Pendu Solaire 1 -->
+                    <div class="exercise-block" id="solaire-pendu1">
+                        <h3><i class="fas fa-ghost"></i> Pendu 1</h3>
+                        <div class="pendu-area">
+                            <div class="pendu-help-button-container">
+                                <button class="pendu-help-button">Afficher l'indice</button>
+                            </div>
+                            <div class="pendu-help-text"></div>
+                            <div class="pendu-word"></div>
+                            <div class="pendu-letters"></div>
+                            <div class="pendu-attempts">Tentatives restantes : <span>6</span></div>
+                            <div class="pendu-feedback feedback"></div>
+                        </div>
+                    </div>
+
+                    <!-- Pendu Solaire 2 -->
+                    <div class="exercise-block" id="solaire-pendu2">
+                        <h3><i class="fas fa-ghost"></i> Pendu 2</h3>
+                        <div class="pendu-area">
+                            <div class="pendu-help-button-container">
+                                <button class="pendu-help-button">Afficher l'indice</button>
+                            </div>
+                            <div class="pendu-help-text"></div>
+                            <div class="pendu-word"></div>
+                            <div class="pendu-letters"></div>
+                            <div class="pendu-attempts">Tentatives restantes : <span>6</span></div>
+                            <div class="pendu-feedback feedback"></div>
+                        </div>
+                    </div>
+
+                    <!-- Memory Solaire 1 (8 paires) -->
+                    <div class="exercise-block" id="solaire-memory1">
+                        <h3><i class="fas fa-brain"></i> Memory 1 (8 paires)</h3>
+                        <div class="timer">Temps : <span class="time-value">0s</span></div>
+                        <div class="memory-grid"></div>
+                        <div class="memory-feedback feedback"></div>
+                    </div>
+
+                    <!-- Memory Solaire 2 (8 paires) -->
+                    <div class="exercise-block" id="solaire-memory2">
+                        <h3><i class="fas fa-brain"></i> Memory 2 (8 paires)</h3>
+                        <div class="timer">Temps : <span class="time-value">0s</span></div>
+                        <div class="memory-grid"></div>
+                        <div class="memory-feedback feedback"></div>
+                    </div>
+
+                    <div class="theme-score">Score Solaire : <span id="score-solaire">0</span></div>
+                </section>
+
+                <!-- Thème 2: Énergie Éolienne - STRUCTURE COMPLÈTE -->
+                <section class="theme-section" id="theme-eolien">
+                    <h2><i class="fas fa-wind"></i> Thème : Énergie Éolienne</h2>
+
+                    <!-- QCM Eolien -->
+                    <div class="exercise-block" id="eolien-qcm">
+                        <h3><i class="fas fa-tasks"></i> QCM (3 questions)</h3>
+                        <div class="qcm-content"></div>
+                        <button class="qcm-submit">Valider QCM Éolien</button>
+                        <div class="qcm-feedback feedback"></div>
+                    </div>
+
+                    <!-- Association Eolien (8 paires) -->
+                    <div class="exercise-block" id="eolien-assoc">
+                        <h3><i class="fas fa-link"></i> Association (8 paires)</h3>
+                        <p class="instructions">Cliquez sur un terme puis sur sa définition correspondante.</p>
+                        <div class="assoc-container">
+                            <div class="assoc-column" id="eolien-assoc-col1"></div>
+                            <div class="assoc-column" id="eolien-assoc-col2"></div>
+                        </div>
+                        <div class="assoc-feedback feedback"></div>
+                    </div>
+
+                    <!-- Pendu Eolien 1 -->
+                    <div class="exercise-block" id="eolien-pendu1">
+                        <h3><i class="fas fa-ghost"></i> Pendu 1</h3>
+                        <div class="pendu-area">
+                            <div class="pendu-help-button-container">
+                                <button class="pendu-help-button">Afficher l'indice</button>
+                            </div>
+                            <div class="pendu-help-text"></div>
+                            <div class="pendu-word"></div>
+                            <div class="pendu-letters"></div>
+                            <div class="pendu-attempts">Tentatives restantes : <span>6</span></div>
+                            <div class="pendu-feedback feedback"></div>
+                        </div>
+                    </div>
+
+                    <!-- Pendu Eolien 2 -->
+                    <div class="exercise-block" id="eolien-pendu2">
+                        <h3><i class="fas fa-ghost"></i> Pendu 2</h3>
+                        <div class="pendu-area">
+                            <div class="pendu-help-button-container">
+                                <button class="pendu-help-button">Afficher l'indice</button>
+                            </div>
+                            <div class="pendu-help-text"></div>
+                            <div class="pendu-word"></div>
+                            <div class="pendu-letters"></div>
+                            <div class="pendu-attempts">Tentatives restantes : <span>6</span></div>
+                            <div class="pendu-feedback feedback"></div>
+                        </div>
+                    </div>
+
+                    <!-- Memory Eolien 1 (8 paires) -->
+                    <div class="exercise-block" id="eolien-memory1">
+                        <h3><i class="fas fa-brain"></i> Memory 1 (8 paires)</h3>
+                        <div class="timer">Temps : <span class="time-value">0s</span></div>
+                        <div class="memory-grid"></div>
+                        <div class="memory-feedback feedback"></div>
+                    </div>
+
+                    <!-- Memory Eolien 2 (8 paires) -->
+                    <div class="exercise-block" id="eolien-memory2">
+                        <h3><i class="fas fa-brain"></i> Memory 2 (8 paires)</h3>
+                        <div class="timer">Temps : <span class="time-value">0s</span></div>
+                        <div class="memory-grid"></div>
+                        <div class="memory-feedback feedback"></div>
+                    </div>
+
+                    <div class="theme-score">Score Éolien : <span id="score-eolien">0</span></div>
+                </section>
+
+                <!-- Thème 3: Stockage de l'Énergie - STRUCTURE COMPLÈTE -->
+                 <section class="theme-section" id="theme-stockage">
+                    <h2><i class="fas fa-battery-half"></i> Thème : Stockage de l'Énergie</h2>
+
+                    <!-- QCM Stockage -->
+                    <div class="exercise-block" id="stockage-qcm">
+                        <h3><i class="fas fa-tasks"></i> QCM (3 questions)</h3>
+                        <div class="qcm-content"></div>
+                        <button class="qcm-submit">Valider QCM Stockage</button>
+                        <div class="qcm-feedback feedback"></div>
+                    </div>
+
+                    <!-- Association Stockage (8 paires) -->
+                    <div class="exercise-block" id="stockage-assoc">
+                        <h3><i class="fas fa-link"></i> Association (8 paires)</h3>
+                        <p class="instructions">Cliquez sur un terme puis sur sa définition correspondante.</p>
+                        <div class="assoc-container">
+                            <div class="assoc-column" id="stockage-assoc-col1"></div>
+                            <div class="assoc-column" id="stockage-assoc-col2"></div>
+                        </div>
+                        <div class="assoc-feedback feedback"></div>
+                    </div>
+
+                    <!-- Pendu Stockage 1 -->
+                    <div class="exercise-block" id="stockage-pendu1">
+                        <h3><i class="fas fa-ghost"></i> Pendu 1</h3>
+                        <div class="pendu-area">
+                            <div class="pendu-help-button-container">
+                                <button class="pendu-help-button">Afficher l'indice</button>
+                            </div>
+                            <div class="pendu-help-text"></div>
+                            <div class="pendu-word"></div>
+                            <div class="pendu-letters"></div>
+                            <div class="pendu-attempts">Tentatives restantes : <span>6</span></div>
+                            <div class="pendu-feedback feedback"></div>
+                        </div>
+                    </div>
+
+                    <!-- Pendu Stockage 2 -->
+                    <div class="exercise-block" id="stockage-pendu2">
+                        <h3><i class="fas fa-ghost"></i> Pendu 2</h3>
+                        <div class="pendu-area">
+                            <div class="pendu-help-button-container">
+                                <button class="pendu-help-button">Afficher l'indice</button>
+                            </div>
+                            <div class="pendu-help-text"></div>
+                            <div class="pendu-word"></div>
+                            <div class="pendu-letters"></div>
+                            <div class="pendu-attempts">Tentatives restantes : <span>6</span></div>
+                            <div class="pendu-feedback feedback"></div>
+                        </div>
+                    </div>
+
+                    <!-- Memory Stockage 1 (8 paires) -->
+                    <div class="exercise-block" id="stockage-memory1">
+                        <h3><i class="fas fa-brain"></i> Memory 1 (8 paires)</h3>
+                        <div class="timer">Temps : <span class="time-value">0s</span></div>
+                        <div class="memory-grid"></div>
+                        <div class="memory-feedback feedback"></div>
+                    </div>
+
+                    <!-- Memory Stockage 2 (8 paires) -->
+                    <div class="exercise-block" id="stockage-memory2">
+                        <h3><i class="fas fa-brain"></i> Memory 2 (8 paires)</h3>
+                        <div class="timer">Temps : <span class="time-value">0s</span></div>
+                        <div class="memory-grid"></div>
+                        <div class="memory-feedback feedback"></div>
+                    </div>
+
+                     <div class="theme-score">Score Stockage : <span id="score-stockage">0</span></div>
+                </section>
+
+            </main>
+
+            <footer>
+                <div id="total-score">Score Total : <span id="score-global">0</span> / 69</div>
+                <p>Règles : QCM = 1pt/bonne réponse, Association = 1pt/paire, Pendu = 3pts/mot, Memory = 1pt + bonus temps (max 3pts).</p>
+            </footer>
+        </div>
+    </div> <!-- Fin de .main-content-wrapper -->
+
+    <!-- JavaScript spécifique aux exercices -->
+    <script src="exercices.js"></script>
+</body>
+</html>

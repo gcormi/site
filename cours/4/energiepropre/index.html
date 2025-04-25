@@ -1,1 +1,462 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Avenir Énergétique - Énergies Propres</title>
 
+    <!-- Polices Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS (via CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome (Icônes) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Votre CSS unique -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body> <!-- La classe dark-mode sera ajoutée/retirée par JS -->
+
+    <!-- Vidéo en arrière-plan -->
+    <video autoplay loop muted playsinline id="background-video">
+        <source src="video.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas les vidéos HTML5.
+    </video>
+    <!-- Superposition pour la lisibilité sur la vidéo -->
+    <div class="video-overlay"></div>
+
+    <!-- Contenu principal (tout est maintenant dans ce conteneur) -->
+    <div class="main-content-wrapper">
+
+        <!-- Navigation du Cours -->
+        <nav class="shadow-md sticky top-0 z-50 nav-transparent">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center">
+                        <i class="fas fa-solar-panel text-teal-500 text-2xl mr-2"></i>
+                        <span class="font-bold text-xl text-gray-800 nav-title">Énergies Propres</span>
+                    </div>
+                    <div class="hidden md:flex space-x-8">
+                        <a href="#introduction" class="nav-link">Introduction</a>
+                        <a href="#transition" class="nav-link">Transition</a>
+                        <a href="#systemes" class="nav-link">Systèmes</a>
+                        <a href="#stockage" class="nav-link">Stockage</a>
+                        <a href="#energies" class="nav-link">Énergies</a>
+                        <a href="#defis" class="nav-link">Défis</a>
+                        <a href="#economie" class="nav-link">Économie</a>
+                    </div>
+
+                    <!-- Boutons Mode Sombre et Menu Mobile -->
+                    <div class="flex items-center">
+                        <button id="dark-mode-toggle" class="text-gray-600 hover:text-teal-600 focus:outline-none p-2 rounded-full hover:bg-gray-200 hover:bg-opacity-50 transition duration-150 ease-in-out mr-2" title="Basculer le mode sombre">
+                            <i class="fas fa-moon text-xl"></i>
+                        </button>
+                        <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-teal-600 focus:outline-none">
+                            <i class="fas fa-bars text-xl"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden mobile-menu-transparent border-t border-gray-200 border-opacity-30">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                     <a href="#introduction" class="mobile-nav-link">Introduction</a>
+                     <a href="#transition" class="mobile-nav-link">Transition</a>
+                     <a href="#systemes" class="mobile-nav-link">Systèmes</a>
+                     <a href="#stockage" class="mobile-nav-link">Stockage</a>
+                     <a href="#energies" class="mobile-nav-link">Énergies</a>
+                     <a href="#defis" class="mobile-nav-link">Défis</a>
+                     <a href="#economie" class="mobile-nav-link">Économie</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Progress bar -->
+        <div class="progress-container">
+            <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
+        </div>
+
+        <!-- Hero Section du Cours -->
+        <header class="hero-gradient text-white py-24 md:py-32">
+             <!-- Contenu du Hero -->
+             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 scroll-animate">
+                    Explorez les Énergies Propres
+                </h1>
+                <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto scroll-animate" style="transition-delay: 0.1s;">
+                    Un voyage interactif au cœur des systèmes techniques qui façonnent notre avenir énergétique durable.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 scroll-animate" style="transition-delay: 0.2s;">
+                    <a href="#introduction" class="inline-block bg-white text-teal-600 font-semibold px-8 py-3 rounded-full hover:bg-gray-100 transition transform hover:scale-105 shadow-md">
+                        <i class="fas fa-play mr-2"></i> Commencer le cours
+                    </a>
+                </div>
+                <div class="mt-16 scroll-animate" style="transition-delay: 0.3s;">
+                    <i class="fas fa-chevron-down text-3xl animate-bounce"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content du Cours -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+            <!-- Introduction Section -->
+            <section id="introduction" class="mb-24 section-anchor">
+                 <div class="flex items-center mb-8 scroll-animate">
+                    <span class="h-1 bg-teal-500 w-12 mr-4 rounded"></span>
+                    <h2 class="text-3xl font-bold text-gray-800">Introduction : Pourquoi l'Énergie Propre ?</h2>
+                </div>
+                <div class="card-base mb-12 scroll-animate">
+                    <div class="md:flex">
+                        <div class="md:w-2/5"><img src="eoliennec.jpg" alt="Turbines éoliennes au coucher du soleil" class="h-full w-full object-cover"></div>
+                        <div class="p-8 md:p-10 md:w-3/5">
+                            <h3 class="text-2xl font-semibold text-gray-800 mb-4">L'Énergie : Moteur de notre Monde, Défi de notre Temps</h3>
+                            <div class="text-gray-600 space-y-4">
+                                <p><i class="fas fa-plug mr-2 text-teal-500"></i>Notre quotidien est rythmé par l'énergie : transports, éclairage, chauffage, communication, industrie... Elle est indispensable.</p>
+                                <p><i class="fas fa-fire-alt mr-2 text-orange-500"></i>Historiquement, les énergies fossiles (charbon, pétrole, gaz) ont alimenté notre développement. Mais elles sont <strong class="font-semibold">limitées</strong> et leur combustion libère massivement du CO2, principal responsable du <strong class="font-semibold">changement climatique</strong>.</p>
+                                <p><i class="fas fa-recycle mr-2 text-emerald-500"></i>Face à l'urgence climatique et à l'épuisement des ressources, la transition vers des <strong class="font-semibold">énergies propres et renouvelables</strong> (solaire, éolien, hydraulique...) n'est plus une option, mais une nécessité.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card-base p-6 interactive-card scroll-animate">
+                        <div class="flex items-center mb-4"><div class="bg-red-100 p-3 rounded-full mr-4"><i class="fas fa-smog text-red-600 text-xl animated-icon"></i></div><h3 class="text-xl font-semibold text-gray-800">Énergies Fossiles (Hier)</h3></div>
+                        <p class="text-gray-600">Charbon, pétrole, gaz. <strong class="text-red-600 font-semibold">Non renouvelables</strong>, émettrices de CO2, impact environnemental élevé.</p>
+                    </div>
+                    <div class="card-base p-6 interactive-card scroll-animate" style="transition-delay: 0.1s;">
+                        <div class="flex items-center mb-4"><div class="bg-emerald-100 p-3 rounded-full mr-4"><i class="fas fa-leaf text-emerald-600 text-xl animated-icon"></i></div><h3 class="text-xl font-semibold text-gray-800">Énergies Propres (Demain)</h3></div>
+                        <p class="text-gray-600">Solaire, éolien, hydraulique, etc. <strong class="text-emerald-600 font-semibold">Renouvelables</strong>, faibles émissions, plus durables.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Transition Section -->
+            <section id="transition" class="mb-24 section-anchor">
+                 <div class="flex items-center mb-8 scroll-animate"><span class="h-1 bg-teal-500 w-12 mr-4 rounded"></span><h2 class="text-3xl font-bold text-gray-800">La Transition Énergétique</h2></div>
+                <div class="mb-12 scroll-animate">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">1.1. Les Limites du Modèle Actuel</h3>
+                    <div class="bg-orange-50 border border-orange-200 p-6 rounded-xl mb-6 text-orange-800"><p><i class="fas fa-exclamation-triangle mr-2"></i>Le modèle basé sur les fossiles a permis un essor industriel, mais il atteint ses limites : épuisement des ressources, pollution de l'air, et surtout, dérèglement climatique aux conséquences déjà visibles (canicules, inondations, montée des eaux...).</p></div>
+                </div>
+                <div class="scroll-animate">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">1.2. Pourquoi les Énergies Renouvelables ?</h3>
+                    <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-xl mb-8 text-emerald-800"><p><i class="fas fa-sync-alt mr-2"></i>Elles proviennent de sources naturelles (soleil, vent, eau, chaleur terrestre, biomasse) qui se renouvellent constamment à l'échelle humaine. Leur exploitation directe génère peu ou pas de gaz à effet de serre.</p></div>
+                    <div class="card-base relative scroll-animate" style="transition-delay: 0.1s;">
+                        <div class="absolute inset-0 bg-gradient-to-r from-teal-500 to-emerald-500 opacity-10 rounded-xl"></div>
+                        <div class="relative p-8 md:p-10">
+                            <h4 class="text-xl font-semibold mb-4 text-gray-800">Objectif : Un Avenir Énergétique Durable</h4>
+                            <p class="text-gray-600 mb-6">La transition énergétique est ce changement majeur visant à remplacer les fossiles par les renouvelables. Ses buts sont multiples :</p>
+                            <ul class="space-y-3">
+                                <li class="flex items-center"><i class="fas fa-globe-europe text-teal-600 mr-3 text-lg"></i>Réduire drastiquement les émissions de CO2 pour limiter le réchauffement.</li>
+                                <li class="flex items-center"><i class="fas fa-cogs text-teal-600 mr-3 text-lg"></i>Assurer la sécurité de notre approvisionnement énergétique.</li>
+                                <li class="flex items-center"><i class="fas fa-seedling text-teal-600 mr-3 text-lg"></i>Préserver les ressources naturelles pour les générations futures.</li>
+                                <li class="flex items-center"><i class="fas fa-lightbulb text-teal-600 mr-3 text-lg"></i>Développer de nouvelles technologies et industries vertes.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Systèmes Section -->
+            <section id="systemes" class="mb-24 section-anchor">
+                 <div class="flex items-center mb-8 scroll-animate"><span class="h-1 bg-teal-500 w-12 mr-4 rounded"></span><h2 class="text-3xl font-bold text-gray-800">Comprendre les Systèmes Techniques</h2></div>
+                <div class="mb-12 scroll-animate">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">La Chaîne de Transformation de l'Énergie</h3>
+                    <div class="card-base p-8 md:p-10 mb-8">
+                        <p class="text-gray-600 mb-8">Transformer une source naturelle (vent, soleil...) en électricité utilisable implique plusieurs étapes techniques, formant une "chaîne d'énergie" :</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                            <div class="bg-teal-50 p-6 rounded-lg interactive-card"><div class="energy-icon text-teal-500 mx-auto"><i class="fas fa-solar-panel animated-icon"></i></div><h4 class="font-semibold mb-2 text-gray-800">1. Capteur / Source</h4><p class="text-sm text-gray-600">Capture l'énergie primaire (lumière, vent, chaleur, eau...). Ex: Panneau solaire, pale d'éolienne.</p></div>
+                            <div class="bg-emerald-50 p-6 rounded-lg interactive-card"><div class="energy-icon text-emerald-500 mx-auto"><i class="fas fa-exchange-alt animated-icon"></i></div><h4 class="font-semibold mb-2 text-gray-800">2. Convertisseur</h4><p class="text-sm text-gray-600">Transforme l'énergie captée en une autre forme (souvent mécanique). Ex: Rotor d'éolienne, turbine hydraulique.</p></div>
+                            <div class="bg-yellow-50 p-6 rounded-lg interactive-card"><div class="energy-icon text-yellow-500 mx-auto"><i class="fas fa-bolt animated-icon"></i></div><h4 class="font-semibold mb-2 text-gray-800">3. Générateur</h4><p class="text-sm text-gray-600">Convertit l'énergie (souvent mécanique) en électricité. Ex: Alternateur dans une éolienne ou un barrage.</p></div>
+                            <div class="bg-purple-50 p-6 rounded-lg interactive-card"><div class="energy-icon text-purple-500 mx-auto"><i class="fas fa-network-wired animated-icon"></i></div><h4 class="font-semibold mb-2 text-gray-800">4. Distribution</h4><p class="text-sm text-gray-600">Transporte l'électricité via le réseau jusqu'aux consommateurs.</p></div>
+                        </div>
+                         <div class="mt-8 bg-gray-100 p-6 rounded-lg border border-gray-200">
+                            <div class="flex items-start"><div class="flex-shrink-0 bg-blue-100 p-3 rounded-full mr-4"><i class="fas fa-battery-half text-blue-500"></i></div><div><p class="font-semibold text-gray-800">Étape Clé : Le Stockage</p><p class="text-gray-600">Comme le soleil et le vent sont intermittents, le stockage (batteries, hydrogène, STEP...) devient crucial pour assurer une fourniture continue.</p></div></div>
+                        </div>
+                    </div>
+                    <div class="card-base scroll-animate">
+                         <h4 class="text-xl font-semibold mb-0 p-6 bg-gray-50 rounded-t-xl border-b">Exemple Concret : Une Éolienne</h4>
+                         <div class="p-6 md:p-8">
+                            <div class="flex flex-col md:flex-row items-center gap-8">
+                                <div class="md:w-1/3"><img src="eolienne.jpg" alt="Éolienne en fonctionnement" class="rounded-lg w-full h-auto object-cover shadow-md"></div>
+                                <div class="md:w-2/3">
+                                    <ol class="space-y-3 text-gray-700">
+                                        <li class="flex items-start"><span class="font-semibold text-teal-600 w-24 flex-shrink-0">1. Capteur:</span> Les pales captent l'énergie cinétique du vent.</li>
+                                        <li class="flex items-start"><span class="font-semibold text-emerald-600 w-24 flex-shrink-0">2. Convert.:</span> Les pales font tourner un rotor (énergie mécanique).</li>
+                                        <li class="flex items-start"><span class="font-semibold text-yellow-600 w-24 flex-shrink-0">3. Générat.:</span> Le rotor entraîne un alternateur qui produit de l'électricité.</li>
+                                        <li class="flex items-start"><span class="font-semibold text-purple-600 w-24 flex-shrink-0">4. Distrib.:</span> L'électricité est injectée dans le réseau.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- NOUVELLE SECTION : STOCKAGE -->
+            <section id="stockage" class="mb-24 section-anchor">
+                 <div class="flex items-center mb-8 scroll-animate">
+                    <span class="h-1 bg-teal-500 w-12 mr-4 rounded"></span>
+                    <h2 class="text-3xl font-bold text-gray-800">Stockage de l'Énergie : La Clé de l'Intermittence</h2>
+                </div>
+
+                <div class="card-base p-8 md:p-10 mb-12 scroll-animate">
+                    <p class="text-gray-600 mb-6">Les énergies solaire et éolienne sont variables. Le stockage permet de conserver l'énergie produite en surplus pour l'utiliser lorsque la production est faible (nuit, pas de vent), assurant ainsi la stabilité du réseau et la continuité de l'approvisionnement.</p>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-6">Principales Technologies de Stockage :</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Carte Batteries -->
+                        <div class="bg-blue-50 p-6 rounded-lg interactive-card border border-blue-100">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-car-battery text-blue-500 text-3xl mr-3 animated-icon"></i>
+                                <h4 class="font-semibold text-lg text-gray-800">Batteries (Électrochimique)</h4>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">Principalement <span class="tooltip-trigger" data-tooltip="Technologie de batterie rechargeable la plus courante, utilisée dans les téléphones, ordinateurs portables et véhicules électriques.">Lithium-ion</span>. Rapides, modulaires (du résidentiel au grid-scale). Coût en baisse mais questions sur les matériaux et le recyclage.</p>
+                            <p class="text-xs text-blue-700 font-medium">Ex: Tesla Megapack, batteries domestiques.</p>
+                        </div>
+                        <!-- Carte STEP -->
+                        <div class="bg-cyan-50 p-6 rounded-lg interactive-card border border-cyan-100">
+                             <div class="flex items-center mb-3">
+                                <i class="fas fa-water text-cyan-500 text-3xl mr-3 animated-icon"></i>
+                                <h4 class="font-semibold text-lg text-gray-800">STEP (Pompage-Turbinage)</h4>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">Stockage Hydraulique. Technologie mature, grande capacité, longue durée. Nécessite un relief spécifique (deux réservoirs à des altitudes différentes).</p>
+                             <p class="text-xs text-cyan-700 font-medium">Ex: Barrages réversibles.</p>
+                        </div>
+                        <!-- Carte Hydrogène -->
+                        <div class="bg-emerald-50 p-6 rounded-lg interactive-card border border-emerald-100">
+                             <div class="flex items-center mb-3">
+                                <i class="fas fa-atom text-emerald-500 text-3xl mr-3 animated-icon"></i>
+                                <h4 class="font-semibold text-lg text-gray-800">Hydrogène Vert</h4>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">Produit par <span class="tooltip-trigger" data-tooltip="Procédé qui utilise l'électricité pour séparer l'eau (H2O) en hydrogène (H2) et oxygène (O2).">électrolyse</span> de l'eau avec électricité renouvelable. Stockage longue durée, utilisable pour électricité (<span class="tooltip-trigger" data-tooltip="Dispositif qui convertit l'énergie chimique de l'hydrogène en électricité, avec de l'eau comme seul sous-produit.">pile à combustible</span>), chaleur ou industrie. Rendement global plus faible.</p>
+                             <p class="text-xs text-emerald-700 font-medium">Ex: Projets Power-to-Gas.</p>
+                        </div>
+                         <!-- Autres Technologies -->
+                         <div class="bg-gray-50 p-6 rounded-lg interactive-card border border-gray-200 md:col-span-2 lg:col-span-3">
+                             <div class="flex items-center mb-3">
+                                <i class="fas fa-cogs text-gray-500 text-3xl mr-3 animated-icon"></i>
+                                <h4 class="font-semibold text-lg text-gray-800">Autres (Air comprimé, Volants d'inertie...)</h4>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">Stockage thermique (chaleur/froid), stockage d'énergie par air comprimé (CAES), volants d'inertie (stockage cinétique rapide). Chacun a ses avantages et niches d'application.</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="bg-gray-100 p-6 rounded-lg border border-gray-200 scroll-animate">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-3">Intégration au Réseau (Smart Grids)</h4>
+                    <p class="text-gray-600">Le stockage s'intègre dans des réseaux électriques intelligents (<span class="tooltip-trigger" data-tooltip="Réseaux électriques modernisés utilisant les technologies numériques pour optimiser la production, la distribution et la consommation d'énergie.">Smart Grids</span>) qui utilisent les technologies de l'information pour gérer la production, la distribution et la consommation d'électricité de manière plus efficace et flexible, facilitant l'intégration des renouvelables.</p>
+                </div>
+            </section>
+
+            <!-- Energies Section -->
+            <section id="energies" class="mb-24 section-anchor">
+                 <div class="flex items-center mb-8 scroll-animate"><span class="h-1 bg-teal-500 w-12 mr-4 rounded"></span><h2 class="text-3xl font-bold text-gray-800">Zoom sur les Énergies Propres</h2></div>
+                <div class="space-y-12">
+                    <!-- 3.1 Solar -->
+                    <div class="card-base interactive-card scroll-animate">
+                        <div class="md:flex"><div class="md:flex-shrink-0 md:w-1/3 bg-yellow-50 flex items-center justify-center p-8 rounded-l-xl"><i class="fas fa-sun text-yellow-400 text-6xl floating animated-icon"></i></div>
+                            <div class="p-8 md:p-10 md:w-2/3">
+                                <div class="flex items-center justify-between mb-4"><h3 class="text-2xl font-semibold text-gray-800">3.1. L'Énergie Solaire</h3><span class="ml-auto bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full whitespace-nowrap">Source: Soleil</span></div>
+                                <div class="mb-6"><h4 class="font-semibold text-lg mb-2 text-gray-700">Photovoltaïque (PV) : Lumière <i class="fas fa-arrow-right text-sm mx-1"></i> Électricité</h4><p class="text-gray-600">Les cellules des panneaux convertissent directement la lumière en courant continu grâce à l'effet photovoltaïque. Un onduleur le transforme en courant alternatif pour nos usages.</p></div>
+                                <div class="mb-6"><h4 class="font-semibold text-lg mb-2 text-gray-700">Thermique : Chaleur <i class="fas fa-arrow-right text-sm mx-1"></i> Eau Chaude / Électricité</h4><p class="text-gray-600">Des capteurs absorbent la chaleur solaire pour chauffer un fluide (eau sanitaire, chauffage). Les centrales à concentration utilisent des miroirs pour générer de la vapeur et produire de l'électricité.</p></div>
+                                <div class="mt-6 border-t pt-4"><h5 class="font-semibold text-md mb-2 flex items-center text-gray-700"><i class="fas fa-map-marker-alt text-teal-500 mr-2"></i> Exemple : Ferme Solaire de Mojave (USA)</h5><p class="text-gray-600 text-sm">Utilisant la technologie thermique à concentration (miroirs), cette immense centrale produit assez d'électricité pour alimenter environ 250 000 foyers, démontrant le potentiel du solaire à grande échelle.</p></div>
+                                <div class="grid md:grid-cols-2 gap-4 mt-6">
+                                    <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-200"><h5 class="font-semibold mb-2 text-emerald-800">Avantages</h5><ul class="list-none text-sm text-gray-600 advantage-list"><li><i class="fas fa-check-circle"></i>Source inépuisable et gratuite</li><li><i class="fas fa-check-circle"></i>Pas d'émissions en fonctionnement</li><li><i class="fas fa-check-circle"></i>Modulable (du toit à la centrale)</li></ul></div>
+                                    <div class="bg-red-50 p-4 rounded-lg border border-red-200"><h5 class="font-semibold mb-2 text-red-800">Désavantages</h5><ul class="list-none text-sm text-gray-600 disadvantage-list"><li><i class="fas fa-times-circle"></i>Intermittent (jour/nuit, météo)</li><li><i class="fas fa-times-circle"></i>Nécessite du stockage (batteries)</li><li><i class="fas fa-times-circle"></i>Empreinte au sol pour les grandes centrales</li></ul></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 3.2 Wind -->
+                    <div class="card-base interactive-card scroll-animate">
+                        <div class="md:flex flex-row-reverse"><div class="md:flex-shrink-0 md:w-1/3 bg-blue-50 flex items-center justify-center p-8 rounded-r-xl"><i class="fas fa-wind text-blue-400 text-6xl floating animated-icon" style="animation-delay: 0.5s;"></i></div>
+                            <div class="p-8 md:p-10 md:w-2/3">
+                                <div class="flex items-center justify-between mb-4"><h3 class="text-2xl font-semibold text-gray-800">3.2. L'Énergie Éolienne</h3><span class="ml-auto bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full whitespace-nowrap">Source: Vent</span></div>
+                                <div class="mb-6"><h4 class="font-semibold text-lg mb-2 text-gray-700">Principe : Vent <i class="fas fa-arrow-right text-sm mx-1"></i> Rotation <i class="fas fa-arrow-right text-sm mx-1"></i> Électricité</h4><p class="text-gray-600">L'énergie cinétique du vent fait tourner les pales. Ce mouvement entraîne un générateur (alternateur) qui produit de l'électricité.</p></div>
+                                <div class="mt-6 border-t pt-4"><h5 class="font-semibold text-md mb-2 flex items-center text-gray-700"><i class="fas fa-map-marker-alt text-teal-500 mr-2"></i> Exemple : Parc Éolien en Mer de Saint-Nazaire (France)</h5><p class="text-gray-600 text-sm">Premier parc éolien en mer français, il comprend 80 éoliennes. Sa production couvre l'équivalent de la consommation annuelle de 700 000 personnes, profitant des vents marins plus constants.</p></div>
+                                 <div class="grid md:grid-cols-2 gap-4 mt-6">
+                                    <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-200"><h5 class="font-semibold mb-2 text-emerald-800">Avantages</h5><ul class="list-none text-sm text-gray-600 advantage-list"><li><i class="fas fa-check-circle"></i>Source gratuite et renouvelable</li><li><i class="fas fa-check-circle"></i>Pas d'émissions en fonctionnement</li><li><i class="fas fa-check-circle"></i>Technologie mature</li></ul></div>
+                                    <div class="bg-red-50 p-4 rounded-lg border border-red-200"><h5 class="font-semibold mb-2 text-red-800">Désavantages</h5><ul class="list-none text-sm text-gray-600 disadvantage-list"><li><i class="fas fa-times-circle"></i>Intermittent (dépend du vent)</li><li><i class="fas fa-times-circle"></i>Impact visuel et sonore possible</li><li><i class="fas fa-times-circle"></i>Nécessite des zones venteuses</li></ul></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Collapse Sections 3.3, 3.4, 3.5 -->
+                    <div class="space-y-4">
+                        <!-- 3.3 Hydraulic -->
+                        <div class="card-base scroll-animate">
+                            <button class="collapse-toggle flex items-center justify-between w-full p-6 text-left hover:bg-gray-50 rounded-t-xl"><div class="flex items-center"><i class="fas fa-water text-blue-500 text-2xl mr-4 animated-icon"></i><h3 class="text-xl font-semibold text-gray-800">3.3. L'Énergie Hydraulique</h3></div><i class="fas fa-chevron-down chevron-icon text-gray-500 transition-transform duration-300"></i></button>
+                            <div class="collapse-content hidden p-6 md:p-8 border-t border-gray-200">
+                                <div class="mb-4"><span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Source: Force de l'eau</span></div>
+                                <div class="mb-6"><h4 class="font-semibold text-lg mb-2 text-gray-700">Principe : Eau en mouvement <i class="fas fa-arrow-right text-sm mx-1"></i> Turbine <i class="fas fa-arrow-right text-sm mx-1"></i> Électricité</h4><p class="text-gray-600 mb-4">Utilise l'énergie potentielle (barrages) ou cinétique (rivières, marées) de l'eau pour faire tourner des turbines couplées à des générateurs.</p><div class="grid md:grid-cols-2 gap-4"><div class="bg-blue-50 p-4 rounded border border-blue-100"><strong class="font-semibold">Barrages :</strong> Stockent l'eau, production contrôlable, mais impact fort.</div><div class="bg-blue-50 p-4 rounded border border-blue-100"><strong class="font-semibold">Au fil de l'eau / Marémotrice :</strong> Moins d'impact, mais production dépendante du débit/marée.</div></div></div>
+                                <div class="mt-6 border-t pt-4"><h5 class="font-semibold text-md mb-2 flex items-center text-gray-700"><i class="fas fa-map-marker-alt text-teal-500 mr-2"></i> Exemple : Barrage des Trois Gorges (Chine)</h5><p class="text-gray-600 text-sm">Le plus grand barrage hydroélectrique au monde. Sa capacité de production est colossale, mais sa construction a eu des impacts environnementaux et sociaux majeurs (déplacement de populations, modification de l'écosystème).</p></div>
+                                 <div class="grid md:grid-cols-2 gap-4 mt-6">
+                                    <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-200"><h5 class="font-semibold mb-2 text-emerald-800">Avantages</h5><ul class="list-none text-sm text-gray-600 advantage-list"><li><i class="fas fa-check-circle"></i>Mature, fiable, pilotable (barrages)</li><li><i class="fas fa-check-circle"></i>Pas d'émissions en fonctionnement</li><li><i class="fas fa-check-circle"></i>Coût de production faible une fois construit</li></ul></div>
+                                    <div class="bg-red-50 p-4 rounded-lg border border-red-200"><h5 class="font-semibold mb-2 text-red-800">Désavantages</h5><ul class="list-none text-sm text-gray-600 disadvantage-list"><li><i class="fas fa-times-circle"></i>Impact majeur des grands barrages</li><li><i class="fas fa-times-circle"></i>Dépendance des précipitations</li><li><i class="fas fa-times-circle"></i>Coût initial très élevé (grands barrages)</li></ul></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 3.4 Geothermal -->
+                        <div class="card-base scroll-animate">
+                            <button class="collapse-toggle flex items-center justify-between w-full p-6 text-left hover:bg-gray-50 rounded-t-xl"><div class="flex items-center"><i class="fas fa-mountain text-orange-500 text-2xl mr-4 animated-icon"></i><h3 class="text-xl font-semibold text-gray-800">3.4. L'Énergie Géothermique</h3></div><i class="fas fa-chevron-down chevron-icon text-gray-500 transition-transform duration-300"></i></button>
+                            <div class="collapse-content hidden p-6 md:p-8 border-t border-gray-200">
+                                 <div class="mb-4"><span class="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Source: Chaleur de la Terre</span></div>
+                                 <div class="mb-6"><h4 class="font-semibold text-lg mb-2 text-gray-700">Principe : Chaleur terrestre <i class="fas fa-arrow-right text-sm mx-1"></i> Vapeur/Eau chaude <i class="fas fa-arrow-right text-sm mx-1"></i> Électricité/Chauffage</h4><p class="text-gray-600 mb-4">Exploite la chaleur interne de la Terre.</p><div class="grid md:grid-cols-2 gap-4"><div class="bg-orange-50 p-4 rounded border border-orange-100"><strong class="font-semibold">Haute T° :</strong> Vapeur/eau très chaude pour produire de l'électricité (zones volcaniques).</div><div class="bg-orange-50 p-4 rounded border border-orange-100"><strong class="font-semibold">Basse T° :</strong> Pompes à chaleur pour chauffage/climatisation des bâtiments.</div></div></div>
+                                <div class="mt-6 border-t pt-4"><h5 class="font-semibold text-md mb-2 flex items-center text-gray-700"><i class="fas fa-map-marker-alt text-teal-500 mr-2"></i> Exemple : Géothermie en Islande</h5><p class="text-gray-600 text-sm">Grâce à son activité volcanique, l'Islande tire une grande partie de son électricité et de son chauffage de la géothermie haute température. Reykjavik est presque entièrement chauffée par ce biais.</p></div>
+                                 <div class="grid md:grid-cols-2 gap-4 mt-6">
+                                    <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-200"><h5 class="font-semibold mb-2 text-emerald-800">Avantages</h5><ul class="list-none text-sm text-gray-600 advantage-list"><li><i class="fas fa-check-circle"></i>Source constante et fiable</li><li><i class="fas fa-check-circle"></i>Pas d'émissions en fonctionnement</li><li><i class="fas fa-check-circle"></i>Faible emprise au sol (basse T°)</li></ul></div>
+                                    <div class="bg-red-50 p-4 rounded-lg border border-red-200"><h5 class="font-semibold mb-2 text-red-800">Désavantages</h5><ul class="list-none text-sm text-gray-600 disadvantage-list"><li><i class="fas fa-times-circle"></i>Potentiel haute T° limité géographiquement</li><li><i class="fas fa-times-circle"></i>Coût de forage élevé</li><li><i class="fas fa-times-circle"></i>Risques minimes (gaz, micro-séismes)</li></ul></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 3.5 Biomass -->
+                        <div class="card-base scroll-animate">
+                            <button class="collapse-toggle flex items-center justify-between w-full p-6 text-left hover:bg-gray-50 rounded-t-xl"><div class="flex items-center"><i class="fas fa-leaf text-green-600 text-2xl mr-4 animated-icon"></i><h3 class="text-xl font-semibold text-gray-800">3.5. L'Énergie Biomasse</h3></div><i class="fas fa-chevron-down chevron-icon text-gray-500 transition-transform duration-300"></i></button>
+                            <div class="collapse-content hidden p-6 md:p-8 border-t border-gray-200">
+                                 <div class="mb-4"><span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Source: Matière organique</span></div>
+                                 <div class="mb-6"><h4 class="font-semibold text-lg mb-2 text-gray-700">Principe : Matière organique <i class="fas fa-arrow-right text-sm mx-1"></i> Chaleur/Gaz/Carburant</h4><p class="text-gray-600 mb-4">Valorise la matière végétale ou animale.</p><div class="grid md:grid-cols-3 gap-4"><div class="bg-green-50 p-4 rounded border border-green-100"><strong class="font-semibold">Combustion :</strong> Brûler (bois, déchets) pour chaleur/électricité.</div><div class="bg-green-50 p-4 rounded border border-green-100"><strong class="font-semibold">Méthanisation :</strong> Décomposition anaérobie produisant du biogaz (chauffage/électricité).</div><div class="bg-green-50 p-4 rounded border border-green-100"><strong class="font-semibold">Biocarburants :</strong> Transformation en éthanol/biodiesel pour véhicules.</div></div></div>
+                                <div class="mt-6 border-t pt-4"><h5 class="font-semibold text-md mb-2 flex items-center text-gray-700"><i class="fas fa-map-marker-alt text-teal-500 mr-2"></i> Exemple : Unité de Méthanisation Agricole</h5><p class="text-gray-600 text-sm">De nombreuses fermes installent des méthaniseurs. Elles y traitent leurs effluents d'élevage et des déchets végétaux pour produire du biogaz. Ce gaz peut chauffer l'exploitation, être injecté dans le réseau de gaz naturel ou produire de l'électricité vendue au réseau.</p></div>
+                                 <div class="grid md:grid-cols-2 gap-4 mt-6">
+                                    <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-200"><h5 class="font-semibold mb-2 text-emerald-800">Avantages</h5><ul class="list-none text-sm text-gray-600 advantage-list"><li><i class="fas fa-check-circle"></i>Valorise les déchets</li><li><i class="fas fa-check-circle"></i>Source stockable et pilotable</li><li><i class="fas fa-check-circle"></i>Potentiellement neutre en carbone (si bien gérée)</li></ul></div>
+                                    <div class="bg-red-50 p-4 rounded-lg border border-red-200"><h5 class="font-semibold mb-2 text-red-800">Désavantages</h5><ul class="list-none text-sm text-gray-600 disadvantage-list"><li><i class="fas fa-times-circle"></i>Nécessite des terres (conflit avec alimentaire?)</li><li><i class="fas fa-times-circle"></i>Émissions possibles si combustion mal maîtrisée</li><li><i class="fas fa-times-circle"></i>Logistique de collecte complexe</li></ul></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Defis Section -->
+            <section id="defis" class="mb-24 section-anchor">
+                 <div class="flex items-center mb-8 scroll-animate"><span class="h-1 bg-teal-500 w-12 mr-4 rounded"></span><h2 class="text-3xl font-bold text-gray-800">Défis et Avenir</h2></div>
+                <div class="card-base p-8 md:p-10 mb-12 scroll-animate">
+                    <p class="text-gray-600 mb-8">La transition énergétique est en marche, mais des défis majeurs subsistent :</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                        <div class="text-center p-4 border rounded-lg interactive-card bg-gray-50"><div class="text-blue-500 text-4xl mb-3"><i class="fas fa-cloud-sun animated-icon"></i></div><h4 class="font-semibold mb-1 text-gray-800">Intermittence</h4><p class="text-gray-600 text-sm">Gérer la variabilité du soleil et du vent.</p></div>
+                        <div class="text-center p-4 border rounded-lg interactive-card bg-gray-50"><div class="text-purple-500 text-4xl mb-3"><i class="fas fa-battery-full animated-icon"></i></div><h4 class="font-semibold mb-1 text-gray-800">Stockage</h4><p class="text-gray-600 text-sm">Développer des solutions efficaces et abordables.</p></div>
+                        <div class="text-center p-4 border rounded-lg interactive-card bg-gray-50"><div class="text-green-500 text-4xl mb-3"><i class="fas fa-project-diagram animated-icon"></i></div><h4 class="font-semibold mb-1 text-gray-800">Réseau</h4><p class="text-gray-600 text-sm">Adapter et moderniser les infrastructures (Smart Grids).</p></div>
+                        <div class="text-center p-4 border rounded-lg interactive-card bg-gray-50"><div class="text-orange-500 text-4xl mb-3"><i class="fas fa-users animated-icon"></i></div><h4 class="font-semibold mb-1 text-gray-800">Coût & Acceptabilité</h4><p class="text-gray-600 text-sm">Financer la transition et gérer l'impact local.</p></div>
+                    </div>
+
+                    <div class="bg-teal-50 p-6 rounded-lg border border-teal-200">
+                        <h4 class="text-xl font-semibold mb-4 text-teal-800">Solutions et Innovations Clés</h4>
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4 text-gray-700">
+                            <div class="flex items-center"><i class="fas fa-microchip text-teal-600 mr-3"></i>Batteries (Li-ion, état solide...)</div>
+                            <div class="flex items-center"><i class="fas fa-atom text-teal-600 mr-3"></i>Hydrogène vert (production, stockage, usage)</div>
+                            <div class="flex items-center"><i class="fas fa-network-wired text-teal-600 mr-3"></i>Réseaux intelligents (<span class="tooltip-trigger" data-tooltip="Réseaux électriques modernisés utilisant les technologies numériques pour optimiser la production, la distribution et la consommation d'énergie.">Smart Grids</span>) & IA</div>
+                            <div class="flex items-center"><i class="fas fa-cogs text-teal-600 mr-3"></i>Amélioration rendements (PV Perovskite, éolien offshore)</div>
+                            <div class="flex items-center"><i class="fas fa-recycle text-teal-600 mr-3"></i>Recyclage & Économie circulaire (panneaux, batteries)</div>
+                            <div class="flex items-center"><i class="fas fa-lightbulb text-teal-600 mr-3"></i>Efficacité énergétique & Sobriété</div>
+                            <div class="flex items-center"><i class="fas fa-water text-teal-600 mr-3"></i>Énergies marines (hydrolien, houlomoteur)</div>
+                            <div class="flex items-center"><i class="fas fa-industry text-teal-600 mr-3"></i>Capture et stockage/utilisation du carbone (<span class="tooltip-trigger" data-tooltip="Carbon Capture, Utilization and Storage : Technologies visant à capter le CO2 émis par les industries ou centrales pour le stocker géologiquement ou le réutiliser.">CCUS</span>)</div>
+                            <div class="flex items-center"><i class="fas fa-plug text-teal-600 mr-3"></i>Électrification des usages (transport, industrie)</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- NOUVELLE SECTION : ECONOMIE -->
+            <section id="economie" class="mb-24 section-anchor">
+                 <div class="flex items-center mb-8 scroll-animate">
+                    <span class="h-1 bg-teal-500 w-12 mr-4 rounded"></span>
+                    <h2 class="text-3xl font-bold text-gray-800">Coût et Économie des Énergies Propres</h2>
+                </div>
+
+                <div class="card-base p-8 md:p-10 mb-12 scroll-animate">
+                    <p class="text-gray-600 mb-6">La compétitivité économique des énergies renouvelables s'est considérablement améliorée, devenant souvent moins chères que les fossiles.</p>
+
+                    <div class="md:flex gap-8 mb-8">
+                        <div class="md:w-1/2 mb-6 md:mb-0">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4"><span class="tooltip-trigger" data-tooltip="Coût Actualisé de l'Énergie : Coût total de construction et d'exploitation d'une centrale rapporté à sa production totale d'énergie sur sa durée de vie.">LCOE</span> (Levelized Cost of Energy)</h3>
+                            <div class="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+                                <p class="text-gray-700 mb-2">Le LCOE représente le coût moyen actualisé de production d'électricité sur toute la durée de vie d'une centrale, par MWh produit. Il permet de comparer différentes technologies.</p>
+                                <p class="text-sm text-gray-600"><strong class="font-medium">Facteurs clés :</strong> Coût initial (CAPEX), coût d'exploitation (OPEX), facteur de charge, durée de vie, coût du capital.</p>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2">
+                             <h3 class="text-xl font-semibold text-gray-800 mb-4">Tendances Récentes</h3>
+                             <div class="bg-emerald-50 p-6 rounded-lg border border-emerald-200">
+                                <p class="text-gray-700 mb-2"><i class="fas fa-chart-line text-emerald-600 mr-2"></i>Chute spectaculaire des coûts du solaire PV et de l'éolien terrestre/offshore ces 10 dernières années.</p>
+                                <p class="text-sm text-gray-600"><strong class="font-medium">Conséquence :</strong> Dans de nombreuses régions, construire de nouvelles capacités renouvelables est moins cher que de continuer à exploiter des centrales à charbon ou gaz existantes.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-semibold text-gray-800 mb-6">Mécanismes de Soutien et Marchés</h3>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <h4 class="font-semibold mb-2 text-gray-800"><i class="fas fa-file-contract text-gray-500 mr-2"></i> Politiques Publiques</h4>
+                            <p class="text-sm text-gray-600">Tarifs d'achat garantis (Feed-in Tariffs), appels d'offres, certificats verts, crédits d'impôt, prix du carbone (taxe ou marché <span class="tooltip-trigger" data-tooltip="Système d'Échange de Quotas d'Émission (Emission Trading System) : Marché où les entreprises peuvent acheter et vendre des permis d'émission de gaz à effet de serre.">ETS</span>) sont utilisés pour encourager le déploiement.</p>
+                        </div>
+                         <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <h4 class="font-semibold mb-2 text-gray-800"><i class="fas fa-euro-sign text-gray-500 mr-2"></i> Investissements et Emplois</h4>
+                            <p class="text-sm text-gray-600">La transition énergétique représente un gisement majeur d'investissements (production, réseaux, stockage) et de création d'emplois locaux non délocalisables.</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="bg-orange-50 border border-orange-200 p-6 rounded-xl text-orange-800 scroll-animate">
+                    <p><i class="fas fa-exclamation-circle mr-2"></i><strong class="font-semibold">Défi persistant :</strong> Le coût initial élevé de certaines technologies (ex: géothermie profonde, énergies marines) et surtout le coût du stockage et de l'adaptation des réseaux restent des enjeux économiques importants.</p>
+                </div>
+            </section>
+
+            <!-- Conclusion Section (avant Footer) -->
+            <section class="conclusion-section bg-gradient-to-r from-teal-600 to-emerald-600 text-white rounded-xl shadow-lg overflow-hidden scroll-animate mb-16">
+                 <div class="p-8 md:p-12">
+                    <h3 class="text-2xl font-bold mb-4">Conclusion : Construire un Avenir Durable</h3>
+                    <p class="mb-6 opacity-90">Les énergies propres sont essentielles pour un développement respectueux de la planète. Elles offrent une voie vers un avenir énergétique sûr, propre et durable, soutenu par des innovations constantes et une économie en pleine transformation.</p>
+                    <div class="conclusion-box-inner bg-white bg-opacity-20 p-6 rounded-lg backdrop-blur-sm">
+                        <p class="font-semibold mb-2 text-lg">Votre Rôle, Futurs Technologues !</p>
+                        <p class="opacity-90">Comprendre ces systèmes complexes, leurs défis techniques et économiques, est crucial. Vous êtes la génération qui va innover, optimiser et déployer ces technologies. Votre apprentissage aujourd'hui construit le monde de demain.</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer du Cours -->
+        <footer class="bg-gray-800 text-gray-300 py-16">
+             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div>
+                        <div class="flex items-center mb-4"><i class="fas fa-solar-panel text-teal-400 text-2xl mr-2"></i><span class="text-xl font-bold text-white">Énergies Propres</span></div>
+                        <p class="text-gray-400 text-sm">Cours interactif sur les systèmes techniques des énergies renouvelables.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4 text-white">Navigation Rapide</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="#introduction" class="hover:text-teal-300 transition flex items-center"><i class="fas fa-chevron-right w-4 mr-2 opacity-50"></i>Introduction</a></li>
+                            <li><a href="#transition" class="hover:text-teal-300 transition flex items-center"><i class="fas fa-chevron-right w-4 mr-2 opacity-50"></i>Transition</a></li>
+                            <li><a href="#systemes" class="hover:text-teal-300 transition flex items-center"><i class="fas fa-chevron-right w-4 mr-2 opacity-50"></i>Systèmes</a></li>
+                            <li><a href="#stockage" class="hover:text-teal-300 transition flex items-center"><i class="fas fa-chevron-right w-4 mr-2 opacity-50"></i>Stockage</a></li>
+                            <li><a href="#energies" class="hover:text-teal-300 transition flex items-center"><i class="fas fa-chevron-right w-4 mr-2 opacity-50"></i>Énergies</a></li>
+                             <li><a href="#defis" class="hover:text-teal-300 transition flex items-center"><i class="fas fa-chevron-right w-4 mr-2 opacity-50"></i>Défis</a></li>
+                             <li><a href="#economie" class="hover:text-teal-300 transition flex items-center"><i class="fas fa-chevron-right w-4 mr-2 opacity-50"></i>Économie</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4 text-white">Ressources (Exemples)</h4>
+                         <ul class="space-y-2 text-sm">
+                            <li><a href="#" target="_blank" rel="noopener noreferrer" class="hover:text-teal-300 transition flex items-center"><i class="fas fa-link w-4 mr-2 opacity-50"></i>ADEME</a></li>
+                            <li><a href="#" target="_blank" rel="noopener noreferrer" class="hover:text-teal-300 transition flex items-center"><i class="fas fa-link w-4 mr-2 opacity-50"></i>France Énergie Éolienne</a></li>
+                            <li><a href="#" target="_blank" rel="noopener noreferrer" class="hover:text-teal-300 transition flex items-center"><i class="fas fa-book w-4 mr-2 opacity-50"></i>Glossaire Technique</a></li>
+                             <li><a href="#" target="_blank" rel="noopener noreferrer" class="hover:text-teal-300 transition flex items-center"><i class="fas fa-chart-bar w-4 mr-2 opacity-50"></i>IRENA (Coûts ENR)</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400 text-sm">
+                    <p>&copy; 2024 Cours Énergies Propres Interactif. Tous droits réservés.</p>
+                </div>
+            </div>
+        </footer>
+
+    </div> <!-- Fin de .main-content-wrapper -->
+
+    <!-- Votre JavaScript unique -->
+    <script src="script.js" defer></script>
+
+</body>
+</html>

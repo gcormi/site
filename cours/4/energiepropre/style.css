@@ -1,0 +1,399 @@
+/* --- Styles Globaux & Reset --- */
+:root {
+    /* Couleurs Mode Clair (par défaut) */
+    --text-color: #333;
+    --text-muted-color: #718096;
+    --text-heading-color: #2d3748;
+    --text-highlight-color: #2c7a7b; /* Teal foncé */
+    --body-bg-fallback: #f8fafc;
+    --overlay-bg: rgba(255, 255, 255, 0.35);
+    --nav-bg: rgba(255, 255, 255, 0.75);
+    --nav-border: rgba(0, 0, 0, 0.1);
+    --nav-hover-bg: rgba(226, 249, 247, 0.8);
+    --card-bg: rgba(255, 255, 255, var(--bg-transparency-light, 0.88));
+    --card-border: rgba(0, 0, 0, 0.05);
+    --card-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    --card-hover-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    --progress-bg: rgba(224, 242, 247, 0.8);
+    --footer-bg: #2d3748;
+    --footer-text: #a0aec0;
+    --footer-text-hover: #e2e8f0;
+    --footer-border: #4a5568;
+    --conclusion-box-bg: rgba(255, 255, 255, 0.25);
+    --conclusion-box-text: #f7fafc;
+
+    /* Fonds colorés spécifiques (Mode Clair) */
+    --bg-teal-50: rgba(240, 253, 250, var(--bg-transparency-light, 0.88));
+    --bg-emerald-50: rgba(236, 253, 245, var(--bg-transparency-light, 0.88));
+    --bg-yellow-50: rgba(255, 251, 235, var(--bg-transparency-light, 0.88));
+    --bg-purple-50: rgba(250, 245, 255, var(--bg-transparency-light, 0.88));
+    --bg-blue-50: rgba(239, 246, 255, var(--bg-transparency-light, 0.88));
+    --bg-cyan-50: rgba(236, 254, 255, var(--bg-transparency-light, 0.88)); /* CORRIGÉ */
+    --bg-orange-50: rgba(255, 247, 237, var(--bg-transparency-light, 0.88));
+    --bg-green-50: rgba(240, 253, 244, var(--bg-transparency-light, 0.88));
+    --bg-red-50: rgba(254, 242, 242, var(--bg-transparency-light, 0.88));
+    --bg-gray-50: rgba(249, 250, 251, var(--bg-transparency-light, 0.88));
+    --bg-gray-100: rgba(243, 244, 246, var(--bg-transparency-light, 0.88));
+    --bg-blue-100: rgba(219, 234, 254, var(--bg-transparency-light, 0.88));
+    --bg-emerald-100: rgba(209, 250, 229, var(--bg-transparency-light, 0.88));
+    --bg-yellow-100: rgba(254, 249, 195, var(--bg-transparency-light, 0.88));
+    --bg-red-100: rgba(254, 226, 226, var(--bg-transparency-light, 0.88));
+    --bg-orange-100: rgba(255, 237, 213, var(--bg-transparency-light, 0.88));
+    --bg-green-100: rgba(220, 252, 231, var(--bg-transparency-light, 0.88));
+
+    /* Textes colorés spécifiques (Mode Clair) */
+    --text-red-600: #dc2626;
+    --text-emerald-600: #059669;
+    --text-teal-600: #0d9488;
+    --text-yellow-600: #ca8a04;
+    --text-purple-600: #7e22ce;
+    --text-blue-500: #2563eb;
+    --text-cyan-500: #0891b2; /* AJOUT */
+    --text-orange-500: #ea580c;
+    --text-green-600: #16a34a;
+    --text-gray-500: #6b7280; /* AJOUT */
+    --text-orange-800: #9a3412;
+    --text-emerald-800: #065f46;
+    --text-teal-800: #134e4a;
+    --text-red-800: #991b1b;
+    --text-blue-800: #1e40af;
+    --text-cyan-700: #0e7490; /* AJOUT */
+    --text-yellow-800: #854d0e;
+    --text-green-800: #166534;
+
+    /* Transparence */
+    --bg-transparency-light: 0.88;
+    --bg-transparency-dark: 0.85;
+}
+
+body.dark-mode {
+    /* Couleurs Mode Sombre */
+    --text-color: #e2e8f0;
+    --text-muted-color: #a0aec0;
+    --text-heading-color: #e2e8f0;
+    --text-highlight-color: #e2e8f0;
+    --body-bg-fallback: #1a202c;
+    --overlay-bg: rgba(0, 0, 0, 0.55);
+    --nav-bg: rgba(26, 32, 44, 0.75);
+    --nav-border: rgba(255, 255, 255, 0.1);
+    --nav-hover-bg: rgba(74, 85, 104, 0.5);
+    --card-bg: rgba(45, 55, 72, var(--bg-transparency-dark, 0.85));
+    --card-border: rgba(255, 255, 255, 0.1);
+    --card-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    --card-hover-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    --progress-bg: rgba(45, 55, 72, 0.6);
+    --footer-bg: #111827;
+    --footer-text: #a0aec0;
+    --footer-text-hover: #e2e8f0;
+    --footer-border: #374151;
+    --conclusion-box-bg: rgba(0, 0, 0, 0.3);
+    --conclusion-box-text: #e2e8f0;
+
+    /* Fonds colorés spécifiques (Mode Sombre) - Variables */
+    --bg-teal-50: rgba(49, 151, 149, 0.3);
+    --bg-emerald-50: rgba(56, 161, 105, 0.3);
+    --bg-yellow-50: rgba(213, 169, 49, 0.3);
+    --bg-purple-50: rgba(128, 90, 213, 0.3);
+    --bg-blue-50: rgba(66, 153, 225, 0.3);
+    --bg-cyan-50: rgba(40, 158, 174, 0.3); /* CORRIGÉ */
+    --bg-orange-50: rgba(221, 107, 32, 0.3);
+    --bg-green-50: rgba(72, 187, 120, 0.3);
+    --bg-red-50: rgba(229, 62, 62, 0.3);
+    --bg-gray-50: rgba(74, 85, 104, 0.4);
+    --bg-gray-100: rgba(45, 55, 72, 0.5);
+    --bg-blue-100: rgba(66, 153, 225, 0.2);
+    --bg-emerald-100: rgba(56, 161, 105, 0.2);
+    --bg-yellow-100: rgba(213, 169, 49, 0.2);
+    --bg-red-100: rgba(229, 62, 62, 0.2);
+    --bg-orange-100: rgba(221, 107, 32, 0.2);
+    --bg-green-100: rgba(72, 187, 120, 0.2);
+
+    /* Textes colorés spécifiques (Mode Sombre) - Variables */
+    --text-red-600: #f56565;
+    --text-emerald-600: #48bb78;
+    --text-teal-600: #38b2ac;
+    --text-yellow-600: #ecc94b;
+    --text-purple-600: #9f7aea;
+    --text-blue-500: #4299e1;
+    --text-cyan-500: #22d3ee; /* AJOUT */
+    --text-orange-500: #ed8936;
+    --text-green-600: #48bb78;
+    --text-gray-500: #a0aec0; /* AJOUT */
+    --text-orange-800: #fbd38d;
+    --text-emerald-800: #68d391;
+    --text-teal-800: #4fd1c5;
+    --text-red-800: #fc8181;
+    --text-blue-800: #63b3ed;
+    --text-cyan-700: #67e8f9; /* AJOUT */
+    --text-yellow-800: #f6e05e;
+    --text-green-800: #68d391;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--body-bg-fallback);
+    color: var(--text-color);
+    margin: 0; padding: 0; box-sizing: border-box;
+    position: relative; overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+*, *::before, *::after { box-sizing: inherit; }
+
+/* --- Vidéo & Overlay --- */
+#background-video {
+    position: fixed; top: 50%; left: 50%;
+    min-width: 100%; min-height: 100%;
+    width: auto; height: auto; z-index: -2;
+    transform: translateX(-50%) translateY(-50%);
+    object-fit: cover;
+}
+.video-overlay {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: var(--overlay-bg);
+    z-index: -1;
+    transition: background-color 0.3s ease;
+}
+.main-content-wrapper { position: relative; z-index: 1; }
+
+/* =========================================== */
+/* --- STYLES DE BASE (MODE CLAIR) --- */
+/* =========================================== */
+
+/* --- Navigation (Mode Clair) --- */
+.nav-transparent {
+    background-color: var(--nav-bg);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--nav-border);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.mobile-menu-transparent {
+    background-color: var(--nav-bg);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-color: var(--nav-border);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.nav-link, .nav-title, nav i, .mobile-nav-link {
+    color: var(--text-muted-color);
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.6);
+    transition: color 0.3s ease, background-color 0.3s ease, text-shadow 0.3s ease;
+}
+.nav-title { color: var(--text-heading-color); }
+.nav-link:hover, .mobile-nav-link:hover {
+    color: var(--text-highlight-color);
+    background-color: var(--nav-hover-bg) !important;
+}
+.mobile-nav-link {
+    display: block; padding: 0.5rem 0.75rem; border-radius: 0.375rem;
+    font-size: 1rem; line-height: 1.5rem; font-weight: 500;
+}
+#dark-mode-toggle {
+    color: var(--text-muted-color);
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+#dark-mode-toggle:hover { background-color: var(--nav-hover-bg); }
+body:not(.dark-mode) nav i, body:not(.dark-mode) #dark-mode-toggle {
+     text-shadow: 0 0 3px rgba(255, 255, 255, 0.6);
+}
+
+/* --- Cartes (Mode Clair) --- */
+.card-base {
+    background-color: var(--card-bg);
+    border-radius: 0.75rem;
+    border: 1px solid var(--card-border);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+.interactive-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: var(--card-hover-shadow);
+}
+
+/* --- Fonds colorés (Mode Clair - Utilisation des variables) --- */
+.bg-teal-50 { background-color: var(--bg-teal-50); transition: background-color 0.3s ease; }
+.bg-emerald-50 { background-color: var(--bg-emerald-50); transition: background-color 0.3s ease; }
+.bg-yellow-50 { background-color: var(--bg-yellow-50); transition: background-color 0.3s ease; }
+.bg-purple-50 { background-color: var(--bg-purple-50); transition: background-color 0.3s ease; }
+.bg-blue-50 { background-color: var(--bg-blue-50); transition: background-color 0.3s ease; }
+.bg-cyan-50 { background-color: var(--bg-cyan-50); transition: background-color 0.3s ease; } /* CORRIGÉ */
+.bg-orange-50 { background-color: var(--bg-orange-50); transition: background-color 0.3s ease; }
+.bg-green-50 { background-color: var(--bg-green-50); transition: background-color 0.3s ease; }
+.bg-red-50 { background-color: var(--bg-red-50); transition: background-color 0.3s ease; }
+.bg-gray-50 { background-color: var(--bg-gray-50); transition: background-color 0.3s ease; }
+.bg-gray-100 { background-color: var(--bg-gray-100); transition: background-color 0.3s ease; }
+.bg-blue-100 { background-color: var(--bg-blue-100); transition: background-color 0.3s ease; }
+.bg-emerald-100 { background-color: var(--bg-emerald-100); transition: background-color 0.3s ease; }
+.bg-yellow-100 { background-color: var(--bg-yellow-100); transition: background-color 0.3s ease; }
+.bg-red-100 { background-color: var(--bg-red-100); transition: background-color 0.3s ease; }
+.bg-orange-100 { background-color: var(--bg-orange-100); transition: background-color 0.3s ease; }
+.bg-green-100 { background-color: var(--bg-green-100); transition: background-color 0.3s ease; }
+
+/* --- Texte (Mode Clair) --- */
+/* Texte HORS cartes */
+main p:not(.card-base p), main li:not(.card-base li) {
+    color: var(--text-color);
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.8), 0 0 3px rgba(255, 255, 255, 0.8);
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+main h2 {
+    color: var(--text-heading-color);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 6px rgba(255, 255, 255, 0.6);
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+main .text-gray-600:not(.card-base .text-gray-600) { color: var(--text-muted-color); }
+
+/* Texte DANS les cartes (Mode Clair) */
+.card-base p, .card-base li, .card-base h3, .card-base h4, .card-base h5,
+.card-base span:not([class*="bg-"]),
+.card-base .text-gray-600, .card-base .text-gray-700, .card-base .text-gray-800 {
+    color: var(--text-heading-color);
+    text-shadow: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+/* Texte dans fonds colorés DANS cartes (Mode Clair) */
+.card-base [class*="bg-"] p, .card-base [class*="bg-"] li, .card-base [class*="bg-"] h4,
+.card-base [class*="bg-"] h5, .card-base [class*="bg-"] strong, .card-base [class*="bg-"] span {
+     color: var(--text-heading-color);
+     text-shadow: none;
+     transition: color 0.3s ease;
+}
+
+/* Textes colorés spécifiques (Mode Clair - Utilisation des variables) */
+.text-red-600 { color: var(--text-red-600); transition: color 0.3s ease;}
+.text-emerald-600 { color: var(--text-emerald-600); transition: color 0.3s ease;}
+.text-teal-600 { color: var(--text-teal-600); transition: color 0.3s ease;}
+.text-yellow-600 { color: var(--text-yellow-600); transition: color 0.3s ease;}
+.text-purple-600 { color: var(--text-purple-600); transition: color 0.3s ease;}
+.text-blue-500 { color: var(--text-blue-500); transition: color 0.3s ease;}
+.text-cyan-500 { color: var(--text-cyan-500); transition: color 0.3s ease;} /* AJOUT */
+.text-orange-500 { color: var(--text-orange-500); transition: color 0.3s ease;}
+.text-green-600 { color: var(--text-green-600); transition: color 0.3s ease;}
+.text-gray-500 { color: var(--text-gray-500); transition: color 0.3s ease;} /* AJOUT */
+.text-orange-800 { color: var(--text-orange-800); transition: color 0.3s ease;}
+.text-emerald-800 { color: var(--text-emerald-800); transition: color 0.3s ease;}
+.text-teal-800 { color: var(--text-teal-800); transition: color 0.3s ease;}
+.text-red-800 { color: var(--text-red-800); transition: color 0.3s ease;}
+.text-blue-800 { color: var(--text-blue-800); transition: color 0.3s ease;}
+.text-cyan-700 { color: var(--text-cyan-700); transition: color 0.3s ease;} /* AJOUT */
+.text-yellow-800 { color: var(--text-yellow-800); transition: color 0.3s ease;}
+.text-green-800 { color: var(--text-green-800); transition: color 0.3s ease;}
+
+/* --- Autres éléments (Mode Clair) --- */
+.hero-gradient { background: linear-gradient(135deg, #2dd4bf 0%, #10b981 50%, #059669 100%); }
+.hero-gradient h1, .hero-gradient p, .hero-gradient a { text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); }
+.progress-container { background-color: var(--progress-bg); transition: background-color 0.3s ease; width: 100%; height: 8px; margin-top: 0; position: sticky; top: 64px; z-index: 40;}
+.progress-bar { height: 100%; background: linear-gradient(90deg, #14b8a6, #047857); transition: width 0.4s ease; }
+.advantage-list i { color: var(--text-emerald-600); margin-right: 0.75rem; margin-top: 0.25rem; flex-shrink: 0;}
+.disadvantage-list i { color: var(--text-red-600); margin-right: 0.75rem; margin-top: 0.25rem; flex-shrink: 0;}
+.conclusion-section { transition: background 0.3s ease; }
+.conclusion-section h3, .conclusion-section > div > p { color: white; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); transition: color 0.3s ease, text-shadow 0.3s ease; }
+.conclusion-box-inner { background-color: var(--conclusion-box-bg); backdrop-filter: blur(5px); transition: background-color 0.3s ease; }
+.conclusion-box-inner p { color: var(--conclusion-box-text); text-shadow: none; transition: color 0.3s ease; }
+footer { background-color: var(--footer-bg); transition: background-color 0.3s ease; }
+footer, footer a, footer h4 { color: var(--footer-text); transition: color 0.3s ease; }
+footer a:hover { color: var(--footer-text-hover); }
+footer .text-white { color: #f9fafb; }
+footer .border-gray-700 { border-color: var(--footer-border); transition: border-color 0.3s ease;}
+
+/* --- Animations (Communes) --- */
+.floating { animation: floating 3s ease-in-out infinite; }
+@keyframes floating { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+.pulse { animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1); }
+@keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.9; } }
+@keyframes icon-bounce { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(5deg); } }
+.interactive-card:hover .animated-icon { animation: icon-bounce 0.6s ease; }
+.scroll-animate { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.scroll-animate.visible { opacity: 1; transform: translateY(0); }
+.collapse-toggle .chevron-icon.rotate-180 { transform: rotate(180deg); }
+.collapse-toggle .chevron-icon { transition: transform 0.3s ease; }
+.energy-icon { font-size: 2.5rem; margin-bottom: 1rem; display: inline-block; }
+.section-anchor { scroll-margin-top: 80px; }
+
+
+/* --- Styles Tooltips --- */
+.tooltip-trigger {
+    cursor: help;
+    border-bottom: 1px dashed var(--text-highlight-color, #2c7a7b);
+    position: relative;
+    display: inline-block;
+}
+.tooltip-trigger::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%; left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    background-color: #333; color: #fff;
+    padding: 8px 12px; border-radius: 5px;
+    font-size: 0.85em; font-weight: normal;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    text-shadow: none;
+}
+.tooltip-trigger::before {
+    content: ""; position: absolute;
+    bottom: 125%; left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    border-width: 5px; border-style: solid;
+    border-color: #333 transparent transparent transparent;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    z-index: 11; margin-bottom: -10px;
+}
+.tooltip-trigger:hover::after,
+.tooltip-trigger:hover::before {
+    opacity: 1; visibility: visible;
+}
+body:not(.dark-mode) .tooltip-trigger::after {
+    background-color: #f8f9fa; color: #212529;
+    border: 1px solid #dee2e6; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+body:not(.dark-mode) .tooltip-trigger::before {
+     border-color: #f8f9fa transparent transparent transparent;
+}
+body:not(.dark-mode) .tooltip-trigger {
+     border-bottom-color: var(--text-highlight-color);
+}
+/* Ajustement tooltip en mode sombre */
+body.dark-mode .tooltip-trigger {
+     border-bottom-color: var(--text-highlight-color);
+}
+
+
+/* =========================================== */
+/* --- STYLES MODE SOMBRE (OVERRIDES) --- */
+/* =========================================== */
+body.dark-mode {
+    /* Variables redéfinies plus haut */
+}
+
+/* --- Ajustements spécifiques Mode Sombre --- */
+body.dark-mode .nav-link, body.dark-mode .nav-title, body.dark-mode nav i,
+body.dark-mode .mobile-nav-link, body.dark-mode #dark-mode-toggle {
+    text-shadow: none; /* Pas d'ombre claire en mode sombre */
+}
+
+body.dark-mode main p:not(.card-base p), body.dark-mode main li:not(.card-base li) {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6), 0 0 5px rgba(0, 0, 0, 0.4); /* Ombre sombre */
+}
+body.dark-mode main h2 {
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7), 0 0 6px rgba(0, 0, 0, 0.5); /* Ombre sombre marquée */
+}
+
+/* Texte DANS les cartes (Mode Sombre) */
+body.dark-mode .card-base p, body.dark-mode .card-base li, body.dark-mode .card-base h3,
+body.dark-mode .card-base h4, body.dark-mode .card-base h5,
+body.dark-mode .card-base span:not([class*="bg-"]),
+body.dark-mode .card-base .text-gray-600, body.dark-mode .card-base .text-gray-700,
+body.dark-mode .card-base .text-gray-800 {
+    color: var(--text-color); /* Utilise la couleur de texte sombre */
+    text-shadow: none;
+}
+/* Texte dans fonds colorés DANS cartes (Mode Sombre) */
+body.dark-mode .card-base [class*="bg-"] p, body.dark-mode .card-base [class*="bg-"] li, body.dark-mode .card-base [class*="bg-"] h4,
+body.dark-mode .card-base [class*="bg-"] h5, body.dark-mode .card-base [class*="bg-"] strong, body.dark-mode .card-base [class*="bg-"] span {
+     color: var(--text-color); /* Appliquer la couleur du texte sombre */
+     text-shadow: none;
+}
