@@ -1,1 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours de Technologie - La Réparabilité</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="video-background">
+        <video autoplay loop muted playsinline id="bg-video">
+            <source src="VIDEO2.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas les vidéos HTML5.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
 
+    <div class="container">
+        <h1><i class="fas fa-puzzle-piece"></i> La Réparabilité des Objets Techniques <i class="fas fa-seedling"></i></h1>
+        
+        <div class="card-grid">
+            <!-- Les cartes seront générées ici par JavaScript -->
+        </div>
+    </div>
+
+    <div id="course-content" class="course-content-overlay">
+        <div class="content-wrapper">
+            <div class="content-header">
+                <h2 id="content-title">Titre du Chapitre</h2>
+                <button class="close-btn" aria-label="Fermer"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="content-body" id="content-body">
+                <!-- Le contenu sera injecté ici -->
+            </div>
+            <div class="content-footer">
+                <button class="nav-btn prev-btn"><i class="fas fa-arrow-left"></i> Précédent</button>
+                <button class="nav-btn next-btn">Suivant <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-toolbar">
+        <button class="tool-btn" id="theme-toggle"><i class="fas fa-moon"></i></button>
+        <button class="tool-btn" id="font-increase"><i class="fas fa-text-height"></i></button>
+    </div>
+
+    <audio id="hover-sound" src="hover.mp3" preload="auto"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
