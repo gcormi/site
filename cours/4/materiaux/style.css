@@ -1,0 +1,556 @@
+/* === Styles Généraux === */
+html { 
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+body {
+    margin: 0; padding: 0;
+    font-family: 'Lato', sans-serif;
+    color: #e0e0e0;
+    min-height: 100vh;
+    line-height: 1.7;
+    background-color: #222;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Animation de fondu pour les éléments qui apparaissent */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Animation de pulse pour attirer l'attention */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Animation de brillance */
+@keyframes shine {
+    from { background-position: -200% center; }
+    to { background-position: 200% center; }
+}
+
+i.fas, i.fab { 
+    margin-right: 0.5em; 
+    width: 1.2em; 
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.nav-button:hover i, .back-button:hover i {
+    transform: scale(1.2);
+}
+
+/* === Vidéo Background avec effet parallaxe === */
+.video-background {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%);
+    z-index: 1;
+    backdrop-filter: blur(3px);
+}
+
+.video-background video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 0;
+    transition: transform 0.3s ease;
+}
+
+/* === Conteneur Principal avec effet de profondeur === */
+.main-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    perspective: 1000px;
+}
+
+/* === Gestion de la Visibilité avec Transitions === */
+.initial-view,
+.course-section {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    display: none;
+    width: 100%;
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+.initial-view.active-view,
+.course-section.active-section {
+    display: block;
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* === Vue Initiale avec Effets === */
+.initial-view {
+    max-width: 700px;
+    text-align: center;
+}
+
+.initial-view .content {
+    background: rgba(30, 30, 30, 0.3);
+    padding: 40px 50px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.initial-view .content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.initial-view h1 {
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+    font-size: 3.2rem;
+    font-weight: 700;
+    margin: 0 0 50px 0;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(120deg, #ffffff, #7fdbff, #ffffff);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shine 3s linear infinite;
+}
+
+/* === Navigation avec Effets Améliorés === */
+.navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.nav-button, .back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 25px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #f0f0f0;
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    min-width: 180px;
+    min-height: 55px;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-button::after, .back-button::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+    transform: scale(0);
+    transition: transform 0.6s ease-out;
+}
+
+.nav-button:hover::after, .back-button:hover::after {
+    transform: scale(1);
+}
+
+.nav-button:hover, .back-button:hover {
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    color: #fff;
+}
+
+.nav-button:active, .back-button:active {
+    transform: translateY(1px);
+}
+
+/* === Sections de Cours avec Effets === */
+.course-sections-container {
+    width: 100%;
+    max-width: 950px;
+}
+
+.course-section {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px 50px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    margin-top: 0;
+    color: #333;
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #3498db, #2ecc71);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s ease;
+}
+
+.course-section.active-section::before {
+    transform: scaleX(1);
+}
+
+/* === Contenu des Sections avec Animations === */
+.course-section h2 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #2c3e50;
+    font-size: 2.4rem;
+    margin: 0 0 25px 0;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 15px;
+    clear: left;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+.course-section h3 {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: fadeIn 0.6s ease-out forwards;
+    animation-delay: 0.2s;
+}
+
+.course-section p, .course-section ul {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeIn 0.6s ease-out forwards;
+    animation-delay: 0.4s;
+}
+
+/* === Tableaux Interactifs === */
+.course-section table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 1.8rem 0;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.8s ease-out forwards;
+    animation-delay: 0.6s;
+}
+
+.course-section th, .course-section td {
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    transition: all 0.3s ease;
+}
+
+.course-section thead th {
+    background: linear-gradient(135deg, #f2f6fa 0%, #e6eef7 100%);
+    font-weight: 700;
+    color: #34495e;
+    border-bottom: 2px solid #bdc3c7;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.course-section tbody tr {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-section tbody tr:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background: linear-gradient(135deg, #e8f0f8 0%, #f8fafd 100%);
+}
+
+/* === Termes Cliquables Améliorés === */
+.clickable-term {
+    color: #2980b9;
+    cursor: pointer;
+    border-bottom: 2px dotted #2980b9;
+    transition: all 0.3s ease;
+    position: relative;
+    font-weight: 600;
+    padding: 0 2px;
+}
+
+.clickable-term::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #3498db;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.clickable-term:hover {
+    color: #3498db;
+    background: rgba(52, 152, 219, 0.1);
+}
+
+.clickable-term:hover::before {
+    transform: scaleX(1);
+}
+
+/* === Modale Améliorée === */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+    backdrop-filter: blur(5px);
+}
+
+.modal.show {
+    display: block;
+    opacity: 1;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    color: #333;
+    margin: 10% auto;
+    padding: 30px 40px;
+    border: 1px solid rgba(187, 187, 187, 0.3);
+    width: 80%;
+    max-width: 650px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transform: scale(0.95) translateY(-30px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal.show .modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.modal-close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-close-button:hover {
+    color: #333;
+    transform: rotate(90deg);
+}
+
+#modal-title {
+    margin: 0 0 20px 0;
+    color: #2c3e50;
+    font-family: 'Roboto', sans-serif;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    font-size: 1.8rem;
+}
+
+#modal-text {
+    line-height: 1.6;
+    font-size: 1rem;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeIn 0.4s ease-out forwards;
+    animation-delay: 0.2s;
+}
+
+/* === "Did you know" Sections === */
+.did-you-know {
+    background: linear-gradient(135deg, #eaf5ff 0%, #f0f9ff 100%);
+    border-left: 5px solid #3498db;
+    padding: 20px 25px;
+    margin: 30px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.did-you-know::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.8) 50%, transparent 100%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.did-you-know:hover::before {
+    transform: translateX(100%);
+}
+
+.did-you-know:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* === Responsive Design === */
+@media (max-width: 992px) {
+    .course-section {
+        padding: 30px 40px;
+    }
+    
+    .menu-grid {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .initial-view h1 {
+        font-size: 2.6rem;
+    }
+    
+    .menu-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .nav-button {
+        min-width: 200px;
+        font-size: 1rem;
+        padding: 14px 22px;
+    }
+    
+    .course-section {
+        padding: 25px 30px;
+    }
+    
+    .modal-content {
+        width: 90%;
+        margin: 15% auto;
+        padding: 25px 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        line-height: 1.6;
+    }
+    
+    .initial-view h1 {
+        font-size: 2.1rem;
+    }
+    
+    .course-section {
+        padding: 20px;
+    }
+    
+    .course-section table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+}
+
+/* === Animations de Chargement === */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.loading {
+    animation: shimmer 2s infinite linear;
+    background: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+    background-size: 1000px 100%;
+}
+
+/* === Indicateur de Progression === */
+.progress-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #3498db, #2ecc71);
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+}

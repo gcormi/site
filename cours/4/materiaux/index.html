@@ -1,1 +1,484 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Univers des Matériaux en Technologie</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
 
+    <!-- Vidéo et Overlay -->
+    <div class="video-background">
+        <div class="video-overlay"></div>
+        <video autoplay loop muted playsinline>
+            <source src="video.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la balise vidéo.
+        </video>
+    </div>
+
+    <!-- Conteneur Principal -->
+    <div class="main-container">
+
+        <!-- Vue Initiale (Visible au début) -->
+        <div class="initial-view active-view">
+            <div class="content">
+                <h1><i class="fas fa-atom"></i> L'Univers des Matériaux</h1>
+                <nav class="navigation">
+                    <div class="menu-grid">
+                        <a href="#introduction" class="nav-button"><i class="fas fa-info-circle"></i> Introduction</a>
+                        <a href="#familles" class="nav-button"><i class="fas fa-shapes"></i> Familles</a>
+                        <a href="#proprietes" class="nav-button"><i class="fas fa-ruler-combined"></i> Propriétés</a>
+                        <a href="#selection" class="nav-button"><i class="fas fa-check-circle"></i> Sélection</a>
+                    </div>
+                    <a href="#conclusion" class="conclusion-button nav-button"><i class="fas fa-rocket"></i> Conclusion & Futur</a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Conteneur des Sections (Cache les sections) -->
+        <div class="course-sections-container">
+
+            <!-- ========================== -->
+            <!-- Section Introduction (COMPLET) -->
+            <!-- ========================== -->
+            <section id="introduction" class="course-section">
+                <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
+                <h2><i class="fas fa-info-circle"></i> Introduction : Qu'est-ce qu'un Matériau ?</h2>
+
+                <h3><i class="fas fa-microscope"></i> Des Atomes aux Objets : Le Voyage Fascinant des Matériaux</h3>
+                <p>Chaque objet technique, du simple trombone à l'avion de ligne sophistiqué, est le fruit d'un assemblage ingénieux de <span class="clickable-term" data-term="materiau">matériaux</span> spécifiquement choisis pour leurs aptitudes à remplir des fonctions précises. L'étude des matériaux est un pilier fondamental de la technologie, car c'est par la compréhension de leur nature, de leurs propriétés et de leurs interactions que l'on peut concevoir, innover et fabriquer.</p>
+                <p>Ce cours vous propose un voyage au cœur de la matière pour découvrir les grandes familles qui la composent, analyser leurs caractéristiques essentielles et comprendre les critères complexes qui guident le choix de l'ingénieur ou du designer.</p>
+
+                <h3><i class="fas fa-question-circle"></i> Définition : Qu'est-ce qu'un Matériau ?</h3>
+                <p>Un <span class="clickable-term" data-term="materiau"><strong>matériau</strong></span> est une <strong>matière d'origine naturelle ou artificielle que l'homme façonne pour en faire des objets techniques</strong>. C'est la substance "brute" ou transformée qui constitue un objet.</p>
+                <p>Pensez au bois, au plastique, au verre, au métal, au béton, au coton... Ce sont toutes des matières premières ou semi-finies qui seront mises en forme pour créer quelque chose d'utile.</p>
+                <p>Les caractéristiques propres à chaque matériau (sa dureté, sa souplesse, sa capacité à conduire l'électricité, sa résistance à la chaleur, etc.) déterminent comment il peut être utilisé.</p>
+
+                <h3><i class="fas fa-exchange-alt"></i> Différence entre Matériau et Matériel</h3>
+                <p>Il est important de ne pas confondre "<span class="clickable-term" data-term="materiau">matériau</span>" et "<span class="clickable-term" data-term="materiel">matériel</span>".</p>
+                <ul>
+                    <li><i class="fas fa-cube"></i> Le <span class="clickable-term" data-term="materiau"><strong>Matériau</strong></span> (Material en anglais) : C'est la substance, la matière elle-même.
+                        <ul>
+                            <li><em>Exemples :</em> Acier, polyéthylène (un type de plastique), chêne (un type de bois), argile, silicium.</li>
+                        </ul>
+                    </li>
+                    <li><i class="fas fa-tools"></i> Le <span class="clickable-term" data-term="materiel"><strong>Matériel</strong></span> (Equipment / Hardware en anglais) : C'est l'ensemble des outils, des équipements, des machines ou des objets fabriqués utilisés pour une activité spécifique. Le matériel est *fabriqué à partir* de matériaux.
+                        <ul>
+                            <li><em>Exemples :</em> Un ordinateur (fait de plastique, silicium, métaux...), un marteau (fait d'acier et de bois ou plastique), une voiture (faite d'acier, aluminium, plastique, verre, caoutchouc...), une trousse (faite de tissu synthétique, plastique).</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>En résumé : On utilise des <span class="clickable-term" data-term="materiau"><strong>matériaux</strong></span> pour fabriquer du <span class="clickable-term" data-term="materiel"><strong>matériel</strong></span> (et d'autres objets).</p>
+                 <div class="did-you-know">
+                    <p><i class="fas fa-lightbulb"></i> <strong>Le saviez-vous ?</strong> Le choix judicieux des matériaux est crucial. Imaginez un avion construit entièrement en béton ! Il serait bien trop lourd pour voler. C'est pourquoi les ingénieurs utilisent des <span class="clickable-term" data-term="materiau">matériaux</span> légers et résistants comme les <span class="clickable-term" data-term="alliage">alliages</span> d'aluminium ou les <span class="clickable-term" data-term="composite">composites</span> à base de fibre de carbone pour l'aviation.</p>
+                </div>
+                <button class="back-button bottom-back-button"><i class="fas fa-arrow-left"></i> Retour</button>
+            </section>
+
+            <!-- ========================== -->
+            <!-- Section Familles (COMPLET) -->
+            <!-- ========================== -->
+            <section id="familles" class="course-section">
+                <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
+                <h2><i class="fas fa-shapes"></i> I. L'Origine et la Diversité des Grandes Familles de Matériaux</h2>
+                <p>Les <span class="clickable-term" data-term="materiau">matériaux</span> que nous utilisons trouvent leurs origines dans les ressources de notre planète, qu'elles soient minérales, issues du vivant ou synthétisées par l'industrie chimique. On les classe généralement en grandes familles pour mieux comprendre leurs caractéristiques communes.</p>
+
+                <h3><i class="fas fa-cogs"></i> 1. Les Métaux et <span class="clickable-term" data-term="alliage">Alliages</span> : Des Minerais aux Structures Robustes</h3>
+                <p>Les <span class="clickable-term" data-term="metal">métaux</span> sont extraits de <span class="clickable-term" data-term="minerai">minerais</span>, roches contenant des concentrations exploitables de composés métalliques. Ces minerais sont ensuite traités (souvent par fusion et raffinage à haute température) pour en extraire le métal pur. Rarement utilisés à l'état pur en technologie (sauf exceptions comme le cuivre pour sa conductivité ou l'or pour sa résistance à la corrosion), les <span class="clickable-term" data-term="metal">métaux</span> sont le plus souvent <span class="clickable-term" data-term="alliage">alliés</span> entre eux ou avec d'autres éléments pour améliorer leurs propriétés.</p>
+                <h4><i class="fas fa-industry"></i> Fer et <span class="clickable-term" data-term="acier">Aciers</span> :</h4>
+                <p>Le fer est principalement extrait des minerais d'oxyde de fer comme l'hématite. L'<span class="clickable-term" data-term="acier">acier</span> est un <span class="clickable-term" data-term="alliage">alliage</span> de fer et de carbone, dont la teneur en carbone et l'ajout d'autres éléments (chrome, nickel, manganèse, molybdène...) déterminent le type d'acier et ses propriétés.</p>
+                <p><strong>Exemples :</strong> <span class="clickable-term" data-term="acier">Acier</span> doux (faible teneur en carbone) : facilement formable, utilisé pour la tôle de carrosserie. <span class="clickable-term" data-term="acier">Acier</span> dur (haute teneur en carbone) : plus résistant mais moins ductile, utilisé pour les rails de chemin de fer, les outils. <span class="clickable-term" data-term="acier-inox">Acier inoxydable</span> : <span class="clickable-term" data-term="alliage">alliage</span> de fer, chrome (minimum 10,5%) et souvent nickel, très résistant à la corrosion (ustensiles de cuisine, mobilier urbain, instrumentation chirurgicale).</p>
+                <h4><i class="fas fa-plane"></i> Aluminium :</h4>
+                <p>Issu principalement de la <span class="clickable-term" data-term="bauxite">bauxite</span> par un procédé électrolytique très consommateur d'énergie. Souvent <span class="clickable-term" data-term="alliage">allié</span> avec le cuivre, le magnésium, le silicium pour améliorer sa résistance mécanique.</p>
+                <p><strong>Exemples :</strong> Alliages Alu-Cuivre (série 2000) : haute résistance mécanique, utilisés dans l'aéronautique. Alliages Alu-Magnésium (série 5000) : bonne résistance à la corrosion en milieu marin (coques de bateaux). Papiers d'aluminium minces pour l'emballage (malléabilité, barrière).</p>
+                <h4><i class="fas fa-bolt"></i> Cuivre :</h4>
+                <p>Extrait de divers minerais sulfurés ou oxydés. Il est souvent utilisé en <span class="clickable-term" data-term="alliage">alliage</span> :</p>
+                <p><strong>Exemples :</strong> Laiton (cuivre et zinc) : facile à usiner, résistant à la corrosion (robinetterie, instruments de musique, douilles de cartouches). Bronze (cuivre et étain) : plus dur que le laiton, résistant à l'usure (roulements, sculptures, cloches).</p>
+                <h4><i class="fas fa-bone"></i> Titane :</h4>
+                <p>Extrait de minerais comme le rutile ou l'ilménite. Son procédé de production est complexe et coûteux. <span class="clickable-term" data-term="alliage">Alliages</span> souvent avec l'aluminium et le vanadium.</p>
+                <p><strong>Exemples :</strong> Vis et implants chirurgicaux (<span class="clickable-term" data-term="biocompatibilite">biocompatibilité</span>, légèreté), composants aéronautiques (résistance à haute température et à la fatigue), cadres de lunettes (légèreté, résistance à la corrosion), articles de sport haut de gamme (résistance, légèreté).</p>
+                <div class="did-you-know">
+                    <p><i class="fas fa-gem"></i> <strong>Le saviez-vous ?</strong> L'or et l'argent sont parmi les rares métaux qui peuvent se trouver à l'état presque pur dans la nature. La plupart des autres métaux sont chimiquement liés à d'autres éléments dans les minerais.</p>
+                </div>
+
+                <h3><i class="fab fa-python"></i> 2. Les <span class="clickable-term" data-term="polymere">Polymères</span> : De la Pétrochimie aux Plastiques de Notre Quotidien</h3>
+                <p>La grande majorité des <span class="clickable-term" data-term="polymere">polymères</span> que nous utilisons sont des <span class="clickable-term" data-term="polymere-synthetique">polymères synthétiques</span>, fabriqués par des procédés chimiques, principalement à partir de composés issus du pétrole (hydrocarbures). Ces petits composés, appelés <span class="clickable-term" data-term="monomere">monomères</span>, sont liés entre eux pour former de très longues chaînes (<span class="clickable-term" data-term="polymere">polymères</span>) lors d'un processus appelé <span class="clickable-term" data-term="polymerisation">polymérisation</span>. Les <span class="clickable-term" data-term="bioplastique">bioplastiques</span>, issus de ressources renouvelables (amidon de maïs, canne à sucre, algues), représentent une alternative croissante.</p>
+                <h4>Polyéthylène (PE) :</h4>
+                <p>Polymère le plus simple, obtenu par polymérisation de l'éthylène. Existe sous différentes densités (PEbd = basse densité, PEhd = haute densité) influençant sa rigidité.</p>
+                <p><strong>Exemples :</strong> PEbd : films d'emballage souples, sacs plastiques. PEhd : bouteilles de lait, jouets robustes, tuyaux.</p>
+                <h4>Polypropylène (PP) :</h4>
+                <p>Obtenu par polymérisation du propylène. Plus rigide et résistant à la chaleur que le PE.</p>
+                <p><strong>Exemples :</strong> Emballages alimentaires (boîtes de margarine, pots de yaourt), pièces automobiles (pare-chocs, tableau de bord), mobilier de jardin, fibres textiles (tapis, cordes).</p>
+                <h4>PVC (Polychlorure de vinyle) :</h4>
+                <p>Obtenu par polymérisation du chlorure de vinyle. Peut être rigide ou assoupli par l'ajout de <span class="clickable-term" data-term="plastifiant">plastifiants</span>.</p>
+                <p><strong>Exemples :</strong> Rigide : tuyaux d'évacuation, profilés de fenêtres. Souple : revêtements de sol, bâches, gaines de câbles électriques.</p>
+                <h4>PET (Polyéthylène Téréphtalate) :</h4>
+                <p><span class="clickable-term" data-term="polyester">Polyester</span> <span class="clickable-term" data-term="thermoplastique">thermoplastique</span>.</p>
+                <p><strong>Exemples :</strong> Bouteilles pour boissons gazeuses et eau (transparence, étanchéité aux gaz), fibres textiles (polyester pour les vêtements), films d'emballage.</p>
+                <h4>Polyamides (PA) :</h4>
+                <p>Connus sous le nom générique de Nylon. Très résistants à l'abrasion et à la fatigue.</p>
+                <p><strong>Exemples :</strong> Fibres textiles (collants, cordes), engrenages et pièces mécaniques (résistance à l'usure), fils de pêche.</p>
+                <h4>ABS (Acrylonitrile Butadiène Styrène) :</h4>
+                <p><span class="clickable-term" data-term="copolymere">Copolymère</span>. Rigide, résistant aux chocs et facile à mouler.</p>
+                <p><strong>Exemples :</strong> Boîtiers d'appareils électroniques (ordinateurs, téléviseurs), jouets (LEGO), pièces automobiles (calandres).</p>
+                <div class="did-you-know">
+                    <p><i class="fab fa-lego"></i> <strong>Le saviez-vous ?</strong> La brique LEGO, connue pour sa robustesse et sa capacité d'assemblage précis, est principalement fabriquée en ABS depuis 1963.</p>
+                </div>
+
+                <h3><i class="fas fa-coffee"></i> 3. Les <span class="clickable-term" data-term="ceramique">Céramiques</span> : De l'Argile aux Matériaux de Haute Technologie</h3>
+                <p>Les <span class="clickable-term" data-term="ceramique-traditionnelle">céramiques traditionnelles</span> sont principalement fabriquées à partir de matières premières argileuses naturelles mélangées à d'autres minéraux comme le quartz et le feldspath, puis façonnées et cuites. Les <span class="clickable-term" data-term="ceramique-technique">céramiques techniques</span> sont élaborées à partir de poudres minérales de haute pureté (oxydes, carbures, nitrures) synthétisées chimiquement ou purifiées.</p>
+                <h4><span class="clickable-term" data-term="ceramique-traditionnelle">Céramiques traditionnelles</span> :</h4>
+                <p><strong>Exemples :</strong> Terre cuite : Briques, tuiles (résistance aux intempéries, isolation thermique). Faïence, Grès, Porcelaine : Vaisselle, carrelage (dureté, étanchéité, aspect esthétique).</p>
+                <h4><span class="clickable-term" data-term="ceramique-technique">Céramiques techniques</span> :</h4>
+                <p><strong>Exemples :</strong> Alumine (oxyde d'aluminium - Al<sub>2</sub>O<sub>3</sub>) : Très dure, résistante à l'usure et à la chaleur (bougies d'allumage, composants électroniques, prothèses). Zircone (oxyde de zirconium - ZrO<sub>2</sub>) : Dureté et ténacité élevées, biocompatible (implants dentaires, couteaux en céramique). Carbure de tungstène (WC) : Extrêmement dur (outils de coupe, pointes de stylo bille). Nitrure de silicium (Si<sub>3</sub>N<sub>4</sub>) : Résistance à haute température, légèreté (composants de moteurs).</p>
+                <div class="did-you-know">
+                    <p><i class="fas fa-chess-rook"></i> <strong>Le saviez-vous ?</strong> La porcelaine, inventée en Chine il y a plus de mille ans, était un secret technologique précieux pour sa blancheur, sa translucidité et sa dureté après cuisson.</p>
+                </div>
+
+                <h3><i class="fas fa-layer-group"></i> 4. Les Matériaux <span class="clickable-term" data-term="composite">Composites</span> : L'Ingénierie de l'Association</h3>
+                <p>Les <span class="clickable-term" data-term="composite">composites</span> sont créés en associant judicieusement des matériaux de différentes familles pour exploiter le meilleur de chacun. Ils sont constitués d'un <span class="clickable-term" data-term="renfort">renfort</span> (souvent des fibres) noyé dans une <span class="clickable-term" data-term="matrice">matrice</span>.</p>
+                <h4><span class="clickable-term" data-term="composite">Composites</span> à <span class="clickable-term" data-term="matrice">matrice</span> organique :</h4>
+                <p>Une résine <span class="clickable-term" data-term="polymere">polymère</span> (époxy, <span class="clickable-term" data-term="polyester">polyester</span>, vinylester) renforcée par des fibres.</p>
+                <ul>
+                    <li><strong>Fibres de verre :</strong> Moins coûteuses, bonnes propriétés mécaniques. Exemples : Coques de bateaux de plaisance, carrosseries, tuyaux.</li>
+                    <li><strong>Fibres de carbone :</strong> Très résistantes et légères, mais coûteuses. Exemples : Aéronautique (structures d'avions), Formule 1 (châssis), cycles de compétition, prothèses légères et résistantes.</li>
+                    <li><strong>Fibres naturelles (lin, chanvre, bois) :</strong> Alternatives écologiques, propriétés mécaniques intéressantes, légères. Exemples : Panneaux de porte de voiture, mobilier, certains éléments de construction.</li>
+                </ul>
+                <h4><span class="clickable-term" data-term="composite">Composites</span> à <span class="clickable-term" data-term="matrice">matrice</span> <span class="clickable-term" data-term="ceramique">céramique</span> :</h4>
+                <p>Fibres (carbone, carbure de silicium) dans une matrice céramique. Résistance à très haute température et aux chocs thermiques.</p>
+                <p><strong>Exemples :</strong> Composants de moteurs d'avion, boucliers thermiques.</p>
+                <h4><span class="clickable-term" data-term="composite">Composites</span> à <span class="clickable-term" data-term="matrice">matrice</span> métallique :</h4>
+                <p>Fibres (carbone, carbure de silicium) dans une matrice métallique (aluminium, magnésium). Propriétés améliorées en termes de résistance à haute température ou de rigidité.</p>
+                <p><strong>Exemples :</strong> Pièces automobiles légères et résistantes, composants aéronautiques.</p>
+                <h4>Béton Armé :</h4>
+                <p><span class="clickable-term" data-term="matrice">Matrice</span> <span class="clickable-term" data-term="ceramique">céramique</span> (béton, mélange de ciment, granulats et eau) renforcée par des barres ou treillis d'<span class="clickable-term" data-term="acier">acier</span>. L'acier reprend les efforts de traction que le béton supporte mal.</p>
+                <p><strong>Exemples :</strong> Structures de bâtiments, ponts, tunnels, barrages.</p>
+                <div class="did-you-know">
+                    <p><i class="fas fa-skiing"></i> <strong>Le saviez-vous ?</strong> Les skis de compétition modernes utilisent souvent des composites à base de fibres de carbone ou de verre pour allier légèreté, rigidité et capacité à stocker et restituer l'énergie (flexibilité).</p>
+                </div>
+
+                <h3><i class="fas fa-tree"></i> 5. Les Matériaux Naturels : La Richesse du Vivant et de la Terre</h3>
+                <p>Ces <span class="clickable-term" data-term="materiau">matériaux</span> proviennent directement de la <span class="clickable-term" data-term="biosphere">biosphère</span> (vivant) ou de la <span class="clickable-term" data-term="geosphere">géosphère</span> (terre), souvent avec une transformation minimale.</p>
+                <h4>Bois :</h4>
+                <p>Matériau organique issu des arbres. Ses propriétés varient considérablement selon l'essence (chêne, pin, hêtre, bambou...). Structure fibreuse de <span class="clickable-term" data-term="cellulose">cellulose</span> liée par de la <span class="clickable-term" data-term="lignine">lignine</span>.</p>
+                <p><strong>Exemples :</strong> Construction (ossature bois, charpente), ameublement, menuiseries, panneaux (contreplaqué, OSB, MDF obtenus par collage de placages ou de fibres de bois), papier, carton.</p>
+                <h4>Fibres textiles naturelles :</h4>
+                <p>Issues de plantes (coton, lin, chanvre, jute) ou d'animaux (laine, soie).</p>
+                <p><strong>Exemples :</strong> Habillement, linge de maison, cordages, matériaux d'isolation (laine de bois, chanvre).</p>
+                <h4>Verre :</h4>
+                <p>Principalement composé de <span class="clickable-term" data-term="silice">silice</span> (sable), de soude et de calcaire, fondu à haute température puis refroidi rapidement. C'est un matériau <span class="clickable-term" data-term="amorphe">amorphe</span> (structure désordonnée), souvent classé à part ou avec les céramiques.</p>
+                <p><strong>Exemples :</strong> Fenêtres, bouteilles, pots, vaisselle, fibre optique (pour la transmission d'informations), laine de verre (isolant thermique).</p>
+                <h4>Pierre et Terre :</h4>
+                <p>Matériaux de construction ancestraux.</p>
+                <p><strong>Exemples :</strong> Murs en pierre, pisé (terre crue), briques de terre cuite.</p>
+                <div class="did-you-know">
+                    <p><i class="fas fa-leaf"></i> <strong>Le saviez-vous ?</strong> Le bambou, bien que techniquement une herbe, est souvent utilisé comme un bois en raison de sa croissance rapide et de ses excellentes propriétés mécaniques, similaires à celles de certains aciers pour un poids bien moindre.</p>
+                </div>
+                <button class="back-button bottom-back-button"><i class="fas fa-arrow-left"></i> Retour</button>
+            </section>
+
+            <!-- ========================== -->
+            <!-- Section Propriétés (COMPLET) -->
+            <!-- ========================== -->
+            <section id="proprietes" class="course-section">
+                <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
+                <h2><i class="fas fa-ruler-combined"></i> II. L'Analyse des Propriétés : Décrypter le Comportement des Matériaux</h2>
+                <p>Les propriétés d'un <span class="clickable-term" data-term="materiau">matériau</span> définissent sa manière de réagir aux sollicitations externes (forces, chaleur, lumière, agents chimiques...) et à son environnement. Elles sont la clé de sa sélection pour une application donnée. On distingue plusieurs grandes catégories de propriétés.</p>
+
+                <h3><i class="fas fa-dumbbell"></i> 1. Propriétés Mécaniques : Résister aux Forces</h3>
+                <p>Ces propriétés décrivent comment un <span class="clickable-term" data-term="materiau">matériau</span> réagit lorsqu'on lui applique des forces (traction, compression, torsion, flexion...).</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Propriété</th>
+                            <th>Description Simplifiée</th>
+                            <th>Pourquoi est-elle importante ?</th>
+                            <th>Exemples d'objets / usages où elle est cruciale</th>
+                            <th>Comparaison Simplifiée</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong><span class="clickable-term" data-term="resistance-meca">Résistance Mécanique</span></strong></td>
+                            <td>Capacité à supporter des <span class="clickable-term" data-term="contrainte">contraintes</span> (forces appliquées sur une surface) sans <span class="clickable-term" data-term="rupture">rupture</span>.</td>
+                            <td>Pour que l'objet ne casse pas sous les efforts normaux d'utilisation.</td>
+                            <td>Poutres (flexion, compression), câbles de pont suspendu (traction), arbres de transmission (torsion).</td>
+                            <td>Aciers &gt; Alliages aluminium &gt; Certains Polymères &gt; Céramiques (en traction)</td>
+                        </tr>
+                        <tr>
+                            <td><strong><span class="clickable-term" data-term="durete">Dureté</span></strong></td>
+                            <td>Résistance à la pénétration, à la rayure et à l'<span class="clickable-term" data-term="abrasion">abrasion</span> (usure par frottement).</td>
+                            <td>Pour résister à l'usure et conserver sa forme de surface.</td>
+                            <td>Lames de couteaux, outils de coupe, surfaces de frottement (roulements, engrenages), verres de lunettes, revêtements de sol.</td>
+                            <td>Céramiques (Diamant, Alumine, Carbure de tungstène) &gt; Aciers traités &gt; Verre &gt; Alliages d'aluminium &gt; Bois &gt; Polymères</td>
+                        </tr>
+                        <tr>
+                            <td><strong><span class="clickable-term" data-term="elasticite">Élasticité</span></strong></td>
+                            <td>Capacité à se déformer sous l'effet d'une force et à retrouver sa forme initiale lorsque la force cesse.</td>
+                            <td>Pour les fonctions nécessitant un retour à la forme initiale, un amortissement ou un stockage d'énergie.</td>
+                            <td>Ressorts (suspensions, stylos), élastiques (textile, maintien), balles rebondissantes, structures qui fléchissent sans casser.</td>
+                            <td>Certains Aciers (à ressort) &gt; Caoutchouc naturel/synthétique &gt; Certains Polymères (élastomères)</td>
+                        </tr>
+                        <tr>
+                            <td><strong><span class="clickable-term" data-term="plasticite">Plasticité</span></strong></td>
+                            <td>Capacité à se déformer de manière permanente (sans revenir à la forme initiale) sans rompre. Opposé de la <span class="clickable-term" data-term="fragilite">fragilité</span>.</td>
+                            <td>Essentiel pour les procédés de mise en forme par déformation (pliage, emboutissage, forgeage, laminage). Permet aussi d'absorber de l'énergie avant rupture.</td>
+                            <td>Pièces embouties (carrosseries), fils électriques étirés, tôles pliées, pâte à modeler.</td>
+                            <td>Or, Argent, Plomb, Cuivre, Aluminium (très plastiques) &gt; Aciers doux &gt; Certains Polymères (thermoplastiques)</td>
+                        </tr>
+                        <tr>
+                            <td><strong><span class="clickable-term" data-term="tenacite">Ténacité (Résilience)</span></strong></td>
+                            <td>Résistance à la propagation brutale des fissures, capacité à absorber de l'énergie avant de rompre (résistance aux chocs). Un matériau tenace n'est pas forcément très résistant, mais il ne casse pas "comme du verre".</td>
+                            <td>Pour garantir la sécurité et éviter les ruptures catastrophiques, surtout en présence de défauts ou d'impacts.</td>
+                            <td>Coques de bateaux, structures d'avion, pare-chocs de voiture, outils soumis à des chocs (marteaux).</td>
+                            <td>Aciers &gt; Alliages d'aluminium &gt; Certains Polymères (ABS, Polycarbonate) &gt; Bois &gt;&gt; Céramiques, Verre (peu tenaces, fragiles)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3><i class="fas fa-thermometer-half"></i> 2. Propriétés Physiques : Interactions avec l'Énergie et l'Environnement</h3>
+                <p>Ces propriétés décrivent le comportement du matériau face à la chaleur, l'électricité, la lumière, etc., ainsi que sa masse.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Propriété</th>
+                            <th>Description Simplifiée</th>
+                            <th>Pourquoi est-elle importante ?</th>
+                            <th>Exemples d'objets / usages où elle est cruciale</th>
+                            <th>Comparaison Simplifiée (Ordres de grandeur)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong><span class="clickable-term" data-term="masse-volumique">Masse volumique (ρ)</span></strong></td>
+                            <td>Masse par unité de volume (kg/m³ ou g/cm³). Caractérise la "lourdeur" du matériau.</td>
+                            <td>Influence le poids de l'objet, la quantité de matière nécessaire, l'inertie. Crucial pour les objets mobiles ou portables.</td>
+                            <td>Pièces aéronautiques/automobiles (légèreté), lests (densité pour stabiliser), objets flottants.</td>
+                            <td>Polymères (≈1) &lt; Bois (≈0.5-0.8) &lt; Magnésium (1.7) &lt; Aluminium (2.7) &lt; Titane (4.5) &lt; Verre (≈2.5) &lt; Céramiques (≈3-6) &lt; Aciers (7.8) &lt; Cuivre (8.9) &lt; Plomb (11.3) &lt; Or (19.3)</td>
+                        </tr>
+                        <tr>
+                            <td><strong><span class="clickable-term" data-term="conductivite-thermique">Conductivité thermique</span></strong></td>
+                            <td>Capacité à transmettre la chaleur. Élevée pour les <span class="clickable-term" data-term="conducteur">conducteurs</span>, faible pour les <span class="clickable-term" data-term="isolant">isolants</span>.</td>
+                            <td>Pour les échangeurs de chaleur (radiateurs, casseroles) ou les isolants thermiques (murs, poignées).</td>
+                            <td>Dissipateurs de chaleur pour composants électroniques, fond des casseroles, manches isolants, matériaux d'isolation du bâtiment (laine de verre, polystyrène).</td>
+                            <td>Métaux (Cuivre, Aluminium, Argent) &gt; Céramiques &gt; Verre &gt; Bois &gt; Polymères &gt; Isolants spécifiques (air, vide, laines minérales)</td>
+                        </tr>
+                        <tr>
+                            <td><strong><span class="clickable-term" data-term="conductivite-electrique">Conductivité électrique</span></strong></td>
+                            <td>Capacité à laisser passer le courant électrique. Élevée pour les <span class="clickable-term" data-term="conducteur">conducteurs</span>, très faible (quasi nulle) pour les <span class="clickable-term" data-term="isolant">isolants</span>.</td>
+                            <td>Pour les conducteurs (câbles, pistes de circuits) ou les isolants électriques (gaines, boîtiers).</td>
+                            <td>Fils électriques (cuivre, aluminium), circuits imprimés, boîtiers d'appareils électriques (plastique), isolateurs sur lignes à haute tension (céramique, verre).</td>
+                            <td>Métaux (Argent, Cuivre, Or, Aluminium) &gt;&gt; Semi-conducteurs (Silicium) &gt;&gt;&gt; Eau salée &gt; Bois humide &gt;&gt;&gt;&gt; Céramiques, Verre, Polymères, Air (isolants)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Transparence / Opacité</strong></td>
+                            <td>Capacité à laisser passer la lumière visible (transparent), à la laisser passer de manière diffuse (translucide) ou à la bloquer (opaque).</td>
+                            <td>Pour voir à travers (fenêtres, verres), laisser passer la lumière (abat-jour) ou protéger du contenu / cacher (emballages opaques, boîtiers).</td>
+                            <td>Fenêtres, verres de lunettes, écrans, bouteilles transparentes, emballages alimentaires, boîtiers non transparents, murs.</td>
+                            <td>Verre, certains Polymères (PET, PMMA, PC) (transparents) ; Certains Polymères (PE, PP) (translucides) ; Métaux, Bois, Céramiques, la plupart des Polymères (opaques)</td>
+                        </tr>
+                         <tr>
+                            <td><strong><span class="clickable-term" data-term="dilatation-thermique">Dilatation thermique</span></strong></td>
+                            <td>Tendance d'un <span class="clickable-term" data-term="materiau">matériau</span> à augmenter de volume lorsque sa température augmente.</td>
+                            <td>Doit être prise en compte dans les assemblages de matériaux différents ou les structures soumises à de grandes variations de température.</td>
+                            <td>Joints de dilatation sur les ponts et les rails, thermostats bimétalliques, ajustements serrés réalisés à chaud.</td>
+                            <td>Polymères &gt; Aluminium &gt; Cuivre, Acier &gt; Verre &gt; Céramiques (faible dilatation)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3><i class="fas fa-flask"></i> 3. Propriétés Chimiques : Résistance aux Agents Extérieurs</h3>
+                <p>Ces propriétés décrivent comment un <span class="clickable-term" data-term="materiau">matériau</span> réagit au contact d'autres substances chimiques (eau, air, acides, bases, solvants...).</p>
+                <h4><i class="fas fa-shield-alt"></i> <span class="clickable-term" data-term="corrosion">Résistance à la corrosion</span> :</h4>
+                <p>Capacité à ne pas se dégrader chimiquement ou électrochimiquement en présence d'eau, d'air (<span class="clickable-term" data-term="oxydation">oxydation</span> comme la rouille), d'acides, de bases ou de sels.</p>
+                <p><strong>Pourquoi est-elle importante ?</strong> Pour garantir la durée de vie de l'objet dans son environnement d'utilisation et éviter les dégradations qui pourraient compromettre sa fonction, son aspect ou sa sécurité.</p>
+                <p><strong>Exemples :</strong> Coques de bateaux, canalisations d'eau, structures en milieu marin ou industriel, ustensiles de cuisine, réservoirs de produits chimiques, implants médicaux.</p>
+                <p><strong>Comparaison :</strong> Métaux nobles (Or, Platine), Titane, Acier inoxydable, certains Polymères (PVC, Téflon), Verre, Céramiques (très résistants) &gt; Aluminium (se protège par une couche d'oxyde) &gt; Cuivre, Laiton &gt; Aciers non alliés (sensibles à la rouille) &gt; Certains métaux comme le Magnésium (très réactifs).</p>
+
+                <h3><i class="fas fa-palette"></i> 4. Propriétés Esthétiques : L'Apparence et le Toucher</h3>
+                <p>L'aspect visuel et tactile d'un matériau est souvent essentiel pour le design, l'ergonomie et l'acceptation par l'utilisateur.</p>
+                <ul>
+                    <li><strong>Aspect de surface :</strong> Brillance (poli, miroir), matité, texture (lisse, rugueux, granuleux, veiné...).</li>
+                    <li><strong>Couleur :</strong> Couleur naturelle du matériau ou obtenue par coloration (pigments, teintures, peintures).</li>
+                    <li><strong>Toucher :</strong> Sensation au contact (froid pour les métaux, chaud pour le bois, doux, dur, glissant...).</li>
+                </ul>
+                <p><strong>Exemples :</strong> Le bois est choisi pour son aspect naturel, ses veines et son toucher chaleureux en ameublement. Les métaux brossés ou polis pour un aspect moderne, technologique et une sensation de froid. Les plastiques offrent une palette quasi infinie de couleurs, de transparences et de textures pour les jouets, les boîtiers, le mobilier design.</p>
+                <button class="back-button bottom-back-button"><i class="fas fa-arrow-left"></i> Retour</button>
+            </section>
+
+            <!-- ========================== -->
+            <!-- Section Sélection (COMPLET) -->
+            <!-- ========================== -->
+            <section id="selection" class="course-section">
+                <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
+                <h2><i class="fas fa-check-circle"></i> III. Le Processus de Sélection des Matériaux : Un Art du Compromis</h2>
+                <p>Choisir le bon <span class="clickable-term" data-term="materiau">matériau</span> pour un objet technique n'est pas une mince affaire ! C'est trouver le point d'équilibre idéal, le meilleur <strong>compromis</strong> possible entre de nombreuses exigences parfois contradictoires : les fonctions que l'objet doit remplir, les contraintes qu'il subira, la manière dont il sera fabriqué, son coût, et de plus en plus, son <span class="clickable-term" data-term="impact-env">impact sur l'environnement</span>.</p>
+                <p>C'est une démarche d'optimisation qui demande de bien analyser le besoin et de bien connaître les matériaux disponibles.</p>
+
+                <h3><i class="fas fa-clipboard-list"></i> 1. Analyse des Besoins et des Contraintes : Le Cahier des Charges "Matériaux"</h3>
+                <p>Avant même de penser à un matériau spécifique, il faut définir précisément ce que l'on attend de l'objet et de la pièce concernée. C'est le rôle du <strong>cahier des charges fonctionnel</strong>, qui va lister les fonctions et les contraintes. Pour le choix des matériaux, on se pose notamment les questions suivantes :</p>
+                <ul>
+                    <li><strong>Fonctions principales et secondaires :</strong> Que doit faire la pièce ? (Ex: Transmettre un mouvement de rotation, isoler de la chaleur, supporter une charge sans casser, contenir un liquide sans fuite, être agréable au toucher...)</li>
+                    <li><strong>Sollicitations et environnement :</strong> À quoi la pièce sera-t-elle soumise ?
+                        <ul>
+                            <li><em>Mécaniques :</em> Efforts (<span class="clickable-term" data-term="traction">traction</span>, <span class="clickable-term" data-term="compression">compression</span>, choc...), vibrations, <span class="clickable-term" data-term="frottement">frottements</span>...</li>
+                            <li><em>Thermiques :</em> Températures (hautes, basses, variations rapides...), feu...</li>
+                            <li><em>Chimiques :</em> Contact avec l'eau, l'air humide (<span class="clickable-term" data-term="corrosion">corrosion</span>), produits chimiques, aliments...</li>
+                            <li><em>Électriques :</em> Passage de courant, isolation nécessaire...</li>
+                            <li><em>Autres :</em> Rayonnement UV (soleil), <span class="clickable-term" data-term="usure">usure</span>, durée de vie attendue...</li>
+                        </ul>
+                    </li>
+                    <li><strong>Exigences d'aspect :</strong> Quelle apparence doit avoir la pièce ? (Ex: Couleur spécifique, transparence, brillance, texture particulière...)</li>
+                    <li><strong>Contraintes de fabrication :</strong> Comment la pièce sera-t-elle produite ? En quelle quantité ? (Petite série artisanale ou grande série industrielle ?) Cela influence les procédés utilisables (<span class="clickable-term" data-term="moulage">moulage</span>, <span class="clickable-term" data-term="usinage">usinage</span>, <span class="clickable-term" data-term="impression-3d">impression 3D</span>...) et donc les matériaux compatibles.</li>
+                    <li><strong>Contraintes économiques :</strong> Quel est le coût maximal acceptable pour la pièce (matière première + fabrication) ?</li>
+                    <li><strong>Contraintes réglementaires et environnementales :</strong> Y a-t-il des normes à respecter (sécurité, contact alimentaire...) ? Le matériau doit-il être <span class="clickable-term" data-term="recyclable">recyclable</span> ? Quel est son <span class="clickable-term" data-term="impact-env">impact environnemental</span> (<span class="clickable-term" data-term="energie-grise">énergie grise</span>, pollution...) ?</li>
+                </ul>
+
+                <h3><i class="fas fa-search"></i> 2. Exploration des Solutions Possibles : Les Candidats Potentiels</h3>
+                <p>Une fois le besoin bien défini, on peut commencer à chercher les matériaux qui pourraient convenir. En se basant sur la connaissance des propriétés des différentes familles de matériaux (métaux, polymères, céramiques, composites, naturels), on identifie une première liste de "candidats".</p>
+                <p>Souvent, plusieurs matériaux de familles différentes peuvent a priori répondre à une partie des exigences. Par exemple, pour une coque de téléphone, on pourrait envisager :</p>
+                <ul>
+                    <li>Des <span class="clickable-term" data-term="polymere">polymères</span> (plastiques) comme le Polycarbonate (PC) ou l'ABS : légers, résistants aux chocs, faciles à mouler et à colorer, peu chers.</li>
+                    <li>Des <span class="clickable-term" data-term="alliage">alliages</span> métalliques comme l'aluminium : aspect "premium", <span class="clickable-term" data-term="rigidite">rigide</span>, bonne dissipation thermique, mais plus cher et peut se rayer ou se cabosser.</li>
+                    <li>Du verre (spécialement traité) : aspect très qualitatif, résistant aux rayures, mais plus <span class="clickable-term" data-term="fragilite">fragile</span> aux chocs.</li>
+                    <li>Des <span class="clickable-term" data-term="composite">composites</span> ou des <span class="clickable-term" data-term="materiau">matériaux</span> naturels (bois...) pour des designs spécifiques.</li>
+                </ul>
+
+                <h3><i class="fas fa-balance-scale"></i> 3. Évaluation et Comparaison : Le Choix Optimisé</h3>
+                <p>C'est l'étape clé où l'on compare les matériaux candidats de manière plus détaillée, en fonction de *tous* les critères du cahier des charges. C'est là qu'intervient la notion de <strong>compromis</strong>.</p>
+                <p>On utilise souvent des tableaux comparatifs, des graphiques (comme les diagrammes d'Ashby qui croisent différentes propriétés), des bases de données matériaux, et parfois des logiciels de simulation pour prédire le comportement.</p>
+                <p>Les principaux axes de comparaison sont :</p>
+                <ul>
+                    <li><strong>Adéquation Propriétés / Fonction :</strong> Le matériau a-t-il la <span class="clickable-term" data-term="resistance-meca">résistance mécanique</span> suffisante ? Est-il assez léger ? Est-il assez <span class="clickable-term" data-term="rigidite">rigide</span> ? Résiste-t-il à la température ou à la <span class="clickable-term" data-term="corrosion">corrosion</span> dans l'environnement prévu ? Est-il un bon <span class="clickable-term" data-term="isolant">isolant</span> électrique ? Etc.</li>
+                    <li><strong>Coût global :</strong> Il ne faut pas regarder seulement le prix du kilo de matière première ! Il faut considérer le coût total :
+                        <ul>
+                            <li>Prix d'achat du matériau.</li>
+                            <li>Coût de la mise en forme (fabrication) : certains procédés sont plus chers que d'autres.</li>
+                            <li>Coût d'assemblage avec les autres pièces.</li>
+                            <li>Coût potentiel de maintenance ou de réparation.</li>
+                            <li>Coût de fin de vie (<span class="clickable-term" data-term="recyclage">recyclage</span> ou élimination).</li>
+                        </ul>
+                        <em>Un matériau plus cher à l'achat peut parfois réduire les coûts de fabrication ou de maintenance, ou prolonger la durée de vie, rendant le coût global plus intéressant.</em>
+                    </li>
+                    <li><strong>Faisabilité de Fabrication (Industrialisation) :</strong> Le matériau est-il facile à mettre en forme avec les techniques choisies et les quantités prévues ? Nécessite-t-il des outils ou des machines spécifiques et coûteux ? Quel est le temps nécessaire pour fabriquer une pièce (cadence de production) ?</li>
+                    <li><strong><span class="clickable-term" data-term="impact-env">Impact Environnemental</span> :</strong> Quelle est l'<span class="clickable-term" data-term="energie-grise">énergie</span> nécessaire pour produire le matériau (énergie grise) ? Provient-il de ressources renouvelables ou non ? Est-il facilement <span class="clickable-term" data-term="recyclable">recyclable</span> (<span class="clickable-term" data-term="recyclabilite">recyclabilité</span>) ? Génère-t-il de la pollution lors de sa production ou de son élimination ?</li>
+                </ul>
+
+                <h4><i class="fas fa-wine-bottle"></i> Exemple de Compromis : La Bouteille de Boisson</h4>
+                <p>Reprenons l'exemple de la bouteille :</p>
+                <ul>
+                    <li><strong>Verre :</strong>
+                        <ul>
+                            <li>(+) Avantages : Très bonne barrière aux gaz et arômes (conservation), inerte chimiquement (pas de goût), transparent, aspect qualitatif, <span class="clickable-term" data-term="recyclable">recyclable</span> à l'infini (en théorie).</li>
+                            <li>(-) Inconvénients : Lourd (coût transport, énergie), <span class="clickable-term" data-term="fragilite">fragile</span> (casse), mise en forme énergivore (fusion à haute température).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Aluminium (canette) :</strong>
+                        <ul>
+                            <li>(+) Avantages : Très léger, excellente barrière aux gaz et à la lumière, incassable, refroidit vite, très bien <span class="clickable-term" data-term="recyclage">recyclé</span> (économise 95% d'énergie vs production primaire).</li>
+                            <li>(-) Inconvénients : Opaque, plus cher que le plastique, sensible aux bosses, production primaire très énergivore (bauxite -> alu), nécessite un vernis intérieur pour éviter la corrosion par les boissons acides.</li>
+                        </ul>
+                    </li>
+                    <li><strong>PET (plastique type bouteille d'eau) :</strong>
+                        <ul>
+                            <li>(+) Avantages : Très léger, transparent, incassable, peu coûteux, facile à produire en grande série (soufflage).</li>
+                            <li>(-) Inconvénients : Moins bonne barrière aux gaz que verre/alu (limite conservation boissons gazeuses sur le long terme), issu du pétrole (non renouvelable), <span class="clickable-term" data-term="recyclage">recyclage</span> plus complexe et souvent en objets de moindre valeur ("downcycling"), peut donner un léger goût.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p><strong>Conclusion pour les boissons :</strong> Le choix dépend de l'usage !</p>
+                <ul>
+                    <li>Eau plate, jus (grands volumes) -> PET (légèreté, coût).</li>
+                    <li>Sodas, bières (conservation gaz, lumière) -> Canette Alu ou Bouteille Verre.</li>
+                    <li>Vin, spiritueux (conservation long terme, image) -> Verre.</li>
+                </ul>
+                <p>Chaque choix est un <strong>compromis</strong> entre performance, coût, praticité et impact environnemental !</p>
+
+                <h3><i class="fas fa-flag-checkered"></i> 4. Choix Final et Justification : Argumenter la Décision</h3>
+                <p>Une fois le meilleur compromis trouvé, le matériau est sélectionné. Il est important de pouvoir justifier ce choix en expliquant pourquoi ce matériau répond mieux à l'ensemble des contraintes du cahier des charges que les autres options envisagées.</p>
+
+                <div class="did-you-know">
+                    <p><i class="fas fa-heartbeat"></i> <strong>Le saviez-vous ?</strong> Pour les implants médicaux qui restent dans le corps humain (prothèses de hanche, vis osseuses...), une propriété absolument cruciale est la <strong><span class="clickable-term" data-term="biocompatibilite">biocompatibilité</span></strong> : le matériau ne doit pas être rejeté par l'organisme, ni toxique, ni se corroder. Le titane et ses alliages, certains aciers inoxydables spéciaux, des céramiques comme la zircone ou l'alumine, et certains polymères sont parmi les rares matériaux biocompatibles utilisés.</p>
+                </div>
+                <button class="back-button bottom-back-button"><i class="fas fa-arrow-left"></i> Retour</button>
+            </section>
+
+            <!-- ========================== -->
+            <!-- Section Conclusion (COMPLET) -->
+            <!-- ========================== -->
+            <section id="conclusion" class="course-section">
+                <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
+                <h2><i class="fas fa-rocket"></i> Conclusion et Perspectives : Les Matériaux de Demain</h2>
+
+                <h3><i class="fas fa-graduation-cap"></i> Bilan : Un Monde Construit sur les Matériaux</h3>
+                <p>L'étude des <span class="clickable-term" data-term="materiau">matériaux</span> au cycle 4 est une invitation à observer le monde technique avec un regard neuf. Nous avons vu que chaque objet qui nous entoure est le résultat d'un choix réfléchi de matériaux, basé sur une compréhension de leurs origines (métaux, polymères, céramiques, composites, naturels) et de leurs propriétés (mécaniques, physiques, chimiques, esthétiques).</p>
+                <p>Comprendre la diversité des matériaux, leurs caractéristiques spécifiques et les raisons complexes de leurs usages variés permet de décrypter la logique qui sous-tend la conception et la fabrication. Le processus de sélection est un véritable "art du compromis", où il faut jongler entre les performances techniques, les contraintes de fabrication, les aspects économiques et, de plus en plus, l'<span class="clickable-term" data-term="impact-env">impact environnemental</span>.</p>
+                <p>Cette démarche sensibilise aux enjeux de l'ingénierie et du développement durable, donnant les clés pour devenir des utilisateurs et des citoyens éclairés face aux défis technologiques et écologiques de notre temps.</p>
+
+                <h3><i class="fas fa-forward"></i> Vers l'Avenir : Les Matériaux du Futur</h3>
+                <p>La science des <span class="clickable-term" data-term="materiau">matériaux</span> est un domaine en constante évolution, repoussant sans cesse les limites du possible. Les chercheurs et ingénieurs développent de nouveaux matériaux aux propriétés étonnantes, ouvrant la voie à des innovations dans tous les secteurs (médecine, énergie, transports, communication, construction...). Voici quelques pistes prometteuses :</p>
+
+                <h4><i class="fas fa-brain"></i> 1. Les <span class="clickable-term" data-term="smart-material">Matériaux Intelligents</span> (Smart Materials)</h4>
+                <p>Ce sont des matériaux capables de réagir de manière contrôlée à un <span class="clickable-term" data-term="stimulus">stimulus</span> extérieur (changement de température, lumière, pression, champ électrique ou magnétique...).</p>
+                <ul>
+                    <li><strong><span class="clickable-term" data-term="memoire-forme">Alliages à mémoire de forme</span> :</strong> Ils peuvent retrouver leur forme initiale après déformation, simplement en étant chauffés. Applications : Stents médicaux qui se déploient dans les artères, thermostats, actuateurs.</li>
+                    <li><strong><span class="clickable-term" data-term="piezoelectrique">Matériaux piézoélectriques</span> :</strong> Ils génèrent une tension électrique lorsqu'on les déforme (ou se déforment sous tension électrique). Applications : Capteurs (micros, balances), allume-gaz, injecteurs de moteur.</li>
+                    <li><strong>Matériaux thermochromes/photochromes :</strong> Ils changent de couleur avec la température ou la lumière. Applications : Indicateurs de température, verres de lunettes qui foncent au soleil.</li>
+                </ul>
+
+                <h4><i class="fas fa-infinity"></i> 2. Les <span class="clickable-term" data-term="nanomateriau">Nanomatériaux</span></h4>
+                <p>Ce sont des matériaux structurés à l'échelle du <span class="clickable-term" data-term="nanometre">nanomètre</span> (un milliardième de mètre). À cette échelle, la matière acquiert des propriétés radicalement différentes.</p>
+                <ul>
+                    <li><strong><span class="clickable-term" data-term="graphene">Graphène</span> :</strong> Feuille de carbone d'un seul atome d'épaisseur, extrêmement résistant, léger, excellent conducteur d'électricité et de chaleur. Applications potentielles : Électronique flexible, batteries ultra-performantes, composites renforcés, filtration d'eau.</li>
+                    <li><strong><span class="clickable-term" data-term="nanotube-carbone">Nanotubes de carbone</span> :</strong> Cylindres creux de carbone, encore plus résistants que le graphène. Applications : Renforcement de matériaux, électronique, stockage d'énergie.</li>
+                    <li><strong><span class="clickable-term" data-term="nanoparticule">Nanoparticules</span> (argent, dioxyde de titane...) :</strong> Utilisées pour leurs propriétés antibactériennes, catalytiques ou de protection UV dans les crèmes solaires, les revêtements, les textiles. (Leur impact sur la santé et l'environnement est encore étudié).</li>
+                </ul>
+
+                <h4><i class="fas fa-spider"></i> 3. Les Matériaux <span class="clickable-term" data-term="biomimetisme">Bio-inspirés</span> (Biomimétisme)</h4>
+                <p>L'idée est de s'inspirer des solutions ingénieuses développées par la nature au fil de millions d'années d'évolution pour créer de nouveaux matériaux ou structures.</p>
+                <ul>
+                    <li>Velcro® : Inspiré des fruits de bardane qui s'accrochent aux poils d'animaux grâce à de petits crochets.</li>
+                    <li><span class="clickable-term" data-term="auto-reparant">Matériaux auto-réparants</span> : Inspirés de la cicatrisation biologique, ils contiennent des microcapsules de "colle" qui se libèrent pour réparer une fissure.</li>
+                    <li>Surfaces <span class="clickable-term" data-term="hydrophobe">super-hydrophobes</span> ("effet lotus") : Inspirées des feuilles de lotus sur lesquelles l'eau perle sans les mouiller, grâce à une nanostructure spécifique. Applications : Revêtements autonettoyants, textiles imperméables.</li>
+                    <li>Structures légères et résistantes : Inspirées de la structure des os ou des alvéoles d'abeilles.</li>
+                </ul>
+
+                 <h4><i class="fas fa-recycle"></i> 4. Les Matériaux Durables et Écologiques</h4>
+                 <p>Face à l'épuisement des ressources et aux enjeux climatiques, la recherche s'intensifie pour trouver des alternatives plus respectueuses de l'environnement.</p>
+                 <ul>
+                     <li><strong><span class="clickable-term" data-term="bioplastique">Bioplastiques</span> et <span class="clickable-term" data-term="polymere">polymères biosourcés</span> :</strong> Fabriqués à partir de ressources renouvelables (amidon de maïs, canne à sucre, algues...) et parfois <span class="clickable-term" data-term="biodegradable">biodégradables</span> ou <span class="clickable-term" data-term="compostable">compostables</span>.</li>
+                     <li><strong><span class="clickable-term" data-term="composite">Composites</span> à base de fibres naturelles :</strong> Utilisation de fibres de lin, chanvre, bois pour renforcer des matrices polymères (parfois biosourcées elles-mêmes), offrant une alternative plus légère et écologique aux fibres de verre.</li>
+                     <li><strong><span class="clickable-term" data-term="materiau">Matériaux</span> issus du <span class="clickable-term" data-term="recyclage">recyclage</span> :</strong> Développement de procédés pour recycler plus efficacement les plastiques, les métaux, le verre, et même les déchets complexes (ex: cartes électroniques) pour en refaire de nouveaux matériaux.</li>
+                     <li>Bétons "verts" : Recherche pour réduire l'empreinte carbone du ciment (qui est très élevée) en utilisant des liants alternatifs ou en capturant le CO2.</li>
+                     <li>Bois d'ingénierie avancés : Nouveaux types de bois lamellé-collé ou rétifié aux performances améliorées, permettant de construire des immeubles en bois de grande hauteur.</li>
+                 </ul>
+
+                <div class="did-you-know">
+                    <p><i class="fas fa-print"></i> <strong>Le saviez-vous ?</strong> L'<span class="clickable-term" data-term="impression-3d">impression 3D</span> (ou fabrication additive) révolutionne aussi le monde des matériaux. Elle permet de créer des objets complexes, couche par couche, à partir de poudres ou de fils de métaux, de polymères ou de céramiques. On peut ainsi fabriquer des pièces sur mesure, optimiser leur forme pour économiser de la matière, voire mélanger différents matériaux au sein d'une même pièce pour obtenir des propriétés graduelles (<span class="clickable-term" data-term="gradient-fonction">matériaux à gradient de fonction</span>).</p>
+                </div>
+                <button class="back-button bottom-back-button"><i class="fas fa-arrow-left"></i> Retour</button>
+            </section>
+
+        </div> <!-- Fin course-sections-container -->
+
+    </div> <!-- Fin main-container -->
+
+    <!-- Modale (cachée par défaut) -->
+    <div id="explanation-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close-button">&times;</span>
+            <h3 id="modal-title">Définition</h3>
+            <p id="modal-text">Contenu de l'explication...</p>
+        </div>
+    </div>
+
+    <!-- Script JS -->
+    <script src="script.js"></script>
+</head>
