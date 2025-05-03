@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Histoire de l'Exploration Sous-Marine</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Palette marine */
+        :root {
+            --marine-blue: #3aaee7;
+            --sky-blue: #a0d8f1;
+            --deep-blue: #003366;
+            --light-bg: rgba(255, 255, 255, 0.95);
+            --text-color: #003366;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            line-height: 1.7;
+            background: linear-gradient(135deg, var(--sky-blue), #e0f7ff);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        header {
+            background: url('https://images.unsplash.com/photo-1571171637578-41bc2ff0a00d?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+            height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(to top, var(--marine-blue), transparent);
+        }
+
+        h1 {
+            font-size: 3em;
+            color: white;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        nav {
+            background: rgba(58, 179, 171, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s, transform 0.3s;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #f0f8ff;
+            transform: translateY(-3px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            margin: 4rem 0;
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 1s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        h2 {
+            font-size: 2.5em;
+            color: var(--deep-blue);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 7L12 12L22 7L12 2Z" fill="%23003366"/><path d="M2 17L12 22L22 17" stroke="%23003366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat center/contain;
+        }
+
+        h3 {
+            font-size: 1.8em;
+            color: var(--marine-blue);
+            margin: 1.5rem 0 1rem;
+            position: relative;
+        }
+
+        h3::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 10px;
+            width: 15px;
+            height: 15px;
+            background: var(--marine-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--marine-blue);
+        }
+
+        .content {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,51,102,0.1);
+            line-height: 1.7;
+            position: relative;
+        }
+
+        .content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--marine-blue), transparent);
+        }
+
+        ul, ol {
+            margin: 1.2rem 0;
+            padding-left: 2rem;
+        }
+
+        .icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--marine-blue);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            margin: 0.3rem;
+            color: white;
+            transition: transform 0.3s;
+        }
+
+        .icon:hover {
+            transform: scale(1.1);
+        }
+
+        .icon i {
+            font-size: 1.5rem;
+        }
+
+        .image-container {
+            margin: 3rem 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0,51,102,0.2);
+        }
+
+        .image-container img {
+            width: 100%;
+            display: block;
+            transition: transform 0.8s ease-in-out;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.03) rotate(0.5deg);
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        footer {
+            background: var(--deep-blue);
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.9em;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            h2 { font-size: 2em; }
+            h3 { font-size: 1.5em; }
+            nav ul { flex-direction: column; gap: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="marine-bg"></canvas>
+    
+    <header>
+        <h1>L'Histoire de l’Exploration Sous-Marine</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#intro">Introduction</a></li>
+            <li><a href="#premiers-pas">Premiers Pas</a></li>
+            <li><a href="#grandes-inventions">Grandes Inventions</a></li>
+            <li><a href="#exploration-moderne">Exploration Moderne</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="intro">
+            <h2>Introduction</h2>
+            <div class="content">
+                <p>Depuis toujours, l’océan fascine et intrigue. Que cache-t-il dans ses abysses sombres et mystérieuses ? L’homme a tenté, au fil des siècles, de percer ces secrets en développant des technologies de plus en plus sophistiquées.</p>
+                <p>Ce blog vous propose un voyage à travers l’histoire de l’exploration sous-marine, des premières tentatives rudimentaires aux avancées technologiques actuelles. Découvrez comment les plongeurs, ingénieurs et scientifiques ont repoussé les limites du possible pour explorer les profondeurs marines.</p>
+            </div>
+        </section>
+
+        <section id="premiers-pas">
+            <h2>Les Premiers Pas</h2>
+            <div class="content">
+                <h3>Les Premières Tentatives</h3>
+                <p>L’histoire de l’exploration sous-marine remonte à l’Antiquité. Les premières tentatives reposaient sur des moyens simples comme les outres remplies d’air ou les tubes permettant de respirer sous l’eau. Mais c’est au XVIIe siècle que la cloche de plongée a révolutionné cette exploration. Cet outil, inventé par Edmond Halley en 1690, emprisonnait une bulle d’air et permettait aux plongeurs de rester sous l’eau plus longtemps.</p>
+                
+                <h3>Les Pionniers</h3>
+                <p>Parmi les premiers explorateurs sous-marins, on retrouve des inventeurs audacieux comme Alexander von Humboldt et Charles Anthony Deane, qui ont développé des équipements de plongée plus performants. Mais c’est surtout Auguste et Jacques Piccard, au XXe siècle, qui marqueront l’histoire en atteignant des profondeurs inégalées avec leurs submersibles.</p>
+                
+                <h3>Les Défis</h3>
+                <p>À l’époque, les explorateurs faisaient face à de nombreux défis :</p>
+                <ul>
+                    <li><span class="icon"><i class="fas fa-fire-alt"></i> Pression de l'eau</span> Augmente avec la profondeur et peut écraser les équipements.</li>
+                    <li><span class="icon"><i class="fas fa-lungs"></i> Manque d’oxygène</span> Trouver des solutions pour respirer sous l’eau.</li>
+                    <li><span class="icon"><i class="fas fa-moon"></i> Obscurité totale</span> Dans les grands fonds, la visibilité devient quasi nulle.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="grandes-inventions">
+            <h2>Les Grandes Inventions</h2>
+            <div class="content">
+                <h3>Le Scaphandre Autonome</h3>
+                <p>L’un des tournants majeurs de l’exploration sous-marine fut l’invention du scaphandre autonome. En 1943, Jacques-Yves Cousteau et l’ingénieur Émile Gagnan mettent au point l’Aqua-Lung, le premier détendeur permettant de respirer librement sous l’eau. Grâce à ce système, les plongeurs peuvent évoluer sous l’eau sans être reliés à un bateau par un tuyau d’air.</p>
+                
+                <div class="image-container">
+                    <img src="https://plus.unsplash.com/premium_photo-1661894232140-73d96a67731b?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                </div>
+                
+                <h3>Les Sous-Marins</h3>
+                <p>Les premiers sous-marins, comme le Nautilus de Robert Fulton en 1800, étaient de simples caissons hermétiques propulsés à la main. Au fil du temps, les sous-marins se sont perfectionnés, notamment avec l’apparition des moteurs électriques et nucléaires. Aujourd’hui, ils permettent d’explorer les océans sur de longues distances et à des profondeurs considérables.</p>
+                
+                <h3>Les Bathyscaphes</h3>
+                <p>Pour atteindre les fosses océaniques les plus profondes, les ingénieurs ont développé des bathyscaphes, des submersibles capables de supporter des pressions extrêmes. En 1960, le bathyscaphe Trieste, piloté par Jacques Piccard et Don Walsh, atteint 10 916 mètres de profondeur dans la fosse des Mariannes, un exploit historique.</p>
+            </div>
+        </section>
+
+        <section id="exploration-moderne">
+            <h2>L'Exploration Moderne</h2>
+            <div class="content">
+                <h3>Les Technologies Actuelles</h3>
+                <p>Aujourd’hui, l’exploration sous-marine repose sur des technologies de pointe :</p>
+                <ul>
+                    <li><span class="icon"><i class="fas fa-robot"></i> ROV Jason</span> Permet d’atteindre des zones inaccessibles aux plongeurs.</li>
+                    <li><span class="icon"><i class="fas fa-satellite"></i> Sonars et caméras</span> Offrent des images d’une précision inégalée.</li>
+                </ul>
+                
+                <h3>Les Missions Marquantes</h3>
+                <p>Ces dernières années, plusieurs missions ont marqué l’histoire de l’exploration sous-marine :</p>
+                <ul>
+                    <li><span class="icon"><i class="fas fa-video"></i> James Cameron</span> En 2012, réalise une plongée solitaire dans la fosse des Mariannes.</li>
+                    <li><span class="icon"><i class="fas fa-anchor"></i> Découverte d’épaves</span> Comme le Titanic ou l’Endurance.</li>
+                </ul>
+                
+                <h3>Les Perspectives d’Avenir</h3>
+                <p>Malgré ces avancées, plus de 80 % des océans restent inexplorés. Les scientifiques espèrent :</p>
+                <ul>
+                    <li><span class="icon"><i class="fas fa-fish"></i> Découvrir de nouvelles espèces</span></li>
+                    <li><span class="icon"><i class="fas fa-thermometer-half"></i> Étudier le changement climatique</span></li>
+                    <li><span class="icon"><i class="fas fa-diamond"></i> Exploiter des ressources abyssales</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+            <div class="content">
+                <p>L’exploration sous-marine a parcouru un long chemin, des premières cloches de plongée aux robots sous-marins les plus sophistiqués. Chaque avancée a permis de mieux comprendre notre planète et ses mystères cachés sous les flots.</p>
+                <p>Mais l’aventure est loin d’être terminée ! Les océans recèlent encore d’innombrables secrets à dévoiler. Qui sait quelles découvertes extraordinaires nous attendent dans les prochaines décennies ?</p>
+                
+                <div class="image-container">
+                    <img src="https://plus.unsplash.com/premium_photo-1733259743341-660c23023ddc?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Exploration Sous-Marine. D'après le blog d'Emma, Thomas, Antoine et Raphaël, élèves de 4e2.</p>
+    </footer>
+
+    <script>
+        // Fond marin animé
+        const canvas = document.getElementById('marine-bg');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.radius = Math.random() * 3 + 1;
+                this.alpha = Math.random() * 0.4;
+                this.speedY = Math.random() * 0.5;
+            }
+
+            update() {
+                this.y -= this.speedY;
+                if (this.y < -10) this.reset();
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 51, 102, ${this.alpha})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 150; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.fillStyle = 'rgba(160, 216, 241, 0.2)';
+            ctx.fillRect(0, 0, width, height);
+            
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            
+            requestAnimationFrame(animateParticles);
+        }
+
+        // Apparition au scroll
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.15 });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Initialisation
+        window.addEventListener('resize', resize);
+        resize();
+        initParticles();
+        animateParticles();
+    </script>
+</body>
+</html>

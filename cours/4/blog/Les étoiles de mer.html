@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Vie Abyssale</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variables */
+        :root {
+            --primary: #e0f7ff;
+            --secondary: #006699;
+            --accent: #0099cc;
+            --light-bg: rgba(255, 255, 255, 0.8);
+            --dark-text: #003366;
+        }
+
+        /* Base */
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            scroll-behavior: smooth;
+        }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            line-height: 1.7; 
+            background: linear-gradient(135deg, #e0f7ff, #a0d8f1); 
+            color: var(--dark-text); 
+            overflow-x: hidden; 
+        }
+
+        /* Header */
+        header {
+            background: url('https://images.unsplash.com/photo-1571171637578-41bc2ff0a00d?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+            height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(to top, var(--primary), transparent);
+        }
+        h1 { 
+            font-size: 3em; 
+            color: var(--dark-text);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2); 
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: color 0.3s, transform 0.3s;
+            font-weight: 500;
+        }
+        nav a:hover { 
+            color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Sections */
+        section {
+            margin: 4rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+        section.visible { opacity: 1; transform: translateY(0); }
+        h2 {
+            font-size: 2.5em;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 40px;
+        }
+        h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 7L12 12L22 7L12 2Z" fill="%23006699"/><path d="M2 17L12 22L22 17" stroke="%23006699" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat center/contain;
+        }
+        h3 {
+            font-size: 1.8em;
+            color: var(--accent);
+            margin: 1.5rem 0 1rem;
+        }
+
+        /* Content blocks */
+        .content {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,102,153,0.1);
+            line-height: 1.7;
+            position: relative;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 1rem 0 1.5rem 2rem;
+            padding-left: 1rem;
+        }
+
+        /* Icons */
+        .icon {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.8rem;
+            background: var(--accent);
+            border-radius: 8px;
+            transition: transform 0.3s;
+            color: white;
+        }
+        .icon:hover { transform: scale(1.1); }
+        .icon i {
+            font-size: 1.8rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Images */
+        .image-container {
+            margin: 2.5rem 0;
+            position: relative;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .image-container img {
+            width: 100%;
+            display: block;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            transition: transform 0.6s ease-in-out;
+        }
+        .image-container img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.9em;
+            color: white;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            nav ul { flex-direction: column; gap: 1rem; }
+            h2 { font-size: 2em; }
+            h3 { font-size: 1.5em; }
+        }
+
+        /* Particle Background */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particles"></canvas>
+    <header>
+        <h1>La Vie dans les Grands Fonds Marins</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#intro">Introduction</a></li>
+            <li><a href="#environnement">Environnement</a></li>
+            <li><a href="#adaptations">Adaptations</a></li>
+            <li><a href="#ecosystemes">Écosystèmes</a></li>
+            <li><a href="#menaces">Menaces</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <section id="intro">
+            <h2>Introduction</h2>
+            <div class="content">
+                <p>Imaginez un monde où la lumière du soleil ne pénètre jamais, où la pression est si intense qu’elle pourrait écraser un sous-marin, et où des créatures aux formes étranges évoluent dans l’obscurité. Bienvenue dans les grands fonds marins, un univers mystérieux et fascinant.</p>
+                <p>Dans ce blog, nous plongerons dans les profondeurs des océans pour explorer la vie incroyable qui s’y cache. Nous découvrirons comment les animaux s’adaptent à des conditions extrêmes, les stratégies qu’ils utilisent pour survivre, et les écosystèmes uniques qui prospèrent dans ces environnements inhospitaliers.</p>
+            </div>
+        </section>
+
+        <section id="environnement">
+            <h2>L'Environnement Extrême</h2>
+            <div class="content">
+                <h3>Pression et température</h3>
+                <p>Les grands fonds marins sont caractérisés par une pression écrasante, pouvant atteindre plus de 1000 fois la pression atmosphérique à la surface. Les animaux qui y vivent, comme les poissons abyssaux et les céphalopodes, ont développé des adaptations uniques. Leur corps est souvent gélatineux, ce qui leur permet de résister à cette pression. De plus, ils possèdent des structures internes qui évitent l'écrasement, comme des poches remplies de gaz.</p>
+                
+                <h3>Ressources limitées</h3>
+                <p>La nourriture provient principalement de la "neige marine", des débris organiques tombant depuis la surface. Seuls 1% des nutriments atteignent les abysses, créant un environnement de pénurie alimentaire. Les courants marins puissants, notamment les courants de turbidité, transportent ces sédiments le long du fond océanique, creusant progressivement des vallées profondes et étroites.</p>
+            </div>
+        </section>
+
+        <section id="adaptations">
+            <h2>Adaptations Étonnantes</h2>
+            <div class="content">
+                <h3>Survivre dans l'obscurité</h3>
+                <ul>
+                    <li><span class="icon"><i class="fas fa-fish"></i></span> <strong>Poisson lanterne :</strong> Utilise la bioluminescence pour attirer ses proies grâce à des bactéries symbiotiques.</li>
+                    <li><span class="icon"><i class="fas fa-spider"></i></span> <strong>Araignée de mer :</strong> Tisse des toiles gélatineuses pour capturer des crustacés.</li>
+                </ul>
+                
+                <h3>Résistance physique</h3>
+                <ul>
+                    <li><span class="icon"><i class="fas fa-dragon"></i></span> <strong>Poisson dragon :</strong> Corps flexible pour résister à la pression extrême.</li>
+                    <li><span class="icon"><i class="fas fa-starfish"></i></span> <strong>Étoile de mer géante :</strong> Métabolisme lent pour survivre aux carences alimentaires.</li>
+                </ul>
+                
+                <h3>Stratégies de chasse</h3>
+                <p>Les stratégies de chasse des animaux marins sont aussi variées que fascinantes. Certaines espèces utilisent le camouflage pour se fondre dans leur environnement, tandis que d'autres coordonnent des chasses en groupe. Les requins détectent les vibrations dans l'eau à des kilomètres de distance, et les araignées de mer utilisent des pièges physiques pour capturer leur nourriture.</p>
+            </div>
+        </section>
+
+        <section id="ecosystemes">
+            <h2>Écosystèmes Uniques</h2>
+            <div class="content">
+                <h3>Sources hydrothermales</h3>
+                <p>Ces cheminées volcaniques sous-marines libèrent de l’eau surchauffée et riche en minéraux, abritant des communautés uniques comme les vers tubicoles géants et les crustacés spécialisés. Ces écosystèmes dépendent des bactéries chimiosynthétiques plutôt que de la photosynthèse.</p>
+                
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1629392213229-a0087b7fbc27?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+">
+                </div>
+                
+                <h3>Fosses océaniques</h3>
+                <p>Les fosses océaniques, comme la fosse des Mariannes (11 km de profondeur), abritent des espèces adaptées à une pression extrême. Le poisson limace, par exemple, possède des protéines spéciales qui lui permettent de survivre à ces conditions.</p>
+            </div>
+        </section>
+
+        <section id="menaces">
+            <h2>Menaces</h2>
+            <div class="content">
+                <h3>Pression humaine</h3>
+                <p>Les écosystèmes abyssaux sont de plus en plus menacés par les activités humaines. La pollution marine, notamment les plastiques et les produits chimiques, s'accumule lentement dans ces régions inaccessibles, affectant la faune locale. La pêche en eaux profondes ravage les habitats fragiles, détruisant les écosystèmes benthiques. Le changement climatique modifie les conditions de vie avec l'acidification des océans.</p>
+                
+                <h3>Conséquences écologiques</h3>
+                <p>La destruction des fonds marins entraîne une perte d'habitat pour de nombreuses espèces. Les monts sous-marins servent de zones de reproduction et de nurseries pour les jeunes poissons. Leur destruction ou dégradation empêche les espèces de se reproduire ou de trouver un environnement adéquat pour le développement de leurs jeunes.</p>
+            </div>
+        </section>
+
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+            <div class="content">
+                <p>Les abysses restent l'un des derniers mystères de notre planète, recelant peut-être des secrets insoupçonnés. Malgré les conditions extrêmes, ces écosystèmes fragiles sont aujourd'hui menacés par l'homme. Leur préservation est cruciale pour la biodiversité mondiale et notre compréhension de la vie sur Terre.</p>
+                
+                <div class="image-container">
+                    <img src="https://plus.unsplash.com/premium_photo-1664303950306-6ff96c7eb5ce?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2025 La Vie Abyssale. d'après un blog de Giulia, Sarah, Lésia et Milà, élèves de 4e2</p>
+    </footer>
+    <script>
+        // Particle background
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.radius = Math.random() * 2 + 1;
+                this.alpha = Math.random() * 0.3 + 0.1;
+                this.speedY = Math.random() * 0.5;
+            }
+
+            update() {
+                this.y -= this.speedY;
+                if (this.y < -10) this.reset();
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255,255,255,${this.alpha})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 80; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.fillStyle = 'rgba(224,247,255,0.2)';
+            ctx.fillRect(0, 0, width, height);
+            
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            
+            requestAnimationFrame(animateParticles);
+        }
+
+        // Scroll animation
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.15 });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Initialize
+        window.addEventListener('resize', resize);
+        resize();
+        initParticles();
+        animateParticles();
+    </script>
+</body>
+</html>
