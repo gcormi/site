@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Partenaires - Projet Océan</title>
+    <link rel="stylesheet" href="style.css"> <!-- Pour le bouton flottant (si réactivé) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            position: relative;
+            font-family: 'Arial', sans-serif;
+            background-color: #001f3f; /* Fallback */
+            color: #f0f8ff; /* Texte clair par défaut */
+            overflow-y: auto; /* Permet le défilement si le texte est long */
+        }
+
+        .video-background-partenaires {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            filter: brightness(0.4); /* Assombrit la vidéo pour la lisibilité */
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 4rem auto; /* Espace en haut/bas, centré horizontalement */
+            padding: 2.5rem;
+            background-color: rgba(0, 31, 63, 0.3) !important; /* Fond bleu marine ENCORE PLUS transparent (0.3) + !important */
+            border-radius: 10px;
+            overflow: auto; /* Ajouté pour forcer le conteneur à gérer son contenu */
+            border: 2px solid yellow; /* Ajout d'une bordure jaune pour voir les limites */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .content-wrapper h1 {
+            text-align: center;
+            color: #94d2bd; /* Vert d'eau */
+            margin-top: 0;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .content-wrapper p {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            color: #e6f7ff; /* Texte très clair */
+        }
+
+        .content-wrapper strong { /* Met en évidence les noms */
+            color: #FF7F50; /* Corail */
+            font-weight: bold;
+        }
+
+        .back-link-partenaires {
+            display: block;
+            margin-top: 2.5rem;
+            text-align: center;
+            color: #b3d9ff; /* Bleu clair */
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link-partenaires:hover {
+            color: #e6f7ff;
+            text-decoration: underline;
+        }
+
+        /* Style du bouton flottant (défini dans style.css) */
+
+    </style>
+</head>
+<body>
+    <video autoplay muted loop playsinline class="video-background-partenaires">
+        <source src="video.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas les vidéos HTML5.
+    </video>
+
+    <div class="content-wrapper">
+        <h1>Remerciements</h1>
+        <p>Nous tenons à exprimer notre sincère gratitude à toutes les personnes et structures qui, par leur engagement et leur soutien, ont rendu possible et enrichi cet atelier scientifique consacré aux océans, mené hors temps scolaire.</p>
+        <p>Un merci tout particulier s'adresse aux <strong>élèves de 4e2 du collège de Montesoro</strong>. Leur participation volontaire, leur enthousiasme et la qualité du travail produit dans le cadre de cet atelier sont remarquables. Loin des contraintes habituelles du programme et de l'évaluation, ils ont démontré une formidable capacité à acquérir de nouvelles connaissances et à développer leur sensibilité à l'impérieuse nécessité de préserver nos océans.</p>
+        <p>Nous remercions chaleureusement la <strong>Casa di e Scenze di Bastia</strong> pour son accueil, son soutien constant et la richesse de nos collaborations, notamment autour de l'exposition "Océan : une plongée insolite".</p>
+        <p>Notre gratitude va également à la <strong>Délégation de Région Académique à la Recherche et à l'Innovation (DRARI)</strong> pour son accompagnement précieux et son suivi attentif tout au long de ce projet.</p>
+        <p>La <strong>Délégation de Région Académique au Numérique Éducative (DRANE)</strong> mérite nos vifs remerciements ; l'apport de son adjoint a été déterminant pour structurer la pédagogie des compétences numériques et concrétiser les diverses réalisations des élèves.</p>
+        <p>Nous remercions également la <strong>Mairie de Bastia</strong> pour son accompagnement.</p>
+        <p>L'association <strong>Mare Vivu</strong> est remerciée pour son suivi scientifique rigoureux, qui a apporté une expertise essentielle à notre démarche.</p>
+        <p>Nous n'oublions pas les <strong>membres de l'équipe pédagogique</strong> qui ont investi leur temps et leur énergie dans ce projet, apportant chacun leur contribution précieuse.</p>
+        <p>Enfin, un grand merci à la <strong>direction du collège de Montesoro</strong> pour avoir soutenu et autorisé cette initiative, offrant ainsi aux élèves une opportunité unique d'apprentissage et d'engagement.</p>
+
+        <a href="index.html" class="back-link-partenaires">Retour à l'accueil</a>
+    </div>
+
+    <!-- Si style.css est réactivé et contient .floating-home-button :
+    <a href="index.html" class="floating-home-button" title="Retour à l'accueil">
+        <i class="fas fa-home"></i>
+    </a>
+    -->
+</body>
+</html>

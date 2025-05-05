@@ -1,0 +1,200 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    height: 100vh;
+    overflow: hidden; /* Empêche le défilement global sur grand écran */
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* Section gauche */
+.left-section {
+    /* width: 60%; */
+    width: 70%; /* La section gauche prend 70% de la largeur */
+    position: relative; /* Nécessaire pour positionner la vidéo et le contenu */
+    overflow: hidden; /* Cache le débordement de la vidéo */
+    display: flex; /* Utiliser flex pour centrer .left-content */
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    color: white;
+    box-sizing: border-box;
+    /* La couleur de fond sert de fallback si la vidéo ne charge pas */
+    background-color: #003366; /* Bleu marine */
+}
+
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Couvre toute la zone sans déformer */
+    z-index: 1; /* Derrière le contenu */
+}
+
+.left-content {
+    position: relative; /* Pour être au-dessus de la vidéo */
+    z-index: 2; /* Au-dessus de la vidéo (z-index: 1) */
+    text-align: center; /* Centre le texte à l'intérieur */
+}
+
+.logo {
+    font-size: 4.2rem; /* Taille du titre encore un peu augmentée */
+    font-weight: bold;
+    margin-bottom: 0.5rem; /* Réduit l'espace en dessous pour rapprocher le sous-titre */
+    /* Optionnel: pour le décaler un peu vers le haut */
+    /* transform: translateY(-10px); */
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7); /* Ombre encore plus prononcée */
+}
+.subtitle {
+    font-size: 1.7rem; /* Sous-titre plus grand */
+    line-height: 1.4; /* Ajustement interligne si sur 2 lignes */
+    background: rgba(0, 0, 0, 0.7); /* Fond encore plus opaque */
+    padding: 0.8rem 1.5rem; /* Padding ajusté */
+    border-radius: 2rem;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Légère ombre sur le texte du sous-titre */
+}
+
+.description {
+    font-size: 1.05rem; /* Texte de description plus grand */
+    line-height: 1.6;
+    max-width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(0, 0, 0, 0.6); /* Fond semi-transparent (un peu plus que 0.5) */
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+/* Section droite */
+.right-section {
+    /* width: 40%; */
+    width: 30%; /* La section droite prend 30% de la largeur */
+    background-color: #D9F0FF; /* Bleu ciel clair */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    box-sizing: border-box;
+    overflow-y: auto; /* Ajout pour permettre le défilement si les boutons dépassent */
+}
+
+.menu-item {
+    width: 85%; /* Légèrement plus large pour compenser la taille du texte */
+    max-width: 380px; /* Limite la largeur max */
+    padding: 1rem 1.5rem;
+    margin: 0.5rem 0; /* Marge réduite pour accueillir 6 boutons */
+    border-radius: 2rem;
+    background: rgba(255,255,255,0.5);
+    display: flex;
+    align-items: center;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.menu-item:hover {
+    background: rgba(255,255,255,0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.menu-icon {
+    color: #FF7F50; /* Corail */
+    margin-right: 1rem;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0; /* Empêche l'icône de rétrécir */
+}
+
+.menu-text {
+    flex: 1;
+    font-size: 1.2rem; /* Texte des boutons plus grand */
+    font-weight: 500;
+}
+
+.chevron {
+    color: #FF7F50; /* Corail */
+    transition: transform 0.3s ease;
+    margin-left: 0.5rem; /* Petit espace avant la flèche */
+}
+
+.menu-item:hover .chevron {
+    transform: translateX(5px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        overflow: auto;
+        height: auto;
+    }
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+    .left-section, .right-section {
+        flex: none;
+        width: 100%;
+        height: auto;
+        min-height: 50vh;
+        overflow-y: visible; /* Annule le scroll interne sur mobile */
+    }
+    .right-section {
+         padding: 1.5rem; /* Réduit le padding sur mobile */
+    }
+    .menu-item {
+        width: 90%;
+        padding: 0.8rem 1.5rem;
+        margin: 0.4rem 0; /* Marge encore réduite sur mobile */
+    }
+    .logo {
+        font-size: 2.8rem; /* Taille titre mobile */
+    }
+    .subtitle {
+        font-size: 1.3rem; /* Taille sous-titre mobile */
+    }
+    .description {
+        font-size: 0.9rem;
+        max-width: 90%;
+    }
+    .menu-text {
+        font-size: 1.1rem; /* Taille texte bouton mobile */
+    }
+}
+
+/* Bouton flottant Accueil */
+.floating-home-button {
+    position: fixed; /* Position fixe par rapport à la fenêtre */
+    bottom: 25px;    /* Distance du bas */
+    right: 25px;     /* Distance de la droite */
+    width: 55px;     /* Largeur */
+    height: 55px;    /* Hauteur */
+    background-color: #FF7F50; /* Corail (comme les icônes/chevrons) */
+    color: white;    /* Couleur de l'icône */
+    border-radius: 50%; /* Pour le rendre circulaire */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6rem; /* Taille de l'icône maison */
+    text-decoration: none; /* Pas de soulignement */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4); /* Ombre portée */
+    z-index: 1000; /* Pour s'assurer qu'il est au-dessus des autres éléments */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.floating-home-button:hover {
+    background-color: #ffae8a; /* Corail plus clair au survol */
+    transform: scale(1.1); /* Légèrement plus grand au survol */
+}

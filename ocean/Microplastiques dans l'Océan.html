@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔬 Microplastiques dans l'Océan : Problèmes & Solutions 🌊</title>
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to bottom, #e8f5f0, #fff8f0);
+      color: #3e2723;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.7;
+    }
+    h1, h2, h3 {
+      color: #3e2723;
+      text-align: center;
+      margin-top: 40px;
+      animation: fadeIn 1s ease-in;
+    }
+    .section {
+      background-color: #ffffff;
+      padding: 35px;
+      margin-bottom: 40px;
+      border-radius: 25px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+    }
+    .section:hover { 
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+    .competence {
+      background: #fff3e0;
+      border-left: 6px solid #ef6c00;
+      padding: 22px;
+      margin: 30px 0;
+      border-radius: 14px;
+    }
+    .badge {
+      background-color: #ef6c00;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 0.9em;
+      margin: 7px;
+      display: inline-block;
+    }
+    .tooltip {
+      cursor: help;
+      color: #2e7d32;
+      text-decoration: underline dotted;
+    }
+    .tooltip:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #2e7d32;
+      color: #ffffff;
+      padding: 12px 18px;
+      border-radius: 12px;
+      white-space: nowrap;
+      font-size: 0.95em;
+      z-index: 10;
+      min-width: 200px;
+      max-width: 400px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+    .button {
+      background-color: #2e7d32;
+      color: #fff3e0;
+      padding: 16px 35px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      display: block;
+      margin: 35px auto 0;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+    .button:hover {
+      background-color: #1b5e20;
+      transform: scale(1.07) rotate(-2deg);
+    }
+    .qcm {
+      margin-top: 35px;
+      padding: 30px;
+      background-color: #e8f5e9;
+      border-radius: 18px;
+      border-left: 6px solid #2e7d32;
+    }
+    .qcm h4 {
+      margin-top: 0;
+      color: #2e7d32;
+    }
+    .feedback {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 1.3em;
+    }
+    .correct { 
+      color: #2e7d32; 
+      animation: pop 0.7s ease-in-out;
+    }
+    .incorrect { 
+      color: #d32f2f; 
+      animation: shake 0.7s ease-in-out;
+    }
+    .progress-container {
+      width: 100%;
+      background-color: #efebe9;
+      border-radius: 30px;
+      margin: 30px 0;
+      height: 35px;
+    }
+    .progress-bar {
+      background-color: #2e7d32;
+      height: 35px;
+      border-radius: 30px;
+      width: 0%;
+      transition: width 0.7s ease;
+    }
+    .score-board {
+      text-align: center;
+      margin: 25px 0;
+      font-weight: bold;
+      font-size: 1.4em;
+      color: #2e7d32;
+    }
+    .glossary {
+      background-color: #e8f5e9;
+      border-left: 6px solid #2e7d32;
+      padding: 25px;
+      margin: 40px 0;
+      border-radius: 14px;
+    }
+    .glossary h3 {
+      color: #2e7d32;
+      text-align: left;
+    }
+    .glossary ul {
+      list-style-type: none;
+      padding-left: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .glossary li {
+      margin: 12px;
+    }
+    .glossary a {
+      color: #2e7d32;
+      text-decoration: none;
+      font-weight: bold;
+      border-bottom: 2px solid #2e7d32;
+      transition: 0.3s;
+    }
+    .glossary a:hover {
+      color: #2e7d32;
+      opacity: 0.8;
+    }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      background-color: white;
+      padding: 30px;
+      border-radius: 25px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.35);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s ease;
+    }
+    .popup.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .popup::after {
+      content: "✖";
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      font-size: 1.8em;
+      color: #2e7d32;
+      cursor: pointer;
+    }
+    .saviez-vous {
+      background-color: #fffde7;
+      border-left: 6px solid #fbc02d;
+      padding: 18px;
+      margin: 25px 0;
+      border-radius: 12px;
+      font-style: italic;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      50% { transform: translateX(10px); }
+      75% { transform: translateX(-10px); }
+      100% { transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>🔬 Microplastiques dans l'Océan : Problèmes & Solutions 🌊</h1>
+  
+  <!-- Barre de progression -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <div class="score-board" id="scoreBoard">🎯 Score : 0/6 💡</div>
+
+  <!-- Compétences Cycle 4 -->
+  <div class="section">
+    <h2>📚 Compétences Cycle 4 - Technologie</h2>
+    <div class="competence">
+      <p><span class="badge">C1</span> Analyser les besoins des utilisateurs et le contexte d'utilisation</p>
+      <p><span class="badge">C2</span> Concevoir des solutions techniques adaptées aux contraintes</p>
+      <p><span class="badge">C3</span> Comprendre et exploiter les technologies numériques</p>
+      <p><span class="badge">C4</span> Évaluer l'impact environnemental des solutions techniques</p>
+      <p><span class="badge">C5</span> Pratiquer des démarches scientifiques et technologiques</p>
+      <p><span class="badge">C6</span> Mobiliser des outils mathématiques, scientifiques, techniques</p>
+    </div>
+    
+    <h2>🎯 Compétences Transversales du Bulletin Officiel</h2>
+    <div class="competence">
+      <p><span class="badge">CT1</span> Apprendre à apprendre</p>
+      <p><span class="badge">CT2</span> Autonomie et initiative</p>
+      <p><span class="badge">CT3</span> Coopération et communication</p>
+      <p><span class="badge">CT4</span> Raisonner et argumenter</p>
+      <p><span class="badge">CT5</span> Créativité et innovation</p>
+      <p><span class="badge">CT6</span> Responsabilité environnementale</p>
+    </div>
+  </div>
+
+  <!-- Section 1 : Introduction -->
+  <div class="section">
+    <h2>1. Qu'est-ce que les microplastiques ?</h2>
+    <p>Les microplastiques sont des fragments de plastique <span class="tooltip" data-tooltip="Moins de 5 millimètres de diamètre">microscopiques</span> qui polluent les océans. Ils proviennent de la dégradation des déchets plastiques, des produits cosmétiques et des fibres textiles synthétiques. Ces particules menacent les écosystèmes marins et peuvent entrer dans la chaîne alimentaire humaine.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🧠 <strong>Saviez-vous ?</strong> Il y a plus de <span class="tooltip" data-tooltip="Plus de 12 millions de tonnes de plastique qui entrent dans les océans chaque année">12 millions de tonnes</span> de plastique qui entrent dans les océans chaque année.
+    </div>
+
+    <!-- QCM Introduction -->
+    <div class="qcm">
+      <h4>Question 1 : Quelle est la taille maximale des microplastiques ?</h4>
+      <form id="qcm1">
+        <label><input type="radio" name="q1" value="a"> 5 mm</label><br>
+        <label><input type="radio" name="q1" value="b"> 50 mm</label><br>
+        <label><input type="radio" name="q1" value="c"> 500 mm</label><br>
+        <button type="button" onclick="checkAnswer('qcm1', 'a')" class="button">Vérifier</button>
+      </form>
+      <div id="feedback1" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <!-- Section 2 : Origines -->
+  <div class="section">
+    <h2>2. D'où viennent les microplastiques ?</h2>
+    <p>Les microplastiques ont plusieurs origines :</p>
+    
+    <h3>2.1 Dégradation des Plastiques 🌞</h3>
+    <p><strong>Mécanisme :</strong> Sous l'action du soleil, de l'eau et des vagues, les gros déchets plastiques se fragmentent en particules de plus en plus petites.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🧪 <strong>Saviez-vous ?</strong> Un sac en plastique peut mettre jusqu'à <span class="tooltip" data-tooltip="Jusqu'à 200 ans pour se dégrader">200 ans</span> à se dégrader complètement.
+    </div>
+
+    <h3>2.2 Microbilles Cosmétiques 💄</h3>
+    <p><strong>Mécanisme :</strong> Utilisées dans les gommages et certains produits de beauté, ces microbilles sont emportées par les eaux usées et finissent dans l'océan.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🚿 <strong>Saviez-vous ?</strong> Une seule bouteille de gommage peut contenir <span class="tooltip" data-tooltip="Plus de 300 000 microbilles par flacon">300 000 microbilles</span> de plastique.
+    </div>
+
+    <h3>2.3 Fibres Textiles 👕</h3>
+    <p><strong>Mécanisme :</strong> Le lavage des vêtements synthétiques libère des <span class="tooltip" data-tooltip="Fibres microscopiques libérées lors du lavage">fibres</span> qui passent à travers les stations d'épuration.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🧺 <strong>Saviez-vous ?</strong> Un seul lavage peut libérer <span class="tooltip" data-tooltip="Jusqu'à 700 000 fibres microscopiques">700 000 fibres</span> de plastique.
+    </div>
+
+    <!-- QCM Origines -->
+    <div class="qcm">
+      <h4>Question 2 : Quel produit libère des microbilles ?</h4>
+      <form id="qcm2">
+        <label><input type="radio" name="q2" value="a"> Dentifrice</label><br>
+        <label><input type="radio" name="q2" value="b"> Crème solaire</label><br>
+        <label><input type="radio" name="q2" value="c"> Gommage</label><br>
+        <button type="button" onclick="checkAnswer('qcm2', 'c')" class="button">Vérifier</button>
+      </form>
+      <div id="feedback2" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <!-- Section 3 : Impacts -->
+  <div class="section">
+    <h2>3. Impacts sur l'Environnement 🐠</h2>
+    <h3>3.1 Effets sur la Faune Marine 🐬</h3>
+    <p><strong>Impact :</strong> Les microplastiques sont ingérés par les poissons, crustacés et autres animaux marins, perturbant leur système digestif et pouvant causer leur mort.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🐟 <strong>Saviez-vous ?</strong> Des études ont trouvé des microplastiques dans <span class="tooltip" data-tooltip="Plus de 90% des poissons d'eau de mer étudiés">90% des poissons</span> d'eau de mer.
+    </div>
+
+    <h3>3.2 Bio-accumulation 🌿</h3>
+    <p><strong>Impact :</strong> Les microplastiques absorbent les polluants chimiques et se concentrent dans la chaîne alimentaire, affectant même nos repas.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🍽️ <strong>Saviez-vous ?</strong> Nous ingérons en moyenne <span class="tooltip" data-tooltip="Environ 5 grammes par semaine, soit l'équivalent d'une carte de crédit">5 grammes</span> de microplastiques par semaine.
+    </div>
+
+    <!-- QCM Impacts -->
+    <div class="qcm">
+      <h4>Question 3 : Où retrouve-t-on les microplastiques ?</h4>
+      <form id="qcm3">
+        <label><input type="radio" name="q3" value="a"> Dans les aliments</label><br>
+        <label><input type="radio" name="q3" value="b"> Dans l'air</label><br>
+        <label><input type="radio" name="q3" value="c"> Dans tous les milieux</label><br>
+        <button type="button" onclick="checkAnswer('qcm3', 'c')" class="button">Vérifier</button>
+      </form>
+      <div id="feedback3" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <!-- Section 4 : Solutions Techniques -->
+  <div class="section">
+    <h2>4. Solutions de Nettoyage 🛠️</h2>
+    <h3>4.1 Filtration Avancée ⚙️</h3>
+    <p><strong>Principe :</strong> Utilisation de <span class="tooltip" data-tooltip="Matériaux avec des pores extrêmement petits">membranes</span> nanométriques pour capturer les microplastiques dans les eaux usées.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🔬 <strong>Saviez-vous ?</strong> La <span class="tooltip" data-tooltip="Matériau composé d'une couche d'atomes de carbone">graphène</span> peut capturer des particules de 1 nanomètre.
+    </div>
+
+    <h3>4.2 Adsorption Chimique 🧲</h3>
+    <p><strong>Principe :</strong> Utilisation de matériaux attirant les microplastiques grâce à des forces chimiques ou électrostatiques.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🧪 <strong>Saviez-vous ?</strong> Certains <span class="tooltip" data-tooltip="Matériaux poreux qui attirent les contaminants">biocharbons</span> peuvent adsorber jusqu'à 90% des microplastiques.
+    </div>
+
+    <h3>4.3 Décantation Assistée ⚗️</h3>
+    <p><strong>Principe :</strong> Utilisation de systèmes qui accélèrent la séparation des microplastiques de l'eau par gravité ou centrifugation.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🔄 <strong>Saviez-vous ?</strong> La <span class="tooltip" data-tooltip="Technique qui utilise la force centrifuge pour séparer les particules">centrifugation</span> peut traiter 1000 m³ d'eau par heure.
+    </div>
+
+    <!-- QCM Solutions -->
+    <div class="qcm">
+      <h4>Question 4 : Quelle méthode utilise la force centrifuge ?</h4>
+      <form id="qcm4">
+        <label><input type="radio" name="q4" value="a"> Décantation</label><br>
+        <label><input type="radio" name="q4" value="b"> Adsorption</label><br>
+        <label><input type="radio" name="q4" value="c"> Filtration</label><br>
+        <button type="button" onclick="checkAnswer('qcm4', 'a')" class="button">Vérifier</button>
+      </form>
+      <div id="feedback4" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <!-- Section 5 : Technologies Innovantes -->
+  <div class="section">
+    <h2>5. Technologies de Pointe 🤖</h2>
+    <h3>5.1 Conception Assistée par Ordinateur 💻</h3>
+    <p><strong>Principe :</strong> Utilisation de logiciels de CAO pour concevoir des filtres et robots optimisés avant fabrication.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🧰 <strong>Saviez-vous ?</strong> Des logiciels de simulation peuvent modéliser l'efficacité des systèmes de filtrage.
+    </div>
+
+    <h3>5.2 Capteurs et IA 📡</h3>
+    <p><strong>Principe :</strong> Capteurs optiques et algorithmes d'<span class="tooltip" data-tooltip="Technologies qui permettent aux machines de prendre des décisions">IA</span> pour détecter et collecter les microplastiques.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🧠 <strong>Saviez-vous ?</strong> Certains capteurs utilisent des <span class="tooltip" data-tooltip="Lumière invisible utilisée pour identifier les matériaux">rayons infrarouges</span> pour détecter les microplastiques.
+    </div>
+
+    <h3>5.3 Robots Nettoyeurs 🤖</h3>
+    <p><strong>Principe :</strong> Drones aquatiques autonomes équipés de systèmes de collecte pour nettoyer les zones polluées.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🚢 <strong>Saviez-vous ?</strong> Le projet <span class="tooltip" data-tooltip="Robot de nettoyage des océans">SeaVax</span> peut collecter 1,2 tonnes de déchets par mois.
+    </div>
+
+    <!-- QCM Technologies -->
+    <div class="qcm">
+      <h4>Question 5 : Quelle technologie identifie les microplastiques ?</h4>
+      <form id="qcm5">
+        <label><input type="radio" name="q5" value="a"> Capteurs optiques</label><br>
+        <label><input type="radio" name="q5" value="b"> Imprimantes 3D</label><br>
+        <label><input type="radio" name="q5" value="c"> Moteurs à vapeur</label><br>
+        <button type="button" onclick="checkAnswer('qcm5', 'a')" class="button">Vérifier</button>
+      </form>
+      <div id="feedback5" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <!-- Section 6 : Solutions Durables -->
+  <div class="section">
+    <h2>6. Solutions Durables 🌱</h2>
+    <h3>6.1 Bio-matériaux 🌿</h3>
+    <p><strong>Principe :</strong> Utilisation de matériaux biodégradables comme le <span class="tooltip" data-tooltip="Plastique issu de ressources renouvelables">PLA</span> (Acide Polylactique) pour remplacer les plastiques traditionnels.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🍃 <strong>Saviez-vous ?</strong> Le PLA est fait à partir de fécule de maïs ou de canne à sucre.
+    </div>
+
+    <h3>6.2 Économie Circulaire ♻️</h3>
+    <p><strong>Principe :</strong> Réutilisation des microplastiques collectés pour fabriquer de nouveaux produits.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      ♻️ <strong>Saviez-vous ?</strong> Des routes sont construites avec des <span class="tooltip" data-tooltip="Utilisation de plastique recyclé dans les matériaux de construction">plastiques recyclés</span> en Australie.
+    </div>
+
+    <h3>6.3 Innovation Matérielle 🧬</h3>
+    <p><strong>Principe :</strong> Développement de nouveaux matériaux qui attirent ou décomposent les microplastiques.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🔬 <strong>Saviez-vous ?</strong> Des <span class="tooltip" data-tooltip="Matériaux qui décomposent les plastiques">enzymes</span> peuvent dégrader le plastique en quelques heures.
+    </div>
+
+    <!-- QCM Durabilité -->
+    <div class="qcm">
+      <h4>Question 6 : Quel matériau décompose le plastique ?</h4>
+      <form id="qcm6">
+        <label><input type="radio" name="q6" value="a"> Enzymes</label><br>
+        <label><input type="radio" name="q6" value="b"> Acier</label><br>
+        <label><input type="radio" name="q6" value="c"> Béton</label><br>
+        <button type="button" onclick="checkAnswer('qcm6', 'a')" class="button">Vérifier</button>
+      </form>
+      <div id="feedback6" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <!-- Section 7 : Conclusion -->
+  <div class="section">
+    <h2>7. Conclusion et Perspectives 🚀</h2>
+    <p>La lutte contre les microplastiques nécessite une approche multifacette combinant prévention, innovation et technologies avancées. Des solutions comme les capteurs intelligents, les robots de nettoyage et les nouveaux matériaux offrent des espoirs concrets.</p>
+    
+    <h3>7.1 Nos Responsabilités 🌐</h3>
+    <p>En tant que société, il est crucial de réduire notre consommation de plastique à usage unique et de soutenir la recherche sur les alternatives durables.</p>
+    
+    <h3>7.2 Perspectives Futures</h3>
+    <p>Les recherches en <span class="tooltip" data-tooltip="Technologie qui imite les processus naturels">bio-inspiration</span> et en <span class="tooltip" data-tooltip="Matériaux artificiels qui imitent la nature">bio-mimétisme</span> ouvrent des voies prometteuses pour résoudre ce problème mondial.</p>
+  </div>
+
+  <!-- Glossaire -->
+  <div class="glossary">
+    <h3>📚 Glossaire des Termes Techniques</h3>
+    <ul>
+      <li><a href="#" class="tooltip" data-tooltip="Particules plastiques de moins de 5 mm" onclick="showPopup('microplastiques')">Microplastiques</a></li>
+      <li><a href="#" class="tooltip" data-tooltip="Matériau composé d'atomes de carbone en une couche d'un atome d'épaisseur" onclick="showPopup('graphene')">Graphène</a></li>
+      <li><a href="#" class="tooltip" data-tooltip="Technologie qui permet aux machines de prendre des décisions" onclick="showPopup('ia')">Intelligence Artificielle</a></li>
+      <li><a href="#" class="tooltip" data-tooltip="Acide Polylactique - plastique biodégradable" onclick="showPopup('pla')">PLA</a></li>
+      <li><a href="#" class="tooltip" data-tooltip="Processus d'attraction chimique des particules" onclick="showPopup('adsorption')">Adsorption</a></li>
+      <li><a href="#" class="tooltip" data-tooltip="Utilisation de la force centrifuge pour séparer les particules" onclick="showPopup('centrifugation')">Centrifugation</a></li>
+      <li><a href="#" class="tooltip" data-tooltip="Conception assistée par ordinateur" onclick="showPopup('cao')">CAO</a></li>
+      <li><a href="#" class="tooltip" data-tooltip="Technologie qui imite les processus naturels" onclick="showPopup('bioinspiration')">Bio-inspiration</a></li>
+      <li><a href="#" class="tooltip" data-tooltip="Matière organique qui se décompose naturellement" onclick="showPopup('biodegradable')">Biodégradable</a></li>
+      <li><a href="#" class="tooltip" data-tooltip="Utilisation répétée des matériaux" onclick="showPopup('circularite')">Circularité</a></li>
+    </ul>
+  </div>
+
+  <!-- Popups -->
+  <div id="popup-microplastiques" class="popup">
+    <h3>Microplastiques</h3>
+    <p>Particules plastiques de moins de 5 mm, provenant de la dégradation des déchets ou d'usages industriels.</p>
+  </div>
+  <div id="popup-graphene" class="popup">
+    <h3>Graphène</h3>
+    <p>Matériau en carbone 2D extrêmement léger et résistant, utilisé dans les membranes de filtration avancée.</p>
+  </div>
+  <div id="popup-ia" class="popup">
+    <h3>Intelligence Artificielle</h3>
+    <p>Technologies permettant aux machines d'apprendre et de prendre des décisions autonomes.</p>
+  </div>
+  <div id="popup-pla" class="popup">
+    <h3>PLA</h3>
+    <p>Acide Polylactique - plastique biodégradable issu de ressources renouvelables comme le maïs.</p>
+  </div>
+  <div id="popup-adsorption" class="popup">
+    <h3>Adsorption</h3>
+    <p>Phénomène chimique où les particules s'attachent à la surface d'un matériau.</p>
+  </div>
+  <div id="popup-centrifugation" class="popup">
+    <h3>Centrifugation</h3>
+    <p>Technique qui utilise la force centrifuge pour séparer les particules de l'eau.</p>
+  </div>
+  <div id="popup-cao" class="popup">
+    <h3>Conception Assistée par Ordinateur</h3>
+    <p>Utilisation de logiciels 3D pour créer et tester des solutions avant fabrication.</p>
+  </div>
+  <div id="popup-bioinspiration" class="popup">
+    <h3>Bio-inspiration</h3>
+    <p>Création de technologies en s'inspirant des solutions trouvées dans la nature.</p>
+  </div>
+  <div id="popup-biodegradable" class="popup">
+    <h3>Biodégradable</h3>
+    <p>Matériau qui se décompose naturellement grâce aux micro-organismes.</p>
+  </div>
+  <div id="popup-circularite" class="popup">
+    <h3>Circularité</h3>
+    <p>Approche économique visant à réutiliser les ressources autant que possible.</p>
+  </div>
+
+  <script>
+    let score = 0;
+    const totalQuestions = 6;
+    const progressBar = document.getElementById('progressBar');
+    const scoreBoard = document.getElementById('scoreBoard');
+
+    function checkAnswer(qcmId, correctAnswer) {
+      const form = document.getElementById(qcmId);
+      const selected = form.querySelector('input:checked');
+      const feedback = document.getElementById('feedback' + qcmId.replace('qcm', ''));
+      
+      if (selected) {
+        if (selected.value === correctAnswer) {
+          feedback.textContent = "Correct ! 🎉";
+          feedback.className = "feedback correct";
+          score++;
+        } else {
+          feedback.textContent = "Incorrect. Essayez encore ! ❌";
+          feedback.className = "feedback incorrect";
+        }
+        feedback.classList.remove('hidden');
+        updateProgress();
+        
+        const radios = form.querySelectorAll('input[type="radio"]');
+        radios.forEach(radio => radio.disabled = true);
+      } else {
+        alert("Veuillez sélectionner une réponse !");
+      }
+    }
+
+    function updateProgress() {
+      const percentage = (score / totalQuestions) * 100;
+      progressBar.style.width = percentage + "%";
+      scoreBoard.textContent = `🎯 Score : ${score}/${totalQuestions} 💡`;
+      
+      if (percentage < 50) {
+        progressBar.style.backgroundColor = "#d32f2f";
+      } else if (percentage < 75) {
+        progressBar.style.backgroundColor = "#fbc02d";
+      } else {
+        progressBar.style.backgroundColor = "#388e3c";
+      }
+    }
+
+    function showPopup(term) {
+      document.querySelectorAll('.popup').forEach(popup => popup.classList.remove('visible'));
+      const popup = document.getElementById('popup-' + term);
+      if (popup) {
+        popup.classList.add('visible');
+        popup.addEventListener('click', function(e) {
+          if (e.target.closest('::after')) {
+            popup.classList.remove('visible');
+          }
+        });
+      }
+    }
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.popup') && !e.target.classList.contains('tooltip')) {
+        document.querySelectorAll('.popup').forEach(popup => popup.classList.remove('visible'));
+      }
+    });
+  </script>
+</body>
+</html>
