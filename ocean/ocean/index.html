@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De la Vie Planctonique aux Technologies Innovantes : Un Parcours Éducatif des Océans</title>
+
+    <!-- Police Dyslexique (Locale) -->
+    <!-- L'ancienne ligne CDN a été commentée ou supprimée -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opendyslexic@1.0.3/dist/opendyslexic/opendyslexic.css"
+        integrity="sha256-eUZ4zDs4uiDhexZ4aN+a5h3VrXr1WmZR/TbZPCbRmv8=" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <link rel="stylesheet" href="opendyslexic.css"> <!-- Lien vers le fichier local -->
+
+    <!-- Votre CSS externe -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body class=""> <!-- La classe dark-mode ou dyslexic-font sera ajoutée par JS -->
+    <!-- Barre de progression de lecture -->
+    <div class="reading-progress-bar" id="reading-progress"></div>
+
+    <!-- Barre de navigation principale -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">🌊 Océan</div>
+            <div class="nav-toggle" id="nav-toggle" aria-label="Menu de navigation" aria-expanded="false">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                 <li><a href="#introduction" class="nav-link">Introduction</a></li>
+                 <li><a href="#ecosystemes" class="nav-link">Écosystèmes</a></li>
+                 <!-- Note: Ce lien pointe vers #plancton. Assurez-vous que cet ID existe. -->
+                 <li><a href="#plancton" class="nav-link">Plancton</a></li>
+                 <li><a href="#defis" class="nav-link">Défis</a></li>
+                 <li><a href="#innovations" class="nav-link">Technologies</a></li>
+                 <li><a href="#zone-interactives" class="nav-link">Zone interactive</a></li>
+                 <li><a href="#quiz" class="nav-link">Quiz</a></li>
+                 <li><a href="#activites" class="nav-link">Activités</a></li>
+                 <li><a href="#" id="arcade-game-link" class="nav-link">🎮 Jeu d’arcade</a></li>
+                 <li>
+                    <button id="dark-mode-toggle" class="dark-mode-btn" aria-label="Basculer le mode sombre">
+                        <span class="mode-icon light-mode-icon">🌞</span>
+                        <span class="mode-icon dark-mode-icon">🌙</span>
+                    </button>
+                </li>
+                <li>
+                    <button id="dyslexic-font-toggle" class="dyslexic-font-btn" aria-label="Basculer la police pour dyslexie">
+                        Police Dys
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header>
+        <h1>De la Vie Planctonique aux Technologies Innovantes : Un Parcours Éducatif des Océans</h1>
+        <p>Découvrez les écosystèmes marins, le rôle essentiel du plancton et les solutions pour préserver nos océans</p>
+        <div class="header-buttons">
+            <a href="#introduction" class="cta-button">Commencer l'exploration <span class="arrow">→</span></a>
+        </div>
+        <div class="wave-animation"></div>
+    </header>
+
+    <!-- Contenu principal de la page -->
+    <main class="container">
+
+        <!-- Utilisation de <section> au lieu de <div> pour les chapitres -->
+        <section id="introduction" class="chapter">
+            <h2>Introduction</h2>
+            <p>Les océans couvrent plus de 70% de la surface de notre planète et jouent un rôle essentiel dans la régulation du climat, la production d'oxygène et le maintien de la biodiversité. Cependant, ils font face à de nombreux défis causés par les activités humaines.</p>
+
+            <!-- Utilisation de <figure> et <figcaption> -->
+            <figure class="image-container floating">
+                <img src="https://images.unsplash.com/photo-1694629555192-b248d606a73a?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Océan bleu vu de haut avec quelques vagues blanches" class="chapter-image">
+                <figcaption class="image-caption">Les océans sont menacés par la pollution plastique et d'autres activités humaines</figcaption>
+            </figure>
+
+            <h3>L'importance des océans</h3>
+            <p>Les océans sont essentiels à la survie de notre planète et de ses habitants pour plusieurs raisons :</p>
+            <ul>
+                <li>Ils produisent plus de 50% de l'oxygène que nous respirons grâce au phytoplancton</li>
+                <li>Ils absorbent environ 30% du dioxyde de carbone produit par les activités humaines</li>
+                <li>Ils régulent le climat mondial en transportant la chaleur des régions équatoriales vers les pôles</li>
+                <li>Ils abritent une biodiversité exceptionnelle avec plus d'un million d'espèces animales et végétales</li>
+                <li>Ils fournissent une source de nourriture pour plus de 3 milliards de personnes</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>Le saviez-vous ?</h4>
+                <p>Les océans contiennent 97% de l'eau de notre planète et représentent 99% de l'espace habitable sur Terre en volume. Pourtant, moins de 5% des océans ont été explorés en détail par les humains !</p>
+            </div>
+
+            <h3>Les défis actuels</h3>
+            <p>Malgré leur importance cruciale, les océans sont confrontés à de nombreux défis qui menacent leur équilibre et leur santé :</p>
+            <ul>
+                <li>La pollution plastique et chimique</li>
+                <li>Le réchauffement climatique et l'acidification des océans</li>
+                <li>La surpêche et la destruction des habitats marins</li>
+                <li>L'élévation du niveau de la mer</li>
+                <li>Les espèces invasives</li>
+            </ul>
+
+            <p>Dans ce cours, nous explorerons ces défis en détail et découvrirons les solutions technologiques innovantes qui sont développées pour protéger nos océans et assurer leur avenir.</p>
+
+            <div class="interactive-element">
+                <h4>Explorez les profondeurs des océans <span class="toggle-icon">▼</span></h4>
+                <div class="content">
+                    <p>Les océans sont divisés en plusieurs zones en fonction de leur profondeur :</p>
+                    <ul>
+                        <li><strong>Zone épipélagique (0-200m)</strong> : C'est la zone où la lumière pénètre, permettant la photosynthèse. On y trouve la plus grande diversité d'espèces marines.</li>
+                        <li><strong>Zone mésopélagique (200-1000m)</strong> : Aussi appelée "zone crépusculaire", où la lumière est faible. De nombreuses espèces y remontent la nuit pour se nourrir.</li>
+                        <li><strong>Zone bathypélagique (1000-4000m)</strong> : Zone d'obscurité totale, où vivent des créatures bioluminescentes fascinantes.</li>
+                        <li><strong>Zone abyssopélagique (4000-6000m)</strong> : Pression extrême et températures froides. Des écosystèmes uniques s'y développent autour des sources hydrothermales.</li>
+                        <li><strong>Zone hadopélagique (au-delà de 6000m)</strong> : Les fosses océaniques les plus profondes, comme la fosse des Mariannes (11 000m).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="ecosystemes" class="chapter">
+            <h2>Écosystèmes marins</h2>
+            <p>Les océans abritent une variété incroyable d'écosystèmes, chacun avec ses propres caractéristiques et sa biodiversité unique. Ces écosystèmes sont interconnectés et contribuent ensemble à l'équilibre de notre planète.</p>
+
+            <figure class="image-container floating">
+                <img src="https://images.unsplash.com/photo-1572594417697-0764e4e7ee1e?q=80&w=2274&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Récif corallien coloré avec poissons" class="chapter-image">
+                <figcaption class="image-caption">Les récifs coralliens sont parmi les écosystèmes les plus riches en biodiversité sur Terre</figcaption>
+            </figure>
+
+            <h3>Les récifs coralliens</h3>
+            <p>Souvent appelés "forêts tropicales des mers", les récifs coralliens couvrent moins de 1% des fonds marins mais abritent près de 25% de toutes les espèces marines.</p>
+            <ul>
+                <li>Ils sont formés par des colonies de minuscules animaux appelés polypes coralliens</li>
+                <li>Ils offrent un habitat à plus de 4 000 espèces de poissons et des milliers d'autres organismes</li>
+                <li>Ils protègent les côtes contre l'érosion et les tempêtes</li>
+                <li>Ils sont très sensibles au réchauffement des océans et à l'acidification</li>
+            </ul>
+
+            <h3>Les forêts de kelp</h3>
+            <p>Les forêts de kelp sont des écosystèmes dominés par de grandes algues brunes appelées kelp, qui peuvent croître jusqu'à 60 cm par jour dans des conditions optimales.</p>
+            <ul>
+                <li>Elles servent de nurserie et d'abri pour de nombreuses espèces marines</li>
+                <li>Elles réduisent l'érosion côtière en atténuant la force des vagues</li>
+                <li>Elles absorbent de grandes quantités de CO2, aidant à lutter contre le changement climatique</li>
+                <li>Elles sont menacées par le réchauffement des océans et la surpopulation d'oursins</li>
+            </ul>
+
+            <h3>Les prairies sous-marines</h3>
+            <p>Les prairies sous-marines sont composées de plantes à fleurs (angiospermes) qui se sont adaptées à la vie sous-marine.</p>
+            <ul>
+                <li>Elles stockent le carbone jusqu'à 35 fois plus rapidement que les forêts tropicales</li>
+                <li>Elles stabilisent les sédiments marins et améliorent la qualité de l'eau</li>
+                <li>Elles servent de nurserie pour de nombreuses espèces commerciales importantes</li>
+                <li>Elles sont en déclin dans le monde entier en raison du développement côtier et de la pollution</li>
+            </ul>
+
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="tab1">Mangroves</button>
+                    <button class="tab-button" data-tab="tab2">Zones pélagiques</button>
+                    <button class="tab-button" data-tab="tab3">Sources hydrothermales</button>
+                </div>
+                <div id="tab1" class="tab-content active">
+                    <h4>Les mangroves</h4>
+                    <p>Les mangroves sont des forêts côtières qui poussent dans les zones intertidales des régions tropicales et subtropicales.</p>
+                    <ul>
+                        <li>Elles protègent les côtes contre l'érosion et les tempêtes</li>
+                        <li>Elles séquestrent jusqu'à quatre fois plus de carbone que les forêts terrestres</li>
+                        <li>Elles filtrent les polluants et améliorent la qualité de l'eau</li>
+                        <li>Elles sont menacées par l'aquaculture, le développement côtier et la montée du niveau de la mer</li>
+                    </ul>
+                </div>
+                <div id="tab2" class="tab-content">
+                    <h4>Les zones pélagiques</h4>
+                    <p>Les zones pélagiques représentent la colonne d'eau des océans ouverts, loin des côtes et des fonds marins.</p>
+                    <ul>
+                        <li>Elles abritent une grande diversité d'organismes, du plancton microscopique aux plus grands animaux de la planète comme les baleines</li>
+                        <li>Le phytoplancton qui y vit produit plus de la moitié de l'oxygène atmosphérique</li>
+                        <li>Elles sont affectées par le réchauffement climatique, l'acidification et la pollution</li>
+                    </ul>
+                </div>
+                <div id="tab3" class="tab-content">
+                    <h4>Les sources hydrothermales</h4>
+                    <p>Les sources hydrothermales sont des fissures dans le fond marin d'où s'échappe de l'eau géothermiquement chauffée.</p>
+                    <ul>
+                        <li>Elles soutiennent des écosystèmes uniques basés sur la chimiosynthèse plutôt que la photosynthèse</li>
+                        <li>Elles abritent des espèces extrêmophiles qui peuvent survivre dans des conditions extrêmes</li>
+                        <li>Leur découverte a révolutionné notre compréhension de l'origine de la vie sur Terre</li>
+                        <li>Elles sont menacées par l'exploitation minière des fonds marins</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Le saviez-vous ?</h4>
+                <p>Le phytoplancton, composé de minuscules organismes photosynthétiques flottant dans les océans, est responsable de la production de 50-85% de l'oxygène sur Terre. Chaque souffle que nous prenons dépend en grande partie de ces organismes microscopiques !</p>
+            </div>
+
+            <!-- Section Plancton avec ID -->
+            <h3 id="plancton">Le monde du plancton</h3>
+            <p>Le plancton, bien que souvent invisible à l'œil nu, constitue le fondement même de presque toutes les chaînes alimentaires marines. Ces organismes microscopiques jouent un rôle crucial dans l'équilibre de nos océans et de notre planète entière.</p>
+
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="phytoplankton">Phytoplancton</button>
+                    <button class="tab-button" data-tab="zooplankton">Zooplancton</button>
+                </div>
+
+                <div id="phytoplankton" class="tab-content active">
+                    <figure class="image-container floating">
+                        <img src="https://images.unsplash.com/photo-1721041872585-704368ab898f?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Vue microscopique de divers phytoplanctons" class="chapter-image">
+                        <figcaption class="image-caption">Le phytoplancton forme la base des écosystèmes marins et produit une grande partie de l'oxygène terrestre</figcaption>
+                    </figure>
+                    <h4>Qu'est-ce que le phytoplancton ?</h4>
+                    <p>Le phytoplancton comprend des organismes microscopiques capables de photosynthèse, comme les diatomées, les dinoflagellés et les cyanobactéries. Ces minuscules "plantes" marines constituent la base de presque toutes les chaînes alimentaires océaniques.</p>
+                    <p>Bien que microscopiques individuellement, ces organismes peuvent former des colonies visibles depuis l'espace lorsqu'ils prolifèrent, colorant les océans en vert, rouge ou turquoise.</p>
+
+                    <h4>Importance écologique du phytoplancton</h4>
+                    <ul>
+                        <li>Production d'oxygène : Le phytoplancton produit environ 50-85% de l'oxygène atmosphérique de notre planète, soit davantage que toutes les forêts terrestres réunies.</li>
+                        <li>Régulation climatique : En absorbant le CO2 atmosphérique, il joue un rôle crucial dans la régulation du climat mondial.</li>
+                        <li>Base alimentaire : Il sert de nourriture au zooplancton et, par extension, à presque tous les animaux marins directement ou indirectement.</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <h4>Le saviez-vous ?</h4>
+                        <p>Une seule goutte d'eau de mer peut contenir des milliers d'individus de phytoplancton. Malgré leur taille microscopique, ces organismes ont un impact planétaire sur la chimie de l'atmosphère et des océans.</p>
+                    </div>
+                </div>
+
+                <div id="zooplankton" class="tab-content">
+                    <figure class="image-container floating">
+                        <img src="https://images.unsplash.com/photo-1606858426196-8b11ccef37f3?q=80&w=2535&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Vue microscopique de divers zooplanctons (petits crustacés)" class="chapter-image">
+                        <figcaption class="image-caption">Le zooplancton est composé d'une variété impressionnante d'organismes marins microscopiques</figcaption>
+                    </figure>
+                    <h4>Qu'est-ce que le zooplancton ?</h4>
+                    <p>Le zooplancton comprend une variété impressionnante d'animaux microscopiques, comme les copépodes, le krill, les larves de poissons et d'autres invertébrés marins. Contrairement au phytoplancton, ces organismes ne peuvent pas produire leur propre nourriture et doivent se nourrir d'autres organismes.</p>
+                    <p>Certaines espèces de zooplancton, comme le krill, forment d'immenses essaims pesant plusieurs tonnes, qui nourrissent les plus grands animaux de la planète, notamment les baleines à fanons.</p>
+
+                    <h4>Importance écologique du zooplancton</h4>
+                    <ul>
+                        <li>Maillon essentiel : Il constitue le lien critique entre le phytoplancton et les animaux marins de plus grande taille.</li>
+                        <li>Migration verticale : Beaucoup d'espèces de zooplancton effectuent des migrations quotidiennes entre les profondeurs (jour) et la surface (nuit), contribuant ainsi au transport vertical de nutriments.</li>
+                        <li>Biodiversité : Le zooplancton présente une diversité exceptionnelle de formes et d'adaptations, témoignant de millions d'années d'évolution.</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <h4>Le saviez-vous ?</h4>
+                        <p>La plus grande migration animale quotidienne sur Terre n'est pas visible à l'œil nu. Chaque nuit, des trillions d'organismes zooplanctoniques montent vers la surface des océans pour se nourrir avant de redescendre dans les profondeurs à l'aube pour échapper aux prédateurs.</p>
+                    </div>
+                </div>
+            </div>
+
+            <figure class="image-container floating">
+                <img src="https://img.freepik.com/vecteurs-libre/icones-luminescentes-couleur-plancton-definies-style-cartoon-fond-noir-illustration-isole_1284-28747.jpg?t=st=1743707606~exp=1743711206~hmac=f03e85d3b71eceeffce0a85b55d13e462ce0a5e54b75bea56bb455e33fc723d4&w=900" alt="Illustration de différents types de plancton bioluminescent" class="chapter-image">
+                <figcaption class="image-caption">Diverses formes et types de plancton présents dans nos océans</figcaption>
+            </figure>
+
+            <div class="highlight-box">
+                <h4>Menaces pour le plancton</h4>
+                <p>Le plancton fait face à plusieurs menaces :</p>
+                <ul>
+                    <li>L'acidification des océans affecte particulièrement les organismes planctoniques à coquille calcaire</li>
+                    <li>Le réchauffement climatique modifie la distribution et l'abondance du plancton</li>
+                    <li>Les microplastiques et polluants chimiques sont ingérés par le plancton et entrent ainsi dans la chaîne alimentaire</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="defis" class="chapter">
+            <h2>Défis environnementaux</h2>
+            <p>Les océans font face à des défis environnementaux sans précédent, principalement causés par les activités humaines. Comprendre ces menaces est essentiel pour développer des solutions efficaces.</p>
+
+            <figure class="image-container floating">
+                <img src="https://images.unsplash.com/photo-1719754522908-7c7e65da1cfb?q=80&w=2274&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tortue marine nageant près d'un sac plastique flottant" class="chapter-image">
+                <figcaption class="image-caption">La pollution plastique est l'un des plus grands défis pour nos océans</figcaption>
+            </figure>
+
+            <h3>La pollution plastique</h3>
+            <p>Chaque année, environ 8 millions de tonnes de plastique finissent dans les océans, causant des dommages immenses aux écosystèmes marins.</p>
+            <ul>
+                <li>Les microplastiques (particules &lt; 5mm) sont ingérés par les organismes marins et peuvent entrer dans la chaîne alimentaire</li>
+                <li>Les macroplastiques causent l'étranglement, l'étouffement et la noyade de nombreuses espèces marines</li>
+                <li>Le "7e continent" ou "Grande plaque de déchets du Pacifique" est une zone d'accumulation de déchets plastiques couvrant plus de 1,6 million de km²</li>
+                <li>Le plastique peut mettre jusqu'à 1000 ans pour se décomposer dans l'environnement marin</li>
+            </ul>
+
+            <h3>Le réchauffement des océans</h3>
+            <p>Les océans ont absorbé plus de 90% de la chaleur excédentaire générée par les activités humaines depuis 1970.</p>
+            <ul>
+                <li>Le réchauffement des océans provoque le blanchissement des coraux, un phénomène où les coraux expulsent les algues symbiotiques qui leur fournissent nourriture et couleur</li>
+                <li>Il modifie la distribution des espèces marines, certaines se déplaçant vers les pôles à la recherche d'eaux plus froides</li>
+                <li>Il réduit la quantité d'oxygène dissous dans l'eau, créant des "zones mortes" où peu d'organismes peuvent survivre</li>
+                <li>Il contribue à l'intensification des tempêtes et ouragans</li>
+            </ul>
+
+            <h3>L'acidification des océans</h3>
+            <p>L'acidification des océans est causée par l'absorption du CO2 atmosphérique, qui réagit avec l'eau pour former de l'acide carbonique.</p>
+            <ul>
+                <li>Le pH des océans a diminué d'environ 0,1 unité depuis le début de l'ère industrielle, ce qui représente une augmentation de 30% de l'acidité</li>
+                <li>Elle affecte la capacité des organismes marins à former des coquilles et des squelettes en carbonate de calcium</li>
+                <li>Elle perturbe les systèmes sensoriels de certaines espèces de poissons, affectant leur comportement</li>
+                <li>Si les émissions de CO2 continuent au rythme actuel, l'acidité des océans pourrait augmenter de 150% d'ici 2100</li>
+            </ul>
+
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4>1950-1970</h4>
+                        <p>Début de la production de masse de plastiques à usage unique. Premières observations de débris plastiques dans les océans.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h4>1980-1990</h4>
+                        <p>Premiers rapports sur le blanchissement massif des coraux. Découverte des "zones mortes" océaniques liées aux pollutions agricoles.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4>1997</h4>
+                        <p>Découverte de la "Grande plaque de déchets du Pacifique" par Charles Moore.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h4>2016-2017</h4>
+                        <p>Plus grand événement mondial de blanchissement des coraux jamais enregistré, affectant 75% des récifs.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4>2020-Présent</h4>
+                        <p>Accélération des politiques de réduction du plastique à usage unique. Développement de technologies de nettoyage des océans.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>La surpêche</h3>
+            <p>La surpêche se produit lorsque les poissons sont capturés plus rapidement qu'ils ne peuvent se reproduire. Selon la FAO, environ 33% des stocks de poissons dans le monde sont surexploités.</p>
+            <ul>
+                <li>Elle menace la sécurité alimentaire de millions de personnes qui dépendent des produits de la mer comme source principale de protéines</li>
+                <li>Elle perturbe les chaînes alimentaires marines et peut provoquer des effets en cascade dans les écosystèmes</li>
+                <li>Les méthodes de pêche destructrices comme le chalutage de fond endommagent les habitats marins</li>
+                <li>Les prises accessoires (captures non ciblées) représentent jusqu'à 40% des prises mondiales et sont souvent rejetées mortes à la mer</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>Le saviez-vous ?</h4>
+                <p>Si les tendances actuelles se poursuivent, il pourrait y avoir plus de plastique que de poissons dans les océans (en poids) d'ici 2050, selon un rapport de la Fondation Ellen MacArthur.</p>
+            </div>
+        </section>
+
+        <section id="innovations" class="chapter">
+            <h2>Innovations technologiques</h2>
+            <p>Face aux défis environnementaux qui menacent nos océans, des solutions technologiques innovantes sont développées pour aider à protéger et restaurer les écosystèmes marins.</p>
+
+            <figure class="image-container floating">
+                <img src="https://plus.unsplash.com/premium_photo-1661962314230-482335d7aebf?q=80&w=2342&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Drone sous-marin explorant un récif corallien" class="chapter-image">
+                <figcaption class="image-caption">Les innovations technologiques sont essentielles pour la préservation des écosystèmes marins</figcaption>
+            </figure>
+
+            <h3>Systèmes de nettoyage des océans</h3>
+            <p>Plusieurs technologies ont été développées pour collecter les déchets plastiques dans les océans :</p>
+            <ul>
+                <li><strong>The Ocean Cleanup</strong> : Un système de barrières flottantes qui concentre les plastiques pour faciliter leur collecte</li>
+                <li><strong>Seabin Project</strong> : Des "poubelles marines" qui filtrent l'eau en continu pour capturer les déchets, microplastiques et même les huiles</li>
+                <li><strong>Mr. Trash Wheel</strong> : Une roue à aubes alimentée par l'énergie solaire qui collecte les déchets dans les ports et les rivières</li>
+                <li><strong>Robots aquatiques</strong> : Des robots autonomes qui identifient et collectent les déchets en utilisant l'intelligence artificielle</li>
+            </ul>
+
+            <h3>Surveillance et cartographie des océans</h3>
+            <p>Des technologies avancées permettent de mieux comprendre et surveiller la santé des océans :</p>
+            <ul>
+                <li><strong>Drones sous-marins</strong> : Des véhicules autonomes qui peuvent cartographier les fonds marins et collecter des données</li>
+                <li><strong>Satellites océanographiques</strong> : Surveillent la température, les courants, la couleur et la hauteur des océans</li>
+                <li><strong>Réseaux de capteurs flottants</strong> : Fournissent des données en temps réel sur divers paramètres océaniques</li>
+                <li><strong>ADN environnemental (eDNA)</strong> : Permet d'identifier les espèces présentes dans un environnement à partir de simples échantillons d'eau</li>
+            </ul>
+
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="tech1">Récifs artificiels</button>
+                    <button class="tab-button" data-tab="tech2">Aquaculture durable</button>
+                    <button class="tab-button" data-tab="tech3">Énergies marines</button>
+                </div>
+                <div id="tech1" class="tab-content active">
+                    <h4>Récifs artificiels imprimés en 3D</h4>
+                    <p>Des structures imprimées en 3D sont conçues pour imiter les caractéristiques des récifs coralliens naturels :</p>
+                    <ul>
+                        <li>Elles sont fabriquées à partir de matériaux respectueux de l'environnement comme le sable calcaire ou les céramiques</li>
+                        <li>Leur conception complexe offre des habitats adaptés à différentes espèces marines</li>
+                        <li>Elles peuvent être personnalisées pour des conditions locales spécifiques</li>
+                        <li>Des projets comme Reef Design Lab ont déjà déployé des récifs artificiels dans plusieurs pays</li>
+                    </ul>
+                </div>
+                <div id="tech2" class="tab-content">
+                    <h4>Aquaculture durable</h4>
+                    <p>De nouvelles méthodes d'aquaculture visent à réduire l'impact environnemental de la production de fruits de mer :</p>
+                    <ul>
+                        <li><strong>Aquaculture multitrophique intégrée</strong> : Combine différentes espèces qui se nourrissent à différents niveaux trophiques pour créer un système plus équilibré</li>
+                        <li><strong>Aquaculture offshore</strong> : Installations situées en pleine mer pour réduire la pollution côtière</li>
+                        <li><strong>Culture d'algues</strong> : Produit des aliments nutritifs tout en absorbant le CO2 et l'azote excédentaire</li>
+                        <li><strong>Systèmes de recirculation</strong> : Réduisent la consommation d'eau et les rejets de déchets</li>
+                    </ul>
+                </div>
+                <div id="tech3" class="tab-content">
+                    <h4>Énergies marines renouvelables</h4>
+                    <p>L'océan offre un potentiel immense pour la production d'énergie renouvelable :</p>
+                    <ul>
+                        <li><strong>Énergie des vagues</strong> : Convertit l'énergie cinétique des vagues en électricité</li>
+                        <li><strong>Énergie marémotrice</strong> : Exploite les mouvements des marées pour générer de l'électricité</li>
+                        <li><strong>Énergie thermique des mers</strong> : Utilise la différence de température entre les eaux de surface et les eaux profondes</li>
+                        <li><strong>Éoliennes offshore</strong> : Profitent des vents plus constants et plus forts en mer</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Plastiques biodégradables et alternatives</h3>
+            <p>Pour réduire la pollution plastique à sa source, des alternatives innovantes sont développées :</p>
+            <ul>
+                <li><strong>Plastiques biodégradables marins</strong> : Conçus pour se décomposer naturellement dans l'environnement marin</li>
+                <li><strong>Matériaux à base d'algues</strong> : Peuvent remplacer les emballages plastiques traditionnels</li>
+                <li><strong>Bioplastiques</strong> : Fabriqués à partir de ressources renouvelables comme l'amidon de maïs ou la canne à sucre</li>
+                <li><strong>Emballages comestibles</strong> : Élimine complètement le besoin de gestion des déchets</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>Le saviez-vous ?</h4>
+                <p>La "ferme marine verticale" est un concept innovant qui combine l'aquaculture, la culture d'algues et l'énergie renouvelable dans une structure flottante. Ces fermes pourraient produire des aliments de manière durable tout en absorbant le CO2 et en fournissant des habitats pour la vie marine.</p>
+            </div>
+        </section>
+
+        <section id="zone-interactives" class="chapter">
+            <h2>Zone interactive</h2>
+            <p>Explorez les océans de manière interactive grâce à ces outils éducatifs et amusants.</p>
+
+            <h3>Carte interactive des océans</h3>
+            <div class="ocean-explorer">
+                <div class="ocean-tabs">
+                    <div class="ocean-tab active" data-section="surface">
+                        <span class="ocean-tab-icon">🌊</span> Surface
+                    </div>
+                    <div class="ocean-tab" data-section="middle">
+                        <span class="ocean-tab-icon">🐬</span> Zone Médiane
+                    </div>
+                    <div class="ocean-tab" data-section="deep">
+                        <span class="ocean-tab-icon">🦑</span> Zone Abyssale
+                    </div>
+                    <div class="ocean-tab" data-section="hotspots">
+                        <span class="ocean-tab-icon">⚠️</span> Zones Critiques
+                    </div>
+                    <div class="ocean-tab" data-section="currents">
+                        <span class="ocean-tab-icon">↻</span> Courants Marins
+                    </div>
+                </div>
+
+                <div class="ocean-content">
+                    <div class="ocean-visualization">
+                        <!-- Fonds d'océan pour chaque section -->
+                        <div class="ocean-section-visual active" id="surface-visual" style="background-color: #3498db;">
+                            <div style="position: absolute; top: 20%; left: 0; width: 100%; height: 30px; background-color: rgba(41, 128, 185, 0.5); border-radius: 50% 50% 0 0;"></div>
+                            <div style="position: absolute; top: 35%; left: 0; width: 100%; height: 40px; background-color: rgba(41, 128, 185, 0.4); border-radius: 50% 50% 0 0;"></div>
+                            <div style="position: absolute; top: 50%; left: 0; width: 100%; height: 50px; background-color: rgba(41, 128, 185, 0.3); border-radius: 50% 50% 0 0;"></div>
+                        </div>
+                        <div class="ocean-section-visual" id="middle-visual" style="background-color: #2980b9;">
+                            <div style="position: absolute; top: 10%; left: 0; width: 100%; height: 40px; background-color: rgba(31, 97, 141, 0.5); border-radius: 50% 50% 0 0;"></div>
+                            <div style="position: absolute; top: 30%; left: 0; width: 100%; height: 60px; background-color: rgba(31, 97, 141, 0.4); border-radius: 50% 50% 0 0;"></div>
+                            <div style="position: absolute; top: 50%; left: 0; width: 100%; height: 80px; background-color: rgba(31, 97, 141, 0.3); border-radius: 50% 50% 0 0;"></div>
+                        </div>
+                        <div class="ocean-section-visual" id="deep-visual" style="background-color: #1a5276;">
+                            <div style="position: absolute; top: 15%; left: 0; width: 100%; height: 50px; background-color: rgba(21, 67, 96, 0.5); border-radius: 50% 50% 0 0;"></div>
+                            <div style="position: absolute; top: 35%; left: 0; width: 100%; height: 70px; background-color: rgba(21, 67, 96, 0.4); border-radius: 50% 50% 0 0;"></div>
+                            <div style="position: absolute; top: 60%; left: 0; width: 100%; height: 90px; background-color: rgba(21, 67, 96, 0.3); border-radius: 50% 50% 0 0;"></div>
+                        </div>
+                        <!-- Visuel Zones Critiques (géré par CSS maintenant) -->
+                        <div class="ocean-section-visual" id="hotspots-visual">
+                             <!-- Les points rouges sont stylisés et animés par CSS -->
+                             <div style="position: absolute; top: 20%; left: 15%; width: 30px; height: 30px; background-color: #e74c3c;"></div>
+                             <div style="position: absolute; top: 40%; left: 70%; width: 40px; height: 40px; background-color: #e74c3c;"></div>
+                             <div style="position: absolute; top: 60%; left: 40%; width: 35px; height: 35px; background-color: #e74c3c;"></div>
+                             <div style="position: absolute; top: 80%; left: 20%; width: 25px; height: 25px; background-color: #e74c3c;"></div>
+                             <div style="position: absolute; top: 10%; left: 80%; width: 20px; height: 20px; background-color: #e74c3c;"></div>
+                        </div>
+                         <!-- Visuel Courants Marins (géré par CSS maintenant) -->
+                        <div class="ocean-section-visual" id="currents-visual">
+                            <!-- Les lignes animées sont créées par les pseudo-éléments ::before et ::after en CSS -->
+                        </div>
+
+                        <div class="ocean-animation-layer" id="animation-layer">
+                            <!-- Les éléments animés seront ajoutés ici par JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="ocean-info-panel">
+                        <div class="ocean-info" id="surface-info">
+                            <h3>Zone de Surface</h3>
+                            <p>La zone épipélagique ou zone de surface s'étend jusqu'à 200 mètres de profondeur. C'est la zone la plus riche en biodiversité grâce à la lumière du soleil qui permet la photosynthèse.</p>
+                            <div class="ocean-feature-list">
+                                <div class="ocean-feature" data-feature="coral">Récifs coralliens</div>
+                                <div class="ocean-feature" data-feature="plankton">Plancton et microorganismes</div>
+                                <div class="ocean-feature" data-feature="coastal">Écosystèmes côtiers</div>
+                            </div>
+                            <!-- Commentaire supprimé -->
+                        </div>
+                        <div class="ocean-info" id="middle-info" style="display: none;">
+                            <h3>Zone Médiane</h3>
+                            <p>La zone mésopélagique (200-1000m) est aussi appelée zone crépusculaire. La lumière y est faible, et on y trouve des espèces adaptées à ces conditions particulières.</p>
+                            <div class="ocean-feature-list">
+                                <div class="ocean-feature" data-feature="migration">Migration verticale</div>
+                                <div class="ocean-feature" data-feature="bioluminescence">Bioluminescence</div>
+                                <div class="ocean-feature" data-feature="predators">Prédateurs de moyenne profondeur</div>
+                            </div>
+                             <!-- Commentaire supprimé -->
+                        </div>
+                        <div class="ocean-info" id="deep-info" style="display: none;">
+                            <h3>Zone Abyssale</h3>
+                            <p>Au-delà de 1000m, ces zones profondes représentent plus de 80% de l'habitat océanique. Obscurité totale, pression extrême et températures froides caractérisent cet environnement.</p>
+                            <div class="ocean-feature-list">
+                                <div class="ocean-feature" data-feature="trench">Fosses océaniques</div>
+                                <div class="ocean-feature" data-feature="vents">Sources hydrothermales</div>
+                                <div class="ocean-feature" data-feature="deep-creatures">Créatures abyssales</div>
+                            </div>
+                             <!-- Commentaire supprimé -->
+                        </div>
+                        <div class="ocean-info" id="hotspots-info" style="display: none;">
+                            <h3>Zones Critiques</h3>
+                            <p>Certaines zones des océans sont particulièrement menacées ou présentent des caractéristiques uniques qui nécessitent notre attention.</p>
+                            <div class="ocean-feature-list">
+                                <div class="ocean-feature" data-feature="great-barrier">Grande Barrière de Corail</div>
+                                <div class="ocean-feature" data-feature="garbage-patch">Grande plaque de déchets du Pacifique</div>
+                                <div class="ocean-feature" data-feature="dead-zones">Zones mortes</div>
+                            </div>
+                             <!-- Commentaire supprimé -->
+                        </div>
+                        <div class="ocean-info" id="currents-info" style="display: none;">
+                            <h3>Courants Marins</h3>
+                            <p>Les courants océaniques sont essentiels pour réguler le climat global, redistribuer la chaleur et les nutriments, et faciliter la vie marine.</p>
+                            <div class="ocean-feature-list">
+                                <div class="ocean-feature" data-feature="gulf-stream">Gulf Stream</div>
+                                <div class="ocean-feature" data-feature="global-conveyor">Circulation thermohaline</div>
+                                <div class="ocean-feature" data-feature="el-nino">El Niño et La Niña</div>
+                            </div>
+                             <!-- Commentaire supprimé -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Nettoyage de l'océan - Jeu interactif</h3>
+            <div class="game-container">
+                <div class="game-header">
+                    <h3>Nettoyons l'océan</h3>
+                    <div class="game-score">Score: <span id="cleanup-score">0</span></div>
+                </div>
+                <p>Cliquez sur les déchets pour les collecter. Attention à ne pas cliquer sur les animaux marins !</p>
+                <figure class="image-container floating" style="margin-bottom: 15px;">
+                    <img src="https://images.unsplash.com/photo-1719754519931-0e5763a44d36?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Main tenant une bouteille plastique ramassée sur une plage" class="game-image"> <!-- Utiliser une classe spécifique si besoin -->
+                    <figcaption class="image-caption">La pollution plastique représente une grave menace pour les océans et la vie marine</figcaption>
+                </figure>
+                <div class="level-selector">
+                    <button class="level-button" data-level="facile">Facile</button>
+                    <button class="level-button active" data-level="moyen">Moyen</button>
+                    <button class="level-button" data-level="difficile">Difficile</button>
+                </div>
+                <div class="game-info">
+                    <div class="game-level">Niveau: <span id="current-level">Moyen</span></div>
+                    <div class="game-lives">Vies: <span id="lives-count">3</span> <span class="life-icon">❤️</span></div>
+                </div>
+                <div class="ocean-cleanup-game" id="ocean-cleanup">
+                    <div class="ocean-surface"></div>
+                    <div class="ocean-floor"></div>
+                    <!-- Les courants sont ajoutés par JS maintenant -->
+                    <div class="game-timer" id="game-timer">60</div>
+                    <div class="bubbles" id="bubbles-container"></div>
+                </div>
+                <div class="game-buttons">
+                    <button class="game-button" id="start-cleanup">Commencer</button>
+                    <button class="game-button" id="reset-cleanup">Recommencer</button>
+                </div>
+            </div>
+
+            <h3>Quiz interactif sur les animaux marins</h3>
+            <div class="game-container">
+                <div class="game-header">
+                    <h3>Quiz des espèces marines</h3>
+                    <div class="game-score">Score: <span id="species-score">0</span>/5</div>
+                </div>
+                <div id="species-game">
+                    <div id="species-question">
+                        <p>Identifiez cette espèce marine et son habitat :</p>
+                        <figure class="image-container">
+                            <img id="species-image" src="https://images.unsplash.com/photo-1580603474920-aa3332b2c40f?q=80&w=2515&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Espèce marine à identifier" class="game-image">
+                        </figure>
+                    </div>
+                    <div id="species-options">
+                        <!-- Les options sont générées par JS -->
+                    </div>
+                    <div id="species-feedback" class="quiz-feedback"></div>
+                </div>
+                <div class="game-buttons">
+                    <button class="game-button" id="next-species" style="display: none;">Question suivante</button>
+                </div>
+            </div>
+
+            <h3>Jeu des paires - La chaîne alimentaire marine</h3>
+            <div class="game-container">
+                <div class="game-header">
+                    <h3>Chaîne alimentaire marine</h3>
+                    <div class="game-score">Paires trouvées: <span id="pairs-found">0</span>/6</div>
+                </div>
+                <p>Retrouvez les paires prédateur-proie pour comprendre la chaîne alimentaire marine.</p>
+                <figure class="image-container floating" style="margin-bottom: 15px;">
+                    <img src="https://plus.unsplash.com/premium_photo-1664297954507-186bbacccd73?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Illustration schématique d'une chaîne alimentaire marine" class="game-image">
+                    <figcaption class="image-caption">La chaîne alimentaire marine est un système complexe d'interactions entre différentes espèces</figcaption>
+                </figure>
+                <div class="memory-game" id="memory-game">
+                    <!-- Les cartes sont générées par JS -->
+                </div>
+                <div class="game-buttons">
+                    <button class="game-button" id="start-memory">Commencer</button>
+                    <button class="game-button" id="reset-memory">Recommencer</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="quiz" class="chapter">
+            <h2>Quiz</h2>
+            <p>Testez vos connaissances sur les océans avec ces questions interactives.</p>
+
+            <figure class="image-container floating">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2346&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Plage tropicale avec point d'interrogation dessiné dans le sable" class="chapter-image">
+                <figcaption class="image-caption">Mettez à l'épreuve vos connaissances sur les océans et leurs écosystèmes</figcaption>
+            </figure>
+
+            <div class="quiz-container">
+                <div class="quiz-question">
+                    <h4>Question 1: Quel pourcentage de la surface de la Terre est couvert par les océans ?</h4>
+                    <div class="quiz-option" data-correct="false">50%</div>
+                    <div class="quiz-option" data-correct="true">70%</div>
+                    <div class="quiz-option" data-correct="false">60%</div>
+                    <div class="quiz-option" data-correct="false">80%</div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>Question 2: Quel est le plus grand océan du monde ?</h4>
+                    <div class="quiz-option" data-correct="false">Océan Atlantique</div>
+                    <div class="quiz-option" data-correct="false">Océan Indien</div>
+                    <div class="quiz-option" data-correct="true">Océan Pacifique</div>
+                    <div class="quiz-option" data-correct="false">Océan Arctique</div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>Question 3: Quelle est la principale cause de l'acidification des océans ?</h4>
+                    <div class="quiz-option" data-correct="false">Les déversements de produits chimiques</div>
+                    <div class="quiz-option" data-correct="false">Les déchets plastiques</div>
+                    <div class="quiz-option" data-correct="true">L'absorption du CO2 atmosphérique</div>
+                    <div class="quiz-option" data-correct="false">Le réchauffement de l'eau</div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>Question 4: Quelle proportion d'oxygène atmosphérique est produite par les organismes marins ?</h4>
+                    <div class="quiz-option" data-correct="false">Environ 20%</div>
+                    <div class="quiz-option" data-correct="false">Environ 30%</div>
+                    <div class="quiz-option" data-correct="true">Environ 50-85%</div>
+                    <div class="quiz-option" data-correct="false">Moins de 10%</div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>Question 5: Quel écosystème marin est souvent appelé "forêt tropicale des mers" en raison de sa biodiversité ?</h4>
+                    <div class="quiz-option" data-correct="true">Récifs coralliens</div>
+                    <div class="quiz-option" data-correct="false">Mangroves</div>
+                    <div class="quiz-option" data-correct="false">Forêts de kelp</div>
+                    <div class="quiz-option" data-correct="false">Prairies sous-marines</div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>Question 6: Quel est le rôle principal du plancton dans la chaîne alimentaire marine ?</h4>
+                    <div class="quiz-option" data-correct="true">Il constitue la base de presque toutes les chaînes alimentaires marines</div>
+                    <div class="quiz-option" data-correct="false">Il se nourrit principalement des grands poissons</div>
+                    <div class="quiz-option" data-correct="false">Il aide seulement à la décomposition des matières organiques</div>
+                    <div class="quiz-option" data-correct="false">Il n'a aucun rôle dans la chaîne alimentaire</div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>Question 7: Quel pourcentage approximatif de l'oxygène terrestre est produit par le phytoplancton ?</h4>
+                    <div class="quiz-option" data-correct="false">Environ 10-20%</div>
+                    <div class="quiz-option" data-correct="false">Environ 30-40%</div>
+                    <div class="quiz-option" data-correct="true">Environ 50-85%</div>
+                    <div class="quiz-option" data-correct="false">Moins de 5%</div>
+                    <div class="quiz-feedback"></div>
+                </div>
+            </div>
+
+            <div class="matching-exercise">
+                <h3>Exercice d'appariement : Reliez les menaces aux écosystèmes les plus affectés</h3>
+                <div class="matching-pairs">
+                    <div class="matching-item" data-id="1">Réchauffement des océans</div>
+                    <div class="matching-item" data-id="2">Déforestation côtière</div>
+                    <div class="matching-item" data-id="3">Chalutage de fond</div>
+                    <div class="matching-item" data-id="4">Runoff agricole</div>
+                    <div class="matching-item" data-id="5">Extraction de pétrole</div>
+
+                    <div class="matching-item" data-match="1">Récifs coralliens</div>
+                    <div class="matching-item" data-match="2">Mangroves</div>
+                    <div class="matching-item" data-match="3">Fonds marins</div>
+                    <div class="matching-item" data-match="4">Zones côtières (zones mortes)</div>
+                    <div class="matching-item" data-match="5">Habitat des oiseaux marins</div>
+                </div>
+                <div class="matching-feedback"></div>
+            </div>
+        </section>
+
+        <section id="activites" class="chapter">
+            <h2>Activités de recherche</h2>
+            <p>Approfondissez vos connaissances sur les océans avec ces activités de recherche guidées.</p>
+
+            <div class="research-activity">
+                <h3>Activité 1 : Enquête sur la pollution plastique locale</h3>
+                <p>Menez une enquête sur la pollution plastique dans votre région et son impact potentiel sur les océans.</p>
+                <ol>
+                    <li>Choisissez un site local (plage, rivière, lac ou même un parc) pour votre étude.</li>
+                    <li>Documentez les types de déchets plastiques que vous trouvez (prenez des photos).</li>
+                    <li>Recherchez comment ces déchets pourraient atteindre l'océan depuis votre emplacement.</li>
+                    <li>Proposez des solutions locales pour réduire cette pollution.</li>
+                    <li>Créez une présentation ou une affiche pour partager vos découvertes.</li>
+                </ol>
+                <div class="research-resources">
+                    <h4>Ressources utiles :</h4>
+                    <a href="https://www.nationalgeographic.org/projects/plastic/" target="_blank" rel="noopener noreferrer">National Geographic - Projet Plastique</a>
+                    <a href="https://oceanconservancy.org/trash-free-seas/" target="_blank" rel="noopener noreferrer">Ocean Conservancy - Trash Free Seas</a>
+                    <a href="https://www.surfrider.org/" target="_blank" rel="noopener noreferrer">Surfrider Foundation</a>
+                </div>
+            </div>
+
+            <div class="research-activity">
+                <h3>Activité 2 : Explorer les solutions technologiques</h3>
+                <p>Recherchez et évaluez une solution technologique innovante conçue pour protéger les océans.</p>
+
+                <ol>
+                    <li>Choisissez une technologie parmi les catégories suivantes :
+                        <ul>
+                            <li>Systèmes de nettoyage des océans</li>
+                            <li>Alternatives au plastique</li>
+                            <li>Aquaculture durable</li>
+                            <li>Surveillance des océans</li>
+                            <li>Récifs artificiels</li>
+                            <li>Énergies marines renouvelables</li>
+                        </ul>
+                    </li>
+                    <li>Recherchez comment cette technologie fonctionne et qui l'a développée.</li>
+                    <li>Évaluez son efficacité, ses avantages et ses limites.</li>
+                    <li>Explorez comment elle pourrait être améliorée ou adaptée à d'autres contextes.</li>
+                    <li>Proposez votre propre amélioration ou idée inspirée par cette technologie.</li>
+                </ol>
+                <div class="research-resources">
+                    <h4>Ressources utiles :</h4>
+                    <a href="https://theoceancleanup.com/" target="_blank" rel="noopener noreferrer">The Ocean Cleanup</a>
+                    <a href="https://www.worldoceannetwork.org/" target="_blank" rel="noopener noreferrer">Réseau Mondial des Océans</a>
+                </div>
+            </div>
+
+            <div class="research-activity">
+                <h3>Activité 3 : Carnet d'observation des espèces marines</h3>
+                <p>Créez un carnet d'observation numérique sur une espèce marine menacée de votre choix.</p>
+
+                <ol>
+                    <li>Choisissez une espèce marine menacée qui vous intéresse.</li>
+                    <li>Recherchez ses caractéristiques, son habitat, son alimentation et son comportement.</li>
+                    <li>Identifiez les menaces principales pour cette espèce.</li>
+                    <li>Documentez les efforts de conservation existants.</li>
+                    <li>Créez un carnet d'observation illustré (numérique ou physique) qui partage ces informations de manière créative.</li>
+                </ol>
+                <div class="research-resources">
+                    <h4>Ressources utiles :</h4>
+                    <a href="https://www.iucnredlist.org/" target="_blank" rel="noopener noreferrer">Liste Rouge UICN des Espèces Menacées</a>
+                    <a href="https://oceana.org/marine-life/" target="_blank" rel="noopener noreferrer">Oceana - Base de données sur la vie marine</a>
+                    <a href="https://www.fisheries.noaa.gov/species-directory" target="_blank" rel="noopener noreferrer">NOAA Fisheries - Répertoire des espèces</a>
+                </div>
+            </div>
+        </section>
+
+    </main> <!-- Fin du contenu principal -->
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-text">
+                <p style="font-size: 1.2em; font-weight: 600; margin-bottom: 15px;">&copy; 2025 De la Vie Planctonique aux Technologies Innovantes : Un Parcours Éducatif des Océans.</p>
+                <p>Travail réalisé avec la participation des élèves de la classe de 4e2 du Collège de Montesoro, inspiré par l'exposition :</p>
+                <p style="font-size: 1.2em; font-weight: 600; margin-top: 10px;">"Océan : une plongée insolite", présentée par la Casa di e Scenze de Bastia.</p>
+            </div>
+            <div class="footer-logo">
+                <img src="https://casadiescenze.bastia.corsica/wp-content/uploads/sites/3/2022/06/casa-di-scenze.jpg" alt="Logo Casa di e Scenze">
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bouton de retour en haut de page -->
+    <button id="scroll-to-top" class="scroll-top-btn" aria-label="Retour en haut de page">
+        <span class="arrow-up">↑</span>
+    </button>
+
+    <!-- Votre script JS externe -->
+    <script src="script.js" defer></script>
+
+</body>
+</html>
