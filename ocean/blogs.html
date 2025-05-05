@@ -7,55 +7,68 @@
     <link rel="stylesheet" href="style.css"> <!-- Réutilise le style principal -->
     <style>
         /* Styles spécifiques pour cette page */
+        /* Add video background styles */
         body {
-            display: block;
-            height: auto;
-            background-color: #E0F7FA; /* Bleu très clair (cyan léger) */
-            padding: 2rem;
-            overflow: auto;
-            font-family: 'Arial', sans-serif; /* Assure la cohérence de la police */
-            margin: 0; /* Réinitialise la marge du body */
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            position: relative;
+            font-family: 'Arial', sans-serif;
+            background-color: #001f3f; /* Fallback */
+            color: #f0f8ff; /* Texte clair par défaut */
+            overflow-y: auto; /* Permet le défilement si le contenu est long */
+        }
+        .video-background-blogs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            filter: brightness(0.4); /* Assombrit la vidéo pour la lisibilité */
         }
         .blog-container {
-            max-width: 750px; /* Légèrement réduit */
+            position: relative; /* Pour être au-dessus de la vidéo */
+            z-index: 2;
+            max-width: 750px;
             margin: 2rem auto;
-            background-color: white;
+            background-color: rgba(0, 31, 63, 0.75); /* Fond bleu marine semi-transparent */
             padding: 2rem;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .blog-container h1 {
             text-align: center;
-            color: #005f73; /* Bleu-vert profond */
+            color: #94d2bd; /* Vert d'eau (comme page partenaires) */
             margin-bottom: 1rem; /* Réduit l'espace sous le titre */
         }
         .intro-text {
             text-align: center;
-            color: #0a9396; /* Bleu-vert moyen */
+            color: #e6f7ff; /* Texte très clair */
             margin-bottom: 2.5rem;
             line-height: 1.6;
         }
         .blog-link {
             display: block;
             padding: 1rem;
-            margin-bottom: 1rem;
-            background-color: #94d2bd; /* Vert d'eau */
+            margin-bottom: 1.2rem; /* Slightly more space */
+            background-color: #003366; /* Bleu marine */
             border-radius: 8px; /* Plus arrondi */
             text-decoration: none;
-            color: #001219; /* Texte presque noir */
+            color: #ffffff; /* Texte blanc */
             text-align: center;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
         .blog-link:hover {
-            background-color: #0a9396; /* Bleu-vert moyen au survol */
-            color: white;
+            background-color: #0056b3; /* Bleu moyen au survol */
             transform: scale(1.02); /* Léger zoom */
         }
         .back-link {
             display: block;
             margin-top: 2rem;
-            text-align: center;
-            color: #007bff;
+            text-align: center; /* Bleu clair (comme page partenaires) */
+            color: #b3d9ff;
             text-decoration: none;
         }
         .back-link:hover {
@@ -64,6 +77,12 @@
     </style>
 </head>
 <body>
+    <!-- Video Background -->
+    <video autoplay muted loop playsinline class="video-background-blogs">
+        <source src="video.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas les vidéos HTML5.
+    </video>
+
     <div class="blog-container">
         <h1>Les Blogs des Élèves</h1>
         <p class="intro-text">
@@ -78,5 +97,10 @@
 
         <a href="index.html" class="back-link">Retour à l'accueil</a>
     </div>
+    <!-- Si style.css est réactivé et contient .floating-home-button :
+    <a href="index.html" class="floating-home-button" title="Retour à l'accueil">
+        <i class="fas fa-home"></i>
+    </a>
+    -->
 </body>
 </html>
