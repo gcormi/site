@@ -4,72 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cours de Technologie - Projet Océan</title>
-    <!-- <link rel="stylesheet" href="style.css">  Optionnel: si vous voulez réutiliser des styles globaux -->
+
     <style>
-        /* Styles spécifiques pour la page Technologie */
+        /* Styles généraux avec vidéo en fond */
         body {
-            display: block;
-            height: auto;
-            background-color: #e6f7ff; /* Bleu très pâle */
-            padding: 2rem;
-            overflow: auto;
-            font-family: 'Arial', sans-serif;
             margin: 0;
-            color: #333; /* Couleur de texte par défaut */
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            overflow-x: hidden;
+            position: relative;
         }
+
+        /* Vidéo de fond */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(0.7) blur(2px);
+        }
+
+        /* Conteneur principal avec transparence */
         .techno-container {
-            max-width: 850px; /* Un peu plus large pour le texte */
-            margin: 2rem auto;
-            background-color: white;
+            max-width: 850px;
+            margin: 4rem auto;
+            background-color: rgba(255, 255, 255, 0.85); /* Fond blanc semi-transparent */
             padding: 2.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 51, 102, 0.15); /* Ombre bleutée */
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 51, 102, 0.2);
         }
+
         .techno-container h1 {
             text-align: center;
             color: #003366; /* Bleu marine */
             margin-bottom: 1.5rem;
         }
+
         .intro-text {
             color: #0056b3; /* Bleu moyen */
             margin-bottom: 2rem;
             line-height: 1.7;
-            text-align: justify; /* Justifie le texte pour un look plus formel */
+            text-align: justify;
         }
-        .intro-text strong { /* Met en évidence les exemples */
-             color: #003366;
+
+        .intro-text strong {
+            color: #003366;
         }
+
         .course-link {
             display: block;
-            padding: 0.9rem 1.2rem; /* Padding ajusté */
+            padding: 0.9rem 1.2rem;
             margin-bottom: 1rem;
             background-color: #b3d9ff; /* Bleu clair */
             border-radius: 6px;
             text-decoration: none;
-            color: #003366; /* Bleu marine */
+            color: #003366;
             font-weight: 500;
             text-align: center;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
+
         .course-link:hover {
-            background-color: #80bfff; /* Bleu plus soutenu au survol */
-            color: #001a33; /* Bleu très foncé */
+            background-color: #80bfff;
+            color: #001a33;
             transform: scale(1.01);
         }
+
         .back-link {
             display: block;
             margin-top: 2.5rem;
             text-align: center;
-            color: #0056b3; /* Bleu moyen */
+            color: #0056b3;
             text-decoration: none;
             font-weight: bold;
         }
+
         .back-link:hover {
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
+
+    <!-- Vidéo de fond -->
+    <video autoplay muted loop playsinline class="video-background">
+        <source src="video.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas les vidéos HTML5.
+    </video>
+
+    <!-- Contenu principal -->
     <div class="techno-container">
         <h1>Technologie & Projet Océan</h1>
         <p class="intro-text">
@@ -80,7 +108,7 @@
             <strong>Voici quelques exemples des thématiques que nous avons travaillées et évaluées en classe :</strong>
         </p>
 
-        <!-- Liens vers les cours spécifiques -->
+        <!-- Liens vers les cours -->
         <a href="Dessaler%20l'Eau%20de%20Mer.html" class="course-link">Dessaler l'Eau de Mer : Technologie & Environnement</a>
         <a href="Microplastiques%20dans%20l'Océan.html" class="course-link">Microplastiques dans l'Océan : Problèmes & Solutions</a>
         <a href="Les%20boués%20intelligentes.html" class="course-link">Bouées Intelligentes & Compétences Technologiques</a>
@@ -91,5 +119,6 @@
 
         <a href="index.html" class="back-link">Retour à l'accueil</a>
     </div>
+
 </body>
 </html>

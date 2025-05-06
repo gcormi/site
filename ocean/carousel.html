@@ -9,7 +9,7 @@
     <style>
         body {
             margin: 0;
-            padding: 0; /* Retiré: overflow: hidden; */
+            padding: 0;
             height: 100vh;
             position: relative; /* Contexte pour les éléments positionnés */
             font-family: 'Arial', sans-serif;
@@ -25,6 +25,27 @@
             height: 100%;
             object-fit: cover;
             z-index: 1; /* Derrière le contenu */
+        }
+
+        /* Lien Retour à l'accueil */
+        .back-link-top {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 100;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            background-color: rgba(0, 51, 102, 0.8);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .back-link-top:hover {
+            background-color: rgba(0, 51, 102, 1);
+            color: #fff;
         }
 
         /* Styles pour les images flottantes */
@@ -49,6 +70,9 @@
         Votre navigateur ne supporte pas les vidéos HTML5.
     </video>
 
+    <!-- Lien "Retour à l'accueil" en haut à gauche -->
+    <a href="index.html" class="back-link-top">← Retour à l'accueil</a>
+
     <!-- Images flottantes aléatoires -->
     <img src="images/un.png" alt="Icone flottante 1" class="floating-image">
     <img src="images/deux.png" alt="Icone flottante 2" class="floating-image">
@@ -60,7 +84,6 @@
     <img src="images/huit.png" alt="Icone flottante 8" class="floating-image">
     <img src="images/neuf.png" alt="Icone flottante 9" class="floating-image">
     <img src="images/dix.png" alt="Icone flottante 10" class="floating-image">
-
 
     <!-- Bouton flottant Accueil -->
     <!-- Le bouton flottant est temporairement retiré car style.css est retiré -->
@@ -86,10 +109,8 @@
                 const screenHeight = window.innerHeight;
 
                 // Permet à l'image d'aller plus près des bords (0% à 95%)
-                // L'origine (coin sup gauche) peut aller jusqu'à 95% du bord
                 const randomTop = Math.random() * 95;
                 const randomLeft = Math.random() * 95;
-
 
                 console.log(`Image flottante - Nouvelle position: top ${randomTop.toFixed(1)}%, left ${randomLeft.toFixed(1)}%`);
 
