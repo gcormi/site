@@ -1,1 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escape Game: Simone de Beauvoir – Égalité filles-garçons</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main id="game-container">
+        <div id="progress-bar-container" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="7" aria-labelledby="progress-text-container">
+            <div id="progress-bar-fill"></div>
+        </div>
+        <div id="progress-text-container"><span id="progress-text">0 / 7 Défis</span></div>
 
+        <!-- Page 0: Introduction -->
+        <section id="page-0" class="page active-page">
+            <h1><span class="page-icon">🗝️</span> Bienvenue à l'Escape Game Pédagogique</h1>
+            <h2 class="subtitle">Simone de Beauvoir – Comprendre l’égalité filles-garçons</h2>
+            <div id="phrase-a-reconstituer-display-0" class="phrase-progression"></div>
+            <div class="page-content">
+                <p><strong class="content-subtitle">Brève biographie de Simone de Beauvoir :</strong></p>
+                <p>Simone de Beauvoir (1908-1986) était une philosophe, romancière, et essayiste française. Figure majeure du féminisme contemporain, son œuvre la plus célèbre, "Le Deuxième Sexe", est une analyse profonde de la condition féminine et a eu un impact considérable sur la pensée féministe mondiale.</p>
+                
+                <p><strong class="content-subtitle">Règles du jeu :</strong></p>
+                <ul>
+                    <li>Vous allez relever 7 défis pour collecter des indices.</li>
+                    <li>Chaque défi réussi vous donne un mot ou un segment d'une phrase.</li>
+                    <li>Avec ces indices, vous devrez reconstituer une citation finale de Simone de Beauvoir.</li>
+                    <li>L’utilisation d’Internet est autorisée et même encouragée ! Certaines questions vous inviteront à faire de courtes recherches pour découvrir des informations sur la vie et l’œuvre de Simone de Beauvoir, toujours en lien avec le thème de l’égalité.</li>
+                </ul>
+                <button id="startGameBtn">Commencer l'aventure !</button>
+            </div>
+        </section>
+
+        <!-- Page 1: Défi 1 - L’Œuvre Fondatrice (QCM) -->
+        <section id="page-1" class="page">
+            <h2><span class="defi-icon">❓</span> Défi 1 : L’Œuvre Fondatrice (QCM)</h2>
+            <div id="phrase-a-reconstituer-display-1" class="phrase-progression"></div>
+            <div class="page-content">
+                <p class="citation-inspiration"><em>“On ne naît pas femme : on le devient.”</em></p>
+                <p>Simone de Beauvoir est l’auteure d’un essai philosophique majeur, considéré comme l’un des textes fondateurs de la deuxième vague du féminisme. Il analyse la condition féminine à travers l’histoire, la biologie, la psychanalyse et le mythe. Quel est le titre de cet ouvrage ? (N’hésitez pas à chercher sur Internet !)</p>
+                <form id="defi1-form">
+                    <label for="defi1-optionA"><input type="radio" name="defi1" value="A" id="defi1-optionA"> A) Les Mandarins</label><br>
+                    <label for="defi1-optionB"><input type="radio" name="defi1" value="B" id="defi1-optionB"> B) Le Deuxième Sexe</label><br>
+                    <label for="defi1-optionC"><input type="radio" name="defi1" value="C" id="defi1-optionC"> C) Mémoires d’une jeune fille rangée</label><br>
+                    <label for="defi1-optionD"><input type="radio" name="defi1" value="D" id="defi1-optionD"> D) La Force des choses</label><br>
+                    <button type="button" id="validateDefi1Btn">Valider</button>
+                </form>
+                <p id="feedback-defi1" class="feedback" aria-live="polite"></p>
+                <div class="actions-defi">
+                    <button class="skip-button" data-challenge-index="1">Passer ce défi</button>
+                    <button class="next-challenge-button" data-next-page="2" style="display:none;" id="next-defi1">Défi Suivant →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 2: Défi 2 - Le Mot Caché (Jeu du Pendu) -->
+        <section id="page-2" class="page">
+            <h2><span class="defi-icon">✍️</span> Défi 2 : Le Mot Caché (Jeu du Pendu)</h2>
+            <div id="phrase-a-reconstituer-display-2" class="phrase-progression"></div>
+            <div class="page-content">
+                <p>Un concept clé exploré par Simone de Beauvoir est la manière dont la société façonne ce que signifie “être une femme” ou “être un homme”, au-delà de la biologie.</p>
+                <p><strong class="content-subtitle">Mot à deviner :</strong> <span id="mot-pendu">_ _ _ _ _</span> (5 lettres)</p>
+                <p>Lettres proposées : <span id="lettres-proposees"></span></p>
+                <input type="text" id="input-pendu" maxlength="1" aria-label="Proposer une lettre pour le pendu">
+                <button id="proposeLetterBtnPendu">Proposer</button>
+                <p>Essais restants : <span id="essais-pendu">5</span></p>
+                <p id="indice-pendu" style="display:none;">Indice : Ce n’est pas le sexe biologique, mais la construction sociale des rôles.</p>
+                <p id="feedback-defi2" class="feedback" aria-live="polite"></p>
+                <p id="reflexion-defi2" style="display:none;">Réflexion : En quoi la distinction entre sexe et genre est-elle importante pour penser l’égalité filles-garçons ?</p>
+                <div class="actions-defi">
+                    <button class="skip-button" data-challenge-index="2">Passer ce défi</button>
+                    <button class="next-challenge-button" data-next-page="3" style="display:none;" id="next-defi2">Défi Suivant →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 3: Défi 3 - Partenaires de Pensée -->
+        <section id="page-3" class="page">
+            <h2><span class="defi-icon">🤝</span> Défi 3 : Partenaires de Pensée</h2>
+            <div id="phrase-a-reconstituer-display-3" class="phrase-progression"></div>
+            <div class="page-content">
+                <p>Simone de Beauvoir a partagé sa vie et ses combats intellectuels avec un autre grand philosophe existentialiste. Ensemble, ils ont notamment fondé une célèbre revue.</p>
+                <p>Avec quel philosophe Simone de Beauvoir a-t-elle formé un couple mythique et co-fondé la revue “Les Temps Modernes” ? (Indice : son prénom était Jean-Paul).</p>
+                <input type="text" id="input-defi3" aria-label="Réponse pour le partenaire de pensée">
+                <button id="validateDefi3Btn">Valider</button>
+                <p id="feedback-defi3" class="feedback" aria-live="polite"></p>
+                <div class="actions-defi">
+                    <button class="skip-button" data-challenge-index="3">Passer ce défi</button>
+                    <button class="next-challenge-button" data-next-page="4" style="display:none;" id="next-defi3">Défi Suivant →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 4: Défi 4 - Associer pour Comprendre -->
+        <section id="page-4" class="page">
+            <h2><span class="defi-icon">🔗</span> Défi 4 : Associer pour Comprendre</h2>
+            <div id="phrase-a-reconstituer-display-4" class="phrase-progression"></div>
+            <div class="page-content">
+                <p>Associez chaque citation de Simone de Beauvoir à l’idée principale qu’elle exprime concernant la liberté et la condition féminine.</p>
+                <div id="association-container">
+                    <div class="association-group">
+                        <p class="citation-assoc">1. “N’oubliez jamais qu’il suffira d’une crise politique, économique ou religieuse…”</p>
+                        <select id="select-assoc-1" aria-label="Association pour la citation 1">
+                            <option value="">Choisissez...</option>
+                            <option value="A">A. Les droits des femmes sont constamment menacés...</option>
+                            <option value="B">B. La masculinité toxique peut se manifester...</option>
+                            <option value="C">C. La femme a often été définie par l’homme...</option>
+                        </select>
+                    </div>
+                    <div class="association-group">
+                        <p class="citation-assoc">2. “La femme est tout ce que l’homme appelle et tout ce qu’il n’atteint pas.”</p>
+                        <select id="select-assoc-2" aria-label="Association pour la citation 2">
+                            <option value="">Choisissez...</option>
+                            <option value="A">A. Les droits des femmes sont constamment menacés...</option>
+                            <option value="B">B. La masculinité toxique peut se manifester...</option>
+                            <option value="C">C. La femme a often été définie par l’homme...</option>
+                        </select>
+                    </div>
+                    <div class="association-group">
+                        <p class="citation-assoc">3. “Personne n’est plus arrogant envers les femmes, plus agressif ou méprisant, qu’un homme inquiet pour sa virilité.”</p>
+                        <select id="select-assoc-3" aria-label="Association pour la citation 3">
+                            <option value="">Choisissez...</option>
+                            <option value="A">A. Les droits des femmes sont constamment menacés...</option>
+                            <option value="B">B. La masculinité toxique peut se manifester...</option>
+                            <option value="C">C. La femme a often été définie par l’homme...</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="validateDefi4Btn">Valider Associations</button>
+                <p id="feedback-defi4" class="feedback" aria-live="polite"></p>
+                <div class="actions-defi">
+                    <button class="skip-button" data-challenge-index="4">Passer ce défi</button>
+                    <button class="next-challenge-button" data-next-page="5" style="display:none;" id="next-defi4">Défi Suivant →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 5: Défi 5 - La Grille de l’Égalité (Mots Mêlés) -->
+        <section id="page-5" class="page">
+            <h2><span class="defi-icon">⏱️</span> Défi 5 : La Grille de l’Égalité (Mots Mêlés)</h2>
+            <div id="phrase-a-reconstituer-display-5" class="phrase-progression"></div>
+            <div class="page-content">
+                <p>Trouvez les mots cachés dans la grille. Ces mots sont tous liés à Simone de Beauvoir, au féminisme et à la lutte pour l’égalité. Vous avez <span id="timer-motsmeles">2:00</span> pour trouver au moins 4 mots et gagner l’indice !</p>
+                <div id="motsmeles-grille-container" role="grid" aria-label="Grille de mots mêlés">
+                    <!-- La grille sera générée ici par JavaScript -->
+                </div>
+                <p class="motsmeles-instructions">Mots à trouver : BEAUVOIR, ÉGALITÉ, FÉMINISME, CHOIX, AUTONOMIE, DROITS, SEXISME, LIBERTÉ.
+                    <br>Cliquez sur la première puis la dernière lettre d'un mot aligné pour le sélectionner.
+                </p>
+                <p>Mots trouvés : <span id="motsmeles-trouves-count">0</span> / <span id="motsmeles-total-count">8</span></p>
+                <button id="validateMotsMelesBtn">Valider la sélection</button>
+                <p id="feedback-defi5" class="feedback" aria-live="polite"></p>
+                <div class="actions-defi">
+                    <button class="skip-button" data-challenge-index="5">Passer ce défi</button>
+                    <button class="next-challenge-button" data-next-page="6" style="display:none;" id="next-defi5">Défi Suivant →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 6: Défi 6 - Un Droit Conquis (QCM) -->
+        <section id="page-6" class="page">
+            <h2><span class="defi-icon">⚖️</span> Défi 6 : Un Droit Conquis (QCM)</h2>
+            <div id="phrase-a-reconstituer-display-6" class="phrase-progression"></div>
+            <div class="page-content">
+                <p>Les écrits et l’engagement de Simone de Beauvoir ont contribué à des avancées majeures pour les droits des femmes en France.</p>
+                <p>En 1975, une loi importante pour l’autonomie des femmes a été votée en France, notamment grâce à la lutte menée par des figures comme Simone Veil, et dans un contexte intellectuel marqué par des penseuses comme Simone de Beauvoir. De quelle loi s’agit-il ? (Cherchez “loi 1975 femmes France”)</p>
+                <form id="defi6-form">
+                    <label for="defi6-optionA"><input type="radio" name="defi6" value="A" id="defi6-optionA"> A) Loi sur l’égalité salariale</label><br>
+                    <label for="defi6-optionB"><input type="radio" name="defi6" value="B" id="defi6-optionB"> B) Loi autorisant le divorce par consentement mutuel</label><br>
+                    <label for="defi6-optionC"><input type="radio" name="defi6" value="C" id="defi6-optionC"> C) Loi relative à l’interruption volontaire de grossesse (IVG)</label><br>
+                    <label for="defi6-optionD"><input type="radio" name="defi6" value="D" id="defi6-optionD"> D) Loi sur la parité en politique</label><br>
+                    <button type="button" id="validateDefi6Btn">Valider</button>
+                </form>
+                <p id="feedback-defi6" class="feedback" aria-live="polite"></p>
+                <div class="actions-defi">
+                    <button class="skip-button" data-challenge-index="6">Passer ce défi</button>
+                    <button class="next-challenge-button" data-next-page="7" style="display:none;" id="next-defi6">Défi Suivant →</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Page 7: Défi 7 - Se Définir Soi-même -->
+        <section id="page-7" class="page">
+            <h2><span class="defi-icon">💡</span> Défi 7 : Se Définir Soi-même</h2>
+            <div id="phrase-a-reconstituer-display-7" class="phrase-progression"></div>
+            <div class="page-content">
+                <p class="citation-inspiration"><em>“L’important n’est pas ce qu’on a fait de nous, mais ce que nous faisons nous-mêmes de ce qu’on a fait de nous.”</em></p>
+                <p>Selon cette citation, qu’est-ce qui est le plus déterminant pour un individu : les conditions qui lui sont imposées ou sa capacité à agir et à se définir par ses propres choix ? (Répondez par “les conditions imposées” ou “sa capacité à agir”).</p>
+                <input type="text" id="input-defi7" aria-label="Réponse pour le défi Se Définir Soi-même">
+                <button id="validateDefi7Btn">Valider</button>
+                <p id="feedback-defi7" class="feedback" aria-live="polite"></p>
+                <div class="actions-defi">
+                    <button class="skip-button" data-challenge-index="7">Passer ce défi</button>
+                    <button style="display:none;" id="showFinalPageBtn">Voir l'énigme finale →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 8: Énigme Finale -->
+        <section id="page-8" class="page">
+            <h2><span class="page-icon">🏆</span> Énigme Finale</h2>
+            <div id="phrase-a-reconstituer-display-8" class="phrase-progression"></div>
+            <div class="page-content">
+                <p>Avec les indices que vous avez collectés, reconstituez la célèbre citation de Simone de Beauvoir.</p>
+                <p><strong class="content-subtitle">Vos indices :</strong> <span id="indices-collectes"></span></p>
+                <input type="text" id="citation-finale-input" placeholder="Tapez la citation ici" aria-label="Saisie de la citation finale">
+                <button id="validateCitationFinaleBtn">Valider la citation</button>
+                <p id="feedback-enigme-finale" class="feedback" aria-live="polite"></p>
+                <div id="message-reussite-final" style="display:none;">
+                    <p>Félicitations ! Vous avez découvert la citation : <strong id="citation-correcte-finale"></strong></p>
+                    <p>Simone de Beauvoir nous rappelle que la liberté est un combat collectif et que l’égalité est essentielle pour que chacun et chacune puisse s’épanouir.</p>
+                </div>
+                 <div id="message-echec-final" style="display:none;">
+                    <p><strong>Ce n’est pas tout à fait ça. Vérifiez bien l’ordre des mots et la citation exacte. Vous pouvez réessayer !</strong></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
