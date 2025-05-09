@@ -1,13 +1,27 @@
-const indicesSecrets = [
-    "Vouloir", "être", "libre,", "c'est", "aussi", "vouloir les autres", "libres."
+// Les segments de la phrase finale, dans l'ordre correct de la phrase
+const indicesSecretsCorrectOrder = [
+    "Vouloir",      // 0
+    "être",         // 1
+    "libre,",       // 2
+    "c'est",        // 3
+    "aussi",        // 4
+    "vouloir",      // 5
+    "les",          // 6
+    "autres",       // 7
+    "libres."       // 8
 ];
 const citationFinaleCorrecte = "Vouloir être libre, c'est aussi vouloir les autres libres.";
 
+// Détermine quel segment de `indicesSecretsCorrectOrder` est révélé par quel défi (index 0 = Défi 1, etc.)
+const challengeToSecretMapping = [3, 0, 5, 1, 8, 2, 6, 7, 4]; // Ordre mélangé des indices à révéler
+
 const gameState = {
     currentPage: 0,
-    totalChallenges: 7,
-    collectedIndices: new Array(7).fill(null),
+    totalChallenges: 9,
+    collectedIndices: new Array(indicesSecretsCorrectOrder.length).fill(null), 
+    citationAttempts: 0, 
     newlyRevealedIndex: -1,
+    dyslexiaFontEnabled: false
 };
 
 // --- Affichage de la Phrase de Progression ---
@@ -20,17 +34,17 @@ function afficherPhraseEnCours() {
         if (previouslyAnimated) previouslyAnimated.classList.remove('animate-mot-revele');
 
         let html = "";
-        indicesSecrets.forEach((segment, index) => {
-            if (gameState.collectedIndices[index]) { 
-                html += `<span class="mot-revele">${segment}</span>`;
+        indicesSecretsCorrectOrder.forEach((segment, correctSentenceIndex) => {
+            if (gameState.collectedIndices[correctSentenceIndex]) { 
+                html += `<span class="mot-revele">${gameState.collectedIndices[correctSentenceIndex]}</span>`;
             } else {
                 let tirets = segment.split('').map(char => {
-                    if (char === ',' || char === '.') return char; // Conserver ponctuation
+                    if (char === ',' || char === '.' || char === "'") return char; 
                     return '_';
                 }).join('');
                 html += `<span class="placeholder-tiret">${tirets}</span>`;
             }
-            if (index < indicesSecrets.length - 1) {
+            if (correctSentenceIndex < indicesSecretsCorrectOrder.length - 1) {
                 html += ' ';
             }
         });
@@ -40,10 +54,10 @@ function afficherPhraseEnCours() {
             const revealedSpans = phraseContainer.querySelectorAll('.mot-revele');
             let currentRevealedCount = 0;
             let spanToAnimate = null;
-            for(let i = 0; i < indicesSecrets.length; i++) {
+            for(let i = 0; i < indicesSecretsCorrectOrder.length; i++) {
                 if (gameState.collectedIndices[i]) {
                     if (i === gameState.newlyRevealedIndex) {
-                        spanToAnimate = revealedSpans[currentRevealedCount];
+                        spanToAnimate = revealedSpans[currentRevealedCount]; 
                         break; 
                     }
                     currentRevealedCount++;
@@ -57,7 +71,6 @@ function afficherPhraseEnCours() {
         }
     }
 
-    // Spécifiquement pour la page 8, mettre à jour également le span #indices-collectes
     if (gameState.currentPage === gameState.totalChallenges + 1) { 
         const indicesCollectesSpan = document.getElementById('indices-collectes');
         if (indicesCollectesSpan) {
@@ -97,14 +110,14 @@ function showPage(pageNumber) {
         targetPage.classList.add('active-page');
         gameState.currentPage = pageNumber;
         
-        if (pageNumber === 2) initPendu();
-        if (pageNumber === 5) initMotsMeles(); 
+        if (pageNumber === 2) initPendu(); 
+        if (pageNumber === 7) initMotsMeles(); 
 
         afficherPhraseEnCours(); 
         updateProgressBar();
 
         const pageContentElements = targetPage.querySelectorAll(
-            '.page-content > p, .page-content > ul, .page-content > form, .page-content > div:not(#motsmeles-grille-container), .page-content > .actions-defi, .page-content > .actions-defi > button, .page-content > input[type="text"], .page-content > select, .page-content .motsmeles-instructions'
+            '.page-content > p, .page-content > ul, .page-content > form, .page-content > div:not(#motsmeles-grille-container):not(.accessibility-options), .page-content > .actions-defi, .page-content > .actions-defi > button, .page-content > input[type="text"], .page-content > select, .page-content .motsmeles-instructions, .blanks-defi6, .accessibility-options'
         );
         
         pageContentElements.forEach(el => {
@@ -142,14 +155,15 @@ function startGame() {
     const introPhraseContainer = document.getElementById('phrase-a-reconstituer-display-0');
     if (introPhraseContainer) { 
         let html = "";
-        indicesSecrets.forEach((segment, index) => {
-            let tirets = segment.split('').map(char => (char === ',' || char === '.') ? char : '_').join('');
+        indicesSecretsCorrectOrder.forEach((segment, index) => {
+            let tirets = segment.split('').map(char => (char === ',' || char === '.' || char === "'") ? char : '_').join('');
             html += `<span class="placeholder-tiret">${tirets}</span>`;
-            if (index < indicesSecrets.length - 1) html += ' ';
+            if (index < indicesSecretsCorrectOrder.length - 1) html += ' ';
         });
         introPhraseContainer.innerHTML = html;
     }
-
+    // Appliquer la police DYS si elle était activée (depuis localStorage par exemple)
+    applyDyslexiaFontPreference();
     showPage(1); 
 }
 
@@ -164,16 +178,28 @@ function nextChallenge(nextPageNumber) {
 function showFinalEnigmaPage() {
     showPage(gameState.totalChallenges + 1); 
     const citationCorrecteFinaleSpan = document.getElementById('citation-correcte-finale');
+    gameState.citationAttempts = 0; 
     if (citationCorrecteFinaleSpan) {
         citationCorrecteFinaleSpan.textContent = citationFinaleCorrecte;
     }
+    // Assurer que les messages d'erreur/succès précédents sont cachés
+    document.getElementById('message-reussite-final').style.display = 'none';
+    document.getElementById('message-echec-final').style.display = 'none';
+    document.getElementById('feedback-attempts-exhausted').style.display = 'none';
+    document.getElementById('seeEpilogueBtn').style.display = 'none';
+    document.getElementById('citation-finale-input').disabled = false;
+    document.getElementById('validateCitationFinaleBtn').disabled = false;
+    document.getElementById('citation-finale-input').value = '';
+
+
 }
 
 function handleSuccessfulChallenge(challengeIndex) {
-    const indexInArray = challengeIndex - 1; 
-    if (!gameState.collectedIndices[indexInArray]) {
-        gameState.collectedIndices[indexInArray] = indicesSecrets[indexInArray];
-        gameState.newlyRevealedIndex = indexInArray;
+    const secretIndexInCorrectOrder = challengeToSecretMapping[challengeIndex - 1];
+
+    if (!gameState.collectedIndices[secretIndexInCorrectOrder]) {
+        gameState.collectedIndices[secretIndexInCorrectOrder] = indicesSecretsCorrectOrder[secretIndexInCorrectOrder];
+        gameState.newlyRevealedIndex = secretIndexInCorrectOrder; 
     }
     afficherPhraseEnCours();
     updateProgressBar();
@@ -183,7 +209,7 @@ function handleSuccessfulChallenge(challengeIndex) {
         const skipButton = pageElement.querySelector(`.skip-button[data-challenge-index="${challengeIndex}"]`);
         if (skipButton) skipButton.disabled = true;
         
-        let nextButton;
+        let nextButton; 
         if (challengeIndex === gameState.totalChallenges) { 
             nextButton = document.getElementById('showFinalPageBtn'); 
         } else {
@@ -219,6 +245,35 @@ function validerDefi1() {
         feedback.className = 'feedback error';
     }
 }
+
+// Défi 3: NOUVELLE ÉNIGME 1 - Destinée Biologique (QCM)
+function validerDefi3() {
+    const form = document.getElementById('defi3-form');
+    const selectedOption = form.querySelector('input[name="defi3-answer"]:checked');
+    const feedback = document.getElementById('feedback-defi3');
+
+    if (selectedOption) {
+        disableForm('defi3-form'); 
+        document.getElementById('validateDefi3Btn').disabled = true;
+
+        if (selectedOption.value === 'B') { 
+            feedback.textContent = "Correct ! Notre sexe à la naissance ne décide pas de tout.";
+            feedback.className = 'feedback success';
+            handleSuccessfulChallenge(3); 
+        } else {
+            feedback.textContent = "Incorrect. Relisez bien la citation et les options.";
+            feedback.className = 'feedback error';
+            const nextButton = document.getElementById('next-defi3');
+            if (nextButton) nextButton.style.display = 'inline-block';
+            const skipButton = document.querySelector(`#page-3 .skip-button[data-challenge-index="3"]`);
+            if (skipButton) skipButton.disabled = true;
+        }
+    } else {
+        feedback.textContent = "Veuillez sélectionner une option.";
+        feedback.className = 'feedback error';
+    }
+}
+
 
 // Défi 2: Pendu
 const motADevinerPendu = "GENRE";
@@ -297,61 +352,90 @@ function proposerLettrePendu() {
     }
 }
 
-// Défi 3: Question Simple
-function validerDefi3() {
-    const reponse = document.getElementById('input-defi3').value.trim();
-    const feedback = document.getElementById('feedback-defi3');
-    const inputElement = document.getElementById('input-defi3');
-    const validerButton = document.getElementById('validateDefi3Btn');
+// Défi 4: Partenaires de Pensée (Ancien Défi 3)
+function validerDefi4() { 
+    const reponse = document.getElementById('input-defi4').value.trim(); 
+    const feedback = document.getElementById('feedback-defi4'); 
+    const inputElement = document.getElementById('input-defi4');
+    const validerButton = document.getElementById('validateDefi4Btn');
     inputElement.disabled = true;
     validerButton.disabled = true;
     if (reponse.toLowerCase().includes("sartre")) {
         feedback.textContent = "Exactement ! Jean-Paul Sartre était son compagnon de vie et de pensée.";
         feedback.className = 'feedback success'; 
-        handleSuccessfulChallenge(3);
+        handleSuccessfulChallenge(4); 
     } else {
         feedback.textContent = `Ce n'est pas la bonne personne. La réponse attendue était Jean-Paul Sartre.`;
         feedback.className = 'feedback error';
-        const nextButton = document.getElementById('next-defi3');
+        const nextButton = document.getElementById('next-defi4'); 
         if (nextButton) nextButton.style.display = 'inline-block'; 
-        const skipButton = document.querySelector(`#page-3 .skip-button[data-challenge-index="3"]`);
+        const skipButton = document.querySelector(`#page-4 .skip-button[data-challenge-index="4"]`); 
         if (skipButton) skipButton.disabled = true;
     }
 }
 
-// Défi 4: Association
-function validerDefi4() {
-    const reponsesAttendues = { 'select-assoc-1': 'A', 'select-assoc-2': 'C', 'select-assoc-3': 'B' };
+// Défi 5: Association (Ancien Défi 4)
+function validerDefi5() { 
+    const reponsesAttendues = { 'select-assoc-1-defi5': 'A', 'select-assoc-2-defi5': 'C', 'select-assoc-3-defi5': 'B' }; 
     let correctes = 0;
-    const feedback = document.getElementById('feedback-defi4');
-    const validerButton = document.getElementById('validateDefi4Btn');
+    const feedback = document.getElementById('feedback-defi5'); 
+    const validerButton = document.getElementById('validateDefi5Btn'); 
     Object.keys(reponsesAttendues).forEach(id => { const el = document.getElementById(id); if(el) el.disabled = true; });
     validerButton.disabled = true;
     for (const id in reponsesAttendues) {
-        if (document.getElementById(id).value === reponsesAttendues[id]) correctes++;
+        const selectEl = document.getElementById(id);
+        if (selectEl && selectEl.value === reponsesAttendues[id]) correctes++;
     }
     if (correctes === 3) {
         feedback.textContent = "Parfait ! Vos associations sont correctes.";
         feedback.className = 'feedback success'; 
-        handleSuccessfulChallenge(4);
+        handleSuccessfulChallenge(5); 
     } else {
         feedback.textContent = `Vous avez ${correctes} association(s) correcte(s) sur 3. Les bonnes associations étaient 1-A, 2-C, 3-B.`;
         feedback.className = 'feedback error';
-        const nextButton = document.getElementById('next-defi4');
+        const nextButton = document.getElementById('next-defi5'); 
         if (nextButton) nextButton.style.display = 'inline-block'; 
-        const skipButton = document.querySelector(`#page-4 .skip-button[data-challenge-index="4"]`);
+        const skipButton = document.querySelector(`#page-5 .skip-button[data-challenge-index="5"]`); 
         if (skipButton) skipButton.disabled = true;
     }
 }
 
-// --- Défi 5: Mots Mêlés ---
+// Défi 6: NOUVELLE ÉNIGME 2 - Mots Manquants
+function validerDefi6() {
+    const word1Input = document.getElementById('defi6-word1');
+    const word2Input = document.getElementById('defi6-word2');
+    const feedback = document.getElementById('feedback-defi6');
+    const validerButton = document.getElementById('validateDefi6Btn');
+
+    const word1 = word1Input.value.trim().toLowerCase();
+    const word2 = word2Input.value.trim().toLowerCase();
+
+    word1Input.disabled = true;
+    word2Input.disabled = true;
+    validerButton.disabled = true;
+
+    if (word1 === 'libre' && word2 === 'choisir') {
+        feedback.textContent = "Correct ! La citation est : 'Je suis libre, je peux me choisir.'";
+        feedback.className = 'feedback success';
+        handleSuccessfulChallenge(6); 
+    } else {
+        feedback.textContent = "Incorrect. Vérifiez les mots. Pensez à la liberté et à la décision.";
+        feedback.className = 'feedback error';
+        const nextButton = document.getElementById('next-defi6');
+        if (nextButton) nextButton.style.display = 'inline-block';
+        const skipButton = document.querySelector(`#page-6 .skip-button[data-challenge-index="6"]`);
+        if (skipButton) skipButton.disabled = true;
+    }
+}
+
+
+// --- Défi 7: Mots Mêlés (Ancien Défi 5) ---
 const motsMelesParams = {
     gridSize: 15,
     words: ["BEAUVOIR", "ÉGALITÉ", "FÉMINISME", "CHOIX", "AUTONOMIE", "DROITS", "SEXISME", "LIBERTÉ"],
     wordsNormalized: [], targetWordsToFind: 4, timeLeft: 120, timerInterval: null,
     grid: [], wordObjects: [], foundWordsCount: 0, currentSelectionCells: [], gameActive: false
 };
-
 function normalizeWord(word) {
     return word.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
 }
@@ -361,12 +445,12 @@ function initMotsMeles() {
     motsMelesParams.timeLeft = 120; motsMelesParams.gameActive = true; motsMelesParams.wordObjects = [];
     document.getElementById('motsmeles-trouves-count').textContent = '0';
     document.getElementById('motsmeles-total-count').textContent = motsMelesParams.words.length;
-    document.getElementById('feedback-defi5').textContent = "";
-    document.getElementById('feedback-defi5').className = 'feedback';
-    document.getElementById('next-defi5').style.display = 'none';
+    document.getElementById('feedback-defi7-motsmeles').textContent = ""; 
+    document.getElementById('feedback-defi7-motsmeles').className = 'feedback';
+    document.getElementById('next-defi7').style.display = 'none'; 
     const validerButton = document.getElementById('validateMotsMelesBtn');
     if (validerButton) validerButton.disabled = false;
-    const skipButton = document.querySelector(`#page-5 .skip-button[data-challenge-index="5"]`);
+    const skipButton = document.querySelector(`#page-7 .skip-button[data-challenge-index="7"]`); 
     if(skipButton) skipButton.disabled = false;
     generateMotsMelesGrid(); renderMotsMelesGrid(); startMotsMelesTimer();
 }
@@ -414,7 +498,7 @@ function renderMotsMelesGrid() {
         for(let c=0;c<motsMelesParams.gridSize;c++){
             const td=document.createElement('td');
             td.textContent=motsMelesParams.grid[r]&&motsMelesParams.grid[r][c]?motsMelesParams.grid[r][c]:'';
-            td.dataset.r=r;td.dataset.c=c; td.setAttribute('role','gridcell'); td.setAttribute('tabindex','-1'); // For accessibility
+            td.dataset.r=r;td.dataset.c=c; td.setAttribute('role','gridcell'); td.setAttribute('tabindex','-1'); 
             td.addEventListener('click',handleMotsMelesCellClick);
             tr.appendChild(td);
         }
@@ -444,7 +528,7 @@ function highlightMotsMelesPath() {
 }
 function getCellsBetweenMotsMeles(start,end,checkContent=true) {
     const cells=[]; const dr=Math.sign(end.r-start.r); const dc=Math.sign(end.c-start.c);
-    if(start.r!==end.r&&start.c!==end.c)return null; // Strict H or V
+    if(start.r!==end.r&&start.c!==end.c)return null; 
     let r=start.r; let c=start.c; let currentWord="";
     while(true){
         if(r<0||r>=motsMelesParams.gridSize||c<0||c>=motsMelesParams.gridSize)return null;
@@ -513,36 +597,36 @@ function startMotsMelesTimer() {
 }
 function endMotsMelesGame(success) {
     motsMelesParams.gameActive=false; clearInterval(motsMelesParams.timerInterval);
-    const feedback=document.getElementById('feedback-defi5'); const nextBtn=document.getElementById('next-defi5');
+    const feedback=document.getElementById('feedback-defi7-motsmeles'); const nextBtn=document.getElementById('next-defi7'); 
     const valBtn=document.getElementById('validateMotsMelesBtn'); if(valBtn)valBtn.disabled=true;
-    const skipBtn=document.querySelector(`#page-5 .skip-button[data-challenge-index="5"]`); if(skipBtn)skipBtn.disabled=true;
+    const skipBtn=document.querySelector(`#page-7 .skip-button[data-challenge-index="7"]`); if(skipBtn)skipBtn.disabled=true; 
     const actualFound=motsMelesParams.foundWordsCount;
     if(success||actualFound>=motsMelesParams.targetWordsToFind){
         feedback.textContent=`Bravo ! Vous avez trouvé ${actualFound} mot(s) à temps.`;
-        feedback.className='feedback success'; handleSuccessfulChallenge(5);
+        feedback.className='feedback success'; handleSuccessfulChallenge(7); 
     }else{
         feedback.textContent=(motsMelesParams.timeLeft<=0?`Temps écoulé ! `:` `) + `Vous avez trouvé ${actualFound} mot(s). Il en fallait ${motsMelesParams.targetWordsToFind}.`;
         feedback.className='feedback error'; if(nextBtn)nextBtn.style.display='inline-block';
     }
 }
 
-// Défi 6: QCM
-function validerDefi6() {
-    const form = document.getElementById('defi6-form');
-    const selectedOption = form.querySelector('input[name="defi6"]:checked');
-    const feedback = document.getElementById('feedback-defi6');
+// Défi 8: QCM (Ancien Défi 6)
+function validerDefi8() { 
+    const form = document.getElementById('defi8-form'); 
+    const selectedOption = form.querySelector('input[name="defi8"]:checked'); 
+    const feedback = document.getElementById('feedback-defi8'); 
     if (selectedOption) {
-        disableForm('defi6-form');
+        disableForm('defi8-form');
         if (selectedOption.value === 'C') {
             feedback.textContent = "Excellente réponse ! La loi Veil de 1975 sur l'IVG fut une avancée majeure.";
             feedback.className = 'feedback success'; 
-            handleSuccessfulChallenge(6);
+            handleSuccessfulChallenge(8); 
         } else {
             feedback.textContent = "Ce n'est pas la bonne loi. La loi de 1975 concernait l'IVG.";
             feedback.className = 'feedback error';
-            const nextButton = document.getElementById('next-defi6');
+            const nextButton = document.getElementById('next-defi8'); 
             if (nextButton) nextButton.style.display = 'inline-block';
-            const skipButton = document.querySelector(`#page-6 .skip-button[data-challenge-index="6"]`);
+            const skipButton = document.querySelector(`#page-8 .skip-button[data-challenge-index="8"]`); 
             if (skipButton) skipButton.disabled = true;
         }
     } else {
@@ -551,24 +635,24 @@ function validerDefi6() {
     }
 }
 
-// Défi 7: Question Simple
-function validerDefi7() {
-    const reponse = document.getElementById('input-defi7').value.trim().toLowerCase();
-    const feedback = document.getElementById('feedback-defi7');
-    const inputElement = document.getElementById('input-defi7');
-    const validerButton = document.getElementById('validateDefi7Btn');
+// Défi 9: Question Simple (Ancien Défi 7)
+function validerDefi9() { 
+    const reponse = document.getElementById('input-defi9').value.trim().toLowerCase(); 
+    const feedback = document.getElementById('feedback-defi9'); 
+    const inputElement = document.getElementById('input-defi9');
+    const validerButton = document.getElementById('validateDefi9Btn'); 
     inputElement.disabled = true;
     validerButton.disabled = true;
     if (reponse.includes("sa capacité à agir") || reponse.includes("capacité à agir") || reponse.includes("capacité d'agir")) {
         feedback.textContent = "Très bien ! Simone de Beauvoir met l'accent sur notre capacité à nous définir par nos choix.";
         feedback.className = 'feedback success'; 
-        handleSuccessfulChallenge(7);
+        handleSuccessfulChallenge(9); 
     } else {
         feedback.textContent = `Relisez bien la citation. La bonne réponse mettait en avant la capacité à agir.`;
         feedback.className = 'feedback error';
-        const nextButton = document.getElementById('showFinalPageBtn');
+        const nextButton = document.getElementById('showFinalPageBtn'); 
         if (nextButton) nextButton.style.display = 'inline-block';
-        const skipButton = document.querySelector(`#page-7 .skip-button[data-challenge-index="7"]`);
+        const skipButton = document.querySelector(`#page-9 .skip-button[data-challenge-index="9"]`); 
         if (skipButton) skipButton.disabled = true;
     }
 }
@@ -578,20 +662,47 @@ function validerCitationFinale() {
     const saisieUtilisateur = document.getElementById('citation-finale-input').value.trim();
     const messageReussite = document.getElementById('message-reussite-final');
     const messageEchec = document.getElementById('message-echec-final');
+    const echecCitationText = document.getElementById('echec-citation-text');
+    const attemptsLeftText = document.getElementById('attempts-left-text');
     const inputElement = document.getElementById('citation-finale-input');
     const validerButton = document.getElementById('validateCitationFinaleBtn');
+    const seeEpilogueBtn = document.getElementById('seeEpilogueBtn');
+    const feedbackAttemptsExhausted = document.getElementById('feedback-attempts-exhausted');
+
     const normalize = (str) => str.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()']/g,"").replace(/\s+/g, ' ').trim();
+
+    gameState.citationAttempts++;
+
     if (normalize(saisieUtilisateur) === normalize(citationFinaleCorrecte)) {
         messageReussite.style.display = 'block'; messageEchec.style.display = 'none';
+        feedbackAttemptsExhausted.style.display = 'none';
         inputElement.disabled = true; validerButton.disabled = true;
+        seeEpilogueBtn.style.display = 'inline-block';
     } else {
         messageReussite.style.display = 'none'; messageEchec.style.display = 'block'; 
+        if (gameState.citationAttempts < 3) {
+            const attemptsRemaining = 3 - gameState.citationAttempts;
+            echecCitationText.textContent = "Ce n’est pas tout à fait ça. Vérifiez bien l’ordre des mots et la citation exacte.";
+            attemptsLeftText.textContent = `Il vous reste ${attemptsRemaining} essai(s).`;
+            feedbackAttemptsExhausted.style.display = 'none';
+            inputElement.focus(); 
+        } else {
+            echecCitationText.textContent = "Dernière tentative échouée.";
+            attemptsLeftText.textContent = "";
+            messageEchec.style.display = 'none'; 
+            feedbackAttemptsExhausted.style.display = 'block';
+            inputElement.disabled = true; validerButton.disabled = true;
+            seeEpilogueBtn.style.display = 'inline-block';
+        }
     }
 }
 
 // --- Fonction pour passer un défi ---
 function skipChallenge(challengeIndex) { 
     const feedback = document.getElementById(`feedback-defi${challengeIndex}`);
+    const feedbackMotsMeles = document.getElementById(`feedback-defi${challengeIndex}-motsmeles`);
+    const actualFeedbackElement = feedbackMotsMeles || feedback;
+
     const pageElement = document.getElementById(`page-${challengeIndex}`);
     let nextButton;
     if (challengeIndex === gameState.totalChallenges) {
@@ -599,37 +710,48 @@ function skipChallenge(challengeIndex) {
     } else {
         nextButton = document.getElementById(`next-defi${challengeIndex}`);
     }
-    
+
     if (pageElement) {
-        if (challengeIndex === 1 || challengeIndex === 6) disableForm(`defi${challengeIndex}-form`);
+        if (challengeIndex === 1 || challengeIndex === 3 || challengeIndex === 8) disableForm(`defi${challengeIndex}-form`); 
         else if (challengeIndex === 2) { 
             document.getElementById('input-pendu').disabled = true;
             document.getElementById('proposeLetterBtnPendu').disabled = true;
-        } else if (challengeIndex === 3 || challengeIndex === 7) { 
+        } else if (challengeIndex === 4 || challengeIndex === 9) { 
             const ti = document.getElementById(`input-defi${challengeIndex}`); if(ti)ti.disabled=true;
-            document.getElementById(`validateDefi${challengeIndex}Btn`).disabled = true;
-        } else if (challengeIndex === 4) { 
-            pageElement.querySelectorAll('select').forEach(s=>s.disabled=true);
-            document.getElementById('validateDefi4Btn').disabled = true;
+            const valBtn = document.getElementById(`validateDefi${challengeIndex}Btn`); if(valBtn)valBtn.disabled=true;
         } else if (challengeIndex === 5) { 
+            pageElement.querySelectorAll('select').forEach(s=>s.disabled=true);
+            const valBtn = document.getElementById(`validateDefi${challengeIndex}Btn`); if(valBtn)valBtn.disabled=true;
+        } else if (challengeIndex === 6) { 
+            const w1 = document.getElementById('defi6-word1'); if(w1) w1.disabled = true;
+            const w2 = document.getElementById('defi6-word2'); if(w2) w2.disabled = true;
+            const valBtn = document.getElementById(`validateDefi${challengeIndex}Btn`); if(valBtn)valBtn.disabled=true;
+        } else if (challengeIndex === 7) { 
             motsMelesParams.gameActive = false; clearInterval(motsMelesParams.timerInterval);
             document.getElementById('validateMotsMelesBtn').disabled = true;
-            document.querySelectorAll('#page-5 .motsmeles-table td').forEach(cell=>{
+            document.querySelectorAll(`#page-${challengeIndex} .motsmeles-table td`).forEach(cell=>{ 
                 cell.style.cursor='default'; 
             });
         }
         const currentSkipButton = pageElement.querySelector(`.skip-button[data-challenge-index="${challengeIndex}"]`);
         if(currentSkipButton) currentSkipButton.disabled = true;
     }
+
     let message = `Défi passé. `;
-    if (challengeIndex === 1) message += "L'œuvre fondatrice est 'Le Deuxième Sexe'.";
+    const skippedSecretIndex = challengeToSecretMapping[challengeIndex - 1];
+    const skippedWord = indicesSecretsCorrectOrder[skippedSecretIndex];
+
+    if (challengeIndex === 1) message += "L'œuvre fondatrice est 'Le Deuxième Sexe'.";    
     else if (challengeIndex === 2) message += `Le mot à deviner était '${motADevinerPendu}'.`;
-    else if (challengeIndex === 3) message += "Le partenaire de pensée était Jean-Paul Sartre.";
-    else if (challengeIndex === 4) message += "Assoc.: 1-A, 2-C, 3-B.";
-    else if (challengeIndex === 5) message += "Les mots mêlés demandaient de la concentration !";
-    else if (challengeIndex === 6) message += "La loi de 1975 concernait l'IVG.";
-    else if (challengeIndex === 7) message += "La citation souligne l'importance de la capacité à agir.";
-    if (feedback) { feedback.textContent = message; feedback.className = 'feedback info'; }
+    else if (challengeIndex === 3) message += "La bonne réponse était : 'Que notre sexe à la naissance ne décide pas de tout ce que nous serons ou ferons.'";
+    else if (challengeIndex === 4) message += "Le partenaire de pensée était Jean-Paul Sartre."; 
+    else if (challengeIndex === 5) message += "Assoc.: 1-A, 2-C, 3-B."; 
+    else if (challengeIndex === 6) message += "Les mots manquants étaient 'libre' et 'choisir'.";
+    else if (challengeIndex === 7) message += "Les mots mêlés demandaient de la concentration !"; 
+    else if (challengeIndex === 8) message += "La loi de 1975 concernait l'IVG."; 
+    else if (challengeIndex === 9) message += "La citation souligne l'importance de la capacité à agir."; 
+    message += ` L'indice qui aurait été révélé est : '${skippedWord}'`;
+    if (actualFeedbackElement) { actualFeedbackElement.textContent = message; actualFeedbackElement.className = 'feedback info'; }
     if (nextButton) nextButton.style.display = 'inline-block';
 }
 
@@ -641,17 +763,58 @@ function disableForm(formId) {
     }
 }
 
+// --- Police DYS ---
+function toggleDyslexiaFont() {
+    const body = document.body;
+    const toggleButton = document.getElementById('toggleDysFontBtn');
+    body.classList.toggle('dyslexia-friendly');
+    gameState.dyslexiaFontEnabled = body.classList.contains('dyslexia-friendly');
+    if (gameState.dyslexiaFontEnabled) {
+        toggleButton.textContent = 'Police DYS (Activée)';
+        toggleButton.classList.add('active');
+        localStorage.setItem('dyslexiaFontEnabled', 'true');
+    } else {
+        toggleButton.textContent = 'Police DYS';
+        toggleButton.classList.remove('active');
+        localStorage.setItem('dyslexiaFontEnabled', 'false');
+    }
+}
+
+function applyDyslexiaFontPreference() {
+    const dyslexiaEnabled = localStorage.getItem('dyslexiaFontEnabled') === 'true';
+    const body = document.body;
+    const toggleButton = document.getElementById('toggleDysFontBtn');
+    if (dyslexiaEnabled) {
+        body.classList.add('dyslexia-friendly');
+        toggleButton.textContent = 'Police DYS (Activée)';
+        toggleButton.classList.add('active');
+        gameState.dyslexiaFontEnabled = true;
+    } else {
+        body.classList.remove('dyslexia-friendly');
+        toggleButton.textContent = 'Police DYS';
+        toggleButton.classList.remove('active');
+        gameState.dyslexiaFontEnabled = false;
+    }
+}
+
+
 function initEventListeners() {
     document.getElementById('startGameBtn').addEventListener('click', startGame);
+    document.getElementById('toggleDysFontBtn').addEventListener('click', toggleDyslexiaFont);
 
-    document.getElementById('validateDefi1Btn').addEventListener('click', validerDefi1); // Defi 1
-    document.getElementById('proposeLetterBtnPendu').addEventListener('click', proposerLettrePendu); // Defi 2
-    document.getElementById('validateDefi3Btn').addEventListener('click', validerDefi3);
-    document.getElementById('validateDefi4Btn').addEventListener('click', validerDefi4);
-    document.getElementById('validateMotsMelesBtn').addEventListener('click', validerSelectionMotsMeles);
-    document.getElementById('validateDefi6Btn').addEventListener('click', validerDefi6);
-    document.getElementById('validateDefi7Btn').addEventListener('click', validerDefi7);
+    document.getElementById('validateDefi1Btn').addEventListener('click', validerDefi1); 
+    document.getElementById('proposeLetterBtnPendu').addEventListener('click', proposerLettrePendu); 
+    document.getElementById('validateDefi3Btn').addEventListener('click', validerDefi3); 
+    document.getElementById('validateDefi4Btn').addEventListener('click', validerDefi4); 
+    document.getElementById('validateDefi5Btn').addEventListener('click', validerDefi5); 
+    document.getElementById('validateDefi6Btn').addEventListener('click', validerDefi6); 
+    document.getElementById('validateMotsMelesBtn').addEventListener('click', validerSelectionMotsMeles); 
+    document.getElementById('validateDefi8Btn').addEventListener('click', validerDefi8); 
+    document.getElementById('validateDefi9Btn').addEventListener('click', validerDefi9); 
+
+
     document.getElementById('validateCitationFinaleBtn').addEventListener('click', validerCitationFinale);
+    document.getElementById('seeEpilogueBtn').addEventListener('click', () => showPage(11));
 
     document.getElementById('showFinalPageBtn').addEventListener('click', showFinalEnigmaPage);
 
@@ -688,4 +851,5 @@ function initEventListeners() {
 window.onload = () => {
     showPage(0); 
     initEventListeners(); 
+    applyDyslexiaFontPreference(); // Appliquer la préférence au chargement
 };

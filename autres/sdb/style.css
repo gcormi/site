@@ -15,6 +15,7 @@
     --page-content-bg: rgba(255, 255, 255, 0.75); 
     --text-color-dark: #333;
     --text-color-light-on-dark-bg: #f0f0f0; 
+    --dyslexia-font: "OpenDyslexic", Verdana, Arial, sans-serif; /* Police DYS avec fallbacks */
 }
 
 *, *::before, *::after {
@@ -33,6 +34,37 @@ body {
     align-items: center;
     min-height: 100vh;
 }
+
+/* Styles pour la police DYS */
+body.dyslexia-friendly {
+    font-family: var(--dyslexia-font) !important; /* !important pour s'assurer qu'elle s'applique partout */
+    letter-spacing: 0.5px !important;
+    word-spacing: 1.5px !important;
+    line-height: 1.7 !important;
+}
+body.dyslexia-friendly h1,
+body.dyslexia-friendly h2,
+body.dyslexia-friendly h3,
+body.dyslexia-friendly p,
+body.dyslexia-friendly li,
+body.dyslexia-friendly label,
+body.dyslexia-friendly button,
+body.dyslexia-friendly input,
+body.dyslexia-friendly select,
+body.dyslexia-friendly span,
+body.dyslexia-friendly div {
+    font-family: var(--dyslexia-font) !important;
+    letter-spacing: 0.5px !important;
+    word-spacing: 1.5px !important;
+}
+body.dyslexia-friendly #mot-pendu { /* Spécifique pour le pendu qui a une police monospace */
+    font-family: var(--dyslexia-font), 'Courier New', Courier, monospace !important;
+    letter-spacing: 5px !important; /* Ajuster si besoin pour la lisibilité avec DYS */
+}
+body.dyslexia-friendly .motsmeles-table td {
+    font-family: var(--dyslexia-font) !important;
+}
+
 
 #game-container {
     background-color: #fdfdfd; 
@@ -57,12 +89,15 @@ body {
 #page-0 { background-image: url('images/sdb1.png'); }
 #page-1 { background-image: url('images/sdb2.png'); }
 #page-2 { background-image: url('images/sdb3.png'); }
-#page-3 { background-image: url('images/sdb4.png'); }
-#page-4 { background-image: url('images/sdb5.png'); }
-#page-5 { background-image: url('images/sdb6.png'); }
-#page-6 { background-image: url('images/sdb7.png'); }
-#page-7 { background-image: url('images/sdb8.png'); }
-#page-8 { background-image: url('images/sdb9.png'); }
+#page-3 { background-image: url('images/sdb1.png'); } 
+#page-4 { background-image: url('images/sdb4.png'); } 
+#page-5 { background-image: url('images/sdb5.png'); } 
+#page-6 { background-image: url('images/sdb2.png'); } 
+#page-7 { background-image: url('images/sdb6.png'); } 
+#page-8 { background-image: url('images/sdb7.png'); } 
+#page-9 { background-image: url('images/sdb8.png'); } 
+#page-10 { background-image: url('images/sdb9.png'); } 
+#page-11 { background-image: url('images/sdb1.png'); } 
 
 
 .active-page {
@@ -111,10 +146,10 @@ h2.subtitle {
 
 /* Style pour les "sous-titres" dans le contenu */
 .content-subtitle {
-    font-size: 1.05em; /* Légèrement plus grand que le texte normal maintenant en gras */
-    color: var(--primary-mauve); /* Optionnel: pour les distinguer davantage */
-    margin-bottom: 0.3em; /* Un peu d'espace en dessous */
-    display: inline-block; /* Comportement de bloc pour le margin-bottom */
+    font-size: 1.05em; 
+    color: var(--primary-mauve); 
+    margin-bottom: 0.3em; 
+    display: inline-block; 
 }
 
 
@@ -128,7 +163,7 @@ h2.subtitle {
     color: var(--text-color-dark); 
 }
 
-.page-content .citation-assoc { /* Est un <p>, donc sera en gras par la règle générale */
+.page-content .citation-assoc { 
     /* font-weight: bold; /* Redondant */
 }
 
@@ -323,7 +358,7 @@ button#proposeLetterBtnPendu {
     width: 100%; 
     padding: 12px;
     margin-top: 10px;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; Changed in HTML */
     font-size: 1.05em;
     border: 1px solid #bca0dc; 
 }
@@ -369,7 +404,7 @@ button#proposeLetterBtnPendu {
 .page-content > p, 
 .page-content > ul, 
 .page-content > form, 
-.page-content > div:not(#motsmeles-grille-container), 
+.page-content > div:not(#motsmeles-grille-container):not(.blanks-defi6):not(.accessibility-options), 
 .page-content > .actions-defi, 
 .page-content > .actions-defi > button, 
 .page-content > input[type="text"], 
@@ -378,6 +413,13 @@ button#proposeLetterBtnPendu {
     opacity: 0; 
     transform: translateY(10px); 
 }
+
+.blanks-defi6,
+.accessibility-options { /* S'assurer que ces conteneurs s'animent aussi */
+    opacity: 0;
+    transform: translateY(10px);
+}
+
 
 #motsmeles-grille-container {
     display: flex;
@@ -466,3 +508,55 @@ button#validateMotsMelesBtn:hover:not(:disabled) {
     color: #444; 
     font-weight: 500; 
 }
+
+.question-defi { 
+    margin-bottom: 15px;
+}
+
+.blanks-defi6 input[type="text"] {
+    width: 120px; 
+    padding: 10px;
+    margin: 0 5px 10px 5px; 
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    text-align: center;
+}
+
+.hint-defi { 
+    margin-bottom: 20px;
+    font-size: 0.95em; 
+}
+
+.epilogue-content h3 {
+    color: var(--primary-mauve);
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--primary-mauve-darker);
+    padding-bottom: 10px;
+}
+
+.epilogue-content p {
+    margin-bottom: 15px;
+    line-height: 1.7;
+    font-size: 1.05em; 
+}
+
+.accessibility-options {
+    text-align: right;
+    margin-bottom: 15px;
+}
+
+#toggleDysFontBtn {
+    background-color: #6c757d; /* Gris neutre */
+    padding: 8px 12px;
+    font-size: 14px;
+}
+#toggleDysFontBtn:hover {
+    background-color: #5a6268;
+}
+#toggleDysFontBtn.active {
+    background-color: var(--primary-mauve); /* Couleur principale quand actif */
+}
+
