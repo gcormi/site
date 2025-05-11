@@ -1,1 +1,855 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créations de prompts pour modules de Technologie</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5; /* Gris clair moderne */
+            color: #333;
+            line-height: 1.7;
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0px); }
+        }
 
+        /* Couleurs spécifiques par niveau pour les en-têtes de tableau */
+        .prompt-theme th { background-color: #149E8D; /* Sarcelle dynamique */ color: white; }
+        .cinquieme-theme th { background-color: #27AE60; /* Vert Émeraude */ color: white; }
+        .quatrieme-theme th { background-color: #2980B9; /* Bleu Saphir */ color: white; }
+        .troisieme-theme th { background-color: #8E44AD; /* Violet Améthyste */ color: white; }
+
+        .tab-btn {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        .tab-btn:not(.active):hover {
+            background-color: #e9ecef; /* Gris très clair pour hover sur inactif */
+            color: #007bff; /* Couleur d'accent pour texte hover */
+        }
+        /* Style pour l'onglet actif (bordure et couleur de texte) géré par JS */
+
+        pre {
+            background-color: #2d3748; /* Fond sombre pour le code/prompt */
+            color: #e2e8f0; /* Texte clair */
+            border-left: 5px solid #149E8D; /* Accent sarcelle */
+            padding: 20px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        pre strong {
+            color: #63b3ed; /* Bleu clair pour emphase dans le prompt */
+        }
+        pre code {
+            color: #f6ad55; /* Orange pour les balises code dans le prompt */
+        }
+        #generatedPromptContainer {
+            border: 2px dashed #149E8D; /* Sarcelle pour le conteneur du prompt généré */
+            background-color: #f8f9fa;
+        }
+        .format-option-btn.selected {
+            background-color: #149E8D; /* Sarcelle */
+            color: white;
+            border-color: #0d8273;
+        }
+        .format-option-btn {
+             border: 2px solid transparent;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <header class="bg-gradient-to-r from-gray-800 to-gray-700 text-white shadow-lg">
+        <div class="container mx-auto px-6 py-8">
+            <h1 class="text-4xl font-bold text-center">Créations de prompts pour modules de Technologie</h1>
+            <p class="text-center text-gray-300 mt-2">Générez des prompts pour vos cours de Technologie au collège</p>
+        </div>
+    </header>
+
+    <div class="container mx-auto p-4 md:p-8">
+        <!-- Onglets de Navigation -->
+        <div class="mb-8 bg-white rounded-lg shadow-md overflow-hidden">
+            <nav class="flex flex-wrap justify-center border-b border-gray-200">
+                <button class="tab-btn py-4 px-6 block hover:text-blue-500 focus:outline-none font-semibold border-b-4 border-transparent" data-tab="prompt">
+                    <i class="fas fa-bullhorn mr-2"></i>Le Prompt Pédagogique
+                </button>
+                <button class="tab-btn py-4 px-6 block hover:text-blue-500 focus:outline-none font-semibold border-b-4 border-transparent" data-tab="cinquieme">
+                    <i class="fas fa-cogs mr-2"></i>Programme 5ème
+                </button>
+                <button class="tab-btn py-4 px-6 block hover:text-blue-500 focus:outline-none font-semibold border-b-4 border-transparent" data-tab="quatrieme">
+                    <i class="fas fa-drafting-compass mr-2"></i>Programme 4ème
+                </button>
+                <button class="tab-btn py-4 px-6 block hover:text-blue-500 focus:outline-none font-semibold border-b-4 border-transparent" data-tab="troisieme">
+                    <i class="fas fa-microchip mr-2"></i>Programme 3ème
+                </button>
+                <button class="tab-btn py-4 px-6 block hover:text-blue-500 focus:outline-none font-semibold border-b-4 border-transparent" data-tab="generateur">
+                    <i class="fas fa-magic mr-2"></i>Générateur de Prompt
+                </button>
+            </nav>
+        </div>
+
+        <!-- Contenu des Onglets -->
+        <div id="prompt" class="tab-content prompt-theme bg-white p-6 md:p-8 rounded-lg shadow-xl">
+            <h2 class="text-3xl font-semibold mb-6 text-gray-700 border-b-2 border-gray-200 pb-3">Le Prompt Pédagogique : Notre Guide (Version Améliorée)</h2>
+            <p class="mb-6 text-gray-600 text-lg">
+                Pour assurer la qualité et la pertinence de nos cours de technologie, nous suivons une ligne directrice précise. L'objectif est de fournir un support
+                <strong class="text-gray-700">académique et sérieux</strong>, tout en restant <strong class="text-gray-700">accessible et engageant</strong> pour chaque élève du collège.
+                Il ne s'agit pas d'être austère, mais de transmettre des connaissances techniques avec <strong class="text-gray-700">clarté, précision et de nombreux exemples concrets</strong>.
+                Une attention particulière est portée à l'adéquation du contenu avec le niveau de classe spécifique. Chaque cours est conçu pour être une base solide pour les apprentissages et les activités pratiques.
+            </p>
+            <pre>
+En tant que professeur de technologie en collège pour des élèves de cycle 4 (5ème, 4ème, 3ème), je souhaite créer un support de cours complet et structuré.
+
+Ce cours doit être conçu dans un style académique, tout en étant accessible et engageant pour des collégiens. Il est impératif qu'il soit développé avec des explications claires, précises et particulièrement concrètes. Une attention particulière doit être portée à ce que les notions du programme abordées soient développées en adéquation avec le niveau de classe spécifique des élèves (merci de préciser si le cours s'adresse à un niveau particulier du cycle 4 ou à l'ensemble du cycle, afin d'adapter la profondeur et la complexité).
+
+Je vous demande d'intégrer :
+
+1.  <strong>Une introduction</strong> qui capte l'intérêt des élèves, présente le sujet et les objectifs d'apprentissage clairs.
+2.  <strong>Un développement structuré</strong> du sujet, décomposé en sections logiques, bien titrées et faciles à suivre.
+3.  <strong>Des explications approfondies</strong> pour chaque concept clé, en utilisant un langage adapté au niveau des élèves (éviter le jargon excessif ou l'expliquer systématiquement) mais sans simplifier à l'excès les notions techniques fondamentales.
+4.  <strong>De nombreux exemples concrets et variés</strong> pour illustrer chaque point théorique. Ces exemples doivent être pertinents pour le quotidien des élèves, leurs centres d'intérêt ou pour des applications technologiques qu'ils peuvent comprendre (par exemple, des objets de la maison, des systèmes simples, des technologies émergentes adaptées à leur niveau). N'hésitez pas à détailler ces exemples pour en faciliter la compréhension.
+5.  <strong>(Le cas échéant) Des schémas explicatifs simplifiés</strong> ou des descriptions textuelles très précises permettant de visualiser les concepts (si vous ne pouvez générer des images, décrivez-les en détail pour que je puisse les créer ou les trouver).
+6.  <strong>Une section dédiée aux "Perspectives et Avenir"</strong> du sujet traité, explorant les évolutions futures, les innovations attendues ou les impacts potentiels à plus long terme.
+7.  <strong>Une conclusion</strong> qui résume les points essentiels du cours, renforce les acquis et peut-être pose une question ouverte pour susciter la réflexion.
+8.  <strong>Un glossaire des mots importants</strong> et des termes techniques introduits dans le cours, avec des définitions claires, concises et adaptées au niveau.
+
+Ce cours servira de base théorique solide et de référence pour des activités pratiques, des analyses de systèmes, des projets et des exercices que je mènerai ultérieurement en classe. L'objectif est que les élèves acquièrent une compréhension approfondie et durable du sujet.
+
+Merci de veiller à la rigueur des informations techniques, à la clarté de l'exposition et à l'aspect pédagogique de l'ensemble.
+
+Le thème spécifique de ce cours est : <strong><code>[SUJET SPÉCIFIQUE DU COURS]</code></strong>.
+            </pre>
+        </div>
+
+        <div id="cinquieme" class="tab-content cinquieme-theme bg-white p-6 md:p-8 rounded-lg shadow-xl">
+            <h2 class="text-3xl font-semibold mb-8 text-gray-700 border-b-2 border-gray-200 pb-3">Niveau 5ème : Exploration et Fondations Numériques (45 Heures)</h2>
+            <div class="overflow-x-auto rounded-lg shadow">
+                <table class="w-full min-w-max">
+                    <thead>
+                        <tr class="text-left">
+                            <th class="py-3 px-5">N°</th>
+                            <th class="py-3 px-5">Titre de l’Activité (Module)</th>
+                            <th class="py-3 px-5">Connaissances Visées</th>
+                            <th class="py-3 px-5">Compétences Visées</th>
+                            <th class="py-3 px-5">Phrase d’Explication Succincte</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-600 text-sm">
+                        <tr class="border-b border-gray-200 hover:bg-green-50">
+                            <td class="py-3 px-5">1</td>
+                            <td class="py-3 px-5 font-medium">Bienvenue dans le Monde des Objets Techniques !</td>
+                            <td class="py-3 px-5">Besoin, fonction d’usage, fonction d’estime. Familles d’objets techniques.</td>
+                            <td class="py-3 px-5">Identifier un besoin. Distinguer fonction d’usage et fonction d’estime. Classer des objets techniques.</td>
+                            <td class="py-3 px-5 italic">“Explorons ensemble les objets qui nous entourent : à quoi servent-ils vraiment et pourquoi les aimons-nous (ou pas) ?”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-green-50">
+                            <td class="py-3 px-5">2</td>
+                            <td class="py-3 px-5 font-medium">Comment ça Marche ? (Partie 1 : Fonctions)</td>
+                            <td class="py-3 px-5">Notion de fonction technique. Solutions techniques simples.</td>
+                            <td class="py-3 px-5">Associer des fonctions techniques à des solutions techniques sur des objets simples. Décrire le rôle des composants principaux.</td>
+                            <td class="py-3 px-5 italic">“Plongeons au cœur des objets ! Découvrons les ‘missions secrètes’ (fonctions techniques) que leurs composants accomplissent pour qu’ils fonctionnent.”</td>
+                        </tr>
+                         <tr class="border-b border-gray-200 hover:bg-green-50">
+                            <td class="py-3 px-5">3</td>
+                            <td class="py-3 px-5 font-medium">Comment ça Marche ? (Partie 2 : L’Énergie)</td>
+                            <td class="py-3 px-5">Formes d’énergie (mécanique, électrique, thermique, lumineuse). Sources d’énergie. Chaîne d’énergie simple (alimentation, conversion).</td>
+                            <td class="py-3 px-5">Identifier les formes et sources d’énergie utilisées par un objet. Représenter une chaîne d’énergie simple.</td>
+                            <td class="py-3 px-5 italic">“D’où vient la force qui fait fonctionner nos objets ? Découvrons les secrets de l’énergie et comment elle se transforme !”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-green-50">
+                            <td class="py-3 px-5">4</td>
+                            <td class="py-3 px-5 font-medium">Les Matériaux : Le Choix Malin !</td>
+                            <td class="py-3 px-5">Grandes familles de matériaux (métaux, plastiques, organiques, composites – introduction). Propriétés élémentaires (dureté, flexibilité, transparence). Impact environnemental (tri).</td>
+                            <td class="py-3 px-5">Identifier les matériaux principaux d’un objet. Relier un matériau à ses propriétés et à son usage. Sensibiliser au tri et au recyclage.</td>
+                            <td class="py-3 px-5 italic">“Bois, plastique, métal… Chaque matériau a ses super-pouvoirs ! Apprenons à les reconnaître et à comprendre pourquoi on les choisit.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-green-50">
+                            <td class="py-3 px-5">5</td>
+                            <td class="py-3 px-5 font-medium">Dessine-moi un Objet : Les Bases du Langage Technique</td>
+                            <td class="py-3 px-5">Croquis, schémas, vues usuelles (introduction très simplifiée). Outils de représentation (crayon, règle, logiciel de dessin 2D simple – découverte).</td>
+                            <td class="py-3 px-5">Réaliser des croquis à main levée pour représenter un objet simple. Comprendre l’utilité d’un schéma.</td>
+                            <td class="py-3 px-5 italic">“Un dessin vaut mille mots, surtout en technologie ! Découvrons comment représenter nos idées et les objets pour bien se faire comprendre.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-green-50">
+                            <td class="py-3 px-5">6</td>
+                            <td class="py-3 px-5 font-medium">Premiers Pas en Algorithmique : Penser comme un Ordinateur</td>
+                            <td class="py-3 px-5">Notion d’instruction, de séquence. Algorithme comme suite d’actions ordonnées.</td>
+                            <td class="py-3 px-5">Décomposer une tâche simple en instructions séquentielles. Écrire un algorithme simple en langage naturel.</td>
+                            <td class="py-3 px-5 italic">“Et si on apprenait à donner des ordres clairs à une machine ? Découvrons la magie des algorithmes, la recette secrète derrière les programmes !”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-green-50">
+                            <td class="py-3 px-5">7</td>
+                            <td class="py-3 px-5 font-medium">Scratch : Créons notre Première Animation !</td>
+                            <td class="py-3 px-5">Interface d’un logiciel de programmation par blocs. Blocs de mouvement, d’apparence, d’événements (simples). Notion de script.</td>
+                            <td class="py-3 px-5">Se repérer dans l’interface de Scratch. Assembler des blocs pour créer une animation simple. Tester et observer le résultat.</td>
+                            <td class="py-3 px-5 italic">“Faisons bouger des personnages et racontons des histoires avec Scratch ! Prêt à devenir un créateur d’animations en quelques clics ?”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-green-50">
+                            <td class="py-3 px-5">8</td>
+                            <td class="py-3 px-5 font-medium">Scratch : Ajoutons de l’Interaction !</td>
+                            <td class="py-3 px-5">Blocs de contrôle (répétition simple), capteurs (clavier, souris).</td>
+                            <td class="py-3 px-5">Utiliser des boucles simples. Rendre une animation interactive en réponse à une action de l’utilisateur.</td>
+                            <td class="py-3 px-5 italic">“Et si tes personnages réagissaient quand tu cliques ou appuies sur une touche ? Rendons nos créations Scratch encore plus vivantes !”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-green-50">
+                            <td class="py-3 px-5">9</td>
+                            <td class="py-3 px-5 font-medium">L’Ordinateur et ses Périphériques : Qui fait Quoi ?</td>
+                            <td class="py-3 px-5">Unité centrale, écran, clavier, souris, imprimante, clé USB. Rôles des principaux composants internes (processeur, mémoire – très simplifié).</td>
+                            <td class="py-3 px-5">Identifier les principaux périphériques d’un ordinateur et leur fonction. Comprendre le rôle global de l’unité centrale.</td>
+                            <td class="py-3 px-5 italic">“Clavier, souris, écran… Qui sont ces aides précieuses de l’ordinateur ? Découvrons ensemble l’équipe qui fait fonctionner ta machine.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-green-50">
+                            <td class="py-3 px-5">10</td>
+                            <td class="py-3 px-5 font-medium">Naviguer sur Internet : Les Bonnes Pratiques</td>
+                            <td class="py-3 px-5">Navigateur, moteur de recherche, adresse URL. Notion d’hyperlien. Prudence en ligne (informations personnelles, sources fiables – sensibilisation).</td>
+                            <td class="py-3 px-5">Utiliser un navigateur et un moteur de recherche. Identifier les éléments d’une adresse web. Adopter des réflexes de prudence en ligne.</td>
+                            <td class="py-3 px-5 italic">“Internet, c’est géant ! Apprenons à surfer comme des pros, à trouver les bonnes infos et à rester en sécurité dans cet immense océan numérique.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-green-50">
+                            <td class="py-3 px-5">11</td>
+                            <td class="py-3 px-5 font-medium">Design d’Objet : Beau et Utile !</td>
+                            <td class="py-3 px-5">Notion de design, d’ergonomie. Influence des formes, couleurs, matériaux sur l’utilisateur. Évolution du design d’un objet dans le temps.</td>
+                            <td class="py-3 px-5">Observer et décrire le design d’objets. Analyser comment le design répond à un besoin et influence l’utilisateur.</td>
+                            <td class="py-3 px-5 italic">“Pourquoi certains objets sont-ils plus agréables à utiliser ou plus beaux que d’autres ? Explorons le monde fascinant du design !”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-green-50">
+                            <td class="py-3 px-5">12</td>
+                            <td class="py-3 px-5 font-medium">Comment les Objets Communiquent-ils Simplement ?</td>
+                            <td class="py-3 px-5">Signaux simples (lumineux, sonores). Transmission d’information basique (ex: télécommande infrarouge – principe).</td>
+                            <td class="py-3 px-5">Identifier comment des objets simples envoient et reçoivent des informations basiques.</td>
+                            <td class="py-3 px-5 italic">“Bips, lumières clignotantes… Les objets nous parlent ! Découvrons leurs langages secrets pour communiquer entre eux ou avec nous.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-green-50">
+                            <td class="py-3 px-5">13</td>
+                            <td class="py-3 px-5 font-medium">Organiser son Travail Numérique</td>
+                            <td class="py-3 px-5">Dossiers, fichiers, nommage. Sauvegarde (locale, cloud – introduction). Environnement Numérique de Travail (ENT).</td>
+                            <td class="py-3 px-5">Créer et organiser des dossiers et fichiers de manière logique. Comprendre l’importance de la sauvegarde. Se repérer dans l’ENT.</td>
+                            <td class="py-3 px-5 italic">“Fini le bazar dans tes fichiers ! Apprenons à ranger et organiser ton espace numérique pour retrouver facilement tes trésors.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-green-50">
+                            <td class="py-3 px-5">14</td>
+                            <td class="py-3 px-5 font-medium">Défi Créatif Numérique (1/2) : Idéation et Scénario</td>
+                            <td class="py-3 px-5">Synthèse des notions de besoin, fonction, design. Structuration d’un petit projet d’animation ou d’histoire interactive (scénario).</td>
+                            <td class="py-3 px-5">Imaginer une petite animation ou histoire interactive sur un thème donné. Écrire un scénario simple.</td>
+                            <td class="py-3 px-5 italic">“C’est à toi de jouer ! Imagine une super animation ou une histoire interactive. Première étape : coucher tes idées sur le papier (numérique !).”</td>
+                        </tr>
+                        <tr class="hover:bg-green-50">
+                            <td class="py-3 px-5">15</td>
+                            <td class="py-3 px-5 font-medium">Défi Créatif Numérique (2/2) : Réalisation et Partage</td>
+                            <td class="py-3 px-5">Utilisation des outils de Scratch pour mettre en œuvre le scénario. Partage simple d’une création.</td>
+                            <td class="py-3 px-5">Réaliser l’animation ou l’histoire interactive conçue. Présenter son travail (oralement ou via une description écrite sur le blog).</td>
+                            <td class="py-3 px-5 italic">“Donnons vie à tes idées ! Programme ton animation ou ton histoire avec Scratch et prépare-toi à la partager avec la classe.”</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="quatrieme" class="tab-content quatrieme-theme bg-white p-6 md:p-8 rounded-lg shadow-xl">
+            <h2 class="text-3xl font-semibold mb-8 text-gray-700 border-b-2 border-gray-200 pb-3">Niveau 4ème : Systèmes, Modélisation et Programmation Interactive (45 Heures)</h2>
+            <div class="overflow-x-auto rounded-lg shadow">
+                <table class="w-full min-w-max">
+                    <thead>
+                        <tr class="text-left">
+                            <th class="py-3 px-5">N°</th>
+                            <th class="py-3 px-5">Titre de l’Activité (Module)</th>
+                            <th class="py-3 px-5">Connaissances Visées</th>
+                            <th class="py-3 px-5">Compétences Visées</th>
+                            <th class="py-3 px-5">Phrase d’Explication Succincte</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-600 text-sm">
+                        <tr class="border-b border-gray-200 hover:bg-blue-50">
+                            <td class="py-3 px-5">1</td>
+                            <td class="py-3 px-5 font-medium">Les Systèmes Automatisés : Magie ou Logique ?</td>
+                            <td class="py-3 px-5">Définition d’un système automatisé. Chaîne d’information (acquérir, traiter, communiquer) et chaîne d’énergie (alimenter, distribuer, convertir, transmettre) - introduction.</td>
+                            <td class="py-3 px-5">Identifier les éléments d’un système automatisé simple (ex: portail automatique). Distinguer chaîne d’information et chaîne d’énergie.</td>
+                            <td class="py-3 px-5 italic">“Portails qui s’ouvrent tout seuls, lumières qui s’allument à notre passage… Comment ça marche ? Décortiquons la logique des systèmes automatisés !”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-blue-50">
+                            <td class="py-3 px-5">2</td>
+                            <td class="py-3 px-5 font-medium">Au Cœur de la Chaîne d’Information : Capteurs et Codeurs</td>
+                            <td class="py-3 px-5">Différents types de capteurs (lumière, contact, température – exemples). Codeurs (clavier, souris). Nature de l’information (logique, analogique, numérique – introduction).</td>
+                            <td class="py-3 px-5">Identifier des capteurs et leur rôle dans un système. Comprendre comment l’information est acquise et transformée en signal utilisable par le système.</td>
+                            <td class="py-3 px-5 italic">“Comment un système ‘voit’ ou ‘sent’ ce qui se passe autour de lui ? Zoom sur les capteurs, les yeux et les oreilles des objets intelligents !”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-blue-50">
+                            <td class="py-3 px-5">3</td>
+                            <td class="py-3 px-5 font-medium">Le Cerveau du Système : Unité de Traitement et Programme</td>
+                            <td class="py-3 px-5">Rôle de l’unité de traitement (microprocesseur, microcontrôleur – présentation simplifiée). Notion de programme comme séquence d’instructions pour l’unité de traitement.</td>
+                            <td class="py-3 px-5">Comprendre que le “cerveau” d’un système exécute un programme pour prendre des décisions. Lire et interpréter un logigramme simple.</td>
+                            <td class="py-3 px-5 italic">“Qui prend les décisions dans un système automatisé ? Rencontrons l’unité de traitement, le chef d’orchestre qui suit la partition du programme !”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-blue-50">
+                            <td class="py-3 px-5">4</td>
+                            <td class="py-3 px-5 font-medium">Donner Vie aux Actions : Actionneurs et Effecteurs</td>
+                            <td class="py-3 px-5">Différents types d’actionneurs (moteurs, vérins, afficheurs, LED). Effecteurs. Relation entre l’ordre de l’unité de traitement et l’action réalisée.</td>
+                            <td class="py-3 px-5">Identifier des actionneurs et leur rôle. Comprendre comment l’énergie est convertie pour produire une action physique.</td>
+                            <td class="py-3 px-5 italic">“Une fois la décision prise, comment le système agit-il ? Moteurs, lumières, écrans… découvrons les ‘muscles’ des objets : les actionneurs !”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-blue-50">
+                            <td class="py-3 px-5">5</td>
+                            <td class="py-3 px-5 font-medium">Modéliser en 2D : Précision et Communication</td>
+                            <td class="py-3 px-5">Logiciel de DAO/CAO 2D (interface, outils de dessin de base : lignes, cercles, cotation). Formats de fichiers. Utilité pour la communication technique.</td>
+                            <td class="py-3 px-5">Utiliser les fonctions de base d’un logiciel de DAO 2D pour créer des dessins techniques simples et cotés.</td>
+                            <td class="py-3 px-5 italic">“Passons du croquis au dessin technique précis ! Avec les outils de dessin 2D, représentons nos idées avec rigueur pour une communication sans erreurs.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-blue-50">
+                            <td class="py-3 px-5">6</td>
+                            <td class="py-3 px-5 font-medium">Introduction à la Modélisation 3D : Voir en Volume</td>
+                            <td class="py-3 px-5">Logiciel de CAO 3D (interface, notions d’esquisse, d’extrusion, de révolution – basique). Visualisation sous différents angles. Arbre de construction.</td>
+                            <td class="py-3 px-5">Se repérer dans un logiciel de CAO 3D. Créer des formes volumiques simples par extrusion ou révolution à partir d’une esquisse. Manipuler la vue 3D.</td>
+                            <td class="py-3 px-5 italic">“Sculptons nos idées en 3D ! Découvrons comment créer des objets virtuels en volume, comme de vrais designers.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-blue-50">
+                            <td class="py-3 px-5">7</td>
+                            <td class="py-3 px-5 font-medium">Modélisation 3D : Assemblages Simples</td>
+                            <td class="py-3 px-5">Notion d’assemblage de plusieurs pièces. Contraintes d’assemblage (coïncidence, tangence – introduction très simple). Vues éclatées (principe).</td>
+                            <td class="py-3 px-5">Assembler virtuellement quelques pièces simples en CAO 3D. Comprendre l’intérêt d’une vue éclatée.</td>
+                            <td class="py-3 px-5 italic">“Et si on construisait un objet complexe en assemblant plusieurs pièces virtuelles ? Découvrons les secrets des assemblages en 3D !”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-blue-50">
+                            <td class="py-3 px-5">8</td>
+                            <td class="py-3 px-5 font-medium">Programmation Événementielle : Faire Réagir les Objets (Scratch/Simulateur)</td>
+                            <td class="py-3 px-5">Blocs d’événements plus complexes (messages). Variables. Conditions (si… alors… sinon). Utilisation de simulateurs pour interagir avec des “capteurs/actionneurs” virtuels.</td>
+                            <td class="py-3 px-5">Créer des programmes plus interactifs en utilisant des événements, des variables et des conditions. Simuler le comportement d’un système simple.</td>
+                            <td class="py-3 px-5 italic">“Apprenons à nos programmes à réagir intelligemment aux événements ! Avec les variables et les conditions, créons des comportements plus complexes.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-blue-50">
+                            <td class="py-3 px-5">9</td>
+                            <td class="py-3 px-5 font-medium">Logique Programmée : Les Algorigrammes</td>
+                            <td class="py-3 px-5">Symboles normalisés des algorigrammes (début/fin, instruction, test, entrée/sortie). Traduction d’un problème simple en algorigramme.</td>
+                            <td class="py-3 px-5">Lire et créer un algorigramme simple pour décrire le fonctionnement logique d’un système ou d’un programme.</td>
+                            <td class="py-3 px-5 italic">“Avant de coder, dessinons la logique ! Les algorigrammes sont comme des plans pour nos programmes, ils nous aident à organiser nos idées.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-blue-50">
+                            <td class="py-3 px-5">10</td>
+                            <td class="py-3 px-5 font-medium">Internet des Objets (IoT) : Quand tout se Connecte (Introduction)</td>
+                            <td class="py-3 px-5">Définition de l’IoT. Exemples d’objets connectés du quotidien. Communication entre objets (Wi-Fi, Bluetooth – principe). Données générées.</td>
+                            <td class="py-3 px-5">Comprendre le concept de l’IoT. Identifier des objets connectés et leur utilité. Sensibiliser à la notion de données collectées.</td>
+                            <td class="py-3 px-5 italic">“Ta montre, ton frigo, ta brosse à dents… De plus en plus d’objets se connectent à Internet ! Explorons le monde fascinant de l’Internet des Objets.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-blue-50">
+                            <td class="py-3 px-5">11</td>
+                            <td class="py-3 px-5 font-medium">Éco-Conception : Penser Durable dès le Début</td>
+                            <td class="py-3 px-5">Impact environnemental des objets (extraction matières, fabrication, utilisation, fin de vie). Principes de l’éco-conception (réduire, réutiliser, recycler). Analyse du cycle de vie (ACV simplifiée).</td>
+                            <td class="py-3 px-5">Analyser l’impact environnemental d’un objet simple. Proposer des pistes d’amélioration en termes d’éco-conception.</td>
+                            <td class="py-3 px-5 italic">“Fabriquer un objet, c’est bien, mais penser à son impact sur la planète, c’est mieux ! Découvrons comment concevoir des objets plus respectueux de l’environnement.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-blue-50">
+                            <td class="py-3 px-5">12</td>
+                            <td class="py-3 px-5 font-medium">Concevoir une Interface Utilisateur (UI) Simple</td>
+                            <td class="py-3 px-5">Importance de l’interface pour l’utilisateur. Principes d’une bonne UI (clarté, simplicité, intuitivité). Exemples d’interfaces (physiques, graphiques sur écran).</td>
+                            <td class="py-3 px-5">Analyser l’ergonomie d’interfaces existantes. Proposer des idées pour une interface utilisateur simple et efficace pour un objet ou une application simulée.</td>
+                            <td class="py-3 px-5 italic">“Boutons, écrans, menus… Comment rendre un objet facile et agréable à utiliser ? Plongeons dans le design d’interfaces !”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-blue-50">
+                            <td class="py-3 px-5">13</td>
+                            <td class="py-3 px-5 font-medium">Simulation de Systèmes : Tester Avant de (Virtuellement) Construire</td>
+                            <td class="py-3 px-5">Utilité de la simulation. Outils de simulation de circuits logiques ou de comportements de systèmes (ex: Tinkercad Circuits en mode simulation, simulateurs en ligne).</td>
+                            <td class="py-3 px-5">Utiliser un outil de simulation simple pour tester le comportement logique d’un petit système ou d’un programme avant sa “réalisation” virtuelle.</td>
+                            <td class="py-3 px-5 italic">“Et si on pouvait tester nos idées sans rien casser ? Avec la simulation, prévoyons le comportement de nos systèmes avant même de les ‘construire’ virtuellement !”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-blue-50">
+                            <td class="py-3 px-5">14</td>
+                            <td class="py-3 px-5 font-medium">Projet Guidé (1/2) : Analyse et Conception d’un Système Simple</td>
+                            <td class="py-3 px-5">Application des connaissances sur les systèmes automatisés et la modélisation. Définition d’un petit cahier des charges. Recherche de solutions (virtuelles).</td>
+                            <td class="py-3 px-5">Analyser un besoin simple et proposer une solution technique (virtuelle/simulée) impliquant un système automatisé simple. Commencer la modélisation/programmation.</td>
+                            <td class="py-3 px-5 italic">“Mettons nos neurones en action ! Pour ce mini-projet, nous allons analyser un problème et imaginer une solution technique astucieuse.”</td>
+                        </tr>
+                        <tr class="hover:bg-blue-50">
+                            <td class="py-3 px-5">15</td>
+                            <td class="py-3 px-5 font-medium">Projet Guidé (2/2) : Modélisation, Programmation et Présentation</td>
+                            <td class="py-3 px-5">Finalisation de la modélisation 3D (si pertinent) ou de la programmation (Scratch, simulateur). Préparation d’une présentation numérique du projet.</td>
+                            <td class="py-3 px-5">Finaliser la conception virtuelle/programmée du système. Présenter sa solution en argumentant ses choix (via le blog ou un support numérique).</td>
+                            <td class="py-3 px-5 italic">“Phase finale de notre mini-projet ! Affinons notre conception, programmons les derniers détails et préparons-nous à présenter notre super solution !”</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="troisieme" class="tab-content troisieme-theme bg-white p-6 md:p-8 rounded-lg shadow-xl">
+            <h2 class="text-3xl font-semibold mb-8 text-gray-700 border-b-2 border-gray-200 pb-3">Niveau 3ème : Systèmes Complexes, Projets et Enjeux Sociétaux (45 Heures)</h2>
+            <div class="overflow-x-auto rounded-lg shadow">
+                <table class="w-full min-w-max">
+                    <thead>
+                        <tr class="text-left">
+                            <th class="py-3 px-5">N°</th>
+                            <th class="py-3 px-5">Titre de l’Activité (Module)</th>
+                            <th class="py-3 px-5">Connaissances Visées</th>
+                            <th class="py-3 px-5">Compétences Visées</th>
+                            <th class="py-3 px-5">Phrase d’Explication Succincte</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-600 text-sm">
+                        <tr class="border-b border-gray-200 hover:bg-purple-50">
+                            <td class="py-3 px-5">1</td>
+                            <td class="py-3 px-5 font-medium">Les Réseaux Informatiques : Comment l’Information Voyage ?</td>
+                            <td class="py-3 px-5">Architecture client-serveur. Adressage IP, protocole TCP/IP (principes). Routeurs, commutateurs. Internet vs Web.</td>
+                            <td class="py-3 px-5">Comprendre le principe de fonctionnement d’un réseau local et d’Internet. Distinguer les rôles des différents équipements.</td>
+                            <td class="py-3 px-5 italic">“Emails, vidéos, jeux en ligne… Comment toutes ces informations circulent-elles si vite à travers le monde ? Plongeons dans les coulisses des réseaux informatiques !”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-purple-50">
+                            <td class="py-3 px-5">2</td>
+                            <td class="py-3 px-5 font-medium">Programmation Avancée (1/2) : Structures de Données et Fonctions (Python - Introduction)</td>
+                            <td class="py-3 px-5">Introduction à un langage textuel (Python). Variables, types de données (nombres, chaînes, listes simples). Fonctions.</td>
+                            <td class="py-3 px-5">Écrire et exécuter des scripts Python simples. Utiliser des variables et des listes. Définir et appeler des fonctions simples.</td>
+                            <td class="py-3 px-5 italic">“Passons à la vitesse supérieure en programmation ! Découvrons Python, un langage puissant utilisé par les pros, pour créer des programmes encore plus malins.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-purple-50">
+                            <td class="py-3 px-5">3</td>
+                            <td class="py-3 px-5 font-medium">Programmation Avancée (2/2) : Algorithmes et Prise de Décision (Python)</td>
+                            <td class="py-3 px-5">Structures conditionnelles (if/elif/else), boucles (for, while) en Python. Algorithmes de recherche simple.</td>
+                            <td class="py-3 px-5">Concevoir et implémenter des algorithmes simples en Python impliquant des conditions et des boucles. Résoudre des petits problèmes logiques par la programmation.</td>
+                            <td class="py-3 px-5 italic">“Apprenons à nos programmes Python à prendre des décisions et à répéter des tâches ! Avec les conditions et les boucles, ouvrons la porte à des algorithmes plus complexes.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-purple-50">
+                            <td class="py-3 px-5">4</td>
+                            <td class="py-3 px-5 font-medium">Modélisation 3D Avancée : Contraintes et Paramétrage</td>
+                            <td class="py-3 px-5">Fonctions de CAO 3D plus avancées (nervures, congés, chanfreins, répétitions). Notion de conception paramétrique (introduction). Contraintes d’assemblage plus complexes.</td>
+                            <td class="py-3 px-5">Modéliser des objets 3D plus complexes en utilisant des fonctions avancées. Comprendre l’intérêt de la conception paramétrique. Réaliser des assemblages plus élaborés.</td>
+                            <td class="py-3 px-5 italic">“Devenons des experts de la 3D ! Explorons des outils de modélisation plus pointus pour créer des objets virtuels complexes et précis, prêts pour une (éventuelle) fabrication numérique.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-purple-50">
+                            <td class="py-3 px-5">5</td>
+                            <td class="py-3 px-5 font-medium">L’Intelligence Artificielle (IA) : Mythes et Réalités</td>
+                            <td class="py-3 px-5">Définition de l’IA. Apprentissage machine (machine learning – concept). Exemples d’applications (reconnaissance vocale/d’image, recommandation). Enjeux éthiques (biais, emploi).</td>
+                            <td class="py-3 px-5">Comprendre les concepts de base de l’IA et du machine learning. Identifier des applications de l’IA dans le quotidien. Réfléchir aux implications éthiques et sociétales.</td>
+                            <td class="py-3 px-5 italic">“L’IA est partout ! Mais qu’est-ce que c’est vraiment ? Démystifions l’intelligence artificielle, découvrons comment elle apprend et réfléchissons à son impact sur notre futur.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-purple-50">
+                            <td class="py-3 px-5">6</td>
+                            <td class="py-3 px-5 font-medium">Cybersécurité : Protéger ses Données et son Identité</td>
+                            <td class="py-3 px-5">Menaces (virus, phishing, ransomware). Bonnes pratiques (mots de passe forts, mises à jour, prudence). Identité numérique, e-réputation. Droit à l’image, RGPD.</td>
+                            <td class="py-3 px-5">Identifier les principales menaces en ligne. Adopter des comportements responsables pour protéger ses données personnelles et son identité numérique. Connaître ses droits.</td>
+                            <td class="py-3 px-5 italic">“Dans le monde numérique, la sécurité est l’affaire de tous ! Apprenons à déjouer les pièges d’Internet et à protéger notre vie privée en ligne.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-purple-50">
+                            <td class="py-3 px-5">7</td>
+                            <td class="py-3 px-5 font-medium">Design et Innovation : Répondre aux Besoins de Demain</td>
+                            <td class="py-3 px-5">Veille technologique. Processus d’innovation (de l’idée au marché – simplifié). Propriété intellectuelle (brevets, droits d’auteur – sensibilisation). Marketing de l’innovation.</td>
+                            <td class="py-3 px-5">Identifier des tendances technologiques. Comprendre les étapes clés de l’innovation. Réfléchir à la protection et à la valorisation d’une idée.</td>
+                            <td class="py-3 px-5 italic">“Comment naissent les inventions qui changent notre quotidien ? Explorons le processus d’innovation, de l’étincelle de génie à la réalisation concrète !”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-purple-50">
+                            <td class="py-3 px-5">8</td>
+                            <td class="py-3 px-5 font-medium">Les Objets Connectés au Service de la Santé ou de l’Environnement</td>
+                            <td class="py-3 px-5">Exemples d’applications de l’IoT pour le bien-être, la santé (montres connectées, capteurs médicaux) ou l’environnement (capteurs de pollution, agriculture de précision). Analyse bénéfices/risques.</td>
+                            <td class="py-3 px-5">Analyser des cas d’usage d’objets connectés dans des domaines spécifiques. Évaluer les avantages et les inconvénients potentiels (éthique, sécurité des données).</td>
+                            <td class="py-3 px-5 italic">“Les objets connectés peuvent-ils nous aider à vivre mieux et à protéger notre planète ? Étudions des exemples concrets et débattons de leurs promesses et de leurs défis.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-purple-50">
+                            <td class="py-3 px-5">9</td>
+                            <td class="py-3 px-5 font-medium">Analyse de Systèmes Complexes : Le Cas d’un Drone ou d’un Robot Simple</td>
+                            <td class="py-3 px-5">Décomposition fonctionnelle d’un système complexe. Interaction entre les sous-systèmes (mécanique, électronique, informatique). Chaînes d’information et d’énergie complexes.</td>
+                            <td class="py-3 px-5">Analyser l’architecture et le fonctionnement d’un système technologique complexe (sur la base de schémas, vidéos, documentations). Identifier les interactions entre ses composants.</td>
+                            <td class="py-3 px-5 italic">“Prêts à décortiquer un drone ou un robot ? Analysons ensemble comment ces concentrés de technologie fonctionnent, de leurs capteurs à leurs moteurs, en passant par leur ‘cerveau’.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-purple-50">
+                            <td class="py-3 px-5">10</td>
+                            <td class="py-3 px-5 font-medium">Gestion de Projet Numérique : Planifier pour Réussir</td>
+                            <td class="py-3 px-5">Étapes d’un projet (définition, planification, réalisation, test, bilan). Outils de planification simples (rétroplanning, diagramme de Gantt – introduction). Travail collaboratif.</td>
+                            <td class="py-3 px-5">Comprendre les phases d’un projet. Utiliser des outils simples pour planifier des tâches. Organiser un travail d’équipe (virtuel).</td>
+                            <td class="py-3 px-5 italic">“Un bon projet, c’est un projet bien organisé ! Découvrons les secrets de la gestion de projet pour mener nos idées à bien, étape par étape.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-purple-50">
+                            <td class="py-3 px-5">11</td>
+                            <td class="py-3 px-5 font-medium">Développement Durable et Numérique : Quel Équilibre ?</td>
+                            <td class="py-3 px-5">Impact environnemental du numérique (consommation énergétique des serveurs, fabrication des appareils, déchets électroniques). Numérique responsable (sobriété, éco-conception logicielle).</td>
+                            <td class="py-3 px-5">Analyser l’empreinte environnementale du numérique. Proposer des actions pour un usage plus responsable des technologies.</td>
+                            <td class="py-3 px-5 italic">“Le numérique, c’est fantastique, mais ça consomme ! Réfléchissons ensemble à comment rendre nos usages technologiques plus respectueux de la planète.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-purple-50">
+                            <td class="py-3 px-5">12</td>
+                            <td class="py-3 px-5 font-medium">Mini-Projet (1/3) : Choix du Sujet et Cahier des Charges</td>
+                            <td class="py-3 px-5">Définition d’un besoin, d’objectifs. Élaboration d’un cahier des charges fonctionnel simple pour un projet de conception/programmation (objet connecté simulé, application web simple, etc.).</td>
+                            <td class="py-3 px-5">Choisir un sujet de mini-projet en équipe. Rédiger un cahier des charges précis pour ce projet.</td>
+                            <td class="py-3 px-5 italic">“C’est parti pour votre grand projet de 3ème ! Première mission : définir clairement ce que vous voulez créer et écrire le ‘contrat’ de votre projet : le cahier des charges.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-purple-50">
+                            <td class="py-3 px-5">13</td>
+                            <td class="py-3 px-5 font-medium">Mini-Projet (2/3) : Conception et Développement</td>
+                            <td class="py-3 px-5">Recherche de solutions techniques (virtuelles). Modélisation (si besoin), programmation (Python, Scratch, ou autre outil adapté au projet et simulable). Itérations.</td>
+                            <td class="py-3 px-5">Concevoir la solution technique (schémas, algorithmes). Commencer la modélisation et/ou la programmation de la solution. Tester et améliorer par itérations.</td>
+                            <td class="py-3 px-5 italic">“Place à la création ! Mettez en œuvre vos idées, concevez les algorithmes, programmez votre solution virtuelle. N’oubliez pas de tester et d’ajuster au fur et à mesure.”</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-purple-50">
+                            <td class="py-3 px-5">14</td>
+                            <td class="py-3 px-5 font-medium">Mini-Projet (3/3) : Finalisation, Tests et Préparation de la Présentation</td>
+                            <td class="py-3 px-5">Finalisation du développement. Tests complets de la solution (simulée). Création d’un support de présentation numérique (diaporama, vidéo, article de blog détaillé).</td>
+                            <td class="py-3 px-5">Achever la réalisation du projet. Valider son fonctionnement par des tests. Préparer une présentation claire et argumentée de son travail.</td>
+                            <td class="py-3 px-5 italic">“Dernière ligne droite pour votre projet ! Finalisez votre création, assurez-vous que tout fonctionne comme prévu et préparez une super présentation pour nous montrer votre chef-d’œuvre.”</td>
+                        </tr>
+                        <tr class="hover:bg-purple-50">
+                            <td class="py-3 px-5">15</td>
+                            <td class="py-3 px-5 font-medium">Bilan et Perspectives : Les Métiers de la Technologie et du Numérique</td>
+                            <td class="py-3 px-5">Présentation des projets. Panorama des filières de formation et des métiers liés à la technologie, à l’ingénierie, au design et au numérique. Orientation.</td>
+                            <td class="py-3 px-5">Présenter son projet à l’oral en s’appuyant sur le support numérique. Se projeter dans les métiers du futur et identifier des parcours de formation possibles.</td>
+                            <td class="py-3 px-5 italic">“Bravo pour vos projets ! C’est le moment de les partager et de découvrir ensemble les incroyables opportunités de métiers et d’études qu’offrent la technologie et le numérique.”</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="generateur" class="tab-content prompt-theme bg-white p-6 md:p-8 rounded-lg shadow-xl">
+            <h2 class="text-3xl font-semibold mb-6 text-gray-700 border-b-2 border-gray-200 pb-3">Générateur de Prompt pour IA</h2>
+            <p class="mb-6 text-gray-600 text-lg">
+                Sélectionnez un niveau, un module de cours et le format de sortie désiré pour générer automatiquement un prompt détaillé à fournir à une intelligence artificielle.
+                Ce prompt combinera notre <strong class="text-gray-700">guide pédagogique général</strong> avec les <strong class="text-gray-700">spécificités du module choisi</strong> et les <strong class="text-gray-700">instructions de formatage</strong>,
+                vous aidant ainsi à obtenir un contenu de cours structuré et pertinent.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div>
+                    <label for="niveauSelect" class="block text-sm font-medium text-gray-700 mb-1">Choisir le Niveau :</label>
+                    <select id="niveauSelect" name="niveauSelect" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="">-- Sélectionnez un niveau --</option>
+                        <option value="cinquieme">5ème</option>
+                        <option value="quatrieme">4ème</option>
+                        <option value="troisieme">3ème</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="moduleSelect" class="block text-sm font-medium text-gray-700 mb-1">Choisir le Module :</label>
+                    <select id="moduleSelect" name="moduleSelect" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" disabled>
+                        <option value="">-- Sélectionnez d'abord un niveau --</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Choisir le Format de Sortie du Cours :</label>
+                <div class="flex flex-wrap gap-3">
+                    <button class="format-option-btn bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-sm transition duration-150 ease-in-out" data-format="docx">
+                        <i class="fas fa-file-word mr-2"></i>Texte (pour DOCX)
+                    </button>
+                    <button class="format-option-btn bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-sm transition duration-150 ease-in-out" data-format="markdown">
+                        <i class="fab fa-markdown mr-2"></i>Markdown (Design Soigné)
+                    </button>
+                    <button class="format-option-btn bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-sm transition duration-150 ease-in-out" data-format="html">
+                        <i class="fas fa-code mr-2"></i>HTML (Design Soigné)
+                    </button>
+                </div>
+            </div>
+            <input type="hidden" id="selectedFormat" value="">
+
+
+            <button id="generatePromptBtn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-150 ease-in-out disabled:opacity-50 mt-4" disabled>
+                <i class="fas fa-cogs mr-2"></i>Générer le Prompt
+            </button>
+
+            <div id="generatedPromptContainer" class="mt-10 p-6 rounded-lg shadow-inner hidden">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-4">Prompt Généré :</h3>
+                <textarea id="generatedPromptTextarea" rows="20" class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-50 text-sm" readonly placeholder="Le prompt généré apparaîtra ici..."></textarea>
+                <button id="copyPromptBtn" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-150 ease-in-out">
+                    <i class="fas fa-copy mr-2"></i>Copier le Prompt
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="bg-gray-800 text-gray-300 py-12 mt-12">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-sm">Technologie - Collège</p>
+        </div>
+    </footer>
+
+    <script>
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        // Données des modules
+        const modulesData = {
+            cinquieme: [
+                { id: 1, titre: "Bienvenue dans le Monde des Objets Techniques !" },
+                { id: 2, titre: "Comment ça Marche ? (Partie 1 : Fonctions)" },
+                { id: 3, titre: "Comment ça Marche ? (Partie 2 : L’Énergie)" },
+                { id: 4, titre: "Les Matériaux : Le Choix Malin !" },
+                { id: 5, titre: "Dessine-moi un Objet : Les Bases du Langage Technique" },
+                { id: 6, titre: "Premiers Pas en Algorithmique : Penser comme un Ordinateur" },
+                { id: 7, titre: "Scratch : Créons notre Première Animation !" },
+                { id: 8, titre: "Scratch : Ajoutons de l’Interaction !" },
+                { id: 9, titre: "L’Ordinateur et ses Périphériques : Qui fait Quoi ?" },
+                { id: 10, titre: "Naviguer sur Internet : Les Bonnes Pratiques" },
+                { id: 11, titre: "Design d’Objet : Beau et Utile !" },
+                { id: 12, titre: "Comment les Objets Communiquent-ils Simplement ?" },
+                { id: 13, titre: "Organiser son Travail Numérique" },
+                { id: 14, titre: "Défi Créatif Numérique (1/2) : Idéation et Scénario" },
+                { id: 15, titre: "Défi Créatif Numérique (2/2) : Réalisation et Partage" }
+            ],
+            quatrieme: [
+                { id: 1, titre: "Les Systèmes Automatisés : Magie ou Logique ?" },
+                { id: 2, titre: "Au Cœur de la Chaîne d’Information : Capteurs et Codeurs" },
+                { id: 3, titre: "Le Cerveau du Système : Unité de Traitement et Programme" },
+                { id: 4, titre: "Donner Vie aux Actions : Actionneurs et Effecteurs" },
+                { id: 5, titre: "Modéliser en 2D : Précision et Communication" },
+                { id: 6, titre: "Introduction à la Modélisation 3D : Voir en Volume" },
+                { id: 7, titre: "Modélisation 3D : Assemblages Simples" },
+                { id: 8, titre: "Programmation Événementielle : Faire Réagir les Objets (Scratch/Simulateur)" },
+                { id: 9, titre: "Logique Programmée : Les Algorigrammes" },
+                { id: 10, titre: "Internet des Objets (IoT) : Quand tout se Connecte (Introduction)" },
+                { id: 11, titre: "Éco-Conception : Penser Durable dès le Début" },
+                { id: 12, titre: "Concevoir une Interface Utilisateur (UI) Simple" },
+                { id: 13, titre: "Simulation de Systèmes : Tester Avant de (Virtuellement) Construire" },
+                { id: 14, titre: "Projet Guidé (1/2) : Analyse et Conception d’un Système Simple" },
+                { id: 15, titre: "Projet Guidé (2/2) : Modélisation, Programmation et Présentation" }
+            ],
+            troisieme: [
+                { id: 1, titre: "Les Réseaux Informatiques : Comment l’Information Voyage ?" },
+                { id: 2, titre: "Programmation Avancée (1/2) : Structures de Données et Fonctions (Python - Introduction)" },
+                { id: 3, titre: "Programmation Avancée (2/2) : Algorithmes et Prise de Décision (Python)" },
+                { id: 4, titre: "Modélisation 3D Avancée : Contraintes et Paramétrage" },
+                { id: 5, titre: "L’Intelligence Artificielle (IA) : Mythes et Réalités" },
+                { id: 6, titre: "Cybersécurité : Protéger ses Données et son Identité" },
+                { id: 7, titre: "Design et Innovation : Répondre aux Besoins de Demain" },
+                { id: 8, titre: "Les Objets Connectés au Service de la Santé ou de l’Environnement" },
+                { id: 9, titre: "Analyse de Systèmes Complexes : Le Cas d’un Drone ou d’un Robot Simple" },
+                { id: 10, titre: "Gestion de Projet Numérique : Planifier pour Réussir" },
+                { id: 11, titre: "Développement Durable et Numérique : Quel Équilibre ?" },
+                { id: 12, titre: "Mini-Projet (1/3) : Choix du Sujet et Cahier des Charges" },
+                { id: 13, titre: "Mini-Projet (2/3) : Conception et Développement" },
+                { id: 14, titre: "Mini-Projet (3/3) : Finalisation, Tests et Préparation de la Présentation" },
+                { id: 15, titre: "Bilan et Perspectives : Les Métiers de la Technologie et du Numérique" }
+            ]
+        };
+
+        // Activer le premier onglet par défaut
+        if (tabButtons.length > 0 && tabContents.length > 0) {
+            tabButtons[0].classList.add('active');
+            const firstTabContent = document.getElementById(tabButtons[0].dataset.tab);
+            let firstTabTheme = 'prompt-theme'; // Default
+            if (firstTabContent) {
+                 firstTabTheme = firstTabContent.classList.contains('prompt-theme') ? 'prompt-theme' :
+                                  firstTabContent.classList.contains('cinquieme-theme') ? 'cinquieme-theme' :
+                                  firstTabContent.classList.contains('quatrieme-theme') ? 'quatrieme-theme' :
+                                  firstTabContent.classList.contains('troisieme-theme') ? 'troisieme-theme' :
+                                  'prompt-theme';
+            }
+            // Appliquer le style au bouton actif
+            const activeColor = firstTabTheme === 'prompt-theme' ? '#149E8D' :
+                                firstTabTheme === 'cinquieme-theme' ? '#27AE60' :
+                                firstTabTheme === 'quatrieme-theme' ? '#2980B9' :
+                                firstTabTheme === 'troisieme-theme' ? '#8E44AD' : '#149E8D';
+            tabButtons[0].style.borderColor = activeColor;
+            tabButtons[0].style.color = activeColor;
+
+            if (firstTabContent) {
+                 firstTabContent.classList.add('active');
+            }
+        }
+
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetTab = button.dataset.tab;
+
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.style.borderColor = 'transparent';
+                    btn.style.color = ''; // Reset to default Tailwind/browser color
+                });
+                button.classList.add('active');
+
+                let activeThemeClass = '';
+                let activeColor = '#149E8D'; // Default color for prompt/generator
+
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === targetTab) {
+                        content.classList.add('active');
+                        if (content.classList.contains('prompt-theme')) { // Inclut l'onglet générateur
+                            activeThemeClass = 'prompt-theme'; activeColor = '#149E8D';
+                        } else if (content.classList.contains('cinquieme-theme')) {
+                            activeThemeClass = 'cinquieme-theme'; activeColor = '#27AE60';
+                        } else if (content.classList.contains('quatrieme-theme')) {
+                            activeThemeClass = 'quatrieme-theme'; activeColor = '#2980B9';
+                        } else if (content.classList.contains('troisieme-theme')) {
+                            activeThemeClass = 'troisieme-theme'; activeColor = '#8E44AD';
+                        }
+                    }
+                });
+
+                button.style.borderColor = activeColor;
+                button.style.color = activeColor;
+
+                const headerHeight = document.querySelector('header') ? document.querySelector('header').offsetHeight : 0;
+                const navTabsHeight = document.querySelector('.mb-8.bg-white') ? document.querySelector('.mb-8.bg-white').offsetHeight : 0;
+                window.scrollTo({ top: headerHeight + navTabsHeight - 20 , behavior: 'smooth' });
+            });
+        });
+
+
+        // Logique pour le générateur de prompt
+        const niveauSelect = document.getElementById('niveauSelect');
+        const moduleSelect = document.getElementById('moduleSelect');
+        const generatePromptBtn = document.getElementById('generatePromptBtn');
+        const generatedPromptContainer = document.getElementById('generatedPromptContainer');
+        const generatedPromptTextarea = document.getElementById('generatedPromptTextarea');
+        const copyPromptBtn = document.getElementById('copyPromptBtn');
+        const formatOptionBtns = document.querySelectorAll('.format-option-btn');
+        const selectedFormatInput = document.getElementById('selectedFormat');
+
+
+        if (niveauSelect && moduleSelect && generatePromptBtn && generatedPromptContainer && generatedPromptTextarea && copyPromptBtn && formatOptionBtns.length > 0 && selectedFormatInput) {
+            
+            function checkCanGenerate() {
+                generatePromptBtn.disabled = !(niveauSelect.value && moduleSelect.value && selectedFormatInput.value);
+            }
+
+            niveauSelect.addEventListener('change', function() {
+                const selectedNiveau = this.value;
+                moduleSelect.innerHTML = '<option value="">-- Sélectionnez un module --</option>';
+                moduleSelect.disabled = true;
+                generatedPromptContainer.classList.add('hidden');
+
+                if (selectedNiveau && modulesData[selectedNiveau]) {
+                    modulesData[selectedNiveau].forEach(module => {
+                        const option = document.createElement('option');
+                        option.value = module.id;
+                        option.textContent = `${module.id}. ${module.titre}`;
+                        moduleSelect.appendChild(option);
+                    });
+                    moduleSelect.disabled = false;
+                }
+                checkCanGenerate();
+            });
+
+            moduleSelect.addEventListener('change', function() {
+                generatedPromptContainer.classList.add('hidden');
+                checkCanGenerate();
+            });
+
+            formatOptionBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    formatOptionBtns.forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedFormatInput.value = this.dataset.format;
+                    generatedPromptContainer.classList.add('hidden');
+                    checkCanGenerate();
+                });
+            });
+
+            generatePromptBtn.addEventListener('click', function() {
+                const niveau = niveauSelect.value;
+                const moduleId = parseInt(moduleSelect.value);
+                const format = selectedFormatInput.value;
+
+
+                if (!niveau || !moduleId || !format) {
+                    let missing = [];
+                    if (!niveau) missing.push("un niveau");
+                    if (!moduleId) missing.push("un module");
+                    if (!format) missing.push("un format de sortie");
+                    alert(`Veuillez sélectionner ${missing.join(' et ')}.`);
+                    return;
+                }
+
+                const moduleInfo = modulesData[niveau].find(m => m.id === moduleId);
+                if (!moduleInfo) {
+                    alert("Module non trouvé.");
+                    return;
+                }
+
+                let connaissances = "Non trouvé";
+                let competences = "Non trouvé";
+                let phraseExplication = "Non trouvé";
+
+                const tableSelector = `#${niveau} table tbody tr`;
+                const tableRows = document.querySelectorAll(tableSelector);
+                let foundInTable = false;
+                tableRows.forEach(row => {
+                    if (row.cells && row.cells.length >= 5 && parseInt(row.cells[0].textContent) === moduleId) {
+                        connaissances = row.cells[2].textContent.trim();
+                        competences = row.cells[3].textContent.trim();
+                        phraseExplication = row.cells[4].textContent.trim().replace(/“|”/g, '');
+                        foundInTable = true;
+                    }
+                });
+                if (!foundInTable) {
+                    console.warn(`Détails non trouvés dans le tableau HTML pour ${niveau} - module ${moduleId}. Vérifiez la structure du tableau et les sélecteurs.`);
+                }
+
+                const basePromptElement = document.querySelector('#prompt pre');
+                if (!basePromptElement) {
+                    alert("Erreur: Le prompt pédagogique de base n'a pas pu être trouvé.");
+                    return;
+                }
+                
+                let basePromptText = basePromptElement.innerHTML
+                                    .replace(/&lt;strong&gt;/g, '<strong>')
+                                    .replace(/&lt;\/strong&gt;/g, '</strong>')
+                                    .replace(/&lt;code&gt;/g, '<code>')
+                                    .replace(/&lt;\/code&gt;/g, '</code>')
+                                    .replace(/&nbsp;/g, ' ')
+                                    .split('\n').map(line => line.trim()).join('\n').trim();
+
+
+                let formatInstruction = "";
+                if (format === 'docx') {
+                    formatInstruction = "Le cours doit être généré sous forme de texte structuré, clair et bien organisé, adapté pour une conversion facile en format DOCX. Utilisez des titres clairs pour chaque section et sous-section (par exemple, en utilisant des majuscules ou un formatage simple comme 'TITRE SECTION 1'). Les listes à puces ou numérotées sont encouragées pour la clarté. Évitez toute syntaxe spécifique à un autre format (comme Markdown ou HTML).";
+                } else if (format === 'markdown') {
+                    formatInstruction = "Le cours doit être généré au format Markdown. Utilisez une syntaxe Markdown propre et sémantique (par exemple, `# Titre Principal`, `## Titre Section`, `### Sous-titre`, listes avec `*`, `-`, ou `1.`, emphase avec `*` ou `_`, blocs de code avec ```). Visez un design soigné et une bonne lisibilité. Les tableaux peuvent être représentés en Markdown si nécessaire.";
+                } else if (format === 'html') {
+                    formatInstruction = "Le cours doit être généré directement en HTML. Utilisez des balises HTML sémantiques (par exemple, `<h1>`, `<h2>`, `<h3>` pour les titres, `<p>` pour les paragraphes, `<ul>`/`<ol>` et `<li>` pour les listes, `<table>` pour les tableaux si pertinent). Intégrez un design soigné en utilisant des styles CSS inline ou une section `<style>` basique dans le HTML pour assurer une bonne présentation visuelle (couleurs cohérentes, espacements adéquats, typographie lisible).";
+                }
+
+                const sujetSpecifique = `Titre du Module : ${moduleInfo.titre}\nNiveau : ${niveau.charAt(0).toUpperCase() + niveau.slice(1)}\n\nConnaissances Visées à développer dans le cours :\n${connaissances}\n\nCompétences Visées à développer dans le cours :\n${competences}\n\nL'introduction du cours pourrait s'inspirer de cette phrase d'accroche : "${phraseExplication}"\n\nUne attention particulière doit être portée à ce que les notions du programme abordées soient développées en adéquation avec le niveau de classe spécifique des élèves (${niveau.charAt(0).toUpperCase() + niveau.slice(1)}), afin d'adapter la profondeur et la complexité.\n\nAssurez-vous que le cours détaille bien ces connaissances et permette de développer ces compétences, en utilisant des exemples concrets et variés adaptés au niveau ${niveau.charAt(0).toUpperCase() + niveau.slice(1)}. Le cours doit suivre la structure demandée dans le prompt général (introduction, développement structuré, explications approfondies, exemples, schémas si besoin, section "Perspectives et Avenir", conclusion, glossaire).\n\nInstruction spécifique sur le format de sortie :\n${formatInstruction}`;
+                
+                const placeholderExact = "<strong><code>[SUJET SPÉCIFIQUE DU COURS]</code></strong>.";
+                let finalPrompt = basePromptText;
+
+                if (basePromptText.includes(placeholderExact)) {
+                    finalPrompt = basePromptText.replace(placeholderExact, sujetSpecifique);
+                } else {
+                    const placeholderTextContent = "[SUJET SPÉCIFIQUE DU COURS].";
+                     let textContentOfPre = basePromptElement.textContent || ""; // Ensure it's a string
+                    if (textContentOfPre.includes(placeholderTextContent)) {
+                        finalPrompt = textContentOfPre.replace(placeholderTextContent, sujetSpecifique);
+                    } else {
+                        console.warn(`Placeholder exact "${placeholderExact}" ou "${placeholderTextContent}" non trouvé. Le sujet spécifique sera ajouté à la fin.`);
+                        finalPrompt = textContentOfPre + "\n\nLe thème spécifique de ce cours est :\n" + sujetSpecifique;
+                    }
+                }
+
+                generatedPromptTextarea.value = finalPrompt;
+                generatedPromptContainer.classList.remove('hidden');
+            });
+
+            copyPromptBtn.addEventListener('click', function() {
+                generatedPromptTextarea.select();
+                generatedPromptTextarea.setSelectionRange(0, 99999); 
+
+                try {
+                    const successful = document.execCommand('copy');
+                    const msg = successful ? 'Prompt copié dans le presse-papiers !' : 'La copie a échoué.';
+                    alert(msg);
+                } catch (err) {
+                    alert('Erreur lors de la copie. Veuillez copier manuellement.');
+                    console.error('Fallback: Oops, unable to copy', err);
+                }
+            });
+        }
+    </script>
+    <!-- Font Awesome pour les icônes -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+</body>
+</html>
