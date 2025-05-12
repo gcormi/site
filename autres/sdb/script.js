@@ -818,6 +818,37 @@ function initEventListeners() {
 
     document.getElementById('showFinalPageBtn').addEventListener('click', showFinalEnigmaPage);
 
+    // Logique pour la musique de l'épilogue (page-11)
+    const epilogueAudio = document.getElementById('epilogueMusic');
+    const epiloguePage = document.getElementById('page-11');
+
+    if (epilogueAudio && epiloguePage) {
+        const audioObserver = new MutationObserver((mutationsList) => {
+            for (const mutation of mutationsList) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    const targetElement = mutation.target;
+                    if (targetElement.classList.contains('active-page')) {
+                        // La page de l'épilogue est active, jouer la musique
+                        epilogueAudio.play().catch(error => {
+                            console.warn("Lecture auto de la musique d'épilogue bloquée par le navigateur : ", error);
+                            // Gérer l'erreur, par exemple, en informant l'utilisateur
+                        });
+                    } else {
+                        // La page de l'épilogue n'est plus active, arrêter et rembobiner la musique
+                        if (!epilogueAudio.paused) {
+                            epilogueAudio.pause();
+                            epilogueAudio.currentTime = 0;
+                        }
+                    }
+                }
+            }
+        });
+        audioObserver.observe(epiloguePage, { attributes: true, attributeFilter: ['class'] });
+    } else {
+        if (!epilogueAudio) console.error("L'élément audio 'epilogueMusic' est introuvable.");
+        if (!epiloguePage) console.error("L'élément de page 'page-11' est introuvable pour l'observateur audio.");
+    }
+
     document.querySelectorAll('.skip-button').forEach(button => {
         button.addEventListener('click', (event) => {
             const challengeIndex = parseInt(event.target.dataset.challengeIndex);

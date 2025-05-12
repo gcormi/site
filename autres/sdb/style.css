@@ -559,4 +559,3 @@ button#validateMotsMelesBtn:hover:not(:disabled) {
 #toggleDysFontBtn.active {
     background-color: var(--primary-mauve); /* Couleur principale quand actif */
 }
-
