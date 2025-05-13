@@ -18,8 +18,8 @@ const challengeToSecretMapping = [3, 0, 5, 1, 8, 2, 6, 7, 4]; // Ordre mélangé
 const gameState = {
     currentPage: 0,
     totalChallenges: 9,
-    collectedIndices: new Array(indicesSecretsCorrectOrder.length).fill(null), 
-    citationAttempts: 0, 
+    collectedIndices: new Array(indicesSecretsCorrectOrder.length).fill(null),
+    citationAttempts: 0,
     newlyRevealedIndex: -1,
     dyslexiaFontEnabled: false
 };
@@ -35,11 +35,11 @@ function afficherPhraseEnCours() {
 
         let html = "";
         indicesSecretsCorrectOrder.forEach((segment, correctSentenceIndex) => {
-            if (gameState.collectedIndices[correctSentenceIndex]) { 
+            if (gameState.collectedIndices[correctSentenceIndex]) {
                 html += `<span class="mot-revele">${gameState.collectedIndices[correctSentenceIndex]}</span>`;
             } else {
                 let tirets = segment.split('').map(char => {
-                    if (char === ',' || char === '.' || char === "'") return char; 
+                    if (char === ',' || char === '.' || char === "'") return char;
                     return '_';
                 }).join('');
                 html += `<span class="placeholder-tiret">${tirets}</span>`;
@@ -57,21 +57,21 @@ function afficherPhraseEnCours() {
             for(let i = 0; i < indicesSecretsCorrectOrder.length; i++) {
                 if (gameState.collectedIndices[i]) {
                     if (i === gameState.newlyRevealedIndex) {
-                        spanToAnimate = revealedSpans[currentRevealedCount]; 
-                        break; 
+                        spanToAnimate = revealedSpans[currentRevealedCount];
+                        break;
                     }
                     currentRevealedCount++;
                 }
             }
             if (spanToAnimate) {
-                void spanToAnimate.offsetWidth; 
+                void spanToAnimate.offsetWidth;
                 spanToAnimate.classList.add('animate-mot-revele');
             }
-            gameState.newlyRevealedIndex = -1; 
+            gameState.newlyRevealedIndex = -1;
         }
     }
 
-    if (gameState.currentPage === gameState.totalChallenges + 1) { 
+    if (gameState.currentPage === gameState.totalChallenges + 1) { // Page de l'énigme finale (page 10)
         const indicesCollectesSpan = document.getElementById('indices-collectes');
         if (indicesCollectesSpan) {
             indicesCollectesSpan.textContent = gameState.collectedIndices.filter(Boolean).join(' ');
@@ -83,14 +83,14 @@ function afficherPhraseEnCours() {
 function updateProgressBar() {
     const completedChallenges = gameState.collectedIndices.filter(Boolean).length;
     const percentage = (completedChallenges / gameState.totalChallenges) * 100;
-    
+
     const progressBarFill = document.getElementById('progress-bar-fill');
     const progressBarContainer = document.getElementById('progress-bar-container');
 
     if (progressBarFill) {
         progressBarFill.style.width = percentage + '%';
     }
-    if (progressBarContainer) { 
+    if (progressBarContainer) {
         progressBarContainer.setAttribute('aria-valuenow', completedChallenges);
     }
 
@@ -109,35 +109,35 @@ function showPage(pageNumber) {
     if (targetPage) {
         targetPage.classList.add('active-page');
         gameState.currentPage = pageNumber;
-        
-        if (pageNumber === 2) initPendu(); 
-        if (pageNumber === 7) initMotsMeles(); 
 
-        afficherPhraseEnCours(); 
+        if (pageNumber === 2) initPendu();
+        if (pageNumber === 7) initMotsMeles();
+
+        afficherPhraseEnCours(); // Afficher la phrase même sur les pages non-défi pour la cohérence
         updateProgressBar();
 
         const pageContentElements = targetPage.querySelectorAll(
-            '.page-content > p, .page-content > ul, .page-content > form, .page-content > div:not(#motsmeles-grille-container):not(.accessibility-options), .page-content > .actions-defi, .page-content > .actions-defi > button, .page-content > input[type="text"], .page-content > select, .page-content .motsmeles-instructions, .blanks-defi6, .accessibility-options'
+            '.page-content > p, .page-content > ul, .page-content > form, .page-content > div:not(#motsmeles-grille-container):not(.accessibility-options), .page-content > .actions-defi, .page-content > .actions-defi > button, .page-content > input[type="text"], .page-content > select, .page-content .motsmeles-instructions, .blanks-defi6, .accessibility-options, .epilogue-content > h2, .epilogue-content > p, .epilogue-content > ul'
         );
-        
+
         pageContentElements.forEach(el => {
-            el.style.opacity = '0'; 
-            el.style.transform = 'translateY(10px)'; 
-            el.style.animation = 'none'; 
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(10px)';
+            el.style.animation = 'none';
         });
 
-        void targetPage.offsetWidth;
+        void targetPage.offsetWidth; // Force reflow
 
-        setTimeout(() => { 
+        setTimeout(() => {
             pageContentElements.forEach((el, index) => {
                 if (el.tagName && el.tagName.toLowerCase() === 'br') {
-                    el.style.opacity = '1'; 
+                    el.style.opacity = '1';
                     el.style.transform = 'translateY(0)';
                 } else {
                     el.style.animation = `fadeInElement 0.4s ease-out ${index * 0.05}s forwards`;
                 }
             });
-        }, 10); 
+        }, 10);
 
     } else {
         console.error("Page not found: " + pageNumber);
@@ -145,15 +145,21 @@ function showPage(pageNumber) {
 }
 
 function startGame() {
+    // Réinitialiser l'état du jeu si nécessaire (par exemple, les indices collectés)
+    gameState.collectedIndices = new Array(indicesSecretsCorrectOrder.length).fill(null);
+    gameState.newlyRevealedIndex = -1;
+    gameState.citationAttempts = 0;
+    // Autres réinitialisations spécifiques aux défis si besoin (ex: pendu, mots mêlés)
+
     const progressBarContainer = document.getElementById('progress-bar-container');
     if (progressBarContainer) {
         progressBarContainer.setAttribute('aria-valuenow', 0);
         progressBarContainer.setAttribute('aria-valuemin', 0);
         progressBarContainer.setAttribute('aria-valuemax', gameState.totalChallenges);
     }
-    updateProgressBar(); 
+    updateProgressBar();
     const introPhraseContainer = document.getElementById('phrase-a-reconstituer-display-0');
-    if (introPhraseContainer) { 
+    if (introPhraseContainer) {
         let html = "";
         indicesSecretsCorrectOrder.forEach((segment, index) => {
             let tirets = segment.split('').map(char => (char === ',' || char === '.' || char === "'") ? char : '_').join('');
@@ -162,9 +168,12 @@ function startGame() {
         });
         introPhraseContainer.innerHTML = html;
     }
-    // Appliquer la police DYS si elle était activée (depuis localStorage par exemple)
     applyDyslexiaFontPreference();
-    showPage(1); 
+    showPage(0); // Afficher la page d'intro
+    // Puis, si vous voulez que le bouton "Commencer" mène à la page 1 :
+    // L'event listener sur #startGameBtn dans initEventListeners s'en chargera
+    // ou vous pouvez directement appeler showPage(1) ici si la page 0 est juste un splash.
+    // Pour l'instant, le bouton #startGameBtn dans initEventListeners appelle showPage(1).
 }
 
 function nextChallenge(nextPageNumber) {
@@ -176,13 +185,16 @@ function nextChallenge(nextPageNumber) {
 }
 
 function showFinalEnigmaPage() {
-    showPage(gameState.totalChallenges + 1); 
+    showPage(gameState.totalChallenges + 1); // Page 10
     const citationCorrecteFinaleSpan = document.getElementById('citation-correcte-finale');
-    gameState.citationAttempts = 0; 
+    const citationCorrecteFinaleFailedSpan = document.getElementById('citation-correcte-finale-failed');
+    gameState.citationAttempts = 0;
     if (citationCorrecteFinaleSpan) {
         citationCorrecteFinaleSpan.textContent = citationFinaleCorrecte;
     }
-    // Assurer que les messages d'erreur/succès précédents sont cachés
+    if (citationCorrecteFinaleFailedSpan) {
+        citationCorrecteFinaleFailedSpan.textContent = citationFinaleCorrecte;
+    }
     document.getElementById('message-reussite-final').style.display = 'none';
     document.getElementById('message-echec-final').style.display = 'none';
     document.getElementById('feedback-attempts-exhausted').style.display = 'none';
@@ -190,8 +202,6 @@ function showFinalEnigmaPage() {
     document.getElementById('citation-finale-input').disabled = false;
     document.getElementById('validateCitationFinaleBtn').disabled = false;
     document.getElementById('citation-finale-input').value = '';
-
-
 }
 
 function handleSuccessfulChallenge(challengeIndex) {
@@ -199,7 +209,7 @@ function handleSuccessfulChallenge(challengeIndex) {
 
     if (!gameState.collectedIndices[secretIndexInCorrectOrder]) {
         gameState.collectedIndices[secretIndexInCorrectOrder] = indicesSecretsCorrectOrder[secretIndexInCorrectOrder];
-        gameState.newlyRevealedIndex = secretIndexInCorrectOrder; 
+        gameState.newlyRevealedIndex = secretIndexInCorrectOrder;
     }
     afficherPhraseEnCours();
     updateProgressBar();
@@ -208,10 +218,10 @@ function handleSuccessfulChallenge(challengeIndex) {
     if (pageElement) {
         const skipButton = pageElement.querySelector(`.skip-button[data-challenge-index="${challengeIndex}"]`);
         if (skipButton) skipButton.disabled = true;
-        
-        let nextButton; 
-        if (challengeIndex === gameState.totalChallenges) { 
-            nextButton = document.getElementById('showFinalPageBtn'); 
+
+        let nextButton;
+        if (challengeIndex === gameState.totalChallenges) {
+            nextButton = document.getElementById('showFinalPageBtn');
         } else {
             nextButton = document.getElementById(`next-defi${challengeIndex}`);
         }
@@ -225,7 +235,7 @@ function validerDefi1() {
     const form = document.getElementById('defi1-form');
     const selectedOption = form.querySelector('input[name="defi1"]:checked');
     const feedback = document.getElementById('feedback-defi1');
-    
+
     if (selectedOption) {
         disableForm('defi1-form');
         if (selectedOption.value === 'B') {
@@ -253,13 +263,13 @@ function validerDefi3() {
     const feedback = document.getElementById('feedback-defi3');
 
     if (selectedOption) {
-        disableForm('defi3-form'); 
+        disableForm('defi3-form');
         document.getElementById('validateDefi3Btn').disabled = true;
 
-        if (selectedOption.value === 'B') { 
+        if (selectedOption.value === 'B') {
             feedback.textContent = "Correct ! Notre sexe à la naissance ne décide pas de tout.";
             feedback.className = 'feedback success';
-            handleSuccessfulChallenge(3); 
+            handleSuccessfulChallenge(3);
         } else {
             feedback.textContent = "Incorrect. Relisez bien la citation et les options.";
             feedback.className = 'feedback error';
@@ -307,9 +317,9 @@ function proposerLettrePendu() {
     if (penduReussi || essaisRestantsPendu <= 0) return;
     const input = document.getElementById('input-pendu');
     const lettre = input.value.toUpperCase();
-    input.value = ""; 
+    input.value = "";
     const feedback = document.getElementById('feedback-defi2');
-    if (!lettre.match(/^[A-Z]$/)) { 
+    if (!lettre.match(/^[A-Z]$/)) {
         feedback.textContent = "Veuillez entrer une seule lettre (A-Z).";
         feedback.className = 'feedback error'; return;
     }
@@ -353,33 +363,33 @@ function proposerLettrePendu() {
 }
 
 // Défi 4: Partenaires de Pensée (Ancien Défi 3)
-function validerDefi4() { 
-    const reponse = document.getElementById('input-defi4').value.trim(); 
-    const feedback = document.getElementById('feedback-defi4'); 
+function validerDefi4() {
+    const reponse = document.getElementById('input-defi4').value.trim();
+    const feedback = document.getElementById('feedback-defi4');
     const inputElement = document.getElementById('input-defi4');
     const validerButton = document.getElementById('validateDefi4Btn');
     inputElement.disabled = true;
     validerButton.disabled = true;
     if (reponse.toLowerCase().includes("sartre")) {
         feedback.textContent = "Exactement ! Jean-Paul Sartre était son compagnon de vie et de pensée.";
-        feedback.className = 'feedback success'; 
-        handleSuccessfulChallenge(4); 
+        feedback.className = 'feedback success';
+        handleSuccessfulChallenge(4);
     } else {
         feedback.textContent = `Ce n'est pas la bonne personne. La réponse attendue était Jean-Paul Sartre.`;
         feedback.className = 'feedback error';
-        const nextButton = document.getElementById('next-defi4'); 
-        if (nextButton) nextButton.style.display = 'inline-block'; 
-        const skipButton = document.querySelector(`#page-4 .skip-button[data-challenge-index="4"]`); 
+        const nextButton = document.getElementById('next-defi4');
+        if (nextButton) nextButton.style.display = 'inline-block';
+        const skipButton = document.querySelector(`#page-4 .skip-button[data-challenge-index="4"]`);
         if (skipButton) skipButton.disabled = true;
     }
 }
 
 // Défi 5: Association (Ancien Défi 4)
-function validerDefi5() { 
-    const reponsesAttendues = { 'select-assoc-1-defi5': 'A', 'select-assoc-2-defi5': 'C', 'select-assoc-3-defi5': 'B' }; 
+function validerDefi5() {
+    const reponsesAttendues = { 'select-assoc-1-defi5': 'A', 'select-assoc-2-defi5': 'C', 'select-assoc-3-defi5': 'B' };
     let correctes = 0;
-    const feedback = document.getElementById('feedback-defi5'); 
-    const validerButton = document.getElementById('validateDefi5Btn'); 
+    const feedback = document.getElementById('feedback-defi5');
+    const validerButton = document.getElementById('validateDefi5Btn');
     Object.keys(reponsesAttendues).forEach(id => { const el = document.getElementById(id); if(el) el.disabled = true; });
     validerButton.disabled = true;
     for (const id in reponsesAttendues) {
@@ -388,14 +398,14 @@ function validerDefi5() {
     }
     if (correctes === 3) {
         feedback.textContent = "Parfait ! Vos associations sont correctes.";
-        feedback.className = 'feedback success'; 
-        handleSuccessfulChallenge(5); 
+        feedback.className = 'feedback success';
+        handleSuccessfulChallenge(5);
     } else {
         feedback.textContent = `Vous avez ${correctes} association(s) correcte(s) sur 3. Les bonnes associations étaient 1-A, 2-C, 3-B.`;
         feedback.className = 'feedback error';
-        const nextButton = document.getElementById('next-defi5'); 
-        if (nextButton) nextButton.style.display = 'inline-block'; 
-        const skipButton = document.querySelector(`#page-5 .skip-button[data-challenge-index="5"]`); 
+        const nextButton = document.getElementById('next-defi5');
+        if (nextButton) nextButton.style.display = 'inline-block';
+        const skipButton = document.querySelector(`#page-5 .skip-button[data-challenge-index="5"]`);
         if (skipButton) skipButton.disabled = true;
     }
 }
@@ -417,7 +427,7 @@ function validerDefi6() {
     if (word1 === 'libre' && word2 === 'choisir') {
         feedback.textContent = "Correct ! La citation est : 'Je suis libre, je peux me choisir.'";
         feedback.className = 'feedback success';
-        handleSuccessfulChallenge(6); 
+        handleSuccessfulChallenge(6);
     } else {
         feedback.textContent = "Incorrect. Vérifiez les mots. Pensez à la liberté et à la décision.";
         feedback.className = 'feedback error';
@@ -445,12 +455,12 @@ function initMotsMeles() {
     motsMelesParams.timeLeft = 120; motsMelesParams.gameActive = true; motsMelesParams.wordObjects = [];
     document.getElementById('motsmeles-trouves-count').textContent = '0';
     document.getElementById('motsmeles-total-count').textContent = motsMelesParams.words.length;
-    document.getElementById('feedback-defi7-motsmeles').textContent = ""; 
+    document.getElementById('feedback-defi7-motsmeles').textContent = "";
     document.getElementById('feedback-defi7-motsmeles').className = 'feedback';
-    document.getElementById('next-defi7').style.display = 'none'; 
+    document.getElementById('next-defi7').style.display = 'none';
     const validerButton = document.getElementById('validateMotsMelesBtn');
     if (validerButton) validerButton.disabled = false;
-    const skipButton = document.querySelector(`#page-7 .skip-button[data-challenge-index="7"]`); 
+    const skipButton = document.querySelector(`#page-7 .skip-button[data-challenge-index="7"]`);
     if(skipButton) skipButton.disabled = false;
     generateMotsMelesGrid(); renderMotsMelesGrid(); startMotsMelesTimer();
 }
@@ -498,7 +508,7 @@ function renderMotsMelesGrid() {
         for(let c=0;c<motsMelesParams.gridSize;c++){
             const td=document.createElement('td');
             td.textContent=motsMelesParams.grid[r]&&motsMelesParams.grid[r][c]?motsMelesParams.grid[r][c]:'';
-            td.dataset.r=r;td.dataset.c=c; td.setAttribute('role','gridcell'); td.setAttribute('tabindex','-1'); 
+            td.dataset.r=r;td.dataset.c=c; td.setAttribute('role','gridcell'); td.setAttribute('tabindex','-1');
             td.addEventListener('click',handleMotsMelesCellClick);
             tr.appendChild(td);
         }
@@ -528,7 +538,7 @@ function highlightMotsMelesPath() {
 }
 function getCellsBetweenMotsMeles(start,end,checkContent=true) {
     const cells=[]; const dr=Math.sign(end.r-start.r); const dc=Math.sign(end.c-start.c);
-    if(start.r!==end.r&&start.c!==end.c)return null; 
+    if(start.r!==end.r&&start.c!==end.c)return null;
     let r=start.r; let c=start.c; let currentWord="";
     while(true){
         if(r<0||r>=motsMelesParams.gridSize||c<0||c>=motsMelesParams.gridSize)return null;
@@ -597,13 +607,13 @@ function startMotsMelesTimer() {
 }
 function endMotsMelesGame(success) {
     motsMelesParams.gameActive=false; clearInterval(motsMelesParams.timerInterval);
-    const feedback=document.getElementById('feedback-defi7-motsmeles'); const nextBtn=document.getElementById('next-defi7'); 
+    const feedback=document.getElementById('feedback-defi7-motsmeles'); const nextBtn=document.getElementById('next-defi7');
     const valBtn=document.getElementById('validateMotsMelesBtn'); if(valBtn)valBtn.disabled=true;
-    const skipBtn=document.querySelector(`#page-7 .skip-button[data-challenge-index="7"]`); if(skipBtn)skipBtn.disabled=true; 
+    const skipBtn=document.querySelector(`#page-7 .skip-button[data-challenge-index="7"]`); if(skipBtn)skipBtn.disabled=true;
     const actualFound=motsMelesParams.foundWordsCount;
     if(success||actualFound>=motsMelesParams.targetWordsToFind){
         feedback.textContent=`Bravo ! Vous avez trouvé ${actualFound} mot(s) à temps.`;
-        feedback.className='feedback success'; handleSuccessfulChallenge(7); 
+        feedback.className='feedback success'; handleSuccessfulChallenge(7);
     }else{
         feedback.textContent=(motsMelesParams.timeLeft<=0?`Temps écoulé ! `:` `) + `Vous avez trouvé ${actualFound} mot(s). Il en fallait ${motsMelesParams.targetWordsToFind}.`;
         feedback.className='feedback error'; if(nextBtn)nextBtn.style.display='inline-block';
@@ -611,22 +621,22 @@ function endMotsMelesGame(success) {
 }
 
 // Défi 8: QCM (Ancien Défi 6)
-function validerDefi8() { 
-    const form = document.getElementById('defi8-form'); 
-    const selectedOption = form.querySelector('input[name="defi8"]:checked'); 
-    const feedback = document.getElementById('feedback-defi8'); 
+function validerDefi8() {
+    const form = document.getElementById('defi8-form');
+    const selectedOption = form.querySelector('input[name="defi8"]:checked');
+    const feedback = document.getElementById('feedback-defi8');
     if (selectedOption) {
         disableForm('defi8-form');
         if (selectedOption.value === 'C') {
             feedback.textContent = "Excellente réponse ! La loi Veil de 1975 sur l'IVG fut une avancée majeure.";
-            feedback.className = 'feedback success'; 
-            handleSuccessfulChallenge(8); 
+            feedback.className = 'feedback success';
+            handleSuccessfulChallenge(8);
         } else {
             feedback.textContent = "Ce n'est pas la bonne loi. La loi de 1975 concernait l'IVG.";
             feedback.className = 'feedback error';
-            const nextButton = document.getElementById('next-defi8'); 
+            const nextButton = document.getElementById('next-defi8');
             if (nextButton) nextButton.style.display = 'inline-block';
-            const skipButton = document.querySelector(`#page-8 .skip-button[data-challenge-index="8"]`); 
+            const skipButton = document.querySelector(`#page-8 .skip-button[data-challenge-index="8"]`);
             if (skipButton) skipButton.disabled = true;
         }
     } else {
@@ -636,23 +646,23 @@ function validerDefi8() {
 }
 
 // Défi 9: Question Simple (Ancien Défi 7)
-function validerDefi9() { 
-    const reponse = document.getElementById('input-defi9').value.trim().toLowerCase(); 
-    const feedback = document.getElementById('feedback-defi9'); 
+function validerDefi9() {
+    const reponse = document.getElementById('input-defi9').value.trim().toLowerCase();
+    const feedback = document.getElementById('feedback-defi9');
     const inputElement = document.getElementById('input-defi9');
-    const validerButton = document.getElementById('validateDefi9Btn'); 
+    const validerButton = document.getElementById('validateDefi9Btn');
     inputElement.disabled = true;
     validerButton.disabled = true;
     if (reponse.includes("sa capacité à agir") || reponse.includes("capacité à agir") || reponse.includes("capacité d'agir")) {
         feedback.textContent = "Très bien ! Simone de Beauvoir met l'accent sur notre capacité à nous définir par nos choix.";
-        feedback.className = 'feedback success'; 
-        handleSuccessfulChallenge(9); 
+        feedback.className = 'feedback success';
+        handleSuccessfulChallenge(9);
     } else {
         feedback.textContent = `Relisez bien la citation. La bonne réponse mettait en avant la capacité à agir.`;
         feedback.className = 'feedback error';
-        const nextButton = document.getElementById('showFinalPageBtn'); 
+        const nextButton = document.getElementById('showFinalPageBtn');
         if (nextButton) nextButton.style.display = 'inline-block';
-        const skipButton = document.querySelector(`#page-9 .skip-button[data-challenge-index="9"]`); 
+        const skipButton = document.querySelector(`#page-9 .skip-button[data-challenge-index="9"]`);
         if (skipButton) skipButton.disabled = true;
     }
 }
@@ -679,17 +689,17 @@ function validerCitationFinale() {
         inputElement.disabled = true; validerButton.disabled = true;
         seeEpilogueBtn.style.display = 'inline-block';
     } else {
-        messageReussite.style.display = 'none'; messageEchec.style.display = 'block'; 
+        messageReussite.style.display = 'none'; messageEchec.style.display = 'block';
         if (gameState.citationAttempts < 3) {
             const attemptsRemaining = 3 - gameState.citationAttempts;
             echecCitationText.textContent = "Ce n’est pas tout à fait ça. Vérifiez bien l’ordre des mots et la citation exacte.";
             attemptsLeftText.textContent = `Il vous reste ${attemptsRemaining} essai(s).`;
             feedbackAttemptsExhausted.style.display = 'none';
-            inputElement.focus(); 
+            inputElement.focus();
         } else {
             echecCitationText.textContent = "Dernière tentative échouée.";
             attemptsLeftText.textContent = "";
-            messageEchec.style.display = 'none'; 
+            messageEchec.style.display = 'none';
             feedbackAttemptsExhausted.style.display = 'block';
             inputElement.disabled = true; validerButton.disabled = true;
             seeEpilogueBtn.style.display = 'inline-block';
@@ -698,7 +708,7 @@ function validerCitationFinale() {
 }
 
 // --- Fonction pour passer un défi ---
-function skipChallenge(challengeIndex) { 
+function skipChallenge(challengeIndex) {
     const feedback = document.getElementById(`feedback-defi${challengeIndex}`);
     const feedbackMotsMeles = document.getElementById(`feedback-defi${challengeIndex}-motsmeles`);
     const actualFeedbackElement = feedbackMotsMeles || feedback;
@@ -712,25 +722,25 @@ function skipChallenge(challengeIndex) {
     }
 
     if (pageElement) {
-        if (challengeIndex === 1 || challengeIndex === 3 || challengeIndex === 8) disableForm(`defi${challengeIndex}-form`); 
-        else if (challengeIndex === 2) { 
+        if (challengeIndex === 1 || challengeIndex === 3 || challengeIndex === 8) disableForm(`defi${challengeIndex}-form`);
+        else if (challengeIndex === 2) {
             document.getElementById('input-pendu').disabled = true;
             document.getElementById('proposeLetterBtnPendu').disabled = true;
-        } else if (challengeIndex === 4 || challengeIndex === 9) { 
+        } else if (challengeIndex === 4 || challengeIndex === 9) {
             const ti = document.getElementById(`input-defi${challengeIndex}`); if(ti)ti.disabled=true;
             const valBtn = document.getElementById(`validateDefi${challengeIndex}Btn`); if(valBtn)valBtn.disabled=true;
-        } else if (challengeIndex === 5) { 
+        } else if (challengeIndex === 5) {
             pageElement.querySelectorAll('select').forEach(s=>s.disabled=true);
             const valBtn = document.getElementById(`validateDefi${challengeIndex}Btn`); if(valBtn)valBtn.disabled=true;
-        } else if (challengeIndex === 6) { 
+        } else if (challengeIndex === 6) {
             const w1 = document.getElementById('defi6-word1'); if(w1) w1.disabled = true;
             const w2 = document.getElementById('defi6-word2'); if(w2) w2.disabled = true;
             const valBtn = document.getElementById(`validateDefi${challengeIndex}Btn`); if(valBtn)valBtn.disabled=true;
-        } else if (challengeIndex === 7) { 
+        } else if (challengeIndex === 7) {
             motsMelesParams.gameActive = false; clearInterval(motsMelesParams.timerInterval);
             document.getElementById('validateMotsMelesBtn').disabled = true;
-            document.querySelectorAll(`#page-${challengeIndex} .motsmeles-table td`).forEach(cell=>{ 
-                cell.style.cursor='default'; 
+            document.querySelectorAll(`#page-${challengeIndex} .motsmeles-table td`).forEach(cell=>{
+                cell.style.cursor='default';
             });
         }
         const currentSkipButton = pageElement.querySelector(`.skip-button[data-challenge-index="${challengeIndex}"]`);
@@ -741,15 +751,15 @@ function skipChallenge(challengeIndex) {
     const skippedSecretIndex = challengeToSecretMapping[challengeIndex - 1];
     const skippedWord = indicesSecretsCorrectOrder[skippedSecretIndex];
 
-    if (challengeIndex === 1) message += "L'œuvre fondatrice est 'Le Deuxième Sexe'.";    
+    if (challengeIndex === 1) message += "L'œuvre fondatrice est 'Le Deuxième Sexe'.";
     else if (challengeIndex === 2) message += `Le mot à deviner était '${motADevinerPendu}'.`;
     else if (challengeIndex === 3) message += "La bonne réponse était : 'Que notre sexe à la naissance ne décide pas de tout ce que nous serons ou ferons.'";
-    else if (challengeIndex === 4) message += "Le partenaire de pensée était Jean-Paul Sartre."; 
-    else if (challengeIndex === 5) message += "Assoc.: 1-A, 2-C, 3-B."; 
+    else if (challengeIndex === 4) message += "Le partenaire de pensée était Jean-Paul Sartre.";
+    else if (challengeIndex === 5) message += "Assoc.: 1-A, 2-C, 3-B.";
     else if (challengeIndex === 6) message += "Les mots manquants étaient 'libre' et 'choisir'.";
-    else if (challengeIndex === 7) message += "Les mots mêlés demandaient de la concentration !"; 
-    else if (challengeIndex === 8) message += "La loi de 1975 concernait l'IVG."; 
-    else if (challengeIndex === 9) message += "La citation souligne l'importance de la capacité à agir."; 
+    else if (challengeIndex === 7) message += "Les mots mêlés demandaient de la concentration !";
+    else if (challengeIndex === 8) message += "La loi de 1975 concernait l'IVG.";
+    else if (challengeIndex === 9) message += "La citation souligne l'importance de la capacité à agir.";
     message += ` L'indice qui aurait été révélé est : '${skippedWord}'`;
     if (actualFeedbackElement) { actualFeedbackElement.textContent = message; actualFeedbackElement.className = 'feedback info'; }
     if (nextButton) nextButton.style.display = 'inline-block';
@@ -799,54 +809,92 @@ function applyDyslexiaFontPreference() {
 
 
 function initEventListeners() {
-    document.getElementById('startGameBtn').addEventListener('click', startGame);
+    document.getElementById('startGameBtn').addEventListener('click', () => showPage(1)); // Modifié pour aller à page 1
     document.getElementById('toggleDysFontBtn').addEventListener('click', toggleDyslexiaFont);
 
-    document.getElementById('validateDefi1Btn').addEventListener('click', validerDefi1); 
-    document.getElementById('proposeLetterBtnPendu').addEventListener('click', proposerLettrePendu); 
-    document.getElementById('validateDefi3Btn').addEventListener('click', validerDefi3); 
-    document.getElementById('validateDefi4Btn').addEventListener('click', validerDefi4); 
-    document.getElementById('validateDefi5Btn').addEventListener('click', validerDefi5); 
-    document.getElementById('validateDefi6Btn').addEventListener('click', validerDefi6); 
-    document.getElementById('validateMotsMelesBtn').addEventListener('click', validerSelectionMotsMeles); 
-    document.getElementById('validateDefi8Btn').addEventListener('click', validerDefi8); 
-    document.getElementById('validateDefi9Btn').addEventListener('click', validerDefi9); 
+    document.getElementById('validateDefi1Btn').addEventListener('click', validerDefi1);
+    document.getElementById('proposeLetterBtnPendu').addEventListener('click', proposerLettrePendu);
+    document.getElementById('validateDefi3Btn').addEventListener('click', validerDefi3);
+    document.getElementById('validateDefi4Btn').addEventListener('click', validerDefi4);
+    document.getElementById('validateDefi5Btn').addEventListener('click', validerDefi5);
+    document.getElementById('validateDefi6Btn').addEventListener('click', validerDefi6);
+    document.getElementById('validateMotsMelesBtn').addEventListener('click', validerSelectionMotsMeles);
+    document.getElementById('validateDefi8Btn').addEventListener('click', validerDefi8);
+    document.getElementById('validateDefi9Btn').addEventListener('click', validerDefi9);
 
 
     document.getElementById('validateCitationFinaleBtn').addEventListener('click', validerCitationFinale);
+    // Le bouton "Voir l'épilogue" sur page-10 mène à page-11 (ancien épilogue)
     document.getElementById('seeEpilogueBtn').addEventListener('click', () => showPage(11));
 
     document.getElementById('showFinalPageBtn').addEventListener('click', showFinalEnigmaPage);
 
-    // Logique pour la musique de l'épilogue (page-11)
-    const epilogueAudio = document.getElementById('epilogueMusic');
-    const epiloguePage = document.getElementById('page-11');
+    // Bouton sur page-11 pour aller à page-12 (nouveau épilogue/crédits)
+    const goToStudentEpilogueButton = document.getElementById('goToStudentEpilogueBtn');
+    if (goToStudentEpilogueButton) {
+        goToStudentEpilogueButton.addEventListener('click', () => showPage(12));
+    }
 
-    if (epilogueAudio && epiloguePage) {
-        const audioObserver = new MutationObserver((mutationsList) => {
+    // Bouton sur page-12 pour retourner au début
+    const returnToStartButton = document.getElementById('returnToStartBtn');
+    if (returnToStartButton) {
+        returnToStartButton.addEventListener('click', startGame); // Réutilise startGame pour réinitialiser et aller à la page 0
+    }
+
+    // Logique pour la musique de la page-11 (ancien épilogue)
+    const originalEpilogueAudio = document.getElementById('epilogueMusic');
+    const originalEpiloguePage = document.getElementById('page-11');
+
+    if (originalEpilogueAudio && originalEpiloguePage) {
+        const audioObserverPage11 = new MutationObserver((mutationsList) => {
             for (const mutation of mutationsList) {
                 if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
                     const targetElement = mutation.target;
                     if (targetElement.classList.contains('active-page')) {
-                        // La page de l'épilogue est active, jouer la musique
-                        epilogueAudio.play().catch(error => {
-                            console.warn("Lecture auto de la musique d'épilogue bloquée par le navigateur : ", error);
-                            // Gérer l'erreur, par exemple, en informant l'utilisateur
+                        originalEpilogueAudio.play().catch(error => {
+                            console.warn("Lecture auto de la musique pour page-11 bloquée : ", error);
                         });
                     } else {
-                        // La page de l'épilogue n'est plus active, arrêter et rembobiner la musique
-                        if (!epilogueAudio.paused) {
-                            epilogueAudio.pause();
-                            epilogueAudio.currentTime = 0;
+                        if (!originalEpilogueAudio.paused) {
+                            originalEpilogueAudio.pause();
+                            originalEpilogueAudio.currentTime = 0;
                         }
                     }
                 }
             }
         });
-        audioObserver.observe(epiloguePage, { attributes: true, attributeFilter: ['class'] });
+        audioObserverPage11.observe(originalEpiloguePage, { attributes: true, attributeFilter: ['class'] });
     } else {
-        if (!epilogueAudio) console.error("L'élément audio 'epilogueMusic' est introuvable.");
-        if (!epiloguePage) console.error("L'élément de page 'page-11' est introuvable pour l'observateur audio.");
+        if (!originalEpilogueAudio) console.error("L'élément audio 'epilogueMusic' (page-11) est introuvable.");
+        if (!originalEpiloguePage) console.error("L'élément de page 'page-11' est introuvable pour l'observateur audio.");
+    }
+
+    // Logique pour la musique de la page-12 (nouvel épilogue / crédits)
+    const newEpilogueAudio = document.getElementById('audio-page-12');
+    const newEpiloguePage = document.getElementById('page-12');
+
+    if (newEpilogueAudio && newEpiloguePage) {
+        const audioObserverPage12 = new MutationObserver((mutationsList) => {
+            for (const mutation of mutationsList) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    const targetElement = mutation.target;
+                    if (targetElement.classList.contains('active-page')) {
+                        newEpilogueAudio.play().catch(error => {
+                            console.warn("Lecture auto de la musique pour page-12 bloquée par le navigateur : ", error);
+                        });
+                    } else {
+                        if (!newEpilogueAudio.paused) {
+                            newEpilogueAudio.pause();
+                            newEpilogueAudio.currentTime = 0;
+                        }
+                    }
+                }
+            }
+        });
+        audioObserverPage12.observe(newEpiloguePage, { attributes: true, attributeFilter: ['class'] });
+    } else {
+        if (!newEpilogueAudio) console.error("L'élément audio 'audio-page-12' est introuvable.");
+        if (!newEpiloguePage) console.error("L'élément de page 'page-12' est introuvable pour l'observateur audio.");
     }
 
     document.querySelectorAll('.skip-button').forEach(button => {
@@ -866,12 +914,12 @@ function initEventListeners() {
             }
         });
     });
-    
+
     const inputPendu = document.getElementById('input-pendu');
     if (inputPendu) {
         inputPendu.addEventListener('keypress', function(event) {
             if (event.key === "Enter") {
-                event.preventDefault(); 
+                event.preventDefault();
                 proposerLettrePendu();
             }
         });
@@ -880,7 +928,7 @@ function initEventListeners() {
 
 // Initialisation au chargement de la page
 window.onload = () => {
-    showPage(0); 
-    initEventListeners(); 
-    applyDyslexiaFontPreference(); // Appliquer la préférence au chargement
+    startGame(); // Appelle startGame qui affichera page 0 et initialisera
+    initEventListeners();
+    // applyDyslexiaFontPreference(); // Déjà appelé dans startGame
 };
