@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simone de Beauvoir : Le Défi des Idées</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div class="page" id="page-0">
+            <div class="page-content">
+                <h1>Simone de Beauvoir : Le Défi des Idées</h1>
+                <p>Simone de Beauvoir (1908-1986) était une philosophe, romancière et essayiste française. Figure majeure du féminisme contemporain, son œuvre la plus célèbre, "Le Deuxième Sexe", est une analyse profonde de la condition féminine et a eu un impact considérable sur la pensée féministe mondiale.</p>
+                <h2 class="subtitle">Bienvenue dans l'Escape Game</h2>
+                <p>Préparez-vous à plonger dans l'univers de Simone de Beauvoir et à découvrir ses idées sur la liberté, l'égalité et la condition féminine.</p>
+                <p>Pour progresser, vous devrez résoudre une série de défis. Chaque défi réussi vous révélera un mot ou un groupe de mots qui vous aidera à reconstituer une citation célèbre de l'auteure.</p>
+                <p class="citation-inspiration">"On ne naît pas femme, on le devient." - Simone de Beauvoir</p>
+                <p>Votre mission finale sera de retrouver la citation complète pour déverrouiller la sortie !</p>
+                <div id="progress-text-container">
+                    <span id="progress-text">0 / 9 Défis</span>
+                </div>
+                <div id="progress-bar-container" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="9">
+                    <div id="progress-bar-fill"></div>
+                </div>
+                <p class="phrase-progression" id="phrase-a-reconstituer-display-0"></p>
+                <div class="actions-defi">
+                    <button id="startGameBtn">Commencer l'aventure</button>
+                </div>
+                <div class="accessibility-options">
+                    <button id="toggleDysFontBtn">Police DYS</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page-1">
+            <div class="page-content">
+                <h2><span class="defi-icon">🔑</span> Défi 1 : L'Œuvre Fondatrice</h2>
+                <p>Simone de Beauvoir est célèbre pour son analyse de la condition féminine. Parmi les œuvres suivantes, laquelle est considérée comme son ouvrage majeur sur ce sujet ?</p>
+                <form id="defi1-form">
+                    <label><input type="radio" name="defi1" value="A"> Les Mandarins</label>
+                    <label><input type="radio" name="defi1" value="B"> Le Deuxième Sexe</label>
+                    <label><input type="radio" name="defi1" value="C"> Mémoires d'une jeune fille rangée</label>
+                </form>
+                <div class="feedback" id="feedback-defi1"></div>
+                <div class="actions-defi">
+                    <button id="validateDefi1Btn">Valider la réponse</button>
+                    <button class="skip-button" data-challenge-index="1">Passer ce défi</button>
+                    <button class="next-challenge-button" id="next-defi1" data-next-page="2" style="display: none;">Défi Suivant</button>
+                </div>
+                <p class="phrase-progression" id="phrase-a-reconstituer-display-1"></p>
+            </div>
+        </div>
+
+        <div class="page" id="page-2">
+            <div class="page-content">
+                <h2><span class="defi-icon">🔑</span> Défi 2 : Le Concept Clé</h2>
+                <p>Simone de Beauvoir a introduit un concept fondamental pour distinguer la réalité biologique de la construction sociale des rôles masculins et féminins. Devinez ce mot en 5 lettres.</p>
+                <p id="mot-pendu"></p>
+                <p>Essais restants : <span id="essais-pendu">5</span></p>
+                <p>Lettres proposées : <span id="lettres-proposees"></span></p>
+                <input type="text" id="input-pendu" maxlength="1" placeholder="Lettre">
+                <div class="actions-defi">
+                    <button id="proposeLetterBtnPendu">Proposer</button>
+                    <button class="skip-button" data-challenge-index="2">Passer ce défi</button>
+                    <button class="next-challenge-button" id="next-defi2" data-next-page="3" style="display: none;">Défi Suivant</button>
+                </div>
+                <p class="hint-defi" id="indice-pendu" style="display: none;">Indice : C'est un terme utilisé en sociologie et en études de genre.</p>
+                <div class="feedback" id="feedback-defi2"></div>
+                <p id="reflexion-defi2" style="display: none;">Réflexion : Ce mot souligne que les rôles et attentes associés aux hommes et aux femmes sont largement façonnés par la société, et non uniquement par la biologie.</p>
+                <p class="phrase-progression" id="phrase-a-reconstituer-display-2"></p>
+            </div>
+        </div>
+
+        <div class="page" id="page-3">
+            <div class="page-content">
+                <h2><span class="defi-icon">🔑</span> Défi 3 : La Destinée Biologique</h2>
+                <p>Simone de Beauvoir a écrit : "On ne naît pas femme, on le devient." Que signifie principalement cette affirmation dans le contexte de sa pensée ?</p>
+                <form id="defi3-form">
+                    <label><input type="radio" name="defi3-answer" value="A"> Que la biologie détermine entièrement notre identité et notre rôle.</label>
+                    <label><input type="radio" name="defi3-answer" value="B"> Que notre sexe à la naissance ne décide pas de tout ce que nous serons ou ferons.</label>
+                    <label><input type="radio" name="defi3-answer" value="C"> Que devenir femme est un processus purement naturel et automatique.</label>
+                </form>
+                <div class="feedback" id="feedback-defi3"></div>
+                <div class="actions-defi">
+                    <button id="validateDefi3Btn">Valider la réponse</button>
+                    <button class="skip-button" data-challenge-index="3">Passer ce défi</button>
+                    <button class="next-challenge-button" id="next-defi3" data-next-page="4" style="display: none;">Défi Suivant</button>
+                </div>
+                <p class="phrase-progression" id="phrase-a-reconstituer-display-3"></p>
+            </div>
+        </div>
+
+        <div class="page" id="page-4">
+            <div class="page-content">
+                <h2><span class="defi-icon">🔑</span> Défi 4 : Partenaires de Pensée</h2>
+                <p>Simone de Beauvoir a eu une relation intellectuelle et personnelle très importante avec un autre philosophe existentialiste célèbre. Qui était-il ?</p>
+                <input type="text" id="input-defi4" placeholder="Nom du philosophe">
+                <div class="feedback" id="feedback-defi4"></div>
+                <div class="actions-defi">
+                    <button id="validateDefi4Btn">Valider la réponse</button>
+                    <button class="skip-button" data-challenge-index="4">Passer ce défi</button>
+                    <button class="next-challenge-button" id="next-defi4" data-next-page="5" style="display: none;">Défi Suivant</button>
+                </div>
+                <p class="phrase-progression" id="phrase-a-reconstituer-display-4"></p>
+            </div>
+        </div>
+
+        <div class="page" id="page-5">
+            <div class="page-content">
+                <h2><span class="defi-icon">🔑</span> Défi 5 : Associer les Concepts</h2>
+                <p>Associez chaque concept de Simone de Beauvoir à sa brève définition :</p>
+                <div class="association-group">
+                    <p class="content-subtitle">1. L'Existentialisme</p>
+                    <select id="select-assoc-1-defi5">
+                        <option value="">-- Choisir --</option>
+                        <option value="A">Courant philosophique qui met l'accent sur la liberté et la responsabilité individuelle.</option>
+                        <option value="B">L'idée que les rôles de genre sont construits par la société.</option>
+                        <option value="C">La capacité de se déterminer par ses propres choix.</option>
+                    </select>
+                </div>
+                <div class="association-group">
+                    <p class="content-subtitle">2. La Liberté</p>
+                    <select id="select-assoc-2-defi5">
+                        <option value="">-- Choisir --</option>
+                        <option value="A">Courant philosophique qui met l'accent sur la liberté et la responsabilité individuelle.</option>
+                        <option value="B">L'idée que les rôles de genre sont construits par la société.</option>
+                        <option value="C">La capacité de se déterminer par ses propres choix.</option>
+                    </select>
+                </div>
+                <div class="association-group">
+                    <p class="content-subtitle">3. Le Genre</p>
+                    <select id="select-assoc-3-defi5">
+                        <option value="">-- Choisir --</option>
+                        <option value="A">Courant philosophique qui met l'accent sur la liberté et la responsabilité individuelle.</option>
+                        <option value="B">L'idée que les rôles de genre sont construits par la société.</option>
+                        <option value="C">La capacité de se déterminer par ses propres choix.</option>
+                    </select>
+                </div>
+                <div class="feedback" id="feedback-defi5"></div>
+                <div class="actions-defi">
+                    <button id="validateDefi5Btn">Valider les associations</button>
+                    <button class="skip-button" data-challenge-index="5">Passer ce défi</button>
+                    <button class="next-challenge-button" id="next-defi5" data-next-page="6" style="display: none;">Défi Suivant</button>
+                </div>
+                <p class="phrase-progression" id="phrase-a-reconstituer-display-5"></p>
+            </div>
+        </div>
+
+        <div class="page" id="page-6">
+            <div class="page-content">
+                <h2><span class="defi-icon">🔑</span> Défi 6 : Mots Manquants</h2>
+                <p>Complétez la citation de Simone de Beauvoir :</p>
+                <p class="citation-inspiration">"Je suis <span class="blanks-defi6"><input type="text" id="defi6-word1" placeholder="Mot 1"></span>, je peux me <span class="blanks-defi6"><input type="text" id="defi6-word2" placeholder="Mot 2"></span>."</p>
+                <div class="feedback" id="feedback-defi6"></div>
+                <div class="actions-defi">
+                    <button id="validateDefi6Btn">Valider la citation</button>
+                    <button class="skip-button" data-challenge-index="6">Passer ce défi</button>
+                    <button class="next-challenge-button" id="next-defi6" data-next-page="7" style="display: none;">Défi Suivant</button>
+                </div>
+                <p class="phrase-progression" id="phrase-a-reconstituer-display-6"></p>
+            </div>
+        </div>
+
+        <div class="page" id="page-7">
+            <div class="page-content">
+                <h2><span class="defi-icon">🔑</span> Défi 7 : Mots Mêlés</h2>
+                <p class="motsmeles-instructions">Retrouvez au moins 4 mots liés aux idées de Simone de Beauvoir dans la grille. Cliquez sur la première et la dernière lettre d'un mot pour le sélectionner.</p>
+                <p>Mots trouvés : <span id="motsmeles-trouves-count">0</span> / <span id="motsmeles-total-count">8</span> (Objectif : 4)</p>
+                <p>Temps restant : <span id="timer-motsmeles">2:00</span></p>
+                <div id="motsmeles-grille-container">
+                    </div>
+                <div class="feedback" id="feedback-defi7-motsmeles"></div>
+                <div class="actions-defi">
+                    <button id="validateMotsMelesBtn">Valider la sélection</button>
+                    <button class="skip-button" data-challenge-index="7">Passer ce défi</button>
+                    <button class="next-challenge-button" id="next-defi7" data-next-page="8" style="display: none;">Défi Suivant</button>
+                </div>
+                <p class="phrase-progression" id="phrase-a-reconstituer-display-7"></p>
+            </div>
+        </div>
+
+        <div class="page" id="page-8">
+            <div class="page-content">
+                <h2><span class="defi-icon">🔑</span> Défi 8 : L'Engagement Politique</h2>
+                <p>Simone de Beauvoir a milité pour les droits des femmes. Quelle loi française majeure, pour laquelle elle a activement lutté, a été adoptée en 1975 ?</p>
+                <form id="defi8-form">
+                    <label><input type="radio" name="defi8" value="A"> La loi sur la parité homme-femme en politique</label>
+                    <label><input type="radio" name="defi8" value="B"> La loi sur l'égalité salariale</label>
+                    <label><input type="radio" name="defi8" value="C"> La loi relative à l'interruption volontaire de grossesse (IVG)</label>
+                </form>
+                <div class="feedback" id="feedback-defi8"></div>
+                <div class="actions-defi">
+                    <button id="validateDefi8Btn">Valider la réponse</button>
+                    <button class="skip-button" data-challenge-index="8">Passer ce défi</button>
+                    <button class="next-challenge-button" id="next-defi8" data-next-page="9" style="display: none;">Défi Suivant</button>
+                </div>
+                <p class="phrase-progression" id="phrase-a-reconstituer-display-8"></p>
+            </div>
+        </div>
+
+        <div class="page" id="page-9">
+            <div class="page-content">
+                <h2><span class="defi-icon">🔑</span> Défi 9 : L'Importance de l'Action</h2>
+                <p>Selon la philosophie existentialiste de Beauvoir, qu'est-ce qui définit principalement l'individu ?</p>
+                <input type="text" id="input-defi9" placeholder="Votre réponse">
+                <div class="feedback" id="feedback-defi9"></div>
+                <div class="actions-defi">
+                    <button id="validateDefi9Btn">Valider la réponse</button>
+                    <button class="skip-button" data-challenge-index="9">Passer ce défi</button>
+                    <button id="showFinalPageBtn" style="display: none;">Énigme Finale</button>
+                </div>
+                <p class="phrase-progression" id="phrase-a-reconstituer-display-9"></p>
+            </div>
+        </div>
+
+        <div class="page" id="page-10">
+            <div class="page-content">
+                <h2><span class="page-icon">🔓</span> Énigme Finale</h2>
+                <p>Vous avez collecté les indices ! Reconstituez maintenant la citation complète de Simone de Beauvoir en utilisant les mots révélés.</p>
+                <p class="content-subtitle">Indices collectés :</p>
+                <p id="indices-collectes" class="citation-inspiration"></p>
+                <p class="content-subtitle">Entrez la citation complète ci-dessous :</p>
+                <input type="text" id="citation-finale-input" placeholder="Entrez la citation ici">
+                <div class="feedback success" id="message-reussite-final" style="display: none;">
+                    Bravo ! Vous avez trouvé la citation correcte : <span id="citation-correcte-finale"></span>
+                </div>
+                 <div class="feedback error" id="message-echec-final" style="display: none;">
+                    <span id="echec-citation-text"></span> <span id="attempts-left-text"></span>
+                </div>
+                 <div class="feedback error" id="feedback-attempts-exhausted" style="display: none;">
+                    Vous avez épuisé vos tentatives. La citation correcte était : <span id="citation-correcte-finale-failed"></span>
+                </div>
+                <div class="actions-defi">
+                    <button id="validateCitationFinaleBtn">Valider la citation</button>
+                    <button id="seeEpilogueBtn" style="display: none;">Voir l'épilogue</button>
+                </div>
+                <p class="phrase-progression" id="phrase-a-reconstituer-display-10"></p>
+            </div>
+        </div>
+
+        <div class="page" id="page-11">
+            <div class="page-content">
+                <h2><span class="page-icon">🎉</span> Félicitations !</h2>
+                <p>Vous avez brillamment résolu, (peut-être) toutes les énigmes et découvert la citation finale de Simone de Beauvoir.</p> <p>Son œuvre continue d'inspirer la lutte pour l'égalité et la liberté.</p>
+                <p class="citation-inspiration">"Vouloir être libre, c'est aussi vouloir les autres libres."</p>
+                <audio id="epilogueMusic" src="images/placeholder_epilogue_music.mp3" loop>
+                    Votre navigateur ne supporte pas l'élément audio.
+                </audio>
+                <div class="actions-defi">
+                    <button id="goToStudentEpilogueBtn">Voir les crédits du projet</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page-12">
+            <img src="images/logo.png" alt="Logo du projet ou du collège" class="page-logo">
+            <audio id="audio-page-12" src="images/sonsdb.mp3" loop>
+                Votre navigateur ne supporte pas l'élément audio.
+            </audio>
+            <div class="page-content epilogue-content">
+                <h2>Bravo pour un projet essentiel : "Égalité, c'est mixité" !</h2>
+                <p>Quelle belle conclusion pour ce travail mené tout au long de l'année scolaire 2025 ! Un groupe d'élèves du Collège de Montesoro ont abordé avec pertinence le thème de l'Égalité filles / Garçons, en s'inspirant des idées de Simone de Beauvoir.</p>
+                <p>Nous avons pu découvrir leur jeu pédagogique très réussi, et surtout écouter la chanson qu'ils ont imaginée et créée avec de nouveaux outils. Son titre, <span class="song-title">"Égalité, c'est mixité"</span>, est un message fort et clair qui résume parfaitement leur engagement.</p>
+                
+                <div id="static-lyrics-container" class="static-lyrics">
+                    <p>Yo, check le son, c'est pour tous ceux qui doutent</p>
+                    <p>Ceux qu'on regarde de travers, ceux qu'on écoute pas</p>
+                    <p>Ceux qui brisent les codes, qui tracent leur route</p>
+                    <p>Parce qu'au fond, on est tous pareils, y'a pas de débat</p>
+                    <p>Partout où on va, ici ou là-bas</p>
+                    <p>On a tous les mêmes droits, peu importe nos choix</p>
+                    <p>Personne nous jugea, on lève la voix</p>
+                    <p>Égalité, c'est une question de mixité, tu vois</p>
+                    <p>On tous lutte contre les préjugés, les regards haineux</p>
+                    <p>On écoute pas les rageux, ils sont trop honteux</p>
+                    <p>Ils parlent fort, mais au fond, ils sont peureux</p>
+                    <p>Nous, on avance, on est courageux</p>
+                    <p>Une fille fait du foot, un garçon fait de la danse</p>
+                    <p>Pourtant, entre eux, il n'y a aucune différence</p>
+                    <p>Partout où on va, personne nous jugera</p>
+                    <p>On est tous ensemble, on se soutiendra</p>
+                    <p>Les salaires seront égaux, on sera au même niveau</p>
+                    <p>Peu importe nos défauts, on est au plus haut</p> <p>On casse les barrières, on ouvre les rideaux</p>
+                    <p>L'avenir est à nous, c'est notre credo</p>
+                    <p>On est la génération qui change les règles</p>
+                    <p>Qui dit non aux clichés, qui brise les chaînes</p>
+                    <p>On est tous différents, mais on a les mêmes rêves</p>
+                    <p>De vivre ensemble, sans qu'on nous enlève</p>
+                    <p>On est tous ensemble, on se soutiendra...</p>
+                    <p>Partout où on va... personne nous jugera...</p>
+                </div>
+
+                <p>Ces productions témoignent de leur talent et de leur implication sincère. Un immense BRAVO pour leur travail à :</p>
+                <ul class="student-list">
+                    <li>Camilia</li>
+                    <li>Ayoub</li>
+                    <li>Hamza</li> <li>Assad</li>
+                    <li>Ismail</li>
+                    <li>Amine</li>
+                    <li>Anas</li>
+                    <li>Sacha</li>
+                </ul>
+                <p>Une belle réussite pour ces jeunes qui nous montrent, en actes, l'importance de ces valeurs !</p>
+                <div class="actions-defi">
+                    <button id="returnToStartBtn">Recommencer l'aventure</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
