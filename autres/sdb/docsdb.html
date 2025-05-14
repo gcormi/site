@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synthèse - Escape Game Simone de Beauvoir</title>
+    <style>
+        /* Styles de base inspirés du jeu */
+        :root {
+            --primary-mauve: #8A2BE2; /* BlueViolet */
+            --primary-mauve-darker: #7A24C1;
+            --page-content-bg: rgba(255, 255, 255, 0.85);
+            --text-color-dark: #333;
+            --feedback-success-text: #155724;
+            --feedback-error-text: #721c24;
+        
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #e0e0e0; /* Fond général similaire */
+            color: var(--text-color-dark);
+            display: flex;
+            flex-direction: column; /* Pour centrer le contenu verticalement si peu de contenu */
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        #synthese-container {
+            background-color: #fdfdfd;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 900px; /* Largeur adaptée pour la synthèse */
+            padding: 25px 35px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-mauve);
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2em;
+            border-bottom: 2px solid rgba(138, 43, 226, 0.4);
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin-top: 30px;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+            padding-bottom: 8px;
+        }
+        
+        h3 {
+            font-size: 1.2em;
+            color: var(--primary-mauve-darker);
+            text-align: left;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--page-content-bg);
+            border-radius: 8px;
+            border: 1px solid rgba(200, 200, 200, 0.5);
+        }
+
+        .question {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .reponse {
+            color: var(--feedback-success-text);
+            font-weight: bold;
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        .reponse.incorrecte {
+            color: var(--feedback-error-text);
+        }
+        .reponse::before {
+            content: "R : ";
+            font-weight: bold;
+        }
+
+        .citation-finale {
+            font-style: italic;
+            font-size: 1.3em;
+            color: #4B0082; /* Indigo, similaire à .citation-inspiration */
+            margin: 25px 0;
+            padding: 20px;
+            background-color: rgba(230, 230, 250, 0.75);
+            border-left: 5px solid var(--primary-mauve);
+            border-radius: 0 4px 4px 0;
+            text-align: center;
+        }
+
+        .student-list-container {
+            text-align: center;
+        }
+        .student-list {
+            list-style-type: none;
+            padding-left: 0;
+            display: inline-block; /* Pour centrer la liste */
+            text-align: left; /* Pour que les noms soient alignés à gauche dans le bloc */
+        }
+        .student-list li {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: var(--primary-mauve-darker);
+            margin: 5px 0;
+        }
+
+        .logo-synthese {
+            display: block;
+            margin: 0 auto 20px auto;
+            max-width: 150px; /* ou la taille de votre logo */
+            height: auto;
+        }
+
+        /* Pour l'impression */
+        @media print {
+            body {
+                background-color: #fff;
+                padding: 0;
+                margin: 0;
+            }
+            #synthese-container {
+                box-shadow: none;
+                border: none;
+                max-width: 100%;
+                padding: 10px;
+            }
+            .section {
+                background-color: #fff;
+                border: 1px solid #ccc;
+                page-break-inside: avoid; /* Éviter de couper les sections entre les pages */
+            }
+            h1, h2, h3 {
+                color: #000; /* Noir pour l'impression */
+                text-shadow: none;
+            }
+            .reponse {
+                color: #000;
+            }
+            .citation-finale {
+                color: #000;
+                border-left: 5px solid #888;
+                background-color: #f0f0f0;
+            }
+            .student-list li {
+                color: #000;
+            }
+            .logo-synthese {
+                display: none; /* Optionnel: cacher le logo à l'impression */
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div id="synthese-container">
+        <h1>Synthèse de l'Escape Game : Simone de Beauvoir - Le Défi des Idées</h1>
+
+        <div class="section">
+            <h2><span class="page-icon">📝</span> Introduction au Jeu</h2>
+            <p>Cet escape game a été conçu pour faire découvrir aux élèves la vie, l'œuvre et les idées principales de Simone de Beauvoir, figure majeure de la philosophie et du féminisme. L'objectif final est de reconstituer une de ses citations célèbres en résolvant une série de 9 défis variés.</p>
+        </div>
+
+        <div class="section">
+            <h2><span class="page-icon">🔑</span> Énigmes et Réponses</h2>
+
+            <h3>Défi 1 : L'Œuvre Fondatrice (QCM)</h3>
+            <p class="question">Simone de Beauvoir est célèbre pour son analyse de la condition féminine. Parmi les œuvres suivantes, laquelle est considérée comme son ouvrage majeur sur ce sujet ?</p>
+            <p class="reponse">Le Deuxième Sexe</p>
+
+            <h3>Défi 2 : Le Concept Clé (Pendu)</h3>
+            <p class="question">Simone de Beauvoir a introduit un concept fondamental pour distinguer la réalité biologique de la construction sociale des rôles masculins et féminins. Devinez ce mot en 5 lettres.</p>
+            <p class="reponse">GENRE</p>
+            <p><em>Réflexion associée : Ce mot souligne que les rôles et attentes associés aux hommes et aux femmes sont largement façonnés par la société, et non uniquement par la biologie.</em></p>
+
+            <h3>Défi 3 : La Destinée Biologique (QCM)</h3>
+            <p class="question">Simone de Beauvoir a écrit : "On ne naît pas femme, on le devient." Que signifie principalement cette affirmation dans le contexte de sa pensée ?</p>
+            <p class="reponse">Que notre sexe à la naissance ne décide pas de tout ce que nous serons ou ferons.</p>
+
+            <h3>Défi 4 : Partenaires de Pensée (Input)</h3>
+            <p class="question">Simone de Beauvoir a eu une relation intellectuelle et personnelle très importante avec un autre philosophe existentialiste célèbre. Qui était-il ?</p>
+            <p class="reponse">Jean-Paul Sartre</p>
+
+            <h3>Défi 5 : Associer les Concepts (Association)</h3>
+            <p class="question">Associez chaque concept de Simone de Beauvoir à sa brève définition :</p>
+            <ul>
+                <li><strong>1. L'Existentialisme :</strong> <span class="reponse">Courant philosophique qui met l'accent sur la liberté et la responsabilité individuelle. (A)</span></li>
+                <li><strong>2. La Liberté :</strong> <span class="reponse">La capacité de se déterminer par ses propres choix. (C)</span></li>
+                <li><strong>3. Le Genre :</strong> <span class="reponse">L'idée que les rôles de genre sont construits par la société. (B)</span></li>
+            </ul>
+
+            <h3>Défi 6 : Mots Manquants (Input)</h3>
+            <p class="question">Complétez la citation de Simone de Beauvoir : "Je suis ______, je peux me ______."</p>
+            <p class="reponse">libre, choisir</p>
+
+            <h3>Défi 7 : Mots Mêlés</h3>
+            <p class="question">Retrouvez au moins 4 mots liés aux idées de Simone de Beauvoir dans la grille.</p>
+            <p class="reponse">Mots à trouver : BEAUVOIR, ÉGALITÉ, FÉMINISME, CHOIX, AUTONOMIE, DROITS, SEXISME, LIBERTÉ.</p>
+            <p><em>(L'objectif était d'en trouver au moins 4).</em></p>
+
+            <h3>Défi 8 : L'Engagement Politique (QCM)</h3>
+            <p class="question">Simone de Beauvoir a milité pour les droits des femmes. Quelle loi française majeure, pour laquelle elle a activement lutté, a été adoptée en 1975 ?</p>
+            <p class="reponse">La loi relative à l'interruption volontaire de grossesse (IVG)</p>
+
+            <h3>Défi 9 : L'Importance de l'Action (Input)</h3>
+            <p class="question">Selon la philosophie existentialiste de Beauvoir, qu'est-ce qui définit principalement l'individu ?</p>
+            <p class="reponse">Sa capacité à agir / ses actions / ses choix.</p>
+        </div>
+
+        <div class="section">
+            <h2><span class="page-icon">🏆</span> Citation Finale à Reconstituer</h2>
+            <p>Après avoir résolu les énigmes, les joueurs devaient reconstituer la citation suivante :</p>
+            <p class="citation-finale">"Vouloir être libre, c'est aussi vouloir les autres libres."</p>
+            <p><em>Cette citation est composée des indices suivants, révélés au fil des défis : "Vouloir", "être", "libre,", "c'est", "aussi", "vouloir", "les", "autres", "libres."</em></p>
+        </div>
+        
+        <div class="section student-list-container">
+            <h2><span class="page-icon">🌟</span> Équipe du Projet - Collège de Montesoro (Année 2025)</h2>
+            <p>Ce jeu pédagogique est le fruit du travail et de l'engagement des élèves :</p>
+            <ul class="student-list">
+                <li>Camilia</li>
+                <li>Ayoub</li>
+                <li>Hamza</li>
+                <li>Assad</li>
+                <li>Ismail</li>
+                <li>Amine</li>
+                <li>Anas</li>
+                <li>Sacha</li>
+            </ul>
+            <p>Leur chanson "Égalité, c'est mixité" a également été une production marquante de ce projet.</p>
+        </div>
+
+    </div>
+</body>
+</html>
