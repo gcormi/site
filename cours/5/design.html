@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design d'Objet : Beau et Utile ! - Cours de Technologie</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --secondary: #60a5fa;
+            --accent: #ef4444;
+            --background: #f8fafc;
+            --text: #1e293b;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text);
+            background-color: var(--background);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+        
+        .section-title {
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+            margin: 30px 0 20px 0;
+            font-size: 1.5rem; /* 24px */
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .concept-box {
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            background-color: rgba(59, 130, 246, 0.1);
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .example-box {
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+            background-color: rgba(96, 165, 250, 0.1);
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .activity-box {
+            border-radius: 8px;
+            border-left: 4px solid #10b981; /* Vert */
+            background-color: rgba(16, 185, 129, 0.1);
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .highlight {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .card {
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+            background-color: white;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px; /* Ajusté pour mieux centrer */
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--primary);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 17px; /* Ajusté */
+            width: 2px;
+            height: calc(100% + 8px);
+            background-color: var(--primary);
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        .glossary-term {
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            padding: 5px 0;
+        }
+        .glossary-term:hover {
+            text-decoration: underline;
+        }
+        
+        .glossary-definition {
+            display: none;
+            background-color: white;
+            border-left: 3px solid var(--primary);
+            padding: 10px;
+            margin: 5px 0 10px 10px; /* Ajout d'un léger retrait */
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px; /* Augmentation du padding */
+            background-color: var(--primary);
+            color: white;
+            border-radius: 6px; /* Bords plus arrondis */
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .btn:hover {
+            background-color: #2563eb; /* Bleu plus foncé au survol */
+        }
+
+        .question {
+            border: 1px solid #e2e8f0; /* Gris clair */
+            border-radius: 8px;
+            padding: 20px; /* Plus d'espacement interne */
+            margin-bottom: 20px;
+            background-color: white;
+        }
+
+        .answer-option {
+            display: block;
+            margin: 10px 0; /* Plus d'espace entre les options */
+            padding: 12px 15px; /* Padding augmenté */
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        .answer-option:hover {
+            background-color: #f1f5f9; /* Gris très clair */
+            border-color: #cbd5e1; /* Gris moyen */
+        }
+
+        .answer-option.selected {
+            background-color: rgba(59, 130, 246, 0.2);
+            border-color: var(--primary);
+        }
+
+        .answer-option.correct {
+            background-color: rgba(34, 197, 94, 0.2); /* Vert plus doux */
+            border-color: #22c55e; /* Vert */
+            color: #166534; /* Texte vert foncé */
+        }
+
+        .answer-option.incorrect {
+            background-color: rgba(239, 68, 68, 0.2); /* Rouge plus doux */
+            border-color: var(--accent);
+            color: #b91c1c; /* Texte rouge foncé */
+        }
+
+        .feedback {
+            margin-top: 15px; /* Plus d'espace avant le feedback */
+            padding: 12px;
+            border-radius: 6px;
+            display: none;
+            font-weight: 500;
+        }
+
+        .success-feedback {
+            background-color: rgba(34, 197, 94, 0.15);
+            color: #166534;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .error-feedback {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #b91c1c;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .draggable {
+            padding: 10px;
+            background-color: #f8fafc; /* Fond plus clair */
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            cursor: move;
+            transition: box-shadow 0.2s;
+        }
+        .draggable:hover {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .drop-zone {
+            min-height: 80px;
+            padding: 15px; /* Padding augmenté */
+            border: 2px dashed #cbd5e1; /* Gris moyen */
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: flex; /* Pour mieux centrer le contenu */
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        .drop-zone.active {
+            border-color: var(--primary);
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        
+        .icon-box {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .icon-box i {
+            font-size: 1.8rem; /* Icônes légèrement plus grandes */
+            margin-right: 12px;
+            color: var(--primary);
+            width: 30px; /* Pour alignement */
+            text-align: center;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: #e2e8f0; /* Gris clair */
+            border-radius: 999px;
+            height: 12px; /* Barre de progression plus épaisse */
+            margin: 25px 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: 999px;
+            background-color: var(--primary);
+            width: 0;
+            transition: width 0.4s ease-in-out; /* Transition plus douce */
+        }
+
+        .hidden {
+            display: none !important; /* Pour s'assurer que la classe hidden fonctionne toujours */
+        }
+        
+        .alternating-box:nth-child(odd) {
+            background-color: rgba(59, 130, 246, 0.05);
+        }
+        .alternating-box:nth-child(even) {
+            background-color: rgba(96, 165, 250, 0.05);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 50px 20px; /* Padding augmenté */
+            text-align: center;
+            border-radius: 0 0 60px 60px; /* Arrondi plus prononcé */
+            margin-bottom: 40px; /* Plus d'espace en dessous */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Style pour les images insérées */
+        .course-image {
+            width: 100%;
+            max-width: 450px; /* Limite la largeur maximale */
+            height: auto;
+            border-radius: 8px;
+            margin: 25px auto; /* Centrer l'image et ajouter des marges verticales */
+            display: block; /* Pour que margin auto fonctionne */
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15); /* Ombre plus prononcée */
+        }
+
+        /* Print optimization */
+        @media print {
+            body {
+                font-size: 10pt;
+            }
+            .header, .card, .course-image {
+                box-shadow: none;
+            }
+            .header {
+                background: var(--primary) !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                padding: 20px 0;
+                border-radius: 0;
+            }
+            .header h1 { font-size: 20pt; }
+            .header p { font-size: 12pt; }
+            
+            .btn, .interactive-element, #exercices, .progress-container, #progress-text, .timeline-item::before, .timeline-item::after {
+                display: none !important;
+            }
+            .course-image { /* Masquer les images décoratives à l'impression ou styliser différemment */
+                display: none; 
+            }
+            
+            .container {
+                width: 100%;
+                max-width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            .section-title {
+                font-size: 14pt;
+                border-left-width: 3px;
+                padding-left: 10px;
+                margin-top: 20px;
+                margin-bottom: 10px;
+            }
+            .card { padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; }
+            .concept-box, .example-box, .activity-box { padding: 8px; margin: 8px 0; border-left-width: 2px; }
+            h3 { font-size: 12pt; }
+            p, li { font-size: 10pt; }
+            .glossary-definition { display: block !important; margin-left: 0; } /* Afficher les définitions */
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="text-4xl lg:text-5xl font-bold mb-3">Design d'Objet : <span class="italic">Beau</span> et <span class="italic">Utile</span> !</h1>
+            <p class="text-xl lg:text-2xl">Cours de Technologie - Niveau 5<sup>ème</sup></p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="card p-6 mb-10" aria-label="Table des matières">
+            <h2 class="text-2xl font-bold mb-4">Table des matières</h2>
+            <ol class="list-decimal list-inside space-y-2">
+                <li><a href="#introduction" class="text-blue-600 hover:underline hover:text-blue-800">Introduction : Le design, c'est quoi cette histoire ?</a></li>
+                <li><a href="#definition" class="text-blue-600 hover:underline hover:text-blue-800">Qu'est-ce que le design ? Plus que du joli !</a></li>
+                <li><a href="#principes" class="text-blue-600 hover:underline hover:text-blue-800">Les secrets des designers : les principes fondamentaux</a></li>
+                <li><a href="#influence" class="text-blue-600 hover:underline hover:text-blue-800">Formes, couleurs, matières : comment ça nous parle ?</a></li>
+                <li><a href="#ergonomie" class="text-blue-600 hover:underline hover:text-blue-800">L'ergonomie : quand les objets pensent à nous</a></li>
+                <li><a href="#evolution" class="text-blue-600 hover:underline hover:text-blue-800">Voyage dans le temps : l'évolution du design</a></li>
+                <li><a href="#perspectives" class="text-blue-600 hover:underline hover:text-blue-800">Et demain ? Le design du futur</a></li>
+                <li><a href="#conclusion" class="text-blue-600 hover:underline hover:text-blue-800">Conclusion : À toi de jouer, l'œil du designer !</a></li>
+                <li><a href="#glossaire" class="text-blue-600 hover:underline hover:text-blue-800">Le dico du design : les mots à connaître</a></li>
+                <li><a href="#exercices" class="text-blue-600 hover:underline hover:text-blue-800">Teste tes super-pouvoirs de designer ! (Exercices)</a></li>
+            </ol>
+        </nav>
+
+        <section id="introduction">
+            <h2 class="section-title">Introduction : Le design, c'est quoi cette histoire ?</h2>
+            <div class="card p-6">
+                <div class="icon-box">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3 class="text-xl font-semibold">Pourquoi certains objets sont-ils plus agréables à utiliser ou plus beaux que d'autres ?</h3>
+                </div>
+                
+                <p class="mb-4">Regarde autour de toi : ton stylo, ta chaise, ton téléphone, même la brosse à dents que tu as utilisée ce matin ! As-tu déjà remarqué que certains objets te donnent envie de les utiliser dès que tu les vois ? Ou qu'au contraire, d'autres semblent compliqués, moches ou peu pratiques ? Ce n'est pas le fruit du hasard, c'est souvent une question de <span class="highlight">design</span> !</p>
+                
+                <div class="example-box">
+                    <p><strong>Exemple parlant :</strong> Compare une vieille télécommande avec des dizaines de petits boutons à celle d'une smart TV moderne, souvent épurée avec seulement quelques boutons essentiels. Laquelle te semble la plus simple et agréable à prendre en main ? Pourquoi, à ton avis ?</p>
+                </div>
+                
+                <p class="mb-4">Le design nous entoure partout, même là où on ne l'attend pas : la forme d'un toboggan est pensée pour la sécurité et le plaisir, l'organisation d'une page de ton livre de maths pour faciliter ta lecture, la poignée d'une porte pour être facile à saisir. Dans ce cours, nous allons devenir des explorateurs du monde fascinant du design d'objets !</p>
+                <p class="mb-4">Tu découvriras :</p>
+                <ul class="list-disc list-inside mb-4 space-y-1">
+                    <li>Ce qu'est vraiment le design (et que ce n'est pas juste "faire joli")</li>
+                    <li>Comment les formes, les couleurs et les matériaux d'un objet peuvent influencer ce que tu ressens et comment tu l'utilises</li>
+                    <li>Ce qu'est l'<span class="highlight">ergonomie</span>, et comment elle rend les objets plus confortables et faciles à utiliser (c'est presque magique !)</li>
+                    <li>Comment le design des objets a évolué avec le temps, un peu comme la mode ou la musique</li>
+                </ul>
+                
+                <div class="concept-box">
+                    <h4 class="font-semibold text-lg mb-2"><i class="fas fa-bullseye mr-2"></i>Objectifs d'apprentissage</h4>
+                    <p>À la fin de ce cours, tu seras capable de :</p>
+                    <ul class="list-disc list-inside ml-4 space-y-1">
+                        <li>Ouvrir grand les yeux et <span class="highlight">décrire</span> le design des objets qui t'entourent.</li>
+                        <li>Comprendre <span class="highlight">pourquoi</span> un objet a une certaine forme ou couleur (son "besoin").</li>
+                        <li>Analyser comment le design d'un objet peut <span class="highlight">changer la façon dont on l'utilise</span> et ce qu'on en pense.</li>
+                        <li>Repérer les <span class="highlight">grands principes</span> du design cachés dans les objets de tous les jours.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="definition">
+            <h2 class="section-title">Qu'est-ce que le design ? Plus que du joli !</h2>
+            <div class="card p-6">
+                <p class="mb-4">Souvent, on pense que le design, c'est juste rendre les choses belles, comme de la décoration. Mais c'est bien plus que ça ! Le <span class="highlight">design</span> est une super-aventure créative qui cherche à fabriquer des objets qui sont à la fois <strong class="text-blue-600">utiles</strong>, <strong class="text-green-600">beaux</strong> et <strong class="text-purple-600">faciles à utiliser</strong>.</p>
+                <div class="concept-box">
+                    <h4 class="font-semibold text-lg mb-2"><i class="fas fa-shapes mr-2"></i>Définition Clé</h4>
+                    <p>Le design, c'est l'art de concevoir des objets, des environnements ou des services qui sont :</p>
+                    <ul class="list-disc list-inside ml-4 space-y-1">
+                        <li><strong class="text-blue-600">Fonctionnels</strong> : Ils remplissent parfaitement leur mission. Une chaise doit permettre de s'asseoir, un stylo d'écrire.</li>
+                        <li><strong class="text-green-600">Esthétiques</strong> : Ils sont agréables à regarder, ils ont un "style".</li>
+                        <li><strong class="text-purple-600">Ergonomiques</strong> : Ils sont faciles, confortables et même agréables à utiliser (on en reparlera plus tard !).</li>
+                        <li><strong class="text-yellow-600">Intelligents</strong> : Ils résolvent un problème ou répondent à un besoin de manière astucieuse.</li>
+                    </ul>
+                </div>
+                
+                <p class="mb-4">Imagine un bon designer comme un chef cuisinier qui mélange parfaitement les ingrédients (fonction, esthétique, ergonomie) pour créer un plat délicieux (un super objet !).</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="alternating-box p-4 rounded-lg">
+                        <h4 class="font-semibold mb-2 text-blue-700"><i class="fas fa-cogs mr-2"></i>Fonction</h4>
+                        <p class="text-sm">"À quoi sert cet objet ? Remplit-il bien sa mission principale ?"</p>
+                        <p class="text-xs text-gray-500 mt-1">Ex: Un marteau doit pouvoir planter des clous efficacement.</p>
+                    </div>
+                    <div class="alternating-box p-4 rounded-lg">
+                        <h4 class="font-semibold mb-2 text-green-700"><i class="fas fa-palette mr-2"></i>Esthétique (Forme)</h4>
+                        <p class="text-sm">"Cet objet est-il beau ? Harmonieux ? Ses formes, couleurs, textures sont-elles agréables ?"</p>
+                        <p class="text-xs text-gray-500 mt-1">Ex: Une lampe peut éclairer tout en étant une belle sculpture.</p>
+                    </div>
+                    <div class="alternating-box p-4 rounded-lg">
+                        <h4 class="font-semibold mb-2 text-purple-700"><i class="fas fa-hand-paper mr-2"></i>Expérience (Ergonomie)</h4>
+                        <p class="text-sm">"Est-il facile à prendre en main ? Confortable ? Comprend-on vite comment l'utiliser ?"</p>
+                        <p class="text-xs text-gray-500 mt-1">Ex: Une souris d'ordinateur bien conçue ne fait pas mal à la main.</p>
+                    </div>
+                </div>
+                
+                <div class="example-box">
+                    <h4 class="font-semibold"><i class="fas fa-tint mr-2"></i>Exemple : La bouteille d'eau réutilisable</h4>
+                    <p>Regardons une bouteille d'eau réutilisable moderne :</p>
+                    <ul class="list-disc list-inside ml-4 space-y-1">
+                        <li><strong>Fonction</strong> : Contenir de l'eau sans fuite, permettre de boire facilement, être transportable.</li>
+                        <li><strong>Esthétique</strong> : Elle peut avoir des couleurs vives, des formes élégantes, des motifs sympas. Certaines sont même personnalisables !</li>
+                        <li><strong>Expérience</strong> : Un bon goulot pour boire sans en mettre partout, une forme qui tient bien en main, un bouchon facile à ouvrir et fermer, parfois une dragonne pour la transporter.</li>
+                        <li><strong>Intelligence</strong> : Elle aide à réduire les déchets plastiques (aspect écologique) !</li>
+                    </ul>
+                </div>
+                
+                <p class="mb-4">Le design est vraiment partout ! De ta console de jeux à l'emballage de tes céréales, en passant par les bancs dans un parc. Chaque objet a été "pensé" par quelqu'un.</p>
+
+                <div class="activity-box">
+                    <h4 class="font-semibold text-lg mb-2"><i class="fas fa-search mr-2"></i>Petite mission d'observation !</h4>
+                    <p>Choisis 3 objets dans ta trousse ou sur ton bureau. Pour chacun, essaie de répondre aux questions :</p>
+                    <ul class="list-disc list-inside ml-4 text-sm">
+                        <li>À quoi sert-il principalement (sa fonction) ?</li>
+                        <li>Le trouves-tu beau ou pas ? Pourquoi (ses formes, ses couleurs) ?</li>
+                        <li>Est-il facile à utiliser ? Y a-t-il quelque chose que tu changerais pour l'améliorer ?</li>
+                    </ul>
+                    <p class="mt-2 text-xs">Note tes observations, on pourra en discuter !</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="principes">
+            <h2 class="section-title">Les secrets des designers : les principes fondamentaux</h2>
+            <div class="card p-6">
+                <p class="mb-4">Pour créer des objets qui fonctionnent bien et qui sont agréables, les designers ne travaillent pas au hasard. Ils utilisent des "recettes secrètes" qu'on appelle les <span class="highlight">principes fondamentaux du design</span>. Ce sont comme des guides pour prendre les bonnes décisions.</p>
+                
+                <div class="concept-box mb-6">
+                    <h4 class="font-semibold text-lg mb-2"><i class="fas fa-ruler-combined mr-2"></i>Les 7 principes clés du design (simplifiés)</h4>
+                    <ol class="list-decimal list-inside ml-4 space-y-1">
+                        <li><strong>L'équilibre</strong> : C'est quand un objet a l'air stable, pas comme s'il allait tomber. Les éléments sont bien répartis.</li>
+                        <li><strong>La proportion</strong> : C'est le bon rapport de taille entre les différentes parties de l'objet. Ni trop grand, ni trop petit.</li>
+                        <li><strong>Le contraste</strong> : C'est utiliser des différences (de couleur, de forme, de taille) pour qu'un élément important ressorte.</li>
+                        <li><strong>L'harmonie</strong> : C'est quand toutes les parties de l'objet vont bien ensemble, comme les instruments dans un orchestre.</li>
+                        <li><strong>Le rythme</strong> : C'est une répétition d'éléments (comme des rayures ou des points) qui donne une impression de mouvement ou d'ordre.</li>
+                        <li><strong>L'unité</strong> : C'est quand l'objet forme un "tout" cohérent, on sent que chaque pièce est à sa place.</li>
+                        <li><strong>L'accent (ou point focal)</strong> : C'est l'endroit qui attire ton œil en premier, souvent la partie la plus importante.</li>
+                    </ol>
+                </div>
+                
+                <p class="mb-4">Ne t'inquiète pas, pas besoin de tous les retenir par cœur ! Regardons quelques-uns de plus près avec des exemples :</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="p-4 border rounded-lg">
+                        <h4 class="font-semibold text-blue-600"><i class="fas fa-balance-scale-right mr-2"></i>L'équilibre</h4>
+                        <p>L'équilibre, c'est la sensation de stabilité. Un objet bien équilibré ne semble pas pencher d'un côté.</p>
+                        <div class="example-box mt-2">
+                            <p><strong>Exemple :</strong> Une étagère. Si tous les objets lourds sont d'un côté, elle peut sembler déséquilibrée (et même tomber !). Un bon designer répartit les "poids visuels". Pense aussi à une lampe de bureau : son pied doit être assez lourd pour que la tête ne la fasse pas basculer.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 border rounded-lg">
+                        <h4 class="font-semibold text-green-600"><i class="fas fa-object-group mr-2"></i>La proportion</h4>
+                        <p>La proportion, c'est l'harmonie des tailles. Chaque partie de l'objet doit avoir une taille "juste" par rapport aux autres.</p>
+                        <div class="example-box mt-2">
+                            <p><strong>Exemple :</strong> Sur une chaise, si le dossier est immense et l'assise minuscule, ce sera bizarre et inconfortable ! Les proportions doivent être adaptées à notre corps et à l'usage de l'objet. Imagine une cuillère avec un manche de 50 cm pour manger ta soupe !</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="p-4 border rounded-lg">
+                        <h4 class="font-semibold text-purple-600"><i class="fas fa-adjust mr-2"></i>Le contraste</h4>
+                        <p>Le contraste, c'est ce qui fait ressortir les choses importantes en utilisant des différences (couleurs, formes, textures).</p>
+                        <div class="example-box mt-2">
+                            <p><strong>Exemple :</strong> Le bouton "marche/arrêt" sur beaucoup d'appareils est souvent d'une couleur différente (rouge, vert) ou a une forme spéciale pour qu'on le trouve vite. Sur une page web, les titres sont plus gros que le texte normal : c'est aussi du contraste !</p>
+                        </div>
+                    </div>
+                     <div class="p-4 border rounded-lg">
+                        <h4 class="font-semibold text-yellow-600"><i class="fas fa-eye mr-2"></i>L'accent (Point Focal)</h4>
+                        <p>L'accent, c'est l'élément qui attire le regard en premier, le "héros" du design.</p>
+                        <div class="example-box mt-2">
+                            <p><strong>Exemple :</strong> Sur une affiche de film, c'est souvent le visage de l'acteur principal ou un objet mystérieux. Sur une manette de jeu, ça peut être le joystick principal ou un bouton d'action important, mis en valeur par sa position ou sa couleur.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="concept-box">
+                    <h4 class="font-semibold text-lg mb-2"><i class="fas fa-lightbulb mr-2"></i>Le principe d'or : "La forme suit la fonction"</h4>
+                    <p>C'est une phrase très célèbre en design, inventée par l'architecte Louis Sullivan (et reprise par le Bauhaus). Elle signifie que <span class="highlight">l'apparence (la forme) d'un objet doit d'abord être pensée pour qu'il fonctionne bien (sa fonction)</span>. Autrement dit, un objet bien conçu nous montre souvent à quoi il sert juste par son look.</p>
+                    <img src="https://plus.unsplash.com/premium_photo-1681558293334-e5915316c29e?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Ciseaux en action coupant du papier, illustrant la forme qui suit la fonction" class="course-image">
+                    <div class="example-box mt-2">
+                        <p><strong>Exemple :</strong> La forme d'une paire de ciseaux est directement liée à sa fonction : couper. Deux lames affûtées, deux anneaux pour les doigts. Difficile de se tromper ! Un entonnoir a une forme conique pour diriger un liquide : sa forme est parfaite pour sa fonction.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="influence">
+            <h2 class="section-title">Formes, couleurs, matières : comment ça nous parle ?</h2>
+            <div class="card p-6">
+                <p class="mb-4">Imagine que les objets peuvent te parler sans dire un mot ! C'est un peu ce qui se passe grâce à leurs <span class="highlight">formes</span>, leurs <span class="highlight">couleurs</span> et les <span class="highlight">matériaux</span> utilisés pour les fabriquer. Les designers sont comme des magiciens qui choisissent ces éléments pour créer des émotions et nous donner envie d'utiliser leurs créations.</p>
+                
+                <h3 class="text-xl font-semibold mb-3"><i class="fas fa-draw-polygon mr-2 text-blue-500"></i>Les formes : rondes, carrées, pointues...</h3>
+                <p class="mb-4">Chaque type de forme nous raconte une histoire différente :</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="alternating-box p-4 rounded-lg">
+                        <h4 class="font-semibold mb-2">Les formes angulaires (carrés, rectangles, triangles)</h4>
+                        <p class="text-sm"><strong>Évoquent :</strong> Stabilité, force, rigueur, modernité, parfois un côté un peu "sérieux" ou "technologique".</p>
+                        <p class="text-xs text-gray-500 mt-1">Ex: Un gratte-ciel, une brique, une règle.</p>
+                    </div>
+                    <div class="alternating-box p-4 rounded-lg">
+                        <h4 class="font-semibold mb-2">Les formes courbes et organiques (cercles, ovales, vagues)</h4>
+                        <p class="text-sm"><strong>Évoquent :</strong> Douceur, confort, nature, fluidité, convivialité, parfois un côté plus "féminin" ou "naturel".</p>
+                        <p class="text-xs text-gray-500 mt-1">Ex: Un galet, un nuage, un ballon, un fauteuil confortable.</p>
+                    </div>
+                    <div class="alternating-box p-4 rounded-lg">
+                        <h4 class="font-semibold mb-2">Les formes dynamiques (diagonales, pointes, asymétriques)</h4>
+                        <p class="text-sm"><strong>Évoquent :</strong> Mouvement, vitesse, énergie, audace, jeunesse, excitation.</p>
+                        <p class="text-xs text-gray-500 mt-1">Ex: Un éclair, une flèche, une voiture de course.</p>
+                    </div>
+                </div>
+                <img src="https://images.unsplash.com/photo-1677664563866-20e174203a22?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Illustration abstraite avec des formes organiques et courbes douces" class="course-image">
+                
+                <div class="example-box mb-6">
+                    <h4 class="font-semibold">Regarde autour de toi !</h4>
+                    <ul class="list-disc list-inside ml-4 space-y-1">
+                        <li>Une <span class="highlight">voiture de sport</span> utilise souvent des lignes dynamiques et des pointes pour suggérer la vitesse.</li>
+                        <li>Un <span class="highlight">ours en peluche</span> a des formes rondes et douces pour inviter aux câlins.</li>
+                        <li>Un <span class="highlight">ordinateur portable</span> a souvent des formes rectangulaires et nettes, évoquant l'efficacité.</li>
+                    </ul>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-3"><i class="fas fa-fill-drip mr-2 text-green-500"></i>Les couleurs : un arc-en-ciel d'émotions</h3>
+                <p class="mb-4">Les couleurs, c'est puissant ! Elles peuvent changer notre humeur, attirer notre attention ou nous faire penser à des choses précises. C'est comme un langage secret !</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="alternating-box p-4 rounded-lg">
+                        <div class="w-full h-8 bg-red-500 mb-2 rounded flex items-center justify-center"><i class="fas fa-heart text-white"></i></div>
+                        <h4 class="font-semibold mb-1">Rouge</h4>
+                        <p class="text-sm"><strong>Évoque :</strong> Passion, amour, énergie, urgence, danger, excitation.</p>
+                        <p class="text-xs text-gray-500 mt-1">Ex: Panneaux stop, cœurs, voitures de pompiers.</p>
+                    </div>
+                    <div class="alternating-box p-4 rounded-lg">
+                        <div class="w-full h-8 bg-blue-500 mb-2 rounded flex items-center justify-center"><i class="fas fa-shield-alt text-white"></i></div>
+                        <h4 class="font-semibold mb-1">Bleu</h4>
+                        <p class="text-sm"><strong>Évoque :</strong> Calme, confiance, sécurité, technologie, propreté.</p>
+                        <p class="text-xs text-gray-500 mt-1">Ex: Uniformes, logos de banques, ciel, mer.</p>
+                    </div>
+                    <div class="alternating-box p-4 rounded-lg">
+                        <div class="w-full h-8 bg-green-500 mb-2 rounded flex items-center justify-center"><i class="fas fa-leaf text-white"></i></div>
+                        <h4 class="font-semibold mb-1">Vert</h4>
+                        <p class="text-sm"><strong>Évoque :</strong> Nature, santé, croissance, espoir, écologie.</p>
+                        <p class="text-xs text-gray-500 mt-1">Ex: Plantes, produits bio, feux de circulation (passage autorisé).</p>
+                    </div>
+                    <div class="alternating-box p-4 rounded-lg">
+                        <div class="w-full h-8 bg-yellow-400 mb-2 rounded flex items-center justify-center"><i class="fas fa-sun text-gray-800"></i></div>
+                        <h4 class="font-semibold mb-1">Jaune</h4>
+                        <p class="text-sm"><strong>Évoque :</strong> Joie, optimisme, chaleur, attention, créativité.</p>
+                        <p class="text-xs text-gray-500 mt-1">Ex: Smileys, soleil, gilets de sécurité.</p>
+                    </div>
+                     <div class="alternating-box p-4 rounded-lg">
+                        <div class="w-full h-8 bg-purple-500 mb-2 rounded flex items-center justify-center"><i class="fas fa-magic text-white"></i></div>
+                        <h4 class="font-semibold mb-1">Violet</h4>
+                        <p class="text-sm"><strong>Évoque :</strong> Créativité, luxe, mystère, spiritualité, rêve.</p>
+                        <p class="text-xs text-gray-500 mt-1">Ex: Emballages de chocolat, objets ésotériques.</p>
+                    </div>
+                    <div class="alternating-box p-4 rounded-lg">
+                        <div class="w-full h-8 bg-orange-500 mb-2 rounded flex items-center justify-center"><i class="fas fa-carrot text-white"></i></div>
+                        <h4 class="font-semibold mb-1">Orange</h4>
+                        <p class="text-sm"><strong>Évoque :</strong> Énergie, enthousiasme, convivialité, amusement.</p>
+                        <p class="text-xs text-gray-500 mt-1">Ex: Équipements sportifs, signalisation routière (travaux).</p>
+                    </div>
+                    <div class="alternating-box p-4 rounded-lg">
+                        <div class="w-full h-8 bg-black mb-2 rounded flex items-center justify-center"><i class="fas fa-user-tie text-white"></i></div>
+                        <h4 class="font-semibold mb-1">Noir</h4>
+                        <p class="text-sm"><strong>Évoque :</strong> Élégance, sophistication, pouvoir, mystère, modernité.</p>
+                        <p class="text-xs text-gray-500 mt-1">Ex: Voitures de luxe, vêtements chics, appareils high-tech.</p>
+                    </div>
+                    <div class="alternating-box p-4 rounded-lg">
+                        <div class="w-full h-8 bg-white border border-gray-300 mb-2 rounded flex items-center justify-center"><i class="fas fa-dove text-gray-700"></i></div>
+                        <h4 class="font-semibold mb-1">Blanc</h4>
+                        <p class="text-sm"><strong>Évoque :</strong> Pureté, simplicité, propreté, paix, minimalisme.</p>
+                        <p class="text-xs text-gray-500 mt-1">Ex: Robes de mariée, matériel médical, design épuré.</p>
+                    </div>
+                </div>
+                
+                <div class="example-box mb-6">
+                    <h4 class="font-semibold">Les couleurs au service du message</h4>
+                    <p>Les designers choisissent les couleurs avec soin :</p>
+                    <ul class="list-disc list-inside ml-4 space-y-1">
+                        <li>Un <span class="highlight">jouet pour bébé</span> utilisera souvent des couleurs vives et joyeuses (jaune, orange, bleu clair) pour stimuler et attirer l'attention.</li>
+                        <li>Un <span class="highlight">site web bancaire</span> utilisera plutôt du bleu (confiance, sérieux) et du blanc (clarté).</li>
+                        <li>Les <span class="highlight">emballages de produits "naturels"</span> sont souvent verts ou marron pour évoquer la terre et les plantes.</li>
+                    </ul>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-3"><i class="fas fa-cubes mr-2 text-purple-500"></i>Les matériaux : du toucher et du caractère</h3>
+                <p class="mb-4">Le choix du matériau (bois, métal, plastique, verre, tissu...) donne une personnalité à l'objet et influence ce qu'on ressent en le touchant et en le regardant.</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="alternating-box p-4 rounded-lg">
+                        <h4 class="font-semibold mb-1">Métal (acier, aluminium...)</h4>
+                        <p class="text-sm"><strong>Évoque :</strong> Solidité, durabilité, modernité, précision, technologie. Peut être froid au toucher.</p>
+                        <p class="text-xs text-gray-500 mt-1">Ex: Outils, couverts, ordinateurs, vélos.</p>
+                    </div>
+                    <div class="alternating-box p-4 rounded-lg">
+                        <h4 class="font-semibold mb-1">Bois</h4>
+                        <p class="text-sm"><strong>Évoque :</strong> Chaleur, nature, tradition, authenticité, confort. Souvent agréable au toucher.</p>
+                        <p class="text-xs text-gray-500 mt-1">Ex: Meubles, jouets anciens, parquets, cabanes.</p>
+                    </div>
+                    <div class="alternating-box p-4 rounded-lg">
+                        <h4 class="font-semibold mb-1">Plastique</h4>
+                        <p class="text-sm"><strong>Évoque :</strong> Légèreté, modernité, praticité, couleurs variées. Peut être lisse, souple ou dur.</p>
+                        <p class="text-xs text-gray-500 mt-1">Ex: Jouets, bouteilles, coques de téléphone, stylos.</p>
+                    </div>
+                     <div class="alternating-box p-4 rounded-lg">
+                        <h4 class="font-semibold mb-1">Verre</h4>
+                        <p class="text-sm"><strong>Évoque :</strong> Transparence, pureté, élégance, fragilité. Souvent lisse et froid.</p>
+                        <p class="text-xs text-gray-500 mt-1">Ex: Verres à boire, fenêtres, vases, écrans.</p>
+                    </div>
+                    <div class="alternating-box p-4 rounded-lg">
+                        <h4 class="font-semibold mb-1">Tissu / Textile</h4>
+                        <p class="text-sm"><strong>Évoque :</strong> Douceur, confort, souplesse, chaleur. Très varié au toucher (coton, laine, soie...).</p>
+                        <p class="text-xs text-gray-500 mt-1">Ex: Vêtements, coussins, rideaux, canapés.</p>
+                    </div>
+                    <div class="alternating-box p-4 rounded-lg">
+                        <h4 class="font-semibold mb-1">Céramique / Pierre</h4>
+                        <p class="text-sm"><strong>Évoque :</strong> Solidité, tradition, naturel, artisanat. Peut être froid, texturé ou lisse.</p>
+                        <p class="text-xs text-gray-500 mt-1">Ex: Tasses, assiettes, carrelage, sculptures.</p>
+                    </div>
+                </div>
+                
+                <div class="concept-box">
+                    <h4 class="font-semibold text-lg mb-2"><i class="fas fa-link mr-2"></i>L'importance de la cohérence : tout doit aller ensemble !</h4>
+                    <p>Un super design, c'est quand la forme, la couleur et le matériau <span class="highlight">travaillent en équipe</span> pour raconter la même histoire et transmettre un message clair sur l'objet.</p>
+                    <div class="example-box mt-2">
+                        <p><strong>Exemple :</strong></p>
+                        <ul class="list-disc list-inside ml-4 space-y-1">
+                            <li>Une <span class="highlight">montre de sport</span> sera souvent en plastique ou silicone (léger, résistant à la sueur), avec des couleurs vives (énergie) et des formes dynamiques.</li>
+                            <li>Un <span class="highlight">bijou de luxe</span> utilisera des métaux précieux (or, argent), des pierres brillantes, des couleurs sobres (noir, doré) et des formes élégantes et raffinées.</li>
+                        </ul>
+                        <p class="mt-2">Imagine une montre de sport en or lourd avec des formes très carrées... ce serait bizarre, non ?</p>
+                    </div>
+                </div>
+
+                 <div class="activity-box">
+                    <h4 class="font-semibold text-lg mb-2"><i class="fas fa-palette mr-2"></i>Mission créative : L'objet mystère</h4>
+                    <p>Choisis un objet que tu aimes bien (un jouet, un vêtement, un accessoire...).</p>
+                    <ol class="list-decimal list-inside ml-4 text-sm space-y-1">
+                        <li>Décris ses formes principales (rondes, carrées, etc.). Qu'est-ce que ces formes t'évoquent ?</li>
+                        <li>Quelles sont ses couleurs dominantes ? Que te disent ces couleurs ?</li>
+                        <li>En quel(s) matériau(x) est-il fait ? Quelle sensation cela donne-t-il au toucher ?</li>
+                        <li>Est-ce que les formes, les couleurs et les matériaux vont bien ensemble pour cet objet ? Explique pourquoi.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section id="ergonomie">
+            <h2 class="section-title">L'ergonomie : quand les objets pensent à nous</h2>
+            <div class="card p-6">
+                <p class="mb-4">Tu as déjà essayé d'utiliser un objet tellement mal fait que c'était compliqué, fatigant ou même douloureux ? C'est là qu'intervient l'<span class="highlight">ergonomie</span> ! C'est un mot un peu savant pour dire que les objets doivent être <span class="highlight">adaptés à nous, les humains</span>, et pas l'inverse.</p>
+                
+                <div class="concept-box mb-6">
+                    <h4 class="font-semibold text-lg mb-2"><i class="fas fa-user-check mr-2"></i>Définition de l'ergonomie</h4>
+                    <p>L'ergonomie, c'est la science (et l'art !) qui étudie comment adapter les objets, les outils, les espaces de travail et même les logiciels à nos <span class="highlight">capacités physiques</span> (notre taille, notre force, nos mouvements) et <span class="highlight">mentales</span> (comment on comprend les choses, notre attention).</p>
+                    <p class="mt-2">Le but ? Rendre les objets :</p>
+                    <ul class="list-disc list-inside ml-4 space-y-1">
+                        <li><strong>Confortables</strong> : Pas de douleur ou de fatigue inutile.</li>
+                        <li><strong>Efficaces</strong> : On peut faire ce qu'on a à faire rapidement et bien.</li>
+                        <li><strong>Sécuritaires</strong> : On ne risque pas de se blesser en les utilisant.</li>
+                        <li><strong>Intuitifs</strong> : On comprend comment ça marche presque sans réfléchir, comme par magie !</li>
+                        <li><strong>Agréables</strong> : Oui, utiliser un objet bien pensé, ça peut être un plaisir !</li>
+                    </ul>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-3"><i class="fas fa-puzzle-piece mr-2 text-blue-500"></i>Les grands principes de l'ergonomie en action</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="p-4 border rounded-lg">
+                        <h4 class="font-semibold mb-2">1. S'adapter à notre corps (morphologie)</h4>
+                        <p class="text-sm">Les objets doivent tenir compte de la taille de nos mains, de la longueur de nos bras, de notre posture...</p>
+                        <div class="example-box mt-2">
+                            <p><strong>Exemple :</strong> Une <span class="highlight">bonne chaise de bureau</span> a un dossier qui soutient le dos, une hauteur réglable pour que les pieds touchent le sol, et des accoudoirs à la bonne hauteur. Une <span class="highlight">souris d'ordinateur ergonomique</span> épouse la forme de la main pour éviter les douleurs au poignet.</p>
+                         </div>
+                    </div>
+                    <div class="p-4 border rounded-lg">
+                        <h4 class="font-semibold mb-2">2. Moins d'efforts, plus d'efficacité</h4>
+                        <p class="text-sm">Un objet ergonomique nous aide à faire les choses avec le moins d'effort possible (musculaire ou mental).</p>
+                        <div class="example-box mt-2">
+                            <p><strong>Exemple :</strong> Un <span class="highlight">ouvre-boîte</span> bien conçu permet d'ouvrir une conserve sans se fatiguer. Des <span class="highlight">ciseaux avec des poignées souples</span> demandent moins de force pour couper. Un <span class="highlight">site web bien organisé</span> nous permet de trouver l'info qu'on cherche sans cliquer partout.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="p-4 border rounded-lg">
+                        <h4 class="font-semibold mb-2">3. Facile à comprendre (intuitivité)</h4>
+                        <p class="text-sm">On doit comprendre comment utiliser l'objet rapidement, sans lire un mode d'emploi de 50 pages !</p>
+                        <div class="example-box mt-2">
+                            <p><strong>Exemple :</strong> Les <span class="highlight">icônes sur ton smartphone</span> (téléphone, messages, appareil photo) sont souvent très claires. Une <span class="highlight">porte</span> : si tu vois une plaque, tu pousses ; si tu vois une poignée, tu tires (normalement !).</p>
+                        </div>
+                    </div>
+                    <div class="p-4 border rounded-lg">
+                        <h4 class="font-semibold mb-2">4. Éviter les erreurs et les dangers (sécurité)</h4>
+                        <p class="text-sm">Le design doit aider à ne pas faire de bêtises ou à ne pas se faire mal.</p>
+                        <div class="example-box mt-2">
+                            <p><strong>Exemple :</strong> Les <span class="highlight">prises électriques</span> ont des formes qui empêchent de brancher un appareil n'importe comment (détrompeurs). Un <span class="highlight">fer à repasser</span> qui s'éteint tout seul s'il n'est pas utilisé pendant un moment évite les accidents.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-3"><i class="fas fa-tools mr-2 text-green-500"></i>L'ergonomie dans nos objets du quotidien : quelques stars !</h3>
+                <img src="https://images.unsplash.com/photo-1637968892928-705abff0e1b3?q=80&w=2282&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Clavier d'ordinateur et souris ergonomiques sur un bureau" class="course-image">
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+                    <div class="alternating-box p-4 rounded-lg">
+                        <h4 class="font-semibold mb-2">Les ciseaux</h4>
+                        <p class="text-sm">Les anneaux sont de tailles différentes pour le pouce et les autres doigts. Il existe même des modèles pour gauchers ! C'est de l'ergonomie pure.</p>
+                    </div>
+                    <div class="alternating-box p-4 rounded-lg">
+                        <h4 class="font-semibold mb-2">Les manettes de jeu vidéo</h4>
+                        <p class="text-sm">Leur forme épouse la paume des mains, les boutons et joysticks sont placés pour être accessibles facilement. Des heures de tests pour trouver la forme parfaite !</p>
+                    </div>
+                    <div class="alternating-box p-4 rounded-lg">
+                        <h4 class="font-semibold mb-2">Le clavier d'ordinateur</h4>
+                        <p class="text-sm">La disposition des touches (AZERTY, QWERTY) a été pensée pour la vitesse de frappe. Certains claviers ergonomiques ont des formes courbes pour mieux positionner les poignets.</p>
+                    </div>
+                </div>
+
+                <div class="concept-box">
+                    <h4 class="font-semibold text-lg mb-2"><i class="fas fa-universal-access mr-2"></i>Zoom sur le design inclusif (ou universel)</h4>
+                    <p>C'est une super idée en design ! Le but est de créer des objets et des environnements que <span class="highlight">tout le monde peut utiliser facilement</span>, peu importe son âge, sa taille, ses capacités physiques ou s'il a un handicap. C'est penser à tout le monde dès le début !</p>
+                    <div class="example-box mt-2">
+                        <h5 class="font-medium">Exemples de design inclusif :</h5>
+                        <ul class="list-disc list-inside ml-4 space-y-1">
+                            <li>Des <span class="highlight">rampes d'accès</span> à côté des escaliers pour les fauteuils roulants et les poussettes.</li>
+                            <li>Des <span class="highlight">téléphones avec de grosses touches</span> ou des options pour agrandir le texte pour les personnes qui voient moins bien.</li>
+                            <li>Des <span class="highlight">ustensiles de cuisine avec des manches épais et antidérapants</span>, plus faciles à tenir pour les personnes ayant des problèmes de préhension (arthrose...).</li>
+                            <li>Des <span class="highlight">sites web avec des contrastes de couleurs suffisants</span> et la possibilité de naviguer au clavier.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="activity-box">
+                    <h4 class="font-semibold text-lg mb-2"><i class="fas fa-user-cog mr-2"></i>Mission Ergonomie : L'objet casse-tête</h4>
+                    <p>Pense à un objet que tu trouves difficile, inconfortable ou pas pratique à utiliser (ça peut être à la maison, à l'école...).</p>
+                    <ol class="list-decimal list-inside ml-4 text-sm space-y-1">
+                        <li>Quel est cet objet et quel est son problème principal d'utilisation ?</li>
+                        <li>Qu'est-ce qui le rend si peu ergonomique selon toi ? (Forme ? Matériaux ? Complexité ?)</li>
+                        <li>Si tu étais designer, quelles modifications proposerais-tu pour l'améliorer et le rendre plus confortable et facile à utiliser ? Fais un petit dessin si tu veux !</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section id="evolution">
+            <h2 class="section-title">Voyage dans le temps : l'évolution du design</h2>
+            <div class="card p-6">
+                <p class="mb-4">Le design des objets n'a pas toujours été comme aujourd'hui ! Comme la mode, la musique ou l'art, il <span class="highlight">change avec les époques</span>. Chaque période a son style, influencé par les nouvelles technologies, les goûts des gens et ce qui se passe dans le monde.</p>
+                
+                <h3 class="text-xl font-semibold mb-3"><i class="fas fa-history mr-2 text-blue-500"></i>Les grandes périodes du design (un petit aperçu)</h3>
+                
+                <div class="timeline-item p-4 pl-12">
+                    <h4 class="font-semibold"><i class="fas fa-feather-alt mr-2 text-green-500"></i>Début 20<sup>e</sup> s. : L'Art Nouveau & le Bauhaus</h4>
+                    <p class="mb-2 text-sm">L'<strong>Art Nouveau</strong> (vers 1900) aimait les formes inspirées de la nature (fleurs, insectes), très décoratives. Puis le <strong>Bauhaus</strong> (une école de design en Allemagne, années 1920-30) a dit : "Stop aux fioritures !". Ils voulaient des objets simples, utiles, avec des formes géométriques (carrés, cercles) et faciles à fabriquer en série. C'est là qu'est né le fameux "la forme suit la fonction".</p>
+                    <div class="example-box text-sm">
+                        <p><strong>Exemple Bauhaus :</strong> Des chaises en tubes de métal, simples et solides, ou des lampes très épurées.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item p-4 pl-12">
+                    <h4 class="font-semibold"><i class="fas fa-car-side mr-2 text-red-500"></i>Années 1950-1960 : L'optimisme et le plastique !</h4>
+                    <p class="mb-2 text-sm">Après la guerre, c'était l'époque de l'optimisme ! On découvrait de nouveaux matériaux comme le plastique, qui permettait de faire des formes arrondies, amusantes et plein de couleurs. Les objets devenaient plus accessibles à tous.</p>
+                    <div class="example-box text-sm">
+                        <p><strong>Exemple :</strong> Les réfrigérateurs aux formes rondes et colorées, les premières télévisions, les chaises en plastique moulé.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item p-4 pl-12">
+                    <h4 class="font-semibold"><i class="fas fa-puzzle-piece mr-2 text-yellow-500"></i>Années 1980-1990 : Fun et couleurs flashy (Postmodernisme)</h4>
+                    <p class="mb-2 text-sm">Les designers s'amusent ! Ils mélangent les styles, utilisent des couleurs vives, des formes géométriques un peu folles. Le design devient plus expressif, parfois même un peu provoquant et rigolo.</p>
+                    <div class="example-box text-sm">
+                        <p><strong>Exemple :</strong> Les meubles du groupe Memphis en Italie, avec des formes bizarres et des motifs colorés (un peu comme des jouets pour adultes !).</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item p-4 pl-12">
+                    <h4 class="font-semibold"><i class="fas fa-seedling mr-2 text-teal-500"></i>Années 2000 à aujourd'hui : Minimalisme, technologie et écologie</h4>
+                    <p class="mb-2 text-sm">Aujourd'hui, on aime souvent les objets <span class="highlight">minimalistes</span> (très simples, épurés, "moins c'est plus"). La technologie est partout (smartphones, objets connectés). Et on se préoccupe de plus en plus de l'<span class="highlight">écologie</span> : on cherche des matériaux recyclés, des objets qui durent longtemps et qui polluent moins.</p>
+                    <div class="example-box text-sm">
+                        <p><strong>Exemple :</strong> Le design des produits Apple (très épuré), les meubles en bois recyclé, les baskets faites à partir de plastique repêché dans l'océan.</p>
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-semibold my-6"><i class="fas fa-mobile-alt mr-2 text-purple-500"></i>Étude de cas : L'incroyable transformation du téléphone !</h3>
+                <p class="mb-4">Pour bien voir comment le design évolue, rien de tel que l'exemple du téléphone :</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="alternating-box p-4 rounded-lg h-full flex flex-col">
+                        <div class="text-center mb-2"><i class="fas fa-phone-square-alt fa-2x text-gray-600"></i></div>
+                        <h4 class="font-semibold mb-2">Années 1950-70 (Fixe)</h4>
+                        <p class="text-sm flex-grow">Gros téléphones fixes, souvent noirs ou gris, lourds, avec un cadran rotatif (il fallait tourner pour chaque chiffre !).</p>
+                        <p class="text-xs text-gray-500 mt-1"><strong>Design :</strong> Fonctionnel avant tout, imposant, fait pour durer.</p>
+                    </div>
+                    <div class="alternating-box p-4 rounded-lg h-full flex flex-col">
+                        <div class="text-center mb-2"><i class="fas fa-mobile fa-2x text-gray-700"></i></div>
+                        <h4 class="font-semibold mb-2">Années 1980-90 (Premiers portables)</h4>
+                        <p class="text-sm flex-grow">Les "briques" ! Premiers téléphones portables, très gros, lourds, avec une antenne. Un luxe !</p>
+                        <p class="text-xs text-gray-500 mt-1"><strong>Design :</strong> Signe de richesse et de modernité, mais pas très pratique.</p>
+                    </div>
+                    <div class="alternating-box p-4 rounded-lg h-full flex flex-col">
+                        <div class="text-center mb-2"><i class="fas fa-mobile-alt fa-2x text-blue-500"></i></div>
+                        <h4 class="font-semibold mb-2">Années 2000 (Téléphones à clapet/clavier)</h4>
+                        <p class="text-sm flex-grow">Plus petits, plus légers, avec des écrans couleur, des jeux (Snake !), des sonneries personnalisables. Certains à clapet, d'autres avec des petits claviers.</p>
+                        <p class="text-xs text-gray-500 mt-1"><strong>Design :</strong> Personnalisation, couleurs, plus fun et compact.</p>
+                    </div>
+                    <div class="alternating-box p-4 rounded-lg h-full flex flex-col">
+                        <div class="text-center mb-2"><i class="fas fa-smartphone fa-2x text-red-500"></i></div>
+                        <h4 class="font-semibold mb-2">Années 2010 à aujourd'hui (Smartphones)</h4>
+                        <img src="https://images.unsplash.com/photo-1722834228772-01d16b9bf83b?q=80&w=2328&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Main tenant un smartphone moderne, illustrant l'interaction tactile" class="course-image my-2"> <p class="text-sm flex-grow">Fins, légers, avec de grands écrans tactiles. De vrais mini-ordinateurs (internet, photo, vidéo, applis...).</p>
+                        <p class="text-xs text-gray-500 mt-1"><strong>Design :</strong> Minimaliste, élégant, l'écran est roi, matériaux nobles (verre, métal).</p>
+                    </div>
+                </div>
+                
+                <div class="concept-box">
+                    <h4 class="font-semibold text-lg mb-2"><i class="fas fa-cogs mr-2"></i>Qu'est-ce qui fait changer le design ?</h4>
+                    <p>Plusieurs choses influencent l'évolution du design :</p>
+                    <ul class="list-disc list-inside ml-4 space-y-1">
+                        <li><strong>Les inventions technologiques</strong> : Nouveaux matériaux (plastique, fibre de carbone), nouvelles machines, internet, l'impression 3D... tout ça ouvre des possibilités incroyables !</li>
+                        <li><strong>Les modes de vie et les besoins</strong> : On ne vit pas comme nos grands-parents. On bouge plus, on est plus connectés... Les objets s'adaptent.</li>
+                        <li><strong>Les préoccupations de la société</strong> : Aujourd'hui, l'écologie est super importante, donc on cherche un design plus durable.</li>
+                        <li><strong>La culture et l'art</strong> : Les artistes, les films, la musique... tout ça peut inspirer les designers.</li>
+                        <li><strong>L'économie</strong> : Le coût de fabrication, la concurrence entre les entreprises jouent aussi un rôle.</li>
+                    </ul>
+                </div>
+
+                <div class="activity-box">
+                    <h4 class="font-semibold text-lg mb-2"><i class="fas fa-search-location mr-2"></i>Chasse au trésor du design ancien !</h4>
+                    <p>Demande à tes parents, grands-parents ou cherche sur internet des photos d'objets du quotidien d'autrefois (par exemple, un aspirateur des années 60, une machine à écrire, un réveil des années 80).</p>
+                    <ol class="list-decimal list-inside ml-4 text-sm space-y-1">
+                        <li>Choisis un objet et décris son design (formes, couleurs, matériaux).</li>
+                        <li>Compare-le à un objet équivalent d'aujourd'hui. Quelles sont les plus grandes différences de design ?</li>
+                        <li>À ton avis, pourquoi le design de cet objet a-t-il autant changé ? (Pense aux technologies, aux modes de vie...).</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section id="perspectives">
+            <h2 class="section-title">Et demain ? Le design du futur</h2>
+            <div class="card p-6">
+                <p class="mb-4">Le monde du design ne s'arrête jamais d'évoluer ! Les designers sont toujours en train d'imaginer les objets de demain, en s'adaptant aux nouvelles technologies et aux grands défis de notre planète. Alors, à quoi ressemblera le design du futur ?</p>
+                
+                <h3 class="text-xl font-semibold mb-3"><i class="fas fa-rocket mr-2 text-blue-500"></i>Les grandes tendances qui dessinent l'avenir</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <div class="icon-box">
+                            <i class="fas fa-leaf text-green-500"></i>
+                            <h4 class="font-semibold text-lg">Le design durable et responsable</h4>
+                        </div>
+                        <p class="text-sm">De plus en plus, les designers pensent "planète d'abord" ! Ils cherchent à créer des objets qui :</p>
+                        <ul class="list-disc list-inside ml-6 text-sm space-y-1">
+                            <li>Utilisent des <span class="highlight">matériaux recyclés ou recyclables</span> (plastique des océans, bambou...).</li>
+                            <li>Sont <span class="highlight">faciles à réparer</span> pour ne pas les jeter trop vite (lutte contre l'obsolescence programmée).</li>
+                            <li>Consomment <span class="highlight">moins d'énergie</span>.</li>
+                            <li>Sont produits localement pour <span class="highlight">réduire les transports</span>.</li>
+                        </ul>
+                        <div class="example-box text-sm mt-2">
+                            <p><strong>Exemple :</strong> Des meubles en carton recyclé, des vêtements en fibres naturelles bio, des objets conçus pour être démontés et dont chaque pièce peut être recyclée.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="icon-box">
+                            <i class="fas fa-wifi text-purple-500"></i>
+                            <h4 class="font-semibold text-lg">Les objets connectés et intelligents (IoT)</h4>
+                        </div>
+                        <p class="text-sm">L'Internet des Objets (IoT), c'est quand nos objets du quotidien se connectent à internet et entre eux pour nous rendre la vie plus facile (en théorie !).</p>
+                         <ul class="list-disc list-inside ml-6 text-sm space-y-1">
+                            <li>Ils peuvent <span class="highlight">collecter des informations</span> (température, activité physique...).</li>
+                            <li>Être <span class="highlight">contrôlés à distance</span> avec un smartphone.</li>
+                            <li><span class="highlight">Apprendre de nos habitudes</span> pour s'adapter.</li>
+                        </ul>
+                        <div class="example-box text-sm mt-2">
+                            <p><strong>Exemple :</strong> Ta montre connectée qui compte tes pas, ton frigo qui te dit ce qu'il manque, ton chauffage qui s'allume avant que tu rentres, les assistants vocaux (Siri, Alexa...). Le défi pour les designers est de rendre ces objets faciles à utiliser et respectueux de notre vie privée.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <div class="icon-box">
+                            <i class="fas fa-users text-yellow-500"></i>
+                            <h4 class="font-semibold text-lg">Le design toujours plus inclusif</h4>
+                        </div>
+                        <p class="text-sm">On en a déjà parlé, mais c'est une tendance de fond ! Le but est que personne ne se sente exclu. Les designers pensent de plus en plus aux :</p>
+                        <ul class="list-disc list-inside ml-6 text-sm space-y-1">
+                            <li>Personnes âgées.</li>
+                            <li>Personnes en situation de handicap (moteur, visuel, auditif, cognitif).</li>
+                            <li>Différences culturelles.</li>
+                        </ul>
+                        <div class="example-box text-sm mt-2">
+                            <p><strong>Exemple :</strong> Des emballages plus faciles à ouvrir pour tout le monde, des applications avec des options de contraste élevé ou de lecture vocale, des espaces publics accessibles à tous.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="icon-box">
+                            <i class="fas fa-print text-red-500"></i>
+                            <h4 class="font-semibold text-lg">L'impression 3D et la personnalisation</h4>
+                        </div>
+                        <p class="text-sm">L'impression 3D, c'est comme une révolution ! Elle permet de :</p>
+                        <ul class="list-disc list-inside ml-6 text-sm space-y-1">
+                            <li>Créer des <span class="highlight">objets sur mesure</span>, parfaitement adaptés à une personne (ex: une prothèse, des semelles orthopédiques).</li>
+                            <li>Fabriquer des <span class="highlight">pièces de rechange</span> pour réparer des objets.</li>
+                            <li>Inventer des <span class="highlight">formes complexes</span> qu'on ne pouvait pas faire avant.</li>
+                            <li>Permettre à chacun de <span class="highlight">devenir un peu designer</span> et de créer ses propres objets !</li>
+                        </ul>
+                        <div class="example-box text-sm mt-2">
+                            <p><strong>Exemple :</strong> Des bijoux uniques créés par des designers indépendants, des maquettes d'architecture, des jouets personnalisés, et même des maisons imprimées en 3D !</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-3"><i class="fas fa-exclamation-triangle mr-2 text-orange-500"></i>Les grands défis pour les designers de demain</h3>
+                
+                <div class="concept-box mb-6">
+                    <h4 class="font-semibold text-lg mb-2">Le design face aux enjeux de notre monde</h4>
+                    <p>Les designers ont un rôle super important à jouer pour aider à résoudre les problèmes de notre époque :</p>
+                    <ul class="list-disc list-inside ml-4 space-y-1">
+                        <li><strong>Lutter contre le changement climatique</strong> : Imaginer des objets qui consomment moins, qui sont produits proprement, qui encouragent des comportements plus écologiques.</li>
+                        <li><strong>Gérer la raréfaction des ressources</strong> : Utiliser moins de matières premières, favoriser le recyclage et les matériaux renouvelables. Penser à "l'économie circulaire" (rien ne se perd, tout se transforme).</li>
+                        <li><strong>S'adapter au vieillissement de la population</strong> : Créer des objets et des services faciles à utiliser pour les seniors, pour qu'ils restent autonomes plus longtemps.</li>
+                        <li><strong>Trouver le bon équilibre entre technologie et humain</strong> : Faire en sorte que la technologie nous aide sans nous rendre accros ou nous isoler. Garder le contact humain !</li>
+                        <li><strong>Assurer l'éthique et la confidentialité</strong> : Surtout avec les objets connectés, s'assurer que nos données personnelles sont protégées et que la technologie est utilisée pour le bien de tous.</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <h4 class="font-semibold"><i class="fas fa-lightbulb mr-2"></i>Quelques innovations inspirantes qui existent déjà ou arrivent bientôt :</h4>
+                    <ul class="list-disc list-inside ml-4 space-y-1">
+                        <li>Des <span class="highlight">emballages comestibles</span> ou qui se dissolvent dans l'eau pour remplacer le plastique.</li>
+                        <li>Des <span class="highlight">vêtements "intelligents"</span> qui peuvent mesurer ta température ou ton rythme cardiaque.</li>
+                        <li>Des <span class="highlight">fermes verticales</span> en ville pour produire de la nourriture localement, avec un design optimisé.</li>
+                        <li>Des <span class="highlight">matériaux qui se réparent tout seuls</span> (comme une petite coupure sur un plastique spécial qui cicatrise !).</li>
+                        <li>Des <span class="highlight">interfaces contrôlées par la pensée</span> pour aider les personnes paralysées à communiquer ou contrôler des objets.</li>
+                    </ul>
+                </div>
+                
+                <p class="mt-6">Le design de demain sera passionnant ! Il sera de plus en plus <span class="highlight">collaboratif</span> (plusieurs personnes travaillent ensemble), <span class="highlight">centré sur l'humain</span> (vraiment penser aux besoins des gens) et <span class="highlight">conscient de son impact</span> sur le monde.</p>
+
+                 <div class="activity-box">
+                    <h4 class="font-semibold text-lg mb-2"><i class="fas fa-flask mr-2"></i>Invente l'objet du futur !</h4>
+                    <p>Imagine que tu es un designer en 2050. </p>
+                    <ol class="list-decimal list-inside ml-4 text-sm space-y-1">
+                        <li>Choisis un problème actuel que tu aimerais aider à résoudre grâce au design (ex: pollution plastique, gaspillage alimentaire, solitude des personnes âgées...).</li>
+                        <li>Imagine un objet (ou un service) qui pourrait apporter une solution. Décris-le : à quoi servirait-il ? Comment fonctionnerait-il ?</li>
+                        <li>Quelles seraient ses caractéristiques de design importantes (matériaux, formes, couleurs, technologies utilisées, aspect durable ou inclusif) ?</li>
+                        <li>Fais un dessin de ton invention !</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section id="conclusion">
+            <h2 class="section-title">Conclusion : À toi de jouer, l'œil du designer !</h2>
+            <div class="card p-6">
+                <p class="mb-4">Et voilà, notre voyage dans le monde du design d'objet touche à sa fin ! Tu as découvert que derrière chaque objet, il y a souvent beaucoup de réflexion, de créativité et de travail pour le rendre à la fois <span class="highlight">beau, utile et agréable à utiliser</span>.</p>
+                
+                <div class="concept-box mb-6">
+                    <h4 class="font-semibold text-lg mb-2"><i class="fas fa-check-circle mr-2 text-green-500"></i>Les super-pouvoirs que tu as gagnés :</h4>
+                    <ul class="list-disc list-inside ml-4 space-y-1">
+                        <li>Le design, ce n'est pas juste "faire joli", c'est un savant mélange de <span class="highlight">fonctionnalité</span> (ça marche bien), d'<span class="highlight">esthétique</span> (c'est beau) et d'<span class="highlight">ergonomie</span> (c'est facile et confortable).</li>
+                        <li>Les <span class="highlight">formes, les couleurs et les matériaux</span> sont comme un langage secret qui nous parle et influence nos émotions.</li>
+                        <li>L'<span class="highlight">ergonomie</span>, c'est la clé pour que les objets soient nos amis et s'adaptent à nous.</li>
+                        <li>Le design a une <span class="highlight">histoire</span> et il évolue sans cesse avec son temps, comme un super-héros qui s'adapte à de nouvelles missions !</li>
+                        <li>Le design de demain sera de plus en plus <span class="highlight">durable, connecté, inclusif</span> et plein de surprises !</li>
+                    </ul>
+                </div>
+                
+                <p class="mb-4">Maintenant, tu as un peu l'<span class="highlight">"œil du designer"</span>. Tu ne regarderas plus les objets de la même façon ! Tu pourras te demander : "Pourquoi cette chaise a cette forme ? Pourquoi ce bouton est-il rouge ? Est-ce que cet objet est vraiment pratique ?".</p>
+                
+                <p class="mb-4">Comprendre le design, c'est aussi devenir un <span class="highlight">consommateur plus malin et plus responsable</span>. Tu pourras choisir des objets pas seulement pour leur look, mais aussi pour leur qualité, leur confort, leur impact sur la planète et pour savoir s'ils répondent vraiment à tes besoins.</p>
+                
+                <div class="example-box">
+                    <h4 class="font-semibold"><i class="fas fa-question-circle mr-2"></i>Le défi du petit designer : continue d'explorer !</h4>
+                    <p>La prochaine fois que tu utilises un objet, n'importe lequel, pose-toi ces questions :</p>
+                    <ul class="list-disc list-inside ml-4 space-y-1">
+                        <li>Est-ce que cet objet est <span class="highlight">facile et agréable</span> à utiliser ? Pourquoi ? Qu'est-ce qui pourrait être mieux ?</li>
+                        <li>Comment ses <span class="highlight">formes, couleurs et matériaux</span> te font-ils te sentir ou penser ?</li>
+                        <li>Si tu pouvais le <span class="highlight">redessiner</span>, que changerais-tu pour l'améliorer ?</li>
+                        <li>À ton avis, à quoi ressemblait l'<span class="highlight">ancêtre</span> de cet objet il y a 50 ans ? Et à quoi ressemblera-t-il dans 50 ans ?</li>
+                    </ul>
+                </div>
+                
+                <p class="mt-6 font-semibold text-lg text-center">Le design est partout, et c'est une aventure passionnante. Alors, garde les yeux ouverts, sois curieux, et peut-être qu'un jour, ce sera toi qui inventeras les objets de demain !</p>
+                
+                <div class="activity-box mt-6">
+                     <h4 class="font-semibold text-lg mb-2 text-center"><i class="fas fa-pencil-ruler mr-2"></i>Question de réflexion finale :</h4>
+                    <p class="text-center">Si tu pouvais redesigner UN SEUL objet de ton quotidien pour le rendre <span class="highlight">radicalement meilleur</span> (plus beau, plus utile, plus drôle, plus écologique...), lequel choisirais-tu et quelles seraient tes trois modifications principales ? Pourquoi ces changements ?</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="glossaire">
+            <h2 class="section-title">Le dico du design : les mots à connaître</h2>
+            <div class="card p-6">
+                <p class="mb-6">Voici quelques mots importants qu'on a utilisés. Clique dessus pour voir leur définition !</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                    <div>
+                        <div class="glossary-term" onclick="toggleDefinition('def-design')" role="button" aria-expanded="false" aria-controls="def-design"><i class="fas fa-drafting-compass mr-2"></i>Design</div>
+                        <div id="def-design" class="glossary-definition">Démarche créative qui vise à concevoir des objets, des environnements ou des services qui sont à la fois fonctionnels (utiles), esthétiques (beaux) et ergonomiques (faciles à utiliser), tout en répondant à un besoin.</div>
+                    </div>
+                    <div>
+                        <div class="glossary-term" onclick="toggleDefinition('def-ergonomie')" role="button" aria-expanded="false" aria-controls="def-ergonomie"><i class="fas fa-user-astronaut mr-2"></i>Ergonomie</div>
+                        <div id="def-ergonomie" class="glossary-definition">Science qui étudie l'adaptation des objets, des environnements et des systèmes aux caractéristiques physiques et mentales des utilisateurs pour les rendre plus confortables, efficaces, sûrs et agréables à utiliser.</div>
+                    </div>
+                    <div>
+                        <div class="glossary-term" onclick="toggleDefinition('def-fonction')" role="button" aria-expanded="false" aria-controls="def-fonction"><i class="fas fa-cog mr-2"></i>Fonction</div>
+                        <div id="def-fonction" class="glossary-definition">Utilité ou rôle principal d'un objet, ce à quoi il sert. La raison d'être de l'objet.</div>
+                    </div>
+                    <div>
+                        <div class="glossary-term" onclick="toggleDefinition('def-forme')" role="button" aria-expanded="false" aria-controls="def-forme"><i class="fas fa-shapes mr-2"></i>Forme</div>
+                        <div id="def-forme" class="glossary-definition">Apparence extérieure d'un objet définie par ses contours, ses volumes, ses lignes et ses proportions.</div>
+                    </div>
+                    <div>
+                        <div class="glossary-term" onclick="toggleDefinition('def-esthetique')" role="button" aria-expanded="false" aria-controls="def-esthetique"><i class="fas fa-palette mr-2"></i>Esthétique</div>
+                        <div id="def-esthetique" class="glossary-definition">Qualité relative à la beauté, à l'harmonie et à l'apparence visuelle d'un objet. Ce qui le rend agréable à regarder.</div>
+                    </div>
+                     <div>
+                        <div class="glossary-term" onclick="toggleDefinition('def-equilibre')" role="button" aria-expanded="false" aria-controls="def-equilibre"><i class="fas fa-balance-scale mr-2"></i>Équilibre</div>
+                        <div id="def-equilibre" class="glossary-definition">Principe de design qui concerne la distribution harmonieuse des éléments visuels (formes, couleurs, textures) dans un objet pour qu'il paraisse stable.</div>
+                    </div>
+                    <div>
+                        <div class="glossary-term" onclick="toggleDefinition('def-contraste')" role="button" aria-expanded="false" aria-controls="def-contraste"><i class="fas fa-adjust mr-2"></i>Contraste</div>
+                        <div id="def-contraste" class="glossary-definition">Différence marquée entre deux ou plusieurs éléments (couleurs claires/foncées, formes grandes/petites, textures lisses/rugueuses) qui crée un impact visuel et attire l'attention.</div>
+                    </div>
+                    <div>
+                        <div class="glossary-term" onclick="toggleDefinition('def-proportion')" role="button" aria-expanded="false" aria-controls="def-proportion"><i class="fas fa-ruler-combined mr-2"></i>Proportion</div>
+                        <div id="def-proportion" class="glossary-definition">Rapport de taille, de quantité ou de degré entre les différentes parties d'un objet, ou entre l'objet et son environnement.</div>
+                    </div>
+                    <div>
+                        <div class="glossary-term" onclick="toggleDefinition('def-inclusif')" role="button" aria-expanded="false" aria-controls="def-inclusif"><i class="fas fa-universal-access mr-2"></i>Design inclusif (ou universel)</div>
+                        <div id="def-inclusif" class="glossary-definition">Approche de design qui vise à créer des produits, services et environnements accessibles et utilisables par le plus grand nombre de personnes possible, quels que soient leur âge, leurs capacités physiques ou mentales, ou leur situation.</div>
+                    </div>
+                    <div>
+                        <div class="glossary-term" onclick="toggleDefinition('def-durable')" role="button" aria-expanded="false" aria-controls="def-durable"><i class="fas fa-leaf mr-2"></i>Design durable (ou éco-design)</div>
+                        <div id="def-durable" class="glossary-definition">Approche de conception qui prend en compte l'impact environnemental et social des objets tout au long de leur cycle de vie (de la fabrication à la fin de vie), en cherchant à minimiser les effets négatifs.</div>
+                    </div>
+                    <div>
+                        <div class="glossary-term" onclick="toggleDefinition('def-intuitif')" role="button" aria-expanded="false" aria-controls="def-intuitif"><i class="fas fa-brain mr-2"></i>Intuitif</div>
+                        <div id="def-intuitif" class="glossary-definition">Qualité d'un objet, d'une interface ou d'un système qui peut être compris et utilisé facilement, naturellement, sans avoir besoin d'explications complexes ou d'un long apprentissage.</div>
+                    </div>
+                    <div>
+                        <div class="glossary-term" onclick="toggleDefinition('def-minimalisme')" role="button" aria-expanded="false" aria-controls="def-minimalisme"><i class="fas fa-minus-circle mr-2"></i>Minimalisme</div>
+                        <div id="def-minimalisme" class="glossary-definition">Style de design caractérisé par la simplicité extrême, l'épuration des formes et des couleurs, et l'utilisation du strict minimum d'éléments. Souvent résumé par la phrase "Moins, c'est plus" (Less is more).</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="exercices" class="interactive-element">
+            <h2 class="section-title">Teste tes super-pouvoirs de designer ! (Exercices)</h2>
+            <div class="card p-6">
+                <p class="mb-4">C'est l'heure de mettre tes nouvelles connaissances à l'épreuve avec ces petits défis interactifs ! Prêt(e) ?</p>
+                
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p id="progress-text" class="text-center mb-6 font-medium">0/5 exercices complétés</p>
+                
+                <div class="question" id="question1"  aria-labelledby="q1-title">
+                    <h3 id="q1-title" class="font-semibold text-lg mb-3">Question 1 : Le design, c'est quoi au juste ?</h3>
+                    <div class="answer-option" onclick="checkAnswer('q1', 'a')" role="button" tabindex="0">A) Juste une question de rendre un objet super beau et à la mode.</div>
+                    <div class="answer-option" onclick="checkAnswer('q1', 'b')" role="button" tabindex="0">B) S'occuper uniquement de comment un objet fonctionne, l'apparence n'a pas d'importance.</div>
+                    <div class="answer-option" onclick="checkAnswer('q1', 'c')" role="button" tabindex="0">C) L'art de créer des objets qui sont à la fois fonctionnels (utiles), esthétiques (beaux) et ergonomiques (faciles à utiliser).</div>
+                    <div class="answer-option" onclick="checkAnswer('q1', 'd')" role="button" tabindex="0">D) Un truc compliqué réservé aux ingénieurs qui fabriquent des fusées.</div>
+                    <div id="feedback-q1" class="feedback" role="alert"></div>
+                </div>
+                
+                <div class="question hidden" id="question2" aria-labelledby="q2-title">
+                    <h3 id="q2-title" class="font-semibold text-lg mb-3">Question 2 : Mission Association ! Relie chaque couleur à l'émotion ou l'idée qu'elle évoque le plus souvent.</h3>
+                    <p class="text-sm mb-4">Fais glisser les couleurs (à gauche) dans les bonnes zones (à droite).</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                        <div>
+                            <h4 class="font-medium mb-2 text-center">Couleurs :</h4>
+                            <div class="draggable" draggable="true" data-id="rouge" aria-label="Couleur Rouge">Rouge</div>
+                            <div class="draggable" draggable="true" data-id="bleu" aria-label="Couleur Bleu">Bleu</div>
+                            <div class="draggable" draggable="true" data-id="vert" aria-label="Couleur Vert">Vert</div>
+                            <div class="draggable" draggable="true" data-id="noir" aria-label="Couleur Noir">Noir</div>
+                        </div>
+                        <div>
+                            <h4 class="font-medium mb-2 text-center">Sensations / Idées :</h4>
+                            <div class="drop-zone" data-target="passion" aria-label="Zone pour Passion, énergie, danger">Passion, énergie, danger</div>
+                            <div class="drop-zone" data-target="calme" aria-label="Zone pour Calme, confiance, stabilité">Calme, confiance, stabilité</div>
+                            <div class="drop-zone" data-target="nature" aria-label="Zone pour Nature, santé, fraîcheur">Nature, santé, fraîcheur</div>
+                            <div class="drop-zone" data-target="elegance" aria-label="Zone pour Élégance, autorité, sophistication">Élégance, autorité, sophistication</div>
+                        </div>
+                    </div>
+                    <button class="btn mt-4" onclick="checkAssociations()">Vérifier mes associations</button>
+                    <div id="feedback-q2" class="feedback" role="alert"></div>
+                </div>
+                
+                <div class="question hidden" id="question3" aria-labelledby="q3-title">
+                    <h3 id="q3-title" class="font-semibold text-lg mb-3">Question 3 : Vrai ou Faux ?</h3>
+                    <p class="mb-4">L'ergonomie, c'est quand un designer s'assure qu'un objet est très à la mode et suit les dernières tendances esthétiques.</p>
+                    <div class="answer-option" onclick="checkAnswer('q3', 'a')" role="button" tabindex="0">A) Vrai</div>
+                    <div class="answer-option" onclick="checkAnswer('q3', 'b')" role="button" tabindex="0">B) Faux</div>
+                    <div id="feedback-q3" class="feedback" role="alert"></div>
+                </div>
+                
+                <div class="question hidden" id="question4" aria-labelledby="q4-title">
+                    <h3 id="q4-title" class="font-semibold text-lg mb-3">Question 4 : L'évolution du design, c'est à cause de quoi ? (Plusieurs réponses possibles, coche toutes les bonnes !)</h3>
+                    <div class="answer-option" onclick="toggleMultipleChoice(this, 'q4')" role="checkbox" aria-checked="false" tabindex="0">A) Les nouvelles inventions et technologies (nouveaux matériaux, machines...).</div>
+                    <div class="answer-option" onclick="toggleMultipleChoice(this, 'q4')" role="checkbox" aria-checked="false" tabindex="0">B) Uniquement parce que les rois et les reines changent de goûts.</div>
+                    <div class="answer-option" onclick="toggleMultipleChoice(this, 'q4')" role="checkbox" aria-checked="false" tabindex="0">C) Les préoccupations importantes de la société (comme l'écologie aujourd'hui).</div>
+                    <div class="answer-option" onclick="toggleMultipleChoice(this, 'q4')" role="checkbox" aria-checked="false" tabindex="0">D) Les changements dans nos modes de vie et nos besoins quotidiens.</div>
+                    <button class="btn mt-4" onclick="checkMultipleChoice('q4', ['a', 'c', 'd'])">Valider mes choix</button>
+                    <div id="feedback-q4" class="feedback" role="alert"></div>
+                </div>
+                
+                <div class="question hidden" id="question5" aria-labelledby="q5-title">
+                    <h3 id="q5-title" class="font-semibold text-lg mb-3">Question 5 : Complète la phrase !</h3>
+                    <p class="mb-4">Le fameux principe de design qui dit que l'apparence d'un objet doit d'abord être déterminée par son utilité est : "La <input type="text" id="reponse-courte" class="border border-gray-300 rounded px-2 py-1 w-32" aria-label="Mot manquant"> suit la fonction".</p>
+                    <button class="btn mt-4" onclick="checkShortAnswer()">Vérifier ma réponse</button>
+                    <div id="feedback-q5" class="feedback" role="alert"></div>
+                </div>
+                
+                <div class="hidden text-center p-6 bg-blue-50 rounded-lg" id="results">
+                    <h3 class="text-2xl font-bold mb-4 text-blue-700">Bravo, tu as terminé !</h3>
+                    <p class="text-xl mb-2">Ton score : <span id="score" class="font-bold">0</span>/<span id="total-score">5</span> points !</p>
+                    <div id="final-feedback" class="mt-4 p-4 rounded-lg text-base"></div>
+                    <button class="btn mt-6" onclick="resetQuiz()">Recommencer le quiz</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        let score = 0;
+        let answeredQuestions = 0;
+        const totalQuestions = 5;
+
+        const correctAnswers = {
+            q1: 'c',
+            q3: 'b'
+        };
+        
+        const associationsData = {
+            'rouge': 'passion',
+            'bleu': 'calme',
+            'vert': 'nature',
+            'noir': 'elegance'
+        };
+        
+        const shortAnswerData = 'forme';
+
+        function disableOptions(questionId) {
+            const questionElement = document.getElementById(questionId);
+            const options = questionElement.querySelectorAll('.answer-option, .draggable, input, button');
+            options.forEach(option => {
+                if(option.tagName === 'INPUT' || option.tagName === 'BUTTON' && !option.textContent.includes('Recommencer')) {
+                    option.disabled = true;
+                } else if (option.classList.contains('draggable')) {
+                    option.setAttribute('draggable', 'false');
+                    option.style.cursor = 'default';
+                } else if (option.classList.contains('answer-option')) {
+                     option.style.pointerEvents = 'none'; 
+                }
+            });
+        }
+
+        function checkAnswer(questionId, selectedAnswerLetter) {
+            const feedback = document.getElementById(`feedback-${questionId}`);
+            const options = document.querySelectorAll(`#${questionId} .answer-option`);
+            const selectedOption = Array.from(options).find(opt => opt.getAttribute('onclick').includes(`'${selectedAnswerLetter}'`));
+            
+            disableOptions(questionId);
+            selectedOption.classList.add('selected');
+
+            if (selectedAnswerLetter === correctAnswers[questionId]) {
+                feedback.textContent = "Super ! C'est la bonne réponse !";
+                feedback.className = 'feedback success-feedback'; 
+                selectedOption.classList.add('correct');
+                score++;
+            } else {
+                const correctAnswerIndex = correctAnswers[questionId].charCodeAt(0) - 97;
+                feedback.textContent = `Dommage... La bonne réponse était : ${options[correctAnswerIndex].textContent.trim().substring(3)}`; 
+                feedback.className = 'feedback error-feedback';
+                selectedOption.classList.add('incorrect');
+                options[correctAnswerIndex].classList.add('correct');
+            }
+            
+            feedback.style.display = 'block';
+            questionCompleted();
+        }
+        
+        let draggedItem = null;
+        function setupDragAndDrop() {
+            const draggables = document.querySelectorAll('#question2 .draggable');
+            const dropZones = document.querySelectorAll('#question2 .drop-zone');
+            
+            draggables.forEach(draggable => {
+                draggable.addEventListener('dragstart', (e) => {
+                    draggedItem = draggable;
+                    setTimeout(() => draggable.style.opacity = '0.5', 0);
+                    e.dataTransfer.setData('text/plain', draggable.dataset.id); 
+                });
+                
+                draggable.addEventListener('dragend', () => {
+                    draggedItem = null;
+                    setTimeout(() => draggable.style.opacity = '1', 0);
+                });
+            });
+            
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    zone.classList.add('active');
+                });
+                
+                zone.addEventListener('dragleave', () => {
+                    zone.classList.remove('active');
+                });
+                
+                zone.addEventListener('drop', e => {
+                    e.preventDefault();
+                    if (draggedItem && zone.children.length === 0) { 
+                        zone.appendChild(draggedItem);
+                    } else if (draggedItem && zone.children.length > 0) {
+                        const existingItem = zone.firstChild;
+                        const originalParent = document.querySelector(`#question2 .grid > div:first-child`); 
+                        originalParent.appendChild(existingItem); 
+                        zone.appendChild(draggedItem); 
+                    }
+                    zone.classList.remove('active');
+                    draggedItem = null; 
+                });
+            });
+        }
+
+        function checkAssociations() {
+            const dropZones = document.querySelectorAll('#question2 .drop-zone');
+            const feedback = document.getElementById('feedback-q2');
+            let allCorrect = true;
+            let correctCount = 0;
+            const totalAssociations = Object.keys(associationsData).length;
+            
+            dropZones.forEach(zone => {
+                const item = zone.querySelector('.draggable');
+                zone.classList.remove('correct', 'incorrect');
+
+                if (!item) {
+                    allCorrect = false;
+                    zone.classList.add('incorrect'); 
+                    return;
+                }
+                
+                const itemId = item.dataset.id;
+                const targetId = zone.dataset.target;
+                
+                if (associationsData[itemId] === targetId) {
+                    zone.classList.add('correct');
+                    item.classList.add('correct');
+                    correctCount++;
+                } else {
+                    zone.classList.add('incorrect');
+                    item.classList.add('incorrect');
+                    allCorrect = false;
+                }
+            });
+            
+            if (allCorrect && correctCount === totalAssociations) {
+                feedback.textContent = "Parfait ! Toutes les associations sont correctes.";
+                feedback.className = 'feedback success-feedback';
+                score++;
+            } else if (correctCount > 0) {
+                feedback.textContent = `Bien essayé ! Tu as ${correctCount} association(s) correcte(s) sur ${totalAssociations}. Regarde bien les corrections.`;
+                feedback.className = 'feedback error-feedback';
+            } else {
+                feedback.textContent = `Oups ! Aucune association correcte. Revois bien le cours sur les couleurs !`;
+                feedback.className = 'feedback error-feedback';
+            }
+            
+            feedback.style.display = 'block';
+            disableOptions('question2');
+            questionCompleted();
+        }
+
+        function toggleMultipleChoice(element, questionId) {
+            const feedback = document.getElementById(`feedback-${questionId}`);
+            if (feedback.style.display === 'block') return;
+
+            element.classList.toggle('selected');
+            element.setAttribute('aria-checked', element.classList.contains('selected'));
+        }
+
+        function checkMultipleChoice(questionId, correctOptionLetters) {
+            const questionElement = document.getElementById(questionId);
+            const options = questionElement.querySelectorAll('.answer-option');
+            const feedback = document.getElementById(`feedback-${questionId}`);
+            let selectedAnswers = [];
+            
+            options.forEach(option => {
+                const optionLetter = option.textContent.trim().charAt(0).toLowerCase();
+                if (option.classList.contains('selected')) {
+                    selectedAnswers.push(optionLetter);
+                }
+            });
+            
+            const sortedSelected = selectedAnswers.sort();
+            const sortedCorrect = [...correctOptionLetters].sort(); 
+            
+            const isCorrect = JSON.stringify(sortedSelected) === JSON.stringify(sortedCorrect);
+            
+            options.forEach(option => {
+                const optionLetter = option.textContent.trim().charAt(0).toLowerCase();
+                if (correctOptionLetters.includes(optionLetter)) {
+                    option.classList.add('correct');
+                } else if (option.classList.contains('selected')) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            if (isCorrect) {
+                feedback.textContent = "Excellent ! Toutes les bonnes réponses ont été sélectionnées.";
+                feedback.className = 'feedback success-feedback';
+                score++;
+            } else {
+                 let correctAnswersText = correctOptionLetters.map(letter => {
+                    return Array.from(options).find(opt => opt.textContent.trim().charAt(0).toLowerCase() === letter).textContent.trim();
+                }).join(', ');
+                feedback.textContent = `Presque ! Les bonnes réponses étaient : ${correctAnswersText}.`;
+                feedback.className = 'feedback error-feedback';
+            }
+            
+            feedback.style.display = 'block';
+            disableOptions(questionId);
+            questionCompleted();
+        }
+
+        function checkShortAnswer() {
+            const userAnswer = document.getElementById('reponse-courte').value.toLowerCase().trim();
+            const feedback = document.getElementById('feedback-q5');
+            
+            if (userAnswer === shortAnswerData) {
+                feedback.textContent = `Absolument ! C'est bien "${shortAnswerData}".`;
+                feedback.className = 'feedback success-feedback';
+                document.getElementById('reponse-courte').classList.add('correct');
+                score++;
+            } else {
+                feedback.textContent = `Pas tout à fait. La bonne réponse était : "${shortAnswerData}".`;
+                feedback.className = 'feedback error-feedback';
+                document.getElementById('reponse-courte').classList.add('incorrect');
+            }
+            
+            feedback.style.display = 'block';
+            disableOptions('question5');
+            questionCompleted();
+        }
+
+        function questionCompleted() {
+            answeredQuestions++;
+            updateProgressBar();
+            
+            setTimeout(() => {
+                if (answeredQuestions < totalQuestions) {
+                    document.getElementById(`question${currentQuestion}`).classList.add('hidden');
+                    currentQuestion++;
+                    const nextQuestionElement = document.getElementById(`question${currentQuestion}`);
+                    nextQuestionElement.classList.remove('hidden');
+                    nextQuestionElement.focus(); 
+                    
+                    if (currentQuestion === 2) { 
+                        setupDragAndDrop();
+                    }
+                } else {
+                    showResults();
+                }
+            }, 2000); 
+        }
+
+        function showResults() {
+            document.getElementById(`question${currentQuestion}`).classList.add('hidden');
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.classList.remove('hidden');
+            document.getElementById('score').textContent = score;
+            document.getElementById('total-score').textContent = totalQuestions;
+            
+            const finalFeedback = document.getElementById('final-feedback');
+            finalFeedback.className = 'mt-4 p-4 rounded-lg text-base'; 
+
+            if (score === totalQuestions) {
+                finalFeedback.textContent = "Félicitations, champion(ne) du design ! Tu as tout bon ! Tu as un œil de lynx pour les détails !";
+                finalFeedback.classList.add('success-feedback');
+            } else if (score >= totalQuestions * 0.6) { 
+                finalFeedback.textContent = `Super score ! Tu as ${score} bonnes réponses sur ${totalQuestions}. Tu as bien compris les bases du design ! Continue comme ça !`;
+                finalFeedback.classList.add('success-feedback');
+            } else {
+                finalFeedback.textContent = `Pas mal, tu as ${score} bonnes réponses sur ${totalQuestions}. Revois un peu le cours et les corrections, et tu deviendras un pro du design !`;
+                finalFeedback.classList.add('error-feedback');
+            }
+            resultsDiv.focus();
+        }
+
+        function updateProgressBar() {
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+            const percentage = (answeredQuestions / totalQuestions) * 100;
+            
+            progressBar.style.width = `${percentage}%`;
+            progressBar.setAttribute('aria-valuenow', percentage);
+            progressText.textContent = `${answeredQuestions}/${totalQuestions} exercices complétés`;
+        }
+
+        function resetQuiz() {
+            currentQuestion = 1;
+            score = 0;
+            answeredQuestions = 0;
+            
+            document.getElementById('results').classList.add('hidden');
+            
+            for (let i = 1; i <= totalQuestions; i++) {
+                const q = document.getElementById(`question${i}`);
+                q.classList.add('hidden');
+                
+                const feedback = document.getElementById(`feedback-q${i}`);
+                if (feedback) {
+                    feedback.textContent = '';
+                    feedback.style.display = 'none';
+                    feedback.className = 'feedback';
+                }
+                
+                const options = q.querySelectorAll('.answer-option');
+                options.forEach(opt => {
+                    opt.classList.remove('selected', 'correct', 'incorrect');
+                    opt.style.pointerEvents = 'auto';
+                    opt.setAttribute('aria-checked', 'false'); 
+                });
+
+                const inputs = q.querySelectorAll('input[type="text"], button');
+                inputs.forEach(input => input.disabled = false);
+                if(document.getElementById('reponse-courte')) {
+                    document.getElementById('reponse-courte').value = '';
+                    document.getElementById('reponse-courte').classList.remove('correct', 'incorrect');
+                }
+
+                if (i === 2) {
+                    const draggablesContainer = q.querySelector('.grid > div:first-child'); 
+                    const draggables = q.querySelectorAll('.draggable');
+                    draggables.forEach(drag => {
+                        drag.style.opacity = '1';
+                        drag.setAttribute('draggable', 'true');
+                        drag.style.cursor = 'move';
+                        drag.classList.remove('correct', 'incorrect');
+                        draggablesContainer.appendChild(drag); 
+                    });
+                    const dropZones = q.querySelectorAll('.drop-zone');
+                    dropZones.forEach(zone => {
+                        zone.innerHTML = zone.getAttribute('aria-label').split('Zone pour ')[1] || 'Déposer ici'; 
+                        zone.classList.remove('active', 'correct', 'incorrect');
+                    });
+                }
+            }
+            
+            document.getElementById('question1').classList.remove('hidden');
+            document.getElementById('question1').focus();
+            updateProgressBar();
+        }
+
+        function toggleDefinition(id) {
+            const definition = document.getElementById(id);
+            const term = definition.previousElementSibling; 
+            const isExpanded = term.getAttribute('aria-expanded') === 'true';
+
+            document.querySelectorAll('.glossary-definition').forEach(def => {
+                def.style.display = 'none';
+                def.previousElementSibling.setAttribute('aria-expanded', 'false');
+            });
+
+            if (isExpanded) {
+                definition.style.display = 'none';
+                term.setAttribute('aria-expanded', 'false');
+            } else {
+                definition.style.display = 'block';
+                term.setAttribute('aria-expanded', 'true');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateProgressBar();
+            document.querySelectorAll('.answer-option[role="button"], .answer-option[role="checkbox"]').forEach(option => {
+                option.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault(); 
+                        option.click();
+                    }
+                });
+            });
+
+            document.querySelectorAll('.glossary-term').forEach(term => {
+                term.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        term.click();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
