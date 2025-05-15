@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activités à la Casa - Projet Océan</title>
+    <link rel="stylesheet" href="style.css"> <!-- Lien vers le CSS principal -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Pour les icônes -->
+    <style>
+        /* Styles spécifiques pour la page pré-visite */
+        body {
+            display: flex; /* Utilise flex pour centrer verticalement */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Prend au moins toute la hauteur */
+            background: linear-gradient(135deg, #001f3f, #003366 60%, #004080); /* Dégradé bleu marine diagonal */
+            padding: 2rem;
+            overflow: hidden; /* Empêche le défilement si contenu court */
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            color: #f0f8ff; /* Texte blanc cassé (AliceBlue) */
+            box-sizing: border-box;
+        }
+
+        /* Lien Retour à l'accueil */
+        .back-link-top {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 100;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            background-color: rgba(0, 51, 102, 0.8);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .back-link-top:hover {
+            background-color: rgba(0, 51, 102, 1);
+            color: #fff;
+        }
+
+        .previsite-container {
+            max-width: 650px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.08); /* Fond très légèrement blanc transparent */
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .previsite-container h1 {
+            color: #81d4fa; /* Bleu ciel clair pour le titre */
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 2.4rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+        }
+        .intro-text {
+            color: #e6f7ff; /* Bleu très pâle pour le texte */
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+        .read-more-button {
+            display: inline-block;
+            padding: 0.9rem 2.2rem;
+            background-color: #FF7F50; /* Corail */
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            color: #001f3f; /* Texte bleu marine foncé */
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+        }
+        .read-more-button:hover {
+            background-color: #ffae8a; /* Corail plus clair */
+            transform: scale(1.05);
+        }
+        /* Le style du bouton flottant est dans style.css, mais le bouton HTML est retiré de cette page */
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            .previsite-container { padding: 2rem; }
+            .previsite-container h1 { font-size: 2rem; }
+            .intro-text { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Lien "Retour à l'accueil" en haut à gauche -->
+    <a href="index.html" class="back-link-top">← Retour à l'accueil</a>
+
+    <div class="previsite-container">
+        <h1>Les activités à la Casa</h1>
+        <p class="intro-text">
+            Dans le cadre du Projet Océan, les 4e2 ont vécu une expérience captivante à la Casa di e Scenze, entre exploration d'exposition et ateliers uniques. Lisez l'article complet.
+        </p>
+        <a href="visite.html" class="read-more-button">Lire l'article</a>
+    </div>
+
+    <!-- Le bouton flottant a été retiré de cette page -->
+
+</body>
+</html>

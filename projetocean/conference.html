@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conférence Céline Liret - Projet Océan</title>
+    <link rel="stylesheet" href="style.css"> <!-- Pour le bouton flottant (si réactivé) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            position: relative;
+            font-family: 'Arial', sans-serif;
+            background-color: #e6f7ff; /* Fallback léger */
+            color: #003366; /* Texte bleu marine par défaut */
+            overflow-y: auto; /* Permet le défilement */
+        }
+
+        .video-background-conference {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            filter: brightness(0.7) blur(2px); /* Assombrit et floute légèrement la vidéo */
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+            max-width: 850px; /* Un peu plus large pour le texte */
+            margin: 3rem auto; /* Espace en haut/bas, centré */
+            padding: 2rem 3rem; /* Padding intérieur */
+            background-color: rgba(255, 255, 255, 0.8); /* Fond blanc un peu plus transparent (80%) */
+            overflow: auto; /* Ajouté pour forcer le conteneur à gérer son contenu */
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 51, 102, 0.2); /* Ombre bleutée douce */
+        }
+
+        .content-wrapper header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #b3d9ff; /* Ligne de séparation bleu clair */
+            padding-bottom: 1rem;
+        }
+
+        .content-wrapper h1 {
+            color: #003366; /* Bleu marine */
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            font-size: 2.2rem;
+        }
+
+        .content-wrapper .date {
+            font-style: italic;
+            color: #0056b3; /* Bleu moyen */
+            font-size: 0.9rem;
+        }
+
+        .content-wrapper h2 {
+            color: #004080; /* Bleu marine un peu plus clair */
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .content-wrapper p {
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+            text-align: justify;
+            color: #003366; /* Bleu marine pour le texte principal */
+        }
+
+        .back-link-conference {
+            display: block;
+            margin-top: 2.5rem;
+            text-align: center;
+            color: #0056b3; /* Bleu moyen */
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link-conference:hover {
+            color: #003366;
+            text-decoration: underline;
+        }
+
+        /* Style du bouton flottant (défini dans style.css) */
+
+    </style>
+</head>
+<body>
+    <video autoplay muted loop playsinline class="video-background-conference">
+        <source src="video.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas les vidéos HTML5.
+    </video>
+
+    <div class="content-wrapper">
+        <header>
+            <h1>Conférence de Céline Liret à Montesoro : Une Plongée Essentielle dans les Enjeux Océaniques</h1>
+            <p class="date">vendredi 14 février 2025</p>
+        </header>
+
+        <!-- Insertion de l'image -->
+        <div style="text-align: center; margin: 2rem 0;">
+            <img src="images/line.png" alt="Céline Liret" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 51, 102, 0.2);">
+        </div>
+
+        <p>Le vendredi 14 février, des élèves de plusieurs collèges ont eu l’opportunité unique d’assister à une conférence captivante animée par Céline Liret, directrice scientifique d’Océanopolis (Brest). Océanographe renommée et spécialiste des mammifères marins ainsi que fervente défenseuse de la biodiversité marine, Céline Liret a consacré sa carrière à l’étude approfondie des écosystèmes marins et à la sensibilisation sur leur rôle essentiel pour la planète, notamment face aux défis posés par le réchauffement climatique, la pollution et l'acidification des océans.</p>
+
+        <h2>Organisation de la journée au Collège de Montesoro : Comprendre les Liens Vitaux</h2>
+        <p>La conférence s’est déroulée en deux temps au Collège de Montesoro, rassemblant des élèves issus de plusieurs établissements dans le cadre du projet interdisciplinaire "Océan".</p>
+        <p>Le matin, une classe de 4e du Collège Montesoro, accompagnée d’élèves des collèges Simon Vinciguerra et Giraud, a assisté à la présentation. Ce moment a été crucial pour les jeunes participants afin de découvrir les liens cruciaux entre l’océan, le climat et la biodiversité. Céline Liret a expliqué avec passion comment l’océan, couvrant plus des deux tiers de la planète, agit comme un régulateur climatique majeur. Elle a notamment souligné sa capacité vitale à absorber une part considérable des émissions de gaz à effet de serre produites par les activités humaines. Cependant, cette absorption a un coût : elle contribue au réchauffement global des masses d'eau et entraîne une acidification progressive des océans, menaçant directement de nombreuses formes de vie marine, particulièrement celles dotées de coquilles ou de squelettes calcaires.</p>
+        <p>L’après-midi, quatre classes supplémentaires, composées d’élèves de 3e et 4e, ont suivi cette conférence enrichissante. Les discussions ont alors porté de manière plus approfondie sur les vulnérabilités spécifiques des écosystèmes marins face aux pressions humaines. Céline Liret a abordé sans détour les menaces majeures : la pollution sous toutes ses formes (plastiques, microplastiques envahissant les habitats marins ; pollutions chimiques issues de l'agriculture et de l'industrie ; pollution sonore affectant les mammifères marins), les impacts directs du réchauffement climatique (hausse des températures entraînant le blanchiment des coraux, modification des aires de répartition des espèces, perturbation des chaînes alimentaires), et les effets insidieux de l'acidification qui fragilise des organismes fondamentaux comme les coquillages et certains planctons. La conférence a également mis en lumière les solutions que ces écosystèmes, s'ils sont préservés, peuvent offrir en termes d’adaptation au changement climatique et de développement durable (rôle des mangroves et herbiers marins comme puits de carbone, potentiel des bio-ressources marines, etc.).</p>
+
+        <h2>Un Message Fort pour l'Action et la Préservation</h2>
+        <p>Cette rencontre avec Céline Liret a constitué un moment fort et inspirant. Elle a permis aux élèves d’approfondir leurs connaissances sur les enjeux environnementaux océaniques majeurs tout en renforçant leur conscience écologique. Céline Liret a délivré un message clair sur l’urgence d’agir collectivement pour préserver l’océan et sa biodiversité. Elle a rappelé que la santé des océans est directement liée à l'avenir de notre planète, insistant sur la nécessité de réduire nos émissions de gaz à effet de serre, de lutter contre toutes les formes de pollution et de protéger activement les habitats marins pour contrer les effets dévastateurs du réchauffement et de l'acidification.</p>
+
+        <a href="index.html" class="back-link-conference">Retour à l'accueil</a>
+    </div>
+
+    <!-- Si style.css est réactivé et contient .floating-home-button :
+    <a href="index.html" class="floating-home-button" title="Retour à l'accueil">
+        <i class="fas fa-home"></i>
+    </a>
+    -->
+</body>
+</html>

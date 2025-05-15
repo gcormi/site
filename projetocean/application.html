@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application "Océan" - Projet Océan</title>
+    <!-- <link rel="stylesheet" href="style.css"> Optionnel -->
+    <style>
+        /* Styles spécifiques pour la page Application */
+        body {
+            display: block;
+            height: auto;
+            background: linear-gradient(to bottom, #001f3f, #003366); /* Dégradé bleu marine */
+            padding: 2rem;
+            overflow: auto;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            color: #f0f8ff; /* Texte blanc cassé (AliceBlue) */
+        }
+        .app-container {
+            max-width: 800px;
+            margin: 3rem auto;
+            background-color: rgba(255, 255, 255, 0.05); /* Fond très légèrement blanc transparent */
+            padding: 2.5rem 3rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .app-container h1 {
+            text-align: center;
+            color: #94d2bd; /* Vert d'eau (contraste) */
+            margin-bottom: 1.5rem;
+            font-size: 2.2rem;
+        }
+        .intro-text {
+            color: #e6f7ff; /* Bleu très pâle pour le texte */
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            text-align: center; /* Centré pour un impact visuel */
+            font-size: 1.05rem;
+        }
+        .launch-button-container {
+            text-align: center; /* Centre le bouton */
+            margin-top: 2rem;
+        }
+        .launch-button {
+            display: inline-block; /* Pour appliquer padding/margin */
+            padding: 1rem 2.5rem;
+            background-color: #FF7F50; /* Corail (couleur des icônes) */
+            border: none;
+            border-radius: 25px; /* Arrondi */
+            text-decoration: none;
+            color: #001f3f; /* Texte bleu marine foncé */
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+        }
+        .launch-button:hover {
+            background-color: #ffae8a; /* Corail plus clair */
+            transform: scale(1.05);
+        }
+        .back-link {
+            display: block;
+            margin-top: 3rem;
+            text-align: center;
+            color: #b3d9ff; /* Bleu clair */
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1>Découvrez notre Application "Océan"</h1>
+        <p class="intro-text">
+            Point d'orgue du Projet Océan et synthèse des riches apprentissages de l'année, les élèves de 4e2 sont heureux de vous faire découvrir leur application numérique interactive. Élaborée à partir des connaissances travaillées en classe, enrichie par les immersions lors des visites de l'exposition "Océan : Une plongée insolite" à la Casa di e Scenze, nourrie par les interventions d'une conférencière et l'expertise de l'association Mare Vivu, cette application est conçue pour être à la fois une source d'information captivante sur les océans et leurs défis, et un espace ludique pour apprendre en s'amusant et tester ses connaissances sur le monde marin.
+        </p>
+
+        <div class="launch-button-container">
+            <!-- Lien vers l'application dans le sous-dossier 'ocean' -->
+            <a href="ocean/index.html" class="launch-button">Lancer l'Application</a>
+        </div>
+
+        <a href="index.html" class="back-link">Retour à l'accueil</a>
+    </div>
+</body>
+</html>

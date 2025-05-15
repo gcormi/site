@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visite immersive à la Casa di e Scienze - Projet Océan</title>
+    <link rel="stylesheet" href="style.css"> <!-- Lien vers le CSS principal pour le bouton flottant -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Pour l'icône du bouton flottant -->
+    <style>
+        /* Styles spécifiques pour la page de l'article de visite, avec thème marin et pictogrammes */
+        body {
+            font-family: 'Arial', sans-serif; /* Assurez-vous que c'est la même police que votre style.css */
+            line-height: 1.7; /* Espacement entre les lignes accru pour la lecture */
+            margin: 0;
+            padding: 0; /* Padding géré par le conteneur */
+            background-color: #001f3f; /* Fallback si vidéo non chargée - Dégradé retiré */
+            color: #333; /* Couleur texte par défaut (sera dans le conteneur blanc) */
+            overflow-y: auto; /* Permet le défilement de toute la page */
+            position: relative; /* Contexte pour les éléments positionnés */
+        }
+
+        /* Lien Retour à l'accueil - Positionné en haut à gauche */
+        .back-link-top {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 100;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            background-color: rgba(0, 51, 102, 0.8);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-link-top:hover {
+            background-color: rgba(0, 51, 102, 1);
+            color: #fff;
+        }
+
+        .video-background-visite { /* Style pour la vidéo */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            filter: brightness(0.6) blur(1px); /* Assombrit et floute un peu */
+        }
+        .container-visite {
+            position: relative; /* Pour être au-dessus de la vidéo */
+            z-index: 2;
+            max-width: 850px; /* Largeur accrue pour le contenu */
+            margin: 40px auto; /* Centre le conteneur */
+            padding: 30px; /* Plus de padding intérieur */
+            background-color: rgba(255, 255, 255, 0.85); /* Fond blanc un peu transparent (85%) */
+            overflow: auto; /* Ajouté pour gérer le défilement interne */
+            max-height: 85vh; /* Hauteur maximale pour déclencher le scroll si besoin */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Ombre plus prononcée */
+            border-radius: 10px; /* Coins arrondis */
+        }
+        .container-visite header {
+            margin-bottom: 30px; /* Plus d'espacement sous l'en-tête */
+            border-bottom: 2px solid #4fc3f7; /* Ligne de séparation plus marquée */
+            padding-bottom: 20px; /* Espacement */
+            text-align: center; /* Centre l'en-tête */
+        }
+        .container-visite h1 {
+            color: #0d47a1; /* Bleu marine foncé pour le titre */
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 2.5em; /* Taille du titre */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1); /* Ombre légère sur le titre */
+        }
+        .container-visite .metadata {
+            font-style: italic;
+            color: #0277bd; /* Bleu marine moyen */
+            margin-top: 5px;
+            font-size: 1em;
+        }
+        .container-visite h2 { /* Style pour les sous-titres de section avec pictogramme */
+            color: #0d47a1; /* Bleu marine foncé */
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #81d4fa; /* Ligne plus discrète sous les sous-titres */
+            padding-bottom: 8px;
+            font-size: 1.8em;
+            position: relative; /* Permet de positionner le pseudo-élément */
+            padding-left: 40px; /* Ajoute de l'espace pour le pictogramme */
+        }
+         .container-visite h2::before { /* Style du pictogramme avant les H2 */
+            content: '🌊'; /* Exemple : Vague */
+            color: #ff7f50; /* Orange */
+            font-size: 1.5em;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%); /* Centre verticalement le pictogramme */
+         }
+         .container-visite h3 { /* Style pour les sous-titres d'atelier avec pictogramme */
+            color: #0277bd; /* Bleu marine moyen */
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+             position: relative; /* Permet de positionner le pseudo-element */
+             padding-left: 30px; /* Ajoute de l'espace pour le pictogramme */
+        }
+        .container-visite h3::before { /* Style du pictogramme avant les H3 */
+            content: '💡'; /* Exemple : Ampoule */
+            color: #ff7f50; /* Orange */
+            font-size: 1.2em;
+             position: absolute;
+             left: 0;
+             top: 50%;
+             transform: translateY(-50%); /* Centre verticalement */
+        }
+        .container-visite article p {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        .article-image { /* Classe pour les images dans l'article */
+            max-width: 90%; /* L'image ne dépasse pas 90% de la largeur du conteneur */
+            height: auto;
+            display: block;
+            margin: 30px auto; /* Plus d'espacement autour des images */
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1); /* Ombre légère sur les images */
+        }
+        .language-block { /* Style pour le texte en langue corse */
+            background-color: #e0f7fa; /* Fond très léger bleu-vert */
+            border-left: 5px solid #00bcd4; /* Bordure de couleur océan */
+            padding: 15px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #01579b; /* Bleu profond pour le texte */
+        }
+        .themes-list { /* Style pour la liste des thèmes de blog */
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding-left: 20px; /* Indentation */
+        }
+        .themes-list li {
+            margin-bottom: 10px;
+            color: #0d47a1; /* Couleur pour les éléments de liste */
+        }
+        /* Adaptabilité pour les petits écrans */
+        @media (max-width: 768px) {
+            .container-visite {
+                margin: 20px auto;
+                padding: 15px;
+                max-height: none; /* Pas de hauteur max sur mobile */
+            }
+            .container-visite h1 {
+                font-size: 2em;
+            }
+             .container-visite h2 {
+                 font-size: 1.4em;
+                  padding-left: 30px; /* Ajuste l'espace pour le pictogramme sur mobile */
+             }
+             .container-visite h2::before {
+                  font-size: 1.3em;
+             }
+              .container-visite h3 {
+                 font-size: 1.2em;
+                  padding-left: 25px; /* Ajuste l'espace pour le pictogramme sur mobile */
+             }
+             .container-visite h3::before {
+                  font-size: 1.1em;
+             }
+             .article-image {
+                 max-width: 100%;
+             }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Lien "Retour à l'accueil" en haut à gauche -->
+    <a href="index.html" class="back-link-top">
+        <i class="fas fa-arrow-left"></i> Retour à l'accueil
+    </a>
+
+    <!-- Vidéo de fond -->
+    <video autoplay muted loop playsinline class="video-background-visite">
+        <source src="video.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas les vidéos HTML5.
+    </video>
+
+    <div class="container-visite">
+        <header>
+            <h1>Les 4e2 plongent dans le projet « Océans » à la Casa di e Scenze !</h1>
+            <p class="metadata">Plusieurs visites durant l'année scolaire 2024/2025</p>
+            <p class="metadata">Projet interdisciplinaire « Océan »</p>
+        </header>
+        <article>
+            <p>Dans le cadre de leur ambitieux projet interdisciplinaire « Océan », qui mobilise également les collèges Simon Vinciguerra et Giraud, les élèves de 4e2 du collège Montesoro ont eu l'opportunité de se rendre à la Casa di e Scenze de Bastia à <strong>trois reprises</strong> pour explorer l'exposition « Océan, une plongée insolite ». Ces immersions successives visaient à les sensibiliser aux enjeux cruciaux liés à la préservation des océans et à approfondir leurs connaissances sur ce milieu aussi fascinant que vital.</p>
+            <img src="images/un.png" alt="Vue générale des visites ou de l'exposition" class="article-image"> <!-- Nom corrigé -->
+            <h2>Explorer l'Exposition « Océan, une plongée insolite »</h2>
+            <p>Chacune des visites a permis aux élèves de parcourir et d'explorer les différents aspects de l'exposition. Ils se sont familiarisés avec les mystères des abysses, ont découvert la diversité des écosystèmes marins et ont exploré les mythes et légendes qui entourent les océans. Un questionnaire accompagnait leur parcours, transformant l'exploration en une quête active de connaissances au sein même de l'exposition.</p>
+            <h2>Ateliers et Temps de Travail</h2>
+            <p>Au-delà de l'exploration libre de l'exposition, certaines visites ont inclus des temps dédiés à des ateliers spécifiques et à des travaux dirigés.</p>
+            <h3>Atelier Mathématiques et Langue Corse</h3>
+            <p>Lors d'une de ces visites, une partie de la classe a participé à un atelier unique, mené par M. Chiarelli, leur professeur de mathématiques, entièrement en langue corse. À partir d'un document spécialement conçu, les élèves ont travaillé en groupes puis individuellement sur des notions mathématiques fondamentales appliquées au monde marin, notamment l'étude des microrubus (micro-organismes marins) comme les diatomées ou les ciliés.</p>
+            <p>Cet atelier a été l'occasion d'étudier l'ordre de grandeur du rubu, de déterminer l'écriture scientifique de différents micro-organismes, et d'évaluer les tailles en utilisant les puissances de 10. Les élèves ont également été amenés à calculer le volume de certains radiés à partir de leurs formes géométriques (cône, tronc de cône, sphère) et à effectuer des conversions d'unités. L'atelier a aussi abordé oralement les notions d'échelle, de proportionnalité et de symétrie axiale à travers l'observation de maquettes d'organismes exposées.</p>
+            <div class="language-block">
+                <p>Voici le détail de cet atelier, tel que décrit par M. Chiarelli :</p>
+                <p>U 6 di ferraghju, l’elevi di a quarta ( 4a 2 ) anu travagliatu durente una mezaghjurnata à a Casa di scienze, à partesi di un documentu sviluppatu da u so prufissore di matematiche, M. Chiarelli.</p>
+                <p>Per st’annu, a spusizione hè urientata versu a tematica di l’uceani in lu quatru di u prughjettu epunimu.</p>
+                <p>L’attinzione s’hè arricata annantu à l’ordine di grandezze di u rubu ; era un’ uppurtunità di studià qualchi urganīsimu cum’ e diatumee o i ragiati.</p>
+                <p>L’elevi, primu in gruppi, è in un sicondu tempu, di manera individuale, anu cumplettatu u documentu inAcù l’aiutu di u prufissore.</p>
+                <p>Cusì, anu diterminatu a scrittura scientifica di ogni microurganīsimu à sapè quella di a diatumea, quella di u cigliatu… Dopu, anu pulsutu valutà a maiurezza di u microrubu, u nanorubu, u picorubu è u femtorubu, aduprendu e putenze di 10. Cù e spressione di ogni vulumu di i solidi ( cono, cono truncatu, botte, sfera ), duvianu trasfurmà a spressione data è calculà u vulumu di u ragiatu ( a struttura era riprisentata ). L’elevi duvianu ancu effettuà qualchi cunversione per risponde à l’ultime quistione di stu travagliu prāticu. Una parte de l’espusizione prisentava machette cù aggrandimenti de l’urganīsimi riprisentati. Avemu fattu un travagliu à l’urale per rammintà e nuzione di scale, di prupurziunalità è ancu di simetria assiale ( di certe spezie di rubu cum’ e diatumee o i copepodi. ).</p>
+                <p>Stu mumentu hà permessu di fundià nuzione impurtantīssime di u prugramma di a quarta in matemātica è ancu di scopre è amparà un lessicu scientīficu.</p>
+                <p>Una spirienza à rifà…</p>
+            </div>
+            <p>Cette expérience a brillamment conjugué l'apprentissage de notions mathématiques essentielles du programme de 4e avec la découverte d'un lexique scientifique spécifique, le tout valorisant le patrimoine linguistique corse.</p>
+            <img src="images/trois.png" alt="Image liée à l'atelier Mathématiques en langue corse" class="article-image"> <!-- Nom corrigé -->
+            <h3>Atelier Création de Blog et Compétences Numériques</h3>
+            <p>Lors d'une autre visite ou pendant un temps dédié, l'autre groupe, accompagné par M. Cormi, leur professeur de technologie, s'est initié au monde du blogging. Cet atelier a été l'occasion de découvrir les outils numériques nécessaires à la création d'un site web, de réfléchir à la structure idéale d'un blog informatif et de commencer à organiser le travail collaboratif au sein des groupes.</p>
+            <p>L'objectif final de cet atelier est ambitieux : chaque groupe de quatre élèves créera son propre blog entièrement dédié aux océans et à leur préservation. Les thématiques choisies par les élèves pour leurs blogs sont variées et témoignent de leur curiosité pour les multiples facettes du monde marin :</p>
+            <ul class="themes-list">
+                <li>L’histoire de l’exploration sous-marine : Des premiers scaphandres aux robots high-tech.</li>
+                <li>Le plancton, un monde invisible essentiel à la vie marine.</li>
+                <li>La vie dans les grands fonds marins et ses créatures fascinantes.</li>
+                <li>Les mythes et légendes inspirés par l’océan.</li>
+                <li>Les menaces actuelles qui pèsent sur l’océan (pollution, surpêche, etc.).</li>
+                <li>La biodiversité unique des monts sous-marins et leur importance écologique.</li>
+            </ul>
+            <p>Ce travail d'équipe allie ainsi créativité, développement de compétences numériques concrètes et une sensibilisation accrue à la cause environnementale marine.</p>
+            <img src="images/deux.png" alt="Image liée à l'atelier Blog ou aux thèmes abordés" class="article-image"> <!-- Nom corrigé -->
+            <h2>Travail en Auditorium : Analyse et Consolidation</h2>
+            <p>En complément des explorations et des ateliers, un temps de travail en auditorium a également fait partie de l'expérience à la Casa di e Scenze. Ce moment a permis aux élèves d'analyser des textes, de répondre à des questions, de visionner des films documentaires éclairants sur les océans, et de participer à des QCM, contribuant ainsi à consolider leurs apprentissages de manière active et variée.</p>
+            <h2>Conclusion : Une Immersion Fructueuse et Plurielle</h2>
+            <p>Ces <strong>trois visites</strong> immersives à la Casa di e Scenze ont constitué des étapes très positives et fructueuses dans le Projet Océan des 4e2 Montesoro. Elles ont non seulement permis aux élèves de "plonger" concrètement au cœur des enjeux marins mais aussi de poser les bases essentielles pour les explorations et les réalisations qui jalonneront le reste de leur année scolaire. L'engagement interdisciplinaire et la diversité des activités proposées lors de ces visites illustrent parfaitement la richesse de ce projet. À suivre… les prochaines aventures océaniques de la classe !</p>
+        </article>
+    </div>
+
+    <!-- Bouton flottant Accueil -->
+    <a href="index.html" class="floating-home-button" title="Retour à l'accueil">
+        <i class="fas fa-home"></i> <!-- Icône Maison de Font Awesome -->
+    </a>
+
+</body>
+</html>

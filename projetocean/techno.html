@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours de Technologie - Projet Océan</title>
+
+    <style>
+        /* Styles généraux avec vidéo en fond */
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Vidéo de fond */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(0.7) blur(2px);
+        }
+
+        /* Conteneur principal avec transparence */
+        .techno-container {
+            max-width: 850px;
+            margin: 4rem auto;
+            background-color: rgba(255, 255, 255, 0.85); /* Fond blanc semi-transparent */
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 51, 102, 0.2);
+        }
+
+        .techno-container h1 {
+            text-align: center;
+            color: #003366; /* Bleu marine */
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-text {
+            color: #0056b3; /* Bleu moyen */
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        .intro-text strong {
+            color: #003366;
+        }
+
+        .course-link {
+            display: block;
+            padding: 0.9rem 1.2rem;
+            margin-bottom: 1rem;
+            background-color: #b3d9ff; /* Bleu clair */
+            border-radius: 6px;
+            text-decoration: none;
+            color: #003366;
+            font-weight: 500;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .course-link:hover {
+            background-color: #80bfff;
+            color: #001a33;
+            transform: scale(1.01);
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 2.5rem;
+            text-align: center;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Vidéo de fond -->
+    <video autoplay muted loop playsinline class="video-background">
+        <source src="video.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas les vidéos HTML5.
+    </video>
+
+    <!-- Contenu principal -->
+    <div class="techno-container">
+        <h1>Technologie & Projet Océan</h1>
+        <p class="intro-text">
+            En technologie, notre discipline porte sur l'étude des objets et systèmes techniques qui façonnent notre monde. Cette année, en cohérence avec la progression du programme et dans le cadre du projet Océan, nous avons spécifiquement orienté nos activités vers l'exploration de systèmes techniques en lien avec le milieu marin.
+            <br><br>
+            Toutes les activités menées ont permis aux élèves d'acquérir les connaissances fondamentales et les compétences définies par le programme de technologie, tout en appliquant ces apprentissages à des contextes concrets liés aux océans. Le choix des systèmes étudiés a ainsi été étroitement lié aux enjeux marins contemporains.
+            <br><br>
+            <strong>Voici quelques exemples des thématiques que nous avons travaillées et évaluées en classe :</strong>
+        </p>
+
+        <!-- Liens vers les cours -->
+        <a href="Dessaler%20l'Eau%20de%20Mer.html" class="course-link">Dessaler l'Eau de Mer : Technologie & Environnement</a>
+        <a href="Microplastiques%20dans%20l'Océan.html" class="course-link">Microplastiques dans l'Océan : Problèmes & Solutions</a>
+        <a href="Les%20boués%20intelligentes.html" class="course-link">Bouées Intelligentes & Compétences Technologiques</a>
+        <a href="Microplastiques%20dans%20l'Océan1.html" class="course-link">Océans du Futur 🌊: Comprendre les Enjeux 🌍</a>
+        <a href="Menace%20sur%20la%20Biodiversité%20Marine%202.html" class="course-link">La Surpêche 🎣: Menace sur la Biodiversité Marine 🌊</a>
+        <a href="Modéliser%20et%20Simuler%20les%20Océans3.html" class="course-link">Modéliser et Simuler les Océans 🌊 : Des Outils pour Comprendre et Innover 🚀</a>
+        <a href="Synthèse%20%20Technologie%20et%20Océans%204.html" class="course-link">Synthèse : Technologie et Océans, un Avenir à Inventer 🌊</a>
+
+        <a href="index.html" class="back-link">Retour à l'accueil</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌊 Dessaler l'Eau de Mer : Technologie & Environnement 🌐</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #f8f9fa, #e8f5f5);
+      color: #263238;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #263238;
+      text-align: center;
+      margin-top: 40px;
+      animation: fadeIn 1s ease-in;
+    }
+    .section {
+      background-color: #ffffff;
+      padding: 30px;
+      margin-bottom: 35px;
+      border-radius: 20px;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .section:hover { transform: translateY(-8px); }
+    .competence {
+      background: #f1f8e9;
+      border-left: 6px solid #2e7d32;
+      padding: 20px;
+      margin: 25px 0;
+      border-radius: 12px;
+    }
+    .badge {
+      background-color: #2e7d32;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 0.95em;
+      margin: 6px;
+      display: inline-block;
+    }
+    .tooltip {
+      cursor: help;
+      color: #ef6c00;
+      text-decoration: underline dotted;
+    }
+    .tooltip:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #2e7d32;
+      color: #ffffff;
+      padding: 10px 15px;
+      border-radius: 10px;
+      white-space: nowrap;
+      font-size: 0.95em;
+      z-index: 10;
+      min-width: 180px;
+      max-width: 350px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .button {
+      background-color: #2e7d32;
+      color: #fff8e1;
+      padding: 14px 30px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 17px;
+      transition: all 0.3s ease;
+      display: block;
+      margin: 30px auto 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    .button:hover {
+      background-color: #1b5e20;
+      transform: scale(1.05) rotate(-1deg);
+    }
+    .qcm {
+      margin-top: 30px;
+      padding: 25px;
+      background-color: #e8f5e9;
+      border-radius: 15px;
+      border-left: 6px solid #2e7d32;
+    }
+    .qcm h4 {
+      margin-top: 0;
+      color: #2e7d32;
+    }
+    .feedback {
+      margin-top: 18px;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    .correct { 
+      color: #2e7d32; 
+      animation: pop 0.6s ease-in-out;
+    }
+    .incorrect { 
+      color: #d32f2f; 
+      animation: shake 0.6s ease-in-out;
+    }
+    .progress-container {
+      width: 100%;
+      background-color: #dcedc8;
+      border-radius: 25px;
+      margin: 25px 0;
+      height: 30px;
+    }
+    .progress-bar {
+      background-color: #2e7d32;
+      height: 30px;
+      border-radius: 25px;
+      width: 0%;
+      transition: width 0.6s ease;
+    }
+    .score-board {
+      text-align: center;
+      margin: 20px 0;
+      font-weight: bold;
+      font-size: 1.3em;
+      color: #2e7d32;
+    }
+    .glossary {
+      background-color: #e8f5e9;
+      border-left: 6px solid #2e7d32;
+      padding: 20px;
+      margin: 35px 0;
+      border-radius: 12px;
+    }
+    .glossary h3 {
+      color: #2e7d32;
+      text-align: left;
+    }
+    .glossary ul {
+      list-style-type: none;
+      padding-left: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+    .glossary li {
+      margin: 10px;
+    }
+    .glossary a {
+      color: #2e7d32;
+      text-decoration: none;
+      font-weight: bold;
+      border-bottom: 2px solid #ef6c00;
+      transition: 0.3s;
+    }
+    .glossary a:hover {
+      color: #ef6c00;
+    }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      background-color: white;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+    }
+    .popup.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .popup::after {
+      content: "✖";
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5em;
+      color: #2e7d32;
+      cursor: pointer;
+    }
+    .saviez-vous {
+      background-color: #fff3e0;
+      border-left: 6px solid #fb8c00;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 10px;
+      font-style: italic;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(25px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      50% { transform: translateX(8px); }
+      75% { transform: translateX(-8px); }
+      100% { transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>🌊 Dessaler l'Eau de Mer : Technologie & Environnement 🌐</h1>
+  
+  <!-- Barre de progression -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <div class="score-board" id="scoreBoard">🎯 Score : 0/6 💡</div>
+
+  <!-- Compétences Cycle 4 -->
+  <div class="section">
+    <h2>📚 Compétences Cycle 4 - Technologie</h2>
+    <div class="competence">
+      <p><span class="badge">C1</span> Analyser les besoins des utilisateurs et le contexte d'utilisation</p>
+      <p><span class="badge">C2</span> Concevoir des solutions techniques adaptées aux contraintes</p>
+      <p><span class="badge">C3</span> Comprendre et exploiter les technologies numériques</p>
+      <p><span class="badge">C4</span> Évaluer l'impact environnemental des solutions techniques</p>
+      <p><span class="badge">C5</span> Pratiquer des démarches scientifiques et technologiques</p>
+      <p><span class="badge">C6</span> Mobiliser des outils mathématiques, scientifiques, techniques</p>
+    </div>
+    
+    <h2>🎯 Compétences Transversales du Bulletin Officiel</h2>
+    <div class="competence">
+      <p><span class="badge">CT1</span> Apprendre à apprendre</p>
+      <p><span class="badge">CT2</span> Autonomie et initiative</p>
+      <p><span class="badge">CT3</span> Coopération et communication</p>
+      <p><span class="badge">CT4</span> Raisonner et argumenter</p>
+      <p><span class="badge">CT5</span> Créativité et innovation</p>
+      <p><span class="badge">CT6</span> Responsabilité environnementale</p>
+    </div>
+  </div>
+
+  <!-- Section 1 : Introduction -->
+  <div class="section">
+    <h2>Introduction</h2>
+    <p>Le <span class="tooltip" data-tooltip="Processus qui transforme l'eau de mer en eau douce utilisable">dessalement</span> est une solution technologique essentielle face à la pénurie mondiale d'eau potable. Mais comment fonctionne-t-il vraiment ? Quels sont ses avantages et ses défis ?</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🧠 <strong>Saviez-vous ?</strong> Plus de 300 millions de personnes dépendent de l'eau dessalée dans le monde ! Les pays du Golfe Persique en produisent plus de 50% de leur eau potable.
+    </div>
+
+    <!-- QCM pour l'introduction -->
+    <div class="qcm">
+      <h4>Question 1 : Quel est l'objectif du dessalement ?</h4>
+      <form id="qcm1">
+        <label><input type="radio" name="q1" value="a"> Transformer l'eau de mer en eau douce</label><br>
+        <label><input type="radio" name="q1" value="b"> Créer de l'énergie</label><br>
+        <label><input type="radio" name="q1" value="c"> Nettoyer les plages</label><br>
+        <button type="button" onclick="checkAnswer('qcm1', 'a')" class="button">Vérifier</button>
+      </form>
+      <div id="feedback1" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <!-- Section 2 : Méthodes de dessalement -->
+  <div class="section">
+    <h2>1. Comment ça marche ?</h2>
+    <h3>1.1 Osmose Inverse ➡️</h3>
+    <p><strong>Principe :</strong> La méthode la plus utilisée aujourd'hui. L'eau de mer est poussée à travers une membrane semi-perméable avec une pression très élevée (50-80 bars), permettant au H₂O de passer mais pas au sel (NaCl).</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🧪 <strong>Saviez-vous ?</strong> Une membrane typique a des pores de 0,0001 micron ! Pour comparaison, un cheveu humain mesure environ 75 microns.
+    </div>
+
+    <h3>1.2 Distillation Multi-Étages 🔥</h3>
+    <p><strong>Principe :</strong> L'eau est évaporée par chauffage puis condensée. Ce procédé est souvent couplé aux centrales électriques pour utiliser la chaleur résiduelle.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      ⚡ <strong>Saviez-vous ?</strong> Dans les pays chauds comme l'Arabie Saoudite, certaines usines utilisent la chaleur du soleil pour la distillation.
+    </div>
+    
+    <!-- QCM méthodes -->
+    <div class="qcm">
+      <h4>Question 2 : Quelle méthode utilise une membrane ?</h4>
+      <form id="qcm2">
+        <label><input type="radio" name="q2" value="a"> Distillation</label><br>
+        <label><input type="radio" name="q2" value="b"> Osmose inverse</label><br>
+        <label><input type="radio" name="q2" value="c"> Filtration basique</label><br>
+        <button type="button" onclick="checkAnswer('qcm2', 'b')" class="button">Vérifier</button>
+      </form>
+      <div id="feedback2" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <!-- Section 3 : Technologies Écologiques -->
+  <div class="section">
+    <h2>2. Technologies Durables 🌱</h2>
+    <h3>2.1 Énergies Renouvelables ☀️</h3>
+    <p>Les usines modernes utilisent de plus en plus d'<span class="tooltip" data-tooltip="Énergie provenant de sources naturelles renouvelables">énergie solaire</span> et éolienne pour réduire l'empreinte carbone.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      ☀️ <strong>Saviez-vous ?</strong> L'usine de Tuas South (Singapour) utilise des panneaux solaires pour produire 130,000 m³ d'eau par jour.
+    </div>
+
+    <h3>2.2 Membranes Innovantes 🧬</h3>
+    <p>Des matériaux comme le <span class="tooltip" data-tooltip="Matériau composé d'une couche d'atomes de carbone">graphène</span> ou les membranes bio-inspirées imitent la filtration naturelle des racines de mangroves.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🧪 <strong>Saviez-vous ?</strong> Des chercheurs ont développé une membrane "bio-inspirée" à partir de protéines aquaporines trouvées dans les cellules végétales.
+    </div>
+
+    <!-- QCM technologies -->
+    <div class="qcm">
+      <h4>Question 3 : Quel matériau améliore les membranes ?</h4>
+      <form id="qcm3">
+        <label><input type="radio" name="q3" value="a"> Graphène</label><br>
+        <label><input type="radio" name="q3" value="b"> Plastique recyclé</label><br>
+        <label><input type="radio" name="q3" value="c"> Béton armé</label><br>
+        <button type="button" onclick="checkAnswer('qcm3', 'a')" class="button">Vérifier</button>
+      </form>
+      <div id="feedback3" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <!-- Section 4 : Défis Environnementaux -->
+  <div class="section">
+    <h2>3. Défis Environnementaux ⚠️</h2>
+    <h3>3.1 Gestion de la Saumure 🧂</h3>
+    <p>L'eau très salée rejetée (<span class="tooltip" data-tooltip="Eau très salée rejetée après le dessalement">saumure</span>) peut perturber les écosystèmes marins si mal gérée. Les solutions incluent la dilution avant rejet ou la récupération du sel pour l'industrie.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🌊 <strong>Saviez-vous ?</strong> 1m³ d'eau dessalée produit environ 1,5m³ de saumure.
+    </div>
+
+    <h3>3.2 Impact Énergétique ⚡</h3>
+    <p>Le dessalement consomme entre 2 et 10 kWh/m³. Pour comparaison, la distribution d'eau potable classique consomme 0,5 à 1,5 kWh/m³.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      💡 <strong>Saviez-vous ?</strong> Le dessalement représente 0,5% de la consommation mondiale d'électricité.
+    </div>
+
+    <!-- QCM défis -->
+    <div class="qcm">
+      <h4>Question 4 : Qu'est-ce que la saumure ?</h4>
+      <form id="qcm4">
+        <label><input type="radio" name="q4" value="a"> Eau douce produite</label><br>
+        <label><input type="radio" name="q4" value="b"> Eau très salée rejetée</label><br>
+        <label><input type="radio" name="q4" value="c"> Type de membrane</label><br>
+        <button type="button" onclick="checkAnswer('qcm4', 'b')" class="button">Vérifier</button>
+      </form>
+      <div id="feedback4" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <!-- Section 5 : Innovations -->
+  <div class="section">
+    <h2>4. Innovations Technologiques 🧠</h2>
+    <h3>4.1 Intelligence Artificielle 🤖</h3>
+    <p>Des algorithmes optimisent le fonctionnement des usines, prédisent les pannes et ajustent les paramètres en temps réel pour économiser l'énergie.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🧠 <strong>Saviez-vous ?</strong> IBM a développé un système d'IA qui peut économiser jusqu'à 20% d'énergie dans les usines de dessalement.
+    </div>
+
+    <h3>4.2 Systèmes à Énergie Réduite 🔋</h3>
+    <p>Des technologies comme le dessalement à adsorption par échange d'ions ou les systèmes à osmose par gradient de pression (PRO) promettent de réduire la consommation énergétique.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🔬 <strong>Saviez-vous ?</strong> Le dessalement par pression osmotique inversée peut atteindre 99,8% d'efficacité de filtration.
+    </div>
+
+    <!-- QCM innovations -->
+    <div class="qcm">
+      <h4>Question 5 : Quel système utilise l'IA ?</h4>
+      <form id="qcm5">
+        <label><input type="radio" name="q5" value="a"> Systèmes de gestion d'usines</label><br>
+        <label><input type="radio" name="q5" value="b"> Pompes manuelles</label><br>
+        <label><input type="radio" name="q5" value="c"> Cuves de stockage</label><br>
+        <button type="button" onclick="checkAnswer('qcm5', 'a')" class="button">Vérifier</button>
+      </form>
+      <div id="feedback5" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <!-- Section 6 : Applications -->
+  <div class="section">
+    <h2>5. Applications Pratiques 🌍</h2>
+    <h3>5.1 Agriculture 🌾</h3>
+    <p>L'eau dessalée permet l'irrigation dans les régions arides comme l'Israël où 50% de l'eau potable vient du dessalement.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🍇 <strong>Saviez-vous ?</strong> L'usine de Sorek 2 en Israël produit 200 millions de m³ d'eau par an pour 9 millions de personnes.
+    </div>
+
+    <h3>5.2 Villes Côtières 🏙️</h3>
+    <p>Des villes comme Barcelone ou Sydney utilisent le dessalement pour garantir un approvisionnement stable en eau potable.</p>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🌉 <strong>Saviez-vous ?</strong> L'usine de Sydney produit 250 millions de litres d'eau par jour, suffisant pour 1,5 million de personnes.
+    </div>
+
+    <!-- QCM applications -->
+    <div class="qcm">
+      <h4>Question 6 : Quel domaine profite du dessalement ?</h4>
+      <form id="qcm6">
+        <label><input type="radio" name="q6" value="a"> Agriculture</label><br>
+        <label><input type="radio" name="q6" value="b"> Astronomie</label><br>
+        <label><input type="radio" name="q6" value="c"> Archéologie</label><br>
+        <button type="button" onclick="checkAnswer('qcm6', 'a')" class="button">Vérifier</button>
+      </form>
+      <div id="feedback6" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <!-- Section 7 : Conclusion -->
+  <div class="section">
+    <h2>6. Conclusion et Perspectives 🚀</h2>
+    <p>Le dessalement est une solution clé pour l'accès à l'eau potable, mais il doit évoluer vers plus de durabilité. Les recherches actuelles se concentrent sur :</p>
+    <ul>
+      <li>Des membranes biodégradables</li>
+      <li>Des systèmes solaires autonomes pour les zones rurales</li>
+      <li>La récupération des minéraux précieux dans la saumure</li>
+      <li>Des procédés à très basse consommation énergétique</li>
+    </ul>
+    
+    <!-- Saviez-vous ? -->
+    <div class="saviez-vous">
+      🌐 <strong>Saviez-vous ?</strong> Le marché mondial du dessalement vaut 20 milliards de dollars et devrait doubler d'ici 2030.
+    </div>
+  </div>
+
+  <!-- Glossaire -->
+  <div class="glossary">
+    <h3>📚 Glossaire des Termes Techniques</h3>
+    <ul>
+      <li><a href="#" class="tooltip" data-tooltip="Processus transformant l'eau de mer en eau douce" onclick="showPopup('dessalement')">Dessalement</a></li>
+      <li><a href="#" class="tooltip" data-tooltip="Filtre ultra-fin qui bloque le sel et les impuretés" onclick="showPopup('membrane')">Membrane</a></li>
+      <li><a href="#" class="tooltip" data-tooltip="Énergie provenant de sources naturelles renouvelables" onclick="showPopup('energie-renouvelable')">Énergies Renouvelables</a></li>
+      <li><a href="#" class="tooltip" data-tooltip="Matériau en carbone pour membranes de haute performance" onclick="showPopup('graphene')">Graphène</a></li>
+      <li><a href="#" class="tooltip" data-tooltip="Eau très salée rejetée après le dessalement" onclick="showPopup('saumure')">Saumure</a></li>
+      <li><a href="#" class="tooltip" data-tooltip="Technologies d'apprentissage automatique" onclick="showPopup('ia')">Intelligence Artificielle</a></li>
+      <li><a href="#" class="tooltip" data-tooltip="Processus par pression et membrane" onclick="showPopup('osmose')">Osmose Inverse</a></li>
+      <li><a href="#" class="tooltip" data-tooltip="Transformation par évaporation et condensation" onclick="showPopup('distillation')">Distillation</a></li>
+      <li><a href="#" class="tooltip" data-tooltip="Capacité à fonctionner sans recharge" onclick="showPopup('autonomie')">Autonomie</a></li>
+      <li><a href="#" class="tooltip" data-tooltip="Système technique pour produire de l'eau potable" onclick="showPopup('systeme')">Système de Dessalement</a></li>
+    </ul>
+  </div>
+
+  <!-- Popups -->
+  <div id="popup-dessalement" class="popup">
+    <h3>Dessalement</h3>
+    <p>Processus technologique transformant l'eau de mer en eau douce utilisable pour la consommation humaine ou l'agriculture.</p>
+  </div>
+  <div id="popup-membrane" class="popup">
+    <h3>Membrane</h3>
+    <p>Filtre ultra-fin en polymère synthétique qui laisse passer l'eau mais bloque le sel et les impuretés.</p>
+  </div>
+  <div id="popup-energie-renouvelable" class="popup">
+    <h3>Énergies Renouvelables</h3>
+    <p>Énergies provenant de sources naturelles inépuisables comme le soleil, le vent ou les vagues.</p>
+  </div>
+  <div id="popup-graphene" class="popup">
+    <h3>Graphène</h3>
+    <p>Matériau en carbone 2D extrêmement résistant et conducteur, utilisé pour des membranes plus efficaces.</p>
+  </div>
+  <div id="popup-saumure" class="popup">
+    <h3>Saumure</h3>
+    <p>Eau très salée rejetée après le processus de dessalement, nécessitant un traitement spécifique.</p>
+  </div>
+  <div id="popup-ia" class="popup">
+    <h3>Intelligence Artificielle</h3>
+    <p>Technologies permettant aux machines d'apprendre et d'optimiser automatiquement les processus industriels.</p>
+  </div>
+  <div id="popup-osmose" class="popup">
+    <h3>Osmose Inverse</h3>
+    <p>Méthode de dessalement utilisant une membrane semi-perméable sous haute pression.</p>
+  </div>
+  <div id="popup-distillation" class="popup">
+    <h3>Distillation</h3>
+    <p>Procédé de dessalement par évaporation et condensation de l'eau.</p>
+  </div>
+  <div id="popup-autonomie" class="popup">
+    <h3>Autonomie</h3>
+    <p>Capacité d'un système à fonctionner indépendamment pendant de longues durées.</p>
+  </div>
+  <div id="popup-systeme" class="popup">
+    <h3>Système de Dessalement</h3>
+    <p>Ensemble d'équipements organisés pour convertir l'eau de mer en eau potable.</p>
+  </div>
+
+  <script>
+    let score = 0;
+    const totalQuestions = 6;
+    const progressBar = document.getElementById('progressBar');
+    const scoreBoard = document.getElementById('scoreBoard');
+
+    function checkAnswer(qcmId, correctAnswer) {
+      const form = document.getElementById(qcmId);
+      const selected = form.querySelector('input:checked');
+      const feedback = document.getElementById('feedback' + qcmId.replace('qcm', ''));
+      
+      if (selected) {
+        if (selected.value === correctAnswer) {
+          feedback.textContent = "Correct ! 🎉";
+          feedback.className = "feedback correct";
+          score++;
+        } else {
+          feedback.textContent = "Incorrect. Essayez encore ! ❌";
+          feedback.className = "feedback incorrect";
+        }
+        feedback.classList.remove('hidden');
+        updateProgress();
+        
+        const radios = form.querySelectorAll('input[type="radio"]');
+        radios.forEach(radio => radio.disabled = true);
+      } else {
+        alert("Veuillez sélectionner une réponse !");
+      }
+    }
+
+    function updateProgress() {
+      const percentage = (score / totalQuestions) * 100;
+      progressBar.style.width = percentage + "%";
+      scoreBoard.textContent = `🎯 Score : ${score}/${totalQuestions} 💡`;
+      
+      if (percentage < 50) {
+        progressBar.style.backgroundColor = "#d32f2f";
+      } else if (percentage < 75) {
+        progressBar.style.backgroundColor = "#fbc02d";
+      } else {
+        progressBar.style.backgroundColor = "#388e3c";
+      }
+    }
+
+    function showPopup(term) {
+      document.querySelectorAll('.popup').forEach(popup => popup.classList.remove('visible'));
+      const popup = document.getElementById('popup-' + term);
+      if (popup) {
+        popup.classList.add('visible');
+        popup.addEventListener('click', function(e) {
+          if (e.target.closest('::after')) {
+            popup.classList.remove('visible');
+          }
+        });
+      }
+    }
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.popup') && !e.target.classList.contains('tooltip')) {
+        document.querySelectorAll('.popup').forEach(popup => popup.classList.remove('visible'));
+      }
+    });
+  </script>
+</body>
+</html>

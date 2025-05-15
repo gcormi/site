@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌊 Bouées Intelligentes & Compétences Technologiques Cycle 4 🎯</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #e6f7ff, #ffffff);
+      color: #003366;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #003366;
+      text-align: center;
+      margin-top: 40px;
+      animation: fadeIn 1s ease-in;
+    }
+    .section {
+      background-color: #ffffff;
+      padding: 25px;
+      margin-bottom: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .section:hover { transform: translateY(-5px); }
+    .competence {
+      background: #f0f8ff;
+      border-left: 5px solid #003366;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 10px;
+    }
+    .badge {
+      background-color: #003366;
+      color: white;
+      padding: 3px 8px;
+      border-radius: 5px;
+      font-size: 0.9em;
+      margin: 5px;
+      display: inline-block;
+    }
+    .tooltip {
+      cursor: pointer;
+      color: #FFD700;
+      text-decoration: underline dotted;
+      display: inline-block;
+      margin: 10px 0;
+    }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      z-index: 1000;
+      max-width: 80%;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    .popup.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .popup::after {
+      content: "";
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 20px;
+      height: 20px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="%23003366"/></svg>') no-repeat center;
+      background-size: contain;
+      cursor: pointer;
+    }
+    .button {
+      background-color: #003366;
+      color: #FFD700;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      display: block;
+      margin: 25px auto 0;
+    }
+    .button:hover {
+      background-color: #002244;
+      transform: scale(1.05);
+    }
+    .qcm {
+      margin-top: 25px;
+      padding: 20px;
+      background-color: #e6f7ff;
+      border-radius: 12px;
+      border-left: 5px solid #003366;
+    }
+    .qcm h4 {
+      margin-top: 0;
+      color: #003366;
+    }
+    .feedback {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    .correct { color: green; }
+    .incorrect { color: red; }
+    .progress-container {
+      width: 100%;
+      background-color: #ddd;
+      border-radius: 20px;
+      margin: 20px 0;
+      height: 25px;
+    }
+    .progress-bar {
+      background-color: #003366;
+      height: 25px;
+      border-radius: 20px;
+      width: 0%;
+      transition: width 0.5s ease-in-out;
+    }
+    .score-board {
+      text-align: center;
+      margin: 15px 0;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    .glossary {
+      background-color: #f0f8ff;
+      border-left: 5px solid #003366;
+      padding: 15px;
+      margin: 30px 0;
+      border-radius: 10px;
+    }
+    .glossary h3 {
+      color: #003366;
+      text-align: left;
+    }
+    .glossary ul {
+      list-style-type: none;
+      padding-left: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .glossary li {
+      margin: 8px 15px;
+    }
+    .glossary a {
+      color: #003366;
+      text-decoration: none;
+      font-weight: bold;
+      border-bottom: 2px solid #FFD700;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+  <h1>🌊 Bouées Intelligentes & Compétences Technologiques Cycle 4 🎯</h1>
+  
+  <!-- Barre de progression -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <div class="score-board" id="scoreBoard">🎯 Score : 0/4 💡</div>
+
+  <!-- Section Compétences Cycle 4 -->
+  <div class="section">
+    <h2>📚 Compétences Cycle 4 - Technologie</h2>
+    <div class="competence">
+      <p><span class="badge">C1</span> Analyser les besoins des utilisateurs et le contexte d'utilisation</p>
+      <p><span class="badge">C2</span> Concevoir des solutions techniques adaptées aux contraintes</p>
+      <p><span class="badge">C3</span> Comprendre et exploiter les technologies numériques</p>
+      <p><span class="badge">C4</span> Évaluer l'impact environnemental des solutions techniques</p>
+      <p><span class="badge">C5</span> Pratiquer des démarches scientifiques et technologiques</p>
+      <p><span class="badge">C6</span> Mobiliser des outils mathématiques, scientifiques, techniques</p>
+    </div>
+    
+    <h2>🎯 Compétences Transversales du Bulletin Officiel</h2>
+    <div class="competence">
+      <p><span class="badge">CT1</span> Apprendre à apprendre</p>
+      <p><span class="badge">CT2</span> Autonomie et initiative</p>
+      <p><span class="badge">CT3</span> Coopération et communication</p>
+      <p><span class="badge">CT4</span> Raisonner et argumenter</p>
+      <p><span class="badge">CT5</span> Créativité et innovation</p>
+      <p><span class="badge">CT6</span> Responsabilité environnementale</p>
+    </div>
+  </div>
+
+  <!-- Section 1 : Introduction -->
+  <div class="section">
+    <h2>Introduction</h2>
+    <p>Les bouées intelligentes sont comme des robots flottants qui surveillent l'océan. Elles nous aident à mieux comprendre ce qui se passe dans l'eau et dans l'air au-dessus. 🕵️‍♀️</p>
+    <p>Grâce à leurs <span class="tooltip" onclick="showPopup('capteur')">capteurs</span> et à leur connexion satellite, elles collectent des données précieuses pour les scientifiques. Dans ce cours, nous allons explorer leur fonctionnement, leur utilité et les technologies qui les rendent possibles.</p>
+    
+    <!-- QCM pour l'introduction -->
+    <div class="qcm">
+      <h4>Question 1 : Que surveillent les bouées intelligentes ?</h4>
+      <form id="qcm1">
+        <label><input type="radio" name="q1" value="a"> La température de l'eau et de l'air</label><br>
+        <label><input type="radio" name="q1" value="b"> Les étoiles et les planètes</label><br>
+        <label><input type="radio" name="q1" value="c"> Les roches volcaniques</label><br>
+        <button type="button" onclick="checkAnswer('qcm1', 'a')" class="button">Vérifier</button>
+      </form>
+      <div id="feedback1" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <!-- Section 2 : Fonctionnement technique -->
+  <div class="section">
+    <h2>1. Comment ça marche ?</h2>
+    <h3>1.1. Des Capteurs Partout ! 🌡️</h3>
+    <p><strong>Principe :</strong> Les bouées intelligentes sont équipées de nombreux capteurs qui mesurent en temps réel différents paramètres de l'environnement marin et atmosphérique. Ces capteurs sont essentiels pour collecter des données précises et fiables.</p>
+    <p class="interactive" onclick="toggleContent('capteurs')">👉 Cliquez pour découvrir les capteurs incroyables !</p>
+    <div id="capteurs" class="hidden">
+      <p>Les capteurs mesurent :</p>
+      <ul>
+        <li><strong>Température de l'eau et de l'air :</strong> Pour comprendre les variations climatiques.</li>
+        <li><strong>Salinité (quantité de sel) :</strong> Pour étudier les courants marins et les écosystèmes.</li>
+        <li><strong>pH (acidité de l'eau) :</strong> Pour surveiller la santé des océans.</li>
+        <li><strong>Courants marins et vagues :</strong> Pour prévoir les mouvements de l'eau.</li>
+        <li><strong>Vent :</strong> Pour améliorer les prévisions météorologiques.</li>
+      </ul>
+    </div>
+    <h3>1.2. Des Infos Envoyées par Satellite 🛰️</h3>
+    <p><strong>Principe :</strong> Les données collectées par les bouées sont transmises à des satellites en orbite autour de la Terre. Ces satellites relaient ensuite les informations à des centres de recherche où les scientifiques les analysent.</p>
+    <p class="interactive" onclick="toggleContent('satellite')">👉 Découvrez comment les données voyagent dans l'espace !</p>
+    <div id="satellite" class="hidden">
+      <p>Les satellites permettent une communication rapide et efficace, même dans les zones les plus reculées de l'océan. Cela garantit que les données sont disponibles en temps réel pour les chercheurs.</p>
+    </div>
+    
+    <!-- QCM pour le fonctionnement -->
+    <div class="qcm">
+      <h4>Question 2 : Comment les bouées envoient-elles leurs données ?</h4>
+      <form id="qcm2">
+        <label><input type="radio" name="q2" value="a"> Par des câbles sous-marins</label><br>
+        <label><input type="radio" name="q2" value="b"> Par des satellites</label><br>
+        <label><input type="radio" name="q2" value="c"> Par des pigeons voyageurs</label><br>
+        <button type="button" onclick="checkAnswer('qcm2', 'b')" class="button">Vérifier</button>
+      </form>
+      <div id="feedback2" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <!-- Section 3 : Importance écologique -->
+  <div class="section">
+    <h2>2. Pourquoi c'est important ?</h2>
+    <p>Les bouées intelligentes jouent un rôle crucial dans la compréhension et la protection de notre environnement. Voici leurs principales applications :</p>
+    <h3>2.1. Biodiversité 🌱</h3>
+    <p><strong>Principe :</strong> Les données collectées aident à surveiller les écosystèmes marins et à protéger les espèces animales et végétales. Par exemple, en mesurant la température et la salinité, on peut identifier les zones où la vie marine est menacée.</p>
+    <h3>2.2. Pollution ⚠️</h3>
+    <p><strong>Principe :</strong> Les bouées détectent les polluants dans l'eau, comme les microplastiques ou les produits chimiques. Cela permet d'agir rapidement pour limiter les dégâts.</p>
+    <h3>2.3. Météo 🌦️</h3>
+    <p><strong>Principe :</strong> Les données sur le vent, les vagues et la température de l'air aident à améliorer les prévisions météorologiques. Cela est essentiel pour prévenir les tempêtes et protéger les populations côtières.</p>
+    
+    <!-- QCM pour l'importance des bouées -->
+    <div class="qcm">
+      <h4>Question 3 : Quel est l'un des rôles des bouées intelligentes ?</h4>
+      <form id="qcm3">
+        <label><input type="radio" name="q3" value="a"> Surveiller les étoiles</label><br>
+        <label><input type="radio" name="q3" value="b"> Détecter la pollution</label><br>
+        <label><input type="radio" name="q3" value="c"> Explorer les grottes</label><br>
+        <button type="button" onclick="checkAnswer('qcm3', 'b')" class="button">Vérifier</button>
+      </form>
+      <div id="feedback3" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <!-- Section 4 : Technologie embarquée -->
+  <div class="section">
+    <h2>3. Comment on les fait fonctionner ?</h2>
+    <h3>3.1. Programmation 💻</h3>
+    <p><strong>Principe :</strong> Les bouées sont programmées pour effectuer des tâches spécifiques, comme mesurer des paramètres à intervalles réguliers ou envoyer des données à des moments précis. Les programmes sont écrits par des ingénieurs et des scientifiques.</p>
+    <h3>3.2. Autonomie 🔋</h3>
+    <p><strong>Principe :</strong> Les bouées doivent fonctionner pendant de longues périodes sans intervention humaine. Elles sont équipées de batteries solaires ou de systèmes de recharge pour assurer leur autonomie.</p>
+    <h3>3.3. Durabilité 🏋️</h3>
+    <p><strong>Principe :</strong> Les bouées sont conçues pour résister aux conditions difficiles de l'océan, comme les tempêtes, les vagues géantes et la corrosion due au sel.</p>
+    <h3>3.4. Intelligence Artificielle 🧠</h3>
+    <p><strong>Principe :</strong> Certaines bouées utilisent l'<span class="tooltip" onclick="showPopup('ia')">intelligence artificielle</span> pour analyser les données en temps réel et prendre des décisions, comme ajuster la fréquence des mesures ou alerter en cas de danger.</p>
+    
+    <!-- QCM pour le fonctionnement des bouées -->
+    <div class="qcm">
+      <h4>Question 4 : Quelle technologie permet aux bouées de prendre des décisions ?</h4>
+      <form id="qcm4">
+        <label><input type="radio" name="q4" value="a"> La programmation</label><br>
+        <label><input type="radio" name="q4" value="b"> L'intelligence artificielle</label><br>
+        <label><input type="radio" name="q4" value="c"> Les capteurs</label><br>
+        <button type="button" onclick="checkAnswer('qcm4', 'b')" class="button">Vérifier</button>
+      </form>
+      <div id="feedback4" class="feedback hidden"></div>
+    </div>
+  </div>
+
+  <!-- Conclusion -->
+  <div class="section">
+    <h2>4. Conclusion</h2>
+    <p>Les bouées intelligentes sont des outils essentiels pour la surveillance et la protection des océans. Grâce à leurs capteurs, leur connexion satellite et leur autonomie, elles collectent des données précieuses qui aident les scientifiques à mieux comprendre les écosystèmes marins, à lutter contre la pollution et à améliorer les prévisions météorologiques.</p>
+    <p>Ces technologies, combinées à la programmation et à l'intelligence artificielle, permettent aux bouées de fonctionner de manière autonome et efficace, même dans les conditions les plus difficiles. Elles représentent une avancée majeure dans la protection de notre planète et de ses ressources naturelles.</p>
+    <p>En investissant dans ces technologies et en sensibilisant le public à leur importance, nous pouvons contribuer à préserver les océans pour les générations futures. 🌊 <span class="highlight">Ensemble, protégeons notre planète bleue !</span></p>
+  </div>
+
+  <!-- Glossaire -->
+  <div class="glossary">
+    <h3>📚 Glossaire des Termes Techniques</h3>
+    <ul>
+      <li><a href="#" class="tooltip" onclick="showPopup('capteur')">Capteur</a></li>
+      <li><a href="#" class="tooltip" onclick="showPopup('satellite')">Satellite</a></li>
+      <li><a href="#" class="tooltip" onclick="showPopup('programmation')">Programmation</a></li>
+      <li><a href="#" class="tooltip" onclick="showPopup('autonomie')">Autonomie</a></li>
+      <li><a href="#" class="tooltip" onclick="showPopup('ia')">Intelligence Artificielle</a></li>
+      <li><a href="#" class="tooltip" onclick="showPopup('systeme')">Système Technique</a></li>
+      <li><a href="#" class="tooltip" onclick="showPopup('donnees')">Données Numériques</a></li>
+      <li><a href="#" class="tooltip" onclick="showPopup('connectivite')">Connectivité</a></li>
+      <li><a href="#" class="tooltip" onclick="showPopup('environnement')">Environnement Marin</a></li>
+      <li><a href="#" class="tooltip" onclick="showPopup('duree')">Durabilité</a></li>
+    </ul>
+  </div>
+
+  <!-- Popups -->
+  <div id="popup-capteur" class="popup">
+    <h3>Capteur</h3>
+    <p>Appareil qui mesure des grandeurs physiques comme la température, la pression ou l'humidité.</p>
+  </div>
+  <div id="popup-satellite" class="popup">
+    <h3>Satellite</h3>
+    <p>Objet artificiel en orbite autour de la Terre qui permet la communication ou l'observation.</p>
+  </div>
+  <div id="popup-programmation" class="popup">
+    <h3>Programmation</h3>
+    <p>Écriture d'instructions qu'un ordinateur peut exécuter pour accomplir des tâches.</p>
+  </div>
+  <div id="popup-autonomie" class="popup">
+    <h3>Autonomie</h3>
+    <p>Capacité d'un appareil à fonctionner sans recharge ou intervention humaine.</p>
+  </div>
+  <div id="popup-ia" class="popup">
+    <h3>Intelligence Artificielle</h3>
+    <p>Technologies qui permettent aux machines de prendre des décisions et d'apprendre.</p>
+  </div>
+  <div id="popup-systeme" class="popup">
+    <h3>Système Technique</h3>
+    <p>Ensemble d'éléments organisés pour réaliser une fonction technique.</p>
+  </div>
+  <div id="popup-donnees" class="popup">
+    <h3>Données Numériques</h3>
+    <p>Informations traitées sous forme binaire par les systèmes informatiques.</p>
+  </div>
+  <div id="popup-connectivite" class="popup">
+    <h3>Connectivité</h3>
+    <p>Capacité d'un appareil à se connecter à d'autres dispositifs ou au réseau.</p>
+  </div>
+  <div id="popup-environnement" class="popup">
+    <h3>Environnement Marin</h3>
+    <p>Écosystème aquatique comprenant l'eau, les organismes vivants et les conditions physico-chimiques.</p>
+  </div>
+  <div id="popup-duree" class="popup">
+    <h3>Durabilité</h3>
+    <p>Capacité d'un système à fonctionner sur le long terme sans altérer l'environnement.</p>
+  </div>
+
+  <script>
+    let score = 0;
+    const totalQuestions = 4;
+    const progressBar = document.getElementById('progressBar');
+    const scoreBoard = document.getElementById('scoreBoard');
+
+    function toggleContent(id) {
+      const content = document.getElementById(id);
+      content.classList.toggle('hidden');
+    }
+
+    function checkAnswer(qcmId, correctAnswer) {
+      const form = document.getElementById(qcmId);
+      const selected = form.querySelector('input:checked');
+      const feedback = document.getElementById('feedback' + qcmId.replace('qcm', ''));
+      if (selected) {
+        if (selected.value === correctAnswer) {
+          feedback.textContent = "Correct ! 🎉";
+          feedback.className = "feedback correct";
+          score++;
+        } else {
+          feedback.textContent = "Incorrect. Essayez encore ! ❌";
+          feedback.className = "feedback incorrect";
+        }
+        feedback.classList.remove('hidden');
+        updateProgress();
+        const radios = form.querySelectorAll('input[type="radio"]');
+        radios.forEach(radio => {
+          radio.disabled = true;
+        });
+      } else {
+        alert("Veuillez sélectionner une réponse !");
+      }
+    }
+
+    function updateProgress() {
+      const percentage = (score / totalQuestions) * 100;
+      progressBar.style.width = percentage + "%";
+      scoreBoard.textContent = `🎯 Score : ${score}/${totalQuestions} 💡`;
+      if (percentage < 50) {
+        progressBar.style.backgroundColor = "#dc3545";
+      } else if (percentage < 75) {
+        progressBar.style.backgroundColor = "#ffc107";
+      } else {
+        progressBar.style.backgroundColor = "#28a745";
+      }
+    }
+
+    function showPopup(term) {
+      // Fermer toutes les popups existantes
+      document.querySelectorAll('.popup').forEach(popup => {
+        popup.classList.remove('visible');
+      });
+      
+      // Afficher la popup demandée
+      const popup = document.getElementById('popup-' + term);
+      if (popup) {
+        popup.classList.add('visible');
+        
+        // Ajouter un écouteur d'événement pour fermer la popup en cliquant sur la croix
+        popup.addEventListener('click', function(e) {
+          if (e.target.closest('::after')) {
+            popup.classList.remove('visible');
+          }
+        });
+      }
+    }
+
+    // Fermer les popups en cliquant en dehors
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.popup') && !e.target.classList.contains('tooltip')) {
+        document.querySelectorAll('.popup').forEach(popup => {
+          popup.classList.remove('visible');
+        });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Monts Sous-Marins : Oasis de Vie</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variables */
+        :root {
+            --primary: #003366;
+            --secondary: #006699;
+            --accent: #33cc99;
+            --dark-bg: #0d1b2a;
+            --text-color: #fff;
+            --light-bg: rgba(255,255,255,0.05);
+        }
+
+        /* Base */
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            scroll-behavior: smooth;
+        }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            line-height: 1.8; 
+            background: linear-gradient(135deg, var(--primary), var(--dark-bg)); 
+            color: var(--text-color); 
+            overflow-x: hidden; 
+        }
+
+        /* Header */
+        header {
+            background: url('https://images.unsplash.com/photo-1571171637578-41bc2ff0a00d?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+            height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(to top, var(--dark-bg), transparent);
+        }
+        h1 { 
+            font-size: 3em; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+            animation: fadeIn 2s ease-in; 
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0,51,102,0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+        nav a:hover { color: var(--accent); }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Sections */
+        section {
+            margin: 4rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+        section.visible { opacity: 1; transform: translateY(0); }
+        h2 {
+            font-size: 2.5em;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 40px;
+        }
+        h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 7L12 12L22 7L12 2Z" fill="%2333cc99"/><path d="M2 17L12 22L22 17" stroke="%2333cc99" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat center/contain;
+        }
+        h3 {
+            font-size: 1.8em;
+            color: var(--secondary);
+            margin: 1.5rem 0 1rem;
+        }
+
+        /* Content blocks */
+        .content {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            line-height: 1.7;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 1rem 0 1.5rem 2rem;
+            padding-left: 1rem;
+        }
+
+        /* Icons */
+        .icon {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.8rem;
+            background: var(--primary);
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        .icon:hover { transform: scale(1.1); }
+        .icon i {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-right: 0.5rem;
+        }
+
+        /* Images */
+        .image-container {
+            margin: 2.5rem 0;
+            position: relative;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .image-container img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            animation: float 10s infinite ease-in-out;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.9em;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            nav ul { flex-direction: column; gap: 1rem; }
+            h2 { font-size: 2em; }
+            h3 { font-size: 1.5em; }
+            .icon { margin: 0.5rem; }
+        }
+
+        /* Particles */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particles"></canvas>
+    <header>
+        <h1>Les Monts Sous-Marins : Oasis de Vie au Cœur des Océans</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#intro">Introduction</a></li>
+            <li><a href="#definition">Définition</a></li>
+            <li><a href="#biodiversite">Biodiversité</a></li>
+            <li><a href="#importance">Importance</a></li>
+            <li><a href="#menaces">Menaces</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <section id="intro">
+            <h2>Introduction</h2>
+            <div class="content">
+                <p>Sous les vastes étendues océaniques, là où la lumière peine à pénétrer, se cachent des montagnes mystérieuses, les monts sous-marins, véritables havres de biodiversité et de secrets marins.</p>
+                <p>Dans ce blog, nous vous emmenons à la découverte de la fascinante vie qui prospère autour de ces reliefs sous-marins. Ces monts, souvent isolés au fond des océans, abritent des écosystèmes d'une richesse incroyable, peuplés d'espèces aussi surprenantes qu'adaptées. Nous explorerons ensemble la diversité de ces habitats uniques, l’interaction complexe entre les espèces et l’importance de ces structures géologiques pour la santé de nos océans. Découvrez avec nous l’univers caché des monts sous-marins, un monde où chaque recoin est une source de vie et de découverte.</p>
+            </div>
+        </section>
+
+        <section id="definition">
+            <h2>Que sont les monts sous-marins ?</h2>
+            <div class="content">
+                <h3>Définition</h3>
+                <p>Les monts sous-marins sont des reliefs volcaniques ou tectoniques situés sous la mer. Ce sont des structures en forme de montagnes ou de collines, souvent associées à des activités géologiques telles que le volcanisme ou le mouvement des plaques tectoniques. Leur sommet peut se situer à quelques centaines de mètres sous le niveau de la mer, voire plus profondément dans les océans.</p>
+                
+                <h3>Formation</h3>
+                <p>Les monts sous-marins peuvent se former de différentes manières, selon leur origine géologique :</p>
+                <ul>
+                    <li><i class="fas fa-volcano"></i> <strong>Volcanisme sous-marin :</strong> Lorsque du magma provenant du manteau terrestre remonte à la surface sous l'eau, il forme des volcans. Si le volcan ne parvient pas à émerger à la surface de l'eau, il forme un mont sous-marin. Au fil du temps, si l'activité volcanique est continue, ces monts peuvent se développer en îles volcaniques.</li>
+                    <li><i class="fas fa-mountain"></i> <strong>Tectonique des plaques :</strong> Certains monts sous-marins se forment en raison du mouvement des plaques tectoniques. Par exemple, la séparation des plaques à une dorsale océanique peut créer des montagnes sous-marines, comme c'est le cas pour la dorsale médio-atlantique.</li>
+                    <li><i class="fas fa-cogs"></i> <strong>Autres processus géologiques :</strong> D’autres monts peuvent résulter de l'effondrement de cavités sous-marines ou d'autres processus géologiques complexes.</li>
+                </ul>
+                
+                <h3>Répartition</h3>
+                <p>Les monts sous-marins se trouvent dans tous les océans, mais leur répartition varie en fonction des zones géologiques actives. Voici quelques endroits où ils sont particulièrement abondants :</p>
+                <ul>
+                    <li><i class="fas fa-globe-africa"></i> <strong>Dorsale océanique médio-atlantique :</strong> C'est une immense chaîne de montagnes sous-marines qui traverse l'océan Atlantique du nord au sud, formée par l'expansion des plaques tectoniques.</li>
+                    <li><i class="fas fa-water"></i> <strong>Océan Pacifique :</strong> Le Pacifique abrite des monts sous-marins d’origine volcanique, comme ceux de l'archipel d'Hawaï, qui sont liés à des points chauds volcaniques sous la croûte océanique.</li>
+                    <li><i class="fas fa-wave-square"></i> <strong>Océan Indien et autres océans :</strong> D'autres zones géologiques similaires dans les océans Indien, Arctique et Antarctique abritent aussi des monts sous-marins, souvent associés à des mouvements tectoniques ou à des points chauds volcaniques.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="biodiversite">
+            <h2>La Biodiversité Unique des Monts Sous-Marins</h2>
+            <div class="content">
+                <h3>Espèces emblématiques</h3>
+                <p>Les monts sous-marins, en raison de leur topographie particulière, offrent des environnements propices à la vie marine. Voici quelques exemples d'espèces emblématiques que l'on peut y trouver :</p>
+                
+                <div class="image-container">
+                    <img src="https://as2.ftcdn.net/v2/jpg/13/81/02/13/1000_F_1381021326_lnbok1goezFHrThBpUVMBlHHhiDfjcET.jpg">
+                </div>
+                
+                <h4>Poissons</h4>
+                <ul>
+                    <li><i class="fas fa-fish"></i> <strong>Le poisson-lion (Pterois) :</strong> Ce poisson, souvent trouvé dans les eaux tropicales, peut occuper les zones rocheuses et coralliennes des monts sous-marins. Il se nourrit principalement de petits poissons et de crustacés.</li>
+                    <li><i class="fas fa-fish"></i> <strong>Les poissons abyssaux :</strong> De nombreuses espèces de poissons vivant dans des zones profondes et obscures (par exemple, des espèces du genre Macrouridae ou des poissons de la famille des Opisthoproctidae) sont adaptées à la vie dans les zones profondes des monts sous-marins.</li>
+                </ul>
+                
+                <h4>Coraux</h4>
+                <ul>
+                    <li><i class="fas fa-coral"></i> <strong>Coraux d'eaux profondes :</strong> Ces coraux, qui peuvent être trouvés autour des monts sous-marins, se développent à des profondeurs où la lumière est faible. Ils forment souvent des récifs qui sont essentiels pour la vie marine dans ces environnements.</li>
+                    <li><i class="fas fa-coral"></i> <strong>Corail noir :</strong> Une autre espèce importante, souvent associée aux monts sous-marins profonds, qui vit à des profondeurs où les conditions sont extrêmes.</li>
+                </ul>
+                
+                <h4>Éponges</h4>
+                <ul>
+                    <li><i class="fas fa-sponge"></i> <strong>Éponge de mer :</strong> Les éponges jouent un rôle crucial dans les monts sous-marins, servant de filtre pour les nutriments présents dans l'eau.</li>
+                    <li><i class="fas fa-sponge"></i> <strong>Les éponges de profondeur :</strong> Ces éponges spécifiques se trouvent souvent sur les pentes abruptes des monts sous-marins, à des profondeurs où d'autres organismes marins ne peuvent pas survivre.</li>
+                </ul>
+                
+                <h3>Interactions entre espèces</h3>
+                <p>Les monts sous-marins sont des écosystèmes complexes, où diverses espèces interagissent pour maintenir l'équilibre. Ces interactions incluent :</p>
+                <ul>
+                    <li><i class="fas fa-network-wired"></i> <strong>Relations trophiques :</strong> Les espèces qui vivent sur les monts sous-marins forment des chaînes alimentaires où certaines espèces dépendent d'autres pour leur alimentation. Par exemple, de petits poissons et crustacés se nourrissent des organismes fixés (comme les coraux ou les éponges), tandis que des prédateurs plus grands, comme certains poissons abyssaux ou requins, se nourrissent de ces petits organismes.</li>
+                    <li><i class="fas fa-handshake"></i> <strong>Mutualisme :</strong> Certaines espèces forment des relations de mutualisme. Par exemple, certains poissons vivent en symbiose avec les coraux ou les éponges, en leur offrant une protection contre les prédateurs, tandis qu'ils se nourrissent des débris alimentaires ou des parasites des coraux.</li>
+                    <li><i class="fas fa-fire-alt"></i> <strong>Competition :</strong> La compétition pour l'espace et les ressources est une dynamique courante. Les coraux, les éponges et d'autres organismes benthiques (qui vivent sur le fond) se disputent l'espace disponible pour se fixer sur les substrats rocheux des monts sous-marins. Certaines espèces peuvent dominer, forçant d'autres à se déplacer ou à évoluer pour s'adapter.</li>
+                </ul>
+                
+                <h3>Les Espèces Architectes</h3>
+                <p>Certaines espèces sur les monts sous-marins jouent un rôle fondamental en créant des habitats qui offrent des refuges et des ressources pour d'autres organismes. Ces "espèces architectes" sont essentielles à la structuration de ces écosystèmes sous-marins.</p>
+                
+                <div class="image-container">
+                    <img src="https://www.dutchsharksociety.org/wp-content/uploads/2022/04/Deep-Sea-Coral-1024x1024.jpg" alt="Récif corallien sous-marin">
+                </div>
+                
+                <h4>Les coraux</h4>
+                <p>Les coraux d'eaux profondes sont de véritables architectes marins. Leurs structures calcaires forment des récifs qui agissent comme des habitats pour de nombreuses autres espèces. Ces récifs offrent un refuge contre les courants forts, des zones de reproduction et des surfaces pour les espèces à coloniser.</p>
+                <p><strong>Exemple :</strong> Le corail arborescent ou les coraux de profondeur créent des structures tridimensionnelles complexes où des poissons, crustacés, mollusques et autres créatures marines trouvent un abri.</p>
+                
+                <h4>Les éponges</h4>
+                <p>Les éponges jouent également un rôle clé en offrant un habitat à de nombreux organismes. Leur forme poreuse permet à une grande variété de petites créatures, comme les crevettes, poissons, ou vers marins, de s'y abriter.</p>
+                <p>De plus, certaines éponges servent de filtre pour l'eau, contribuant à maintenir la qualité de l'eau et soutenant d'autres formes de vie. Elles peuvent créer des micro-habitats pour de petites espèces marines.</p>
+                
+                <h4>Les foraminifères et autres micro-organismes</h4>
+                <p>Les foraminifères, de petits organismes unicellulaires, contribuent à la formation de structures benthiques qui peuvent être utilisées comme refuge pour d'autres espèces. Leur activité de construction de coquilles favorise la formation de micro-habitats.</p>
+            </div>
+        </section>
+
+        <section id="importance">
+            <h2>Importance Écologique des Monts Sous-Marins</h2>
+            <div class="content">
+                <h3>Rôle pour la biodiversité : Refuges et nurseries pour les espèces</h3>
+                <p>Les monts sous-marins créent des environnements uniques qui favorisent une biodiversité riche et diversifiée. En raison de leur structure, ils servent de refuges pour de nombreuses espèces marines, notamment celles qui préfèrent des habitats plus profonds et complexes. Ces formations géologiques attirent des espèces comme des poissons, des crustacés, et des coraux, qui trouvent un abri et une source de nourriture en raison de la diversité des microhabitats présents.</p>
+                <p>Les monts sous-marins jouent également un rôle de nurseries pour les jeunes poissons et autres espèces marines. Les eaux autour de ces structures sont souvent riches en nutriments, ce qui soutient une forte productivité biologique. Les jeunes espèces peuvent y grandir en sécurité avant de migrer vers d'autres habitats marins.</p>
+                
+                <h3>Rôle pour les courants marins : Modification des courants</h3>
+                <p>Les monts sous-marins peuvent altérer de manière significative les courants marins. Leur présence crée des perturbations dans les mouvements des masses d'eau, ce qui peut entraîner la formation de turbulences, de remontées d'eau ou de tours océaniques. Ces modifications des courants peuvent avoir plusieurs effets :</p>
+                <ul>
+                    <li><i class="fas fa-water"></i> <strong>Remontées d'eau :</strong> Les courants peuvent être déviés par les monts, provoquant des remontées d'eaux profondes riches en nutriments vers la surface. Cela favorise la croissance du plancton et peut entraîner un enrichissement de la productivité biologique dans les zones situées au-dessus des monts sous-marins.</li>
+                    <li><i class="fas fa-seedling"></i> <strong>Répartition des nutriments :</strong> Ces modifications peuvent aussi influencer la manière dont les nutriments sont distribués dans l'océan, favorisant certaines zones de la colonne d'eau tout en en appauvrissant d'autres.</li>
+                    <li><i class="fas fa-archway"></i> <strong>Effet sur les écosystèmes marins :</strong> L'altération des courants peut affecter les écosystèmes en modifiant les schémas de migration des espèces, la circulation des nutriments et les conditions environnementales des habitats marins.</li>
+                </ul>
+                
+                <h3>Rôle dans le cycle du carbone : Influence sur le cycle du carbone</h3>
+                <p>Les monts sous-marins jouent également un rôle indirect mais important dans le cycle global du carbone. Leur influence sur les courants marins favorise la remontée d'eaux profondes chargées de carbone dissous et de nutriments. Lorsque ces eaux riches en carbone montent à la surface, elles peuvent être consommées par le plancton, qui capture le carbone pendant la photosynthèse.</p>
+                <p>Ce carbone est ensuite transféré dans la chaîne alimentaire, et une partie peut se déposer au fond de l'océan sous forme de sédiments, contribuant ainsi au stockage de carbone dans les fonds marins. Cela peut jouer un rôle dans la régulation du climat, car le stockage de carbone dans les océans est un des principaux moyens de réguler les niveaux de CO₂ atmosphérique à long terme.</p>
+            </div>
+        </section>
+
+        <section id="menaces">
+            <h2>Les Menaces</h2>
+            <div class="content">
+                <h3>L'exploitation minière : Menace pour les monts sous-marins</h3>
+                <p>L’exploitation minière des fonds marins, notamment pour des ressources telles que les métaux précieux, les terres rares, et les minéraux polymétalliques, est l’une des menaces les plus graves pour les monts sous-marins et leurs écosystèmes. Cette activité peut avoir plusieurs impacts :</p>
+                <ul>
+                    <li><i class="fas fa-dumpster-fire"></i> <strong>Destruction des habitats :</strong> L'exploitation minière sous-marine implique souvent le dragage ou l'extraction de matériaux directement sur les monts sous-marins, ce qui peut détruire des habitats essentiels pour de nombreuses espèces marines. Les structures complexes et fragiles des monts sous-marins, qui abritent des organismes marins uniques, peuvent être complètement effacées, perturbant gravement la biodiversité locale.</li>
+                    <li><i class="fas fa-water"></i> <strong>Perturbation des courants marins :</strong> Les activités d'extraction minière peuvent également affecter les courants marins en modifiant les structures du fond marin. Cela perturbe la circulation des nutriments, ce qui peut avoir des effets négatifs sur les écosystèmes marins environnants, notamment sur les zones de reproduction ou de nourrissage de certaines espèces.</li>
+                    <li><i class="fas fa-biohazard"></i> <strong>Pollution :</strong> L’exploitation minière sous-marine libère des substances toxiques, telles que des métaux lourds et des produits chimiques, dans l'eau. Ces polluants peuvent se propager sur de vastes zones et affecter la faune et la flore marines. De plus, les déchets générés par l'extraction peuvent rendre l’eau trouble, perturbant la photosynthèse du phytoplancton, la base de la chaîne alimentaire marine.</li>
+                </ul>
+                
+                <h3>La destruction des fonds marins : Conséquences pour les animaux</h3>
+                <p>La destruction des fonds marins, qu'elle soit causée par l'exploitation minière ou d'autres activités humaines (comme la pêche de fond ou le dragage), entraîne des conséquences dramatiques pour les animaux et les écosystèmes marins :</p>
+                <ul>
+                    <li><i class="fas fa-home"></i> <strong>Perte d'habitat :</strong> Les monts sous-marins et autres formations géologiques sont des habitats essentiels pour une multitude d'espèces marines. Lorsque ces habitats sont détruits, les animaux qui en dépendent, qu'il s'agisse de poissons, de coraux, de crustacés ou d'autres organismes, perdent leur lieu de vie et de reproduction. Cette perte d'habitat peut entraîner des déplacements massifs d'espèces, souvent vers des zones déjà surpeuplées ou moins propices à leur survie.</li>
+                    <li><i class="fas fa-baby-carriage"></i> <strong>Perturbation de la reproduction et de la croissance :</strong> Les monts sous-marins servent de zones de reproduction et de nurseries pour de nombreuses espèces. Leur destruction ou dégradation empêche les espèces de se reproduire ou de trouver un environnement adéquat pour le développement de leurs jeunes. Par exemple, des poissons peuvent perdre des sites de nidification essentiels, et les larves de certaines espèces risquent de ne pas survivre.</li>
+                    <li><i class="fas fa-leaf"></i> <strong>Réduction des ressources alimentaires :</strong> La destruction des fonds marins, en particulier celle des récifs coralliens ou des structures sous-marines complexes, entraîne une diminution de la biodiversité. Cela réduit la disponibilité de nourriture pour de nombreuses espèces marines, notamment les poissons et les animaux filtreurs qui dépendent des micro-organismes présents dans ces habitats. Cela peut provoquer des déséquilibres dans les chaînes alimentaires marines.</li>
+                    <li><i class="fas fa-fire-alt"></i> <strong>Perturbation des processus écologiques :</strong> Les animaux marins qui vivent sur ou autour des monts sous-marins jouent souvent un rôle crucial dans l'équilibre écologique des océans. Par exemple, certaines espèces de coraux et de plantes marines aident à maintenir la qualité de l'eau et à soutenir la vie marine en agissant comme des filtres naturels. La destruction de ces éléments perturbe ces processus vitaux, ce qui peut avoir des conséquences en cascade sur l'ensemble de l'écosystème.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+            <div class="content">
+                <p>Les monts sous-marins jouent un rôle fondamental dans les écosystèmes marins en raison de leur biodiversité exceptionnelle et de leur influence sur les courants marins et le cycle du carbone. Ces structures géologiques servent de refuges et de nurseries pour une multitude d'espèces marines, favorisant ainsi la richesse biologique des océans. De plus, en modifiant les courants marins et en contribuant à la fixation du carbone, les monts sous-marins participent activement à la régulation climatique et à la circulation des nutriments dans les océans. Cependant, ces milieux uniques sont gravement menacés par des activités humaines telles que l'exploitation minière et la destruction des fonds marins, ce qui peut avoir des conséquences désastreuses pour les espèces qui en dépendent et pour la santé globale des écosystèmes marins.</p>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2025 Les Monts Sous-Marins. D'après le blog de Marie, Maëlle, Waël et Antoine, élèves de 4e2</p>
+    </footer>
+    <script>
+        // Particle background
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.radius = Math.random() * 2 + 1;
+                this.alpha = Math.random() * 0.5 + 0.2;
+                this.speedY = Math.random() * 1 + 0.5;
+            }
+
+            update() {
+                this.y -= this.speedY;
+                if (this.y < 0) this.reset();
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255,255,255,${this.alpha})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 100; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.fillStyle = 'rgba(13, 27, 41, 0.3)';
+            ctx.fillRect(0, 0, width, height);
+            
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            
+            requestAnimationFrame(animateParticles);
+        }
+
+        // Scroll animation
+        const sections = document.querySelectorAll('section');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Initialize
+        window.addEventListener('resize', resize);
+        resize();
+        initParticles();
+        animateParticles();
+    </script>
+</body>
+</html>
