@@ -1,1 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistant Pédagogique Avancé v2.1</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-brain sidebar-logo"></i>
+                <h2>Assistant Pédago</h2>
+            </div>
+            <nav class="tab-navigation">
+                <button class="tab-link active" data-tab="tab-module-prompt" role="tab" aria-controls="tab-module-prompt" aria-selected="true">
+                    <i class="fas fa-chalkboard-teacher icon"></i>
+                    <span>Prompts Module</span>
+                </button>
+                <button class="tab-link" data-tab="tab-exercise-prompt" role="tab" aria-controls="tab-exercise-prompt" aria-selected="false">
+                    <i class="fas fa-edit icon"></i>
+                    <span>Prompts Exercices</span>
+                </button>
+                <button class="tab-link" data-tab="tab-convert-supports" role="tab" aria-controls="tab-convert-supports" aria-selected="false">
+                    <i class="fas fa-file-image icon"></i>
+                    <span>Supports Exercices</span>
+                </button>
+                <button class="tab-link" data-tab="tab-combined-image" role="tab" aria-controls="tab-combined-image" aria-selected="false">
+                    <i class="fas fa-images icon"></i>
+                    <span>Image Combinée</span>
+                </button>
+                <button class="tab-link" data-tab="tab-enhance-design" role="tab" aria-controls="tab-enhance-design" aria-selected="false">
+                    <i class="fas fa-palette icon"></i>
+                    <span>Améliorer Design</span>
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <p>© TechCollège 2024</p>
+            </div>
+        </aside>
 
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Assistant Pédagogique Avancé</h1>
+                <p class="page-subtitle">Générez prompts, supports de cours & exercices pour la technologie au collège.</p>
+            </header>
+
+            <section id="tab-module-prompt" class="tab-content active" role="tabpanel" aria-labelledby="btn-tab-module-prompt">
+                <div class="tab-header">
+                    <h2><i class="fas fa-book-reader icon-lg"></i> Générateur de Prompts pour Module de Cours</h2>
+                    <p>Créez des instructions détaillées (prompts) pour une IA afin de générer des modules de cours complets.</p>
+                </div>
+                <div class="content-wrapper">
+                    <div class="grid-2-cols gap-responsive">
+                        <div class="form-group">
+                            <label for="gradeSelect" class="label-text">Niveau (Classe) :</label>
+                            <select id="gradeSelect" class="input-field select-field">
+                                <option value="">-- Choisir un niveau --</option>
+                                <option value="5e">5ème</option>
+                                <option value="4e">4ème</option>
+                                <option value="3e">3ème</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="moduleSelect" class="label-text">Module :</label>
+                            <select id="moduleSelect" class="input-field select-field" disabled>
+                                <option value="">-- Choisir un module --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentThemesInput" class="label-text">Thèmes chers aux élèves (ex: jeux vidéo, réseaux sociaux) :</label>
+                        <input type="text" id="studentThemesInput" value="les jeux vidéo, les smartphones, les réseaux sociaux, les robots" class="input-field">
+                    </div>
+                    <div class="form-group">
+                        <label class="label-text mb-2_5">Format de sortie souhaité pour le module :</label>
+                        <div class="radio-group" id="outputFormatGroup">
+                            <label class="radio-label-modern" for="formatDocx">
+                                <input type="radio" id="formatDocx" name="outputFormat" value="docx" checked>
+                                <i class="fa-regular fa-file-word"></i> Document DOCX
+                            </label>
+                            <label class="radio-label-modern" for="formatHtml">
+                                <input type="radio" id="formatHtml" name="outputFormat" value="html">
+                                <i class="fa-brands fa-html5"></i> Page Web Interactive
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <button id="generateButton" class="btn btn-primary btn-lg">
+                            <i class="fas fa-cogs"></i> Générer Prompt pour Module
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label for="outputPrompt" class="label-text">Prompt de Module généré :</label>
+                        <textarea id="outputPrompt" rows="12" class="input-field textarea-field" readonly placeholder="Le prompt détaillé pour la génération du module apparaîtra ici..."></textarea>
+                        <button id="copyButton" class="btn btn-secondary mt-3">
+                            <i class="fas fa-copy"></i> Copier Prompt Module
+                        </button>
+                        <p id="copyMessage" class="feedback-message"></p>
+                    </div>
+                    <div class="subsection-divider"></div>
+                    <div class="form-group">
+                      <h3 class="subsection-title"><i class="fas fa-tools"></i> Outils Pédagogiques Annexes (Module)</h3>
+                      <div class="grid-2-cols gap-responsive mb-4">
+                        <button id="logbookButton" class="btn btn-info btn-block">
+                            <i class="fas fa-book"></i> Phrase Cahier de Texte
+                        </button>
+                        <button id="summaryButton" class="btn btn-accent btn-block">
+                            <i class="fas fa-lightbulb"></i> Résumé Connaissances Élèves
+                        </button>
+                      </div>
+                      <div>
+                        <label for="pedagogicalOutput" id="pedagogicalOutputLabel" class="label-text">Sortie des outils annexes :</label>
+                        <textarea id="pedagogicalOutput" rows="6" class="input-field textarea-field" readonly placeholder="Le contenu généré par les outils annexes apparaîtra ici..."></textarea>
+                        <button id="copyPedagogicalOutputButton" class="btn btn-dark-gray mt-3">
+                            <i class="fas fa-copy"></i> Copier Texte Annexe
+                        </button>
+                        <p id="copyPedagogicalOutputMessage" class="feedback-message"></p>
+                      </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tab-exercise-prompt" class="tab-content" role="tabpanel" aria-labelledby="btn-tab-exercise-prompt">
+                <div class="tab-header">
+                    <h2><i class="fas fa-pencil-ruler icon-lg"></i> Outils pour Exercices : Génération de Prompts</h2>
+                    <p>À partir d'un contenu de cours, générez des prompts pour créer divers types d'exercices.</p>
+                </div>
+                <div class="content-wrapper">
+                    <div class="form-group sticky-top-course-content"> <label for="courseContentInputForExercises" class="label-text font-semibold text-blue-700">Collez ici le contenu du cours (texte ou HTML) pour toutes les sous-sections ci-dessous (2.1 à 2.4) :</label>
+                        <textarea id="courseContentInputForExercises" rows="10" class="input-field textarea-field bg-white" placeholder="Contenu du cours à utiliser comme base pour les exercices, résumés, etc."></textarea>
+                    </div>
+
+                    <div class="subsection-modern">
+                        <h3 class="subsection-title-modern"><i class="fas fa-align-left"></i> 2.1 Générer Prompt pour Questions à Réponse Courte</h3>
+                         <div class="form-group">
+                            <label for="numShortQuestions" class="label-text-xs">Nombre de questions (5-25) :</label>
+                            <input type="number" id="numShortQuestions" value="10" min="5" max="25" class="input-field input-field-sm">
+                        </div>
+                        <button id="generatePromptShortQuestionsBtn" class="btn btn-primary btn-block mb-3"><i class="fas fa-cogs"></i> Générer Prompt</button>
+                        <textarea id="promptShortQuestionsOutput" rows="7" class="input-field textarea-field bg-slate-100 text-xs" readonly placeholder="Le prompt pour l'IA (questions courtes) apparaîtra ici..."></textarea>
+                        <button id="copyPromptShortQuestionsBtn" class="btn btn-secondary btn-block mt-2"><i class="fas fa-copy"></i> Copier Prompt</button>
+                        <p id="copyPromptShortMessage" class="feedback-message feedback-message-xs"></p>
+                    </div>
+
+                    <div class="subsection-modern">
+                        <h3 class="subsection-title-modern"><i class="fas fa-list-ol"></i> 2.2 Générer Prompt pour QCM</h3>
+                        <div class="form-group">
+                            <label for="numMCQ" class="label-text-xs">Nombre de QCM (5-20) :</label>
+                            <input type="number" id="numMCQ" value="7" min="5" max="20" class="input-field input-field-sm">
+                        </div>
+                        <div class="form-group">
+                            <label for="numChoicesMCQ" class="label-text-xs">Nombre de propositions par QCM :</label>
+                            <select id="numChoicesMCQ" class="input-field select-field input-field-sm">
+                                <option value="3">3 propositions</option>
+                                <option value="4" selected>4 propositions</option>
+                            </select>
+                        </div>
+                        <button id="generatePromptMCQBtn" class="btn btn-primary btn-block mb-3"><i class="fas fa-cogs"></i> Générer Prompt</button>
+                        <textarea id="promptMCQOutput" rows="10" class="input-field textarea-field bg-slate-100 text-xs" readonly placeholder="Le prompt pour l'IA (QCM en format Tableau Markdown) apparaîtra ici..."></textarea>
+                        <button id="copyPromptMCQBtn" class="btn btn-secondary btn-block mt-2"><i class="fas fa-copy"></i> Copier Prompt</button>
+                        <p id="copyPromptMCQMessage" class="feedback-message feedback-message-xs"></p>
+                    </div>
+
+                    <div class="subsection-modern">
+                        <h3 class="subsection-title-modern"><i class="fas fa-paragraph"></i> 2.3 Générer Prompt pour Résumé de Cours</h3>
+                         <p class="text-xs text-slate-500 mb-3">Génère un prompt pour demander à une IA de résumer le cours (collé ci-dessus) en environ 180 mots.</p>
+                        <button id="generatePromptSummaryBtn" class="btn btn-primary btn-block mb-3"><i class="fas fa-cogs"></i> Générer Prompt</button>
+                        <textarea id="promptSummaryOutput" rows="7" class="input-field textarea-field bg-slate-100 text-xs" readonly placeholder="Le prompt pour l'IA (résumé) apparaîtra ici..."></textarea>
+                        <button id="copyPromptSummaryBtn" class="btn btn-secondary btn-block mt-2"><i class="fas fa-copy"></i> Copier Prompt</button>
+                        <p id="copyPromptSummaryMessage" class="feedback-message feedback-message-xs"></p>
+                    </div>
+
+                     <div class="subsection-modern">
+                        <h3 class="subsection-title-modern"><i class="fas fa-object-group"></i> 2.4 Générer Prompt pour Exercice de Regroupement</h3>
+                        <p class="text-xs text-slate-500 mb-3">Génère un prompt pour demander à une IA de créer un exercice de regroupement à partir du cours (collé ci-dessus).</p>
+                        <div class="grid-2-cols gap-responsive mb-4">
+                            <div>
+                                <label for="numRegroupementZones" class="label-text-xs">Nombre de zones (2-4) :</label>
+                                <input type="number" id="numRegroupementZones" value="3" min="2" max="4" class="input-field input-field-sm">
+                            </div>
+                            <div>
+                                <label for="numRegroupementItems" class="label-text-xs">Éléments par zone (3-8) :</label>
+                                <input type="number" id="numRegroupementItems" value="5" min="3" max="8" class="input-field input-field-sm">
+                            </div>
+                        </div>
+                        <button id="generatePromptRegroupementBtn" class="btn btn-primary btn-block mb-3"><i class="fas fa-cogs"></i> Générer Prompt</button>
+                        <textarea id="promptRegroupementOutput" rows="8" class="input-field textarea-field bg-slate-100 text-xs" readonly placeholder="Le prompt pour l'IA (regroupement) apparaîtra ici..."></textarea>
+                        <button id="copyPromptRegroupementBtn" class="btn btn-secondary btn-block mt-2"><i class="fas fa-copy"></i> Copier Prompt</button>
+                        <p id="copyPromptRegroupementMessage" class="feedback-message feedback-message-xs"></p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tab-convert-supports" class="tab-content" role="tabpanel" aria-labelledby="btn-tab-convert-supports">
+                <div class="tab-header">
+                    <h2><i class="fas fa-exchange-alt icon-lg"></i> Convertir Texte d'Exercices en Supports</h2>
+                    <p>Transformez le texte d'exercices (généré par IA) en images ou documents DOCX.</p>
+                </div>
+                <div class="content-wrapper grid-2-cols gap-responsive">
+                    <div class="subsection-modern">
+                        <h3 class="subsection-title-modern"><i class="far fa-question-circle"></i> Questions Courtes : Sorties</h3>
+                        <div class="instruction-box">
+                             <p>Collez les questions courtes et leurs réponses générées par l'IA.<br>
+                            <strong>Format attendu :</strong> Séparation <code>::</code> entre question et réponse. La question doit être une phrase complète.</p>
+                        </div>
+                        <textarea id="textShortQuestionsInput" rows="8" class="input-field textarea-field bg-slate-50 text-sm" placeholder="Ex: Quelle notion désigne une suite d'instructions ? :: Algorithme"></textarea>
+
+                        <h4 class="sub-heading">Exporter en Image :</h4>
+                        <div class="button-grid-compact">
+                            <button id="convertShortToImageWithCorrectionBtn" class="btn btn-primary"><i class="far fa-image"></i> Image AVEC Cor.</button>
+                            <button id="convertShortToImageWithoutCorrectionBtn" class="btn btn-warning"><i class="far fa-image"></i> Image SANS Cor.</button>
+                        </div>
+
+                        <h4 class="sub-heading">Exporter en DOCX :</h4>
+                        <div class="button-grid-compact">
+                            <button id="exportShortToDocxWithCorrectionBtn" class="btn btn-docx-custom"><i class="far fa-file-word"></i> DOCX AVEC Cor.</button>
+                            <button id="exportShortToDocxWithoutCorrectionBtn" class="btn btn-docx-no-corr-custom"><i class="far fa-file-word"></i> DOCX SANS Cor.</button>
+                        </div>
+
+                        <div id="shortQuestionsOutputWrapper" class="image-output-wrapper-modern mt-3">
+                            <h4 class="sub-heading text-md">Aperçu Image (si générée) :</h4>
+                            <div class="image-preview-box">
+                                <img id="shortQuestionsImage" src="#" alt="Image des questions à réponses courtes" class="hidden">
+                                <p id="shortQuestionsPlaceholder" class="placeholder-text-modal">L'aperçu de l'image des questions courtes apparaîtra ici.</p>
+                            </div>
+                            <a id="downloadShortLink" href="#" class="btn btn-info mt-2 hidden" download="questions_courtes.png"><i class="fas fa-download"></i> Télécharger Image</a>
+                        </div>
+                    </div>
+
+                    <div class="subsection-modern">
+                        <h3 class="subsection-title-modern"><i class="fas fa-tasks"></i> QCM : Sorties</h3>
+                        <div class="instruction-box">
+                             <p>Collez les QCM générés par l'IA. <br>
+                                <strong>Étape 1 (si tableau):</strong> Si l'IA a fourni un Tableau Markdown, collez-le et cliquez sur "Convertir Tableau en Format QCM".<br>
+                                <strong>Étape 2 (format QCM):</strong> Utilisez ensuite les boutons "Image..." ou "DOCX...".</p>
+                        </div>
+                        <textarea id="textMCQInput" rows="8" class="input-field textarea-field bg-slate-50 text-sm" placeholder="Collez le Tableau Markdown ou le format QCM multilignes ici..."></textarea>
+                        <button id="convertMCQTableBtn" class="btn btn-convert-custom btn-block mt-2 mb-1"><i class="fas fa-table"></i> Convertir Tableau en Format QCM</button>
+                        <p id="mcqConversionMessage" class="conversion-message-box"></p>
+
+                        <h4 class="sub-heading">Exporter en Image :</h4>
+                        <div class="button-grid-compact">
+                            <button id="convertMCQToImageWithCorrectionBtn" class="btn btn-primary"><i class="far fa-image"></i> Image AVEC Cor.</button>
+                            <button id="convertMCQToImageWithoutCorrectionBtn" class="btn btn-warning"><i class="far fa-image"></i> Image SANS Cor.</button>
+                        </div>
+
+                        <h4 class="sub-heading">Exporter en DOCX :</h4>
+                        <div class="button-grid-compact">
+                           <button id="exportMCQToDocxWithCorrectionBtn" class="btn btn-docx-custom"><i class="far fa-file-word"></i> DOCX AVEC Cor.</button>
+                           <button id="exportMCQToDocxWithoutCorrectionBtn" class="btn btn-docx-no-corr-custom"><i class="far fa-file-word"></i> DOCX SANS Cor.</button>
+                        </div>
+
+                        <div id="mcqOutputWrapper" class="image-output-wrapper-modern mt-3">
+                            <h4 class="sub-heading text-md">Aperçu Image (si générée) :</h4>
+                            <div class="image-preview-box">
+                                <img id="mcqImage" src="#" alt="Image des QCM" class="hidden">
+                                <p id="mcqPlaceholder" class="placeholder-text-modal">L'aperçu de l'image des QCM apparaîtra ici.</p>
+                            </div>
+                            <a id="downloadMcqLink" href="#" class="btn btn-info mt-2 hidden" download="qcm.png"><i class="fas fa-download"></i> Télécharger Image</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tab-combined-image" class="tab-content" role="tabpanel" aria-labelledby="btn-tab-combined-image">
+                <div class="tab-header">
+                    <h2><i class="far fa-images icon-lg"></i> Générer Image Combinée des Exercices</h2>
+                    <p>Créez une image unique regroupant les questions courtes et les QCM.</p>
+                </div>
+                <div class="content-wrapper">
+                    <div class="subsection-modern">
+                        <p class="text-sm text-slate-600 mb-4 text-center">Utilisez cette section pour générer une image unique contenant à la fois les questions courtes (de la section 3.1) et les QCM (de la section 3.2). Assurez-vous que le contenu QCM dans la zone de texte de la section 3.2 est au format multilignes attendu (convertissez le tableau si besoin).</p>
+                        <div class="button-grid-large">
+                            <button id="convertCombinedToImageWithCorrectionBtn" class="btn btn-primary btn-lg">Image Combinée AVEC Correction</button>
+                            <button id="convertCombinedToImageWithoutCorrectionBtn" class="btn btn-warning btn-lg">Image Combinée SANS Correction</button>
+                        </div>
+                        <div id="combinedOutputWrapper" class="image-output-wrapper-modern mt-6">
+                            <h4 class="sub-heading text-md">Résultat Image Combinée :</h4>
+                            <div class="image-preview-box min-h-[200px]">
+                                <img id="combinedImage" src="#" alt="Image combinée des exercices" class="hidden">
+                                <p id="combinedPlaceholder" class="placeholder-text-modal">L'image combinée des exercices apparaîtra ici.</p>
+                            </div>
+                            <a id="downloadCombinedLink" href="#" class="btn btn-info mt-2 hidden" download="exercices_combines.png"><i class="fas fa-download"></i> Télécharger Image Combinée</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tab-enhance-design" class="tab-content" role="tabpanel" aria-labelledby="btn-tab-enhance-design">
+                 <div class="tab-header">
+                    <h2><i class="fas fa-magic icon-lg"></i> Générer Prompt pour Améliorer Design HTML</h2>
+                    <p>Créez un prompt pour une IA afin de modifier le design d'un code HTML de cours existant.</p>
+                </div>
+                <div class="content-wrapper">
+                     <div class="subsection-modern">
+                        <div class="instruction-box">
+                            <p>Cette section vous permet de générer un prompt pour une IA afin qu'elle <strong>modifie le design d'un code HTML de cours existant</strong>. Collez le code HTML complet de votre cours ci-dessous, choisissez vos options de design, puis générez un prompt détaillé que vous fournirez à votre IA.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="existingHtmlCourseCodeInput" class="label-text">Code HTML du Cours Existant (généré par une IA ou écrit manuellement) :</label>
+                            <textarea id="existingHtmlCourseCodeInput" rows="8" class="input-field textarea-field" placeholder="Collez ici le code HTML complet de votre page de cours..."></textarea>
+                        </div>
+
+                        <h4 class="sub-heading">Options de Design à Appliquer :</h4>
+
+                        <div class="design-options-grid-modern">
+                            <div class="design-option-item-modern">
+                                <label for="designColorPrimary" class="label-text-xs">Couleur Primaire :</label>
+                                <input type="color" id="designColorPrimary" value="#3182CE" class="color-input-modern">
+                            </div>
+                            <div class="design-option-item-modern">
+                                <label for="designColorSecondary" class="label-text-xs">Couleur Secondaire :</label>
+                                <input type="color" id="designColorSecondary" value="#63B3ED" class="color-input-modern">
+                            </div>
+                            <div class="design-option-item-modern">
+                                <label for="designColorAccent" class="label-text-xs">Couleur d'Accentuation :</label>
+                                <input type="color" id="designColorAccent" value="#805AD5" class="color-input-modern">
+                            </div>
+                        </div>
+
+                        <div class="design-options-grid-modern">
+                            <div class="design-option-item-modern">
+                                <label for="designGeneralStyle" class="label-text-xs">Style Général :</label>
+                                <select id="designGeneralStyle" class="input-field select-field input-field-sm">
+                                    <option value="Moderne et épuré">Moderne et épuré</option>
+                                    <option value="Ludique et coloré">Ludique et coloré</option>
+                                    <option value="Professionnel et sobre">Professionnel et sobre</option>
+                                    <option value="Minimaliste High-Tech">Minimaliste High-Tech</option>
+                                    <option value="Académique et structuré">Académique et structuré</option>
+                                </select>
+                            </div>
+                             <div class="design-option-item-modern">
+                                <label for="designIconStyle" class="label-text-xs">Style des Pictogrammes :</label>
+                                <select id="designIconStyle" class="input-field select-field input-field-sm">
+                                    <option value="Emojis pertinents intégrés au texte">Emojis pertinents</option>
+                                    <option value="Icônes SVG monochromes (style Material Design ou similaire)">Icônes SVG monochromes</option>
+                                    <option value="Icônes SVG colorées et illustratives">Icônes SVG colorées</option>
+                                    <option value="Pas de préférence spécifique, laisser l'IA choisir">Pas de préférence</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="designImageInstructions" class="label-text">Insertion d'Images (une par ligne : URL --- Description emplacement) :</label>
+                            <textarea id="designImageInstructions" rows="3" class="input-field textarea-field" placeholder="Ex: https://images.pexels.com/photo/robot.jpg --- Juste après le premier paragraphe (<p>) contenu dans la balise <main>."></textarea>
+                             <p class="text-xs text-slate-500 mt-1">Assurez-vous que les URLs sont valides et les images libres de droits. Soyez précis sur l'emplacement.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="designOtherImprovements" class="label-text">Autres Améliorations de Design (instructions pour l'IA) :</label>
+                            <textarea id="designOtherImprovements" rows="3" class="input-field textarea-field" placeholder="Ex: Changer la police pour 'Lato', ajouter des effets de survol..."></textarea>
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button id="generateDesignModificationPromptBtn" class="btn btn-accent btn-lg">
+                                <i class="fas fa-wand-magic-sparkles"></i> Générer Prompt de Modification
+                            </button>
+                        </div>
+
+                        <div>
+                            <label for="designModificationPromptOutput" class="label-text">Prompt de Modification de Design (prêt à copier pour l'IA) :</label>
+                            <textarea id="designModificationPromptOutput" rows="12" class="input-field textarea-field bg-slate-100 text-sm" readonly placeholder="Le prompt pour modifier votre HTML apparaîtra ici..."></textarea>
+                            <button id="copyDesignModificationPromptBtn" class="btn btn-secondary mt-3">
+                                <i class="fas fa-copy"></i> Copier Prompt de Modification
+                            </button>
+                            <p id="copyDesignModificationPromptMessage" class="feedback-message"></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="imagePreviewModal" class="modal">
+        <div class="modal-content-custom">
+            <button class="close-modal-btn" aria-label="Fermer la modale">×</button>
+            <h3 class="modal-title" id="modalTitle">Aperçu de l'Image</h3>
+            <div class="modal-body-custom">
+                <img id="modalImageElement" src="#" alt="Aperçu de l'image générée" class="hidden">
+                <p id="modalImagePlaceholder" class="placeholder-text-modal">L'aperçu de l'image apparaîtra ici.</p>
+                 <div id="modalHtmlContent" class="questions-render-container hidden" style="width:100%; margin: 0 auto;">
+                    </div>
+            </div>
+            <div class="modal-footer-custom">
+                <a id="modalDownloadLink" href="#" class="btn btn-success hidden" download="image_generee.png">
+                    <i class="fas fa-download"></i> Télécharger l'Image
+                </a>
+                 <button id="modalCloseUserButton" class="btn btn-dark-gray">Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
